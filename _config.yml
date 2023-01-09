@@ -119,6 +119,9 @@ author:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: &github "https://github.com/pwintz"
+    - label: "LinkedIn"
+      icon: "fas fa-fw fa-link"
+      url: &linkedin "https://www.linkedin.com/in/paul-wintz-10621049/"
 
 # Site Scripts
 head_scripts:
@@ -128,15 +131,12 @@ head_scripts:
 # Site Footer
 footer:
   links:
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      # url:
-    - label: "Facebook"
-      icon: "fab fa-fw fa-facebook-square"
-      # url:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: *github
+    - label: "LinkedIn"
+      icon: "fas fa-fw fa-link"
+      url: *linkedin
 
 # Reading Files
 include:
@@ -154,12 +154,10 @@ exclude:
   - assets/js/_main.js
   - assets/js/vendor
   - Capfile
-  - CHANGELOG
   - config
   - Gemfile
   - Gruntfile.js
   - gulpfile.js
-  - LICENSE
   - log
   - node_modules
   - package.json
@@ -167,8 +165,6 @@ exclude:
   - Rakefile
   - README
   - tmp
-  - /docs # ignore Minimal Mistakes /docs
-  - /test # ignore Minimal Mistakes /test
 keep_files:
   - .git
   - .svn
