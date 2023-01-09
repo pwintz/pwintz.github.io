@@ -120,6 +120,11 @@ author:
       icon: "fab fa-fw fa-github"
       url: &github "https://github.com/pwintz"
 
+# Site Scripts
+head_scripts:
+  # Load MathJax
+  - https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+
 # Site Footer
 footer:
   links:
