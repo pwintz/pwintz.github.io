@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 640 640"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="favicon.svg"
+   width="640"
+   height="640"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     id="namedview6"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="1.1435242"
+     inkscape:cx="304.75961"
+     inkscape:cy="310.00654"
+     inkscape:window-width="1920"
+     inkscape:window-height="991"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4" />
+  <ellipse
+     style="opacity:1;fill:#d3d3d3;stroke:none;stroke-width:2.81889;stroke-linejoin:round;fill-opacity:1"
+     id="path847"
+     cx="320"
+     cy="320"
+     rx="314.93887"
+     ry="308.33029" />
+  <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+  <path
+     d="m 62.963246,308.03173 c 0,-64.33951 52.210594,-116.55011 116.550104,-116.55011 30.92473,0 60.56428,12.28957 82.41241,34.1377 L 320,283.61324 377.99392,225.61932 c 21.92845,-21.84813 51.568,-34.1377 82.49273,-34.1377 64.33951,0 116.55011,52.2106 116.55011,116.55011 v 23.85622 c 0,64.41983 -52.2106,116.63043 -116.55011,116.63043 -30.92473,0 -60.56428,-12.28957 -82.41241,-34.1377 L 320,356.38676 262.00608,414.38068 c -21.92845,21.84813 -51.568,34.1377 -82.49273,34.1377 -64.33951,0 -116.550104,-52.2106 -116.550104,-116.55011 z M 283.61324,320 225.61932,262.00608 c -12.20924,-12.20924 -28.83631,-19.11711 -46.10597,-19.11711 -35.98514,0 -65.14275,29.15761 -65.14275,65.14276 v 23.85622 c 0,35.98515 29.15761,65.14275 65.14275,65.14275 17.26966,0 33.89673,-6.82754 46.10597,-19.11711 z m 72.6932,0 57.99392,57.99392 c 12.20925,12.20924 28.83631,19.11711 46.10596,19.11711 35.98515,0 65.14276,-29.15761 65.14276,-65.14276 v -23.93654 c 0,-35.98515 -29.15761,-65.14276 -65.14276,-65.14276 -17.26965,0 -33.89671,6.82754 -46.10596,19.11711 L 356.38676,320 Z"
+     id="path2"
+     style="stroke-width:0.80324" />
+</svg>
