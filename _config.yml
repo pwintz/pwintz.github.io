@@ -122,6 +122,9 @@ author:
     - label: "LinkedIn"
       icon: "fas fa-fw fa-link"
       url: &linkedin "https://www.linkedin.com/in/paul-wintz-10621049/"
+    - label: "Mastodon"
+      icon: "fa fa-brands fa-mastodon"
+      url: &mastodon "https://mastodon.world/@pwintz"
 
 # Site Scripts
 head_scripts:
