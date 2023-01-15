@@ -45,7 +45,7 @@ code_rendered="\lim_{k \to \infty} 1/k = 0" %}
 
 {% include latex-example.txt 
 code_displayed="\hlim \frac{f(x + h) - f(x)}{h} = 0" 
-code_rendered="\lim_{h \to \infty} \frac{f(x + h) - f(x)}{h} = 0" %}
+code_rendered="\lim_{h \to 0^+} \frac{f(x + h) - f(x)}{h} = 0" %}
 
 {%- highlight latex -%}
 \newcommand{\ilim}{\lim_{i \to \infty}}
