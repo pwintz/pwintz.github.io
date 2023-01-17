@@ -1,12 +1,20 @@
 # main links
 main:
-  #- title: "Quick-Start Guide"
-  #  url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
-   - title: "About"
-     url: /about
-  # - title: "Sample Posts"
-  #   url: /year-archive/
-  # - title: "Sample Collections"
-  #   url: /collection-archive/
-  # - title: "Sitemap"
-  #   url: /sitemap/
+    - title: "About"
+      url: /about
+    - title: "LaTeX Macros"
+      url: /latex-macros/
+   # - title: "Sitemap"
+   #   url: /sitemap/
+   # - title: Customization
+   #   children:
+   #     - title: "Configuration"
+   #       url: /docs/configuration/
+   #     - title: "Navigation"
+   #       url: /docs/navigation/
+   #     - title: "UI Text"
+   #       url: /docs/ui-text/
+   #     - title: "Authors"
+   #       url: /docs/authors/
+   #     - title: "Layouts"
+   #       url: /docs/layouts/

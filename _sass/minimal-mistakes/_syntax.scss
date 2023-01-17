@@ -5,18 +5,19 @@
 div.highlighter-rouge,
 figure.highlight {
   position: relative;
-  margin-bottom: 1em;
+  margin-bottom: 0em;
+  margin-top: 0em;
   background: $base00;
   color: $base05;
   font-family: $monospace;
-  font-size: $type-size-6;
-  line-height: 1.8;
+  font-size: $type-size-5;
+  line-height: 1.5;
   border-radius: $border-radius;
 
   > pre,
   pre.highlight {
     margin: 0;
-    padding: 1em;
+    padding: $code-block-padding;
   }
 }
 
@@ -54,6 +55,10 @@ figure.highlight {
 
 .highlight pre {
   width: 100%;
+}
+
+.highlight pre,code {
+  font-size: $type-size-5;
 }
 
 .highlight .hll {

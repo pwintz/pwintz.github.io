@@ -3,11 +3,11 @@
    ========================================================================== */
 
 table {
-  display: block;
+  // display: inline-block; // Removed line because it was preventing tables from showing as full width.
   margin-bottom: 1em;
   width: 100%;
   font-family: $global-font-family;
-  font-size: $type-size-6;
+  // font-size: $type-size-6; // Removed so that size is set by the contents.
   border-collapse: collapse;
   overflow-x: auto;
 
@@ -24,7 +24,7 @@ thead {
 th {
   padding: 0.5em;
   font-weight: bold;
-  text-align: left;
+  text-align: center;
 }
 
 td {

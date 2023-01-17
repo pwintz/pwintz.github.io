@@ -253,6 +253,12 @@ tag_archive:
 #     category: /categories/:name/
 #     tag: /tags/:name/
 
+# Collections
+collections:
+  latex_macros:
+    output: true
+    permalink: /latex_macros/:name
+
 
 # HTML Compression
 # - https://jch.penibelst.de/
@@ -271,7 +277,7 @@ defaults:
     values:
       layout: single
       author_profile: true
-      read_time: true
+      read_time: false
       comments: # true
-      share: true
+      share: false
       related: true

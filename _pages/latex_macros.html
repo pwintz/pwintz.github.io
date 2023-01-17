@@ -1,0 +1,56 @@
+---
+layout: collection
+permalink: /latex-macros/
+title: LaTeX Macros
+toc: true
+---
+
+This page lists LaTeX commands (or "macros") that can save you time while typesetting documents.
+
+{% for macro in site.latex_macros %}
+  <h2>{{ macro.title }}</h2>
+  <p>{{ macro.description }}</p>
+  
+  <h3>Definition</h3>
+  {%- highlight latex -%}
+  {{ macro.definition }}
+  {%- endhighlight-%}
+  
+ {{ macro.content | markdownify }}
+   
+  <h3>Examples</h3>
+    <table>
+      <tr>
+        <th style="text-align:center;">Code</th>
+        <th style="text-align:center;">Output</th>
+      </tr>
+      {% for example in macro.examples %}
+        <tr>
+          <td style="max-width: min-content;">
+            {%- highlight latex -%}
+              {{ example.code_displayed }}
+            {%- endhighlight -%}
+          </td>
+          <td>
+            $${{ example.code_rendered }}$$
+          </td>
+          {% if example.description %}
+            <td>
+              {{ example.description }} 
+            </td>
+          {% endif %}
+        </tr>
+      {% endfor %}
+    </table>
+
+  <!-- {% for example in macro.examples %}
+    {% if example.description %}
+    Description: {{ example.description }} <br>
+    {% endif %}
+    {%- include latex-example.txt 
+      code_displayed=example.code_displayed
+      code_rendered=example.code_rendered
+    %}
+  {% endfor %} -->
+
+{% endfor %}

@@ -122,6 +122,9 @@ $navicon-link-color-hover: mix(#fff, $primary-color, 75%) !default;
 $notice-background-mix: 80% !default;
 $code-notice-background-mix: 90% !default;
 
+/* Code block styling */
+$code-block-padding: 1em;
+
 /* syntax highlighting (base16) */
 $base00: #263238 !default;
 $base01: #2e3c43 !default;
