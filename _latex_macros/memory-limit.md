@@ -22,8 +22,8 @@ examples:
   - code_displayed: |-
       \memlim*[x_0 \to 5] 
         \frac{(x+1)(x-5)}{(x-2)(x-5)} 
-        = \memlim \frac{x+1}{x-2} 
-        = 2
+          = \memlim \frac{x+1}{x-2} 
+          = 2
     code_rendered: |
       \begin{aligned}
       \lim_{x_0 \to 5} &\frac{(x+1)(x-5)}{(x-2)(x-5)} \\
