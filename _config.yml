@@ -258,6 +258,9 @@ collections:
   latex_macros:
     output: true
     permalink: /latex_macros/:name
+  publications:
+    output: true
+    permalink: /publications/:name
 
 
 # HTML Compression
