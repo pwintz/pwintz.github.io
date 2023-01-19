@@ -23,13 +23,16 @@ layout: single
   <p>
     <a href="/downloads/{{ page.slug }}.pdf"
       ><i class="far fa-file-pdf"></i> PDF</a
-    >&nbsp;&nbsp; {% if page.slides %}
-    <a href="/downloads/{{ page.slug }}_slides.pdf"
-      ><i class="far fa-file-pdf"></i> Slides</a
-    >&nbsp;&nbsp; {% endif %}
+    >&nbsp;&nbsp;
+    {% if page.slides %}
+      <a href="/downloads/{{ page.slug }}_slides.pdf"><i class="far fa-file-pdf"></i> Slides</a>&nbsp;&nbsp; 
+    {% endif %}
+    {% if page.bibtex %}
     <a href="/downloads/{{ page.slug }}.bib"
       ><i class="far fa-file-alt"></i> BibTex</a
-    >&nbsp;&nbsp; {% if page.doi %}
+    >&nbsp;&nbsp; 
+    {% endif %}
+    {% if page.doi %}
     <a href="{{ page.doi }}"><i class="fas fa-external-link-alt"></i> DOI</a
     >&nbsp;&nbsp; {% endif %}
   </p>

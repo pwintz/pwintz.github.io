@@ -1,9 +1,9 @@
 ---
 layout: publication
 title: > 
-    Optimal control of a noncircular wheel
+    Optimal Control of A Noncircular Wheel
 authors: Paul Wintz
-publication: UCSC Masters Thesis in Applied Mathematics
+publication: UCSC Masters Thesis
 year: 2020
 abstract: >
     A model is developed of a non-circular wheel rolling on a road and colliding with
@@ -16,5 +16,6 @@ abstract: >
     comparisons between various implementations are provided.
 teaser-image: false
 slides: false
+bibtex: true
 ---
 

@@ -17,13 +17,12 @@ title: Publications
       </a>
     </div>
   {% endif %}
-  <div class="pubtitle">{{ pub.title }}</div>
+  <div class="pubtitle"><a href="{{pub.url}}">{{ pub.title }}</a></div>
   <div class="pubauthors">{{ pub.authors }}</div>
-  <span class="pubpublication">{{ pub.publication }}</span>, <span class="pubyear">{{ pub.year}}</span>
-  <div class="publinks">
-    <a href="/downloads/{{ pub.slug}}.pdf"><i class="far fa-file-pdf"></i> PDF</a
-    >&nbsp;&nbsp;
-    <a href="{{pub.url}}"><i class="fas fa-link"></i> Project Page</a>
-  </div>
+  <span class="pubpublication">{{ pub.publication }}</span>, <span class="pubyear">{{ pub.year}}</span>.&nbsp;
+  <span class="publinks">
+    <a href="/downloads/{{ pub.slug}}.pdf"><i class="far fa-file-pdf"></i> PDF</a>&nbsp;&nbsp;
+    <!-- <a href="{{pub.url}}"><i class="fas fa-link"></i> Project Page</a> -->
+  </span>
 </div>
 {% endfor %}
