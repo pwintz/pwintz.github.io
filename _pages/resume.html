@@ -1,0 +1,149 @@
+---
+layout: single
+permalink: /resume
+title: Resume
+schools:
+  - name: University of California, Santa Cruz
+    gpa: 3.93
+    start-date: 09/2018
+    end-date: 
+    items:
+      - name: PhD Student in Applied Mathematics
+        date: Present
+      - name: M.S. in Scientific Computing and Applied Mathematics
+        date: 09/2020
+    honors:
+      - Regents Fellowship
+      - BSOE Dean's Fellowship
+  - name: Westmont College
+    gpa: 4.00
+    start-date: 09/2014
+    end-date: 05/2016
+    items:
+      - name: 'B.S. in Engineering Physics with a minor in Music'
+    honors:
+      - Top Student Award
+      - Department of Physics Outstanding Senior Award
+      - Phi Kappa Phi Honor Society
+      - Transfer President's Scholarship
+      - Westmont Orchestra - First Violin
+  - name: Santa Barbara City College
+    gpa: 4.00
+    start-date: 09/2011
+    end-date: 08/2014
+    items:
+      - name: 'A.A. in Liberal Arts & Sciences: Science & Mathematics Emphasis, w/ Honors'
+      - name: 'A.A. in Liberal Arts & Sciences: Arts & Humanities Emphasis, w/ Honors'
+    honors:
+      - SBCC Symphony - First Violin and Soloist
+      - Al Slagle Memorial Scholarship from the Santa Barbara Scholarship Foundation
+      - Phi Theta Kappa Honor Society
+      
+employers: 
+- name: UC, Santa Cruz
+  jobs:
+    - title: Graduate Student Researcher
+      start-date: Spring 2020
+      end-date:
+    - title: Teaching Assistant
+      start-date: Summer 2019
+      end-date: Winter 2020
+- name: Arthrex California Technology
+  jobs:
+    - title: Junior Software Engineer
+      start-date: 06/2016
+      end-date: 09/2018
+      highlights:
+        - Designed and implemented features on Android and embedded Linux systems.
+        - Developed a real-time video augmentation prototype. 
+    - title: Software Quality Assurance Intern
+      start-date: 06/2015
+      end-date: 08/2015
+---
+
+<h2>Education</h2>
+{% assign schools = page.schools %}
+{% for school in schools %}
+
+  <div class="schoolitem" style="width: 100%;">
+    <table class="schoolheader", style="width: 100%;">
+      <tr>
+        <td style="text-align: left;"><span class="schoolname">{{ school.name }}</span> — <span class="schoolgpa">{{ school.gpa }} GPA</span></td>
+        <td style="text-align: right;"><span class="resumedate">{{ school.start-date | date: "%B %Y" }}-{{ school.end-date | date: "%B %Y" | default:"Present"}}</span></td>
+      </tr>
+    </table>
+  </div>
+  <div class="schoolcontent">
+    {% for item in school.items %}
+    <table class="degreeitem", style="width: 100%;">
+      <tr>
+        <td style="text-align: left;"><span class="degreename">
+            {{ item.name }}</span>
+        </td>
+        <td style="text-align: right;"><span class="resumedate">
+          {{ item.date | date: "%B %Y" | default:" "}}
+        </span></td>
+      </tr>
+    </table>
+    {% endfor %}
+    <ul>
+      {% for item in school.honors %}
+        <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endfor %}
+
+<h2>Employment</h2>
+{% assign employers = page.employers %}
+{% for employer in employers %}
+
+  <div class="employeritem" style="width: 100%;">
+    <table class="employerheader", style="width: 100%;">
+      <tr>
+        <td style="text-align: left;"><span class="employername">
+          {{ employer.name }}
+        </span></td>
+      </tr>
+    </table>
+  </div>
+  <div class="employercontent">
+    {% for job in employer.jobs %}
+    <table class="degreeitem", style="width: 100%;">
+      <tr>
+        <td style="text-align: left;"><span class="degreename">
+            {{ job.title }}</span>
+        </td>
+        <td style="text-align: right;"><span class="resumedate">
+          {{ job.start-date | date: "%B %Y" }}-{{ job.end-date | date: "%B %Y" | default:"Present"}}
+        </span></td>
+      </tr>
+    </table>
+    {% endfor %}
+  </div>
+{% endfor %}
+
+<h2>Publications</h2>
+{% assign publications = site.publications | sort: "year" | reverse %}
+{% for pub in publications %}
+<div class="pubitem">
+  {% if pub.teaser-image %}
+    <div class="pubteaser">
+      <a href="{{pub.url}}">
+        <img
+          src="/assets/images/publication-pages/{{ pub.teaser-image }}_small.jpg"
+          alt="{{pub.title}} publication teaser"
+        />
+      </a>
+    </div>
+  {% endif %}
+  <div class="pubtitle">{{ pub.title }}</div>
+  <div class="pubauthors">{{ pub.authors }}</div>
+  <span class="pubpublication">{{ pub.publication }}</span>, <span class="pubyear">{{ pub.year}}</span>
+  <div class="publinks">
+    <a href="/downloads/{{ pub.slug}}.pdf"><i class="far fa-file-pdf"></i> PDF</a
+    >&nbsp;&nbsp;
+    <a href="{{pub.url}}"><i class="fas fa-link"></i> Project Page</a>
+  </div>
+</div>
+{% endfor %}

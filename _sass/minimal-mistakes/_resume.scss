@@ -1,0 +1,55 @@
+/* ==========================================================================
+   Resume
+========================================================================== */
+
+.schoolitem, .employeritem, .degreeitem {
+  line-height: 1.2em;
+}
+
+.schoolheader, .employerheader {
+  padding: 0;
+  table {
+    margin-top: 0em;
+    margin-bottom: 0em;
+  }
+  td {
+    padding-left: 0;
+  }
+}
+.schoolcontent, .employercontent {
+  margin-top: 0em;
+  margin-bottom: 1.2em;
+  padding-top: 0em;
+  padding-bottom: 0em;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.schoolname, .employername {
+  font-weight: bold;
+  // font-size: large
+}
+
+.schoolgpa {
+  font-size: smaller
+}
+
+.resumedate {
+  padding-left: 1em;
+  font-style: italic;
+}
+
+.degreeitem {
+  padding: 0em;
+  margin: 0em;
+  margin-bottom: 0.5em;
+  td {
+    border-bottom: 0;
+    padding: 0;
+    // margin: 0;
+  }
+}
+
+.degreename {
+
+}
