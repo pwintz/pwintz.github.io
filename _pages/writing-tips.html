@@ -1,0 +1,17 @@
+---
+layout: collection
+permalink: /writing-tips/
+title: Writing Tips
+toc: true
+---
+
+{% for tip in site.writing-tips %}
+  <h2>{{ tip.title }}</h2>
+  <p>{{ tip.description }}</p>
+  
+  {{ tip.content | markdownify }}
+
+  {% if tip.source %}
+    <span>Source: {{ tip.source}} </span>
+  {% endif %}
+{% endfor %}

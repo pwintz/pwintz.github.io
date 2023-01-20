@@ -261,6 +261,9 @@ collections:
   publications:
     output: true
     permalink: /publications/:name
+  writing-tips:
+    output: true
+    permalink: /writing-tips/:name
 
 
 # HTML Compression

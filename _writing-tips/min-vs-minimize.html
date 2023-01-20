@@ -1,0 +1,32 @@
+---
+layout: single
+title: |
+    "Minimize" vs. "Min" in Optimization Problems
+excerpt: When writing an optimization problem, write "minimize" and "subject to" instead of "min" and "such that" or "s.t."
+tags: optimization
+source: |
+    Professor Stephen P. Boyd, at Stanford, in <a href="https://see.stanford.edu/Course/EE364A/78">Lecture 5 of his Convex Optimization course</a>, around the 13-minute mark.
+---
+
+When writing an optimization problem, write "minimize" and "subject to" instead of "min" and "such that" or "s.t.". 
+<table>
+    <tr>
+        <th>Correct</th>
+        <th>Incorrect</th>
+    </tr>
+    <tr>
+        <td>
+            \[\begin{aligned}
+                \operatorname{minimize} \quad & f(x) \\ 
+                \operatorname{subject to} \quad & Ax = b,
+            \end{aligned} \]
+        </td>
+        <td>
+            \[ \begin{aligned}
+                \operatorname{min} \quad & f(x) \\
+                \operatorname{s.t.} \quad& Ax = b.
+            \end{aligned} 
+            \]
+        </td>
+    </tr>
+</table>
