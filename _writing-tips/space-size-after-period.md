@@ -30,4 +30,4 @@ When using a period that is not at the end of a sentence, the following space sh
         </td>
     </tr>
 </table>
-The difference is subtle 
+The difference is subtle, but the difference helps readers discern whether a period ends a sentence. 
