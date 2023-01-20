@@ -7,14 +7,16 @@ toc: true
 
 This page lists LaTeX commands (or "macros") that can save you time while typesetting documents.
 
-{% for macro in site.latex_macros %}
+{% for macro in site.latex-macros %}
   <h2>{{ macro.title }}</h2>
   <p>{{ macro.description }}</p>
   
-  <h3>Definition</h3>
-  {%- highlight latex -%}
-  {{ macro.definition }}
-  {%- endhighlight-%}
+  <details>
+    <summary><b>Definition</b></summary>
+    {%- highlight latex -%}
+    {{ macro.definition }}
+    {%- endhighlight-%}
+  </details>
   
   {{ macro.content | markdownify }}
    

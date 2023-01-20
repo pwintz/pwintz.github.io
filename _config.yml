@@ -255,9 +255,9 @@ tag_archive:
 
 # Collections
 collections:
-  latex_macros:
+  latex-macros:
     output: true
-    permalink: /latex_macros/:name
+    permalink: /latex-macros/:name
   publications:
     output: true
     permalink: /publications/:name
