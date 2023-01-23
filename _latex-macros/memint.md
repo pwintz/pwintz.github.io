@@ -1,7 +1,7 @@
 ---
 layout: single
 title: >
-  "Memory" Integral
+  "Memory" Integral (<code>\memint</code>)
 summary: 
 description: >
   When evaluating an integral, often the integral symbol \(\int\) appears with the same limits repeatedly. A "memory" command <code>\memint</code> allows for the limits to be typed once when the integral first appears and omitted thereafter. In particular, there are two versions of <code>\memint</code>: a starred version <code>\memint*[&lt;lower limit&gt;][&lt;upper limit&gt;]</code> records the lower limit <code>&lt;lower limit&gt;</code> and the upper limit <code>&lt;lower limit&gt;</code> into memory. From then on, the unstarred version <code>\memint</code> will insert a integral with the recorded limits. In addition to saving time typing, <code>\memint</code> simplifies the LaTeX code, so it is easier to edit and find mistakes. 

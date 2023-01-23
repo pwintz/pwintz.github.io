@@ -1,7 +1,7 @@
 ---
 layout: single
 title: >
-  "Memory" Summation
+  "Memory" Summation (<code>\memsum</code>)
 summary: 
 description: >
   When evaluating an summation, often the summation symbol \(\sum\) appears with the same limits repeatedly. A "memory" command <code>\memsum</code> allows for the limits to be typed once when the summation first appears and omitted thereafter. In particular, there are two versions of <code>\memsum</code>: a starred version <code>\memsum*[&lt;lower limit&gt;][&lt;upper limit&gt;]</code> records the lower limit <code>&lt;lower limit&gt;</code> and the upper limit <code>&lt;lower limit&gt;</code> into memory. From then on, the unstarred version <code>\memsum</code> will insert a summation with the recorded limits. In addition to saving time typing, <code>\memsum</code> simplifies the LaTeX code, so it is easier to edit and find mistakes. 

@@ -1,7 +1,7 @@
 ---
 layout: single
 title: >
-  "Memory" Limit
+  "Memory" Limit (<code>\memlim</code>)
 summary: 
 description: >
   When evaluating an limit, often the limit expression (e.g., \(\lim_{x \to x_0}\)) repeatedly. A "memory" command <code>\memlim</code> allows for the full limit expression to be typed once when it first appears and abbreviated thereafter. In particular, there are two versions of <code>\memlim</code>: a starred version <code>\memlim*[&lt;lower&gt;]</code> records the lower expression <code>&lt;lower&gt;</code> into memory. From then on, the unstarred version <code>\memlim</code> will insert a limit with the recorded lower expression. In addition to saving time typing, <code>\memlim</code> simplifies the LaTeX code, so it is easier to edit and find mistakes. 
