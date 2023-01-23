@@ -2,11 +2,11 @@
    Resume
 ========================================================================== */
 
-.schoolitem, .employeritem, .degreeitem {
+.schoolitem, .employeritem, .degreeitem, .activityitem {
   line-height: 1.2em;
 }
 
-.schoolheader, .employerheader {
+.schoolheader, .employerheader, .activityheader {
   padding: 0;
   table {
     margin-top: 0em;
@@ -16,7 +16,7 @@
     padding-left: 0;
   }
 }
-.schoolcontent, .employercontent {
+.schoolcontent, .employercontent, .activitycontent {
   margin-top: 0em;
   margin-bottom: 1.2em;
   padding-top: 0em;
@@ -25,7 +25,7 @@
   padding-right: 1em;
 }
 
-.schoolname, .employername {
+.schoolname, .employername, .activityname {
   font-weight: bold;
   // font-size: large
 }
