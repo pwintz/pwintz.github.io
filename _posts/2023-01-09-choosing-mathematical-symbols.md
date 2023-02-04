@@ -25,7 +25,7 @@ When choosing a symbol, it is helpful to choose it such that there is a connecti
 | --- | --- |
 | ‘a’ as in “ape” or “apple” | $$a, A, \alpha$$ (`\alpha`), $$\aleph$$ (`\aleph`) |
 | ‘b’ | $$b, B$$, $$\beta$$ (`\beta`) |
-| ‘d’ (’distance’) | $$d, D$$, $$\delta$$ (`\delta`), $$\Delta$$ (`\Delta`) |
+| ‘d’ (’distance’) | $$d, D$$, $$\delta$$ (`\delta`), $$\Delta$$ (`\Delta`). Avoid $$d$$ for quantities that might appear in derivatives (e.g., for a quantity $$d$$, the notation "$$dd/dt$$ is confusing). |
 | ‘e’ as in “eat” or “egg” | $$e, E$$, $$\eta$$ (`\eta`) |
 | ‘f’, 'ph’ as in “first” | $$\phi$$ (`\phi`), $$\varphi$$ (`\varphi`), $$\Phi$$ (`\Phi`), $$f$$, $$F$$ |
 | ‘g’ (‘good’) | $$g$$, $$G$$, $$\gamma$$ (`\gamma`), $$\Gamma$$ (`\Gamma`) |

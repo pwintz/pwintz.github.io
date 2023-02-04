@@ -1,15 +1,15 @@
 # main links
 main:
-    - title: "About"
-      url: /about
+    # - title: "About"
+    #   url: /about
     - title: Résumé
       url: /resume
     - title: "Publications"
       url: /publications/
-    - title: "LaTeX Macros"
-      url: /latex-macros/
-    - title: "Writing Tips"
-      url: /writing-tips/
+    # - title: "LaTeX Macros"
+    #   url: /latex-macros/
+    # - title: "Writing Tips"
+    #   url: /writing-tips/
    # - title: "Sitemap"
    #   url: /sitemap/
    # - title: Customization

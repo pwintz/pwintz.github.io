@@ -105,14 +105,14 @@ analytics:
 # Site Author
 author:
   name             : "Paul Wintz"
-  avatar           : "assets/images/paul.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "Paul Wintz is a PhD student in the Department of Applied Mathematics at the University of California, Santa Cruz where he studies hybrid systems."
+  avatar           : "assets/images/paul.jpg"
+  bio              : "Paul Wintz is an Applied Math PhD student at UC, Santa Cruz."
   location         : "Santa Cruz, California"
-  email            :
+  email            : &email pwintz+fromwebsite@ucsc.edu
   links:
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope-square"
-      # url: "mailto:your.name@email.com"
+    # - label: "Email"
+    #   icon: "fas fa-fw fa-envelope-square"
+    #   url: "mailto:pwintz+website@ucsc.edu"
     - label: "LinkTree"
       icon: "fas fa-fw fa-link"
       url: "https://linktr.ee/paulwintz"
