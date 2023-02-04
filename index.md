@@ -7,7 +7,7 @@ header:
   caption: "©2022 Paul Wintz"
 ---
 
-# About
+<!-- # About -->
 
 I am a PhD student in the Department of Applied Mathematics at the University of California, Santa Cruz. Under the advisement of Professor Ricardo G. Sanfelice, I study various topics within the domain of hybrid systems. My research interests include 
 - Switching schemes between multiple controllers for achieving asymptotic stability
