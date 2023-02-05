@@ -22,3 +22,6 @@ Outside of research, I have wide-ranging interests including music, art, improv,
 - [Publications](/Publications/)
 - [LaTeX Macros](/latex-macros/)
 - [Writing Tips](/writing-tips/)
+- [Music](/music/)
+- [Photography Portfolio](/photography/)
+- [Art Portfolio](/art/)
