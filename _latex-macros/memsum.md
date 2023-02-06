@@ -20,12 +20,12 @@ definition: |-
   }
 examples:
   - code_displayed: |-
-      \memsum*[n=1][\infty] \frac{1}{x} 
-      = \memsum \frac{1}{x}
+      \memsum*[n=1][\infty] \frac{1}{n} 
+      = \memsum \frac{1}{n}
     code_rendered: |
       \begin{aligned}
-        \sum_{n=1}^{\infty} \frac{1}{x} 
-        &= \sum_{n=1}^{\infty} \frac{1}{x}
+        \sum_{n=1}^{\infty} \frac{1}{n} 
+        &= \sum_{n=1}^{\infty} \frac{1}{n}
       \end{aligned}
 ---
 
