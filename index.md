@@ -18,10 +18,10 @@ I am a PhD student in the Department of Applied Mathematics at the University of
 Outside of research, I have wide-ranging interests including music, art, improv, and books. You can find links to my presence across the internet at my [LinkTree](https://linktr.ee/paulwintz). 
 
 # Pages
-- [Résumé](/resume/)
-- [Publications](/Publications/)
+- [Résumé](/resume)
+- [Publications](/publications)
 - [LaTeX Macros](/latex-macros/)
 - [Writing Tips](/writing-tips/)
-- [Music](/music/)
+<!-- - [Music](/music) -->
 - [Photography Portfolio](/photography/)
 - [Art Portfolio](/art/)
