@@ -4,7 +4,8 @@ title: |
     Size of Spaces of a Period
 excerpt: 
 tags: notation
-source: 
+source: |
+    <a href="https://tex.stackexchange.com/a/552651/153678">TeX StackExchange</a>
 ---
 
 When LaTeX sees a period followed by a space, ". ", it assumes that the period is the end of a sentence, so it makes the space wider. 
