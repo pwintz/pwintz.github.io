@@ -30,4 +30,4 @@ When using a period that is not at the end of a sentence, the following space sh
         </td>
     </tr>
 </table>
-The difference is subtle, but the difference helps readers discern whether a period ends a sentence. 
+The difference is subtle, but the difference helps readers discern whether a period ends a sentence. (In fact, web browsers might not render the two spaces, above, as different widths and in TeX document the spacing depends on your settings.)
