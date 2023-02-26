@@ -3,7 +3,7 @@ layout: single
 title: |
     Size of Spaces of a Period
 excerpt: 
-tags: notation
+tags: typesetting
 source: |
     <a href="https://tex.stackexchange.com/a/552651/153678">TeX StackExchange</a>
 ---

@@ -5,6 +5,10 @@ excerpt: A guide to talking about numbers in a way that helps the audience remem
 date:   2023-02-20 23:43:51 -0800
 toc: false
 categories: mathematical-writing
+comments:
+  host: mastodon.world
+  username: pwintz
+  id: 109928172826021023 
 ---
 By Chip Heath and Karla Starr.
 Available at [Barnes & Noble](https://www.barnesandnoble.com/w/making-numbers-count-chip-heath/1139505135?ean=9781982165444&st=AFF&2sid=Simon%20&%20Schuster_7567305_NA&sourceId=AFFSimon%20&%20Schuster) (and [elsewhere](https://www.simonandschuster.com/books/Making-Numbers-Count/Chip-Heath/9781982165444).) 

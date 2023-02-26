@@ -3,7 +3,7 @@ layout: single
 title: |
     Usage of "Any" in Math
 excerpt: 
-tags: 
+tags: wording
 source: 
 ---
 

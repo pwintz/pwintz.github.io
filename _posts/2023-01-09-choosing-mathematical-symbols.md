@@ -6,6 +6,10 @@ date:   2023-01-09 23:48:51 -0800
 toc: true
 categories: mathematical-writing
 tags: notation
+comments:
+  host: mastodon.world
+  username: pwintz
+  id: 109928126071148892 
 ---
 _A guide to choosing clear, memorable notation in mathematical writing._
 
