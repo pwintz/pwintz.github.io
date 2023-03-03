@@ -13,11 +13,14 @@ comments:
 ---
 _A guide to choosing clear, memorable notation in mathematical writing._
 
-When choosing symbols for mathematical objects (variables, sets, etc.), the best choices are are 
+When choosing symbols for mathematical objects (variables, sets, etc.), the best choices are 
 
 - descriptive
 - consistent with conventions
 - easily distinguished from other notation in use
+
+Regarding the choice of symbols, Paul R. Halmos wrote [1]:
+> Good notation has a kind of alphabetical harmony and avoids dissonance. Example: either $$a x+b y$$ or $$a_1 x_1+a_2 x_2$$ is preferable to $$a x_1+b x_1.$$ Or: if you must use $$\Sigma$$ for an index set, make sure you don't run into $$\sum_{\sigma \in \Sigma} \sigma.$$
 
 This document contains guidelines for picking good symbols and examples to shorten the process.
 
@@ -110,3 +113,6 @@ Typically, lowercase and (less frequently) uppercase Latin letters are used to r
 ## Variables vs. Constants
 
 When it comes to variables and constants, I prefer to use the beginning of the alphabet for constants and the end for variables. In particular, I tend to use $$a, b, c, d, p, q, r$$ for constants and $$t, u, v, w, x, y, z$$ are for variables.
+
+# References 
+[1] Norman E. Steenrod, Paul R. Halmos, Menahem M. Schiffer, and Jean A. Dieudonné, _How to Write Mathematics_. 1973.
