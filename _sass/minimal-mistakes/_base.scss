@@ -158,6 +158,14 @@ pre {
 
 pre {
   overflow-x: auto; /* add scrollbars to wide code blocks*/
+  padding: 10px;
+  border-radius: 5px;
+}
+ 
+tt, code {
+  padding-left: 3px;
+  padding-right: 2px;
+  border-radius: 2px;
 }
 
 /* horizontal rule */

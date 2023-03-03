@@ -29,9 +29,7 @@ This page lists LaTeX commands (or "macros") that can save you time while typese
       {% for example in macro.examples %}
         <tr>
           <td style="max-width: min-content;">
-            {%- highlight latex -%}
-              {{ example.code_displayed }}
-            {%- endhighlight -%}
+            <pre class="language-latex">{{ example.code_displayed }}</pre>
           </td>
           <td>
             $${{ example.code_rendered }}$$
@@ -44,15 +42,5 @@ This page lists LaTeX commands (or "macros") that can save you time while typese
         </tr>
       {% endfor %}
     </table>
-
-  <!-- {% for example in macro.examples %}
-    {% if example.description %}
-    Description: {{ example.description }} <br>
-    {% endif %}
-    {%- include latex-example.txt 
-      code_displayed=example.code_displayed
-      code_rendered=example.code_rendered
-    %}
-  {% endfor %} -->
 
 {% endfor %}

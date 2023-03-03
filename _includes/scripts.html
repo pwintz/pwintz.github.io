@@ -4,6 +4,14 @@
   {% endfor %}
 {% else %}
   <script src="{{ '/assets/js/main.min.js' | relative_url }}"></script>
+  <link rel="stylesheet" href="/assets/css/mono-blue.min.css">
+  <script src="/assets/js/highlight.min.js"></script>
+  <script>
+    hljs.configure({
+      cssSelector:'pre, code' // Apply highlighting to pre, code elements.
+    });
+    hljs.highlightAll();
+  </script>
 {% endif %}
 
 {% if site.search == true or page.layout == "search" %}

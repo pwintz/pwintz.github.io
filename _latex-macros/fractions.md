@@ -47,17 +47,3 @@ examples:
     code_rendered: |
       \frac{a}{3}\frac{b}{4}\frac{c}{5}\frac{d}{6}\frac{e}{12}
 ---
-
-
-<!-- {% include latex-example.txt 
-code_displayed="
-\memlim*[x_0 \to 5] \frac{(x+1)(x-5)}{(x-2)(x-5)} 
-= \memlim \frac{x+1}{x-2} 
-= \frac{5+1}{5-2} 
-= 2" 
-code_rendered="\begin{aligned}
-\lim_{x_0 \to 5} \frac{(x+1)(x-5)}{(x-2)(x-5)} 
-= \lim_{x_0 \to 5} \frac{x+1}{x-2} 
-= \frac{5+1}{5-2} 
-= 2
-\end{aligned}" %} -->
