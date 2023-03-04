@@ -8,7 +8,7 @@ categories: research
 comments:
   host: mastodon.world
   username: pwintz
-  id:  
+  id: 109967391253402066
 ---
 My research as a PhD student is in the field of control theory. 
 When I say this, most people don't know what it means. 
