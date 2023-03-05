@@ -5,6 +5,7 @@ title: Writing Tips
 toc: true
 ---
 
+<div id="writingtips" class="writingtips"></span>
 {% for tip in site.writing-tips %}
   <h2>
     {% if tip.link %}
@@ -18,6 +19,8 @@ toc: true
   {{ tip.content | markdownify }}
 
   {% if tip.source %}
-    <span>Source: {{ tip.source}} </span>
+    <hr>
+    <div class="source"><i>Source: {{ tip.source}}</i></div>
   {% endif %}
 {% endfor %}
+</div>
