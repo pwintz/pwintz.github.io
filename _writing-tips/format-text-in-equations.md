@@ -1,7 +1,7 @@
 ---
 layout: single
 title: |
-    Format Words as Text in Equations
+    Correctly Format Text in Equations
 excerpt: 
 # permalink: 
 tags: typesetting, notation
