@@ -129,7 +129,9 @@ author:
 # Site Scripts
 head_scripts:
   # Load MathJax
-  - https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+  # - https://cdn.rawgit.com/mathjax/MathJax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+  - assets/js/mathjax_config.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js
 
 # Site Footer
 footer:
@@ -215,6 +217,7 @@ plugins:
   - jekyll-gist
   - jekyll-feed
   - jekyll-include-cache
+  - jekyll-scholar
 
 # mimic GitHub Pages with --safe
 whitelist:
@@ -224,6 +227,11 @@ whitelist:
   - jekyll-feed
   - jekyll-include-cache
 
+# Scholar Plugin Options
+scholar:
+  style: ieee
+  locale: en
+  bibliography_template: "{{reference}}"
 
 # Archives
 #  Type

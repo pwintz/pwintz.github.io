@@ -1,0 +1,23 @@
+/* ==========================================================================
+   BIBLIOGRAPHY
+   ========================================================================== */
+
+// The following prevents double numbers in bibliography lists.
+// See: https://github.com/inukshuk/jekyll-scholar/issues/160#issuecomment-241184311
+// {% if site.scholar.style == "ieee" %}
+/* Turn off the numbered items for the IEEE style list */
+ol.bibliography li {
+  list-style-type: none !important; 
+}
+ol.bibliography li + li { /* 10px between each two adjacent li's */
+    margin-top: 10px;
+}
+// ol.bibliography { counter-reset: item }
+// ol.bibliography li:before { 
+//     content: "[" counter(item) "] "; 
+//     counter-increment: item; 
+//     width:3em;
+//     position:absolute;
+//     text-indent:-2em;
+// }
+// {% endif %}
