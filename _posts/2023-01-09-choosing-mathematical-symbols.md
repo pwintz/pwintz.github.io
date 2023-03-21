@@ -115,12 +115,26 @@ Typically, lowercase and (less frequently) uppercase Latin letters are used to r
 When it comes to variables and constants, I prefer to use the beginning of the alphabet for constants and the end for variables. In particular, I tend to use $$a$$, $$b$$, $$c$$, $$d$$, $$p$$, $$q$$, $$r$$ for constants and $$t$$, $$u$$, $$v$$, $$w$$, $$x$$, $$y$$, $$z$$ are for variables.
 
 ## Example: Picking Notation for Upper and Lower Bounds
-In this section we present several 
+In this section we present a case study of picking symbols for the upper and lower bounds on a real number $$x$$.
+At first, we can simply take the first two letter of the alphabet. 
 
-$$a, b \in \mathbb{R}$$
-$$x_{l b}, x_{u b} \in \mathbb{R}$$
-$$x_{\mathrm{lb}}, x_{\mathrm{ub}} \in \mathbb{R}$$
-$$\overline{x}, \underline{x} \in \mathbb{R}$$
+$$a \leq x \leq b $$
+
+Using $$a$$ and $$b$$ is fine, but the connection of $$a$$ and $$b$$ with $$x$$ is not implied symbolically. We also have to pick two new symbols if we need to set bounds on another value, say $$y$$.
+To show the connection between $$x$$ and the bounds, we might instead pick
+
+$$x_{lb} \leq x \leq x_{ub}.$$
+
+The use of italizied text for $$lb$$ and $$ub$$ is bad form, however. A better choice is 
+
+$$x_{\mathrm{lb}} \leq x \leq x_{\mathrm{ub}}.$$
+
+This choice is pretty good, but writing letter subscripts can get tedious and makes equations somewhat messy. 
+For this reason, I prefer to simply underline $$x$$ for the lower bound and overline $$x$$ for the upper bound.  
+
+$$\underline{x} \leq x \leq \overline{x}.$$
+
+This notation is (1) simple, (2) visually descriptive, and (3) does not require chosing new symbols for every upper and lower bound that is introduced. There are cases where $$\overline{x}$$ can cause confusing, however. Namely, if $$x$$ is a complex number, then $$\overline{x}$$ could be read as the complex conjugate.
 
 # References 
 [1] Norman E. Steenrod, Paul R. Halmos, Menahem M. Schiffer, and Jean A. Dieudonné, _How to Write Mathematics_. 1973.
