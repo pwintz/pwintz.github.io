@@ -87,14 +87,14 @@ There are conventions for notating certain types of mathematical objects. The fo
 
 | Type of Object | Common Notation Classes |
 | --- | --- |
-| Set | Capital Latin or Greek ($$A, B, C, \Lambda$$), Calligraphy ($$\mathcal{A, B, C}$$), Blackboard bold (typically reserved for well-known sets: $$\mathbb{R, N, Z}$$), Script (commonly used for sets of sets—$$\mathscr{A, B, C}$$), explicit: $$\{a, b, c\}$$ |
-| Function | lowercase Latin: $$d, f, g, h, u, v, w, x, y, z$$, <br> lowercase Greek: $$\alpha, \beta, \gamma, ...$$; <br> capital Latin: $$F, G, H, ...$$; <br> and capital Greek: $$\Gamma, \Theta, \Phi, \Psi, \Omega, \Xi$$. <br> Often the choice of symbol for a function matches the convention used for objects in the function’s codomain (range). |
-| Vector | $$x, \mathbf{x}, \vec{x}, \underline{x}$$. In texts where students are newly acquainted to vectors, $$\mathbf{x}$$ or $$\vec x$$ is commonly used. The notation $$\vec x$$ has the advantage that it can easily be written by hand, but it makes equations more cluttered, especially when other annotations are added, such as $$\dot{\vec{\widetilde{x}}}$$. In advanced texts, $$x $$ is almost always used. |
+| Set | Capital Latin or Greek ($$A, B, C, \Lambda$$) <br> Calligraphy ($$\mathcal{A, B, C}$$) <br> Blackboard bold ($$\mathbb{R, N, Z}$$)—typically reserved for well-known sets<br>Script ($$\mathscr{A, B, C}$$)—commonly used for sets of sets<br>Set-builder notation: $$\{a, b, c\}$$ |
+| Function | Lowercase Latin: $$d, f, g, h, u, v, w, x, y, z$$ <br> Lowercase Greek: $$\alpha, \beta, \gamma$$ <br> Capital Latin: $$F, G, H$$ <br> Capital Greek: $$\Gamma, \Theta, \Phi, \Psi, \Omega, \Xi$$ <br> Often the choice of symbol for a function matches the convention used for objects in the function’s codomain (range). |
+| Vector | $$x, \mathbf{x}, \vec{x}, \underline{x}$$. In texts where students are newly acquainted to vectors, $$\mathbf{x}$$ or $$\vec x$$ is commonly used. The notation $$\vec x$$ has the advantage that it can easily be written by hand, but it makes equations more cluttered, especially when other annotations are added, such as $$\dot{\vec{\widetilde{x}}}$$. In advanced texts, $$x$$ is almost always used. |
 | Scalar | $$a, b, c, x, y, z, \alpha, \beta, \gamma$$. See notes on real numbers and integers, below. |
-| Unitary Operation | Prefix: $$x\mapsto -x$$, $$f \mapsto \partial f$$; <br> annotations: $$f\mapsto \hat f, f\mapsto \tilde f, x\mapsto x^*$$;  <br> function notation: $$x\mapsto f(x), f\mapsto \mathcal{L}\{f\}, x\mapsto \sin x$$;  <br> capitalization: $$f \mapsto F$$,  <br> sub/superscripts: $$x \mapsto x_{\text{new}}$$ |
-| Binary Operation | infix: $$a+b, A\cup B$$, <br> function: $$f(x, y)$$, <br> juxtaposition: $$xy, \overset{x}{y}, \underset{x}{y}, x^y$$, <br> brackets: $$(x, y), \langle x, y\rangle$$ |
+| Unitary Operation | Prefix: $$x\mapsto -x$$, $$f \mapsto \partial f$$ <br> Annotations: $$f\mapsto \hat f, f\mapsto \tilde f, x\mapsto x^*$$<br> Function notation: $$x\mapsto f(x), f\mapsto \mathcal{L}\{f\}, x\mapsto \sin x$$ <br> Capitalization: $$f \mapsto F$$  <br> Sub/superscripts: $$x \mapsto x_{\text{new}}$$ |
+| Binary Operation | infix: $$a+b$$, $$A\cup B$$, $$p \wedge q$$ <br> function: $$f(x, y)$$ <br> juxtaposition: $$xy, \overset{x}{y}, \underset{x}{y}, x^y$$ <br> brackets: $$(x, y), \langle x, y\rangle$$ |
 | n-ary Operation | Prefix: $$\Pi_{i=1}^n x_i$$  <br>(Abbreviated) infix: $$x_1 + x_2 + \cdots + x_n$$ <br>Function: $$f(x_1, x_2, \dots, x_n)$$ <br>Einstein Summation Convention: $$v_i\frac{\partial}{\partial x_i}$$ |
-| Matrix | Capital Latin or Greek: $$A, B, C, \Gamma;$$ <br>Upright Capital Latin: $$\mathrm{A, B, C, M}$$; <br>Bold Capital Latin: $$\mathbf{A, B, C, M}$$ |
+| Matrix | Capital Latin or Greek: $$A, B, C, \Gamma;$$ <br>Upright Capital Latin: $$\mathrm{A, B, C, M}$$; <br>Bold Capital Latin: $$\mathbf{A, B, C, M}$$<br>Element-wise notation with lowercase Latin: $$[a_{ij}]$$ |
 
 ### Real Numbers
 
@@ -102,9 +102,9 @@ Typically, lowercase Latin or Greek letters are used to represent real numbers. 
 
 Several symbols, namely $$\pi$$ and $$e$$, have well-established meanings, so they should be avoided when there is any risk of ambiguity. The letters $$\varepsilon$$ and $$\delta$$ are frequently used to represent small positive numbers and capital letters such as $$M$$ or $$R$$ are sometimes used for large values. 
 
-For Latin letters, note that $$e$$ has a well-established usage as Euler’s constant. Be judicious in the us of $$f, g, h$$, which are commonly used for functions.
+For Latin letters, note that $$e$$ has a well-established usage as Euler’s constant. Be judicious in the use of $$f, g, h$$, which are commonly used for functions.
 
-Avoid $$i, j, k, m, n$$ because they are reserved for integers, and  avoid $$l, o$$ due to potential confusion with $$1$$  and $$0$$—the symbol $$\ell$$ can be used instead of $$l$$. 
+Avoid $$i, j, k, m, n$$ because they are commonly used for integers and avoid $$l, o$$ due to potential confusion with $$1$$ and $$0$$—the symbol $$\ell$$ can be used instead of $$l$$. 
 
 ### Integers (and Natural Numbers)
 
@@ -112,7 +112,15 @@ Typically, lowercase and (less frequently) uppercase Latin letters are used to r
 
 ## Variables vs. Constants
 
-When it comes to variables and constants, I prefer to use the beginning of the alphabet for constants and the end for variables. In particular, I tend to use $$a, b, c, d, p, q, r$$ for constants and $$t, u, v, w, x, y, z$$ are for variables.
+When it comes to variables and constants, I prefer to use the beginning of the alphabet for constants and the end for variables. In particular, I tend to use $$a$$, $$b$$, $$c$$, $$d$$, $$p$$, $$q$$, $$r$$ for constants and $$t$$, $$u$$, $$v$$, $$w$$, $$x$$, $$y$$, $$z$$ are for variables.
+
+## Example: Picking Notation for Upper and Lower Bounds
+In this section we present several 
+
+$$a, b \in \mathbb{R}$$
+$$x_{l b}, x_{u b} \in \mathbb{R}$$
+$$x_{\mathrm{lb}}, x_{\mathrm{ub}} \in \mathbb{R}$$
+$$\overline{x}, \underline{x} \in \mathbb{R}$$
 
 # References 
 [1] Norman E. Steenrod, Paul R. Halmos, Menahem M. Schiffer, and Jean A. Dieudonné, _How to Write Mathematics_. 1973.
