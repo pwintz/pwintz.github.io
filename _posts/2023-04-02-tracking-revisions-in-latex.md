@@ -4,7 +4,8 @@ title: Tracking Revisions in LaTeX
 excerpt: Introduction to the \changes package for annotating chnages.
 date: 2023-04-02 08:00:00 -0800
 toc: true
-categories: latex collaboration
+tags: latex collaboration
+permalink: /permalink/tracking-revisions-in-latex
 comments:
   host: mastodon.world
   username: pwintz
