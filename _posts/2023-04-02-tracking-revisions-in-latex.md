@@ -14,32 +14,42 @@ As a PhD student, an essential part of my job is sending drafts to my advisor fo
 Because his time is limited, it is crucial that I direct his attention to the parts of the document that I modified.
 A useful tool for tracking changes is the [`changes`](https://www.ctan.org/pkg/changes) LaTeX package. 
 To import the package, add `\usepackage{changes}` to your document's preamble. 
-The `changes` package defines four types of annotations: `\added`, `\deleted`, `\replaced`, and `\comment`. 
+The `changes` package defines four types of annotations: `\added`, `\deleted`, `\replaced`, and `\comment` and also imports the `\todo` macro from the [`todo`](https://www.ctan.org/pkg/todo) package.
 
+**Example:**
 <pre class="language-latex">Here is \added{added}, \deleted{deleted} 
 and \replaced{replaced}{replaysed} text.
-
-Here is something I wrote.%
 \comment{Maybe I shouldn't have written this?}
-
 \todo[inline]{To-do: Write something worthwhile.}</pre>
 **Output:**
 
 ![Rendered LaTeX document shows annotations.]({{page.image_path}}/changes_example.png)
+
+## Workflow
+In order for annotations to be useful they must be up-to-date.
+This raises the question of when to remove annotations.
+The best workflow depends on the way your reviewer gives feedback. 
+If your reviewer will read the entire document, then you can delete annotations immediately after sending them a draft.
+In my case, however, my advisor only reads a portion of each draft I send, so I leave annotations until he has given feedback. 
+To this motivates the following workflow:
+1. Annotate each change to the PDF. 
+2. Compile PDF and share with reviewer.
+3. Commit changes to the source code into Git or another source control management software. (If you aren't tracking the changes to your source code, then start!)
+4. Wait for reviewer to give comments or continue editing the document (as in step 1).
+
+Once the reviewer gives you comments:
+5. Commit current version to Git.
+5. Delete the annotations _only from the sections of the document that were reviewed_.
+6. Commit the new version, without the deleted annotations.
 
 ## Annotating Blocks of Text
 When annotating a sentence or more, I format my LaTeX code with `\added{` and `}` on their own lines. 
 Immediately after `\added{` and after `}`, include `%` to prevents LaTeX from inserting extra spaces (LaTeX treats a new line in the code the same as a space).  
 {% raw %}
 <pre class="language-latex">\added{%
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-  Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-  laboris nisi ut aliquip ex ea commodo consequat. 
-  Duis aute irure dolor in reprehenderit in voluptate velit 
-  esse cillum dolore eu fugiat nulla pariatur. 
-  Excepteur sint occaecat cupidatat non proident, 
-  sunt in culpa qui officia deserunt mollit anim id est laborum.
+  Lorem ipsum dolor sit amet, consectetur 
+  adipiscing elit, sed do eiusmod tempor 
+  incididunt ut labore et dolore magna aliqua. 
 }% End \added block
 </pre>
 {% endraw %}
@@ -49,16 +59,14 @@ The commands `\added`, `\deleted`, and `\replaced` cannot contain a paragraph br
 This precludes empty lines, such as
 <pre class="language-latex">\added{  
   % Paragraph 1
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-  Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-  laboris nisi ut aliquip ex ea commodo consequat.
+  Lorem ipsum dolor sit amet, consectetur 
+  adipiscing elit, sed do eiusmod tempor 
+  incididunt ut labore et dolore magna aliqua. 
 
-  % Paragraph 2 (Causes error)
-  Duis aute irure dolor in reprehenderit in voluptate velit 
-  esse cillum dolore eu fugiat nulla pariatur. 
-  Excepteur sint occaecat cupidatat non proident, 
-  sunt in culpa qui officia deserunt mollit anim id est laborum.
+  % Paragraph 2 (Causes error!)
+  Duis aute irure dolor in reprehenderit 
+  in voluptate velit esse cillum dolore 
+  eu fugiat nulla pariatur.
 }</pre>
 
 To mark multiple paragraphs as changed, I define a new color called `added` using the [`xcolor`](https://www.ctan.org/pkg/xcolor) package
@@ -69,21 +77,20 @@ To mark multiple paragraphs as changed, I define a new color called `added` usin
 Then, add `\color{added}` before a multiple paragraph change, and add `\color{black}` afterward. 
 <pre class="language-latex">\color{added} 
 % Paragraph 1 (Added)
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-laboris nisi ut aliquip ex ea commodo consequat.
+Lorem ipsum dolor sit amet, consectetur 
+adipiscing elit, sed do eiusmod tempor 
+incididunt ut labore et dolore magna aliqua. 
 
 % Paragraph 2 (Added)
-Duis aute irure dolor in reprehenderit in voluptate velit 
-esse cillum dolore eu fugiat nulla pariatur. 
-Excepteur sint occaecat cupidatat non proident, 
-sunt in culpa qui officia deserunt mollit anim id est laborum.
+Duis aute irure dolor in reprehenderit 
+in voluptate velit esse cillum dolore 
+eu fugiat nulla pariatur.
 \color{black} 
 
 % Paragraph 3 (No change)
-Excepteur sint occaecat cupidatat non proident, 
-sunt in culpa qui officia deserunt mollit anim id est laborum.
+Excepteur sint occaecat cupidatat non 
+proident, sunt in culpa qui officia 
+deserunt mollit anim id est laborum.
 </pre>
 **Output:**
 
@@ -93,8 +100,7 @@ sunt in culpa qui officia deserunt mollit anim id est laborum.
 ## Package Configuration
 There are various package options. For my documents, I use the following:
 
-<pre class="language-latex">
-\usepackage[ % import "changes" package
+<pre class="language-latex">\usepackage[ % import "changes" package
     % If any of the changes commands are already defined, then the option "commandnameprefix=ifneeded" 
     % tells changes to append "ch" to the name of the changes command in order to avoid a name collision.
     % Commonly, "\comment" will be changed to "\chcomment".
