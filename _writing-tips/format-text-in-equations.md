@@ -5,6 +5,7 @@ title: |
 excerpt: 
 # permalink: 
 tags: typesetting, notation
+source: Nicholas J. Higham in "Handbook of Writing for the Mathematical Sciences", p. 32.
 ---
 When writing a mathematical equation that contains a word or other string of characters that is a unified block, place those characters inside a `\text{...}` macro. 
 

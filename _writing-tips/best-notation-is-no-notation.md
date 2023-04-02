@@ -4,7 +4,7 @@ title: |
     The Best Notation is No Notation
 excerpt: 
 tags: writing
-source: P.R. Halmos in "How to Write Mathematics", section 15, p. 40.
+source: P.R. Halmos in "How to Write Mathematics", section 15, p. 40. Nicholas J. Higham in "Handbook of Writing for the Mathematical Sciences", p. 28.
 ---
 
 As P.R. Halmos wrote, "the best notation is no notation."

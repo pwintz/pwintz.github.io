@@ -138,3 +138,5 @@ This notation is (1) simple, (2) visually descriptive, and (3) does not require 
 
 # References 
 [1] Norman E. Steenrod, Paul R. Halmos, Menahem M. Schiffer, and Jean A. Dieudonné, _How to Write Mathematics_. 1973.
+[2] N. J. Higham, Handbook of writing for the mathematical sciences, 2nd ed. Philadelphia: Society for Industrial and Applied Mathematics, 1998.
+
