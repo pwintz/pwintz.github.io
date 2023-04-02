@@ -1,0 +1,2 @@
+{"rule":"EN_UNPAIRED_BRACKETS","sentence":"^\\QIt's easy for people to understand \"4 out of 5” than \"80%\".\\E$"}
+{"rule":"CURRENCY","sentence":"^\\QConsider a differential equation \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q$ that evolves on a domain \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q$\\E$"}

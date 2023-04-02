@@ -295,3 +295,5 @@ defaults:
       comments: # true
       share: false
       related: true
+      image_path: /assets/images/
+      
