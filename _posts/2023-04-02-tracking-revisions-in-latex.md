@@ -137,6 +137,24 @@ In the following snippet, we also use the [`ifdraft`](https://www.ctan.org/pkg/i
 
 My full LaTeX configuration file is available [here](https://github.com/pwintz/hsl_templates/blob/main/pwintz_configuration.sty).
 
+### Resolve Name Conflict For `\comment` Command
+There are several packages that define a `\comment` command that would clash with the one defined by `changes`. 
+If the `prependcaption` is included in the options for `changes`, then `\comment` is automatically renamed to `\chcomment` and a warning is shown. 
+I would prefer to use `\comment` for the `changes` command, however. 
+To do this, you can redefine the existing `\comment` command. 
+If `comment` is an _environment_, as is defined by the `verbatim` package, then you must redefine both `\comment` and `\endcomment`, prior to importing `changes`, as follows: 
+
+<pre class="language-latex">% Redefine "comment" environment (from "verbatim" package) 
+% to "commentsection" so that \comments{} can be defined 
+% by the `changes` package.
+\makeatletter
+\let\commentsection\comment
+\let\endcommentsection\endcomment
+\let\comment\@undefined
+\let\endcomment\@undefined
+\makeatother
+</pre>
+
 ## Visual Studio Configuration
 
 When writing [LaTeX with Visual Studio Code](https://github.com/James-Yu/LaTeX-Workshop), you can define [snippets](https://code.visualstudio.com/docs/editor/userdefinedsnippets) that are automatically inserted when you type particular text. 
@@ -201,7 +219,7 @@ For each command `\added`, `\deleted`, and `\replaced`, there are two versions o
 To use the block version append `%` or `block`.
 For example, to add a `\replaced` block: 
 1. Select the text you are replacing.
-2. Type `\replaced%` or `\replacedblock`. The selected will disappear as you type.
+2. Type `\replaced%` or `\replacedblock`. The selected text will temporarily disappear as you type.
 3. Select "Replaced Block" from the drop-down menu. At this point, the text you had selected reappears in both arguments of `\replaced`. 
 4. Modify the first argument to the new version.
 
