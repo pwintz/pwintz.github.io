@@ -7,9 +7,9 @@ toc: true
 tags: latex collaboration
 permalink: /permalink/tracking-revisions-in-latex
 comments:
-  host: mastodon.world
+  host: mathstodon.xyz
   username: pwintz
-  id: 
+  id: 110131076079520491
 ---
 As a PhD student, an essential part of my job is sending drafts to my advisor for his feedback. 
 Because his time is limited, it is crucial that I direct his attention to the parts of the document that I modified.
