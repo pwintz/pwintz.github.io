@@ -20,7 +20,7 @@ title                    : "Paul Wintz"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "Paul Wintz"
-description              : "The Website of Paul Wintz."
+description              : "Website of Paul Wintz."
 url                      : "https://paulwintz.com" # the base hostname & protocol for your site
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
@@ -229,7 +229,7 @@ whitelist:
 
 # Scholar Plugin Options
 scholar:
-  style: ieee
+  style: /_bibliography/ieee.csl
   locale: en
   bibliography_template: "{{reference}}"
 
