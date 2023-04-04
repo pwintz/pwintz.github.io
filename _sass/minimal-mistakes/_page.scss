@@ -145,12 +145,6 @@ body {
     font-size: $type-size-5;
     background: $code-background-color;
     border-radius: $border-radius;
-
-    &::before,
-    &::after {
-      letter-spacing: -0.2em;
-      content: "\00a0"; /* non-breaking space*/
-    }
   }
 
   dt {
