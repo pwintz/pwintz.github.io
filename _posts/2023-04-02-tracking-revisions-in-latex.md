@@ -45,7 +45,7 @@ Once the reviewer gives you comments:
 
 ## Annotating Blocks of Text
 When annotating a sentence or more, I format my LaTeX code with `\added{` and `}` on their own lines. 
-Immediately after `\added{` and after `}`, include `%` to prevents LaTeX from inserting extra spaces (LaTeX treats a new line in the code the same as a space).  
+Including `%` immediately after `\added{` and after `}` prevents LaTeX from inserting extra spaces (LaTeX treats a new line in the code the same as a space).  
 {% raw %}
 <pre class="language-latex">\added{%
   Lorem ipsum dolor sit amet, consectetur 
