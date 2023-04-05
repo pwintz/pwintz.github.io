@@ -106,7 +106,7 @@ analytics:
 author:
   name             : "Paul Wintz"
   avatar           : "assets/images/paul.jpg"
-  bio              : "Paul Wintz is an Applied Math PhD student at UC, Santa Cruz."
+  bio              : "Paul Wintz is a PhD candidate in Applied Math at UC, Santa Cruz."
   location         : "Santa Cruz, California"
   email            : &email pwintz+ws@ucsc.edu
   links:
@@ -181,9 +181,8 @@ markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 markdown: kramdown
 highlighter: rouge
 lsi: false
-excerpt_separator: "\n\n"
+excerpt_separator: "" # Disable defining excerpt via seprators.
 incremental: false
-
 
 # Markdown Processing
 kramdown:
