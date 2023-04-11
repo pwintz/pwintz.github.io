@@ -3,7 +3,7 @@ layout: single
 title: |
     Make Your Document Color Accessible
 excerpt: 
-permalink: color-accessibility
+permalink: permalink/color-accessibility
 tags: clarity accessibility color
 source: 
 ---
