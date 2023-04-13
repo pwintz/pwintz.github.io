@@ -18,7 +18,7 @@ examples:
   - code_displayed: |-
       \setdef{x \suchthat \frac{1}{1+x} = 0}
     code_rendered: |
-      \left\{x \in \mathbb{R} \mathrel{}\middle|\mathrel{} \frac{1}{1+x} = 0\right\}
+      \left\{x \mathrel{}\middle|\mathrel{} \frac{1}{1+x} = 0\right\}
   - code_displayed: |-
       \setdef{A, B, C}
     code_rendered: |

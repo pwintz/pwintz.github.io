@@ -11,7 +11,7 @@ When presenting a series of operations performed on an expression, it can be cle
 The clearest, of course, would be to provide a step-by-step guide that shows the result from each step. 
 Unfortunately, space constraints often prohibit such spacious exposition.
 
-Suppose we want to solve \((a + x)/2 = 3\) for \(x.\)
+Suppose we want to solve $$(a + x)/2 = 3$$ for $$x.$$
 In the following table, the left shows a purely symbolic approach, which leaves the reader to fill in the gaps. 
 The right column describes what is required but does not show the result of every step.  
 <table>
