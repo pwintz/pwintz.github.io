@@ -30,3 +30,23 @@ When writing an optimization problem, write "minimize" and "subject to" instead 
         </td>
     </tr>
 </table>
+The problem with writing "$\operatorname{min} f(x)$" instead of "$\operatorname{minimize} f(x)$" is that the expression "$\operatorname{min} f(x)$" represents the minimal _value_ of $f$ whereas "$\operatorname{minimize} f(x)$" is a statement of the _goal_ of the optimization problem.
+
+We use the following code when writing optimization problems.
+In the preamble, we define `\minimize`, `\maximize`, and `\subjecto` macros, as follows:
+```
+% Usage: \minimize{\x \in \reals}
+\newcommand*{\minimize}[1]{\operatorname*{minimize}_{#1}\quad} 
+% Usage: \maximize{\x \in \reals}
+\newcommand*{\maximize}[1]{\operatorname*{maximize}_{#1}\quad} 
+\newcommand{\subjectto}{\textup{subject to}\quad}
+```
+The starred version of the `\operatorname` macro causes subscripts to be placed below the text in display equations.
+In the document body, an optimization problem is written as 
+```
+\begin{align*}
+    \minimize{x \in \mathbb{R}^n} & f(x) \\
+    \subjectto & Ax \leq 0 \\
+               & Bx = 0.
+\end{align*}
+```
