@@ -95,6 +95,7 @@ There are conventions for notating certain types of mathematical objects. The fo
 | Binary Operation | infix: $$a+b$$, $$A\cup B$$, $$p \wedge q$$ <br> function: $$f(x, y)$$ <br> juxtaposition: $$xy, \overset{x}{y}, \underset{x}{y}, x^y$$ <br> brackets: $$(x, y), \langle x, y\rangle$$ |
 | n-ary Operation | Prefix: $$\Pi_{i=1}^n x_i$$  <br>(Abbreviated) infix: $$x_1 + x_2 + \cdots + x_n$$ <br>Function: $$f(x_1, x_2, \dots, x_n)$$ <br>Einstein Summation Convention: $$v_i\frac{\partial}{\partial x_i}$$ |
 | Matrix | Capital Latin or Greek: $$A, B, C, \Gamma;$$ <br>Upright Capital Latin: $$\mathrm{A, B, C, M}$$; <br>Bold Capital Latin: $$\mathbf{A, B, C, M}$$<br>Element-wise notation with lowercase Latin: $$[a_{ij}]$$ |
+| Sequence | Abbreviated: $$1, 1/2, 1/3, \dots$$, sequence notation: $$\{s_j\}_{j=1}^\infty$$, juxtaposition (as a squence of heads/tails is represented in probability): $$HHTHT$$, recursive: $$x_{k+1} = r(1-x_k)$$. |
 
 ### Real Numbers
 

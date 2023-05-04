@@ -24,3 +24,22 @@ For example, to cite Theorem 3.4 in `khalil_nonlinear_2014`, use `\cite[Theorem 
 - "In the above inequality..." $$\implies$$ "In inequality (4)..."
 - "This theorem is given by Kahlil in [4]" $$\implies$$ "This theorem is given by Kahlil in [Theorem 3.4, 4]".
 
+## Including Links
+
+{% raw %}
+<pre class="language-latex">
+% Add support for mixing colors, such as "black!30!blue"
+\usepackage{xcolor}
+
+% Enable hyperlinks
+\usepackage[]{hyperref}
+\hypersetup{
+    final,                   % Include links even if document is in 'draft' mode.
+    hidelinks,               % Prevent boxes from being drawn around links in some editors.
+    colorlinks=true, 
+    linkcolor=black,         % TOC, links to labeled equations and environments
+    urlcolor=black!30!blue,  % URLS including links in references  
+    citecolor=black!30!blue, % In-line citations  
+}  
+</pre>
+{% endraw %}

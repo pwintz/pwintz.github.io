@@ -18,5 +18,6 @@ The particular way that you format a string depends on the context.
 - `\text{}` to insert plain text that matches the formatting of the surrounding text environment, such as `\text{if } ...` `\text{otherwise} ...` in a `cases` environment.
 - `\textup{}` to insert upright text. Useful for equations that appear in italicized environments, like theorems.  
 - `\texttt{}` to format programming variables and other code-like text. 
+- `\textsc{}` to format text using "small caps".
 
 If the string of characters appears repeatedly, define a macro to make it easier to typeset.  

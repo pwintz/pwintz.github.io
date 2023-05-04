@@ -5,7 +5,7 @@ title: |
 excerpt: 
 permalink: permalink/color-accessibility
 tags: clarity accessibility color
-source: 
+# source: 
 ---
 
 When creating documents, make sure that graphs and uses of color are legible when viewed without color.
@@ -18,4 +18,6 @@ You should make presentations accessible to color-blind people, but complete col
 Most color-blind people are either unable to distinguish between red and green or between blue and yellow, but otherwise distinguish between other colors.
 Thus, if you pick your colors carefully, they can be seen by almost everybody.
 
-Here is an [online tool for checking color contrast](https://webaim.org/resources/contrastchecker/).
+See also:
+* [Cnline tool for checking color contrast](https://webaim.org/resources/contrastchecker/)
+* [Wikipedia's color accessibility guide](https://en.wikipedia.org/w/index.php?title=MOS:COLOR">Wikipedia). 
