@@ -34,7 +34,7 @@ The problem with writing "$\operatorname{min} f(x)$" instead of "$\operatorname{
 
 We use the following code when writing optimization problems.
 In the preamble, we define `\minimize`, `\maximize`, and `\subjecto` macros, as follows:
-```
+```latex
 % Usage: \minimize{\x \in \reals}
 \newcommand*{\minimize}[1]{\operatorname*{minimize}_{#1}\quad} 
 % Usage: \maximize{\x \in \reals}
@@ -42,10 +42,11 @@ In the preamble, we define `\minimize`, `\maximize`, and `\subjecto` macros, as 
 \newcommand{\subjectto}{\textup{subject to}\quad}
 ```
 The starred version of the `\operatorname` macro causes subscripts to be placed below the text in display equations.
-In the document body, an optimization problem is written as 
-```
+
+In the document body, we write an optimization problem as 
+```latex
 \begin{align*}
-    \minimize{x \in \mathbb{R}^n} & f(x) \\
+    \minimize{x \in \reals^n} & f(x) \\
     \subjectto & Ax \leq 0 \\
                & Bx = 0.
 \end{align*}
