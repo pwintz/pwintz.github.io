@@ -19,5 +19,5 @@ Most color-blind people are either unable to distinguish between red and green o
 Thus, if you pick your colors carefully, they can be seen by almost everybody.
 
 See also:
-* [Cnline tool for checking color contrast](https://webaim.org/resources/contrastchecker/)
+* [Online tool for checking color contrast](https://webaim.org/resources/contrastchecker/)
 * [Wikipedia's color accessibility guide](https://en.wikipedia.org/w/index.php?title=MOS:COLOR">Wikipedia). 
