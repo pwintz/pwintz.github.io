@@ -5,7 +5,7 @@ excerpt: Guide to solving SOS problems using software tools.
 date: 2023-03-07 08:00:00 -0800
 toc: true
 # categories: how-to
-draft: true
+published: false
 comments:
   host: mastodon.world
   username: pwintz

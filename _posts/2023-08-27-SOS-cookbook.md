@@ -5,7 +5,7 @@ excerpt: A list of recipes for formulating SOS programming problems.
 date: 2023-08-27 08:00:00 -0800
 toc: true
 categories: research
-draft: true
+published: false
 comments: 
   host: mastodon.world
   username: pwintz
