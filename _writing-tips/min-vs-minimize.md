@@ -51,3 +51,5 @@ In the document body, we write an optimization problem as
                & Bx = 0.
 \end{align*}
 ```
+
+If space is a concern, you may abbreviate "subject to" as "subj. to" (`\textup{subj.\ to}`). 

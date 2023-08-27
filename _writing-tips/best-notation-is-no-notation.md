@@ -12,6 +12,6 @@ If you can avoid introducing a new symbol, then the text is often more clear and
 A rule of thumb is to never use a letter only once. 
 Consider the following definition:
 
-> A function $$f$$ is called a _homeomorphism_ if it is continuous and has a continuous inverse.
+> A function $f$ is called a _homeomorphism_ if it is continuous and has a continuous inverse.
 
-The symbol $$f$$ serves no purpose since it is not used elsewhere in the definition. Thus, it can be omitted.
+The symbol $f$ serves no purpose since it is not used elsewhere in the definition. Thus, it can be omitted.
