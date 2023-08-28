@@ -1,8 +1,8 @@
 ---
 layout: single
-title: "Introduction to Sums-of-Squares Programming"
+title: "Sums-of-Squares Programming: Introduction"
 excerpt: Introduction to the theory and use of SOS programming.
-date: 2023-03-07 08:00:00 -0800
+date: 2023-08-27 08:00:00 -0800
 toc: true
 categories: research
 draft: false
@@ -11,9 +11,8 @@ comments:
   username: pwintz
   id: 
 ---
-
 {% raw %} 
-$$
+$
 % Define macros.
 \def\reals{\mathbb{R}}
 \def\realsn{\reals^n}
@@ -25,11 +24,8 @@ $$
 \newcommand{\SOSpolys}{\Sigma}%{\mathcal P_{SOS}}
 \newcommand{\maximize}{\operatorname*{maximize}}
 \newcommand{\subjectto}{\textup{subject to}}
-$$
+$
 {% endraw %}
-
-# Motivation for Sum-of-Squares Programming
-
 In dynamical systems and mathematical control theory, it is often useful to show that a given function has a particular sign for all inputs in given sets. 
 For example, given $f : \realsn \to \reals$ and $S\subset \realsn$, we may want to show $f(x) \geq 0$ for all $x \in S$.
 Prominent examples include Lyapunov functions, which are used to prove stability, and barrier functions which are used to prove set invariance.
@@ -304,15 +300,12 @@ Negative semidefinite and negative definite functions are defined similarly, exc
 
 
 # Further Reading
-- {% cite duan_computational_2023 %} [This paper provides a way to generate control barrier functions for control-affine feedback systems.]
-- {% cite prajna_safety_2004 %}
-  [This paper introduces barrier functions for hybrid systems. It gives a rough sketch of how to use sum of squares programming to generate barrier functions that served as a roadmap for this guide.]
-- {% cite sloth_existence_2012 %} [Describes a way to simplify complicated systems with multiple components so that barrier functions can be found for individual subcomponents separately.]
-- {% cite wang_permissive_2018 %} [Introduces techniques that allow for synthesizing better barrier functions in the sense that the]
-- {% cite noauthor_getting_nodate %} Page with links for various tools for working with SOS's in various languages. 
-
-See https://www.quantamagazine.org/a-classical-math-problem-gets-pulled-into-the-modern-world-20180523/ for a 
-
+- {% cite kevin_hartnett_classical_2018 %} gives an introduction to SOS programming targeted at a non-technical audience.
+- {% cite duan_computational_2023 %} provides a way to generate control barrier functions for control-affine feedback systems.
+- {% cite prajna_safety_2004 %} describes how to use sum of squares programming to generate barrier functions barrier functions for hybrid systems.
+- {% cite sloth_existence_2012 %} introduces a way to simplify complicated systems with multiple components so that barrier functions can be found for individual subcomponents separately.
+- {% cite wang_permissive_2018 %} introduces techniques that allow for synthesizing better barrier functions.
+- {% cite noauthor_getting_nodate %} contains links to various tools for working with SOS's in various programming languages. 
 
 # Bibliography
 {% bibliography --cited %}
