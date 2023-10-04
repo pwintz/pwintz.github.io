@@ -272,9 +272,9 @@ Therefore, the SOS problem formulation is
 \end{equation}
 </div>
 
-A couple notes:
-* There is no cost function because we are trying to solve a feasibility problem rather than minimize a value. You can make the 
-* We have tightened the conditions given for stability by requiring $V$ is positive definite and $\dot V$ is negative semidefinite on $\realsn$ instead of only on a neighborhood $U$. 
+<!-- A couple notes: -->
+<!-- * There is no cost function because we are trying to solve a feasibility problem rather than minimize a value. You can make the  -->
+<!-- * We have tightened the conditions given for stability by requiring $V$ is positive definite and $\dot V$ is negative semidefinite on $\realsn$ instead of only on a neighborhood $U$.  -->
 
 ### Definitions of positive definite and positive semidefinite functions.
 
