@@ -3,7 +3,7 @@ layout: publication
 title: > 
     Global Asymptotic Stability of Nonlinear Systems while Exploiting
     Properties of Uncertified Feedback Controllers via Opportunistic Switching
-authors: Paul Wintz,  Ricardo G. Sanfelice, and João P. Hespanha
+authors: Paul K. Wintz,  Ricardo G. Sanfelice, and João P. Hespanha
 publication: American Control Conference
 year: 2022
 abstract: >

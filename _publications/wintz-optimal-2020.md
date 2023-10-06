@@ -2,7 +2,7 @@
 layout: publication
 title: > 
     Optimal Control of A Noncircular Wheel
-authors: Paul Wintz
+authors: Paul K. Wintz
 publication: UCSC Masters Thesis
 year: 2020
 abstract: >
