@@ -22,4 +22,7 @@ slides: false
 bibtex: false
 ---
 ```
-2. Copy the PDF and `.bib` file into the `downloads/` folder.
+2. Add files to the `downloads/` folder. Pick a base name in the format `FIRSTAUTHOR-TITLEWORD-YEAR`. There can be the following files:
+    * `<first author last name>-<first title word>-<YYYY>.pdf`
+    * `<first author last name>-<first title word>-<YYYY>.pdf`. Set `slides: true` in `<first author last name>-<first title word>-<YYYY>.md`.
+    * `<first author last name>-<first title word>-<YYYY>.bib`. Set `bibtex: false` in `<first author last name>-<first title word>-<YYYY>.md`.
