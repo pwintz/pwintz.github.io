@@ -15,7 +15,8 @@ abstract: >
     solved with a numerical solver. An elliptical wheel is presented as an example and
     comparisons between various implementations are provided.
 teaser-image: false
-slides: false
-bibtex: true
+has-pdf: true
+has-slides: false
+has-bibtex: true
 ---
 

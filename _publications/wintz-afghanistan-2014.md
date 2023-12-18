@@ -5,8 +5,8 @@ title: >
 authors: Paul Wintz
 publication: Unpublished (Class Project)
 year: 2014
-teaser-image: false
-slides: false
-bibtex: false
+has-pdf: true
+has-slides: false
+has-bibtex: false
 ---
 

@@ -21,7 +21,13 @@ title: Publications
   <div class="pubauthors">{{ pub.authors }}</div>
   <span class="pubpublication">{{ pub.publication }}</span>, <span class="pubyear">{{ pub.year}}</span>.&nbsp;
   <span class="publinks">
-    <a href="/downloads/{{ pub.slug}}.pdf"><i class="far fa-file-pdf"></i> PDF</a>&nbsp;&nbsp;
+    {% include publication_files.html 
+      slug=pub.slug
+      has-pdf=pub.has-pdf
+      has-slides=pub.has-slides
+      has-bibtex=pub.has-bibtex
+      doi=pub.doi %}
+    <!-- <a href="/downloads/{{ pub.slug}}.pdf"><i class="far fa-file-pdf"></i> PDF</a>&nbsp;&nbsp; -->
     <!-- <a href="{{pub.url}}"><i class="fas fa-link"></i> Project Page</a> -->
   </span>
 </div>
