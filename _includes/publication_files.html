@@ -1,0 +1,18 @@
+<p>
+  {% if include.has-pdf %}
+    <a href="/downloads/{{ include.slug }}.pdf"
+      ><i class="far fa-file-pdf"></i> PDF</a
+    >&nbsp;&nbsp;
+  {% endif %}
+  {% if include.has-slides %}
+    <a href="/downloads/{{ include.slug }}_slides.pdf"><i class="far fa-file-pdf"></i> Slides</a>&nbsp;&nbsp; 
+  {% endif %}
+  {% if include.has-bibtex %}
+  <a href="/downloads/{{ include.slug }}.bib"
+    ><i class="far fa-file-alt"></i> BibTex</a
+  >&nbsp;&nbsp; 
+  {% endif %}
+  {% if include.doi %}
+  <a href=" https://doi.org/{{ include.doi }}"><i class="fas fa-external-link-alt"></i> DOI</a
+  >&nbsp;&nbsp; {% endif %}
+</p>
