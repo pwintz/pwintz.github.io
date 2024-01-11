@@ -15,15 +15,17 @@ Throughout mathematical literature, many mathematical statements written as equa
 The motivations for using equations are clear. 
 Compared to describing mathematical claims in an English sentence, an equation is often much more compact, less prone to ambiguity, and allows information to be arranged on the page in ways that aids clarity.
 The use of parentheses to indicate grouping is a simple example of a mathematical notation that is easy to write in an equation but often cumbersome to translate into words. 
-Consider the equation 
-$$
-a (b + c) = 1 / (b + c).
-$$
+Consider the equation, 
+
+$$a (b + c) = 1 / (b + c).$$
+
 A naive translation into English would be "a times b plus c equals one over b plus c". 
 But this sentence loses the groupings, so it would likely be wrongly interpreted as 
+
 $$
 ab + c = 1/b + c.
 $$
+
 Thus, the speaker must be careful to include the groupings. 
 A more precise translation is "a times the sum of b plus c equals one over the sum of b plus c".
 
@@ -67,6 +69,93 @@ The remainder of this document describes how to translate specific mathematical 
     "The sum of a and b all divided by c"<br>
     "The fraction a plus b over c"<br>
   </td>
+</tr>
+</table>
+
+
+## Sets
+
+<table>
+<tr>
+  <th></th>
+  <th>Equation</th>
+  <th>English Translation</th>
+</tr>
+<tr>
+  <td>Set</td>
+  <td>$\{1, 2, 3\}$</td>
+  <td>
+      "The set containing one, two, and three."<br>
+      "The set of one, two, and three."
+  </td>
+</tr>
+<tr>
+  <td>Set-builder Notation</td>
+  <td>$\{x \in \mathbb{R} \mid P(x)\}$</td>
+  <td>
+      "The set of all 'x' in 'R' such that 'P' of 'x' is satisfied."
+  </td>
+</tr>
+<tr>
+  <td>Element of</td>
+  <td>$x \in A$</td>
+  <td>
+      "'x' is an element of 'A'."<br>
+      "'x' is in 'A'."<br>
+  </td>
+</tr>
+<tr>
+  <td>Subset of</td>
+  <td>$A \subset B$</td>
+  <td>
+      "(The set) 'A' is a subset of 'B'."<br>
+      "(The set) 'A' is contained in 'B'."<br>
+  </td>
+</tr>
+<tr>
+  <td>Superset of</td>
+  <td>$A \supset B$</td>
+  <td>
+      "(The set) 'A' is a super set of 'B'."<br>
+      "(The set) 'A' contains 'B'."<br>
+  </td>
+</tr>
+<tr>
+  <td>Strict Subset of</td>
+  <td>$A \subsetneq B$</td>
+  <td>
+      "(The set) 'A' is a strict subset of 'B'."<br>
+      "(The set) 'A' is a proper subset of 'B'."<br>
+      "(The set) 'A' is a subset of 'B', but not equal to 'B'."<br>
+  </td>
+</tr>
+<tr>
+  <td>Union</td>
+  <td>$A \cup B$</td>
+  <td>
+      "The union of 'A' and 'B'."<br>
+      "'A' union 'B'."
+  </td>
+</tr>
+<tr>
+  <td>Intersection</td>
+  <td>$A \cap B$</td>
+  <td>
+      "The intersection of 'A' and 'B'."<br>
+      "'A' intersection 'B'."<br>
+      "'A' intersect 'B'."
+  </td>
+</tr>
+</table>
+
+
+## Calculus
+
+<table>
+<tr>
+  <th></th>
+  <th>Equation</th>
+  <th>English Translation</th>
 </tr>
 <tr>
   <td>Integrals</td>
@@ -127,6 +216,7 @@ The remainder of this document describes how to translate specific mathematical 
   </td>
 </tr>
 </table>
+
 
 This is document is a work in progress that will continue to grow as I find examples that are worthy of inclusion. If you have suggestions, please [contact me](mailto:pwintz+ws@ucsc.edu).
 
