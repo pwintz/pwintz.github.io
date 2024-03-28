@@ -45,6 +45,11 @@ employers:
     - title: Graduate Student Researcher
       start-date: Spring 2021
       end-date:
+    - title: Graduate Student Instructor for AM 10 (Linear Algebra)
+      dates: Winter 2024
+      highlights:
+      - Taught a class of over 230 students.
+      - Received overwhelmingly positive feedback from students.
     - title: Teaching Assistant
       start-date: Summer 2019
       end-date: Winter 2020
@@ -55,7 +60,7 @@ employers:
       end-date: 09/2018
       highlights:
         - Designed and implemented features on Android and embedded Linux systems.
-        - Developed a real-time video augmentation prototype. 
+        - Created prototype for the video transformation software used in the <a href="https://www.linkedin.com/posts/paul-wintz-10621049_whatsnewatarthrex-arthrex-medicaleducation-activity-7176801620503003136-Ya8f?utm_source=share&utm_medium=member_desktop">Pano scope system</a></a>. 
     - title: Software Quality Assurance Intern
       start-date: 06/2015
       end-date: 08/2015
@@ -158,10 +163,19 @@ other-activities:
             {{ job.title }}</span>
         </td>
         <td style="text-align: right;"><span class="resumedate">
-          {{ job.start-date | date: "%B %Y" }}-{{ job.end-date | date: "%B %Y" | default:"Present"}}
+          {% if job.dates %}
+            {{ job.dates }}
+          {% else %}
+            {{ job.start-date | date: "%B %Y" }}-{{ job.end-date | date: "%B %Y" | default:"Present"}}
+          {% endif %}
         </span></td>
       </tr>
     </table>
+    <ul>
+      {% for highlight in job.highlights %}
+        <li>{{ highlight }}</li>
+      {% endfor %}
+    </ul>
     {% endfor %}
   </div>
 {% endfor %}
