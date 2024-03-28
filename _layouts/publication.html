@@ -18,6 +18,7 @@ layout: single
 {{ page.abstract }}
 {% endif %}
 {{ content }}
+{% if page.has-pdf or page.has-slides or page.has-bibtex %}
 <h2 id="downloads">Downloads</h2>
   {% include publication_files.html 
     slug=page.slug
@@ -25,3 +26,4 @@ layout: single
     has-slides=page.has-slides
     has-bibtex=page.has-bibtex
     doi=page.doi %}
+{% endif %}
