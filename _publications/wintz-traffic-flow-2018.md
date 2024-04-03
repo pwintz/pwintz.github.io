@@ -2,7 +2,7 @@
 layout: publication
 title: > 
     Second-order Time-delayed Traffic Flow Through a Bottleneck
-authors: Paul Wintz
+authors: Paul K. Wintz
 publication: Unpublished (AM 214 Class Project)
 year: 2018
 abstract: >

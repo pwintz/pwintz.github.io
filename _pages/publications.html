@@ -4,29 +4,4 @@ permalink: /publications/
 title: Publications
 ---
 
-{% assign publications = site.publications | sort: "year" | reverse %}
-{% for pub in publications %}
-<div class="pubitem">
-  {% if pub.teaser-image %}
-    <div class="pubteaser">
-      <a href="{{pub.url}}">
-        <img
-          src="/assets/images/publication-pages/{{ pub.teaser-image }}_small.jpg"
-          alt="{{pub.title}} publication teaser"
-        />
-      </a>
-    </div>
-  {% endif %}
-  <div class="pubtitle"><a href="{{pub.url}}">{{ pub.title }}</a></div>
-  <div class="pubauthors">{{ pub.authors }}</div>
-  <span class="pubpublication">{{ pub.publication }}</span>, <span class="pubyear">{{ pub.year}}</span>.&nbsp;
-  <span class="publinks">
-    {% include publication_files.html 
-      slug=pub.slug
-      has-pdf=pub.has-pdf
-      has-slides=pub.has-slides
-      has-bibtex=pub.has-bibtex
-      doi=pub.doi %}
-  </span>
-</div>
-{% endfor %}
+{% include publication_list.html %}

@@ -11,13 +11,26 @@
   margin-bottom: 0.5em;
   line-height: 1.2em;
   font-weight: bold;
+  a:link {
+      // Don't underline the title links unless hovering.
+      text-decoration: none;
+  }
 }
 
 .pubauthors,
 .pubyear,
-.pubpublication {
+.pubpublication,
+.publinks,
+.pubawards {
+  font-size: 90%;
+  margin-bottom: 0.5em;
+  margin-top  : 0.5em;
+}
+
+.pubyear,
+.pubpublication,
+.publinks {
   font-size: 75%;
-  margin-bottom: 0.75em;
 }
 
 .pubpublication {
@@ -38,7 +51,13 @@
   border: 1px solid black;
 }
 
-.publinks {
-  font-size: 75%;
-  margin-top: 0.5em;
+.pubawards {
+  ul { 
+    // Change the bullet marker for the list of awards.
+    list-style-type: "🏆 "; 
+  }
+  li { 
+    font-size: 90%; 
+    font-weight: bold;
+  }
 }

@@ -12,5 +12,7 @@ has-pdf: true
 has-slides: true
 has-bibtex: true
 doi: 10.23919/ACC53348.2022.9867260
+awards: 
+    - Finalist for Best Student Paper at ACC.
 ---
 
