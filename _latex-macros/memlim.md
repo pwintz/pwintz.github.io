@@ -1,5 +1,5 @@
 ---
-layout: single
+layout: latex-macro
 title: >
   "Memory" Limit (<code>\memlim</code>)
 summary: 

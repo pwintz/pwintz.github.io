@@ -1,5 +1,5 @@
 ---
-layout: single
+layout: latex-macro
 title: >
   "Left-hand Side" and "Right-hand Side"
 description: >

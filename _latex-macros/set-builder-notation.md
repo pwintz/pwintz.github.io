@@ -1,5 +1,5 @@
 ---
-layout: single
+layout: latex-macro
 title: >
   Set Builder Notation (<code>\setdef</code> and <code>\suchthat</code>)
 summary: 

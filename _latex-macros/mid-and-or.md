@@ -1,5 +1,5 @@
 ---
-layout: single
+layout: latex-macro
 title: >
   Mid-line "And" and "Or" in Display Equations
 description: >

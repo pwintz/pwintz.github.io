@@ -8,7 +8,13 @@ toc: true
 This page lists LaTeX commands (or "macros") that can save you time while typesetting documents.
 
 {% for macro in site.latex-macros %}
-  <h2>{{ macro.title }}</h2>
+  <h2>
+    {% if macro.link %}
+      <a href="{{ macro.link }}">{{ macro.title }}</a> <a href="{{ macro.url | relative_url }}" rel="permalink"><i class="fas fa-link" aria-hidden="true" title="permalink"></i><span class="sr-only">Permalink</span></a>
+    {% else %}
+      <a href="{{ macro.url | relative_url }}" rel="permalink">{{ macro.title }}</a>
+    {% endif %}
+  </h2>
   <p>{{ macro.description }}</p>
   
   <details>

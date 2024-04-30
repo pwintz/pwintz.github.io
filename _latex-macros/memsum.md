@@ -1,5 +1,5 @@
 ---
-layout: single
+layout: latex-macro
 title: >
   "Memory" Summation (<code>\memsum</code>)
 summary: 
