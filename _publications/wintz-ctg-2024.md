@@ -11,7 +11,7 @@ abstract: >
     By exploiting the fact that pre-asymptotic stability in a conical approximation implies pre-asymptotic stability in the original system, a CTG-based approach can establish asymptotic stability in hybrid systems that have nonlinear flow maps and jump maps without needing to construct a Lyapunov function.
     
 has-pdf: true
-has-slides: false
+has-slides: true
 has-bibtex: false
 # doi: 
 ---
