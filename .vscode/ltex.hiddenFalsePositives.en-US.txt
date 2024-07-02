@@ -1,2 +1,8 @@
 {"rule":"EN_UNPAIRED_BRACKETS","sentence":"^\\QIt's easy for people to understand \"4 out of 5” than \"80%\".\\E$"}
 {"rule":"CURRENCY","sentence":"^\\QConsider a differential equation \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q$ that evolves on a domain \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q$\\E$"}
+{"rule":"PASSIVE_VOICE","sentence":"^\\QDisable \"endless scrolling\" (if possible) so that feeds are separated into pages, which give you \"exit points\"\nUnfollow or mute all or most of the people in your social media feeds.\\E$"}
+{"rule":"SOME_OF_THE","sentence":"^\\QYou will likely want to modify some of the \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q options.\\E$"}
+{"rule":"PASSIVE_VOICE","sentence":"^\\QWhen \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q is loaded, all references to theorem-like environments (inserted using \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q or \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q) automatically include links to the location where the environment is displayed.\\E$"}
+{"rule":"PASSIVE_VOICE","sentence":"^\\QBy default, the body \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q theorem environments are italicized.\\E$"}
+{"rule":"PASSIVE_VOICE","sentence":"^\\QBy default, the body \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q theorem environments are italicized.\\E$"}
+{"rule":"PASSIVE_VOICE","sentence":"^\\QI find large chunks of italic text hard to read, so I create and use a different theorem that uses slanted text, so that theorems are still differentiated without compromising readability.\\E$"}
