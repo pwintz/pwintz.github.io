@@ -1,3 +1,8 @@
 {
-
+  "pasteImage.path": "${projectRoot}/assets/images",
+  "pasteImage.filePathConfirmInputBoxMode": "onlyName",
+  "pasteImage.showFilePathConfirmInputBox": true,
+  "pasteImage.insertPattern": "<img src=\"/assets/images/${imageFileName}\" alt=\"alt text\"/>",
+  "pasteImage.encodePath": "none",
+  "pasteImage.basePath": "${projectRoot}/assets/images"
 }

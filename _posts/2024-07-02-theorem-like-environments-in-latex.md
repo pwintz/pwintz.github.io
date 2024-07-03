@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "Theorem-like Environments in LaTeX"
-excerpt: Description of various configurations for LaTeX theorem environments using the amsthm package.
+excerpt: Description of various configurations for LaTeX theorem environments using the amsthm package. Includes descriptions of how to enable internal hyperlinking and cleveref references, change theorem body text from italic to slanted, define custom QED marks, and number theorems by chapter.
 date: 2024-07-02 12:00:00 -0800
 toc: true
 categories: mathematical-writing
@@ -12,7 +12,7 @@ In this post, I will describe the setup I use for theorem-type environments in L
 
 # Packages
 
-To set up theorem-like environment, we load several packages in the preamble of the document. 
+To set up theorem-like environments, we load several packages in the preamble of the document. 
 
 ## amsthm Package
 The [amsthm](`https://ctan.org/pkg/amsthm`) package defines macros and environments for creating theorem-like environments.
@@ -55,7 +55,7 @@ In contrast to `\ref`, `\cref` inserts the type of environment referenced, so a 
   ]{cleveref} 
 </pre>
 
-# Configuration
+# Changing Theorem Body Text From Italic To Slanted 
 
 By default, the body `amsthm` theorem environments are italicized.
 I find large chunks of italic text hard to read, so I create and use a different theorem that uses slanted text, so that theorems are still differentiated without compromising readability.
@@ -78,10 +78,11 @@ I find large chunks of italic text hard to read, so I create and use a different
 \theoremstyle{sltheorem}
 </pre>
 
+# Custom QED Marks at End of Environments
+
 For long environments that are in upright font, I prefer to include a mark at the end of the environment to notify readers where the section ends.
 The following command, `\setEnvironmentQed` allows for defining the QED-like symbol to automatically insert at the end of all environments of a given type. 
 For example, `\setEnvironmentQed{definition}{\ensuremath{\blacksquare}}` causes a black square to be inserted at the end of every `definition` environment.  
-
 
 {% raw %}
 <pre class="language-latex">
@@ -101,15 +102,17 @@ For example, `\setEnvironmentQed{definition}{\ensuremath{\blacksquare}}` causes 
 </pre>
 {% endraw %}
 
+# Environment Definitions
 
-## Theorem-Like Environment Definitions
+## `\providetheorem` definition
 
 In my LaTeX setup, I prefer to use the same preamble file for all of my documents, but I've found that some document classes or packages define `theorem` or other related environments. 
 To avoid errors when trying to define to new theorem-like environments, `\providetheorem` first checks whether the environment is defined.
-</pre>
 
-% Create a new macro analogous to "\providecommand", which defines the 
-% given amsthm theorem-like environment only if it does not already exist.
+<pre class="language-latex">
+% Create a new macro analogous to "\providecommand", which 
+% defines the given amsthm theorem-like environment only if 
+% it does not already exist.
 \newcommand{\providetheorem}[2]{
   % #1: Environment name.
   % #2: Display name
@@ -128,8 +131,22 @@ To avoid errors when trying to define to new theorem-like environments, `\provid
 }
 </pre>
 
+## Theorem Style
+There are three default theorem styles: `plain`, `definition`, and `remark`. 
+We replaced, however, the `plain` style `sltheorem` to use slanted text instead of italics.
 
-The list of environments I define are as follows: 
+The `sltheorem` (or `plain`) style displays a boldface label and slanted (or italic) body text.
+
+<pre class="language-latex">
+\begin{theorem}[Pythagorean Theorem]
+  \label{result:pythagorean}
+  The sum of the squares of the legs of a right 
+  triangle equals the square of the hypotenuse.
+\end{theorem}
+</pre>
+<img src="/assets/images/theoremstyle-sltheorem.png" alt="sltheorem style"/>
+
+I use the theorem style for any environments that make truth claims, namely `theorem`, `proposition`, `lemma`, `corollary`, and `conjecture`. 
 
 <pre class="language-latex">
 %%--------------------------------------------------%%
@@ -156,17 +173,25 @@ The list of environments I define are as follows:
 %%% Define conjecture environment %%%
 \providetheorem{conjecture}{Conjecture}
 \crefname{conjecture}{Conjecture}{Conjectures}%
+</pre>
 
-%%% Define application environment %%%
-\providetheorem{application}{Application}
-\crefname{application}{Application}{Applications}%
+## Definition Style
 
-%%% Define application environment %%%
-\providetheorem{exercise}{Exercise}
-\crefname{exercise}% environment name
-          {Exercise}% Singular
-          {Exercises}% Plural
+The `definition` style displays a boldface label and upright body text.
 
+<pre class="language-latex">
+\begin{definition}
+  \label{def:ring center}
+  Let $R$ be a ring.
+  The \emph{center} of $R$ is the subring of $R$ 
+  that contains all elements $c \in R$ such that 
+  $c x = x c$ for every $x$ in $R$.
+\end{definition}
+</pre>
+<img src="/assets/images/theoremstyle-definition.png" alt="definition theoremstyle"/>
+
+I use the `defintion` style define the following environments: `definition`, `problem`, `example`, and `assumption`.
+<pre class="language-latex">
 %%---------------------------------------------------%%
 %| Define environments that use the definition style |%
 %%---------------------------------------------------%%
@@ -174,11 +199,17 @@ The list of environments I define are as follows:
 
 %%% Define definition environment %%%
 \providetheorem{definition}{Definition}
-\setEnvironmentQed{definition}{\ensuremath{\blacksquare}}
+\crefname{definition}{Definition}{Definitions}%
 
 %%% Define problem environment %%%
 \providetheorem{problem}{Problem}
 \crefname{problem}{Problem}{Problems}%
+
+%%% Define example environment %%%
+\providetheorem{example}{Example}
+
+% Add a mark at the end of each example.
+\setEnvironmentQed{example}{\ensuremath{\blacksquare}}
 
 %%% Define assumption environment %%%
 % Note: We use singular "Assumption" even when there are 
@@ -188,7 +219,22 @@ The list of environments I define are as follows:
 
 % Add a mark at the end of each assumption.
 \setEnvironmentQed{assumption}{\ensuremath{\blacksquare}}
+</pre>
 
+## Remark Style
+
+The `remark` style displays an italic label and upright body text. 
+
+<pre class="language-latex">
+\begin{remark}
+  Here is a remark.
+\end{remark}
+</pre>
+<img src="/assets/images/theoremstyle-remark.png" alt="remark theoremstyle"/>
+
+I use the `remark` style only for the `remark` environment. 
+
+<pre class="language-latex">
 %%-----------------------------------------------%%
 %| Define environments that use the remark style |%
 %%-----------------------------------------------%%
@@ -196,16 +242,10 @@ The list of environments I define are as follows:
 
 %%% Define remark environment %%%
 \providetheorem{remark}{Remark}
-
-%%% Define example environment %%%
-\providetheorem{example}{Example}
-
-% Add a mark at the end of each example.
-\setEnvironmentQed{example}{\ensuremath{\blacksquare}}
 </pre>
 
 
-## Chapter-based Numbering
+# Chapter-based Numbering
 
 For document classes that use chapters, I prefer to number the theorem-like environments on a chapter-by-chapter basis (e.g., "Theorem 1.1", "Theorem 1.2" in Chapter 1 and "Theorem 2.1", "Theorem 2.2" in Chapter 2.)
 
