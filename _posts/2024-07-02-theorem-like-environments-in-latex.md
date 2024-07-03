@@ -15,7 +15,7 @@ In this post, I will describe the setup I use for theorem-type environments in L
 To set up theorem-like environments, we load several packages in the preamble of the document. 
 
 ## amsthm Package
-The [amsthm](`https://ctan.org/pkg/amsthm`) package defines macros and environments for creating theorem-like environments.
+The [`amsthm`](https://ctan.org/pkg/amsthm) package defines macros and environments for creating theorem-like environments.
 
 <pre class="language-latex">
 \usepackage{amsthm}
