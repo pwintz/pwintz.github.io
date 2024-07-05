@@ -58,7 +58,7 @@ In contrast to `\ref`, `\cref` inserts the type of environment referenced, so a 
 # Changing Theorem Body Text From Italic To Slanted 
 
 By default, the body `amsthm` theorem environments are italicized.
-I find large chunks of italic text hard to read, so I create and use a different theorem that uses slanted text, so that theorems are still differentiated without compromising readability.
+I find large chunks of italic text hard to read, so I create and use a different theorem style that uses slanted text, so that theorems are still differentiated without compromising readability.
 
 <pre class="language-latex">
 % Create a new amsthm theorem style that uses slanted text 
@@ -114,6 +114,9 @@ Here are several options for symbols that can be used to end environments:
 | $$\blacktriangledown$$ | `\blacktriangledown` |  |
 | $$\circ$$              | `\circ`              |  |
 | $$\bullet$$            | `\bullet`            |  |
+| $$\diamond$$           | `\diamond`           | `\blackdiamond` is not a built-in macro, nor provided by the `amssym` package. |
+| $$\lozenge$$           | `\lozenge`           |  |
+| $$\blacklozenge$$      | `\blacklozenge`      |  |
 
 
 # Environment Definitions
@@ -258,10 +261,10 @@ I use the `remark` style only for the `remark` environment.
 \providetheorem{remark}{Remark}
 </pre>
 
-
 # Chapter-based Numbering
 
-For document classes that use chapters, I prefer to number the theorem-like environments on a chapter-by-chapter basis (e.g., "Theorem 1.1", "Theorem 1.2" in Chapter 1 and "Theorem 2.1", "Theorem 2.2" in Chapter 2.)
+For document classes that use chapters, I prefer to number the theorem-like environments on a chapter-by-chapter basis (e.g., "Theorem 1.1", "Theorem 1.2" in Chapter 1 and "Theorem 2.1", "Theorem 2.2" in Chapter 2.) 
+The following code automatically enables chapter-based numbering when the `chapter` \[counter](https://www.overleaf.com/learn/latex/Counters) is defined.
 
 <pre class="language-latex">
 \ifcsname thechapter\endcsname
@@ -279,3 +282,68 @@ For document classes that use chapters, I prefer to number the theorem-like envi
     \numberwithin{application}{chapter}
 \fi
 </pre>
+
+# Unnumbered Environments
+In some contexts, namely presentations, you may wish to use unnumbered environments (e.g., "Theorem" instead "Theorem 1").
+To omit theorem numbering, define theorem environments using `\newtheorem*` macro instead of `\newtheorem`. 
+If you already have `theorem` defined, you must use a different name for the unnumbered theorem environment, such as `theorem*`. 
+
+<pre class="language-latex">
+\newtheorem*{theorem*}{Theorem}
+</pre>
+
+It is a bad idea, however, to have mixture of numbered and unnumbered theorems in the same document, so you may wish to simply replace `\newtheorem{theorem}{Theorem}` with `\newtheorem*{theorem}{Theorem}` so that `\begin{theorem}...\end{theorem}` inserts unnumbered theorems.
+
+# Proof Environment
+
+The `amsthm` package also defines a `proof` environment. 
+I've found the default definition to be exactly how I want it, with a white square inserted at the end of the proof. 
+
+The usage is as follows: 
+
+<pre class="language-latex">
+\begin{proof}
+  It's true 'cause I say so.
+\end{proof}
+</pre>
+<img src="/assets/images/proof-example.png" alt="alt text"/>
+
+You can change the "proof" label by using an optional environment argument.
+<pre class="language-latex">
+\begin{proof}[Proof Sketch]
+  This example is too small to contain the proof.
+\end{proof}
+</pre>
+<img src="/assets/images/proof-sketch.png" alt="alt text"/>
+
+Using the optional argument is particularly useful if a theorem and its proof are separated by other text:
+<pre class="language-latex">
+\begin{proof}[Proof of \cref{result:an earlier theorem}]
+  This proof does not occur immediately 
+  after \cref{result:an earlier theorem}.
+\end{proof}
+</pre>
+<img src="/assets/images/proof-separated-from-theorem.png" alt="LaTeX output shows a proof that references a theorem from earlier in the document."/>
+Note that the QED symbol in above example appears at the end of the next line because the first line fills the text width.
+
+If the proof ends with an equation or a list, then the QED symbol will be placed below the equation or list, even if there is space to the side, which wastes space and looks bad:
+<pre class="language-latex">
+\begin{proof}
+  The conclusion follow directly from this equation:
+  \[
+    1 + 1 = 2.
+  \] 
+\end{proof}
+</pre>
+<img src="/assets/images/proof-qed-after-equation.png" alt="alt text"/>
+
+To fix this problem, place `\qedhere` inside the equation or list (at the end) to display the QED symbol at the correct location:
+<pre class="language-latex">
+\begin{proof}
+  The conclusion follow directly from this equation:
+  \[
+    1 + 1 = 2. \qedhere
+  \] 
+\end{proof}
+</pre>
+<img src="/assets/images/proof-qedhere-within-equation.png" alt="alt text"/>
