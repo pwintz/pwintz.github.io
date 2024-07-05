@@ -102,6 +102,20 @@ For example, `\setEnvironmentQed{definition}{\ensuremath{\blacksquare}}` causes 
 </pre>
 {% endraw %}
 
+Here are several options for symbols that can be used to end environments:  
+
+| Symbol | LaTeX Code | Notes |
+|:-----------:|:|:-----------:|:|:-----------:|
+| $$\square$$            | `\square`            | Traditionally used for the end of proofs |
+| $$\blacksquare$$       | `\blacksquare`       |  |
+| $$\triangle$$          | `\triangle`          |  |
+| $$\blacktriangle$$     | `\blacktriangle`     |  |
+| $$\triangledown$$      | `\triangledown`      |  |
+| $$\blacktriangledown$$ | `\blacktriangledown` |  |
+| $$\circ$$              | `\circ`              |  |
+| $$\bullet$$            | `\bullet`            |  |
+
+
 # Environment Definitions
 
 ## `\providetheorem` definition
