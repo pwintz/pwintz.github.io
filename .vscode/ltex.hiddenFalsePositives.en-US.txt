@@ -9,3 +9,5 @@
 {"rule":"PASSIVE_VOICE","sentence":"^\\QNote that the QED symbol in above example is located at the end of the next line because the first line fills the text width.\\E$"}
 {"rule":"PASSIVE_VOICE","sentence":"^\\QUsing the optional argument is particularly useful if a theorem and its proof are separated by other text:\\E$"}
 {"rule":"PASSIVE_VOICE","sentence":"^\\QI find large chunks of italic text hard to read, so I create and use a different theorem style that uses slanted text, so that theorems are still differentiated without compromising readability.\\E$"}
+{"rule":"PASSIVE_VOICE","sentence":"^\\QThis way, theorems are differentiated from surrounding text without compromising readability.\\E$"}
+{"rule":"PASSIVE_VOICE","sentence":"^\\QThe following code automatically enables chapter-based numbering when the \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q counter is defined.\\E$"}

@@ -6,6 +6,10 @@ date: 2024-07-02 12:00:00 -0800
 toc: true
 categories: mathematical-writing
 tags: typesetting
+comments:
+   host: mathstodon.xyz
+   username: pwintz
+   id: 112738148972158290
 ---
 
 In this post, I will describe the setup I use for theorem-type environments in LaTeX (includes theorems, definitions, etc.).
@@ -58,7 +62,8 @@ In contrast to `\ref`, `\cref` inserts the type of environment referenced, so a 
 # Changing Theorem Body Text From Italic To Slanted 
 
 By default, the body `amsthm` theorem environments are italicized.
-I find large chunks of italic text hard to read, so I create and use a different theorem style that uses slanted text, so that theorems are still differentiated without compromising readability.
+I find large chunks of italic text hard to read, so I create and use a different theorem style that uses slanted text instead.
+This way, theorems are differentiated from surrounding text without compromising readability.
 
 <pre class="language-latex">
 % Create a new amsthm theorem style that uses slanted text 
@@ -126,6 +131,7 @@ Here are several options for symbols that can be used to end environments:
 In my LaTeX setup, I prefer to use the same preamble file for all of my documents, but I've found that some document classes or packages define `theorem` or other related environments. 
 To avoid errors when trying to define to new theorem-like environments, `\providetheorem` first checks whether the environment is defined.
 
+{% raw %}
 <pre class="language-latex">
 % Create a new macro analogous to "\providecommand", which 
 % defines the given amsthm theorem-like environment only if 
@@ -136,10 +142,11 @@ To avoid errors when trying to define to new theorem-like environments, `\provid
   \ifcsdef{#1}{
     % The #1 environment is already defined. 
     \ifcsdef{end#1}{}{
-      \PackageError{providetheorem}
-        {The command "#1" was already defined, but 
-        "#1end" was not defined, indicating that
-         "#1" is not an environment.}{}
+      \PackageError{providetheorem}{%
+        % Error message:
+        The command "#1" was already defined, but "#1end" was 
+        undefined, indicating that "#1" is not an environment.
+      }{}
     }
   }{
     % The #1 environment is not defined, yet, so we define it.
@@ -147,6 +154,7 @@ To avoid errors when trying to define to new theorem-like environments, `\provid
   }
 }
 </pre>
+{% endraw %}
 
 ## Theorem Style
 There are three default theorem styles: `plain`, `definition`, and `remark`. 
@@ -161,7 +169,7 @@ The `sltheorem` (or `plain`) style displays a boldface label and slanted (or ita
   triangle equals the square of the hypotenuse.
 \end{theorem}
 </pre>
-<img src="/assets/images/theoremstyle-sltheorem.png" alt="sltheorem style"/>
+<img src="/assets/images/theoremstyle-sltheorem.png" alt="Screenshot of a theorem rendered using the 'sltheorem' style"/>
 
 I use the theorem style for any environments that make truth claims, namely `theorem`, `proposition`, `lemma`, `corollary`, and `conjecture`. 
 
@@ -205,7 +213,7 @@ The `definition` style displays a boldface label and upright body text.
   $c x = x c$ for every $x$ in $R$.
 \end{definition}
 </pre>
-<img src="/assets/images/theoremstyle-definition.png" alt="definition theoremstyle"/>
+<img src="/assets/images/theoremstyle-definition.png" alt="Screenshot of an environment using the 'definition' theoremstyle"/>
 
 I use the `defintion` style define the following environments: `definition`, `problem`, `example`, and `assumption`.
 <pre class="language-latex">
@@ -247,7 +255,7 @@ The `remark` style displays an italic label and upright body text.
   Here is a remark.
 \end{remark}
 </pre>
-<img src="/assets/images/theoremstyle-remark.png" alt="remark theoremstyle"/>
+<img src="/assets/images/theoremstyle-remark.png" alt="Screenshot of an environment using the 'remark' theoremstyle"/>
 
 I use the `remark` style only for the `remark` environment. 
 
@@ -264,7 +272,7 @@ I use the `remark` style only for the `remark` environment.
 # Chapter-based Numbering
 
 For document classes that use chapters, I prefer to number the theorem-like environments on a chapter-by-chapter basis (e.g., "Theorem 1.1", "Theorem 1.2" in Chapter 1 and "Theorem 2.1", "Theorem 2.2" in Chapter 2.) 
-The following code automatically enables chapter-based numbering when the `chapter` \[counter](https://www.overleaf.com/learn/latex/Counters) is defined.
+The following code automatically enables chapter-based numbering when the `chapter` [counter](https://www.overleaf.com/learn/latex/Counters) is defined.
 
 <pre class="language-latex">
 \ifcsname thechapter\endcsname
@@ -306,7 +314,7 @@ The usage is as follows:
   It's true 'cause I say so.
 \end{proof}
 </pre>
-<img src="/assets/images/proof-example.png" alt="alt text"/>
+<img src="/assets/images/proof-example.png" alt="Screenshot of a basic proof environment."/>
 
 You can change the "proof" label by using an optional environment argument.
 <pre class="language-latex">
@@ -314,7 +322,7 @@ You can change the "proof" label by using an optional environment argument.
   This example is too small to contain the proof.
 \end{proof}
 </pre>
-<img src="/assets/images/proof-sketch.png" alt="alt text"/>
+<img src="/assets/images/proof-sketch.png" alt="Screenshot of a proof environment that is labeled as 'Proof Sketch' instead of 'Proof'."/>
 
 Using the optional argument is particularly useful if a theorem and its proof are separated by other text:
 <pre class="language-latex">
@@ -335,7 +343,7 @@ If the proof ends with an equation or a list, then the QED symbol will be placed
   \] 
 \end{proof}
 </pre>
-<img src="/assets/images/proof-qed-after-equation.png" alt="alt text"/>
+<img src="/assets/images/proof-qed-after-equation.png" alt="Screenshot of a proof environment that ends with an equation, resulting in the QED mark placed below the equation."/>
 
 To fix this problem, place `\qedhere` inside the equation or list (at the end) to display the QED symbol at the correct location:
 <pre class="language-latex">
@@ -346,4 +354,4 @@ To fix this problem, place `\qedhere` inside the equation or list (at the end) t
   \] 
 \end{proof}
 </pre>
-<img src="/assets/images/proof-qedhere-within-equation.png" alt="alt text"/>
+<img src="/assets/images/proof-qedhere-within-equation.png" alt="Screenshot of a proof environment that ends with an equation using \qedhere so that the QED mark is placed next to the equation."/>
