@@ -93,7 +93,8 @@ The remainder of this document describes how to translate specific mathematical 
   <td>Set-builder Notation</td>
   <td>$\{x \in \mathbb{R} \mid P(x)\}$</td>
   <td>
-      "The set of all 'x' in 'R' such that 'P' of 'x' is satisfied."
+      "The set of all 'x' in 'R' such that 'P' of 'x' is satisfied."<br>
+      "The set of 'x' in 'R' such that 'P' of 'x'."
   </td>
 </tr>
 <tr>
@@ -217,6 +218,24 @@ The remainder of this document describes how to translate specific mathematical 
 </tr>
 </table>
 
+<!-- TODO -->
+<!-- ## Linear Algebra
+<table>
+<tr>
+  <th></th>
+  <th>Equation</th>
+  <th>English Translation</th>
+</tr>
+<tr>
+  <td>Integrals</td>
+  <td>$$\int_a^b f(x) dx$$</td>
+  <td>
+    "The integral of f of x over x from a to b."<br>
+    "The integral of f of x, dee-x with lower limit a and upper limit b."<br>
+  </td>
+</tr>
+</table> 
+-->
 
 This is document is a work in progress that will continue to grow as I find examples that are worthy of inclusion. If you have suggestions, please [contact me](mailto:pwintz+ws@ucsc.edu).
 
