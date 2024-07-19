@@ -6,9 +6,9 @@ date:   2023-12-18 23:43:51 -0800
 toc: false
 categories: 
 comments:
-  host: mastodon.world
+  host: mathstodon.xyz
   username: pwintz
-  id:  
+  id: 111736829673674058
 ---
 
 Throughout mathematical literature, many mathematical statements written as equations rather than as natural language. 
