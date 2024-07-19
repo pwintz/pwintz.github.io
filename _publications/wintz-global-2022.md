@@ -13,6 +13,6 @@ has-slides: true
 has-bibtex: true
 doi: 10.23919/ACC53348.2022.9867260
 awards: 
-    - Finalist for Best Student Paper at ACC.
+    - Finalist for <a href="https://acc2022.a2c2.org/">Best Student Paper</a> at ACC.
 ---
 

@@ -126,6 +126,9 @@ blockquote {
 /* links */
 
 a {
+  // Don't underline links.
+  text-decoration: none;
+
   &:focus {
     @extend %tab-focus;
   }
@@ -137,6 +140,8 @@ a {
   &:hover {
     color: $link-color-hover;
     outline: 0;
+    // Underline links when hovering.
+    text-decoration: underline;
   }
 }
 
