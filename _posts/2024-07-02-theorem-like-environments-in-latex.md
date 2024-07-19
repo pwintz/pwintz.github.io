@@ -157,8 +157,7 @@ To avoid errors when trying to define to new theorem-like environments, `\provid
 {% endraw %}
 
 ## Theorem Style
-There are three default theorem styles: `plain`, `definition`, and `remark`. 
-We replaced, however, the `plain` style `sltheorem` to use slanted text instead of italics.
+There are three default theorem styles: `plain`, `definition`, and `remark`, but I have replaced the `plain` style with `sltheorem` to use slanted text instead of italics.
 
 The `sltheorem` (or `plain`) style displays a boldface label and slanted (or italic) body text.
 
