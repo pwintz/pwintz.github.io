@@ -245,6 +245,10 @@ I use the `defintion` style define the following environments: `definition`, `pr
 \setEnvironmentQed{assumption}{\ensuremath{\blacksquare}}
 </pre>
 
+In definitions, you should emphasize the defined term to make it stand out.
+The preferred way to do this is to surround the term with `\emph{}`, which will typically typeset the text in italics.
+Unlike `\textit{}`, however, the `\emph` macro will switch to upright text if the surrounding text is already italicized, ensuring that the term highlighted even if you use italic text in your definition environments.
+
 ## Remark Style
 
 The `remark` style displays an italic label and upright body text. 
