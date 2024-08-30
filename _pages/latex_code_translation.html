@@ -1,0 +1,69 @@
+---
+layout: single
+permalink: /tools/latex-macro-replacement/
+title: Paul's LaTeX Macro Replacement Tool
+---
+
+This page does some basic text replacement to format generic LaTeX to use my personal Macros.  
+
+<!-- JFiddle development page: https://jsfiddle.net/pwintz/ej4nhzxw/13/ -->
+<h3>Input</h3>
+<textarea id="inputText" placeholder="Type or paste your text here..."></textarea>
+        
+<div>
+  <label for="additionalReplacements">Convert <code>\(...\)</code> to <code>$...$</code>:</label>
+  <input type="checkbox" id="additionalReplacements">
+</div>
+
+<h3>Output</h3>
+<pre class="output" id="outputText" style="white-space: pre-wrap;""></pre>
+
+<script>
+// Hardcoded collection of regular expression patterns and their replacements
+const baseReplacements = [
+    { pattern: /\\mathbb{R}/g, replaceWith: '\\reals' }, // Reals
+    { pattern: /\\mathbb{N}/g, replaceWith: '\\naturals' }, // Reals
+    { pattern: /\\{\s*(.*?)\s*\\mid\s*(.*?)\s*\\}/g, replaceWith: '\\setdef{$1 \\suchthat $2}' }, // Reals
+    { pattern: /\\operatorname{dom}/g, replaceWith: '\\dom' }, // Function domain
+    { pattern: /\\rightarrow/g, replaceWith: '\\to' }, // rightarrow -> to, // Reals
+    { pattern: /\\leadsto/g, replaceWith: "\\setvaluedto" }, // prime notation
+    { pattern: /\\rightrightarrows/g, replaceWith: "\\setvaluedto" }, // prime notation
+    { pattern: /\^\{-1}/g, replaceWith: "\\invs" },
+    { pattern: /\^\{\\prime}/g, replaceWith: "'" }, // prime notation
+    { pattern: /\\bar\{(.*?)\}/g, replaceWith: '\\overline\{$1\}' }, // Bar -> Overline
+    { pattern: /\\mathcal\{([A-Z])\}/g, replaceWith: '\\cal$1' }
+];
+
+const additionalReplacements = [
+    { pattern: /\\\((.*?)\\\)/g, replaceWith: '$$$1$$' }
+];
+
+// Function to apply the replacements
+function applyReplacements(text, includeAdditional) {
+    baseReplacements.forEach(replacement => {
+        text = text.replace(replacement.pattern, replacement.replaceWith);
+    });
+
+    if (includeAdditional) {
+        additionalReplacements.forEach(replacement => {
+            text = text.replace(replacement.pattern, replacement.replaceWith);
+        });
+    }
+
+    return text;
+}
+
+// Function to update the output text
+function updateText() {
+    const inputText = document.getElementById('inputText').value;
+    const includeAdditional = document.getElementById('additionalReplacements').checked;
+    const outputText = applyReplacements(inputText, includeAdditional);
+    
+    // Display the result
+    document.getElementById('outputText').textContent = outputText;
+}
+
+// Event listeners for real-time updates
+document.getElementById('inputText').addEventListener('input', updateText);
+document.getElementById('additionalReplacements').addEventListener('change', updateText);
+</script>
