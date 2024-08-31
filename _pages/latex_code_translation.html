@@ -18,12 +18,15 @@ This page does some basic text replacement to format generic LaTeX to use my per
 <h3>Output</h3>
 <pre class="output" id="outputText" style="white-space: pre-wrap;""></pre>
 
-<script>
+<script>				
 // Hardcoded collection of regular expression patterns and their replacements
 const baseReplacements = [
     { pattern: /\\mathbb{R}/g, replaceWith: '\\reals' }, // Reals
     { pattern: /\\mathbb{N}/g, replaceWith: '\\naturals' }, // Reals
-    { pattern: /\\{\s*(.*?)\s*\\mid\s*(.*?)\s*\\}/g, replaceWith: '\\setdef{$1 \\suchthat $2}' }, // Reals
+    { pattern: /\\left\\{\s*(.*?)\s*\\mid\s*(.*?)\s*\\right\\}/g, replaceWith: '\\setdef{$1 \\suchthat $2}' }, // setdef{ | } with left/right
+    { pattern: /\\{\s*(.*?)\s*\\mid\s*(.*?)\s*\\}/g, replaceWith: '\\setdef{$1 \\suchthat $2}' }, // setdef{ | } w/o left/right
+    { pattern: /\\left\\{\s*(.*?)\s*\\right\\}/g, replaceWith: '\\setdef{$1}' }, // setdef{} w/ left/right
+    { pattern: /\\{\s*(.*?)\s*\\}/g, replaceWith: '\\setdef{$1}' }, // setdef{} w/o left/right
     { pattern: /\\operatorname{dom}/g, replaceWith: '\\dom' }, // Function domain
     { pattern: /\\rightarrow/g, replaceWith: '\\to' }, // rightarrow -> to, // Reals
     { pattern: /\\leadsto/g, replaceWith: "\\setvaluedto" }, // prime notation
@@ -31,7 +34,12 @@ const baseReplacements = [
     { pattern: /\^\{-1}/g, replaceWith: "\\invs" },
     { pattern: /\^\{\\prime}/g, replaceWith: "'" }, // prime notation
     { pattern: /\\bar\{(.*?)\}/g, replaceWith: '\\overline\{$1\}' }, // Bar -> Overline
-    { pattern: /\\mathcal\{([A-Z])\}/g, replaceWith: '\\cal$1' }
+    { pattern: /\\mathcal\{([A-Z])\}/g, replaceWith: '\\cal$1' }, // caligraph letters
+    { pattern: /\\left\\{\\begin{array}{l}(.*)\\end{array}\\right\./gs, replaceWith: '\\begin{cases}$1\\end{cases}' }, // Cases environment
+    // Remove extra space MathPix sometimes inserts before sub- and superscripts 
+    { pattern: /\s[_^]/g, replaceWith: '_' }, 
+    // Convert experssions in the form "abc \cdot def", "(a + c) \cdot (d + e)", and "\left(a + b \right) \cdot \left(c + e \right)" into \ip{arg1}{arg2}
+    { pattern: /(?:\\left\(\s*(.*?)\s*\\right\)|(?<!\\left)\(\s*(.*?)\s*(?<!\\right)\)|(\S+)(?<!\\right\))(?<!\)))[\ \t]*\\cdot[\ \t]*(?:\\left\(\s*(.*?)\s*\\right\)|(?<!\\left)\(\s*(.*?)\s*(?<!\\right)\)|(?!\\left\()(?!\()(\S+))/g, replaceWith: '\\ip{$1$2$3}{$4$5$6}' }
 ];
 
 const additionalReplacements = [
