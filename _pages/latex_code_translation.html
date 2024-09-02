@@ -24,6 +24,10 @@ This page does some basic text replacement to format generic LaTeX to use my per
   <label for="additionalReplacements">Convert <code>\(...\)</code> to <code>$...$</code>:</label>
   <input type="checkbox" id="additionalReplacements">
 </div>
+<div>
+  <label for="removeClozeReplacements">Remove Anki Cloze tags:</label>
+  <input type="checkbox" id="removeClozeReplacements">
+</div>
 
 <h3>Output</h3>
 <textarea type="code" id="outputText" rows="20" readonly></textarea>
@@ -65,8 +69,12 @@ This page does some basic text replacement to format generic LaTeX to use my per
       { pattern: /\\\((.*?)\\\)/g, replaceWith: '$$$1$$' }
   ];
 
+  const removeClozeReplacements = [
+      { pattern: /{{c\d::(.*?)(?::.*?)?}}/g, replaceWith: '$1' }
+  ];
+
   // Function to apply the replacements
-  function applyReplacements(text, includeAdditional) {
+  function applyReplacements(text, includeAdditional, isRemoveClozeReplacements) {
       baseReplacements.forEach(replacement => {
           text = text.replace(replacement.pattern, replacement.replaceWith);
       });
@@ -76,6 +84,12 @@ This page does some basic text replacement to format generic LaTeX to use my per
               text = text.replace(replacement.pattern, replacement.replaceWith);
           });
       }
+
+      if (isRemoveClozeReplacements) {
+        removeClozeReplacements.forEach(replacement => {
+          text = text.replace(replacement.pattern, replacement.replaceWith);
+        });
+      }
   
       return text;
   }
@@ -84,7 +98,8 @@ This page does some basic text replacement to format generic LaTeX to use my per
   function updateText() {
       const inputText = document.getElementById('inputText').value;
       const includeAdditional = document.getElementById('additionalReplacements').checked;
-      const outputText = applyReplacements(inputText, includeAdditional);
+      const removeClozeReplacements = document.getElementById('removeClozeReplacements').checked;
+      const outputText = applyReplacements(inputText, includeAdditional, removeClozeReplacements);
       
       // Display the result
       document.getElementById('outputText').textContent = outputText;
@@ -93,11 +108,17 @@ This page does some basic text replacement to format generic LaTeX to use my per
   // Event listeners for real-time updates
   document.getElementById('inputText').addEventListener('input', updateText);
   document.getElementById('additionalReplacements').addEventListener('change', updateText);
+  document.getElementById('removeClozeReplacements').addEventListener('change', updateText);
 
 //   // TESTING
 //     // For the sake of testing, modify the string and run "updateText()".
 //     document.getElementById('inputText').innerHTML = 
-// `\\(\\), \\(\\). 
+// `{{c1::A Carathéodory}} solution to \\(\\dot{x} \\in F(x)\\) is a {{c2::locally absolutely continuous}} function \\(\\phi: I \\to \\reals^n,\\) where \\(I \\subset \\reals\\) is an interval, such that
+// \\[
+// \\dot{\\phi}(t) \\in F(\\phi(t)) \\quad {{c3::\\text{ for almost all } t \\in I}}.
+// \\]
+// 
+// \\(\\), \\(\\). 
 // a & \\cdots & \\vec{q}_n^{\\top} 
 // \\left\\{v \\mid \\lim _{h \\rightarrow 0+} d_K(x+h v) / h=0\\right\\}
 // \\{v \\mid \\lim _{h \\rightarrow 0+} d_K(x+h v) / h=0\\}
