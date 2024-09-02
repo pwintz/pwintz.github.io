@@ -71,9 +71,11 @@ This page does some basic text replacement to format generic LaTeX to use my per
       { pattern: /\\\((.*?)\\\)/g, replaceWith: '$$$1$$' }
   ];
 
+  {% raw %} // <- needed so we can match cloze deletions which are marked by {{...}} 
   const removeClozeReplacements = [
-      { pattern: /{{c\d::(.*?)(?::.*?)?}}/g, replaceWith: '$1' }
+      { pattern: /{{c[1-9]::(.*?)(?:::.*?)?}}/g, replaceWith: '$1' }
   ];
+  {% endraw %}
 
   // Function to apply the replacements
   function applyReplacements(text, includeAdditional, isRemoveClozeReplacements) {
@@ -115,12 +117,7 @@ This page does some basic text replacement to format generic LaTeX to use my per
 //   // TESTING
 //     // For the sake of testing, modify the string and run "updateText()".
 //     document.getElementById('inputText').innerHTML = 
-// `{{c1::A Carathéodory}} solution to \\(\\dot{x} \\in F(x)\\) is a {{c2::locally absolutely continuous}} function \\(\\phi: I \\to \\reals^n,\\) where \\(I \\subset \\reals\\) is an interval, such that
-// \\[
-// \\dot{\\phi}(t) \\in F(\\phi(t)) \\quad {{c3::\\text{ for almost all } t \\in I}}.
-// \\]
-// 
-// \\(\\), \\(\\). 
+// `\\(\\), \\(\\). 
 // a & \\cdots & \\vec{q}_n^{\\top} 
 // \\left\\{v \\mid \\lim _{h \\rightarrow 0+} d_K(x+h v) / h=0\\right\\}
 // \\{v \\mid \\lim _{h \\rightarrow 0+} d_K(x+h v) / h=0\\}
