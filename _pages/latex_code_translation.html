@@ -34,7 +34,7 @@ This page does some basic text replacement to format generic LaTeX to use my per
   const baseReplacements = [
     { pattern: /\\\)([,.])/gm, replaceWith: '$1\\\)' }, // Move punctuation inside equations.
     { pattern: /(?<=(?:[^$]\$[^$\n]+\$[^$\n]*)*)(?:(?<start_of_equation>\$[^$\n]+)\$(?<puncuation>[.,]))/gm, replaceWith: '$<start_of_equation>$<puncuation>$$' }, // Move punctuation inside equations.
-    { pattern: /::a(n) \(\cdots\)\\mathbb{R}/g, replaceWith: '\\reals' }, // Reals
+    { pattern: /\\mathbb{R}/g, replaceWith: '\\reals' }, // Reals
     { pattern: /\\mathbb{N}/g, replaceWith: '\\naturals' }, // Naturals
     { pattern: /\\left\\{\s*(.*?)\s*\\mid\s*(.*?)\s*\\right\\}/g, replaceWith: '\\setdef{$1 \\suchthat $2}' }, // setdef{ | } with left/right
     { pattern: /\\{\s*(.*?)\s*\\mid\s*(.*?)\s*\\}/g, replaceWith: '\\setdef{$1 \\suchthat $2}' }, // setdef{ | } w/o left/right
