@@ -15,12 +15,23 @@ This page does some basic text replacement to format generic LaTeX to use my per
       box-sizing: border-box; /* Include padding in the textarea's width */
       font-family: "Courier New", Courier, monospace, Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco;
       color: black;
+      box-sizing: border-box;
+      border-radius: 12px; /* Rounded corners */
   }
+  textarea[readonly] {
+      background-color: rgb(220, 222, 235); /* Override the gray background */
+      color: rgb(0, 0, 0);            /* Set text color to black */
+      opacity: 1;              /* Ensure full opacity */
+      border: 1px solid #ccc;   /* Optional: Add a standard border */
+      box-sizing: border-box;
+      border-radius: 0px; /* Rounded corners */
+  }
+
 </style>
 
 <!-- JFiddle development page: https://jsfiddle.net/pwintz/ej4nhzxw/13/ -->
 <h3>Input</h3>
-<textarea id="inputText" rows="8" placeholder="Enter LaTeX here..."></textarea>
+<textarea id="inputText" rows="8" placeholder="Enter LaTeX here..."></textarea> 
         
 <div>
   <label for="additionalReplacements">Convert <code>\(...\)</code> to <code>$...$</code>:</label>
@@ -33,137 +44,5 @@ This page does some basic text replacement to format generic LaTeX to use my per
 
 <h3>Output</h3>
 <textarea type="code" id="outputText" rows="20" readonly></textarea>
-<!-- <pre class="output" id="outputText" style="white-space: pre-wrap;""></pre> -->
 
-<script>				
-  // Hardcoded collection of regular expression patterns and their replacements
-  const baseReplacements = [
-    { pattern: /\\\)([,.])/gm, replaceWith: '$1\\\)' }, // Move punctuation inside equations.
-    { pattern: /(?<=(?:[^$]\$[^$\n]+\$[^$\n]*)*)(?:(?<start_of_equation>\$[^$\n]+)\$(?<puncuation>[.,]))/gm, replaceWith: '$<start_of_equation>$<puncuation>$$' }, // Move punctuation inside equations.
-    { pattern: /\\mathbb{R}/g, replaceWith: '\\reals' }, // Reals
-    { pattern: /\\mathbb{N}/g, replaceWith: '\\naturals' }, // Naturals
-    { pattern: /\\left\\{\s*(.*?)\s*\\mid\s*(.*?)\s*\\right\\}/g, replaceWith: '\\setdef{$1 \\suchthat $2}' }, // setdef{ | } with left/right
-    { pattern: /\\{\s*(.*?)\s*\\mid\s*(.*?)\s*\\}/g, replaceWith: '\\setdef{$1 \\suchthat $2}' }, // setdef{ | } w/o left/right
-    { pattern: /\\left\\{\s*(.*?)\s*\\right\\}/g, replaceWith: '\\setdef{$1}' }, // setdef{} w/ left/right
-    { pattern: /\\{\s*(.*?)\s*\\}/g, replaceWith: '\\setdef{$1}' }, // setdef{} w/o left/right
-    { pattern: /\\operatorname{dom}/g, replaceWith: '\\dom' }, // Function domain
-    { pattern: /\\rightarrow/g, replaceWith: '\\to' }, // rightarrow -> to, // Reals
-    { pattern: /\\leadsto/g, replaceWith: "\\setvaluedto" }, // prime notation
-    { pattern: /\\rightrightarrows/g, replaceWith: "\\setvaluedto" }, // prime notation
-    { pattern: /\^\{-1}/g, replaceWith: "\\invs" },  
-    { pattern: /\^\\top/g, replaceWith: "\\trans" },
-    { pattern: /\^\{\\top}/g, replaceWith: "\\trans" },
-    { pattern: /\^\{T}/g, replaceWith: "\\trans" },
-    { pattern: /\^T/g, replaceWith: "\\trans" },
-    { pattern: /\^\{\\prime}/g, replaceWith: "'" }, // prime notation
-    { pattern: /\\bar\{(.*?)\}/g, replaceWith: '\\overline\{$1\}' }, // Bar -> Overline
-    { pattern: /\\mathcal\{([A-Z])\}/g, replaceWith: '\\cal$1' }, // caligraph letters
-    { pattern: /\\left\\{\\begin{array}{l}(.*)\\end{array}\\right\./gs, replaceWith: '\\begin{cases}$1\\end{cases}' }, // Cases environment
-    // Remove extra space MathPix sometimes inserts before sub- and superscripts
-    { pattern: /\s[_^]/g, replaceWith: '_' },  
-    // Matrices
-    { pattern: /\\left\[\\begin{array}{[clr]+}(.*?)\\end{array}\\right]/sg, replaceWith: '\\begin{bmatrix}$1\\end{bmatrix}'},
-    // Remove extra space MathPix sometimes inserts before sub- and superscripts 
-    { pattern: /(?:\\left\(\s*(.*?)\s*\\right\)|(?<!\\left)\(\s*(.*?)\s*(?<!\\right)\)|(\S+)(?<!\\right\))(?<!\)))[\ \t]*\\cdot[\ \t]+(?:\\left\(\s*(.*?)\s*\\right\)|(?<!\\left)\(\s*(.*?)\s*(?<!\\right)\)|(?!\\left\()(?!\()(\S+))/g, replaceWith: '\\ip{$1$2$3}{$4$5$6}' }
-  ];
-  
-  const additionalReplacements = [
-      { pattern: /\\\((.*?)\\\)/g, replaceWith: '$$$1$$' }
-  ];
-
-  {% raw %} // <- needed so we can match cloze deletions which are marked by {{...}} 
-  const removeClozeReplacements = [
-      { pattern: /{{c[1-9]::(.*?)(?:::.*?)?}}/g, replaceWith: '$1' }
-  ];
-  {% endraw %}
-
-  // Function to apply the replacements
-  function applyReplacements(text, includeAdditional, isRemoveClozeReplacements) {
-      baseReplacements.forEach(replacement => {
-          text = text.replace(replacement.pattern, replacement.replaceWith);
-      });
-  
-      if (includeAdditional) {
-          additionalReplacements.forEach(replacement => {
-              text = text.replace(replacement.pattern, replacement.replaceWith);
-          });
-      }
-
-      if (isRemoveClozeReplacements) {
-        removeClozeReplacements.forEach(replacement => {
-          text = text.replace(replacement.pattern, replacement.replaceWith);
-        });
-      }
-  
-      return text;
-  }
-  
-  // Function to update the output text
-  function updateText() {
-      const inputText = document.getElementById('inputText').value;
-      const includeAdditional = document.getElementById('additionalReplacements').checked;
-      const removeClozeReplacements = document.getElementById('removeClozeReplacements').checked;
-      const outputText = applyReplacements(inputText, includeAdditional, removeClozeReplacements);
-      
-      // Display the result
-      document.getElementById('outputText').textContent = outputText;
-  }
-  
-  // Event listeners for real-time updates
-  document.getElementById('inputText').addEventListener('input', updateText);
-  document.getElementById('additionalReplacements').addEventListener('change', updateText);
-  document.getElementById('removeClozeReplacements').addEventListener('change', updateText);
-
-//   // TESTING
-//     // For the sake of testing, modify the string and run "updateText()".
-//     document.getElementById('inputText').innerHTML = 
-// `\\(\\), \\(\\). 
-// a & \\cdots & \\vec{q}_n^{\\top} 
-// \\left\\{v \\mid \\lim _{h \\rightarrow 0+} d_K(x+h v) / h=0\\right\\}
-// \\{v \\mid \\lim _{h \\rightarrow 0+} d_K(x+h v) / h=0\\}
-// \\left\\{\\lim _{h \\rightarrow 0+} d_K(x+h v) / h=0\\right\\}
-// \\{\\lim _{h \\rightarrow 0+} d_K(x+h v) / h=0\\}
-// a^{\\top}
-// ( alkjd ) \\cdot (al aldskfj )
-// \\left(alsdk j\\right) \\cdot \\left( alsdfjk \\right)
-// (aldskfj) \\cdot alfkasdlfj
-// 
-// \\left[\\begin{array}{ccccc}
-// A_v & 0 & \\ldots & & 0 \\\\
-// A_d & A_v & 0 & \\ldots & 0 \\\\
-// \\cdots & \\ldots & \\ldots & \\ldots & \\\\
-// 0 & \\cdots & 0 & A_d & A_v
-// \\end{array}\\right]\\left[\\begin{array}{l}
-// X_1 \\\\
-// X_2 \\\\
-// \\cdots \\\\
-// X_n
-// \\end{array}\\right
-// 
-// f: \\mathbb{R} \\rightarrow \\mathbb{N}
-// f^{-1}(A) = \\{x \\mid f(x) \\in A\\}
-// F : \\mathbb{Q} \\leadsto \\mathcal{A}
-// \\operatorname{dom} f = 
-// Let \\(C \\subset \\mathbb{R}^n\\) be a convex set and let \\(x \\notin \\bar{C}.\\) Then there exists \\(v \\in \\mathbb{R}^n\\) and \\(\\varepsilon>0\\) such that
-// \\[
-// \\left\\{\\begin{array}{l}
-// \\text { i) } \\quad F^{-1}(M):=\\{x \\mid F(x) \\cap M \\neq \\emptyset\\} \\\\
-// \\text { ii) } \\quad F^{+1}(M):=\\{x \\mid F(x) \\subset M\\}
-// \\end{array}\\right.
-// \\]
-// \\(\\liminf _{i \\rightarrow \\infty} S\\left(x_i\\right)\\)
-// \\[
-// v \\cdot y \\leq v \\cdot x-\\varepsilon \\quad \\forall y \\in C
-// \\]
-// 
-// Theorem A.16. The following are equivalent for a function \\(f:[a, b] \\rightarrow \\mathbb{R}\\) :
-// (a) \\(f\\) is absolutely continuous on \\([a, b]\\).
-// (b) \\(f\\) is differentiable at almost every \\(t \\in[a, b]\\), its derivative function \\(f^{\\prime}:[a, b] \\rightarrow \\mathbb{R}\\) is
-// 
-// Definition 2.1 A set-valued \\(\\operatorname{map} F: X \\leadsto Z\\) is upper semicontinuous (usc) at \\(x \\in X\\) when for every open set \\(U \\subset Z\\) such that \\(F(x) \\subset U\\) there exists a neighborhood \\(V\\) of \\(x\\) such that \\(F(V) \\subset U\\). We say that \\(F\\) is upper semicontinuous (usc) when it is usc at every point in \\(X\\).
-// \\(F: X \\leadsto Z\\) is lower semicontinuous of \\(x\\) such that \\(V \\subset F^{-1}(U)\\).
-// 
-// `
-//     updateText()
-//   // END TESTING
-</script>
+<script src="/assets/js/latex_code_translation.js"></script>
