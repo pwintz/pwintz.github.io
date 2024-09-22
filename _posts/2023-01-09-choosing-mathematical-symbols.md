@@ -341,7 +341,7 @@ There are conventions for notating certain types of mathematical objects. The fo
 </tr>
 <tr>
   <td>Vector</td>
-  <td>$x, \mathbf{x}, \vec{x}, \underline{x}$. In texts where students are newly acquainted to vectors, $\mathbf{x}$ or $\vec x$ is commonly used. The notation $\vec x$ has the advantage that it can easily be written by hand, but it makes equations more cluttered, especially when other annotations are added, such as $\dot{\vec{\widetilde{x}}}$. In advanced texts, $x$ is almost always used.
+  <td>$x$ (<code>x</code>), $\boldsymbol{x}$ (<code>\boldsymbol{x}</code>), $\mathbf{x}$ (<code>\mathbf{x}</code>), $\vec{x}$ (<code>\vec{x}</code>), $\underline{x}$ (<code>\underline{x}</code>). In texts where students are newly acquainted to vectors, $\mathbf{x}$ or $\vec x$ is commonly used. The notation $\vec x$ has the advantage that it can easily be written by hand, but it makes equations more cluttered, especially when other annotations are added, such as $\dot{\vec{\widetilde{x}}}$. In advanced texts, $x$ is almost always used.
   </td>
 </tr>
 <tr>
@@ -391,9 +391,9 @@ There are conventions for notating certain types of mathematical objects. The fo
   <td>
     Abbreviated: $1, 1/2, 1/3, \dots;$<br>
     Sequence notation: $\{s_j\}_{j=1}^\infty;$<br>
-    Juxtaposition (as a squence of heads/tails is represented in probability): $HHTHT;$<br>
+    Juxtaposition (as a squence of heads/tails is represented in probability): $\text{HHTHT};$<br>
     Recursive: $x_{k+1} = r(1-x_k),$<br>
-    Function: $i \mapsto = 1/i.$ 
+    Function: $i \mapsto 1/i.$ 
   </td>
 </tr>
 </table>
