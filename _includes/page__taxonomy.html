@@ -1,3 +1,15 @@
+{% if page.collection %}
+    <p class="page__taxonomy">
+      <strong><i class="fas fa-fw fa-folder" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].collection_label | default: "Collection:" }} </strong>
+      <span itemprop="keywords">
+        <a href="{{ page.collection | relative_url }}" class="page__taxonomy-item p-category" rel="tag">
+          <!-- Show the collection name in sentence case and unslugify by converting dashes and underscores to spaces.-->
+          {{ page.collection | capitalize | replace: "-", " " | replace: "_", " " }}
+        </a>
+      </span>
+    </p>
+{% endif %}
+
 {% if site.tag_archive.type and page.tags[0] %}
   {% include tag-list.html %}
 {% endif %}
