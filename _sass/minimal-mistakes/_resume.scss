@@ -102,6 +102,13 @@
       color: inherit;         /* Inherit text color */
   }
 
+  a[href^='http://']:after,
+  a[href^='https://']:after,
+  a[href^='ftp://']:after {
+    // Override _print.scss, which inserts the URL of a hyperlink into printed text.
+    content: "";
+  }
+
   p {
       margin: 0.2em 0; /* Tight margin for paragraphs */
   }
