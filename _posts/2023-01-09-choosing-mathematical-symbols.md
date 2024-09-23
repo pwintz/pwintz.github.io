@@ -437,7 +437,12 @@ For this reason, I prefer to simply underline $x$ for the lower bound and overli
 
 $$\underline{x} \leq x \leq \overline{x}.$$
 
-This notation is (1) simple, (2) visually descriptive, and (3) does not require chosing new symbols for every upper and lower bound that is introduced. There are cases where $\overline{x}$ can cause confusing, however. Namely, if $x$ is a complex number, then $\overline{x}$ could be read as the complex conjugate.
+This notation is (1) simple, (2) visually descriptive, and (3) does not require choosing new symbols for every upper and lower bound that is introduced. There are cases where $\overline{x}$ can cause confusing, however. Namely, if $x$ is a complex number, then $\overline{x}$ could be read as the complex conjugate.
+
+# Finding Symbols Based on Appearance
+There are far too many symbols to possibly know all of them. 
+In cases when you know how symbol looks and wish to recover the LaTeX code, you can use [Detexify](https://detexify.kirelabs.org/classify.html) and the [Mathpix Snipping Tool](https://mathpix.com/).
+To browse through available symbols, the [Comprehensive Latex Symbol List](https://www.ctan.org/tex-archive/info/symbols/comprehensive/) provides a massive list of symbols.
 
 # References 
 [1] Norman E. Steenrod, Paul R. Halmos, Menahem M. Schiffer, and Jean A. Dieudonné, _How to Write Mathematics_. 1973.
