@@ -1,7 +1,8 @@
 ---
-layout: single
+layout: resume 
 permalink: /resume
 title: Résumé
+tagline: PhD Candidate. Mathematician. Educator. Musician. Artist. 
 schools:
   - name: University of California, Santa Cruz
     gpa: 3.93
@@ -43,16 +44,16 @@ schools:
       - Phi Theta Kappa Honor Society
       
 employers: 
-- name: UC, Santa Cruz
+- name: University of California, Santa Cruz
   jobs:
     - title: Graduate Student Researcher
       start-date: Spring 2021
-      end-date:
+      end-date: 
     - title: Graduate Student Instructor for AM 10 (Linear Algebra)
       dates: Winter 2024
-      highlights:
-      - Taught a class of over 230 students.
-      - Received overwhelmingly positive feedback from students.
+      #highlights:
+      # - Taught over 230 students.
+      # - Received overwhelmingly positive feedback from students.
     - title: Teaching Assistant
       start-date: Summer 2019
       end-date: Winter 2020
@@ -74,11 +75,15 @@ employers:
       end-date: Spring 2016 
 
 other-activities:
-- name: GSA Grad Student Representative for Advisory Committee on Campus Transportation and Parking (ACCTP)
-  dates: Winter 2024-Present
+- name: Advisory Committee on Campus Transportation and Parking
+  jobs: 
+    - title: Graduate Student Association representative 
+      dates: Winter 2024-Present
   highlights: 
     - Reviewed and advised campus transportation plans. 
-    - Developed proposal for a dedicated bus lane on UCSC campus.
+    #- Developed proposal for a dedicated bus lane on UCSC campus.
+- name: ComedySportz Improv 
+  start-date: Summer 2022
 - name: Fencing
   dates: 2004-2014,  2018-Present
   highlights: 
@@ -91,8 +96,6 @@ other-activities:
   dates: Fall 2023-Present
   highlights: 
     - Organized department social events for graduate students and faculty. 
-- name: ComedySportz Improv 
-  start-date: Summer 2022
 - name: Project Mexico and St. Innocent's Orphanage
   dates: 2017, 2018, 2019
   jobs: 
@@ -120,12 +123,50 @@ other-activities:
 
 ---
 
+<!-- <script src="/assets/js/html2pdf.bundle.min.js">
+</script> -->
+
+<div class="header-box">
+  <!-- <img src="{{ site.author.avatar }}" alt="{{ site.author.name }}" style="width: 150px; border-radius: 50%;"> -->
+  <h1>{{ site.author.name }}</h1>
+  <p>{{page.tagline}}</p>
+  <!-- <p>{{ site.author.bio }}</p> -->
+  
+  <div class="contact-info">
+    <i class="fas fa-envelope"></i>&nbsp;
+    
+
+    {% comment %}
+      {% capture email_address %}{% include my_email_address.html %}{% endcapture %}
+    {% endcomment %}
+    {% if email_address %}
+    {% else %}
+      {% capture email_address %}{{site.author.email}}{% endcapture %}
+    {% endif %}
+    {% if email_address %}
+    <a href="mailto:{{ email_address }}" style="margin-right: 10px;">{{ email_address | replace: "+ws", ""}}</a>
+    {% endif %}
+
+    {% comment %}
+    <!-- Insert Phone Number -->
+    {% capture phone_number %}{% include my_phone_number.html %}{% endcapture %}
+    {% if phone_number %}
+    <!-- In order to keep my phone number off of the internet, I make a template that is ignored by Git. Thus, to generate a PDF of my resume, I host my website locally. -->
+      <i class="fas fa-phone"></i>&nbsp;<span  style="margin-right: 10px;">{{ phone_number }}</span>
+    {% endif %}
+    {% endcomment %}
+
+    <!-- Insert URL for Website -->
+    <i class="fas fa-home"></i>&nbsp;<a style="margin-right: 10px;" href="https://paulwintz.com">paulwintz.com</a>
+  </div>
+</div>
+
 <h2>Education</h2>
 {% assign schools = page.schools %}
 {% for school in schools %}
 
-  <div class="schoolitem" style="width: 100%;">
-    <table class="schoolheader", style="width: 100%;">
+  <div class="schoolitem">
+    <table class="schoolheader">
       <tr>
         <td style="text-align: left;"><span class="schoolname">{{ school.name }}</span> —&nbsp;<span class="schoolgpa">{{ school.gpa }}&nbsp;GPA</span></td>
         <td style="text-align: right;"><span class="resumedate">{{ school.start-date | date: "%B %Y" }}-{{ school.end-date | date: "%B %Y" | default:"Present"}}</span></td>
@@ -134,7 +175,7 @@ other-activities:
   </div>
   <div class="schoolcontent">
     {% for item in school.items %}
-    <table class="degreeitem", style="width: 100%;">
+    <table class="degreeitem">
       <tr>
         <td style="text-align: left;"><span class="degreename">
             {{ item.name }}</span>
@@ -157,8 +198,8 @@ other-activities:
 {% assign employers = page.employers %}
 {% for employer in employers %}
 
-  <div class="employeritem" style="width: 100%;">
-    <table class="employerheader", style="width: 100%;">
+  <div class="employeritem">
+    <table class="employerheader">
       <tr>
         <td style="text-align: left;"><span class="employername">
           {{ employer.name }}
@@ -168,7 +209,7 @@ other-activities:
   </div>
   <div class="employercontent">
     {% for job in employer.jobs %}
-    <table class="degreeitem", style="width: 100%;">
+    <table class="degreeitem">
       <tr>
         <td style="text-align: left;"><span class="degreename">
             {{ job.title }}</span>
@@ -195,8 +236,8 @@ other-activities:
 {% assign other-activities = page.other-activities %}
 {% for activity in other-activities %}
 
-  <div class="activityitem" style="width: 100%;">
-    <table class="activityheader", style="width: 100%;">
+  <div class="activityitem">
+    <table class="activityheader">
       <tr>
         <td style="text-align: left;"><span class="activityname">
           {{ activity.name }}
@@ -213,7 +254,7 @@ other-activities:
   </div>
   <div class="activitycontent">
     {% for job in activity.jobs %}
-    <table class="degreeitem", style="width: 100%;">
+    <table class="degreeitem">
       <tr>
         <td style="text-align: left;"><span class="degreename">
             {{ job.title }}</span>
@@ -236,6 +277,6 @@ other-activities:
   </div>
 {% endfor %}
 
-<h2>Publications</h2>
+<!-- <h2>Publications</h2>
 
-{% include publication_list.html %}
+{% include publication_list.html %} -->

@@ -106,8 +106,8 @@ analytics:
 author:
   name             : "Paul Wintz"
   avatar           : "assets/images/paul.jpg"
-  bio              : "Paul Wintz is a PhD candidate in Applied Math at UC, Santa Cruz."
-  location         : "Santa Cruz, California"
+  bio              : "PhD candidate in Applied Mathematics."
+  location         : "University of California, Santa Cruz"
   email            : &email pwintz+ws@ucsc.edu
   links:
     # - label: "Email"

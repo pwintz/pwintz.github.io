@@ -2,20 +2,37 @@
    Resume
 ========================================================================== */
 
+.header-box {
+  text-align: center; padding: 20px;
+}
+
 .schoolitem, .employeritem, .degreeitem, .activityitem {
+  width: 100%;
   line-height: 1.2em;
+  padding: 0em;
+  margin: 0em;
+  margin-bottom: 0.5em;
+  td {
+    border-bottom: 0;
+    padding: 0;
+    // margin: 0;
+  }
 }
 
 .schoolheader, .employerheader, .activityheader {
   padding: 0;
+  width: 100%;
   table {
     margin-top: 0em;
-    margin-bottom: 0em;
+    margin-bottom: 10em;
+    border: none; /* Remove any borders */
   }
   td {
     padding-left: 0;
+    border: none; /* Remove any borders */
   }
 }
+
 .schoolcontent, .employercontent, .activitycontent {
   margin-top: 0em;
   margin-bottom: 1.2em;
@@ -39,17 +56,71 @@
   font-style: italic;
 }
 
-.degreeitem {
-  padding: 0em;
-  margin: 0em;
-  margin-bottom: 0.5em;
-  td {
-    border-bottom: 0;
-    padding: 0;
-    // margin: 0;
-  }
-}
-
 .degreename {
 
+}
+
+@media print {
+  .page .page__inner-wrap {
+    margin-top: 0em;
+  }
+  
+  .header-box {
+    padding: 8px;
+  }
+
+  h1, h2, h3 {
+      margin: 0.5em 0; /* Small margin for headings */
+  }
+
+  h1 {
+      font-size: 20px; /* Slightly larger for headings */
+  }
+
+  .schoolheader, .employerheader, .activityheader {
+    font-size: 14px;
+  }
+
+  h2 {
+      font-size: 18px; /* Slightly larger for headings */
+  }
+
+  h3 {
+      font-size: 14px; /* Slightly larger for headings */
+  }
+    
+  body {
+      font-size: 10px; /* Small font size */
+      line-height: 1.2; /* Tight line spacing */
+      font-family: Arial, sans-serif; /* Professional font */
+      margin: 0; /* Remove default margins */
+      padding: 0; /* Remove default padding */
+  }
+  
+  a {
+      text-decoration: none;  /* Remove underline */
+      color: inherit;         /* Inherit text color */
+  }
+
+  p {
+      margin: 0.2em 0; /* Tight margin for paragraphs */
+  }
+
+  ul, ol {
+      margin: 0; /* Remove default margin */
+      padding-left: 1em; /* Indent list items */
+      font-size: 10px; /* Consistent font size for lists */
+  }
+
+  li {
+      margin: 0.1em 0; /* Tight margin for list items */
+  }
+
+  
+  table {
+    border: none; /* Remove any borders */
+  }
+  td {
+    border: none; /* Remove any borders */
+  }
 }
