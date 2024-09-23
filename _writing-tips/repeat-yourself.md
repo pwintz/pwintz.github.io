@@ -21,7 +21,7 @@ Here are key principles to doing this well:
 1. After introducing a concept, provide an example that illustrates it. 
 <!-- How to construct good examples merits its own article.  -->
 Ideally, pick one or more examples of the concept along with a non-example that the readers might mistakenly expect be an example. 
-1. Before an equation, say in words what the equation says in math. _For example_, instead of writing, "We have that $\dot T = -\lambda T$," we might write, "The rate of change of the temperature is $\dot T = -\lambda T$." (This also allows you to [avoid starting sentences](/writing-tips/dont-start-sentence-with-math) with an equation without resorting to filler phrases like, "We have that…".)
+1. Before an equation, say in words what the equation says in math. _For example_, instead of writing, "We have that $\dot T = -\lambda T$," we might write, "The rate of change of the temperature is $\dot T = -\lambda T$." (This also allows you to [avoid starting sentences with an equation](/writing-tips/dont-start-sentence-with-math) without resorting to filler phrases like, "We have that…".)
 1. [Choose notation](/mathematical-writing/choosing-mathematical-symbols/) that reinforces the meaning of the symbols. For example, using $r$ for radius or consistently using bold letters for vectors (e.g., $\boldsymbol{x},\boldsymbol{y},\boldsymbol{z}$) are subtle ways to indicate to readers what their meanings are.
 1. In computer code, include comments that say what the code does.
 1. When space permits, include diagrams. "A picture is worth a thousand words."
