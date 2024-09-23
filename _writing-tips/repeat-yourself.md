@@ -2,8 +2,8 @@
 layout: single
 title: |
     Repeat Yourself
-excerpt: 
-permalink: permalink/repeat-information
+excerpt: When saying something important and difficult to understand, find ways to repeat the information in different ways. 
+# permalink: permalink/repeat-yourself
 tags: clarity
 ---
 
