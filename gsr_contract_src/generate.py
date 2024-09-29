@@ -106,8 +106,8 @@ def generate_tooltip_to_show_meaning(term_key, alternate_matches=[]):
   substitute = '\\1<span class="tooltip">\\2<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "' + term_key + '" %}{{ tooltip_term[0]["Meaning"] }}</span></span>'
 
   plural_suffix = "(?:s|es)?"
-  match_str = f"{plural_suffix}|".join([term_key] + alternate_matches) + plural_suffix
-  return (rf'^([^#].*?)(?i)\b({match_str})\b', substitute)
+  match_str = f"|".join([term_key] + alternate_matches)
+  return (rf'(?i)^([^#].*?)\b((?:{match_str}){plural_suffix})', substitute)
 
 tooltip_replacements = [
   # generate_tooltip_to_show_meaning("Memorandum of understanding"),
@@ -115,7 +115,7 @@ tooltip_replacements = [
   # generate_tooltip_to_show_meaning("graduate student researcher", ["GSR"]),
   generate_tooltip_to_show_meaning("Higher Education Employer-Employee Relations Act", ["HEERA", "Higher Education Employee Employer Relations Act"]),
   generate_tooltip_to_show_meaning("Public Employment Relations Board", ["PERB"]),
-  generate_tooltip_to_show_meaning("UC Office of the President", ["UCOP", "Office of the President"]),
+  # generate_tooltip_to_show_meaning("UC Office of the President", ["UCOP", "Office of the President"]),
   generate_tooltip_to_show_meaning("Nonresident Supplemental Tuition", ["NRST"]),
   generate_tooltip_to_show_meaning("UC Retirement Plan", ["UCRP"])
   # generate_tooltip_to_show_meaning("Public Employment Relations Board", ["PERB"]),

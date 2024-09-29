@@ -64,11 +64,11 @@ A grievant may file a written grievance as set forth below.
 <div class="lvl3"><b>b)</b> If the UAW requested a meeting on the grievance form, or if the University requests a meeting, the campus labor relations office shall convene a meeting with the grievant(s) and the grievant's representative, if any, to attempt to resolve the grievance. The meeting shall be convened no later than fifteen (15) calendar days following receipt of the Step 2 grievance filing. During the Step 2 meeting, the parties shall discuss information and contentions relative to the grievance.</div>
 <div class="lvl3"><b>c)</b> A written decision shall be issued within fifteen (15) calendar days following the Step 2 meeting, or receipt of the Step 2 grievance filing if it is agreed that no meeting will be held. If the University does not respond within the time limit, the procedures below will apply.</div>
 
-### 3.  Step 3-Review (<span class="tooltip">Office of the President<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "UC Office of the President" %}{{ tooltip_term[0]["Meaning"] }}</span></span>)
-<div class="lvl3"><b>a)</b> If the grievance has not been resolved at Step 2, the grievant and/or the grievant's representative may file an appeal in writing to the <span class="tooltip">Office of the President<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "UC Office of the President" %}{{ tooltip_term[0]["Meaning"] }}</span></span>. Such appeal must be received by the Office of the President no later than fifteen (15) calendar days after the issuance of the University's Step 2 response, or the date on which the Step 2 response would have been due.</div>
+### 3.  Step 3-Review (Office of the President)
+<div class="lvl3"><b>a)</b> If the grievance has not been resolved at Step 2, the grievant and/or the grievant's representative may file an appeal in writing to the Office of the President. Such appeal must be received by the Office of the President no later than fifteen (15) calendar days after the issuance of the University's Step 2 response, or the date on which the Step 2 response would have been due.</div>
 <div class="lvl3"><b>b)</b> An appeal to Step 3 shall be accomplished as follows:</div>
 <div class="lvl4">  I. 
- Email to AppealAGrievance@<span class="tooltip">ucop<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "UC Office of the President" %}{{ tooltip_term[0]["Meaning"] }}</span></span>.edu.</div>
+ Email to AppealAGrievance@ucop.edu.</div>
 
 <div class="lvl2"><b>1)</b> Email submissions must include PDFs of all documents, information and signatures necessary to be in compliance with the Grievance Procedure provisions of this Agreement.</div>
 <div class="lvl2"><b>2)</b> The date of filing for emailed Appeals to Step 3 shall be the date received on the University server, provided that the appeal is received during business hours. If a Step 3 appeal is received outside of normal business hours, the first following business day will be deemed the filing date of the Appeal to Step 3.</div>
@@ -78,11 +78,11 @@ A grievant may file a written grievance as set forth below.
 <div class="lvl4">  III. 
  The University must assert any and all known arbitrability issues no later than the date the Step 3 Decision is issued.</div>
 <div class="lvl4">  IV. 
- The <span class="tooltip">UCOP<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "UC Office of the President" %}{{ tooltip_term[0]["Meaning"] }}</span></span> official or the UCOP official's designee shall issue the University's Step 3 decision within thirty (30) calendar days of the receipt of the appeal. Proof of Service shall accompany the written decision. The Step 3 decision shall be served upon the grievant and/or the grievant's representative.</div>
+ The UCOP official or the UCOP official's designee shall issue the University's Step 3 decision within thirty (30) calendar days of the receipt of the appeal. Proof of Service shall accompany the written decision. The Step 3 decision shall be served upon the grievant and/or the grievant's representative.</div>
 <div class="lvl4">  V. 
- The <span class="tooltip">UCOP<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "UC Office of the President" %}{{ tooltip_term[0]["Meaning"] }}</span></span> official or the UCOP official's designee shall have the authority to settle grievances appealed to Step 3.</div>
+ The UCOP official or the UCOP official's designee shall have the authority to settle grievances appealed to Step 3.</div>
 <div class="lvl1"><b>D.</b> Attendance at the Step meetings held pursuant to Section C. are limited to the grievant, the grievant's representative, if any, and one other individual from UAW. Advanced requests for additional attendees to present directly relevant information pertaining to the grievance shall not be unreasonably denied.</div>
-<div class="lvl1"><b>E.</b> In the event the union alleges a contract violation as a direct result of an <span class="tooltip">Office of the President<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "UC Office of the President" %}{{ tooltip_term[0]["Meaning"] }}</span></span> action, the grievance shall be filed directly at the Office of the President within thirty (30) calendar days from the following instances, whichever occurs first: </div>
+<div class="lvl1"><b>E.</b> In the event the union alleges a contract violation as a direct result of an Office of the President action, the grievance shall be filed directly at the Office of the President within thirty (30) calendar days from the following instances, whichever occurs first: </div>
 <div class="lvl3"><b>a)</b> the date the event/action which gave rise to the grievance occurred, or </div>
 <div class="lvl3"><b>b)</b> the date on which either the grievant or their representative knew or should have known of the alleged violation of the Agreement. At the time of filing, the UAW must provide specific evidence that the violation is occurring on multiple campuses.</div>
 <div class="lvl1"><b>F.</b> Failure by the UAW to comply with the time limits set forth herein shall render the grievance ineligible for further processing or appeal, and the grievance shall be considered closed.</div>
@@ -100,7 +100,7 @@ The parties will endeavor to schedule grievance meetings that do not conflict wi
 
 ### 1.  Content
 
-An appeal to arbitration may be made only by the UAW and only after the timely exhaustion of the grievance procedure. The written appeal to arbitration must be received by the <span class="tooltip">Office of the President<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "UC Office of the President" %}{{ tooltip_term[0]["Meaning"] }}</span></span>, with a copy to the campus labor relations office of origin, within forty-five (45) calendar days of the date of issuance of the final University decision to the UAW. The written appeal must be signed by an authorized representative of the UAW and must include:
+An appeal to arbitration may be made only by the UAW and only after the timely exhaustion of the grievance procedure. The written appeal to arbitration must be received by the Office of the President, with a copy to the campus labor relations office of origin, within forty-five (45) calendar days of the date of issuance of the final University decision to the UAW. The written appeal must be signed by an authorized representative of the UAW and must include:
 <div class="lvl3"><b>a)</b> The name and address of the UAW representative who is responsible for the appeal to arbitration and to whom all correspondence relating to the arbitration is to be sent;</div>
 <div class="lvl3"><b>b)</b> a copy of the completed grievance form; and a statement setting forth the unresolved issue(s), the articles and sections of the agreement alleged to have been violated, and the remedy requested.</div>
 <div class="lvl3"><b>c)</b> If a grievance is not appealed to arbitration, the University's Step 3 response shall be final.</div>
@@ -108,7 +108,7 @@ An appeal to arbitration may be made only by the UAW and only after the timely e
 ### 2.  Procedure
 
 An appeal to arbitration shall be made in the following way:
-Email to AppealAGrievance@<span class="tooltip">ucop<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "UC Office of the President" %}{{ tooltip_term[0]["Meaning"] }}</span></span>.edu:
+Email to AppealAGrievance@ucop.edu:
 <div class="lvl3"><b>a.</b> 
  Email submissions must include PDFs of all documents, information and signatures necessary to be in compliance with the Arbitration provisions of this Agreement.</div>
 <div class="lvl3"><b>b.</b> 
@@ -118,7 +118,7 @@ Email to AppealAGrievance@<span class="tooltip">ucop<span class="tooltip-text">{
 
 ## K.  SELECTION OF THE ARBITRATOR/PRE-ARBITRATION CONFERENCE
 
-<div class="lvl2"><b>1.</b> The UAW representative shall contact the designated University official at the <span class="tooltip">Office of the President<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "UC Office of the President" %}{{ tooltip_term[0]["Meaning"] }}</span></span> within thirty (30) calendar days of the appeal to arbitration in order to select an arbitrator from the panels set forth in Appendix B. The arbitrator shall be selected within forty-five (45) calendar days from the date of the appeal. Failure to contact the designated University official within the established time frame shall constitute a withdrawal of the appeal to arbitration.</div>
+<div class="lvl2"><b>1.</b> The UAW representative shall contact the designated University official at the Office of the President within thirty (30) calendar days of the appeal to arbitration in order to select an arbitrator from the panels set forth in Appendix B. The arbitrator shall be selected within forty-five (45) calendar days from the date of the appeal. Failure to contact the designated University official within the established time frame shall constitute a withdrawal of the appeal to arbitration.</div>
 <div class="lvl2"><b>2.</b> If the parties cannot agree to an arbitrator from the panels, the parties shall alternately strike one name each from the list of statewide panel members. Unless the parties agree otherwise, the party selecting first shall be determined by the flip of a coin. The remaining name shall be designated as the arbitrator.</div>
 <div class="lvl2"><b>3.</b> At the Pre-Arbitration Conference, the parties shall:</div>
 <div class="lvl3"><b>a.</b> 
@@ -132,7 +132,7 @@ Email to AppealAGrievance@<span class="tooltip">ucop<span class="tooltip-text">{
 <div class="lvl2"><b>4.</b> At the time the University and the UAW schedule the Pre-Arbitration Conference, each party shall identify the names of the participants.</div>
 <div class="lvl2"><b>5.</b> If the arbitrability issues are not resolved, the parties shall set the dates for the briefing schedule, inform the arbitrator of the process for resolving arbitrability, and request provisional dates for a hearing on the merits should a hearing be needed. Such hearing shall take place after the arbitrator's decision on arbitrability and at least four weeks before the arbitrator's cancellation deadline.</div>
 <div class="lvl2"><b>6.</b> If arbitrability is resolved, but the merits are not settled, the matter shall go forward to a hearing.</div>
-<div class="lvl2"><b>7.</b> Following the Pre-Arbitration Conference, the <span class="tooltip">UCOP<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "UC Office of the President" %}{{ tooltip_term[0]["Meaning"] }}</span></span> Representative shall notify the Union whether the Office of the President shall remand the case to the location or retain the case at the Office of the President.</div>
+<div class="lvl2"><b>7.</b> Following the Pre-Arbitration Conference, the UCOP Representative shall notify the Union whether the Office of the President shall remand the case to the location or retain the case at the Office of the President.</div>
 <div class="lvl2"><b>8.</b> Within sixty (60) calendar days from selection, the parties shall attempt to agree to a hearing date, but if they are unable to agree, the authority for scheduling a hearing date shall reside with the arbitrator.</div>
 
 ## L.  BIFURCATION

@@ -25,6 +25,6 @@ Ideally, pick one or more examples of the concept along with a non-example that 
 1. [Choose notation](/mathematical-writing/choosing-mathematical-symbols/) that reinforces the meaning of the symbols. For example, using $r$ for radius or consistently using bold letters for vectors (e.g., $\boldsymbol{x},\boldsymbol{y},\boldsymbol{z}$) are subtle ways to indicate to readers what their meanings are.
 1. In computer code, include comments that say what the code does.
 1. When space permits, include diagrams. "A picture is worth a thousand words."
-1. Before or after a technical theorem, write an informal description of the theorem its important aspects. 
+1. Before or after a technical theorem, write an informal description of its important aspects. 
 1. Simply including a proof or derivation after a mathematical statement serves to reiterate the statement by building it up piece-by-piece.
 1. For statements that are composed of a mix of logical operators and quantifiers, it can sometimes be helpful to readers if you reiterate claims into logically equivalent statements. For example, "all $x$, $P(x)$ holds" can be rewritten as "there does not exist any $x$ such that $P(x)$." Similarly, "If $P$, then $Q$" can be written as its contrapositive.  

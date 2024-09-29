@@ -69,7 +69,7 @@ The University agrees to provide a voluntary check off for the UAW Voluntary Com
 <div class="lvl2"><b>13.</b> Deduction Codes: "D"= Dues; "IF" = Initiation Fee; "PA" = Political Action (VCAP)</div>
 <div class="lvl2"><b>14.</b> VCAP amount.</div>
 
-If the UAW is unable to resolve disputes at the campus level regarding Section E or F informally, they may raise such disputes at the <span class="tooltip">Office of the President<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "UC Office of the President" %}{{ tooltip_term[0]["Meaning"] }}</span></span>.
+If the UAW is unable to resolve disputes at the campus level regarding Section E or F informally, they may raise such disputes at the Office of the President.
 
 ## G.  FEES FOR PROVIDING PAYROLL DEDUCTIONS
 

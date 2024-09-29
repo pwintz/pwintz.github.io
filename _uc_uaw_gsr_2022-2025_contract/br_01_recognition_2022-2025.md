@@ -86,7 +86,7 @@ Anyone not defined as employees above are excluded from the unit, including, but
 <div class="lvl2"><b>2.</b> All employees of Lawrence Livermore National Laboratory and Los Alamos National Laboratory;</div>
 <div class="lvl2"><b>3.</b> All employees in title code CWR003 - Visiting Student Res-Graduate;</div>
 <div class="lvl2"><b>4.</b> All positions that are exclusively represented at the time of this petition;</div>
-<div class="lvl2"><b>5.</b> All staff positions covered by the University of California <span class="tooltip">Office of the President<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "UC Office of the President" %}{{ tooltip_term[0]["Meaning"] }}</span></span> Personnel Policies for Staff Members; and</div>
+<div class="lvl2"><b>5.</b> All staff positions covered by the University of California Office of the President Personnel Policies for Staff Members; and</div>
 <div class="lvl2"><b>6.</b> Students who receive funding, including financial aid awards, to pursue a course of study with no or de minimis service expectation imposed by the University, and whose receipt of these funds does not require the performance of service at the direction and control of the University.</div>
 
 <div class="lvl1"><b>D.</b> The parties may agree to modify the recognized unit pursuant to the rules and regulations of the <span class="tooltip">Public Employment Relations Board<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Public Employment Relations Board" %}{{ tooltip_term[0]["Meaning"] }}</span></span> (PERB).</div>
