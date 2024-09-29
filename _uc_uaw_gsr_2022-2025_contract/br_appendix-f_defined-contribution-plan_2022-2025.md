@@ -1,9 +1,7 @@
----
----
 # APPENDIX F <br> Academic Student Employees Participation in the Retirement Savings Program 
 
 Academic Student Employees are required to contribute to the University of California Defined Contribution Plan (DC Plan) as Safe Harbor participants unless they are students whose wages from University employment are exempt from taxation under the Federal
-Insurance Contribution Act (FICA) 1 and / or nonresident aliens with F-1 or J-1 visa status or whose wages are subject to foreign (i.e., their home country) taxes or contributions under a Social Security totalization agreement. Academic Student Employees contribute 7.5\% of gross salary to the University of California Defined Contribution Plan (up to Social Security wage base) in lieu of Social Security taxes, and are not eligible for membership in the University of California Retirement Plan (UCRP). They also contribute $1.45 \%$ of total gross earnings to Medicare.
+Insurance Contribution Act (FICA) 1 and / or nonresident aliens with F-1 or J-1 visa status or whose wages are subject to foreign (i.e., their home country) taxes or contributions under a Social Security totalization agreement. Academic Student Employees contribute 7.5\% of gross salary to the University of California Defined Contribution Plan (up to Social Security wage base) in lieu of Social Security taxes, and are not eligible for membership in the University of California Retirement Plan (<span class="tooltip">UCRP<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "UC Retirement Plan" %}{{ tooltip_term[0]["Meaning"] }}</span></span>). They also contribute 1.45% of total gross earnings to Medicare.
 
 In addition, the University of California's Retirement Savings Program (RSP) provides employees with a way to save voluntarily for their future. The RSP consists of three defined contribution plans: the Tax-Deferred 403(b) Plan, the 457(b) Deferred Compensation Plan, and the DC Plan. Students normally working less than 20 hours per week are not eligible to voluntarily participate in the RSP plans.
 
@@ -18,7 +16,7 @@ The myUCretirement.com website provides information and resources to help partic
 - Undergraduates - a minimum of six units.
 - Graduate students - the half-time enrollment requirement established at each campus.
 - Graduate students enrolled and approved for advancement to doctoral candidacy (i.e., Doctoral II students) are not subject to a units requirement during the academic year, as the preparation of a dissertation satisfiesthe half-time enrollment requirement.
-- Have a total active appointment percentage, including both fixed and variable appointments, of less than $8 \%$ time for the month or any partial period within the month.
+- Have a total active appointment percentage, including both fixed and variable appointments, of less than 8% time for the month or any partial period within the month.
 
 UC Proposal ASE Bargaining
 May 10, 2022
