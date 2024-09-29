@@ -54,6 +54,8 @@ header_replacements = [
   (r'^(\d\.)\ (.*)$',  
       f'<div class="lvl2"><b>\\1</b> \\2</div>'),
   (r'^(\ \ \d\))(.*)$',  
+      f'<div class="lvl3"><b>\\1</b> \n \\2</div>'), # Level 3,
+  (r'^(\ \ [a-z]\))(.*)$',  
       f'<div class="lvl3"><b>\\1</b> \n \\2</div>') # Level 3
 ]
 
@@ -69,7 +71,7 @@ tooltip_replacements = [
   # generate_tooltip_to_show_meaning("Memorandum of understanding"),
   generate_tooltip_to_show_meaning("Board of Regents", ["Board of Regents", "The Regents", "Regents"]),
   generate_tooltip_to_show_meaning("graduate student researcher", ["GSR"]),
-  generate_tooltip_to_show_meaning("Higher Education Employer-Employee Relations Act", ["HEERA"]),
+  generate_tooltip_to_show_meaning("Higher Education Employer-Employee Relations Act", ["HEERA", "Higher Education Employee Employer Relations Act"]),
   generate_tooltip_to_show_meaning("Public Employment Relations Board", ["PERB"]),
   generate_tooltip_to_show_meaning("UC Retirement Plan", ["UCRP"])
   # generate_tooltip_to_show_meaning("Public Employment Relations Board", ["PERB"]),

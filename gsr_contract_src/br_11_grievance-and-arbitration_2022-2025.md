@@ -7,7 +7,7 @@
 a) A campus' failure to provide GSR lists in accordance with Article 30 - Union Access and Rights, and Article 31 - Union Security.
 b) "Locking out" employees in accordance with Article 19 - No Strikes.
 c) Failure to provide the necessary information to the UAW as set forth in Article 31 - Union Security.
-3. A grievant shall have the right to be represented at all steps of the Grievance Procedure by the UAW, another representative, be selfrepresented or by any person of their choice other than a University employee who has been designated as supervisorial, managerial or confidential within the meaning of the Higher Education EmployeeEmployer Relations Act (HEERA). The grievant shall provide the University written notice of the name and contact information of their representative, if applicable. The grievant's representative may be assisted in grievance meetings by one other representative and/or, if applicable, a union representative.
+3. A grievant shall have the right to be represented at all steps of the Grievance Procedure by the UAW, another representative, be selfrepresented or by any person of their choice other than a University employee who has been designated as supervisorial, managerial or confidential within the meaning of the Higher Education Employee Employer Relations Act (HEERA). The grievant shall provide the University written notice of the name and contact information of their representative, if applicable. The grievant's representative may be assisted in grievance meetings by one other representative and/or, if applicable, a union representative.
 
 ## B. FILING GRIEVANCES
 
@@ -80,9 +80,9 @@ The parties will endeavor to schedule grievance meetings that do not conflict wi
 
 An appeal to arbitration may be made only by the UAW and only after the timely exhaustion of the grievance procedure. The written appeal to arbitration must be received by the Office of the President, with a copy to the campus labor relations office of origin, within forty-five (45) calendar days of the date of issuance of the final University decision to the UAW. The written appeal
 must be signed by an authorized representative of the UAW and must include:
-a) The name and address of the UAW representative who is responsible for the appeal to arbitration and to whom all correspondence relating to the arbitration is to be sent;
-b) a copy of the completed grievance form; and a statement setting forth the unresolved issue(s), the articles and sections of the agreement alleged to have been violated, and the remedy requested.
-c) If a grievance is not appealed to arbitration, the University's Step 3 response shall be final.
+  a) The name and address of the UAW representative who is responsible for the appeal to arbitration and to whom all correspondence relating to the arbitration is to be sent;
+  b) a copy of the completed grievance form; and a statement setting forth the unresolved issue(s), the articles and sections of the agreement alleged to have been violated, and the remedy requested.
+  c) If a grievance is not appealed to arbitration, the University's Step 3 response shall be final.
 
 ## 2. Procedure
 
