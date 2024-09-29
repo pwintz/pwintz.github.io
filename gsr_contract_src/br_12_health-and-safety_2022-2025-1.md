@@ -4,7 +4,7 @@
 
 1. The University and the UAW acknowledge that promoting and maintaining a safe and healthy workplace (in accordance with state and federal mandates, and University policies) is a shared responsibility.
 2. The University shall ensure GSRs have sufficient safety training, as determined by the Office of Environmental Health and Safety (EH\&S), regarding the safe handling of materials and/or equipment the researcher is required to work with in advance of performing the duties.
-3. All GSRs shall adhere to all health and safety policies and procedures and shall performtheir duties in a safe manner, including full participation in training and using appropriate health and safety equipment provided by the University in accordance with standard operating procedures.
+3. All GSRs shall adhere to all health and safety policies and procedures and shall perform their duties in a safe manner, including full participation in training and using appropriate health and safety equipment provided by the University in accordance with standard operating procedures.
 4. If a GSR believes there has been an exposure to an unsafe work environment and/or practice, the GSR has a responsibility to immediately report the issue to the supervisor and departmental safety designees without reprisal.
 5. Additionally, GSRs have the right to report health and safety issues to the EH\&S, University Risk Services, University Safety Committees, and/or to the appropriate regulatory agency, including CAL-OSHA.
 6. No GSR shall be retaliated against for identifying and/or expressing concern about any safety-related issue.
@@ -56,7 +56,7 @@ c. the procedures available to GSRs to abate or reportany unsafe or unhealthy wo
 
 ## G. PROTECTIVE CLOTHING AND EQUIPMENT
 
-1. General Provisions: Protective work clothing is attire worn over or in place of regular clothing to protect the GSR's clothing from damage or abnormal soiling or to maintain a sanitary environment and includes laboratory coats, shop coats, aprons, scrubs, and surgical gowns. Personal protective equipment protects the GSR and includes head covers, gloves, goggles, prescription safety glasses, respirators, and safety shoes. The provision of protective work clothing and personal protective equipment is determined by $E H \& S$.
+1. General Provisions: Protective work clothing is attire worn over or in place of regular clothing to protect the GSR's clothing from damage or abnormal soiling or to maintain a sanitary environment and includes laboratory coats, shop coats, aprons, scrubs, and surgical gowns. Personal protective equipment protects the GSR and includes head covers, gloves, goggles, prescription safety glasses, respirators, and safety shoes. The provision of protective work clothing and personal protective equipment is determined by EH&S.
 2. Replacement: Personal protective equipment, except prescription lenses and sized safety shoes, which were provided to a GSR by the University for use on the job, shall be returned upon completion of the assignment. University-provided items damaged or worn out in the performance of duties shall be repaired or replaced by the University. A GSR required to wear prescription safety glasses will pay for the medical eye examinations. The University shall supply the safety lenses and frames selected by the University.
 
 ## H. TOOLS AND EQUIPMENT

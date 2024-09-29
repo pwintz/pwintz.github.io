@@ -1,7 +1,8 @@
 ---
 article_number: 27
-article_name: Severability
-title: Article 27 - Severability
+article_name: Severability 
+title: Article 27 - Severability 
+permalink: /uaw/gsr-2022-2025-contract/article-27
 pdf_name: br_27_severability_2022-2025.pdf
 toc: True
 ---

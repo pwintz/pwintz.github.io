@@ -1,7 +1,8 @@
 ---
 article_number: 22
-article_name: Past Practice Not Covered By Agreement
-title: Article 22 - Past Practice Not Covered By Agreement
+article_name: Past Practice Not Covered By Agreement 
+title: Article 22 - Past Practice Not Covered By Agreement 
+permalink: /uaw/gsr-2022-2025-contract/article-22
 pdf_name: br_22_past-practice-not-covered_2022-2025.pdf
 toc: True
 ---

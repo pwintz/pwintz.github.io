@@ -1,6 +1,4 @@
-# ARTICLE 25 
-
-## REQUIRED TRAINING
+# ARTICLE 25 REQUIRED TRAINING
 
 A. Training that is required and authorized by the supervisor as a condition of employment shall be completed after the commencement of the appointment.
 B. Required and authorized training shall be associated with the GSR's employment.

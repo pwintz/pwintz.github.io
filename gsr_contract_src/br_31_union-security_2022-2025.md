@@ -3,11 +3,11 @@
 ## A. DUES AND INITIATION FEE
 
 1. The University shall deduct membership dues and standard initiation fee from the wages of Graduate Student Researchers upon notification from the UAW as provided in Section E. The University shall remit dues and standard initiation fee to the UAW on a monthly basis. The UAW will provide the University with the formula for calculating the dues and standard membership initiation fee. The UAW shall be responsible for any reasonable initial and ongoing programming and monthly processing costs associated with the implementation and maintenance of the union deduction program. In the event the UAW fails to pay the University in accordance with the foregoing, the University may withhold the appropriate amount from the monthly dues to the UAW provided for in this paragraph.
-2. For GSRs appointed to Fellowship/Trainee titles, in accordance with Article 1Recognition, dues deductions shall be implemented in accordance with the Dues Deductions Side Letter.
+2. For GSRs appointed to Fellowship/Trainee titles, in accordance with Article 1 Recognition, dues deductions shall be implemented in accordance with the Dues Deductions Side Letter.
 3. After the Dues Deduction Side Letter is implemented, in the event a GSR is paid directly from an external agency and from a GSR title or via a Fellowship/Trainee title, the Union Deductions required as a result of combining the gross earnings from both pay sources shall be deducted entirely from the portions of Employee or Fellowship/Trainee pay. In the event the pay is insufficient to cover the full amount of Union Deductions, the University shall deduct the maximum amount possible, and remit the amount of the deduction to the Union.
 4. Deduction Reporting Lists
 a. On a monthly basis, the University shall provide a list of Graduate Student Researchers (as described in Article 1 - Recognition, Section B. 1) by name, title code, department/hiring unit, total in-unit gross monthly pay, and amount deducted.
-b. One hundred and eighty (180) days following the ratification of this Agreement, the University shall provide this information for the Trainees and Fellows (as described in Article 1 - Recognition, Section B. 2 and 3).
+b. One hundred and eighty (180) days following the ratification of this Agreement, the University shall provide this information for the Trainees and Fellows (as described in Article 1 - Recognition, Section B.2 and 3).
 c. After the first list for the Trainees and Fellows, the University shall provide this information for all bargaining unit members.
 
 ## B. VOLUNTARY COMMUNITY ACTION PROGRAM (VCAP)
@@ -24,9 +24,7 @@ The University agrees to provide a voluntary check off for the UAW Voluntary Com
 
 1. The UAW shall send to the pre-designated University office at each location a list of new GSRs for whom the pre-designated University office shall be responsible to send the Membership Election Form (MEF) (see Appendix C) once a month via DocuSign, or a mutually agreeable alternative method. The UAW shall send the list no later than the $10^{\text {th }}$ of the month, and the University shall confirm receipt.
 2. The University shall transmit the MEFs to the GSRs identified on the list within five (5) working days of receipt. The DocuSign MEF or similar format sent by the University will remain active for thirty (30) calendar days. In addition to the initial transmission of the MEF, there shall also be two (2) reminders to the GSRs within the aforementioned thirty (30) calendar day period. The intent of the University and UAW is that the list shall only include newly-hired GSRs. The list shall not include a new hire more than once.
-3. The list shall be transmitted in Microsoft Excel format, or a mutually agreeable alternative format. The list shall include Last and First Name, Email Address,
-
-Employee ID, school/college/department, title, and date of hire into the GSR bargaining unit.
+3. The list shall be transmitted in Microsoft Excel format, or a mutually agreeable alternative format. The list shall include Last and First Name, Email Address, Employee ID, school/college/department, title, and date of hire into the GSR bargaining unit.
 4. Appendix C shall include a disclaimer indicating that the University neither encourages nor discourages union membership.
 5. If the University is closed on a designated transfer or MEF distribution day, the distribution shall be postponed to the following business day.
 6. The cover letter shall accompany each MEF that goes out to the GSRs.
@@ -38,8 +36,7 @@ Employee ID, school/college/department, title, and date of hire into the GSR bar
 ## D. CORRECTION OF ERRORS
 
 1. If the University fails to make appropriate authorized payroll dues or any part thereof, or fails to remit to the UAW such authorized deductions or any portion thereof, or erroneously withholds deductions or any part thereof, the University shall correct the deduction amounts within thirty (30) calendar days of the written notice from the Union.
-2. If the University's error resulted in deductions less than the correct amount, the University shall make the additional required deductions to make up the difference
-between the actual and correct amounts in accordance with current payroll policy regarding additional deductions. However, additional deductions shall not exceed two (2) times the normal dues deduction amount in any given pay period, until the complete dues deductions have been made. In the event a GSR's employment terminates while still owing dues to the union, the amount owed shall be taken from the GSR's final paycheck. In no event shall the University owe the union dues that are the responsibility of the GSR.
+2. If the University's error resulted in deductions less than the correct amount, the University shall make the additional required deductions to make up the difference between the actual and correct amounts in accordance with current payroll policy regarding additional deductions. However, additional deductions shall not exceed two (2) times the normal dues deduction amount in any given pay period, until the complete dues deductions have been made. In the event a GSR's employment terminates while still owing dues to the union, the amount owed shall be taken from the GSR's final paycheck. In no event shall the University owe the union dues that are the responsibility of the GSR.
 3. It is expressly understood and agreed that if the error results in payment of more than the correct amount and the Union has received the funds, the Union shall reimburse the GSR accordingly.
 4. The University shall not be responsible for those portions of union payroll deductions that the GSR's net earnings are insufficient to cover in any pay period.
 
@@ -50,9 +47,7 @@ between the actual and correct amounts in accordance with current payroll policy
 3. For GSRs who are paid monthly, the deduction file shall be transmitted electronically no later than the 15th of each month. For GSRs who are paid biweekly, the deduction file shall be transmitted no later than the Friday before the end of the biweekly pay period.
 4. The University shall process all changes submitted by the Union, provided the University receives the information in time for the deductions to take effect by the next payroll run, i.e. by the fifteenth (15th) of the month for employees paid monthly, or the Friday before the end of the current pay period for bi-weekly paid employees to be effective the next bi-weekly pay cycle.
 5. In the event that the appropriate office is closed on the $15^{\text {th }}$, the Union will deliver the list on the following business day. The University agrees the changes will be made in time to affect the next payroll with a pay period end date that falls on or after the date the deduction information is received, when practicable.
-6. The Union will solely maintain the dues deduction and VCAP authorization(s),
-signed by the GSR from whose salary or wages the deduction is to be made.
-The Union shall not be required to provide a copy of an individual authorization to the University unless a dispute arises about the existence or terms of the authorization.
+6. The Union will solely maintain the dues deduction and VCAP authorization(s), signed by the GSR from whose salary or wages the deduction is to be made. The Union shall not be required to provide a copy of an individual authorization to the University unless a dispute arises about the existence or terms of the authorization.
 F. The UAW list to be submitted in the format provided in Appendix M to the University designee shall include:
 7. Location/business unit code
 8. Location Name (Campus/Medical Center)

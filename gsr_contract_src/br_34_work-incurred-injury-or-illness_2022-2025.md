@@ -19,7 +19,8 @@
 
 1. Prior to returning to work, a GSR granted a work-incurred injury or illness leave must provide the University with a statement from their licensed health care practitioner of the GSR's ability to return to work. When possible, a GSR granted a work-incurred injury or illness leave must provide the University with ten (10) calendar days' notice of their ability to return to work. If a return to work specifies restrictions, the University will consider what accommodation, if any, will reasonably be made in accordance with Article 24 - Reasonable Accommodation.
 2. If the position held has been abolished during the leave, the GSR shall be afforded the same considerations which would have been afforded had that GSR been on pay status when the position was abolished.
-D. EFFECT ON PAY STATUS
+
+# D. EFFECT ON PAY STATUS
 
 A GSR who is receiving temporary disability payments is considered on regular pay status for purposes of application of provisions of this Agreement.
 

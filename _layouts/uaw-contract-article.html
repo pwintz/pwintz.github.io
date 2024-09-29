@@ -4,76 +4,6 @@ contract-link: "{{page.name}}"
 toc: true
 ---
 <style>
-  .warning-box {
-      background-color: #fff8e1; /* Light yellow background for gentle warning */
-      color: #8a6d3b; /* Darker text for contrast */
-      border: 1px solid #f0e3b1; /* Soft border to match the background */
-      padding: 15px; /* Add padding for space */
-      margin-bottom: 20px; /* Space below the box */
-      border-radius: 8px; /* Rounded corners */
-      font-family: Arial, sans-serif; /* Professional font */
-      font-size: 14px; /* Standard font size */
-  }
-
-  .warning-box strong {
-      color: #795548; /* Slightly darker color for emphasis */
-  }
-  
-.tooltip {
-    position: relative; /* Required for the tooltip text positioning */
-    display: inline-block; /* Keeps the element inline */
-    cursor: pointer; /* Changes the cursor to indicate it's interactive */
-}
-
-.tooltip .tooltip-text {
-    visibility: hidden; /* Initially hidden */
-    width: 450px; /* Tooltip box width */
-    background-color: #405c82; /* Background color */
-    color: #fff; /* Text color */
-    text-align: left; /* Center text inside the tooltip */
-    border-radius: 6px; /* Rounded corners */
-    padding: 10px; /* Padding inside the tooltip */
-    position: absolute; /* Position relative to the tooltip text */
-    z-index: 1; /* Ensures the tooltip appears above other content */
-    bottom: 125%; /* Position tooltip above the hover text */
-    left: 0%; /* Center align tooltip horizontally */
-    margin-left: -70px; /* Offset to center the tooltip */
-    opacity: 0; /* Start with 0 opacity */
-    transition: opacity 0.3s; /* Smooth transition for appearance */
-}
-
-.tooltip:hover .tooltip-text {
-    visibility: visible; /* Show the tooltip when hovering */
-    opacity: 1; /* Fade in */
-}
-
-h1 {
-  margin-top: 1em;
-  margin-bottom: 0.5em
-}
-
-.lvl1 {
-  margin-left: 0px; /* Indent the list */
-  margin-top: 10px; /* Indent the list */
-  margin-bottom: 10px; /* Indent the list */
-}
-
-.lvl2 {
-  margin-left: 1em; /* Indent the list */
-  margin-top: 10px; /* Indent the list */
-  margin-bottom: 10px; /* Indent the list */
-}
-
-.lvl3 {
-  margin-left: 2em; /* Indent the list */
-  margin-top:  0px; /* Indent the list */
-  margin-bottom: 0px; /* Indent the list */
-}
-
-.lvl4 {
-  margin-left: 3em; /* Indent the list */
-}
-
 
 </style>
 
@@ -86,6 +16,7 @@ h1 {
   The PDF for this article is available <a href="https://ucnet.universityofcalifornia.edu/labor/bargaining-units/br/docs/{{ page.name | replace: ".md", "" }}.pdf">here</a>.
   {% endif %}
 </div>
+
 
 {{ page.content | markdownify }}
   

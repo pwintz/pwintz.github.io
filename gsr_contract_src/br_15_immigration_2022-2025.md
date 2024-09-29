@@ -1,6 +1,4 @@
-# ARTICLE 15 
-
-## IMMIGRATION
+# ARTICLE 15  IMMIGRATION
 
 A. No GSR covered by this Agreement shall suffer any loss of compensation, due to any legal changes in the GSR's name or social security number.
 B. The University will request that a federal immigration agent or a Department of Homeland Security (DHS) agent comply with legal requirements before they may be allowed to interrogate, search or seize the person or property of any GSR while the GSR is working on the University's premises and under the University's control. In the event that the University is served with a validly executed Search or Arrest warrant, the University shall arrange for a questioning of GSRs to occur in as private a setting as possible in the workplace. The University will notice the union if the University learns of an immigration investigation regarding a GSR.

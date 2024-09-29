@@ -273,7 +273,7 @@ collections:
     permalink: /writing-tips/:name
   uc_uaw_gsr_2022-2025_contract:
     output: true
-    permalink: /uaw/gsr_2022-2025_contract/:name
+    permalink: /uaw/gsr-2022-2025-contract/:name
 
 
 # HTML Compression

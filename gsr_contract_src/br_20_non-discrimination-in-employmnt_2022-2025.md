@@ -10,8 +10,7 @@ b. "Pregnancy" includes pregnancy, childbirth, and medical conditions related to
 c. "Gender expression" means a person's gender-related appearance or behavior, or the perception of such appearance or behavior, whether or not stereotypically associated with the person's sex assigned at birth.
 d. "Gender identity" is each person's internal understanding of their gender, or the perception of a person's gender identity, which may include male, female, a combination of male and female, neither male nor female, a gender different from the person's sex assigned at birth, or transgender.
 e. "Medical condition" means either any health impairment related to or associated with a diagnosis of cancer or health impairments related to genetic characteristics.
-2. If the UAW appeals a grievance to arbitration which contains allegations of a violation of this article which are not made in conjunction with the provision of another article that is arbitrable, the UAW's notice must
-include an Acknowledgement and Waiver Form signed by the affected GSR. The Acknowledgement and Waiver Form will reflect that the GSR has elected to pursue arbitration as the exclusive dispute mechanism for such claim and that the GSR understands the procedural and substantive differences between arbitration and the other remedial forum or forums in which the dispute might have been resolved, including the differences in the scope of remedies available in arbitration as compared to other forums. The timeline to appeal to Arbitration set forth in Article11 Grievance and Arbitration, will be extended by 30 days for said grievances to enable the GSR to make an informed choice.
+2. If the UAW appeals a grievance to arbitration which contains allegations of a violation of this article which are not made in conjunction with the provision of another article that is arbitrable, the UAW's notice must include an Acknowledgement and Waiver Form signed by the affected GSR. The Acknowledgement and Waiver Form will reflect that the GSR has elected to pursue arbitration as the exclusive dispute mechanism for such claim and that the GSR understands the procedural and substantive differences between arbitration and the other remedial forum or forums in which the dispute might have been resolved, including the differences in the scope of remedies available in arbitration as compared to other forums. The timeline to appeal to Arbitration set forth in Article11 Grievance and Arbitration, will be extended by 30 days for said grievances to enable the GSR to make an informed choice.
 
 ## B. SEXUAL HARASSMENT
 
@@ -20,9 +19,7 @@ include an Acknowledgement and Waiver Form signed by the affected GSR. The Ackno
 a. Quid Pro Quo: A person's submission to or rejection of unwelcome sexual conduct is implicitly or explicitly made the basis for employment decisions, academic evaluation, or advancement, or other decisions affecting participation in a University program or activity; or
 b. Hostile Environment: Unwelcome sexual or other sex-based conduct is sufficiently severe or pervasive that it unreasonably denies, adversely limits, or interferes with a person's participation in or benefit from the education, employment or other programs and services of the University and creates an environment that a reasonable person would find to be intimidating or offensive.
 3. Sexual conduct includes sexual or romantic advances, requests for sexual favors, and other verbal, nonverbal or physical conduct of a sexual nature.
-4. Sexual harassment may include incidents between any members of the University community, including: administrators, faculty and other academic appointees (including GSRs), staff, student employees, students, coaches, residents, interns, and non-student or non-employee participants in
-
-University programs (e.g., vendors, contractors, visitors, and patients); in hierarchical relationships and between peers, and; between individuals of any gender or gender identity.
+4. Sexual harassment may include incidents between any members of the University community, including: administrators, faculty and other academic appointees (including GSRs), staff, student employees, students, coaches, residents, interns, and non-student or non-employee participants in University programs (e.g., vendors, contractors, visitors, and patients); in hierarchical relationships and between peers, and; between individuals of any gender or gender identity.
 5. Where there is no conflict with this Agreement, the University's SVSH Policy and the Nondiscrimination Policy shall continue to apply to Graduate Student Researchers.
 
 ## C. RETALIATION PROHIBITION
@@ -30,27 +27,26 @@ University programs (e.g., vendors, contractors, visitors, and patients); in hie
 1. Retaliation is an adverse action against a person based on their report or other disclosure of alleged Prohibited Conduct to a University employee, or their participation in, refusal to participate in, or assistance with the investigation, reporting, remedial, or disciplinary processes provided for in University Policy and/or in this Article.
 2. An adverse action is conduct that would discourage a reasonable person from reporting Prohibited Conduct or participating in a process provided for in University Policy and/or in this Article, such as threats, intimidation, harassment, discrimination and coercion. Retaliation does not include good faith actions lawfully pursued in response to a report of Prohibited Conduct (such as gathering evidence) are not, without more, retaliation.
 3. The University prohibits retaliation against or by GSRs based on their report of prohibited behavior or participation in, refusal to participate in, or assistance with the investigation, report, remedial, or disciplinary processes provided for in the SVSH Policy.
-4. The Title IX Offices responsible for investigations are listed at:
-http://sexualviolence.universityofcalifornia.edu/filing-report/index.html.
+4. The Title IX Offices responsible for investigations are listed at: http://sexualviolence.universityofcalifornia.edu/filing-report/index.html.
 
 ## D. RESOLUTION PROCEDURES
 
 Reports of alleged violations of Section A. or B.1.-4. above and/or University Policy may be addressed through the complaint procedure and/or the grievance procedure. Additionally, Alternative Resolution may be used at any time to address the issues. Formal Investigations may be initiated as part of the complaint resolution or grievance procedure.
 
-1. Alternative Resolution: GSR(s) and/or the Union and/or the University may seek Alternative Resolution at any time.
-a. After a preliminary assessment of the facts, the Title IX / EEO Officer may initiate an Alternative Resolution process, which may include: mediation
-(except in cases of sexual violence); separating the parties; providing for safety; referring the parties to counseling; referral for disciplinary action; a settlement agreement; conducting targeted preventive educational and training programs; and conducting a follow-up review to ensure that the resolution has been implemented effectively.
+# 1. Alternative Resolution: 
+GSR(s) and/or the Union and/or the University may seek Alternative Resolution at any time.
+a. After a preliminary assessment of the facts, the Title IX / EEO Officer may initiate an Alternative Resolution process, which may include: mediation (except in cases of sexual violence); separating the parties; providing for safety; referring the parties to counseling; referral for disciplinary action; a settlement agreement; conducting targeted preventive educational and training programs; and conducting a follow-up review to ensure that the resolution has been implemented effectively.
 b. Only the Title IX/EEO Officer has the authority to initiate Alternative Resolution.
 c. If Alternative Resolution is unsuccessful, the Title IX/EEO Officer may initiate a formal investigation.
 d. Attempts at Alternative Resolution at the informal level do not extend the thirty (30) calendar day time limit to file a grievance. However, should a grievance be filed, the parties may agree in writing that the grievance be held in abeyance while alternative resolution is being considered or ongoing.
-2. Interim Measures for Complainant(s)
+# 2. Interim Measures for Complainant(s)
 a. When the appropriate administrative officer has determined that a Complainant has established a prima facie case of harassment and/or discrimination based on a protected category, the University shall implement interim measures when necessary. Such measures shall allow the GSR to continue training in an environment free from harassment and/or discrimination based on a protected category.
 b. Interim measures available to GSRs may include, but are not limited to: change to a different workstation, schedule, work location, unit, department, or position for which the GSR is qualified provided that, in the case of a Complainant, the change is voluntary and equitable; training and education of the Respondent; no contact remedies.
-3. Remedies
+# 3. Remedies
 a. Remedies available to GSRs may include, but are not limited to: change to a different workstation, schedule, work location, unit, department, or position for which the GSR is qualified provided that, in the case of the Complainant/Grievant, the change is voluntary and equitable; training and education of the Respondent; no contact remedies.
 b. The University shall implement appropriate remedies if a complaint and/or grievance is sustained, or as an alternative measure. Such remedies, shall ensure that the GSR continue training in an environment free from harassment and/or discrimination based on a protected category.
 
-## 4. Representation
+# 4. Representation
 
 The GSR (as a Complainant, Grievant, Respondent, or Witness) shall have the right to be represented by an advocate of their choice, including a Union representative, in the grievance, arbitration, and/or complaint process.
 
@@ -69,8 +65,7 @@ b. As soon as practicable, after the Title IX/EEO Officer receives the grievance
 c. The Title IX/EEO Officer may implement interim measures, in accordance with section D.2. above.
 d. In the event that a formal investigation is conducted, the investigation shall be conducted in accordance with the SVSH Policy.
 e. When the University issues the report or otherwise concludes its review/investigation, the abeyance shall automatically terminate, and the Step 1 process shall resume.
-f. In any event, the parties recognize that having a fair investigation and
-proceeding to an arbitration hearing on the merits with a completed investigation report (report of findings) is optimal. The parties may mutually agree to postpone the arbitration until the completed investigation report is available.
+f. In any event, the parties recognize that having a fair investigation and proceeding to an arbitration hearing on the merits with a completed investigation report (report of findings) is optimal. The parties may mutually agree to postpone the arbitration until the completed investigation report is available.
 
 ## E. LACTATION SUPPORT
 
@@ -85,8 +80,7 @@ proceeding to an arbitration hearing on the merits with a completed investigatio
 2. The University shall provide that all GSRs have reasonable access to allgender restrooms within a reasonable distance to their work location, however, the University shall not be obligated to expend funds beyond minimal and incidental costs to provide reasonable access to all-gender restrooms.
 3. If assistance with access to an all-gender restroom is needed, the GSR or the Union shall contact the department/hiring unit or campus Labor Relations office as soon as possible after receiving written notice of appointment in order to ensure reasonable access options are provided within a reasonable distance to the GSR's work location.
 4. Reasonable access may include, but is not limited to workplace reassignments and/or schedule modifications, re-designating an existing restroom as all-gender, or placing the GSR in an alternate appointment.
-5. The parties recognize that any delay in notifying the department/hiring unit or campus Labor Relations of the need for access to an all-gender restroom
-may limit the possible arrangements, particularly where workplace assignments have already been made and/or the term has already commenced.
+5. The parties recognize that any delay in notifying the department/hiring unit or campus Labor Relations of the need for access to an all-gender restroom may limit the possible arrangements, particularly where workplace assignments have already been made and/or the term has already commenced.
 6. The University shall ensure that all single-occupancy restrooms will be designated as all-gender restrooms. "Single-occupancy restroom" is defined as a toilet facility with no more than one water closet and one urinal with a locking mechanism controlled by the user. Each all-gender restrooms must have at least a sign on the door with a triangle within a circle, without gender pictograms.
 7. The University shall list the locations of all-gender restrooms on a campus website.
 

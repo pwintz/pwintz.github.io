@@ -9,11 +9,11 @@
 <div class="lvl2"><b>7.</b> Matthew Goldberg</div>
 <div class="lvl2"><b>8.</b> Joe Henderson</div>
 <div class="lvl2"><b>9.</b> Fred Horowitz</div>
-10. John LaRocco
-11. Najeeb Nabil Khoury
-12. Jill Klein
-13. Michael Prihar
-14. Angela Reddock-Wright
-15. Paul Roose
-16. Jan Stiglitz
-17. Michael Rappaport
+<div class="lvl2"><b>10.</b> John LaRocco</div>
+<div class="lvl2"><b>11.</b> Najeeb Nabil Khoury</div>
+<div class="lvl2"><b>12.</b> Jill Klein</div>
+<div class="lvl2"><b>13.</b> Michael Prihar</div>
+<div class="lvl2"><b>14.</b> Angela Reddock-Wright</div>
+<div class="lvl2"><b>15.</b> Paul Roose</div>
+<div class="lvl2"><b>16.</b> Jan Stiglitz</div>
+<div class="lvl2"><b>17.</b> Michael Rappaport</div>

@@ -2,7 +2,7 @@
 
 ## Graduate Student Researchers Unit Initial Deductions
 
-<div class="lvl2"><b>1.</b> In accordance with BR Article 31 - Union Security, the University agrees to begin payroll deductions for initiation fees, union dues, and VCAP as established in this Memorandum of Understanding for Graduate Student Researchers who are paid through UCPATH.</div>
+<div class="lvl2"><b>1.</b> In accordance with BR <a href="/uaw/gsr-2022-2025-contract/article-31">Article 31 - Union Security</a>, the University agrees to begin payroll deductions for initiation fees, union dues, and VCAP as established in this Memorandum of Understanding for Graduate Student Researchers who are paid through UCPATH.</div>
 <div class="lvl2"><b>2.</b> The Union agrees to pay $\$ 36,250.00$ for the initial programming costs.</div>
 <div class="lvl2"><b>3.</b> Monthly administrative fees shall be reflected in the Union Security Article.</div>
 <div class="lvl2"><b>4.</b> The University will commit to completing implementing dues deductions for GSRs in UCPATH within 200 calendar days from receipt of payment.</div>

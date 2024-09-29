@@ -16,12 +16,11 @@ d. Counseling memoranda and/or written records of discussion, in and of themselv
 
 ## C. WRITTEN NOTICE OF INTENT
 
-1. The University shall provide written notice of intent, as described in Section C. 2 for the following actions: suspension without pay or dismissal.
+1. The University shall provide written notice of intent, as described in Section C.2 for the following actions: suspension without pay or dismissal.
 
 ## 2. Issuance
 
-a. Written notice of intent shall be given to the affected GSR in the unit, either by delivery of the notice to the GSR in person, or official University e-mail address, or by placing the notice of intent in the United States Mail, first-
-class, postage paid, in an envelope addressed to the GSR at the last known home address of the GSR, with a copy by campus mail to the campus office address of the GSR. If notice is delivered via US Mail or campus mail, a digital notice shall be sent to the GSR's official University email address, if available. It shall be the responsibility of the GSR to inform the designated University office in writing of their current home address and of any change in such address, and the information so provided shall constitute "the GSR's last known home address."
+a. Written notice of intent shall be given to the affected GSR in the unit, either by delivery of the notice to the GSR in person, or official University e-mail address, or by placing the notice of intent in the United States Mail, first-class, postage paid, in an envelope addressed to the GSR at the last known home address of the GSR, with a copy by campus mail to the campus office address of the GSR. If notice is delivered via US Mail or campus mail, a digital notice shall be sent to the GSR's official University email address, if available. It shall be the responsibility of the GSR to inform the designated University office in writing of their current home address and of any change in such address, and the information so provided shall constitute "the GSR's last known home address."
 b. Whether delivery is made in person, by email, or by mail, the notice of intent shall contain a statement of delivery or mailing indicating the date on which the notice of intent was personally delivered or deposited in the United States Mail. Such date of delivery or mailing shall be presumed to be the date of issuance of the notice of intent.
 c. A copy of the notice of intent shall be sent to the UAW. Home address of the GSR will be redacted if the GSR has requested that such information not be released.
 
@@ -38,8 +37,7 @@ The GSR or the GSR's representative shall be entitled to respond, orally or in w
 
 ## E. WRITTEN NOTICE OF ACTION
 
-1. After review of a timely response, if any, the University shall notify the GSR of any action to be taken and its effective date, as well as the rights set out under Article 11- Grievance and Arbitration. The Notice of Action, if any, shall be
-issued within twenty-one (21) days from the GSR's timely response to the written notice, when practicable.
+1. After review of a timely response, if any, the University shall notify the GSR of any action to be taken and its effective date, as well as the rights set out under Article 11- Grievance and Arbitration. The Notice of Action, if any, shall be issued within twenty-one (21) days from the GSR's timely response to the written notice, when practicable.
 2. Such action may not include discipline more severe than that included in the written notice of intent; however, the University may reduce such discipline without the issuance of a further written notice of intent.
 3. A copy of the notice shall be sent to the UAW via e-mail or US Postal Service. Home address of the GSR will be redacted if the GSR has requested that such information not be released.
 
