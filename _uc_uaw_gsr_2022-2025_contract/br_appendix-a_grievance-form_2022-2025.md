@@ -1,2 +1,2 @@
-![](<<span class="tooltip">s<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "loco parentis" %}{{ tooltip_term[0]["Meaning"] }}</span></span>pan class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "retaliation" %}{{ tooltip_term[0]["Meaning"] }}</span></span>https://cdn.mathpix.com/cropped/2024_09_28_abecaabd7323f8b77f66g-1.jpg?height=2397&width=1912&top_left_y=154&top_left_x=112)
+![](https://cdn.mathpix.com/cropped/2024_09_28_abecaabd7323f8b77f66g-1.jpg?height=2397&width=1912&top_left_y=154&top_left_x=112)
 

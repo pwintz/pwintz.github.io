@@ -73,7 +73,7 @@ G. Offers of settlement are inadmissible at any step of the grievance or arbitra
 
 With the exception of the 30-day Step 2 grievance filing deadline, the time limits set forth in this Article may be extended only by written agreement of the parties. Except that, each party shall be entitled to one (1) seven (7) calendar day extension upon request in advance of the deadline at either Step 2 (after timely grievance filing) or Step 3.
 
-## I. RELEASE TIME FOR GRIEVANCEIARBITRATION FOR THE ASE GRIEVANT AND ASE REPRESENTATIVE
+## I. RELEASE TIME FOR GRIEVANCE/ARBITRATION FOR THE ASE GRIEVANT AND ASE REPRESENTATIVE
 
 The parties will endeavor to schedule grievance meetings that do not conflict with bargaining unit assignments of the grievant or the grievant's representative which cannot be rescheduled. If a grievance meeting called by the University occurs when the grievant or the grievant's representative have bargaining unit assignments which cannot be rescheduled, the parties with the unresolved scheduling conflicts shall be eligible to receive leave with pay for the period of the assignments which cannot be rescheduled, provided the request for such leave is made at least five (5) calendar days in advance of the meeting. Leave requests shall be made either before or at the time that dates and times for the meeting are being considered, whereupon the meeting will be scheduled to provide for the five (5) calendar day request period.
 

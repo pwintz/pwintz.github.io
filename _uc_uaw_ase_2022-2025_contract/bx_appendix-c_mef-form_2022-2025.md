@@ -14,7 +14,7 @@ If you have any questions about this form, do not reply to this email. Please co
 
 Welcome to your Union (UAW and its Locals 2865 and 58I0)!
 
-This is the form by which every Academic Worker in a unit represented by the UAW - <span class="tooltip">Academic Student Employees,<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> Student Researchers, Postdoctoral Scholars, and <span class="tooltip">Academic Researchers<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Researcher" %}{{ tooltip_term[0]["Meaning"] }}</span></span> - voluntarily accepts or declines Union membership.
+This is the form by which every Academic Worker in a unit represented by the UAW - <span class="tooltip">Academic Student Employees<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span>, Student Researchers, Postdoctoral Scholars, and <span class="tooltip">Academic Researchers<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Researcher" %}{{ tooltip_term[0]["Meaning"] }}</span></span> - voluntarily accepts or declines Union membership.
 
 By forming a Union at the University of California, Academic Workers have won:
 
@@ -23,7 +23,7 @@ By forming a Union at the University of California, Academic Workers have won:
 - High-quality, low-cost healthcare, guaranteed paid family leave
 - And many more rights and protections
 
-These rights and protections <span class="tooltip">ar<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Researcher" %}{{ tooltip_term[0]["Meaning"] }}</span></span>e only possible because a majority of Academic Workers are dues-paying members of the Union. Membership builds our collective power to improve and enforce our rights and gives you the right to participate in the Union.
+These rights and protections are only possible because a majority of Academic Workers are dues-paying members of the Union. Membership builds our collective power to improve and enforce our rights and gives you the right to participate in the Union.
 
 $\square$
 Count me in the majority! I accept membership in the UAW and its designated Local that represents me with respect to my working conditions at UC. I agree to pay a one-time $\$ 10$ initiation fee and monthly dues, currently I.44\% of my gross pay. I authorize UC to deduct the initiation fee and monthly membership dues from my pay and remit them to the Union. Unless revoked, this authorization is to remain in effect for all periods of time in which I am a UAW member and receiving a paycheck for work performed in a UAW-represented unit.

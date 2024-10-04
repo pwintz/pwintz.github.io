@@ -18,4 +18,4 @@ toc: True
 <div class="lvl2"><b>5.</b> Mailbox,</div>
 <div class="lvl2"><b>6.</b> Office supplies and teaching supplies,</div>
 <div class="lvl2"><b>7.</b> Texts and/or reading material,</div>
-<div class="lvl2"><b>8.</b> <span class="tooltip">Ar<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Researcher" %}{{ tooltip_term[0]["Meaning"] }}</span></span>t/performance studio space.</div>
+<div class="lvl2"><b>8.</b> Art/performance studio space.</div>

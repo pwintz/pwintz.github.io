@@ -1,19 +1,19 @@
 # APPENDIX B PANEL OF ARBITRATORS 
 
-1<span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "loco parentis" %}{{ tooltip_term[0]["Meaning"] }}</span></span><span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "retaliation" %}{{ tooltip_term[0]["Meaning"] }}</span></span>. Mark Burstein
-2<span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "loco parentis" %}{{ tooltip_term[0]["Meaning"] }}</span></span><span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "retaliation" %}{{ tooltip_term[0]["Meaning"] }}</span></span>. Christopher Cameron
-3<span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "loco parentis" %}{{ tooltip_term[0]["Meaning"] }}</span></span><span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "retaliation" %}{{ tooltip_term[0]["Meaning"] }}</span></span>. Alexander Cohn
-4<span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "loco parentis" %}{{ tooltip_term[0]["Meaning"] }}</span></span><span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "retaliation" %}{{ tooltip_term[0]["Meaning"] }}</span></span>. Douglas Collins
-5<span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "loco parentis" %}{{ tooltip_term[0]["Meaning"] }}</span></span><span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "retaliation" %}{{ tooltip_term[0]["Meaning"] }}</span></span>. Ann Andrews Ellis
-6<span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "loco parentis" %}{{ tooltip_term[0]["Meaning"] }}</span></span><span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "retaliation" %}{{ tooltip_term[0]["Meaning"] }}</span></span>. Kathy Fragnoli
-7<span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "loco parentis" %}{{ tooltip_term[0]["Meaning"] }}</span></span><span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "retaliation" %}{{ tooltip_term[0]["Meaning"] }}</span></span>. Matthew Goldberg
-8<span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "loco parentis" %}{{ tooltip_term[0]["Meaning"] }}</span></span><span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "retaliation" %}{{ tooltip_term[0]["Meaning"] }}</span></span>. Joe Henderson
-9<span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "loco parentis" %}{{ tooltip_term[0]["Meaning"] }}</span></span><span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "retaliation" %}{{ tooltip_term[0]["Meaning"] }}</span></span>. Fred Horowitz
-10<span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "loco parentis" %}{{ tooltip_term[0]["Meaning"] }}</span></span><span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "retaliation" %}{{ tooltip_term[0]["Meaning"] }}</span></span>. John LaRocco
-11<span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "loco parentis" %}{{ tooltip_term[0]["Meaning"] }}</span></span><span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "retaliation" %}{{ tooltip_term[0]["Meaning"] }}</span></span>. Najeeb Nabil Khoury
-12<span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "loco parentis" %}{{ tooltip_term[0]["Meaning"] }}</span></span><span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "retaliation" %}{{ tooltip_term[0]["Meaning"] }}</span></span>. Jill Klein
-13<span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "loco parentis" %}{{ tooltip_term[0]["Meaning"] }}</span></span><span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "retaliation" %}{{ tooltip_term[0]["Meaning"] }}</span></span>. Michael Prihar
-14<span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "loco parentis" %}{{ tooltip_term[0]["Meaning"] }}</span></span><span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "retaliation" %}{{ tooltip_term[0]["Meaning"] }}</span></span>. Angela Reddock-Wright
-15<span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "loco parentis" %}{{ tooltip_term[0]["Meaning"] }}</span></span><span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "retaliation" %}{{ tooltip_term[0]["Meaning"] }}</span></span>. Paul Roose
-16<span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "loco parentis" %}{{ tooltip_term[0]["Meaning"] }}</span></span><span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "retaliation" %}{{ tooltip_term[0]["Meaning"] }}</span></span>. Jan Stiglitz
-17<span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "loco parentis" %}{{ tooltip_term[0]["Meaning"] }}</span></span><span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "retaliation" %}{{ tooltip_term[0]["Meaning"] }}</span></span>. Michael Rappaport
+<div class="lvl2"><b>1.</b> Mark Burstein</div>
+<div class="lvl2"><b>2.</b> Christopher Cameron</div>
+<div class="lvl2"><b>3.</b> Alexander Cohn</div>
+<div class="lvl2"><b>4.</b> Douglas Collins</div>
+<div class="lvl2"><b>5.</b> Ann Andrews Ellis</div>
+<div class="lvl2"><b>6.</b> Kathy Fragnoli</div>
+<div class="lvl2"><b>7.</b> Matthew Goldberg</div>
+<div class="lvl2"><b>8.</b> Joe Henderson</div>
+<div class="lvl2"><b>9.</b> Fred Horowitz</div>
+<div class="lvl2"><b>10.</b> John LaRocco</div>
+<div class="lvl2"><b>11.</b> Najeeb Nabil Khoury</div>
+<div class="lvl2"><b>12.</b> Jill Klein</div>
+<div class="lvl2"><b>13.</b> Michael Prihar</div>
+<div class="lvl2"><b>14.</b> Angela Reddock-Wright</div>
+<div class="lvl2"><b>15.</b> Paul Roose</div>
+<div class="lvl2"><b>16.</b> Jan Stiglitz</div>
+<div class="lvl2"><b>17.</b> Michael Rappaport</div>

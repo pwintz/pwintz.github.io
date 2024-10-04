@@ -1,4 +1,4 @@
-♂# <span class="tooltip">AR<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Researcher" %}{{ tooltip_term[0]["Meaning"] }}</span></span>TICLE 130 <br> TEST
+♂# ARTICLE 130 <br> TEST
 
 # Standard itemization:
 

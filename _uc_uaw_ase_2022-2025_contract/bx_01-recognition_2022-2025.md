@@ -15,11 +15,11 @@ The University hereby recognizes the International Union, United Automobile, Aer
 
 ## B. Bargaining Unit Job Titles
 
-<div class="lvl2"><b>1.</b> Teaching Assistant</div>
-<div class="lvl3"><b>a.</b> 2310 - Teaching Assistant-GSHIP</div>
-<div class="lvl3"><b>b.</b> 2311 - Teaching Assistant-Non-GSHIP</div>
-<div class="lvl3"><b>c.</b> 2320 - Teaching Assistant-1/10-GSHIP</div>
-<div class="lvl3"><b>d.</b> 2321 - Teaching Assistant-1/10-Non-GSHIP</div>
+<div class="lvl2"><b>1.</b> <span class="tooltip">Teaching Assistant<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "teaching assistant" %}{{ tooltip_term[0]["Meaning"] }}</span></span></div>
+<div class="lvl3"><b>a.</b> 2310 - <span class="tooltip">Teaching Assistant<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "teaching assistant" %}{{ tooltip_term[0]["Meaning"] }}</span></span>-GSHIP</div>
+<div class="lvl3"><b>b.</b> 2311 - <span class="tooltip">Teaching Assistant<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "teaching assistant" %}{{ tooltip_term[0]["Meaning"] }}</span></span>-Non-GSHIP</div>
+<div class="lvl3"><b>c.</b> 2320 - <span class="tooltip">Teaching Assistant<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "teaching assistant" %}{{ tooltip_term[0]["Meaning"] }}</span></span>-1/10-GSHIP</div>
+<div class="lvl3"><b>d.</b> 2321 - <span class="tooltip">Teaching Assistant<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "teaching assistant" %}{{ tooltip_term[0]["Meaning"] }}</span></span>-1/10-Non-GSHIP</div>
 <div class="lvl2"><b>2.</b> Associate Instructor</div>
 <div class="lvl3"><b>a.</b> 1501 - Associate Instructor-AY-GSHIP</div>
 <div class="lvl3"><b>b.</b> 1502 - Associate Instructor-AY-Non-GSHIP</div>
@@ -48,4 +48,4 @@ The University hereby recognizes the International Union, United Automobile, Aer
 <div class="lvl2"><b>7.</b> Special Reader</div>
 <div class="lvl3"><b>a.</b> 2852 - Special Reader-UCLA-GSHIP</div>
 <div class="lvl3"><b>b.</b> 2853 - Special Reader-UCLA-Non-GSHIP</div>
-<div class="lvl1"><b>C.</b> The recognized unit may be modified by agreement of the parties pursuant to the rule and regulations of the <span class="tooltip">Public Employment Relations Board.<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Public Employment Relations Board" %}{{ tooltip_term[0]["Meaning"] }}</span></span></div>
+<div class="lvl1"><b>C.</b> The recognized unit may be modified by agreement of the parties pursuant to the rule and regulations of the <span class="tooltip">Public Employment Relations Board<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Public Employment Relations Board" %}{{ tooltip_term[0]["Meaning"] }}</span></span>.</div>

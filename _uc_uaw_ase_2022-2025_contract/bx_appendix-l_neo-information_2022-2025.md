@@ -14,7 +14,7 @@
 | San Diego | https://grad.ucsd.edu/financial/employment/<span class="tooltip">ases<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span>/new-employee-orientation.html |
 | San Diego Health | https://grad.ucsd.edu/financial/employment/<span class="tooltip">ases<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span>/new-employee-orientation.html |
 | San Francisco |  |
-| Santa Barbara | https://id.ucsb.edu/teaching/ta-training/new-tas |
+| Santa Barbara | https://id.ucsb.edu/teaching/<span class="tooltip">ta<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "teaching assistant" %}{{ tooltip_term[0]["Meaning"] }}</span></span>-training/new-tas |
 | Santa Cruz | https://shr.ucsc.edu/elr/uaw-new-employee-orientation.html |
 | LBNL | N/A |
 

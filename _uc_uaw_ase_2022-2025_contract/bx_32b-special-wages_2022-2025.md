@@ -12,10 +12,10 @@ toc: True
 
 ## A. GENERAL PROVISIONS
 
-<div class="lvl2"><b>1.</b> The actual salary ranges/rates following application of any range adjustments applied pursuant to this <span class="tooltip">Ar<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Researcher" %}{{ tooltip_term[0]["Meaning"] }}</span></span>ticle may vary slightly due to rounding.</div>
+<div class="lvl2"><b>1.</b> The actual salary ranges/rates following application of any range adjustments applied pursuant to this Article may vary slightly due to rounding.</div>
 <div class="lvl2"><b>2.</b> Implementation of the prospective annual increase shall coincide with the first full pay period in the Fall term commencing with October 1st for monthly paid employees and the first pay period commencing after October 1st for bi-weekly paid employees.</div>
 <div class="lvl2"><b>3.</b> Nothing precludes the University, at its sole discretion, from providing compensation to individual <span class="tooltip">ASEs<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> at salaries that exceed the maximum rate for their title on Tables 18, 19 and 20.</div>
-<div class="lvl2"><b>4.</b> All rates described in this <span class="tooltip">Ar<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Researcher" %}{{ tooltip_term[0]["Meaning"] }}</span></span>ticle are reflective of a 100% rate, not a 50% rate.</div>
+<div class="lvl2"><b>4.</b> All rates described in this Article are reflective of a 100% rate, not a 50% rate.</div>
 
 ## B. ACADEMIC YEAR 2022-2023
 
@@ -23,7 +23,7 @@ Effective the first full monthly pay period occurring no more than ninety (90) c
 
 ### 1. Teaching Assistant (TA)
 
-The single full-time annual salary rate for Teaching Assistants shall be increased by seven and one-half percent (7.5%).
+The single full-time annual salary rate for <span class="tooltip">Teaching Assistants<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "teaching assistant" %}{{ tooltip_term[0]["Meaning"] }}</span></span> shall be increased by seven and one-half percent (7.5%).
 
 ### 2. Associate Instructor (AI)
 
@@ -42,17 +42,17 @@ The single full-time annual salary rate for Teaching Fellow shall be established
 
 ### 1. Implementation of Experience-Based Salary Points
 
-Beginning in Fall Term 2023, the Experience Based Salary Wage Schedule shall be implemented. Teaching Assistants and Associate Instructors shall be placed on the new Experience Based Salary Wage Schedule as follows:
-<div class="lvl3"><b>a.</b> Teaching Assistant</div>
+Beginning in Fall Term 2023, the Experience Based Salary Wage Schedule shall be implemented. <span class="tooltip">Teaching Assistants<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "teaching assistant" %}{{ tooltip_term[0]["Meaning"] }}</span></span> and Associate Instructors shall be placed on the new Experience Based Salary Wage Schedule as follows:
+<div class="lvl3"><b>a.</b> <span class="tooltip">Teaching Assistant<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "teaching assistant" %}{{ tooltip_term[0]["Meaning"] }}</span></span></div>
 
 <div class="lvl4"><b>1.</b> 
- The University will increase the TA rate to $\$ 62,531$, which is approximately a 25.1% increase.</div>
+ The University will increase the <span class="tooltip">TA<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "teaching assistant" %}{{ tooltip_term[0]["Meaning"] }}</span></span> rate to $\$ 62,531$, which is approximately a 25.1% increase.</div>
 <div class="lvl4"><b>2.</b> 
  Two (2) new salary points will be added with 3.0% increments between salary points.</div>
 <div class="lvl4"><b>3.</b> 
- If a Teaching Assistant has University teaching experience at 25% <span class="tooltip">FTE<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "full-time equivalent" %}{{ tooltip_term[0]["Meaning"] }}</span></span> or more per term at their campus of 3 quarters/2 semesters, they shall be placed on salary point 2 upon their first teaching appointment on or following the 2023-2024 Fall term.</div>
+ If a <span class="tooltip">Teaching Assistant<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "teaching assistant" %}{{ tooltip_term[0]["Meaning"] }}</span></span> has University teaching experience at 25% <span class="tooltip">FTE<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "full-time equivalent" %}{{ tooltip_term[0]["Meaning"] }}</span></span> or more per term at their campus of 3 quarters/2 semesters, they shall be placed on salary point 2 upon their first teaching appointment on or following the 2023-2024 Fall term.</div>
 <div class="lvl4"><b>4.</b> 
- If a Teaching Assistant has University teaching experience at 25% <span class="tooltip">FTE<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "full-time equivalent" %}{{ tooltip_term[0]["Meaning"] }}</span></span> or more per term at their campus of 6 quarters/4 semesters, they shall be placed on salary point 3 upon their first teaching appointment on or following the 2023-2024 Fall term.</div>
+ If a <span class="tooltip">Teaching Assistant<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "teaching assistant" %}{{ tooltip_term[0]["Meaning"] }}</span></span> has University teaching experience at 25% <span class="tooltip">FTE<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "full-time equivalent" %}{{ tooltip_term[0]["Meaning"] }}</span></span> or more per term at their campus of 6 quarters/4 semesters, they shall be placed on salary point 3 upon their first teaching appointment on or following the 2023-2024 Fall term.</div>
 <div class="lvl3"><b>b.</b> Associate Instructor</div>
 <div class="lvl4"><b>5.</b> 
  The University will increase salary point 1 on Table 19 to $\$ 65,516$, which is approximately a 25.1% increase.</div>
@@ -67,7 +67,7 @@ Beginning in Fall Term 2023, the Experience Based Salary Wage Schedule shall be 
 
 ### 2. Teaching Fellows and other salaried ASEs
 
-The University shall increase the salary rate for Teaching Fellows and other salaried <span class="tooltip">ASEs<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> by approximately 25.1% to $\$ 74,220$, excluding Teaching Assistants and Associate Instructors.
+The University shall increase the salary rate for Teaching Fellows and other salaried <span class="tooltip">ASEs<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> by approximately 25.1% to $\$ 74,220$, excluding <span class="tooltip">Teaching Assistants<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "teaching assistant" %}{{ tooltip_term[0]["Meaning"] }}</span></span> and Associate Instructors.
 
 ### 3. Readers, Tutors and other hourly ASEs
 
@@ -84,6 +84,6 @@ During the life of the Agreement, <span class="tooltip">ASEs<span class="tooltip
 
 ## F. UCLA FRESHMAN/TRANSFER SUMMER PROGRAM (F/TSP)
 
-At UCLA, tutors in the F/TSP program will be paid a minimum of $\$ 5,139.00$ for the entire six-week program with a workload not to exceed 240 hours and will not be paid on an hourly basis as described in <span class="tooltip">Ar<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Researcher" %}{{ tooltip_term[0]["Meaning"] }}</span></span>ticle 25.A.3 and F.3. This minimum does not
+At UCLA, tutors in the F/TSP program will be paid a minimum of $\$ 5,139.00$ for the entire six-week program with a workload not to exceed 240 hours and will not be paid on an hourly basis as described in <a href="/uaw/ase-2022-2025-contract/article-25">Article 25</a>.A.3 and F.3. This minimum does not
 include required training prior to the start of the program, which will be compensated on an hourly basis.
 

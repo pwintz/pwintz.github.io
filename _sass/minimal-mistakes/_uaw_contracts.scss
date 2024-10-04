@@ -48,29 +48,33 @@ margin-bottom: 0px; /* Indent the list */
 }
 
 .tooltip {
-position: relative; /* Required for the tooltip text positioning */
-display: inline-block; /* Keeps the element inline */
-cursor: pointer; /* Changes the cursor to indicate it's interactive */
+  position: relative; /* Required for the tooltip text positioning */
+  display: inline-block; /* Keeps the element inline */
+  cursor: pointer; /* Changes the cursor to indicate it's interactive */
+  color: #1f4e91; /* Optional: change text color to make it stand out */
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .tooltip .tooltip-text {
-visibility: hidden; /* Initially hidden */
-width: 450px; /* Tooltip box width */
-background-color: #405c82; /* Background color */
-color: #fff; /* Text color */
-text-align: left; /* Center text inside the tooltip */
-border-radius: 6px; /* Rounded corners */
-padding: 10px; /* Padding inside the tooltip */
-position: absolute; /* Position relative to the tooltip text */
-z-index: 1; /* Ensures the tooltip appears above other content */
-bottom: 125%; /* Position tooltip above the hover text */
-left: 0%; /* Center align tooltip horizontally */
-margin-left: -70px; /* Offset to center the tooltip */
-opacity: 0; /* Start with 0 opacity */
-transition: opacity 0.3s; /* Smooth transition for appearance */
+  visibility: hidden; /* Initially hidden */
+  width: 450px; /* Tooltip box width */
+  background-color: #405c82; /* Background color */
+  color: #fff; /* Text color */
+  text-align: left; /* Center text inside the tooltip */
+  border-radius: 6px; /* Rounded corners */
+  padding: 10px; /* Padding inside the tooltip */
+  position: absolute; /* Position relative to the tooltip text */
+  z-index: 1; /* Ensures the tooltip appears above other content */
+  bottom: 125%; /* Position tooltip above the hover text */
+  left: 0%; /* Center align tooltip horizontally */
+  margin-left: -70px; /* Offset to center the tooltip */
+  opacity: 0; /* Start with 0 opacity */
+  transition: opacity 0.3s; /* Smooth transition for appearance */
 }
 
 .tooltip:hover .tooltip-text {
-visibility: visible; /* Show the tooltip when hovering */
-opacity: 1; /* Fade in */
+  visibility: visible; /* Show the tooltip when hovering */
+  opacity: 1; /* Fade in */
 }
