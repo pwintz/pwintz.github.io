@@ -9,6 +9,6 @@ toc: True
 ---
 
 
-<div class="lvl1"><b>A.</b> An "Academic Student Employee" (ASE) is an individual employed in a bargaining unit title. Bargaining unit titles are listed in <a href="/uaw/ase-2022-2025-contract/article-1">Article 1, Recognition</a>.</div>
-<div class="lvl1"><b>B.</b> ["]Sole discretion" means the non-<span class="tooltip">grievable<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "grievance" %}{{ tooltip_term[0]["Meaning"] }}</span></span>, non-arbitrable authority of the University of California.</div>
+<div class="lvl1"><b>A.</b> An "<span class="tooltip">Academic Student Employee<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span>" (ASE) is an individual employed in a bargaining unit title. Bargaining unit titles <span class="tooltip">ar<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Researcher" %}{{ tooltip_term[0]["Meaning"] }}</span></span>e listed in <a href="/uaw/ase-2022-2025-contract/article-1">Article 1, Recognition</a>.</div>
+<div class="lvl1"><b>B.</b> ["]Sole discretion" means the non-<span class="tooltip">grievable,<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "grievance" %}{{ tooltip_term[0]["Meaning"] }}</span></span> non-<span class="tooltip">ar<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Researcher" %}{{ tooltip_term[0]["Meaning"] }}</span></span>bitrable authority of the University of California.</div>
 

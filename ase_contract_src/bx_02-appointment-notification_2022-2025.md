@@ -3,7 +3,7 @@
 ## A. GENERAL PROVISIONS
 
 1. An Academic Student Employee (ASE) appointment is established only by the issuance of a Written Notice of Appointment as provided in this Article.
-2. A Written Notice of Appointment is an official document which meets the requirements of Sections $B$ and $C$ below.
+2. A Written Notice of Appointment is an official document which meets the requirements of Sections B and C below.
 3. These requirements include satisfying work eligibility requirements for U.S. citizens and non-citizens, where applicable, and the timely submission of all documents required by the University to process a request for work authorizatiion.
 
 ## B. TEACHING ASSISTANT, ASSOCIATE INSTRUCTOR, SPECIAL READER, AND TEACHING FELLOW

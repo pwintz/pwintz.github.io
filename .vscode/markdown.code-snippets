@@ -23,5 +23,11 @@
 			"</pre>",
 			"$0"
 		]
+	},
+	"Link" : {
+		"prefix": "/htmllink",
+		"body": [
+			"<a href=\"$TM_SELECTED_TEXT$1\">$TM_SELECTED_TEXT$0</a>"
+		]
 	}
 }

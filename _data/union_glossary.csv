@@ -1,262 +1,434 @@
-Term,Abbreviations,Meaning,Links,Category,Rarity,Usage Notes,Questions and to-do items,Markdown Links
-Computational Media,CM,,,Academic Department and Divisions,Rare,,,
-Computer Science and Engineering,CSE,,,Academic Department and Divisions, Uncommon,,,
-Digital Arts and New Media,DANM,Program in the UCSC Arts department.,,Academic Department and Divisions,Rare,,,
-Environmental Art And Social Practice,EASP,Master of Fine Art (MFA) program in the Art department.,https://art.ucsc.edu/mfa,Academic Department and Divisions,Rare,,,https://art.ucsc.edu/mfa
-Film & Digital Media,FDM,,,Academic Department and Divisions,Rare,,,
-History of Consciousness,Histcon,A UCSC philosophy department,,Academic Department and Divisions, Uncommon,"The typical  abbreviation is ""histcon"", not ""hiscon"" (unless you are a snake; then it is ""hisscon"")",,
-Latin American And Latino Studies,LALS,,,Academic Department and Divisions,Rare,,,
-Microbiology & Environmental Toxicology,METX,Department at UCSC.,,Academic Department and Divisions,Rare,,,
-"Molecular, Cell, and Developmental Biology",MCD Bio,,,Academic Department and Divisions,Rare,,,
-Physical & Biological Sciences Division,PBSci,,,Academic Department and Divisions,Rare,,,
-Visual Studies,HAVC,,,Academic Department and Divisions,Rare,,,
-UC Santa Cruz Foundation,UCSC Foundation,,https://foundation.ucsc.edu/,Academic Department and Divisions,Rare,,,https://foundation.ucsc.edu/
-The Humanities Institute,THI,,,Academic Department and Divisions,Rare,,,
-Critical Race & Ethnic Studies,CRES,UCSC Department.,https://cres.ucsc.edu/about/index.html,Academic Department and Divisions,Rare,,,https://cres.ucsc.edu/about/index.html
-Demonstrations Operations Team,DOT,,https://oes.ucsc.edu/emergency-preparedness/procedures/demonstrations-and-protests.html,Academic Department and Divisions,,,,https://oes.ucsc.edu/emergency-preparedness/procedures/demonstrations-and-protests.html
-Feminist Studies,FMST,Department at UCSC.,(https://feministstudies.ucsc.edu/),Academic Department and Divisions, Uncommon,,,https://feministstudies.ucsc.edu/
-attestation form,,A document that may be requested by the UC to identify strikers OR a document requested by the union to identify recipients of strike pay. The union has determined that striking workers are not required to submit attestation forms to the UC.,,Contracts and Strikes,  Common,,,
-contact enforcement team,,,,Contracts and Strikes, Uncommon,,,
-contract ratification,,,,Contracts and Strikes,  Common,,,
-fink ,,A strikebreaker.,Fink Definition & Meaning - Merriam-Webster,Contracts and Strikes,Rare,,,[Definition](https://www.merriam-webster.com/dictionary/fink)
-injunction,,"A ruling by a court whereby one is required to do or to refrain from doing a specified act. In the case of strikes, injunctions can be issued by PERB.",,Contracts and Strikes, Uncommon,,,
-National Labor Relations Board,NLRB,Decides ruling regarding unions for private employers.,,Contracts and Strikes,Rare,,,
-Orange County,OC,A temporary restraining order was issued by the Superior Court of Orange County to break the UAW strike. ,,Contracts and Strikes,Rare,,,
-Public Employment Relations Board,PERB,"A ""quasi-judicial administrative agency charged with administering the collective bargaining statutes."" For example, PERB determines things like whether a strike is legal or illegal.",Public Employment Relations Board (PERB),Contracts and Strikes,  Common,,,https://perb.ca.gov/
-scab,,A strikebreaker.,,Contracts and Strikes,  Common,,,
-side letters,,,,Contracts and Strikes, Uncommon,,,
-stand-up strike,,A strike format where different groups may be called to strike at different times. This is the format of the 2024 ULP strike.,https://uaw.org/standup/,Contracts and Strikes,  Common,,,https://uaw.org/standup/
-strike pay,,"Pay made to striking workers by the UAW to help them live while the UC is withholding pay (if the UC is able to identify who is striking, which it has often struggled to do). Receiving strike pay requires a certain amount of participation in picketing and the submission of an attestation form to the union (not to the UC!). ",,Contracts and Strikes,  Common,,,
-strikebreaker,,A person who works for an employer during a strike. ,,Contracts and Strikes,Rare,,,
-summer funding,,Funding for grad students that extends during the summer. ,,Contracts and Strikes,  Common,,,
-timesheets,,The UC has requested that employees submit timesheets that describe when they have not worked and threatened to dock pay for workers that do not submit them. These timesheets are not required by our contract and the union guidance at UCSC has consistently been to ignore them. ,,Contracts and Strikes, Uncommon,,,
-PERB mediation sessions,,Closed-door discussions between the UC and the union (legally confidentially). ,,Contracts and Strikes, Uncommon,,,
-collective bargaining agreements,CBA,,,Contracts and Strikes,  Common,,,
-temporary restraining order,TRO ,,,Contracts and Strikes, Uncommon,,,
-contact enforcement,CE,A group within the union that ensures the union's contracts are respected by the UC.,,Contracts and Strikes,  Common,,,
-pay scales/salary scales,,,https://apo.ucsc.edu/docs/scales-crnt.pdf,Contracts and Strikes,  Common,,,https://apo.ucsc.edu/docs/scales-crnt.pdf
-pay docking,,,,Contracts and Strikes,  Common,,,
-contested position,,Indicates a position in an election that has two more more candidate.,,Elections, Uncommon,,,
-election by acclamation,,Means that a candidate in an election is elected by default because they do not have an opponent.,,Elections, Uncommon,,,
-good standing,,,,Elections, Uncommon,,,
-Simply Voting,,The voting platform used for statewide elections.,,Elections,Rare,,,
-Biomedical Sciences Building,Biomed,"Building on Science Hill at UCSC. Directly south of Mclaughlin, next to Physical Sciences Building and and Science and Engineering Library.",Biomedical Sciences Building,Geography,Rare,,,[Google Maps](https://maps.app.goo.gl/e5KUERHiLqUXpAyx8)
-Earth & Marine Science,EMS,"Building near the lower part Science Hill on the UCSC campus. Painted white, has super weird layout.",https://maps.app.goo.gl/7EfGo8kuhVaFoS8s8,Geography,Rare,,,[Google Maps](https://maps.app.goo.gl/7EfGo8kuhVaFoS8s8)
-Interdisciplinary Sciences Building,ISB,Building that houses the astronomy department.,Interdisciplinary Sciences Building,Geography,Rare,,,[Google Maps](https://maps.app.goo.gl/bX7ZMLySa9rJBgGj7)
-Science and Engineering Library,S&E,"Library on Science Hill at UCSC, near Physical Sciences building.",Science and Engineering Library,Geography,Rare,,,[Google Maps](https://maps.app.goo.gl/hnJydeSRa5wb9HnQ6)
-Westside Research Park,WRP,UCSC facility near Western Dr. and Natural Brigdes State Park.,UCSC Westside Research Park,Geography, Uncommon,,,[Google Maps](https://maps.app.goo.gl/5difYH9AvGZFKMm28)
-Santa Cruz Museum of Art & History,MAH,,https://g.co/kgs/jB75sVd,Geography,Rare,,,https://www.santacruzmah.org/
-Family Student Housing,FSH,"Housing complex on the westside of the UCSC main campus. Pronounced like ""fish"".",,Geography,,,,
-ASE campus chair,chair,"The ASE campus chair is the head of the UCSC chapter of the union for the ASE bargaining unit. As of May 2024, the ASE campus chair at UCSC is Rebecca Gross.",LEADERSHIP — UAW 4811,Leadership role,  Common,,Check definition.,LEADERSHIP — UAW 4811
-ASE statewide chair,,,,Leadership role,  Common,,,
-department steward,steward,"A member of an academic department that handles communication and organizing of department regarding union stuff. At UCSC, stewardship is a relatively informal position that is generally not elected. There may be multiple stewards for each department.",,Leadership role,  Common,,,
-recording secretary,,"As of May 2024, the recording secretary at UCSC is Jess Fournier. ",LEADERSHIP — UAW 4811,Leadership role, Uncommon,,,LEADERSHIP — UAW 4811
-region director,,,,Leadership role,Rare,,,
-by-laws (or bylaws),,By-laws are a collection rules that govern union policies at the local (statewide) level. ,UAW 4811 By-laws: https://drive.google.com/file/d/1Q7pMjjuraVSnrzYn2dT5rr7WsZOqcOD2/view,Meeting Procedures,  Common,,,[UAW 4811 By-laws](https://drive.google.com/file/d/1Q7pMjjuraVSnrzYn2dT5rr7WsZOqcOD2/view)
-direct response,DR,Indicates that somebody will respond to a comment that was just made without waiting for a turn in the stack. Typically requires approval by whoever is organizing the stack.,,Meeting Procedures,  Common,,,
-friendly amendment,,"An amendment to a motion under debate that is perceived by all parties as an enhancement to the original motion, often only as clarification of intent. The opposite is a hostile amendment. (Source: Wikipedia)",Friendly amendment - Wikipedia,Meeting Procedures, Uncommon,,,Friendly amendment - Wikipedia
-hostile amendment,,"See ""friendly amendment"".",,Meeting Procedures, Uncommon,,,
-Robert's rules of order,,"A formal set of rules for how meetings are performed. Anytime you hear people calling for ""motions"", the meeting is probably following Robert's rules.",Summary of the rules: https://docs.google.com/document/d/11WATjjuSjPfFn5mrRfjpgwkfZG9rtQUpfeNbZQ_wvNI/edit?usp=sharing,Meeting Procedures,  Common,,,Summary of the rules: https://docs.google.com/document/d/11WATjjuSjPfFn5mrRfjpgwkfZG9rtQUpfeNbZQ_wvNI/edit?usp=sharing
-stack,,"A method of keeping track of who is next in line to speak in a meeting. In computer science terminology, this  is a queue, but for some reason we call it a stack. There are two methods for using a stack in a Zoom meeting, either raising hands or typing ""stack"" in the chat. The meeting facilitator will typically tell you which is being used.",,Meeting Procedures,  Common,,,
-vote whipping,,The process of ensuring that members of a political party (or caucus) votes in line with the party (or caucus).,,Meeting Procedures,Rare,,,
+Term,Abbreviations,Meaning,Links,Category,Rarity,Usage Notes,Questions and to-do items,Markdown Links,In Contract?,
+Maintained by Paul Wintz,(If commonly used),,,,How often is the term used in union discussions?,,Questions about anything that is unclear or remains to be filled in.,Comma separated URLs,,
+Computational Media,CM,Academic Department at UCSC in the Baskin School of Engineering.,,Academic Department and Divisions,Rare,,,,,
+Applied Mathematics,AM,Academic Department at UCSC in the Baskin School of Engineering.,,Academic Department and Divisions,Rare,,,,,
+Computer Science and Engineering,CSE,Academic Department at UCSC in the Baskin School of Engineering.,,Academic Department and Divisions,Rare,,,,,
+Electrical and Computer Engineering,ECE,Academic Department at UCSC in the Baskin School of Engineering.,,Academic Department and Divisions,Rare,,,,,
+Critical Race & Ethnic Studies,CRES,Department at UCSC.,https://cres.ucsc.edu/about/index.html,Academic Department and Divisions,Rare,,,https://cres.ucsc.edu/about/index.html,,
+Demonstrations Operations Team,DOT,A shadowy organization within the UC that coordinates reponses to demonstrations.,https://oes.ucsc.edu/emergency-preparedness/procedures/demonstrations-and-protests.html,Academic Department and Divisions,Rare,,,https://oes.ucsc.edu/emergency-preparedness/procedures/demonstrations-and-protests.html,,
+Digital Arts and New Media,DANM,Program in the UCSC Arts department.,,Academic Department and Divisions,Rare,,,,,
+Environmental Art And Social Practice,EASP,Master of Fine Art (MFA) program in the Art department.,https://art.ucsc.edu/mfa,Academic Department and Divisions,Rare,,,https://art.ucsc.edu/mfa,,
+Feminist Studies,FMST,Department at UCSC.,https://feministstudies.ucsc.edu/,Academic Department and Divisions, Uncommon,,,https://feministstudies.ucsc.edu/,,
+Film & Digital Media,FDM,Department at UCSC.,,Academic Department and Divisions,Rare,,,,,
+Sociology,SOCY ,Department at UCSC.,,Academic Department and Divisions,Rare,,,,,
+Global and Community Health Program,GCH,,https://gch.ucsc.edu/,Academic Department and Divisions,Rare,,,,,
+Hispanic-Serving Institution Initiatives ,HSI,,https://hsi.ucsc.edu/,Academic Department and Divisions,Rare,,,,,
+History of Consciousness,Histcon,A UCSC philosophy department,,Academic Department and Divisions, Uncommon,"The typical  abbreviation is ""histcon"", not ""hiscon"" (unless you are a snake; then it is ""hisscon"")",,,,
+Latin American And Latino Studies,LALS,Department at UCSC.,,Academic Department and Divisions,Rare,,,,,
+Microbiology & Environmental Toxicology,METX,Department at UCSC.,,Academic Department and Divisions,Rare,,,,,
+"Molecular, Cell, and Developmental Biology",MCD Bio,Department at UCSC.,,Academic Department and Divisions,Rare,,,,,
+Physical & Biological Sciences Division,PBSci,Academic Division at UCSC,,Academic Department and Divisions, Uncommon,,,,,
+Humanities Division,Hum,Academic Division at UCSC,,Academic Department and Divisions, Uncommon,,,,,
+Social Sciences Division,Soc Sci,Academic Division at UCSC,,Academic Department and Divisions, Uncommon,,,,,
+Arts Division,arts,Academic Division at UCSC,,Academic Department and Divisions,,,,,,
+The Humanities Institute,THI,,,Academic Department and Divisions,Rare,,,,,
+UC Santa Cruz Foundation,UCSC Foundation,,https://foundation.ucsc.edu/,Academic Department and Divisions,Rare,,,https://foundation.ucsc.edu/,,
+Visual Studies,HAVC,Department at UCSC.,,Academic Department and Divisions,Rare,,,,,
+bargaining concession,,"In contract negotiations, a concession is when one side agrees to terms which give up previously-held rights or benefits. In the 1980s, when faced with plant closures, many manufacturing unions conceded guaranteed salary increases or job security measures that they had had enjoyed for decades. ",,Contract Bargaining, Uncommon,,,,,
+bargaining in bad faith,,"In contract negotiations, a bargaining team is said to be bargaining in bad faith if the bargain without the intent of trying to reach an agreement. Examples of bad faith bargaining include: failing to exchange proposals; failing to offer counter-proposals; canceling sessions without reason; delaying bargaining; failure to meet at an appropriate time/place; regressive or surface bargaining; or general conduct to frustrate the bargaining process.",,Contract Bargaining, Uncommon,,,,,
+bargaining in good faith,,"In contract negotiations, both sides must meet on a reasonable timeline and with the intent to reach agreement on terms and conditions of employment throughout the bargaining process. Bargaining in good faith does not require either side to accept a specific proposal or accept concessions.",,Contract Bargaining, Uncommon,,,,,
+caucus,,"During contract bargaining, either side can call a caucus, which is a private meeting with their side only to regroup and discuss strategy. ",,Contract Bargaining,Rare,,,,,
+closed bargaining,,"In contract negotiations, each side may agree to limit the flow of information into and out of the bargaining room. Under closed bargaining, nobody but members of the bargaining teams can attend bargaining sessions, and negotiators are usually barred from sharing any specifics about what happens at the table. Closed bargaining is common in many industries but rare in higher education.",,Contract Bargaining,  Common,,,,,
+open bargaining,,"Each side in a contract negotiation may agree to allow information to flow freely into and out of the bargaining room. Under open bargaining, all union members can attend bargaining sessions, and bargaining teams can communicate in detail about the process, including proposed contract language and their counterparts’ actions at the table. Open bargaining is very common in contemporary higher education union negotiations. Our union has used open bargaining in every contract campaign since 2013",,Contract Bargaining,  Common,,,,,
+regressive bargaining,,"A type of bad faith bargaining where one party moves backwards, offering less in a proposal than they previously offered. For example, if the UC offers a 5% raise, and, all things unchanged, comes back later and offers a 3% raise, that would constitute regressive bargaining.",,Contract Bargaining,Rare,,,,,
+"sunshine meeting, sunshining",,"The first public delcaration of demands from each side in a contract negotiation is called sunshinging the demands. Labor law in California requires that employers and unions share initial positions in a publicly-held meeting, often called a “sunshine” meeting. 
+For the 2025 contract negotiations, the union will sunshine our initial bargaining demands at the end of 2024.",,Contract Bargaining, Uncommon,,,,,
+surface bargaining,,"A type of bad faith bargaining where one side meets at the bargaining table but only goes through the motions of bargaining, refusing to make substantive progress.",,Contract Bargaining,Rare,,,,,
+tentative agreement,"TA, TA'd","A tentative agreement is a proposal that both sides have signed off on and will appear in the final agreement. Once something is “TA’d”, it will remain “off the table” and neither side can make changes. When a final agreement is reached, the entire agreement is “TA’d” and sent to the membership for ratification. 
+See also ""Teaching Assistant"".",,Contract Bargaining, Uncommon,,,,,
+academically ineligible / academically eligible,,"Workers may become academically ineligible for employment (how?). Under the UAW contract, this can be just cause for dismissal.",,Contracts and Strikes,Rare,,,,yes,
+attestation form,,A document that may be requested by the UC to identify strikers OR a document requested by the union to identify recipients of strike pay. The union has determined that striking workers are not required to submit attestation forms to the UC.,,Contracts and Strikes,  Common,,,,,
+bargaining convention,BargCon,"The bargaining convention to prepare for negotions. Consists of elected members collected from each campus. Each division will have a number of candidates porportional to its size. For the 2025 contract negotions, the bargcon will likely be in November.",,Contracts and Strikes, Uncommon,,,,,
+bargaining team,BT,A collection of elected union representatives who negotiate with the UC during strikes and contract negotiations. There are two bargaining team members from each campus.,,Contracts and Strikes,  Common,,,,,
+collective bargaining agreements,CBA,"A collective bargaining agreement is a contract each bargaining unit signs with the UC to determine wages, benefits, and other terms and conditions of employment. After negotiations between the union's bargaining team and the UC is concluded, the contract is ratified by a vote of all union members, at which point, the bargaining units will have a new collective bargaining agreement. ",,Contracts and Strikes,  Common,,,,yes,
+contact enforcement,CE,A group within the union that ensures the union's contracts are respected by the UC.,,Contracts and Strikes,  Common,,,,,
+contact enforcement team,,,,Contracts and Strikes, Uncommon,,,,,
+Contract Action Team,CAT,,https://www.uaw4811.org/contract-action-team,Contracts and Strikes, Uncommon,,,,,
+contract ratification,,,,Contracts and Strikes,  Common,,,,yes,
+economic strike,,A strike called during contact negotiations after both sides reach an impasse and are unable to reach an agreement after mediation.,,Contracts and Strikes,Rare,,,,,
+fink ,,A strikebreaker.,Fink Definition & Meaning - Merriam-Webster,Contracts and Strikes,Rare,,,[Definition](https://www.merriam-webster.com/dictionary/fink),,
+grievance,,"A grievance is a claim by an individual ASE, a group of ASEs, or the UAW, that the University has violated a specific provision of this agreement during the term of this agreement. Grievances are filed with the UCSC labor relations office. They must be filed within thirty calendar days. If the grievance is not resolved, it can be taken to artbitration.
+See Article 12 of the ASE contract and Article 11 of the GSR contract.",https://ucnet.universityofcalifornia.edu/wp-content/uploads/labor/bargaining-units/bx/docs/bx_12-grievance-and-arbitration_2022-2025.pdf,Contracts and Strikes,  Common,,,https://ucnet.universityofcalifornia.edu/wp-content/uploads/labor/bargaining-units/bx/docs/bx_12-grievance-and-arbitration_2022-2025.pdf,yes,
+injunction,,"A ruling by a court whereby one is required to do or to refrain from doing a specified act. In the case of strikes, injunctions can be issued by PERB.",,Contracts and Strikes, Uncommon,,,,,
+lockout,,"""A lockout is a temporary withholding or denial of employment initiated by an employer during a labor dispute to gain concessions or resist worker demands."" (Source: https://www.findlaw.com/employment/wages-and-benefits/labor-strike-faqs.html)",,Contracts and Strikes, Uncommon,,,,yes,
+National Labor Relations Board,NLRB,Decides ruling regarding unions for private employers.,,Contracts and Strikes,Rare,,,,,
+Orange County,OC,A temporary restraining order was issued by the Superior Court of Orange County to break the UAW strike. ,,Contracts and Strikes,Rare,,,,,
+pay docking,,Witholding of a worker's pay.,,Contracts and Strikes,  Common,,,,,
+pay scales/salary scales/pay steps,,,https://apo.ucsc.edu/docs/scales-crnt.pdf,Contracts and Strikes,  Common,,,https://apo.ucsc.edu/docs/scales-crnt.pdf,,
+PERB mediation sessions,,Closed-door discussions between the UC and the union (legally confidentially). ,,Contracts and Strikes, Uncommon,,,,,
+powermapping,,"The process before or during a strike of determining who is currently working, what their jobs are, their willingness to strike, and obstacles that they might face. ",https://docs.google.com/document/d/1vGb-CBK099QYF_1UYah2a_ngLeGif1RA2IEybzC9FHU/edit,Contracts and Strikes,  Common,,,https://docs.google.com/document/d/1vGb-CBK099QYF_1UYah2a_ngLeGif1RA2IEybzC9FHU/edit,,
+Public Employment Relations Board,PERB,"PERB is a ""quasi-judicial administrative agency charged with administering the collective bargaining statutes."" PERB determines things like whether a strike is legal or illegal.",Public Employment Relations Board (PERB),Contracts and Strikes,  Common,,,https://perb.ca.gov/,yes,
+scab,,A strikebreaker.,,Contracts and Strikes,  Common,,,,,
+side letters,,,,Contracts and Strikes, Uncommon,,,,yes,
+stand-up strike,,A strike format where different groups may be called to strike at different times. This is the format of the 2024 ULP strike.,https://uaw.org/standup/,Contracts and Strikes,  Common,,,https://uaw.org/standup/,,
+strike pay,,"Pay made to striking workers by the UAW to help them live while the UC is withholding pay (if the UC is able to identify who is striking, which it has often struggled to do). Receiving strike pay requires a certain amount of participation in picketing and the submission of an attestation form to the union (not to the UC!). ",,Contracts and Strikes,  Common,,,,,
+strikebreaker,,A person who works for an employer during a strike. ,,Contracts and Strikes,Rare,,,,,
+summer funding,,Funding for grad students that extends during the summer. ,,Contracts and Strikes,  Common,,,,,
+temporary restraining order,TRO ,"A ruling issued by a court to prohibit a particular action. In particular, an orange county superior court judge issued a TRO to suppress the 2024 ULP strike.",,Contracts and Strikes, Uncommon,,,,,
+timesheets,,The UC has requested that employees submit timesheets that describe when they have not worked and threatened to dock pay for workers that do not submit them. These timesheets are not required by our contract and the union guidance at UCSC has consistently been to ignore them. ,,Contracts and Strikes, Uncommon,,,,,
+wage garnishment,,Wage garnishment is when an employer withholds a portion of a paycheck to pay for a debt until the debt is resolved.,,Contracts and Strikes,  Common,,,,,
+contested position,,Indicates a position in an election that has two more more candidate.,,Elections, Uncommon,,,,,
+election by acclamation,,Means that a candidate in an election is elected by default because they do not have an opponent.,,Elections, Uncommon,,,,,
+good standing,,A classification of union members. ,,Elections, Uncommon,,,,,
+Simply Voting,,The voting platform used for statewide elections.,,Elections,Rare,,,,,
+Biomedical Sciences Building,Biomed,"Building on Science Hill at UCSC. Directly south of Mclaughlin, next to Physical Sciences Building and and Science and Engineering Library.",Biomedical Sciences Building,Geography,Rare,,,[Google Maps](https://maps.app.goo.gl/e5KUERHiLqUXpAyx8),,
+Earth & Marine Science,EMS,"Building near the lower part Science Hill on the UCSC campus. Painted white, has super weird layout.",https://maps.app.goo.gl/7EfGo8kuhVaFoS8s8,Geography,Rare,,,[Google Maps](https://maps.app.goo.gl/7EfGo8kuhVaFoS8s8),,
+Family Student Housing,FSH,"Housing complex on the westside of the UCSC main campus. Pronounced like ""fish"".",,Geography,,,,,,
+Interdisciplinary Sciences Building,ISB,Building that houses the astronomy department.,Interdisciplinary Sciences Building,Geography,Rare,,,[Google Maps](https://maps.app.goo.gl/bX7ZMLySa9rJBgGj7),,
+Santa Cruz Museum of Art & History,MAH,,https://g.co/kgs/jB75sVd,Geography,Rare,,,https://www.santacruzmah.org/,,
+Science and Engineering Library,S&E,"Library on Science Hill at UCSC, near Physical Sciences building.",Science and Engineering Library,Geography,Rare,,,[Google Maps](https://maps.app.goo.gl/hnJydeSRa5wb9HnQ6),,
+Westside Research Park,WRP,UCSC facility near Western Dr. and Natural Brigdes State Park.,UCSC Westside Research Park,Geography, Uncommon,,,[Google Maps](https://maps.app.goo.gl/5difYH9AvGZFKMm28),,
+California Public Records Act,CPRA,"A California state law that requires public institutions, such as the UC, to turn over certain types of document upon request.",https://codes.findlaw.com/ca/government-code/gov-sect-7922-535/,Laws and Regulations,Rare,,,,,
+Fair Labor Standards Act,FLSAA,,https://www.dol.gov/agencies/whd/flsa,Laws and Regulations,Rare,,,,,
+Family and Medical Leave Act,FMLA,,,Laws and Regulations,Rare,,,,,
+Family Educational Rights and Privacy Act,FERPA,Law that dictates who info about students' academic performance can and cannot be shared with.,,Laws and Regulations, Uncommon,,,,,
+Private Attorney General Act,PEGA,"A California statute that authorizes aggrieved employees to bring actions for civil penalties on behalf of themselves, other employees, and the State of California against their employers for California Labor Code violations. In particular, this bill allows aggrieved employees to bring civil actions to recover penalties, if the Labor and Workforce Development Agency does not do so.",https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=200320040SB796,Laws and Regulations,Rare,,,,,
+California Penal Code Section 626.4,626,"A section of the California Penal Code that allows the UC to exclude any ""disruptive persons"" from UC campuses for up to 14 days.",https://news.ucsc.edu/2024/06/notice-faq.html,Laws and Regulations, Uncommon,,,https://news.ucsc.edu/2024/06/notice-faq.html,,
+The Americans with Disabilities Act,ADA,A federal law that protects people against discrimination for disabilities and ensures some workplace accomadations. ,https://www.ada.gov/topics/intro-to-ada/,Laws and Regulations,  Common,,,,,
+Weingarten Rights,,Rights of union employees to have union representation at investigatory interviews.,https://supreme.justia.com/cases/federal/us/420/251/,Laws and Regulations,Rare,,,https://supreme.justia.com/cases/federal/us/420/251/,,
+ASE campus chair,chair,"The ASE campus chair is the head of the UCSC chapter of the union for the ASE bargaining unit. As of May 2024, the ASE campus chair at UCSC is Rebecca Gross.",LEADERSHIP — UAW 4811,Leadership role,  Common,,Check definition.,LEADERSHIP — UAW 4811,,
+ASE statewide chair,,,,Leadership role,  Common,,,,,
+department steward,steward,"A member of an academic department that handles communication and organizing of department regarding union stuff. At UCSC, stewardship is a relatively informal position that is generally not elected. There may be multiple stewards for each department.",https://docs.google.com/document/d/1YVzqNCYz3dDfBJG1rMZZxH46DOngQhcaEnkDXD1Gb6o/edit,Leadership role,  Common,,,,,
+recording secretary,,"As of May 2024, the recording secretary at UCSC is Jess Fournier. ",LEADERSHIP — UAW 4811,Leadership role, Uncommon,,,LEADERSHIP — UAW 4811,,
+region director,,,,Leadership role,Rare,,,,,
+by-laws (or bylaws),,By-laws are a collection rules that govern union policies at the local (statewide) level. ,UAW 4811 By-laws: https://drive.google.com/file/d/1Q7pMjjuraVSnrzYn2dT5rr7WsZOqcOD2/view,Meeting Procedures,  Common,,,[UAW 4811 By-laws](https://drive.google.com/file/d/1Q7pMjjuraVSnrzYn2dT5rr7WsZOqcOD2/view),,
+direct response,DR,Indicates that somebody will respond to a comment that was just made without waiting for a turn in the stack. Typically requires approval by whoever is organizing the stack.,,Meeting Procedures,  Common,,,,,
+friendly amendment,,"An amendment to a motion under debate that is perceived by all parties as an enhancement to the original motion, often only as clarification of intent. The opposite is a hostile amendment. (Source: Wikipedia)",Friendly amendment - Wikipedia,Meeting Procedures, Uncommon,,,Friendly amendment - Wikipedia,,
+hostile amendment,,"See ""friendly amendment"".",,Meeting Procedures, Uncommon,,,,,
+Robert's rules of order,,"A formal set of rules for how meetings are performed. Anytime you hear people calling for ""motions"", the meeting is probably following Robert's rules.",Summary of the rules: https://docs.google.com/document/d/11WATjjuSjPfFn5mrRfjpgwkfZG9rtQUpfeNbZQ_wvNI/edit?usp=sharing,Meeting Procedures,  Common,,,Summary of the rules: https://docs.google.com/document/d/11WATjjuSjPfFn5mrRfjpgwkfZG9rtQUpfeNbZQ_wvNI/edit?usp=sharing,,
+stack,,"A method of keeping track of who is next in line to speak in a meeting. In computer science terminology, this  is a queue, but for some reason we call it a stack. There are two methods for using a stack in a Zoom meeting, either raising hands or typing ""stack"" in the chat. The meeting facilitator will typically tell you which is being used.",,Meeting Procedures,  Common,,,,,
+vote whipping,,The process of ensuring that members of a political party (or caucus) votes in line with the party (or caucus).,,Meeting Procedures,Rare,,,,,
 Academic Researcher,AR,"Academic researchers at the University of California are comprised of Academic Specialists, Project Scientists, Professional Researchers and Coordinators of Public Programs.","Academic Researchers | UCnet
 https://ucnet.universityofcalifornia.edu/resources/employment-policies-contracts/bargaining-units/academic-researchers/contract/",Member Categories,  Common,,,"Academic Researchers | UCnet
-https://ucnet.universityofcalifornia.edu/resources/employment-policies-contracts/bargaining-units/academic-researchers/contract/"
-Academic Student Employee,ASE,"Workers at the UC, primarily graduate students, working as teaching assistants, readers, and tutors.","https://shr.ucsc.edu/elr/ase-toolkit/, Academic Student Employees (BX)",Member Categories,  Common,,,"https://shr.ucsc.edu/elr/ase-toolkit/, Academic Student Employees (BX)"
-post-doc,PD,A postgraduate researcher. ,,Member Categories,  Common,,,
-teaching assistant,TA,,,Member Categories,  Common,,,
-BX bargaining unit,BX,The BX Unit consists of Academic Student Employees.,,Member Categories,Rare,,,
-BR bargaining unit,BR,The BR Unit includes graduate students at the University who perform research as a service to the University and under the specific direction and control of a faculty member or Principal Investigator.,,Member Categories,Rare,,,
-PX bargaining unit,PX,The PX Unit members are postdoctoral scholars who contribute to the University’s academic community by enhancing the research and educational programs at the University under the mentorship of a faculty member or principal investigator.,,Member Categories,Rare,,,
-RA bargaining unit,RA,"The RA unit is comprised of academic researchers, which includes positions such as Academic Specialist, Project Scientists, Professional Researchers, and Coordinators of Public Programs.",,Member Categories,Rare,,,
+https://ucnet.universityofcalifornia.edu/resources/employment-policies-contracts/bargaining-units/academic-researchers/contract/",yes,
+Academic Student Employee,ASE,"Academic Student Workers at the UC include graduate students who work as teaching assistants, instructors, readers, and tutors.","https://shr.ucsc.edu/elr/ase-toolkit/, Academic Student Employees (BX)",Member Categories,  Common,,,"https://shr.ucsc.edu/elr/ase-toolkit/, Academic Student Employees (BX)",yes,
+BR bargaining unit,BR,The BR Unit includes graduate students at the University who perform research as a service to the University and under the specific direction and control of a faculty member or Principal Investigator.,,Member Categories,Rare,,,,,
+BX bargaining unit,BX,The BX Unit consists of Academic Student Employees.,,Member Categories,Rare,,,,,
+course assistant,,An academic worker who is not a student. Course assistants are covered by UAW 4811. Includes some recent grads and others community members.,,Member Categories, Uncommon,,,,,
+Graduate Student Research Assistant,GSRA,Graduate Student Research Assistant are workers at Lawrence Berkeley National Laboratory. Mentioned in Articl 32 of the 2022-2025 GSR contract. ,,Member Categories,Rare,,,,yes,
+graduate student researcher,"GSR, SR","Academic worker position for graduate students who do paid research for the university. Until 2025, GSR's have a separate contract from ASE's, but their contracts will be merged in the next baraining cycle.",,Member Categories,  Common,,,,,
+post-doc,PD,"A postgraduate researcher. ""PD"" may also stand for ""police department"" or ""professional development"".",,Member Categories,  Common,,,,,
+PX bargaining unit,PX,The PX Unit members are postdoctoral scholars who contribute to the University’s academic community by enhancing the research and educational programs at the University under the mentorship of a faculty member or principal investigator.,,Member Categories,Rare,,,,,
+RA bargaining unit,RA,"The RA unit is comprised of academic researchers, which includes positions such as Academic Specialist, Project Scientists, Professional Researchers, and Coordinators of Public Programs.",,Member Categories,Rare,,,,,
+teaching assistant,TA,A teaching assistant or education assistant is an individual who assists a professor or teacher with instructional responsibilities. TA's who are appointed to 25% time or more have their tuition and and fees covered by the UC.,,Member Categories,  Common,,,,yes,
+12/50 campaign,1250,"A campaign that started at San Diego in 2023(?) to demand that the UC guarantee 12-month funding at 50% apppointment for graduate students. The motivation was that many people were getting appointed at like 48% and underpaid, or were not receiving summer funding.",,Misc.,Rare,,,,,
+academic good standing,,,https://advising.ucsc.edu/success/standing.html,Misc., Uncommon,,,,yes?,
 "Administration caucus
-",AC,,,Misc.,Rare,,What is the administration caucus? ,
-agitation and propaganda,AgitProp,Sometimes used as the name of a group responsible for agitation and propaganda (at strikes?).,,Misc.,Rare,,,
-American Civil Liberties Union,ACLU,,,Misc.,Rare,,,
-Anti-repression Committee,ARC,Run by the National Lawyers Guild? Helps with legal support after protests.,Bay Area Anti-Repression Committee,Misc.,,,,Bay Area Anti-Repression Committee
-"black, indigenous, (and) people of color",BIPOC,,,Misc., Uncommon,,,
-Canvas,,A course administration website used by UCSC.,,Misc., Uncommon,,,
-cost of living adjustment.,COLA ,A strike demand from the 2019-2020 wildcat strike to have the UC raise the wages of grad student workers to match increases to the cost of living.,,Misc.,  Common,,,
-Council of UC Faculty Associations,CUCFA,"Council of UC Faculty Associations, statewide council made up of representatives from each campus's Faculty Associations (FA). the FAs are a sort of labor association/advocacy group for Senate faculty at the different UCs -- except at UCSC, where i believe senate faculty/their FA is an *actual* union",https://cucfa.org/about/,Misc.,Rare,,,https://cucfa.org/about/
-Council on American-Islamic Relations,CAIR,Council on American-Islamic Relations,https://ca.cair.com/about-us/,Misc.,Rare,,,https://ca.cair.com/about-us/
-encampment,,,,Misc.,  Common,,,
-Faculty for Justice in Palestine,FJP,"A group of faculty, lecturers, staff, and graduate students at UCSC. The group works to support Students for Justice in Palestine in their work, collaborate with students on direct actions, protect faculty and graduate students under attack for making space to discuss Palestine in their classrooms, hosting events, and act as liaisons for students experiencing harassment because they are perceived as Arab, Muslim, and/or pro-Palestinian.",UCSC Faculty For Justice in Palestine,Misc.,Rare,,,UCSC Faculty For Justice in Palestine
-faculty organizing group,FOG ,,,Misc.,Rare,,,
-folx,,A plural noun used to explicitly signal the inclusion of groups commonly marginalized.,Folx Definition & Meaning - Merriam-Webster,Misc.,Rare,,,Folx Definition & Meaning - Merriam-Webster
-graduate student instructor,GSI,A position held by a graduate student that is the primary instructor for a course. ,,Misc.,  Common,,,
+",AC,,,Misc.,Rare,,What is the administration caucus? ,,,
+Affirmative Action,AA,,,Misc., Uncommon,,,,,
+agitation and propaganda,AgitProp,Sometimes used as the name of a group responsible for agitation and propaganda (at strikes?).,,Misc.,Rare,,,,,
+American Association of University Professors,AAUP,,https://www.aaup.org/,Misc.,Rare,,,https://www.aaup.org/,,
+American Civil Liberties Union,ACLU,,,Misc.,Rare,,,,,
+Anti-repression Committee,ARC,Run by the National Lawyers Guild? Helps with legal support after protests.,Bay Area Anti-Repression Committee,Misc.,,,,Bay Area Anti-Repression Committee,,
+Automated License Plate Recognition,ALPR,A ticketing system TAPS adopted in 2024 to automatically check cars license plates to determine if they are permitted to park on campus.,https://taps.ucsc.edu/parking/virtual-permitting.html,Misc.,Rare,,,,,
+"black, indigenous, (and) people of color",BIPOC,,,Misc., Uncommon,,,,,
+Canvas,,A course administration website used by UCSC.,,Misc., Uncommon,,,,,
+cease and desist letter,,,,Misc.,  Common,,,,,
+Coalition of Department Advisors,CODA ,,,Misc.,Rare,,,,,
+cost of living adjustment.,COLA ,A strike demand from the 2019-2020 wildcat strike to have the UC raise the wages of grad student workers to match increases to the cost of living.,,Misc.,  Common,,,,,
+Council of UC Faculty Associations,CUCFA,"Council of UC Faculty Associations, statewide council made up of representatives from each campus's Faculty Associations (FA). the FAs are a sort of labor association/advocacy group for Senate faculty at the different UCs -- except at UCSC, where i believe senate faculty/their FA is an *actual* union",https://cucfa.org/about/,Misc.,Rare,,,https://cucfa.org/about/,,
+Council on American-Islamic Relations,CAIR,Council on American-Islamic Relations,https://ca.cair.com/about-us/,Misc.,Rare,,,https://ca.cair.com/about-us/,,
+Department of Defense,DOD or DoD,,,Misc.,Rare,,,,,
+description of duties,DoD,"See also ""Department of Defense""",,Misc., Uncommon,,,,,
+Division of Labor Standards Enforcement,DLSE,,https://www.dir.ca.gov/dlse/,Misc.,Rare,,,,,
+employment good standing,,"In summer 2024, the UC has been sending conditional employment letters based on workers being in ""good standing"" but it is not clear what this term means.",,Misc.,,,,,,
+encampment,,,,Misc.,  Common,,,,,
+Faculty for Justice in Palestine,FJP,"A group of faculty, lecturers, staff, and graduate students at UCSC. The group works to support Students for Justice in Palestine in their work, collaborate with students on direct actions, protect faculty and graduate students under attack for making space to discuss Palestine in their classrooms, hosting events, and act as liaisons for students experiencing harassment because they are perceived as Arab, Muslim, and/or pro-Palestinian.",UCSC Faculty For Justice in Palestine,Misc.,Rare,,,UCSC Faculty For Justice in Palestine,,
+faculty organizing group,FOG ,,,Misc.,Rare,,,,,
+folx,,A plural noun used to explicitly signal the inclusion of groups commonly marginalized.,Folx Definition & Meaning - Merriam-Webster,Misc.,Rare,,,Folx Definition & Meaning - Merriam-Webster,,
+graduate student instructor,GSI,A GSI is a graduate student who is the primary instructor for a course. ,,Misc.,  Common,,,,yes,
 High Rock Security,,"A private secuity agency hired by UCSC (as of May 2024). Private security officers may have the power of arrest and can be licensed to carry firearms, batons, and tear gas. Legally, they must have these licenses on them at all times (it is unclear if they are obligated to present them, though).","https://www.highrocksecurity.com/clients
 https://www.bsis.ca.gov/forms_pubs/guard_fact.shtml
 https://leginfo.legislature.ca.gov/faces/codes_displayexpandedbranch.xhtml?tocCode=BPC&division=3.&title=&part=&chapter=11.5.&article=",Misc.,Rare,,,"https://www.highrocksecurity.com/clients
 https://www.bsis.ca.gov/forms_pubs/guard_fact.shtml
-https://leginfo.legislature.ca.gov/faces/codes_displayexpandedbranch.xhtml?tocCode=BPC&division=3.&title=&part=&chapter=11.5.&article="
-Higher Education Employer-Employee Relations Act,HEERA ,A 1979 law that established collective bargaining for employees of the UC (and other state universities).,https://leginfo.legislature.ca.gov/faces/codes_displayexpandedbranch.xhtml?tocCode=GOV&division=4.&title=1.&part=&chapter=12.&article=,Misc., Uncommon,,,https://leginfo.legislature.ca.gov/faces/codes_displayexpandedbranch.xhtml?tocCode=GOV&division=4.&title=1.&part=&chapter=12.&article=
-Immigrant Legal Resource Center,ILRC,,,Misc.,Rare,,,
-International Longshore and Warehouse Union,ILWU,,,Other Unions, Uncommon,,,
-Jewish Community Relations Council,JCRC,,,Misc.,Rare,,,
-know your rights,KYR,,,Policing,Rare,,,
-Lawrence Berkeley National Laboratory,"LBL, LBNL",Not to be confused with Lawrence Livermore National Laboratory.,,Misc.,Rare,,lawrence berkeley laboratory?,
-Lawrence Livermore National Laboratory,LLNL,Not to be confused with Lawrence Berkeley National Laboratory.,,Misc., Uncommon,,,
-monthly membership meeting,MMM,A monthly meeting open to all union members. MMM's can include votes that make important decisions. MMM's are required by the (statewide) by-laws.,,Misc.,  Common,,When do these happen? How are we notified?,
-National Lawyers Guild,NLG,Provides jail support for arrested protesters. ,Anti-Repression Committee | National Lawyers Guild SF,Misc.,Rare,,,Anti-Repression Committee | National Lawyers Guild SF
-Palestine Justice Coalition,PJC,A community group in Santa Cruz.,https://rcnv.org/programs/palestine-justice-coalition-3/,Misc.,Rare,,,https://rcnv.org/programs/palestine-justice-coalition-3/
-people of color / person of color,POC,,,Misc.,  Common,,,
-Reform UC-UAW slate,,A collection of candidates in the 2024 election for UAW 4811 to replace the current leadership. They lost.,,Misc.,Rare,,,
-rent burden,,,,Misc., Uncommon,,,
-Researchers Against War,RAW,,,Misc.,Rare,,,
-Service Employees International Union,SEIU,The union for the Santa Cruz Metro drivers.,MEMORANDUM OF UNDERSTANDING SERVICE EMPLOYEES INTERNATIONAL UNION LOCAL 521 SANTA CRUZ METROPOLITAN TRANSIT DISTRICT,Misc., Uncommon,,,MEMORANDUM OF UNDERSTANDING SERVICE EMPLOYEES INTERNATIONAL UNION LOCAL 521 SANTA CRUZ METROPOLITAN TRANSIT DISTRICT
-Signal,,A secure messaging platform used for internal union communications.,,Misc.,  Common,,,
-strike authorization vote,SAV,,,Misc.,  Common,,,
-Students for Justice in Palestine,SJP ,Undergraduate(?) organization.,,Misc., Uncommon,,,
-teach-in,,,,Misc.,  Common,,,
-Teamsters Union,,The union for UPS and...,,Other Unions, Uncommon,,,
-temperature check,,A poll in a meeting that is intended to be non-binding. Useful for guiding decisions. May be done by a Google form or Zoom poll.,,Misc.,  Common,,,
-UAW,,"This is an acronym for ""United Auto Workers"", but it almost always referred to as UAW. It's the parent organization that our union is a part of.",,Misc.,  Common,,,
-UAW 2865,,A previous local union that merged with UAW 5810 to form UAW 4811.,,Misc.,Rare,,,
-UAW 5810,,A previous  local union that merged with UAW 2865 to form UAW 4811,,Misc.,Rare,,,
-UAW contract (2022-2025),,The document governing the relationship between the UC and grad students and postdocs.,https://ucnet.universityofcalifornia.edu/resources/employment-policies-contracts/bargaining-units/academic-student-employees/contract/,Misc.,  Common,,,https://ucnet.universityofcalifornia.edu/resources/employment-policies-contracts/bargaining-units/academic-student-employees/contract/
-UC Santa Cruz Faculty Association,SCFA,Union that represents all UCSC Senate faculty members.  ,https://ucscfa.org/,Other Unions, Uncommon,,,https://ucscfa.org/
-UC-AFT Local 1474,UC-AFT,Union for that represents Non-Senate Faculty and Librarians of the University of California. Affiliated with the California Federation of Teachers and the American Federation of Teachers.,https://ucaft.org/content/about-uc-aft,Other Unions, Uncommon,,,https://ucaft.org/content/about-uc-aft
-unfair labor practice,ULP,,,Misc.,  Common,,,
-Unite All Workers for Democracy,UAWD,A grassroots movement with the goal of making the UAW a more democratic and accountable to rank and file members.,https://uawd.org/about/,Misc.,Rare,,,https://uawd.org/about/
-wildcat strike,,"A wildcat strike is an unsanctioned strike. Does not have legal protections against retaliations. At UCSC, ""The Wildcat"" typically refers to the wildcat strike that happened 2019-2020.",,Misc.,  Common,,,
-Worker Student Solidarity Coalition,WSSC,Group at UCSC.,,Misc.,Rare,,,
-United Labor Unions,ULU,A coalition of unions.,,Other Unions,Rare,,,
-The Barricade,,An obstruction erected by the SJP undergrad across the Bay/High/Coolidge intersection,,Misc.,Rare,,,
-UC framework for sustainable investment,,,,Misc.,Rare,,,
-MSCI,,An American finance company. The investment advisor for the UC?,,Misc.,Rare,,,
-Coalition of Department Advisors,CODA ,,,Misc.,Rare,,,
-American Association of University Professors,AAUP,,https://www.aaup.org/,Misc.,Rare,,,https://www.aaup.org/
-UCLA Faculty Association,UCLAFA,,,Misc.,Rare,,,
-Section 626.4,626,"A section of the California Penal Code that allows the UC to exclude from ""disruptive persons"" from UC campuses for up to 14 days.",https://news.ucsc.edu/2024/06/notice-faq.html,Misc., Uncommon,,,https://news.ucsc.edu/2024/06/notice-faq.html
-Pass/No Pass,P/NP,"A grading scheme for academic courses. If grades are withheld, then",,Misc., Uncommon,,,
-leave without pay,LWP,,,Misc., Uncommon,,,
-work-to-rule,WTR,"A work actions in which employees do no more than the minimum required by the rules of their contract or job, and strictly follow time-consuming rules that are normally not enforced.",,Misc., Uncommon,,,
-Weingarten Rights,,Rights of union employees to have union representation at investigatory interviews.,https://supreme.justia.com/cases/federal/us/420/251/,Misc.,Rare,,,https://supreme.justia.com/cases/federal/us/420/251/
-Monterey Bay Central Labor Council,MBCLC,A group of unions in Santa Cruz and Monterey Counties. The local body of AFL-CIO.,https://mbclc.org/about-us,Other Unions,Rare,,,https://mbclc.org/about-us
-Family Educational Rights and Privacy Act,FERPA,Law that dictates who info about students' academic performance can and cannot be shared with.,,Misc., Uncommon,,,
-Jews Against White Supremacy,JAWS,student organization,,Misc., Uncommon,,,
-broketober,,"The month of October, after the summer when grad students tend to be running low on money due to a lack of summer funding and fall funding not being dispersed until Nov 1.",,Misc.,Rare,,,
-Academic Workers for a Democratic Union,AWDU,,,Other Unions, Uncommon,,,
-AFSCME 3299,,"Union for UC service workers, patient care technical workers, and skilled craft workers",https://afscme3299.org/,Other Unions,Rare,,,https://afscme3299.org/
-American Federation of Teachers,AFT,The union for non-senate faculty (lecturers) at UCSC.,,Other Unions, Uncommon,,,
-Faculty Associations,FA,,,Other Unions,Rare,,,
-Student Dining Workers Union ,SDWU,,,Other Unions,Rare,,,
-Graduate Employees’ Organization,GEO ,The graduate student union at University of Michigan.,https://www.geo3550.org/,Other Unions,Rare,,,https://www.geo3550.org/
-"Boycott, Divestment and Sanctions",BDS,,,Palestine, Uncommon,,,
-Hillel: The Foundation for Jewish Campus Life,Hillel,The largest Jewish campus organization in the world.,,Palestine, Uncommon,,,
+https://leginfo.legislature.ca.gov/faces/codes_displayexpandedbranch.xhtml?tocCode=BPC&division=3.&title=&part=&chapter=11.5.&article=",,
+Higher Education Employer-Employee Relations Act,HEERA ,HEERA is a 1979 California law that established collective bargaining for employees of the UC (and other state universities).,https://leginfo.legislature.ca.gov/faces/codes_displayexpandedbranch.xhtml?tocCode=GOV&division=4.&title=1.&part=&chapter=12.&article=,Laws and Regulations, Uncommon,,,https://leginfo.legislature.ca.gov/faces/codes_displayexpandedbranch.xhtml?tocCode=GOV&division=4.&title=1.&part=&chapter=12.&article=,yes,
+hiring unit / department,,,,Misc.,  Common,,,,,
+Immigrant Legal Resource Center,ILRC,,,Misc.,Rare,,,,,
+Jewish Community Relations Council,JCRC,,,Misc.,Rare,,,,,
+Jews Against White Supremacy,JAWS,student organization,,Misc., Uncommon,,,,,
+Labor and Workforce Development Agency,LWDA,,,Misc.,Rare,,,,,
+Labor Commissioner,,,https://www.dir.ca.gov/dlse/,Misc.,Rare,,,https://www.dir.ca.gov/dlse/,,
+labor organizanizing,,The work of building collective worker power.,,Misc.,  Common,,,,,
+Lawrence Berkeley National Laboratory,"LBL, LBNL, Berkeley Lab",Not to be confused with Lawrence Livermore National Laboratory.,,UC Campus,Rare,,lawrence berkeley laboratory?,,,
+Lawrence Livermore National Laboratory,LLNL,Not to be confused with Lawrence Berkeley National Laboratory.,,Misc., Uncommon,,,,,
+monthly membership meeting,MMM,A monthly meeting open to all union members. MMM's can include votes that make important decisions. MMM's are required by the (statewide) by-laws.,,Misc.,  Common,,When do these happen? How are we notified?,,,
+MSCI,,An American finance company. The investment advisor for the UC?,,Misc.,Rare,,,,,
+National Lawyers Guild,NLG,Provides jail support for arrested protesters. ,Anti-Repression Committee | National Lawyers Guild SF,Misc.,Rare,,,Anti-Repression Committee | National Lawyers Guild SF,,
+Nonresident Supplemental Tuition,NRST,Additional tution fees charged to students from outside CA. PhD students who have advanced to candidacy are not charged the NRST for three years. See Article 11 of ASE contract and article 10 of the GSR contract. ,https://ucnet.universityofcalifornia.edu/wp-content/uploads/labor/bargaining-units/bx/docs/bx_11-fee-remission_2022-2025.pdf,Misc., Uncommon,,,https://ucnet.universityofcalifornia.edu/wp-content/uploads/labor/bargaining-units/bx/docs/bx_11-fee-remission_2022-2025.pdf,,
+Palestine Justice Coalition,PJC,A community group in Santa Cruz.,https://rcnv.org/programs/palestine-justice-coalition-3/,Misc.,Rare,,,https://rcnv.org/programs/palestine-justice-coalition-3/,,
+Pass/No Pass,P/NP,"A grading scheme for academic courses. If grades are withheld, then",,Misc., Uncommon,,,,,
+people of color / person of color,POC,,,Misc.,  Common,,,,,
+pre-arbitration conference,,,,Misc.,Rare,,,,,
+Professional Degree Supplemental Tuition ,PDST,,https://academicaffairs.ucsc.edu/program-development/process-maps/new-pdst-degree-pgrm.html,Misc.,Rare,,,,,
+Reform UC-UAW slate,,A collection of candidates in the 2024 election for UAW 4811 to replace the current leadership. They lost.,,Misc.,Rare,,,,,
+rent burden,,Rent-burden is defined as spending over 30% of income on rent and utilities. Severely rent-burder is defined as spending over 50%.,,Misc., Uncommon,,,,,
+request for information,RFI,,,Misc., Uncommon,,,,,
+Researchers Against War,RAW,Researchers fighting against militarism in research and for a free Palestine.,https://linktr.ee/researchers_against_war,Misc.,Rare,,,,,
+Service Employees International Union,SEIU,The union for the Santa Cruz Metro drivers.,MEMORANDUM OF UNDERSTANDING SERVICE EMPLOYEES INTERNATIONAL UNION LOCAL 521 SANTA CRUZ METROPOLITAN TRANSIT DISTRICT,Misc., Uncommon,,,MEMORANDUM OF UNDERSTANDING SERVICE EMPLOYEES INTERNATIONAL UNION LOCAL 521 SANTA CRUZ METROPOLITAN TRANSIT DISTRICT,,
+Signal,,A secure messaging platform used for internal union communications.,,Misc.,  Common,,,,,
+step 2 grievance,,"If a worker cannot resolve a complaint against the UC through informal discussions, a step-2 grievance can be filed per the terms of the GSR and ASE contracts.",,Misc., Uncommon,,,,yes,
+strike authorization vote,SAV,A vote by all union members to authorize a strike. Requires 2/3rds “yes” vote before a strike can be called.,,Misc.,  Common,,,,,
+Student Experience of Teaching Surveys,SETS,Anonymous evaluations of instructors and teaching assistants submitted by students at the end of each quarter.,https://its.ucsc.edu/sets/index.html,Misc.,  Common,,,,,
+Student Union Assembly,SUA,,,Misc.,Rare,,,,,
+Students for Justice in Palestine,SJP ,Undergraduate(?) organization.,,Misc., Uncommon,,,,,
+teach-in,,,,Misc.,  Common,,,,,
+temperature check,,A poll in a meeting that is intended to be non-binding. Useful for guiding decisions. May be done by a Google form or Zoom poll.,,Misc.,  Common,,,,,
+"U.S. Department of
+Housing and Urban Development
+",HUD,"HUD provides data sets about housing prices, which can be useful for determining rent burden on a community.",https://www.huduser.gov/portal/pdrdatas_landing.html,Misc.,Rare,,,,,
+U.S. Department of Labor ,DOL,,,Misc.,Rare,,,,,
+United Auto Workers,UAW,"The UAW is the union that represents graduate students, post docs, and non-faculty researchers in the UC. The full name of the union is ""International Union, United Automobile, Aerospace and Agricultural Implement Workers of America"", but this is only used in formal communications.",https://uaw.org/,Misc.,  Common,,,,,
+UAW 2865,,A previous local union that merged with UAW 5810 to form UAW 4811.,https://uaw.org/,Misc.,Rare,,,,,
+UAW 5810,,A previous local union that merged with UAW 2865 to form UAW 4811,,Misc.,Rare,,,,,
+UAW contract (2022-2025),,The document governing the relationship between the UC and grad students and postdocs.,https://ucnet.universityofcalifornia.edu/resources/employment-policies-contracts/bargaining-units/academic-student-employees/contract/,Misc.,  Common,,,https://ucnet.universityofcalifornia.edu/resources/employment-policies-contracts/bargaining-units/academic-student-employees/contract/,,
+UC framework for sustainable investment,,,,Misc.,Rare,,,,,
+University of California Retirement Program,UCRP,Retirement plan for UC emplyees.,https://ucnet.universityofcalifornia.edu/benefits/retirement/,Misc.,Rare,,,https://ucnet.universityofcalifornia.edu/benefits/retirement/,,
+UC Student Health Insurance Plan,UCSHIP,,"https://ucnet.universityofcalifornia.edu/wp-content/uploads/labor/bargaining-units/bx/docs/bx_14-health-benefits_2022-2025.pdf
+https://myucship.org/uc-santa-cruz/benefits-101/about-uc-ship/",Misc., Uncommon,,,"https://ucnet.universityofcalifornia.edu/wp-content/uploads/labor/bargaining-units/bx/docs/bx_14-health-benefits_2022-2025.pdf
+https://myucship.org/uc-santa-cruz/benefits-101/about-uc-ship/",,
+unfair labor practice,ULP,,,Misc.,  Common,,,,,
+Unite All Workers for Democracy,UAWD,A grassroots movement with the goal of making the UAW a more democratic and accountable to rank and file members.,https://uawd.org/about/,Misc.,Rare,,,https://uawd.org/about/,,
+Voluntary Community Action Program,"VCAP, V-CAP, CAP","V-CAP is the UAW’s political action program, which includes the Union’s PAC (Political Action Committee). The PAC fund is made up of voluntary contributions from UAW members,
+both active and retired. The money is used to support pro-worker political candidates who have earned the endorsement of the UAW Community Action Program (UAW CAP).","https://ucnet.universityofcalifornia.edu/wp-content/uploads/labor/bargaining-units/bx/docs/bx_31-union-security_2022-2025.pdf
+https://uaw.org/wp-content/uploads/2023/12/PUB-C2015-What-is-V-CAP-REVISED-COVER-07312018-APPROVED-PR08062018.pdf",Misc.,Rare,,,,,
+wildcat strike,,"A wildcat strike is an unsanctioned strike. Does not have legal protections against retaliations. At UCSC, ""The Wildcat"" typically refers to the wildcat strike that happened 2019-2020.",,Misc.,  Common,,,,,
+work-to-rule,WTR,"A work actions in which employees do no more than the minimum required by the rules of their contract or job, and strictly follow time-consuming rules that are normally not enforced.",,Misc., Uncommon,,,,,
+Worker Student Solidarity Coalition,WSSC,Group at UCSC.,,Misc.,Rare,,,,,
+Youth Labor Organizing Corps,YLOC,,https://www.yloc-uaw.org/,Misc.,Rare,,,,,
+Academic Workers for a Democratic Union,AWDU,,,Other Unions, Uncommon,,,,,
+AFSCME 3299,,"Union for UC service workers, patient care technical workers, and skilled craft workers",https://afscme3299.org/,Other Unions,Rare,,,https://afscme3299.org/,,
+American Federation of Labor and Congress of Industrial Organizations,AFL-CIO,A federation of 60 national and international labor unions that represent more than 12.5 million working people.The International UAW is a member (affiliated union) in the AFL-CIO.,"https://aflcio.org/
+List of affiliated unions: https://aflcio.org/about-us/our-unions-and-allies/our-affiliated-unions",Other Unions, Uncommon,,,"https://aflcio.org/, [List of affiliated unions](https://aflcio.org/about-us/our-unions-and-allies/our-affiliated-unions)",,
+American Federation of Teachers,AFT,The union for non-senate faculty (lecturers) at UCSC.,,Other Unions, Uncommon,,,,,
+Boston University Graduate Workers Union,BUGWU,,,Other Unions,Rare,,,,,
+Faculty Associations,FA,,,Other Unions,Rare,,,,,
+Graduate Employees’ Organization,GEO ,The graduate student union at University of Michigan.,https://www.geo3550.org/,Other Unions,Rare,,,https://www.geo3550.org/,,
+International Longshore and Warehouse Union,ILWU,,,Other Unions, Uncommon,,,,,
+Monterey Bay Central Labor Council,MBCLC,A group of unions in Santa Cruz and Monterey Counties. The local body of AFL-CIO.,https://mbclc.org/about-us,Other Unions,Rare,,,https://mbclc.org/about-us,,
+National Education Association,NEA,"A union that represents public school teachers and other support personnel, faculty and staffers at colleges and universities, retired educators, and college students preparing to become teachers. It is the larget labor union in the US.",,Other Unions,Rare,,,,,
+Student Dining Workers Union ,SDWU,,,Other Unions,Rare,,,,,
+Teamsters Union,,The union for UPS and...,,Other Unions, Uncommon,,,,,
+UC Santa Cruz Faculty Association,SCFA,Union that represents all UCSC Senate faculty members.  ,https://ucscfa.org/,Other Unions, Uncommon,,,https://ucscfa.org/,,
+UC-AFT Local 1474,UC-AFT,Union for that represents Non-Senate Faculty and Librarians of the University of California. Affiliated with the California Federation of Teachers and the American Federation of Teachers.,https://ucaft.org/content/about-uc-aft,Other Unions, Uncommon,,,https://ucaft.org/content/about-uc-aft,,
+UCLA Faculty Association,UCLAFA,,,Other Unions,Rare,,,,,
+United Labor Unions,ULU,A coalition of unions.,,Other Unions,Rare,,,,,
+Anti-Defamation League,ADL,"A New York–based international Jewish pro-Israel non-governmental organization and advocacy group. The leader has said, ""anti-Zionism is antisemitism.""",,Palestine,Rare,,,,,
+"Boycott, Divestment and Sanctions",BDS,,,Palestine, Uncommon,,,,,
+Hillel: The Foundation for Jewish Campus Life,Hillel,The largest Jewish campus organization in the world.,,Palestine, Uncommon,,,,,
 intifada,,"In English-language usage, primarily refers to Palestinian uprisings against Israeli occupation. 
-Historically, Intifada has been used to describe both violent and nonviolent methods of resistance, so its usage risks misinterpretation.",,Palestine, Uncommon,,,
-Israel Defense Forces,IDF,The Israeli military. ,,Palestine,  Common,,,
-Israel Offense Forces,IOF,A slang term used for the Israel Defense Forces to highlight that their behavior has little to do with defense.,,Palestine, Uncommon,,,
-keffiyeh,,"In Palestine, the keffiyeh is distinctly patterned black-and-white headressing. The pattern and coloring differ in other regions.",Palestinian keffiyeh - Wikipedia,Palestine, Uncommon,,,Palestinian keffiyeh - Wikipedia
+Historically, Intifada has been used to describe both violent and nonviolent methods of resistance, so its usage risks misinterpretation.",,Palestine, Uncommon,,,,,
+Israel Defense Forces,IDF,The Israeli military. ,,Palestine,  Common,,,,,
+Israel Offense Forces,IOF,A slang term used for the Israel Defense Forces to highlight that their behavior has little to do with defense.,,Palestine, Uncommon,,,,,
+keffiyeh,,"In Palestine, the keffiyeh is distinctly patterned black-and-white headressing. The pattern and coloring differ in other regions.",Palestinian keffiyeh - Wikipedia,Palestine, Uncommon,,,Palestinian keffiyeh - Wikipedia,,
 Nakba,,The ethnic cleansing of Palestinians in the region of Palestine during 1948 to make way for the founding of Israel.,"https://en.wikipedia.org/wiki/Nakba
 https://en.wikipedia.org/wiki/Nakba_Day",Palestine, Uncommon,,,"https://en.wikipedia.org/wiki/Nakba
-https://en.wikipedia.org/wiki/Nakba_Day"
+https://en.wikipedia.org/wiki/Nakba_Day",,
 Palestinian Campaign for the Academic and Cultural Boycott of Israel,PACBI,,"Organization: https://bdsmovement.net/pacbi
 Academic boycott: https://bdsmovement.net/pacbi/academic-boycott-guidelines
 Wikipedia: https://en.m.wikipedia.org/wiki/Palestinian_Campaign_for_the_Academic_and_Cultural_Boycott_of_Israel",Palestine, Uncommon,,,"Organization: https://bdsmovement.net/pacbi
 Academic boycott: https://bdsmovement.net/pacbi/academic-boycott-guidelines
-Wikipedia: https://en.m.wikipedia.org/wiki/Palestinian_Campaign_for_the_Academic_and_Cultural_Boycott_of_Israel"
-watermelon (symbol),🍉,"Watermelon is a symbol of Palestine. It has the Green, Red, and Black found on the flag. It is famous for a Zionist soldier trying to censor watermelons during the 1980's (Israel banned Palestinian flags).",https://www.npr.org/2024/01/08/1222718339/why-watermelons-are-symbol-of-palestinian-solidarity,Palestine,Rare,,,https://www.npr.org/2024/01/08/1222718339/why-watermelons-are-symbol-of-palestinian-solidarity
-Anti-Defamation League,ADL,"A New York–based international Jewish pro-Israel non-governmental organization and advocacy group. The leader has said, ""anti-Zionism is antisemitism.""",,Palestine,Rare,,,
-"""all cops are bastards""","ACAB, 1312",A political slogan used by people who are opposed to the police.,ACAB - Wikipedia,Policing,Rare,,,ACAB - Wikipedia
-"body worn video, body worn camera","BWV, BWC",Body cameras worn by police officers.,UCPD body camera policy: https://police.ucsc.edu/report/policies/body-worn-camera.html,Policing,Rare,,,UCPD body camera policy: https://police.ucsc.edu/report/policies/body-worn-camera.html
-carceral,,"""Of or pertaining to prison."" Used frequently in police abolition discussions.",Carceral Definition & Meaning - Merriam-Webster,Policing,Rare,,,Carceral Definition & Meaning - Merriam-Webster
-cops off campus,"COC, CoC","A demand made by some union members, especially starting at the 2019-2020 wildcat strike.",,Policing,  Common,,,
-defund the police,,A movement and demand to reduce the funding for police departments.,,Policing,  Common,,,
+Wikipedia: https://en.m.wikipedia.org/wiki/Palestinian_Campaign_for_the_Academic_and_Cultural_Boycott_of_Israel",,
+Palestinian General Federation of Trade Unions ,,,,Palestine,Rare,,,,,
+watermelon (symbol),🍉,"Watermelon is a symbol of Palestine. It has the Green, Red, and Black found on the flag. It is famous for a Zionist soldier trying to censor watermelons during the 1980's (Israel banned Palestinian flags).",https://www.npr.org/2024/01/08/1222718339/why-watermelons-are-symbol-of-palestinian-solidarity,Palestine,Rare,,,https://www.npr.org/2024/01/08/1222718339/why-watermelons-are-symbol-of-palestinian-solidarity,,
+California Assembly Bill No. 673,AB 673,An amendment to the California labor law (Labor Code section 210) to allow employees to collect penalties for late wages. ,"https://www.dir.ca.gov/dlse/Late-Payment-of-Wages.htm
+https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=201920200AB673",Paychecks and Timesheets,Rare,,,,,
+California Labor Code section 210,CA Labor Code 210,"A section of the California labor law that imposes penalties when employeers fail to pay employees what they are owed, or pay late. AB 673 amended this section so that penalties are paid to the employee, but Labor Code Section 220 except employees of California from section 210. ",https://www.dir.ca.gov/dlse/Late-Payment-of-Wages.htm,Paychecks and Timesheets,Rare,,,,,
+California Labor Code Section 510,CA Labor Code 510,Law ensuring overtime is paid at double-rate in particular situations.,https://california.public.law/codes/ca_lab_code_section_510,Paychecks and Timesheets,Rare,,,,,
+DC Plan Safe Harbor,,"The DC Plan Safe Harbor is an obligatory retirement plan for UC emplyees. Safe Harbor participants contribute 7.5% of their wages, on a pretax basis, in lieu of contributing to Social Security.",,Paychecks and Timesheets,,,,,yes,
+DC Plan Voluntary Contribution,,DC Plan Voluntary Contribution is an optional retirement plan for UC emplyees. ,,Paychecks and Timesheets,,,,,yes,
+Defined Contribution Plan,"DCP, DC Plan","Defined Contribution Plan is a retirement plan for UC emplyees. There are two components ""DC Plan Safe Harbor"" and and ""DC Plan Voluntary Contributions"".",https://ucnet.universityofcalifornia.edu/benefits/retirement/,Paychecks and Timesheets,Rare,,,https://ucnet.universityofcalifornia.edu/benefits/retirement/,yes,
+Do Not Export,DNE,Used by Timekeepers to prevent the timesheet from exporting from CruzPay to UCPath for payment (Student/HAC),https://financial.ucsc.edu/Pages/CruzPay_Timesheet_Coordinator_Manual.aspx#pay_staff,Paychecks and Timesheets,Rare,,,,,
+full-time equivalent,FTE,"Full-time equivalent is a unit of measurement for workload of a worker. A worker's FTE is the number of total hours worked divided by the maximum number of compensable hours in a full-time schedule as defined by law (i.e, 40 hours).",https://en.wikipedia.org/wiki/Full-time_equivalent,Paychecks and Timesheets, Uncommon,,,,yes,*
+in absentia,,In absentia status is a form of registration available to graduate students undertaking necessary coursework or research related to their degree programs outside the designated local campus region.,,Paychecks and Timesheets, Uncommon,,,,maybe?,
+Leave No Pay,LNP,CruzPay: Timesheet code,https://financial.ucsc.edu/Pages/CruzPay_Timesheet_Coordinator_Manual.aspx#pay_staff,Paychecks and Timesheets,  Common,,,,,
+leave without pay,LWP,,,Paychecks and Timesheets, Uncommon,,,,,
+"Old-Age, Survivors and Disability Insurance ",OASDI,"Social Security payements, which appear on pay statements. ",,Paychecks and Timesheets,Rare,,,,,
+paid in arrears,,"Payment that is made after work is completed, as opposed to advanced payment.",,Paychecks and Timesheets,Rare,,,,,
+pay docking,,Deducting a portion of a paycheck for days that were not worked during a pay period. ,,Paychecks and Timesheets,  Common,,,,,
+System BR dues,,Union dues for the BR bargaining unit,,Paychecks and Timesheets, Uncommon,,,,,
+System BX dues,,Union dues for the BX bargaining unit,,Paychecks and Timesheets, Uncommon,,,,,
+UCPath,,UCPath is the payroll website for the UC.,https://ucpath.universityofcalifornia.edu/home,Paychecks and Timesheets,  Common,,,https://ucpath.universityofcalifornia.edu/home,yes,
+"""all cops are bastards""","ACAB, 1312",A political slogan used by people who are opposed to the police.,ACAB - Wikipedia,Policing,Rare,,,ACAB - Wikipedia,,
+"body worn video, body worn camera","BWV, BWC",Body cameras worn by police officers.,UCPD body camera policy: https://police.ucsc.edu/report/policies/body-worn-camera.html,Policing,Rare,,,UCPD body camera policy: https://police.ucsc.edu/report/policies/body-worn-camera.html,,
+carceral,,"""Of or pertaining to prison."" Used frequently in police abolition discussions.",Carceral Definition & Meaning - Merriam-Webster,Policing,Rare,,,Carceral Definition & Meaning - Merriam-Webster,,
+cops off campus,"COC, CoC","A demand made by some union members, especially starting at the 2019-2020 wildcat strike.",,Policing,  Common,,,,,
+defund the police,,A movement and demand to reduce the funding for police departments.,,Policing,  Common,,,,,
 Federated University Police Officers Association,FUPOA,Union for UCPD officers,"Website: https://federateduniversitypoa.org/about-fupoa
 Contract: https://ucnet.universityofcalifornia.edu/resources/employment-policies-contracts/bargaining-units/police-officers/contract/",Policing,Rare,,,"Website: https://federateduniversitypoa.org/about-fupoa
-Contract: https://ucnet.universityofcalifornia.edu/resources/employment-policies-contracts/bargaining-units/police-officers/contract/"
-Immigration and Customs Enforcement ,ICE ,,,Policing,Rare,,,
-Incident Commander,,,,Policing,Rare,,,
-Memorandum of understanding,MOU,An agreement between police agencies to come to each others assistance(?),,Policing,Rare,,,
-oleoresin capsaicin,OC,Pepper spray,,Policing,Rare,,,
-police abolition,abolition,A movement and demand to get rid of all police.,,Policing,  Common,,,
+Contract: https://ucnet.universityofcalifornia.edu/resources/employment-policies-contracts/bargaining-units/police-officers/contract/",,
+Immigration and Customs Enforcement ,ICE ,,,Policing,Rare,,,,,
+Incident Commander,,,,Policing,Rare,,,,,
+know your rights,KYR,,,Policing,Rare,,,,,
+memorandum of understanding,MOU,An agreement between multiple parties.,,Policing,Rare,,,,yes,
+Memorandum of understanding (policing),MOU,An agreement between police agencies to come to each others assistance(?),,Policing,Rare,,,,,
+National Association for Civilian Oversight of Law Enforcement,NACOLE,,https://www.nacole.org/,Policing,Rare,,,,,
+oleoresin capsaicin,OC,Pepper spray,,Policing,Rare,,,,,
+police abolition,abolition,A movement and demand to get rid of all police.,,Policing,  Common,,,,,
 Police Accountability Board,PAB,,"https://policeaccountability.ucsc.edu/
 Description of powers: https://policeaccountability.ucsc.edu/bylaws/",Policing,Rare,,,"https://policeaccountability.ucsc.edu/
-Description of powers: https://policeaccountability.ucsc.edu/bylaws/"
-academic senate,,A legislative body and a system of committees run by and for the faculty.,About the Academic Senate,UC Structure,Rare,,,About the Academic Senate
-Board of Regents,,"The University of California is governed by a 26-member Board of Regents that exercises approval over university policies, financial affairs, tuition and fees. The control of the UC by the regents is enshrined in the CA Constitution. The board of regents consists of 18 regents appointed by the governor for 12-year terms, one student appointed by the Regents to a one-year term, and seven ex officio members — the Governor, Lieutenant Governor, Speaker of the Assembly, Superintendent of Public Instruction, president and vice president of the Alumni Associations of UC and the UC president.",Relevant portion of CA constitution: https://law.justia.com/constitution/california/article-ix/section-9/,UC Structure,  Common,,,Relevant portion of CA constitution: https://law.justia.com/constitution/california/article-ix/section-9/
-Campus Provost,CP,See Executive Vice Chancellor and Campus Provost.,,UC Structure, Uncommon,,,
-Executive Vice Chancellor,EVC,See Executive Vice Chancellor and Campus Provost.,,UC Structure, Uncommon,,,
-Executive Vice Chancellor and Campus Provost,"CPEVC, CP&EVC","The CP/EVC UCSC’s chief academic, operations and budget officer, guiding the academic enterprise and managing the university’s day-to-day operations. As of May 2024, the CP/EVC at UCSC is Lori Kletzer.",,UC Structure, Uncommon,,,
-principle investigator,PI,The lead researcher for a grant project. Typically a faculty member.,,UC Structure, Uncommon,,,
-Transportation & Parking Services,TAPS,"UCSC department in charge of parking, buses, and other transportation issues.",,UC Structure,Rare,,,
-UC Office of the President,UCOP,The UC president is the head of the entire UC system. The current UC president is Michael V. Drake. ,https://ucop.edu/president/index.html,UC Structure,  Common,,,https://ucop.edu/president/index.html
+Description of powers: https://policeaccountability.ucsc.edu/bylaws/",,
+Public Safety Officers Procedural Bill of Rights,POBR, Government Code section 3300 et seq.,,Policing,Rare,,,,,
+UCSC Police Department,UCSCPD,,,Policing, Uncommon,,,,,
+counseling memoranda,,A message from the UC sent to employees regarding employment that does not (formally) count as discipline.,,Student and Worker Discipline, Uncommon,,,,yes,
+notice of intent,,"A notice of intent informs a worker of the disciplinary or dismissal action proposed, the reason for the proposed action including applicable documentation and the effective date(s) of the action. The nature of such notices are described in the union contracts.",,Student and Worker Discipline, Uncommon,,,,yes,
+notice of intent to dismiss,NOID,A notice of intent to dismiss is a notificaiton sent by the UC to inform a work that they will be fired.,,Student and Worker Discipline, Uncommon,,,,yes,
+Skelly hearing,,A meeting that employers are legally obligated to hold after announcing discipline against a worker.,https://shr.ucsc.edu/elr/sup-term-guide/skelly.html,Student and Worker Discipline,Rare,,,https://shr.ucsc.edu/elr/sup-term-guide/skelly.html,,
+warning letter,WL,"A “written warning” is a communication that informs a worker of alleged misconduct or deficiency, the method of correction, and the probable consequence of continued misconduct or deficiency.",,Student and Worker Discipline,  Common,,,,yes,
+"""Fresh Air"" program ",,The UCSC's post-2022 strike budget revamp where much of department's discretionary spending at UCSC has evaporated and unspent funds go back to central admin.,,UC Structure, Uncommon,,,,,
+Academic Human Resources,AHR,,,UC Structure, Uncommon,,,,,
+Academic Personnel Office,APO,,https://apo.ucsc.edu/,UC Structure,  Common,,,https://apo.ucsc.edu/,,
+academic senate,,A legislative body and a system of committees run by and for the faculty.,About the Academic Senate,UC Structure,Rare,,,About the Academic Senate,,
+assistant vice president,AVP,A subordinate of the UC President.,,UC Structure,Rare,,,,,
+Board of Regents,,"The University of California is governed by a 26-member Board of Regents that exercises approval over university policies, financial affairs, tuition and fees. The control of the UC by the regents is enshrined in the CA Constitution. The board of regents consists of 18 regents appointed by the governor for 12-year terms, one student appointed by the Regents to a one-year term, and seven ex officio members — the Governor, Lieutenant Governor, Speaker of the Assembly, Superintendent of Public Instruction, president and vice president of the Alumni Associations of UC and the UC president.",Relevant portion of CA constitution: https://law.justia.com/constitution/california/article-ix/section-9/,UC Structure,  Common,,,Relevant portion of CA constitution: https://law.justia.com/constitution/california/article-ix/section-9/,yes,
+Campus Provost,CP,See Executive Vice Chancellor and Campus Provost.,,UC Structure, Uncommon,,,,,
+chancellor,,"Each UC campus has a chancellor who is the executive head of the campus. Each chancellor is appointed by the Board of Regents. The chancellor of each campus sets the policies, goals and strategic direction; is responsible for internal administration, operation, financial management, and discipline; oversees all faculty and staff; and appoints all members of the instructional staff.
+
+The chancellor of UCSC is Cynthia ""Cindy"" Larive. ",https://regents.universityofcalifornia.edu/governance/bylaws/bl31.html,UC Structure,  Common,,,https://regents.universityofcalifornia.edu/governance/bylaws/bl31.html,,
 Committee on Educational Policy,CEP,Committee in the UCSC Faculty Senate.,"https://senate.ucsc.edu/committees/cep-committee-on-educational-policy/index.html
 Committee members list:
 https://senate.ucsc.edu/about/2023-24-stcom_web.pdf",UC Structure,Rare,,,"https://senate.ucsc.edu/committees/cep-committee-on-educational-policy/index.html
 Committee members list:
-https://senate.ucsc.edu/about/2023-24-stcom_web.pdf"
-Undocumented Student Services,USS,Provides guidance and support to undergraduate and graduate undocumented students at UC Santa Cruz,https://eop.ucsc.edu/undocumented_student_services/index.html,UC Structure,Rare,,,https://eop.ucsc.edu/undocumented_student_services/index.html
-Educational Opportunity Programs,EOP,"Provides various academic and personal support programs to first-generation to college, low-income students with diverse social and personal identities and from historically marginalized backgrounds",https://eop.ucsc.edu/index.html,UC Structure,Rare,,,https://eop.ucsc.edu/index.html
-chancellor,,"Each UC campus has a chancellor who is the executive head of the campus. Each chancellor is appointed by the Board of Regents. The chancellor of each campus sets the policies, goals and strategic direction; is responsible for internal administration, operation, financial management, and discipline; oversees all faculty and staff; and appoints all members of the instructional staff.
-
-The chancellor of UCSC is Cynthia ""Cindy"" Larive. ",https://regents.universityofcalifornia.edu/governance/bylaws/bl31.html,UC Structure,  Common,,,https://regents.universityofcalifornia.edu/governance/bylaws/bl31.html
-amalgamation,,"Refers to the merger of two union bodies. In particular, the local unions UAW 2865 (for ASE's and GSR's) and UAW 5810 (for postdocs and AR's) combined to form UAW 4811 that was done in Fall 2023.",,Union Structure,  Common,,,
+https://senate.ucsc.edu/about/2023-24-stcom_web.pdf",,
+Educational Opportunity Programs,EOP,"Provides various academic and personal support programs to first-generation to college, low-income students with diverse social and personal identities and from historically marginalized backgrounds",https://eop.ucsc.edu/index.html,UC Structure,Rare,,,https://eop.ucsc.edu/index.html,,
+Employee & Labor Relations,"LR, ELR","The university department that serves as a liaison to campus labor unions, and represents the campus in employment matters, such as contract-violation grievances and contract negotiations.",https://shr.ucsc.edu/elr/,UC Structure, Uncommon,,,,,
+Equal Employment Opportunity,EEO,A department within the Equity & Equal Protection Office.,,UC Structure,Rare,,,,,
+Equity & Equal Protection,EEP,"The Equity & Equal Protection Office is responsible for the administration of UCSC’s policies and procedures regarding discrimination and harassment on the basis of race, religion, disability, sex, gender, age and other protected identities.",https://equity.ucsc.edu/about/otherabouts/index.html,UC Structure,Rare,,,,,
+Executive Vice Chancellor,EVC,See Executive Vice Chancellor and Campus Provost.,,UC Structure, Uncommon,,,,,
+Executive Vice Chancellor and Campus Provost,"CPEVC, CP&EVC","The CP/EVC UCSC’s chief academic, operations and budget officer, guiding the academic enterprise and managing the university’s day-to-day operations. As of May 2024, the CP/EVC at UCSC is Lori Kletzer.",,UC Structure, Uncommon,,,,,
+principle investigator,PI,The lead researcher for a grant project. Typically a faculty member.,,UC Structure, Uncommon,,,,,
+Self-supporting graduate professional degree program,SSGPDP,"Self-supporting graduate professional degree programs
+(SSGPDPs) are programs in which all program costs, both
+direct and indirect, are covered by revenues generated by
+the program such as student charges or alternative
+revenues that are not disallowed funds (e.g., state general
+funds or student tuition and fees). As of 2024, there are no SSGPDPs at UCSC (https://www.ucop.edu/operating-budget/_files/ssgpdp/attachment_a_description_and_summary_table.pdf)",https://www.ucop.edu/institutional-research-academic-planning/_files/SSGPDP_topic_brief.pdf,UC Structure,Rare,,,,maybe?,
+Transportation & Parking Services,TAPS,"UCSC department in charge of parking, buses, and other transportation issues.",,UC Structure,Rare,,,,,
+UC Office of the President,"UCOP, OP",The UC president is the head of the entire UC system. The current UC president is Michael V. Drake. ,https://ucop.edu/president/index.html,UC Structure,  Common,,,https://ucop.edu/president/index.html,,
+Undocumented Student Services,USS,Provides guidance and support to undergraduate and graduate undocumented students at UC Santa Cruz,https://eop.ucsc.edu/undocumented_student_services/index.html,UC Structure,Rare,,,https://eop.ucsc.edu/undocumented_student_services/index.html,,
+bottomliner ,,A person in charge of a particular action item. ,,Union Slang,  Common,,,,,
+broketober,,"Many grad students are not paid during the summer. The month of October, after the summer when grad students tend to be running low on money due to a lack of summer funding and fall funding not being dispersed until Nov 1.",,Union Slang,Rare,,,,,
+comrade,,Fellow union members.,,Union Slang,  Common,,,,,
+amalgamation,,"Refers to the merger of two union bodies. In particular, the local unions UAW 2865 (for ASE's and GSR's) and UAW 5810 (for postdocs and AR's) combined to form UAW 4811 that was done in Fall 2023.",,Union Structure,  Common,,,,,
 bargaining unit,,"There are three statewide bargaining units in UAW 4811: Academic Student Researchers (ASE), Post-docs (PD), and Academic Researchers (AR). Beyond UAW, there are 15 bargaining units in the UC, as of 2024.","List of all bargaining units in the UC, along with their contracts: https://ucnet.universityofcalifornia.edu/resources/employment-policies-contracts/bargaining-units/
 
 UC FAQ about bargaining units: Frequently asked questions about bargaining units",Union Structure,  Common,,,"List of all bargaining units in the UC, along with their contracts: https://ucnet.universityofcalifornia.edu/resources/employment-policies-contracts/bargaining-units/
 
-UC FAQ about bargaining units: Frequently asked questions about bargaining units"
-Campus Unit,,,,Union Structure,  Common,,,
+UC FAQ about bargaining units: Frequently asked questions about bargaining units",yes,
+Campus Unit,,,,Union Structure,  Common,,,,,
 executive board,EB,"The EB is a governing body for the statewide union consisting of eleven members. Decisions of the EB may be overruled by the Joint Council.
-As of May 2024, the only member of the EB from UCSC is Jacob Fortana. ",LEADERSHIP — UAW 4811,Union Structure,  Common,,,LEADERSHIP — UAW 4811
-head steward,,"As of May 2024, the head stewards at UCSC are Isabel Kain and Summer Sullivan. ",LEADERSHIP — UAW 4811,Union Structure, Uncommon,,,LEADERSHIP — UAW 4811
-horizontal,,"Refers to grassroots organizing that happens among the rank-and-file, instead of top-down direction from the leadership.",,Union Structure,  Common,,,
-International Executive Board,IEB,"As of May 2024, includes Shawn Fain as President, the Secretary-Treasurer, 3 Vice Presidents, and the Directors of each of the Regions. For the most part, we don't directly interface with them at all, but when they go up for election, we can vote for those positions, as their decisions have material impacts (for example, they have made decisions on the amount of strike pay per week).",,Union Structure,Rare,,,
-International UAW,IUAW ,,,Union Structure,Rare,,,
-Joint Council,JC,,,Union Structure, Uncommon,,,
-organizing committee,OC,"A group of union people that meets every week. Outside of strike times, it's a small group. Handles day-to-day issues, such as filing grievances, and handling long-term planning. open to everybody. Meets on Fridays. Tends to be focused on strategic decisions.",,Union Structure,  Common,,,
-rank and file,R&F,Members of the union that are not in leadership.,,Union Structure,  Common,,,
+As of May 2024, the only member of the EB from UCSC is Jacob Fortana. ",LEADERSHIP — UAW 4811,Union Structure,  Common,,,LEADERSHIP — UAW 4811,,
+head steward,,"As of May 2024, the head stewards at UCSC are Isabel Kain and Summer Sullivan. ",LEADERSHIP — UAW 4811,Union Structure, Uncommon,,,LEADERSHIP — UAW 4811,,
+horizontal,,"Refers to grassroots organizing that happens among the rank-and-file, instead of top-down direction from the leadership.",,Union Structure,  Common,,,,,
+International Executive Board,IEB,"As of May 2024, includes Shawn Fain as President, the Secretary-Treasurer, 3 Vice Presidents, and the Directors of each of the Regions. For the most part, we don't directly interface with them at all, but when they go up for election, we can vote for those positions, as their decisions have material impacts (for example, they have made decisions on the amount of strike pay per week).",,Union Structure,Rare,,,,,
+International UAW,IUAW ,,,Union Structure,Rare,,,,,
+Joint Council,JC,,,Union Structure, Uncommon,,,,,
+Membership Election Form,MEF,Digitial or physical cards that are filled by workers to indicate whether they choose to be a member of the union. ,"https://ucnet.universityofcalifornia.edu/wp-content/uploads/labor/bargaining-units/bx/docs/bx_31-union-security_2022-2025.pdf
+https://ucnet.universityofcalifornia.edu/wp-content/uploads/labor/bargaining-units/bx/docs/bx_appendix-c_mef-form_2022-2025.pdf",Union Structure, Uncommon,,,,,
+organizing committee,OC,"A group of union people that meets every week. Outside of strike times, it's a small group. Handles day-to-day issues, such as filing grievances, and handling long-term planning. open to everybody. Meets on Fridays. Tends to be focused on strategic decisions.",,Union Structure,  Common,,,,,
+rank and file,R&F,Members of the union that are not in leadership.,,Union Structure,  Common,,,,,
 Statewide Membership Meeting,SMM,"I believe that the UAW 8411 by-laws mandate one SMM per year, and they may be called at-need otherwise.
 
 It is similar to a JC meeting, but all members who attend are entitled to a vote, and it’s decisions are “stronger” than JC decisions just like JC decisions are stronger than EB: any decision of the smaller body may (theoretically) be overruled by the larger.
 
 In practice, an email will go out to all members about the meeting time and place. They are often long, and quite formal with regards to Robert’s Rules etc. They often include particularly important decisions
 
-",,Union Structure, Uncommon,,,
-UAW 4811,,"See UAW Local 4811. Often, ""Local"" is left out when discussing UAW Local 4811 since it is somewhat confusing that the ""local"" union is statewide, covering all of the UC campuses.)",https://www.uaw4811.org/,Union Structure,  Common,,,https://www.uaw4811.org/
+",,Union Structure, Uncommon,,,,,
+UAW 4811,,"See UAW Local 4811. Often, ""Local"" is left out when discussing UAW Local 4811 since it is somewhat confusing that the ""local"" union is statewide, covering all of the UC campuses.)",https://www.uaw4811.org/,Union Structure,  Common,,,https://www.uaw4811.org/,,
 UAW Constitution,,"The constitution of the international UAW and of every affiliated subordinate body (local unions). It provides the foundation for the day-to-day operations and sets forth the rights, guarantees and responsibilities of all UAW members.
 See also the by-laws which are specific to each local union (in our case, the statewide UAW 4811).  
-","UAW Constituion - UAW | United Automobile, Aerospace and Agricultural Implement Workers of America",Union Structure, Uncommon,,,"UAW Constituion - UAW | United Automobile, Aerospace and Agricultural Implement Workers of America"
-UAW Local 4811,UAW 4811,"The chapter of United Auto Workers labor union that represents academic student employees, graduate student researchers, academic researchers, and postdoctoral researchers from all the 11 campuses of the University of California system.",https://www.uaw4811.org/,Union Structure,  Common,,,https://www.uaw4811.org/
-UAW Region 6,,"Regions are (generally) large geographical areas which have their own layer of staff. we're in Region 6, which covers ""Western States"": most workers in R6 are in California, but there's also some pretty heavy presence in Washington, as well as some others (many casino workers in Las Vegas are with UAW actually, with UAW 3555). key figures in a Region are the Director (the R6 Director is Mike Miller) and Servicing Reps, who are staff that can be assigned to do work with various Locals (often they could cover more than one at once, although our scale may change that; i'm not sure who the current Servicing Reps we might encounter are, although there's a good chance they're former 2865 folks who've ""gone up the ladder""). one of the main roles here is that all contracts, once ratified by the workers, actually go to the Regional Director for a final round of approval. it's *extremely* unlikely that they'd overturn a contract once ratified",,Union Structure,Rare,,,
-UnionMade ,,A majority caucus in the JC. They are well organized and come into JC meetings already knowing if that have the votes they need.,,Union Structure,Rare,,I'm not sure on the spelling.,
-description of duties,DoD,"See also ""Department of Defense""",,Misc., Uncommon,,,
-Department of Defense,DOD or DoD,,,Misc.,Rare,,,
-request for information,RFI,,,Misc., Uncommon,,,
-Labor Relations,LR ,,,UC Structure, Uncommon,,,
-cease and desist letter,,,,Misc.,  Common,,,
-grievance,,"A grievance is a claim by an individual ASE, a group of ASEs, or the UAW, that the University has violated a specific provision of this
-agreement during the term of this agreement. Grievances are filed with the UCSC labor relations office. They must be filed within thirty calendar days.
-See Article 12 of the ASE contract.",https://ucnet.universityofcalifornia.edu/wp-content/uploads/labor/bargaining-units/bx/docs/bx_12-grievance-and-arbitration_2022-2025.pdf,Contracts and Strikes,  Common,,,https://ucnet.universityofcalifornia.edu/wp-content/uploads/labor/bargaining-units/bx/docs/bx_12-grievance-and-arbitration_2022-2025.pdf
-American Federation of Labor and Congress of Industrial Organizations,AFL-CIO,A federation of 60 national and international labor unions that represent more than 12.5 million working people.The International UAW is a member (affiliated union) in the AFL-CIO.,"https://aflcio.org/
-List of affiliated unions: https://aflcio.org/about-us/our-unions-and-allies/our-affiliated-unions",Other Unions, Uncommon,,,"https://aflcio.org/, [List of affiliated unions](https://aflcio.org/about-us/our-unions-and-allies/our-affiliated-unions)"
-warning letter,,"A “written warning” is a communication that informs a worker of alleged misconduct or deficiency, the method of correction, and the probable consequence of continued misconduct or deficiency.",,Student and Worker Discipline,  Common,,,
-notice of intent,,"A notice of intent informs a worker of the disciplinary or dismissal action proposed, the reason for the proposed action including applicable documentation and the effective date(s) of the action. The nature of such notices are described in the union contracts.",,Student and Worker Discipline, Uncommon,,,
-Counseling memoranda,,A message from the UC sent to employees regarding employment that does not count as discipline.,,Student and Worker Discipline, Uncommon,,,
-Family and Medical Leave Act,FMLA,,,Misc.,Rare,,,
-Defined Contribution Plan,DCP,Retirement plan for UC emplyees.,https://ucnet.universityofcalifornia.edu/benefits/retirement/,Misc.,Rare,,,https://ucnet.universityofcalifornia.edu/benefits/retirement/
-University of California Retirement Program,UCRP,Retirement plan for UC emplyees.,https://ucnet.universityofcalifornia.edu/benefits/retirement/,Misc.,Rare,,,https://ucnet.universityofcalifornia.edu/benefits/retirement/
-Nonresident Supplemental Tuition,NRST,Additional tution fees chared to students from outside CA. PhD students who have advanced to candidacy are not charged the NRST for three years. See Article 11 of ASE contract.,https://ucnet.universityofcalifornia.edu/wp-content/uploads/labor/bargaining-units/bx/docs/bx_11-fee-remission_2022-2025.pdf,Misc., Uncommon,,,https://ucnet.universityofcalifornia.edu/wp-content/uploads/labor/bargaining-units/bx/docs/bx_11-fee-remission_2022-2025.pdf
-UC Student Health Insurance Plan,UCSHIP,,"https://ucnet.universityofcalifornia.edu/wp-content/uploads/labor/bargaining-units/bx/docs/bx_14-health-benefits_2022-2025.pdf
-https://myucship.org/uc-santa-cruz/benefits-101/about-uc-ship/",Misc., Uncommon,,,"https://ucnet.universityofcalifornia.edu/wp-content/uploads/labor/bargaining-units/bx/docs/bx_14-health-benefits_2022-2025.pdf
-https://myucship.org/uc-santa-cruz/benefits-101/about-uc-ship/"
-barganing team,BT,,,Contracts and Strikes,  Common,,,
-step 2 grievance,,,,, Uncommon,,,
-wage garnishment,,Wage garnishment is when an employer withholds a portion of a paycheck to pay for a debt until the debt is resolved.,,Contracts and Strikes,  Common,,,
-pay docking,,Deducting a portion of a paycheck for days that were not worked during a pay period. ,,,  Common,,,
-U.S. Department of Labor ,DOL,,,Misc.,Rare,,,
-Academic Personnel Office,APO,,https://apo.ucsc.edu/,UC Structure,  Common,,,https://apo.ucsc.edu/
-UCPath,,UC payroll website,https://ucpath.universityofcalifornia.edu/home,Misc.,  Common,,,https://ucpath.universityofcalifornia.edu/home
-BU Graduate Workers Union,BUGWU,,,Other Unions,Rare,,,
-powermapping,,"The process before or during a strike of determining who is currently working, what their jobs are, their willingness to strike, and obstacles that they might face. ",https://docs.google.com/document/d/1vGb-CBK099QYF_1UYah2a_ngLeGif1RA2IEybzC9FHU/edit,Contracts and Strikes,  Common,,,https://docs.google.com/document/d/1vGb-CBK099QYF_1UYah2a_ngLeGif1RA2IEybzC9FHU/edit
-labor organizanizing,,The work of building collective worker power.,,Misc.,  Common,,,
-comrade,,,,Misc.,  Common,,,
-Labor Commissioner,,,https://www.dir.ca.gov/dlse/,Misc.,Rare,,,https://www.dir.ca.gov/dlse/
-Academic Human Resources,AHR,,,UC Structure, Uncommon,,,
-Palestinian General Federation of Trade Unions ,,,,Palestine,Rare,,,
-graduate student researcher,"GSR, SR","Academic worker position for graduate students who do paid research for the university. Until 2025, GSR's have a separate contract from ASE's, but their contracts will be merged in the next baraining cycle.",,Member Categories,  Common,,,
-pre-arbitration conference,,,,,Rare,,,
-Skelly hearing,,A legal meeting that employers are obligated to hold after announcing discipline against a worker.,https://shr.ucsc.edu/elr/sup-term-guide/skelly.html,,Rare,,,https://shr.ucsc.edu/elr/sup-term-guide/skelly.html
+","UAW Constituion - UAW | United Automobile, Aerospace and Agricultural Implement Workers of America",Union Structure, Uncommon,,,"UAW Constituion - UAW | United Automobile, Aerospace and Agricultural Implement Workers of America",,
+UAW Local 4811,UAW 4811,"The chapter of United Auto Workers labor union that represents academic student employees, graduate student researchers, academic researchers, and postdoctoral researchers from all the 11 campuses of the University of California system.",https://www.uaw4811.org/,Union Structure,  Common,,,https://www.uaw4811.org/,,
+UAW Region 6,,"Regions are (generally) large geographical areas which have their own layer of staff. we're in Region 6, which covers ""Western States"": most workers in R6 are in California, but there's also some pretty heavy presence in Washington, as well as some others (many casino workers in Las Vegas are with UAW actually, with UAW 3555). key figures in a Region are the Director (the R6 Director is Mike Miller) and Servicing Reps, who are staff that can be assigned to do work with various Locals (often they could cover more than one at once, although our scale may change that; i'm not sure who the current Servicing Reps we might encounter are, although there's a good chance they're former 2865 folks who've ""gone up the ladder""). one of the main roles here is that all contracts, once ratified by the workers, actually go to the Regional Director for a final round of approval. it's *extremely* unlikely that they'd overturn a contract once ratified",,Union Structure,Rare,,,,,
+UnionMade ,,A majority caucus in the JC. They are well organized and come into JC meetings already knowing if that have the votes they need.,,Union Structure,Rare,,I'm not sure on the spelling.,,,
+Graduate Preparation Program,GPP,A short summer program at UCSC that helps prepare students who need to strengthen their English skills before they being their graduate studies. ,,Misc.,Rare,,,,,
+Palestine Solidarity Coalition,,"A network of organizations at UCSC including Students for Justice in Palestine, Jewish Voice for Peace and UC Divest.",,Palestine,Rare,,,,,
+bargaining impasse,,"In contract negoations, each side may file for an impasse in the negations with PERB. If PERB accepts, then the no-strike clause goes out of effect. PERB may determine that an impasse exists when “the parties have reached a point in meeting and conferring at which their differences in positions are such that further meetings would be futile."" (Higher Education Employer-Employee Relations Act [HEERA], Government Code Section 3562(j).) Once an impasse is declared by PERB, mediation and fact-finding can take anywhere from three to eight months.
+In the case of the 2021 contract bargaining betweeh UC-AFT and the UC, an impasse was declared after two years of negations.",https://www.weteachuc.org/impasse-faq,Contracts and Strikes, Uncommon,,,,,
+University Professional and Technical Employees,UPTE,"Union that covers healthcare, research, and technical workers in the UC (including some national laboratories). The bargaining units within the union are Healthcare (HX), Research (RX), and Technical (TX).",https://upte.org/history,Other Unions,Rare,,,,,
+California Penal Code § 409,Section 409,"Law stating that remaining at a protest after a ""lawful dispersal order"" is a misdomener.",https://codes.findlaw.com/ca/penal-code/pen-sect-409/,Policing,Rare,,,,,
+California Penal Code § 148,Section 148,"Law prohibiting willfully resisting, delaying, or obstructing police officers or emergency medical technician. ",https://codes.findlaw.com/ca/penal-code/pen-sect-148/,Policing,Rare,,,,,
+Office of Sponsored Projects,OSP,,,Academic Department and Divisions,Rare,,,,,
+Responsible Conduct of Research,RCR,"A training required by some research grants, such as from NSF.",https://officeofresearch.ucsc.edu/compliance/rcr/,Misc.,Rare,,,,,
+National Science Foundation,NSF,,,Misc.,Rare,,,,,
+Department of Energy,DOE,,,Misc.,Rare,,,,,
+work break,wb,ASEs who appeared on UC’s employee list as being on a “short work break”. This usually means their ASE appointment ended last quarter and they aren't in the system as currently working but UC expects them to be rehired soon (and they could actually be working but their paperwork hasn't been processed yet).,,Misc.,Rare,,,,,
+not in unit,NIU,,,Misc.,Rare,,,,,
+Baskin School of Engineering,"BSOE, SOE",Academic Division at UCSC,,Academic Department and Divisions,Rare,,,,,
+First-Year Exam,FYE,,,,,,,,,
+"Univeristy of California, Berkeley","UCB, BK",,,UC Campus,Rare,,,,,
+"Univeristy of California, Merced",UCM,,,UC Campus,Rare,,,,,
+"Univeristy of California, Santa Cruz","UCSC, SC",,,UC Campus,Rare,"Technically not ""rare"", but we all know what it is :)",,,,
+"Univeristy of California, Santa Barbara","UCSB, SB",,,UC Campus,Rare,,,,,
+"Univeristy of California, Los Anglelos","UCLA, LA",,,UC Campus,Rare,,,,,
+"Univeristy of California, Davis","UCD, DV",,,UC Campus,Rare,,,,,
+"Univeristy of California, San Francisco","UCSF, SF",,,UC Campus,Rare,,,,,
+University of California Law San Francisco,,Formerly UC Hastings,,UC Campus,Rare,,,,,
+"Univeristy of California, San Diego","UCSD, SD",,,UC Campus,Rare,,,,,
+"Univeristy of California, Irvine",UCI,,,UC Campus,Rare,,,,,
+"Univeristy of California, Riverside",UCR,,,UC Campus,Rare,,,,,
+Declined Membership and Uncontacted,DU,"This worker declined union membership on their hiring paperwork (did not sign a membership election form). None of their coworkers has contacted them about joining their union yet.
+",https://docs.google.com/document/d/1BAUXoF7ah7dLUH0KIEP2KJ_KX5z1yvHwG2GIRY9BJZY/edit,Member Categories,Rare,,,,,
+Revoked membership ,DN,"This worker was previously a member, up until they declined union membership on their hiring paperwork. ",https://docs.google.com/document/d/1BAUXoF7ah7dLUH0KIEP2KJ_KX5z1yvHwG2GIRY9BJZY/edit,Member Categories,Rare,,,,,
+Do Not Contact,DNC,This worker indicated that they do not want to be contacted about the union.,,Member Categories,Rare,,,,,
+working group,WG,An collection of people working on a particular task or project.,,Union Slang,  Common,,,,,
+UC Agriculture and Natural Resources,UCANR,"UC Agriculture and Natural Resources ""connects the power of UC research in agriculture, natural resources, nutrition and youth development with local communities to improve the lives of all Californians.""",https://ucanr.edu/About/,UC Structure,Rare,,,,,
+Locally Designated Official,LDO,"The person designated by each UC campus as the official with primary responsibility to receive reports of allegations of suspected
+improper governmental activities. At UCSC, as of 2024, the LDO is Anna Finn, Associate Chancellor & Chief of Staff.",https://policy.ucop.edu/doc/1100171/Whistleblower,UC Structure,Rare,,,,,
+Chief Ethics and Compliance Officer,CECO,"At UCSC, as of 2024, the CECO is Anna Finn, Associate Chancellor & Chief of Staff.",https://compliance.ucsc.edu/about/,UC Structure,Rare,,,,,
+strike,,"A strike is a temporary stoppage of work by a group of workers (not necessarily union members, although we have well-established unions at UCSC) to express a grievance or enforce a demand. A strike is initiated by workers in contrast to a lock out which is done by an employer.",https://www.bls.gov/wsp/questions-and-answers.htm,Contracts and Strikes,,,,,yes,
+work day,,A work day is defined as the weekdays Monday through Friday excluding Federal holidays.,https://www.bls.gov/wsp/questions-and-answers.htm,Laws and Regulations,,,,,maybe,
+boycott,,A boycott is a concerted refusal to have dealings with to express disapproval or to force acceptance of certain conditions.,,Misc.,,,,,,
+Bay Resistance,,"A project that provides hardship funds during strikes. It is run by the Center for Empowered Politics, which is itself (apparently) a lobbying and activism organization for the Chinese Progressive Association.",https://bayresistance.org/about/,Contracts and Strikes,,,,,,
+hardship fund,,A fund that provides money to invididuals during strikes and other activist actions in reponse to personal hardships caused by those activities. Information about a the Bay Resitance 2024 hardship fund is available here: UAW Hardship fund: steps to apply Bay Resistance 2024.,,Contracts and Strikes,,,,,,
+daily sheet,,1-page document for sharing publicly,,Union Slang,,,,,,
+UNITE HERE,,"A labor union in the United States and Canada with roughly 300,000 active members. The union's members work predominantly in the hotel, food service, laundry, warehouse, and casino gaming industries. ",,Other Unions,,,,,,
+Student Health Center,SHC,The on-campus UCSC medical clinic. ,,Geography,,,,,,
+Federal Mediation and Conciliation Service,FMCS,,https://www.fmcs.gov/aboutus/,Contracts and Strikes,Rare,,,,,
+Beck right,,"Federal law allows unions and employers to enter into ""union-security"" agreements which require all employees in a bargaining unit to become union members and begin paying union dues and fees within 30 days of being hired. Employees may choose not to become union members and pay dues, or opt to pay only that share of dues used directly for representation, such as collective bargaining and contract administration. Known as objectors, they are no longer union members, but are still protected by the contract. Unions are obligated to tell all covered employees about this option, which was created by a Supreme Court ruling and is known as the Beck right. (Source: https://www.nlrb.gov/about-nlrb/rights-we-protect/the-law/employees/union-dues)",,Laws and Regulations,,,,,,
+right-to-work laws,,Laws that prohibit union security agreements in contracts between employers and labor unions. A union security agreement requires employees who are not union members to contribute to the costs of union representation.,,Laws and Regulations,,"May also be written as ""right to work""",,,,
+union security agreement,,"If included in a union contract, a union security agreement requires employees who are not union members to contribute to the costs of union representation.",,Contracts and Strikes,,,,,,
+reader,,A type of job at UCSC.,,Member Categories,  Common,What is the formal definition of a reader? What would constitute a misclassification?,,,,
+CruzFly ,,A online tool used to submit trip reimbursements related.,"http://cruzfly.ucsc.edu
+https://financial.ucsc.edu/Pages/CruzFly_Manual.aspx",Misc.,,,,,,
+picket line,,"Picketing is a form of protest in which people (called pickets or picketers) congregate outside a place of work or location where an event is taking place. The purpose of picketing is to encourage people to not ""cross the picket line"", give strikers a place to congregate, and raise awareness of strikes. Although pickets usually happen at the same time as strikes, they are distinct events. ",,Contracts and Strikes,,,,,,
+2024 memorandum of understanding,2024 MOU,"An agreement between two parties. In the context of the 2024 strike, an MOU was established between the UC and UAW 4811 to create an expedited processes for resolving improper discipline and wage thefts by the UC.",,Student and Worker Discipline,  Common,,,,,
+University of California Education Abroad Program ,UCEAP,Study abroad program for undergrads.,https://uceap.universityofcalifornia.edu/about-uceap,Misc.,Rare,,,,,
+retaliation,retal,"Retaliation is action such as discpline, discrimination, or dismissal taken against workers for union activities, such as strikes or filing complaints against the UC. There are laws that protect workers from retaliation in many cases.",,Student and Worker Discipline,  Common,,,,yes,
+grievance mediation,,Grievance mediation is an optional step in resolving complaints against the UC,,,  Common,,,,yes,
+fee remission,,Fee remission means that the UC does not charge fees that it would otherwise. ,,,  Common,,,,yes,
+appointment security,,Appointment security means that the UC cannot withdraw an job offer after it has been accepted. ,,,  Common,,,,yes,
+centralized transitional funding,,"Transitional funding is short-term funding offered to grad students to allow students to change advisors/funding sources due to having ethical complaints about their research or have a bad relationship with their advisor. If the transitional funding is provided by the UC (instead of departments), then it is called centralized transitional funding. Centralized transitional funding was a demand of the 2024 strike. In October 2024, the UC started to offer transitional funding to UCLA students.",,, Uncommon,,,,,
+workload protections,,"Workload protections, ensrined in the contracts, ensures that the UC cannot ask workers to work beyond the number of hours stated in their appointment, nor beyond a daily limit of 8 hours.",,,  Common,,,,yes,
+reasonable accommodation,,A reasonable accommodation is an adjustment made in a system to accommodate or make fair the same system for an individual based on a proven need.,https://www.eeoc.gov/laws/guidance/enforcement-guidance-reasonable-accommodation-and-undue-hardship-under-ada#types,,  Common,,,,yes,
+statewide,SW,"In the context of the local union chapter, ""statewide"" refers to the UAW 4811 leadership. ",,, Uncommon,,,,,
+Clery Act,,,,Laws and Regulations,Rare,,,,,
+Academic Personnel Manual ,APM,,,,,,,,,
+UC Student Association,UCSA,"""UCSA/UCGPC fees are charged quarterly.  Students can opt out of these fees using the opt out form found under their corresponding (Undergrad/Grad) eForms tile.  Look for the UCSA/UCPGC Registration Fee Opt-out link.  Deadline for opting out for Fall 2024 is October, 16 2024.""",,,,,,,,
+UC Graduate and Professional Councill,UCGPC ,"""UCSA/UCGPC fees are charged quarterly.  Students can opt out of these fees using the opt out form found under their corresponding (Undergrad/Grad) eForms tile.  Look for the UCSA/UCPGC Registration Fee Opt-out link.  Deadline for opting out for Fall 2024 is October, 16 2024.""",,,,,,,,
+Student Business Services,SBS,,,UC Structure,,,,,,
+dependent care,DepCare,,,,,,,,yes,
+de minimis,,"Definition: ""Lacking significance or importance: so minor as to merit disregard."" For workers on fellowships, ""de minimis service"" disqualifies them from joining the union, per Article 1 of the 2022-2025 GSR contract.",,Contracts and Strikes, Uncommon,,,,yes,
+Student Services Fee,,Mentioned in Article 11 of 2022-2025 ASE contract.,,, Uncommon,,,,yes,
+"UCnet
+","UCnet
+",???,https://ucnet.universityofcalifornia.edu/,,Rare,,,,yes?,
+personal time off,PTO,,,,  Common,,,,yes,
+arbitration,,"Arbitration is a process of bringing a dispute before a independent third party. For UAW complaints, arbitration occurs after the grievance process (between UAW and the UC directly) is exhausted. Only UAW may bring complaints to arbitration—not the UC.",,, Uncommon,,,,yes,
+Partial Fee Remission,,"The ASE and GSR contracts guarantee ""partial fee remission"" when workers work 50% or more. The ""partial"" part of the name is a misnomer, since it covers all campus fees.",,,  Common,,,,yes,
+Joint Labor Meeting,JLM,"A Joint Labor Management meeting is a meeting between Labor Relations and the union, usually to discuss new policies or changes in workplace conditions. Many of these happened during the pandemic transition to remote work, for example. They are formal meetings, but they are not negotiations.",,Misc.,Rare,,,,,
+Run of Show,RoS,"""A Run of Show is a comprehensive, detailed plan encapsulating an event's timeline, flow, and logistics. It outlines each essential action, who is responsible for it, its duration, and when it will occur."" (Source: https://eventify.io/blog/event-run-of-show-with-template)",,,,,,,,
+Jotform,,An online survey tool used by UAW 4811.,https://www.jotform.com/,Misc.,,,,,,
+top off,,"A top off was a practice by the UC to give TAs in some STEM departments to raise their wages to match the wages of GSRs. After the ratification of the 2022 contract, the UC declared that top-ffs would end, but this was overthrown as the result of a grievance filed by UAW. ",,,,,,,maybe,
+insurance premium,,The baseline monthly fee paid for insurance coverage regardless of the care received.,,,,,,,maybe,
+insurance copay,,A copay (or copayment) is a flat fee that you pay on the spot each time you go to your doctor or fill a prescription. ,https://www.cigna.com/knowledge-center/copays-deductibles-coinsurance,,,,,,,
+insurance out-of-pocket maximum,,"An out-of-pocket maximum is a cap, or limit, on the amount of money you have to pay for covered health care services in a plan year. If you meet that limit, your health plan will pay 100% of all covered health care costs for the rest of the plan year. Some health insurance plans call this an out-of-pocket limit. A plan year is the 12 months between the date your coverage is effective and the date your coverage ends.","https://www.cigna.com/knowledge-center/what-is-an-out-of-pocket-maximum#:~:text=The%20out%2Dof%2Dpocket%20maximum%20is%20the%20most%20you',plan%20starts%20covering%20your%20care.",,,,,,,
+coinsurance ,,Coinsurance is a portion of the medical cost you pay after your deductible has been met.,https://www.cigna.com/knowledge-center/copays-deductibles-coinsurance,,,,,,,
+student health services,SHS,,,,,,,,,
+University of California Medical Center,UCMC,,,,,,,,,
+Quarry Plaza,QP,"The courtyard between the UCSC bookstore, and Iveta and the GSC",,,,,,,,
+insurance deductible,,A deductible is the amount you pay each year for most eligible medical services or medications before your health plan begins to share in the cost of covered services.,https://www.cigna.com/knowledge-center/copays-deductibles-coinsurance,,,,,,,
+new employee orientation,NEO,,https://ucnet.universityofcalifornia.edu/wp-content/uploads/labor/bargaining-units/bx/docs/bx_appendix-l_neo-information_2022-2025.pdf,,,,,,yes?,
+loco parentis,,"The Latin term in loco parentis, which means “in place of a parent,” or “instead of a parent,” refers to situations in which someone other than a biological parent takes on the role of parent to a minor child without formally adopting the child.",,,,,,,yes,
+Graduate Student Health Insurance Plan,GSHIP,,https://shc.uci.edu/insurance/uc-ship-benefits-and-information/gship,,,,,,,
+CA Senate Bill No. 698,SB 698,Establishes penalties for late payment of wages by the UC.,https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=201920200SB698,,,,,,,

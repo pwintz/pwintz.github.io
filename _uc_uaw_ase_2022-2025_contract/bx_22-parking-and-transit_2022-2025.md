@@ -12,11 +12,11 @@ toc: True
 ## A. GENERAL CONDITIONS
 
 <div class="lvl2"><b>1.</b> The University and the UAW agree reducing the carbon footprint is a mutual goal.</div>
-<div class="lvl2"><b>2.</b> ASEs shall be eligible to participate in a campus' parking and transit program, if any, in accordance with the provisions of each location's program on the same basis as similarly-situated employees. This includes, but is not limited to, pretax/payroll deduction options applicable if the ASE is eligible for such deductions due to their payroll and/or tax status.</div>
+<div class="lvl2"><b>2.</b> <span class="tooltip">ASEs<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> shall be eligible to participate in a campus' parking and transit program, if any, in accordance with the provisions of each location's program on the same basis as similarly-situated employees. This includes, but is not limited to, pretax/payroll deduction options applicable if the ASE is eligible for such deductions due to their payroll and/or tax status.</div>
 
 ## B. ALTERNATIVE TRANSPORTATION
 
-<div class="lvl2"><b>1.</b> ASEs are encouraged to participate in alternative transportation programs, if offered, at each location including shuttles, public transportation, bicycle programs, carpool programs and other alternative transportation programs.</div>
+<div class="lvl2"><b>1.</b> <span class="tooltip">ASEs<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> <span class="tooltip">ar<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Researcher" %}{{ tooltip_term[0]["Meaning"] }}</span></span>e encouraged to participate in alternative transportation programs, if offered, at each location including shuttles, public transportation, bicycle programs, carpool programs and other alternative transportation programs.</div>
 <div class="lvl2"><b>2.</b> The University shall move toward enhanced transit programs as follows:</div>
 <div class="lvl3"><b>a.</b> Within 12 months of ratification:</div>
 <div class="lvl4"><b>1)</b> 
@@ -49,9 +49,9 @@ The University reserves the sole right to establish and change parking and trans
 
 <div class="lvl2"><b>1.</b> No later than six (6) months after ratification of this Agreement, at the request of the union, the Labor-Management Meeting on Transit ("Meeting") will be convened on a campus basis for the purpose of discussing ways to enhance bargaining unit member access to transit programs to commute to and from the University location.</div>
 <div class="lvl2"><b>2.</b> The parties may invite guests, including, but not limited to, subject matter experts, provided there is notice and mutual agreement.</div>
-<div class="lvl2"><b>3.</b> The University and UAW shall mutually agree upon an equal number of representatives for each party. The Meeting shall be limited to two (2) hours unless the parties mutually agree otherwise. Bargaining unit employees serving on the Labor-Management Meeting on Transit shall be provided release time for time they would have otherwise worked on that day for the purpose of attending the Meeting, provided there is notice in accordance with <a href="/uaw/ase-2022-2025-contract/article-10">Article 10</a> -Labor- Management Meetings.</div>
-<div class="lvl2"><b>4.</b> The parties shall propose agenda items for the Meeting no later than seven (7) calendar days prior to the Meeting. If there are no agenda items proposed, the Meeting shall be canceled or rescheduled.</div>
-<div class="lvl2"><b>5.</b> While the Labor-Management Meeting on Transit is intended to cover ASEs, nothing shall preclude the parties from agreeing to combine the Meeting with that of other UAW units.</div>
+<div class="lvl2"><b>3.</b> The University and UAW shall mutually agree upon an equal number of representatives for each party. The Meeting shall be limited to two (2) hours unless the parties mutually agree otherwise. Bargaining unit employees serving on the Labor-Management Meeting on Transit shall be provided release time for time they would have otherwise worked on that day for the purpose of attending the Meeting, provided there is notice in accordance with <span class="tooltip">Ar<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Researcher" %}{{ tooltip_term[0]["Meaning"] }}</span></span>ticle 10 -Labor- Management Meetings.</div>
+<div class="lvl2"><b>4.</b> The parties shall propose agenda items for the Meeting no later than seven (7) calendar days prior to the Meeting. If there <span class="tooltip">ar<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Researcher" %}{{ tooltip_term[0]["Meaning"] }}</span></span>e no agenda items proposed, the Meeting shall be canceled or rescheduled.</div>
+<div class="lvl2"><b>5.</b> While the Labor-Management Meeting on Transit is intended to cover <span class="tooltip">ASEs,<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> nothing shall preclude the parties from agreeing to combine the Meeting with that of other UAW units.</div>
 
 ## E. REGIONAL TRANSIT SYSTEM PASS CHART
 
@@ -62,7 +62,7 @@ The University reserves the sole right to establish and change parking and trans
 | UC San Francisco | Clipper "A" Pass: Muni (includes Cable Car) + BART within SF |
 | Lawrence Berkeley National Laboratory | LBNL Shuttle |
 | :--- | :--- |
-|  | For ASEs Only: Student Easy Pass (AC Transit/Bear Transit) |
+|  | For <span class="tooltip">ASEs<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> Only: Student Easy Pass (AC Transit/Bear Transit) |
 | UC Merced | MTA (The Bus) 31 Day Fixed Route Pass |
 | :--- | :--- |
 | UC Santa Cruz | 31 Day METRO Pass |

@@ -9,5 +9,5 @@ toc: True
 ---
 
 
-GSRs shall have access to required facilities, equipment, supplies, and materials. Such access shall not be unreasonably denied.
+GSRs<span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "loco parentis" %}{{ tooltip_term[0]["Meaning"] }}</span></span><span class="tooltip"><span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "retaliation" %}{{ tooltip_term[0]["Meaning"] }}</span></span> shall have access to required facilities, equipment, supplies, and materials. Such access shall not be unreasonably denied.
 
