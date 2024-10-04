@@ -14,6 +14,7 @@ c) Failure to provide the necessary information to the UAW as set forth in Artic
 # 1.  
 
 All grievances must be filed with the campus labor relations office at the campus that employs the grievant and within the time frames specified in this Article. Grievances must be filed on the form agreed to by the parties in Appendix A.
+
 # 2.  
 
 The grievance form must be signed and dated by the employee(s) or the employee's representative upon submission to the University. Union grievances must be signed by UAW's representative.
@@ -21,19 +22,19 @@ The grievance form must be signed and dated by the employee(s) or the employee's
 # 3. Proper Filings - Initial Grievances, Responses and Appeals
 
 Grievances, responses and appeals must be filed via email at the campus labor relations office in accordance with the procedures and timelines below:
-a) Electronic - the date of filing shall be the date received as indicated on the University's email server. The grievance initiation/appeal form must be in a PDF format attachment.
-b) All subsequent University responses shall be sent via email to contractenforcement@uaw2865.org and the email address designated by the Grievant/Representative on the grievance form as provided in Appendix A.
-c) If a filing is received after 5 pm , the first following business day will be deemed the filing date.
-d) Deadlines that fall on a day that is not a regular business day will automatically be extended to the next regular business day.
-e) The grievance shall be filed on the form as provided in Appendix A. A grievance may be considered ineligible for processing unless it contains the following:
-  i. A specific description of the dispute;
-  ii. The facts giving rise to the dispute;
-  iii. A listing of the article and section violated;
-  iv. A statement as to how the article and section were violated;
-  v. The date(s) of the violation;
-  vi. Requested remedy or remedies.
-f) Receipt of the grievance shall be acknowledged in writing by the University as soon as practicable following receipt, and shall be sent to the address or email listed on the grievance form.
-g) The timelines and meetings for the processing of grievances shall be in accordance with the steps addressed below.
+  a) Electronic - the date of filing shall be the date received as indicated on the University's email server. The grievance initiation/appeal form must be in a PDF format attachment.
+  b) All subsequent University responses shall be sent via email to contractenforcement@uaw2865.org and the email address designated by the Grievant/Representative on the grievance form as provided in Appendix A.
+  c) If a filing is received after 5 pm , the first following business day will be deemed the filing date.
+  d) Deadlines that fall on a day that is not a regular business day will automatically be extended to the next regular business day.
+  e) The grievance shall be filed on the form as provided in Appendix A. A grievance may be considered ineligible for processing unless it contains the following:
+    i. A specific description of the dispute;
+    ii. The facts giving rise to the dispute;
+    iii. A listing of the article and section violated;
+    iv. A statement as to how the article and section were violated;
+    v. The date(s) of the violation;
+    vi. Requested remedy or remedies.
+  f) Receipt of the grievance shall be acknowledged in writing by the University as soon as practicable following receipt, and shall be sent to the address or email listed on the grievance form.
+  g) The timelines and meetings for the processing of grievances shall be in accordance with the steps addressed below.
 
 # C. GRIEVANCE STEPS
 
@@ -54,21 +55,25 @@ c) A written decision shall be issued within fifteen (15) calendar days followin
 
 a) If the grievance has not been resolved at Step 2, the grievant and/or the grievant's representative may file an appeal in writing to the Office of the President. Such appeal must be received by the Office of the President no later than fifteen (15) calendar days after the issuance of the University's Step 2 response, or the date on which the Step 2 response would have been due.
 b) An appeal to Step 3 shall be accomplished as follows:
-  I. Email to AppealAGrievance@ucop.edu.
-
-1) Email submissions must include PDFs of all documents, information and signatures necessary to be in compliance with the Grievance Procedure provisions of this Agreement.
-2) The date of filing for emailed Appeals to Step 3 shall be the date received on the University server, provided that the appeal is received during business hours. If a Step 3 appeal is received outside of normal business hours, the first following business day will be deemed the filing date of the Appeal to Step 3.
-3) The University shall acknowledge the Union's Appeal to Step 3 through a computer-generated, automatic email response. If the Union does not receive a confirmation email within 30 minutes of the time of submission, the date of filing shall be the sent time and date.
-  II. The subject of the grievance as stated in Step 2 shall constitute the sole and entire subject matter of the appeal to Step 3.
-  III. The University must assert any and all known arbitrability issues no later than the date the Step 3 Decision is issued.
-  IV. The UCOP official or the UCOP official's designee shall issue the University's Step 3 decision within thirty (30) calendar days of the receipt of the appeal. Proof of Service shall accompany the written decision. The Step 3 decision shall be served upon the grievant and/or the grievant's representative.
-  V. The UCOP official or the UCOP official's designee shall have the authority to settle grievances appealed to Step 3.
-D. Attendance at the Step meetings held pursuant to Section C. are limited to the grievant, the grievant's representative, if any, and one other individual from UAW. Advanced requests for additional attendees to present directly relevant information pertaining to the grievance shall not be unreasonably denied.
-E. In the event the union alleges a contract violation as a direct result of an Office of the President action, the grievance shall be filed directly at the Office of the President within thirty (30) calendar days from the following instances, whichever occurs first: 
+    I. Email to AppealAGrievance@ucop.edu.
+  
+      1) Email submissions must include PDFs of all documents, information and signatures necessary to be in compliance with the Grievance Procedure provisions of this Agreement.
+      2) The date of filing for emailed Appeals to Step 3 shall be the date received on the University server, provided that the appeal is received during business hours. If a Step 3 appeal is received outside of normal business hours, the first following business day will be deemed the filing date of the Appeal to Step 3.
+      3) The University shall acknowledge the Union's Appeal to Step 3 through a computer-generated, automatic email response. If the Union does not receive a confirmation email within 30 minutes of the time of submission, the date of filing shall be the sent time and date.
+    II. The subject of the grievance as stated in Step 2 shall constitute the sole and entire subject matter of the appeal to Step 3.
+    III. The University must assert any and all known arbitrability issues no later than the date the Step 3 Decision is issued.
+    IV. The UCOP official or the UCOP official's designee shall issue the University's Step 3 decision within thirty (30) calendar days of the receipt of the appeal. Proof of Service shall accompany the written decision. The Step 3 decision shall be served upon the grievant and/or the grievant's representative.
+    V. The UCOP official or the UCOP official's designee shall have the authority to settle grievances appealed to Step 3.
+# D. 
+Attendance at the Step meetings held pursuant to Section C. are limited to the grievant, the grievant's representative, if any, and one other individual from UAW. Advanced requests for additional attendees to present directly relevant information pertaining to the grievance shall not be unreasonably denied.
+# E. 
+In the event the union alleges a contract violation as a direct result of an Office of the President action, the grievance shall be filed directly at the Office of the President within thirty (30) calendar days from the following instances, whichever occurs first: 
   a) the date the event/action which gave rise to the grievance occurred, or 
   b) the date on which either the grievant or their representative knew or should have known of the alleged violation of the Agreement. At the time of filing, the UAW must provide specific evidence that the violation is occurring on multiple campuses.
-F. Failure by the UAW to comply with the time limits set forth herein shall render the grievance ineligible for further processing or appeal, and the grievance shall be considered closed.
-G. Offers of settlement are inadmissible at any step of the grievance or arbitration procedures.
+# F. 
+Failure by the UAW to comply with the time limits set forth herein shall render the grievance ineligible for further processing or appeal, and the grievance shall be considered closed.
+# G. 
+Offers of settlement are inadmissible at any step of the grievance or arbitration procedures.
 
 # H. EXTENSION OF TIME LIMITS
 

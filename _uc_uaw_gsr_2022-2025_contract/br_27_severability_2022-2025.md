@@ -1,4 +1,5 @@
 ---
+contract: GSR 2022-2025
 article_number: 27
 article_name: Severability 
 title: Article 27 - Severability 

@@ -12,8 +12,7 @@
 8. All GSRs shall comply with the University's established health and safety policies and procedures in this article, inaddition to state and federal mandates.
 9. A GSR who has complied with the procedures in Section D.1. below, has the right to refuse abnormally dangerous or hazardous tasks, while the University is investigating or remedying their concern.
 10. This Article does not cover mental or emotional reactions to the work environment in and of themselves, or physical reactions arising from mentalor emotional reactions to the work environment.
-11. The University and UAW will comply with all Cal-OSHA rules and regulations relating to worksite inspections. If a Cal-OSHA Inspector arrives to inspect a
-worksite in which a GSR is located, a Union Representative may be present at the opening conference and to accompany the inspector during a walk around inspection.
+11. The University and UAW will comply with all Cal-OSHA rules and regulations relating to worksite inspections. If a Cal-OSHA Inspector arrives to inspect a worksite in which a GSR is located, a Union Representative may be present at the opening conference and to accompany the inspector during a walk around inspection.
 12. Within a reasonable time following a written request by the Union, the University will provide the UAW with copies of EH\&S inspection reports related to work sites of GSRs. The University may charge the Union for the reasonable costs associated with the provision of such materials if providing the materials is burdensome.
 
 ## B. COMMITMENT TO HEALTH AND SAFETY

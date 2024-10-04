@@ -264,16 +264,19 @@ tag_archive:
 collections:
   latex-macros:
     output: true
-    permalink: /latex-macros/:name
+    permalink: /latex-macros/:name/
   publications:
     output: true
-    permalink: /publications/:name
+    permalink: /publications/:name/
   writing-tips:
     output: true
-    permalink: /writing-tips/:name
+    permalink: /writing-tips/:name/
   uc_uaw_gsr_2022-2025_contract:
     output: true
-    permalink: /uaw/gsr-2022-2025-contract/:name
+    permalink: /uaw/gsr-2022-2025-contract/:name/
+  uc_uaw_ase_2022-2025_contract:
+    output: true
+    permalink: /uaw/ase-2022-2025-contract/:name/
 
 
 # HTML Compression
@@ -303,6 +306,12 @@ defaults:
   - scope:
       path: ""
       type: uc_uaw_gsr_2022-2025_contract
+    values:
+      layout: uaw-contract-article
+  # Defaults for uc_ase_gsr_2022-2025_contract collection
+  - scope:
+      path: ""
+      type: uc_uaw_ase_2022-2025_contract
     values:
       layout: uaw-contract-article
       

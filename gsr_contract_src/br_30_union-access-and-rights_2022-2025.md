@@ -8,7 +8,7 @@ The University has the right to establish and enforce reasonable access rules an
 
 # 2. U.S. Mail Delivery
 
-United States mail on which postage has been paid and which is receivedby the University bearing the name of the GSR in the unit and correct specific address will be distributed to the GSR in the unit in the normal manner.
+United States mail on which postage has been paid and which is received by the University bearing the name of the GSR in the unit and correct specific address will be distributed to the GSR in the unit in the normal manner.
 
 # 3. Use of mailboxes
 

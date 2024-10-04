@@ -1,4 +1,5 @@
 ---
+contract: GSR 2022-2025
 article_number: 22
 article_name: Past Practice Not Covered By Agreement 
 title: Article 22 - Past Practice Not Covered By Agreement 

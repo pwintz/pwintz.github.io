@@ -1,4 +1,5 @@
 ---
+contract: GSR 2022-2025
 article_number: 35
 article_name: Workspace Support 
 title: Article 35 - Workspace Support 

@@ -5,7 +5,7 @@ B. GSRs who held University of California Retirement Program (UCRP) eligible pos
 C. If a GSR is required to participate in a retirement program under either A or B above, GSRs shall make mandatory employee retirement program contributions to the same extent at the same time and in the same amount as other eligible represented academic employees.
 D. GSRs shall be responsible for all fees associated with the administration of the University Retirement Savings Program in the same manner as they apply to other represented academic employees at the same campus. Should the University change the methodology by which the fees are imposed, the University shall provide a thirty (30) day notice and engage in a meet and confer process over the effect of the change in methodology on bargaining unit members.
 
-## E. Trainees and Fellows
+E. Trainees and Fellows
 
 1. Trainees and Fellows must comply with program requirements, which may prohibit DCP contributions affecting eligibility.
 2. Trainees and Fellows shall not be eligible to participate in the DC Plan until they are paid through UCPATH.

@@ -10,17 +10,17 @@ a. Definition: Graduate student who performs research as a condition of receivin
 
 b. These title and job codes will be applicable to this category of Graduate Student Employees:
   
-  i. GSR-FULL FEE REM, 3282
-  ii. GSR-FULL TUIT & PARTIAL FEE REM, 3283
-  iii. GSR-NO REM, 3266
-  iv. GSR-PARTIAL FEE REM, 3276
-  v. GSR-TUIT & FEE REM, 3284
-  vi. GSR-TUIT & FEE REM-UCSD-GRP B, 3285
-  vii. GSR-TUIT & FEE REM-UCSD-GRP C, 3286
-  viii. GSR-TUIT & FEE REM-UCSD-GRP D, 3287
-  ix. GSR-TUIT & FEE REM-UCSD-GRP E, 3262
-  x. GSR-TUIT & FEE REM-UCSD-GRP F, 3263
-  xi. GSR-TUIT & FEE REM-UCSD-GRP G, 3264
+    i. GSR-FULL FEE REM, 3282
+    ii. GSR-FULL TUIT & PARTIAL FEE REM, 3283
+    iii. GSR-NO REM, 3266
+    iv. GSR-PARTIAL FEE REM, 3276
+    v. GSR-TUIT & FEE REM, 3284
+    vi. GSR-TUIT & FEE REM-UCSD-GRP B, 3285
+    vii. GSR-TUIT & FEE REM-UCSD-GRP C, 3286
+    viii. GSR-TUIT & FEE REM-UCSD-GRP D, 3287
+    ix. GSR-TUIT & FEE REM-UCSD-GRP E, 3262
+    x. GSR-TUIT & FEE REM-UCSD-GRP F, 3263
+    xi. GSR-TUIT & FEE REM-UCSD-GRP G, 3264
 
 2. "Trainee" Category of Employees
 
@@ -28,8 +28,8 @@ a. Definition: Where the graduate student meets the terms identified in Section 
 
 b. Titles and Title Codes: The University will use the following titles and job codes for Trainees:
 
-  i. 003150 GSR-TRAINEE-NO REM<br>
-  ii. 003151 GSR-TRAINEE-TUIT&FEE REM
+    i. 003150 GSR-TRAINEE-NO REM<br>
+    ii. 003151 GSR-TRAINEE-TUIT&FEE REM
 
 3. "Fellow" Category of Employees
 
