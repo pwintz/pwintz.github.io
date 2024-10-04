@@ -16,7 +16,8 @@ d. Counseling memoranda and/or written records of discussion, in and of themselv
 
 ## C. WRITTEN NOTICE OF INTENT
 
-1. The University shall provide written notice of intent, as described in Section C.2 for the following actions: suspension without pay or dismissal.
+# 1. 
+The University shall provide written notice of intent, as described in Section C.2 for the following actions: suspension without pay or dismissal.
 
 ## 2. Issuance
 

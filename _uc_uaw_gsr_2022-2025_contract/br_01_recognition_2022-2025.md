@@ -58,16 +58,16 @@ toc: True
 <div class="lvl3"><b>a.</b> Definition: Graduate student who (i) obtains individual fellowship(s) where receipt of the fellowship funding requires the performance of a service for the University; and (ii) performs research in an academic department or research unit, provided that the graduate student is performing this fellowship research under the control of the University and under the specific direction of a faculty member or authorized Principal Investigator.</div>
 <div class="lvl3"><b>b.</b> Titles and Title Codes: The University will use the following titles and job codes for Fellows:</div>
 
-<div class="lvl3"><b>i.</b> 
+<div class="lvl4"><b>i.</b> 
  003140 <span class="tooltip">GSR<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "graduate student researcher" %}{{ tooltip_term[0]["Meaning"] }}</span></span>-FELLOWSHIP-NO REM<br></div>
-<div class="lvl3"><b>ii.</b> 
+<div class="lvl4"><b>ii.</b> 
  003141 <span class="tooltip">GSR<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "graduate student researcher" %}{{ tooltip_term[0]["Meaning"] }}</span></span>-FELLOWSHIP-TUIT&FEE REM</div>
 
 <div class="lvl2"><b>4.</b> Graduate Student Research Assistants at Lawrence Berkeley National Laboratory - Category of Employees</div>
 
 <div class="lvl3"><b>a.</b> LBNL titles and job codes are as follows:</div>
 
-<div class="lvl3"><b>i.</b> 
+<div class="lvl4"><b>i.</b> 
  Graduate Student Research Assistant (<span class="tooltip">GSR<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "graduate student researcher" %}{{ tooltip_term[0]["Meaning"] }}</span></span>A) - Job Codes 214.1214.X</div>
 
 <div class="lvl2"><b>5.</b> The term "<span class="tooltip">Graduate Student Researcher<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "graduate student researcher" %}{{ tooltip_term[0]["Meaning"] }}</span></span>" or "GSR" shall be used throughout this Agreement to refer to all Graduate Student Researchers (section A), Trainees (section B), Fellows (section C), and GSRAs (section D) in the bargaining unit. When there is a distinction in the terms and conditions of employment that apply to the GSRs in section A above versus the Trainees, Fellows, or GSRAs, those distinctions shall be described by reference to those titles.</div>
