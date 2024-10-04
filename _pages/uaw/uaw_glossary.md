@@ -209,11 +209,14 @@ Hide Uncommon Terms?
 
 <table class="sortable" id="glossaryTable" table-layout="fixed" width="100%">
   <tr class="header">
-    <th  width="20%">
+    <th  width="25%">
       Term
     </th>
-    <th  width="60%" >
+    <th  width="65%" >
       Meaning
+    </th>
+    <th  maxwidth="10%" >
+      Links
     </th>
     <th class="rarity">
       Rarity
@@ -237,6 +240,15 @@ Hide Uncommon Terms?
       </td>
       <td>
       {{ row["Meaning"] }}
+      </td>
+      <td class="row links">
+        {% assign links = row["Markdown Links"] | split: ',' %}
+        {% for link in links %}
+          link
+          (link)
+          {{ (link) | markdownify }}
+        {% endfor %}
+        {{ row["Markdown Links"] | markdownify }}
       </td>
       <td class="rarity">
         {{ row["Rarity"] }}
