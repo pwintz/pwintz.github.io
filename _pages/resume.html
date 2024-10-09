@@ -19,7 +19,7 @@ schools:
       - Regents Fellowship
       - BSOE Dean's Fellowship
       - Applied Mathematics Department Service Award 
-      - GSA representative for Advisory Committee on Campus Transportation and Parking
+      - Graduate student representative for Advisory Committee on Campus Transportation and Parking
   - name: Westmont College
     gpa: 4.00
     start-date: 09/2014
@@ -154,9 +154,7 @@ other-activities:
   <div class="contact-info">
     <i class="fas fa-envelope"></i>&nbsp;
 
-    {% comment %}
-      {% capture email_address %}{% include my_email_address.html %}{% endcapture %}
-    {% endcomment %}
+    {% capture email_address %}{% include my_email_address.html %}{% endcapture %}
     {% if email_address %}
     {% else %}
       {% capture email_address %}{{site.author.email}}{% endcapture %}
@@ -165,14 +163,12 @@ other-activities:
     <a href="mailto:{{ email_address }}" style="margin-right: 10px;">{{ email_address | replace: "+ws", ""}}</a>
     {% endif %}
 
-    {% comment %}
     <!-- Insert Phone Number -->
     {% capture phone_number %}{% include my_phone_number.html %}{% endcapture %}
     {% if phone_number %}
     <!-- In order to keep my phone number off of the internet, I make a template that is ignored by Git. Thus, to generate a PDF of my resume, I host my website locally. -->
       <i class="fas fa-phone"></i>&nbsp;<span  style="margin-right: 10px;">{{ phone_number }}</span>
     {% endif %}
-    {% endcomment %}
 
     <!-- Insert URL for Website -->
     <i class="fas fa-home"></i>&nbsp;<a style="margin-right: 10px;" href="https://paulwintz.com">paulwintz.com</a>
