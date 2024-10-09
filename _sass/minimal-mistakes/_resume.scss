@@ -61,16 +61,17 @@
 }
 
 @media print {
+
   .page .page__inner-wrap {
     margin-top: 0em;
   }
 
   .header-box {
-    padding: 8px;
+    padding: 0px;
   }
 
   h1, h2, h3 {
-      margin: 0.5em 0; /* Small margin for headings */
+      margin: 0.1em 0; /* Small margin for headings */
   }
 
   h1 {
@@ -90,8 +91,8 @@
   }
     
   body {
-      font-size: 10px; /* Small font size */
-      line-height: 1.2; /* Tight line spacing */
+      font-size: 12px; /* Small font size */
+      line-height: 1.2  ; /* Tight line spacing */
       font-family: Arial, sans-serif; /* Professional font */
       margin: 0; /* Remove default margins */
       padding: 0; /* Remove default padding */
@@ -110,19 +111,18 @@
   }
 
   p {
-      margin: 0.2em 0; /* Tight margin for paragraphs */
+      margin: 0em 0; /* Tight margin for paragraphs */
   }
 
   ul, ol {
       margin: 0; /* Remove default margin */
-      padding-left: 1em; /* Indent list items */
-      font-size: 10px; /* Consistent font size for lists */
+      padding-left: 2em; /* Indent list items */
+      font-size: 12px; /* Consistent font size for lists */
   }
 
   li {
-      margin: 0.1em 0; /* Tight margin for list items */
+      margin: 0.05em 0; /* Tight margin for list items */
   }
-
   
   table {
     border: none; /* Remove any borders */

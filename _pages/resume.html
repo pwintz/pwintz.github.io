@@ -19,6 +19,7 @@ schools:
       - Regents Fellowship
       - BSOE Dean's Fellowship
       - Applied Mathematics Department Service Award 
+      - GSA representative for Advisory Committee on Campus Transportation and Parking
   - name: Westmont College
     gpa: 4.00
     start-date: 09/2014
@@ -74,16 +75,32 @@ employers:
       start-date: Fall 2015
       end-date: Spring 2016 
 
+skills:
+  - Hybrid Dynamical Systems
+  - Nonlinear Control
+  - Set-valued and Non-Smooth Analysis
+  - Model Predictive Control
+  - Linear Feedback Control
+  - Mathematical Proofs
+  - Python
+  - MATLAB
+  - C++
+  - HTML/CSS Web Design
+  - Software Design Principles
+  - Docker
+  - Git
+  - LaTeX
+
 other-activities:
-- name: Advisory Committee on Campus Transportation and Parking
-  jobs: 
-    - title: Graduate Student Association representative 
-      dates: Winter 2024-Present
-  highlights: 
-    - Reviewed and advised campus transportation plans. 
-    #- Developed proposal for a dedicated bus lane on UCSC campus.
-- name: ComedySportz Improv 
-  start-date: Summer 2022
+  # - name: Advisory Committee on Campus Transportation and Parking
+  #   jobs: 
+  #     - title: Graduate Student Association representative 
+  #       dates: Winter 2024-Present
+  #   highlights: 
+  #     - Reviewed and advised campus transportation plans. 
+  #     #- Developed proposal for a dedicated bus lane on UCSC campus.
+- name: Classical Piano 
+  dates: 2013-Present
 - name: Fencing
   dates: 2004-2014,  2018-Present
   highlights: 
@@ -92,8 +109,10 @@ other-activities:
     - 3rd place at TFC February 2023 Fence-A-Thon (earned B23 USFA rating)
     - 2nd place at TFC's January 2022 Fence-A-Thon
     - 1st place at UCSC NCIFL Tournament 2019
+- name: ComedySportz Improv 
+  start-date: Summer 2022
 - name: Applied Mathematics Graduate Social Coordinator
-  dates: Fall 2023-Present
+  dates: 2023-2024
   highlights: 
     - Organized department social events for graduate students and faculty. 
 - name: Project Mexico and St. Innocent's Orphanage
@@ -134,7 +153,6 @@ other-activities:
   
   <div class="contact-info">
     <i class="fas fa-envelope"></i>&nbsp;
-    
 
     {% comment %}
       {% capture email_address %}{% include my_email_address.html %}{% endcapture %}
@@ -231,6 +249,12 @@ other-activities:
     {% endfor %}
   </div>
 {% endfor %}
+
+<h2>Skills</h2>
+
+{% assign skills = page.skills %}
+{{ skills | join: " ⦁ " }}
+
 
 <h2>Other Activities</h2>
 {% assign other-activities = page.other-activities %}
