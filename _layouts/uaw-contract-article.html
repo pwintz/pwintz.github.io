@@ -3,20 +3,16 @@ layout: single
 contract-link: "{{page.name}}"
 toc: true
 ---
-<style>
 
-</style>
+{% if page.contract == "GSR 2022-2025" %}
+    {% capture pdf_link %}https://ucnet.universityofcalifornia.edu/wp-content/uploads/labor/bargaining-units/br/docs/{{ page.pdf_name }}{% endcapture %}
+{% elsif page.contract == "ASE 2022-2025" %}
+    {% capture pdf_link %} https://ucnet.universityofcalifornia.edu/wp-content/uploads/labor/bargaining-units/bx/docs/{{ page.pdf_name }}{% endcapture %}
+{% else %}
+    ERROR: page "contract" variable must be either "GSR 2022-2025" or "ASE 2022-2025".
+{% endif %}
 
-<div class="warning-box">
-  The following content was generated using optical character recognition and may contain errors. 
-  Please verify important information in the PDF's hosted by the UC or the union. 
-  
-  {% if page.name %}
-  <!-- The PDF for this article is available <a href="https://ucnet.universityofcalifornia.edu/labor/bargaining-units/br/docs/{{ page.contract-link  }}.pdf">here</a>. -->
-  The PDF for this article is available <a href="https://ucnet.universityofcalifornia.edu/labor/bargaining-units/br/docs/{{ page.name | replace: ".md", "" }}.pdf">here</a>.
-  {% endif %}
-</div>
-
+{% include contract_ocr_warning.html pdf_link=pdf_link %}
 
 {{ page.content | markdownify }}
   

@@ -181,7 +181,7 @@ markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 markdown: kramdown
 highlighter: rouge
 lsi: false
-excerpt_separator: "" # Disable defining excerpt via seprators.
+excerpt_separator: "" # Disable defining excerpts via seprators.
 incremental: false
 
 # Markdown Processing

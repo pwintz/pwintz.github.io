@@ -1,0 +1,12 @@
+<div class="warning-box">
+  The following content was generated using optical character recognition and may contain errors. 
+  Please verify important information in the PDFs hosted by the UC or the union. 
+  
+  {% if include.pdf_link %}
+    {% if include.is_plural == "true" %} 
+      The PDFs are available <a href="{{ include.pdf_link }}">here</a>.
+    {% else %}
+      The PDF is available <a href="{{ include.pdf_link }}">here</a>.
+    {% endif %}
+  {% endif %}
+</div>
