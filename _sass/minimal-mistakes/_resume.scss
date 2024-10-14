@@ -6,16 +6,47 @@
   text-align: center; padding: 20px;
 }
 
-.schoolitem, .employeritem, .degreeitem, .activityitem {
+table.schoolitem, 
+table.employeritem, 
+table.degreeitem, 
+table.activityitem {
   width: 100%;
   line-height: 1.2em;
   padding: 0em;
   margin: 0em;
   margin-bottom: 0.5em;
+  // color: orange; // For debugging
   td {
     border-bottom: 0;
     padding: 0;
-    // margin: 0;
+  } 
+}
+
+// Generic "Dated items" that are displayed in a table with the 
+// item on the left and the date on the right.
+.dateditems {
+  width: 100%;
+  // color: green;
+  // background-color: black;
+  width: 100%;
+  line-height: 1.2em;
+  padding: 0em;
+  margin: 0em;
+  margin-bottom: 1em;
+  td {
+    border: none; /* Remove any borders */
+    vertical-align: top; 
+    padding-top: 0em;
+    padding-bottom: 0.0em;
+  }
+  td.item {
+    text-align: left; 
+  }
+  td.date {
+    text-align: right; 
+    min-width: 8em; // "8em" is wide enough to fit "Summer 2023"
+    padding-left: 0.7em;
+    font-style: italic;
   }
 }
 
@@ -51,14 +82,15 @@
   font-size: smaller
 }
 
+
 .resumedate {
+  text-align: right; 
+  vertical-align: top; 
+  min-width: 20%;
   padding-left: 1em;
   font-style: italic;
 }
 
-.degreename {
-
-}
 
 @media print {
 
@@ -71,7 +103,7 @@
   }
 
   h1, h2, h3 {
-      margin: 0.1em 0; /* Small margin for headings */
+      margin: 1em 0; /* Small margin for headings */
   }
 
   h1 {
@@ -96,6 +128,7 @@
       font-family: Arial, sans-serif; /* Professional font */
       margin: 0; /* Remove default margins */
       padding: 0; /* Remove default padding */
+      margin-bottom: 0.5em;
   }
   
   a {

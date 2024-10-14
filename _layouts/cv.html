@@ -1,0 +1,289 @@
+---
+layout: default
+---
+
+<style>
+  @media print  
+  {
+    div{
+        page-break-inside: avoid;
+      }
+  }
+</style>
+
+<div id="main" role="main">
+  <!-- {% include sidebar.html %} -->
+
+  <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
+    {% if page.title %}
+      <meta itemprop="headline" content="{{ page.title | markdownify | strip_html | strip_newlines | escape_once }}">
+    {% endif %}
+    {% if page.date %}
+      <meta itemprop="datePublished" content="{{ page.date | date_to_xmlschema }}">
+    {% endif %}
+    {% if page.last_modified_at %}
+      <meta itemprop="dateModified" content="{{ page.last_modified_at | date_to_xmlschema }}">
+    {% endif %}
+
+    <div class="page__inner-wrap">
+      <!-- No Page title here. -->
+
+      <section class="page__content e-content" itemprop="text">
+        {% if page.toc %}
+          <aside class="sidebar__right {% if page.toc_sticky %}sticky{% endif %}">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-{{ page.toc_icon | default: 'file-alt' }}"></i> {{ page.toc_label | default: site.data.ui-text[site.locale].toc_label | default: "On this page" }}</h4></header>
+              {% include toc.html sanitize=true html=content h_min=1 h_max=6 class="toc__menu" skip_no_ids=true %}
+            </nav>
+          </aside>
+        {% endif %}
+
+        <div class="header-box">
+          <!-- <img src="{{ site.author.avatar }}" alt="{{ site.author.name }}" style="width: 150px; border-radius: 50%;"> -->
+          <h1>{{ site.author.name }}</h1>
+          <p>{{page.tagline}}</p>
+          <!-- <p>{{ site.author.bio }}</p> -->
+          
+          <div class="contact-info">
+            <i class="fas fa-envelope"></i>&nbsp;
+        
+            {% capture email_address %}{% include my_email_address.html %}{% endcapture %}
+            {% if email_address == "" %}
+              {% capture email_address %}{{site.author.email}}{% endcapture %}
+            {% endif %}
+            {% if email_address %}
+            <a href="mailto:{{ email_address }}" style="margin-right: 10px;">{{ email_address | replace: "+ws", ""}}</a>
+            {% endif %}
+        
+            <!-- Insert Phone Number -->
+            {% capture phone_number %}{% include my_phone_number.html %}{% endcapture %}
+            {% if phone_number %}
+            <!-- In order to keep my phone number off of the internet, I make a template that is ignored by Git. Thus, to generate a PDF of my resume, I host my website locally. -->
+              <i class="fas fa-phone"></i>&nbsp;<span style="margin-right: 10px;">{{ phone_number }}</span>
+            {% endif %}
+        
+            <!-- Insert URL for Website -->
+            <i class="fas fa-home"></i>&nbsp;<a style="margin-right: 10px;" href="https://paulwintz.com">paulwintz.com</a>
+          </div>
+        </div>
+
+        <h2>Short Biography</h2>
+        {{ page.biography }}
+
+        <h2>Research Interests</h2>
+        {% assign research-interests = page.research-interests %}
+
+        {{ page.research-interests | join: " ⦁ " }}
+
+        <h2>Education</h2>
+        {% assign schools = page.schools %}
+        {% for school in schools %}
+
+          <div class="schoolitem">
+            <table class="schoolheader">
+              <tr>
+                <td style="text-align: left;"><span class="schoolname">{{ school.name }}</span> —&nbsp;<span class="schoolgpa">{{ school.gpa }}&nbsp;GPA</span></td>
+              <td class="resumedate"><span class="resumedate">
+                {{ school.start-date | date: "%B %Y" }}-{{ school.end-date | date: "%B %Y" | default:"Present"}}
+              </span></td>
+              </tr>
+            </table>
+          </div>
+          <div class="schoolcontent">
+            {% for item in school.items %}
+            <table class="degreeitem">
+              <tr>
+                <td style="text-align: left;"><span class="degreename">
+                    {{ item.name }}</span>
+                </td>
+              <td class="resumedate"><span class="resumedate">
+                  {{ item.date | date: "%B %Y" | default:" "}}
+                </span></td>
+              </tr>
+            </table>
+            {% endfor %}
+            <ul>
+              {% for item in school.honors %}
+                <li>{{ item }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endfor %}
+
+        <h2>Employment</h2>
+        {% assign employers = page.employers %}
+        {% for employer in employers %}
+
+          <div class="employeritem">
+            <table class="employerheader">
+              <tr>
+                <td style="text-align: left;"><span class="employername">
+                  {{ employer.name }}
+                </span></td>
+              </tr>
+            </table>
+          </div>
+          <div class="employercontent">
+            {% for job in employer.jobs %}
+            <table class="degreeitem">
+              <tr>
+                <td style="text-align: left;"><span class="degreename">
+                    {{ job.title }}</span>
+                </td>
+              <td class="resumedate"><span class="resumedate">
+                  {% if job.dates %}
+                    {{ job.dates }}
+                  {% else %}
+                    {{ job.start-date | date: "%B %Y" }}-{{ job.end-date | date: "%B %Y" | default:"Present"}}
+                  {% endif %}
+                </span></td>
+              </tr>
+            </table>
+            <ul>
+              {% for highlight in job.highlights %}
+                <li>{{ highlight }}</li>
+              {% endfor %}
+            </ul>
+            {% endfor %}
+          </div>
+        {% endfor %}
+
+          
+        <h2>Teaching Experiences</h2>
+
+        {% assign teaching-experiences = page.teaching-experiences %}
+        
+        {% for teaching-experience in teaching-experiences %}
+          <table class="dateditems">
+            <tr>
+              <td class="item">
+                <b>{{ teaching-experience.role }}.</b>
+              </td>
+              <td class="date">
+                {{ teaching-experience.date }}
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                {{ teaching-experience.type }}: "{{ teaching-experience.name }}."
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <i>{{ teaching-experience.location }}.</i>
+              </td>
+            </tr>
+          </table>
+        {% endfor %}
+
+        <h2>Honors</h2>
+        {% for honor in page.honors %}
+        <table class="dateditems">
+          <tr>
+            <td class="item">
+              <span class="degreename">{{ honor.honor }}</span>
+            </td>
+            <td class="date">
+              {{ honor.date }}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <i>{{ honor.location }}.</i>
+            </td>
+          </tr>
+        </table>
+        {% endfor %}
+        <!--
+            <table class="honorheader">
+              <tr>
+                <td style="text-align: left;"><span class="honorname">
+                  {{ honor.name }}
+                </span></td>
+              </tr>
+            </table>
+          </div>
+          <div class="honorcontent">
+            {% for job in honor.jobs %}
+            <table class="degreeitem">
+              <tr>
+                <td style="text-align: left;"><span class="degreename">
+                    {{ job.title }}</span>
+                </td>
+              <td class="resumedate"><span class="resumedate">
+                  {% if job.dates %}
+                    {{ job.dates }}
+                  {% else %}
+                    {{ job.start-date | date: "%B %Y" }}-{{ job.end-date | date: "%B %Y" | default:"Present"}}
+                  {% endif %}
+                </span></td>
+              </tr>
+            </table>
+            <ul>
+              {% for highlight in job.highlights %}
+                <li>{{ highlight }}</li>
+              {% endfor %}
+            </ul>
+            {% endfor %}
+          </div> -->
+
+
+        <h2>Skills</h2>
+        {{ page.skills | join: " ⦁ " }}
+
+        <h2>Other Activities</h2>
+        {% assign other-activities = page.other-activities %}
+        {% for activity in other-activities %}
+
+          <div class="activityitem">
+            <table class="activityheader">
+              <tr>
+                <td style="text-align: left;"><span class="activityname">
+                  {{ activity.name }}
+                </span></td>
+                  <td style="text-align: right;"><span class="resumedate">
+                    {% if activity.dates %}
+                      {{ activity.dates }} 
+                    {% elsif activity.start-date %}
+                      {{ activity.start-date | date: "%B %Y" }}-{{ activity.end-date | date: "%B %Y" | default:"Present"}}
+                    {% endif %}
+                  </span></td>
+              </tr>
+            </table>
+          </div>
+          <div class="activitycontent">
+            {% for job in activity.jobs %}
+            <table class="degreeitem">
+              <tr>
+                <td style="text-align: left;"><span class="degreename">
+                    {{ job.title }}</span>
+                </td>
+              <td class="resumedate"><span class="resumedate">
+                  {% if job.dates %}
+                    {{ job.dates }} 
+                  {% elsif job.start-date %}
+                    {{ job.start-date | date: "%B %Y" }}-{{ job.end-date | date: "%B %Y" | default:"Present"}}
+                  {% endif %}
+                </span></td>
+              </tr>
+            </table>
+            {% endfor %}
+            <ul>
+              {% for highlight in activity.highlights %}
+                <li>{{ highlight }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endfor %}
+
+        <h2>Publications</h2>
+        {% include publication_list.html %}
+
+      </section>
+
+    </div>
+
+
+  </article>
+
+</div>

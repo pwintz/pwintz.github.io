@@ -1,6 +1,9 @@
 
 {% assign publications = site.publications | sort: "year" | reverse %}
-{% for pub in publications %}
+{% for pub in publications | where: '' %}
+{% if pub.omit-from-publications-list %}
+    {% continue %}
+{% endif %}
 <div class="pubitem">
   {% if pub.teaser-image %}
     <div class="pubteaser">
