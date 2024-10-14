@@ -12,7 +12,7 @@ abstract: >
     
 has-pdf: true
 has-slides: true
-has-bibtex: false
-# doi: 
+has-bibtex: true
+doi: 10.1016/j.ifacol.2024.07.441
 ---
 
