@@ -57,7 +57,7 @@ layout: default
         
             <!-- Insert Phone Number -->
             {% capture phone_number %}{% include my_phone_number.html %}{% endcapture %}
-            {% if phone_number %}
+            {% if phone_number != "" %}
             <!-- In order to keep my phone number off of the internet, I make a template that is ignored by Git. Thus, to generate a PDF of my resume, I host my website locally. -->
               <i class="fas fa-phone"></i>&nbsp;<span style="margin-right: 10px;">{{ phone_number }}</span>
             {% endif %}
@@ -122,7 +122,6 @@ layout: default
                 </span></td>
               </tr>
             </table>
-          </div>
           <div class="employercontent">
             {% for job in employer.jobs %}
             <table class="degreeitem">
@@ -146,6 +145,7 @@ layout: default
             </ul>
             {% endfor %}
           </div>
+        </div>
         {% endfor %}
 
           
@@ -194,39 +194,66 @@ layout: default
           </tr>
         </table>
         {% endfor %}
-        <!--
-            <table class="honorheader">
-              <tr>
-                <td style="text-align: left;"><span class="honorname">
-                  {{ honor.name }}
-                </span></td>
-              </tr>
-            </table>
-          </div>
-          <div class="honorcontent">
-            {% for job in honor.jobs %}
-            <table class="degreeitem">
-              <tr>
-                <td style="text-align: left;"><span class="degreename">
-                    {{ job.title }}</span>
-                </td>
-              <td class="resumedate"><span class="resumedate">
-                  {% if job.dates %}
-                    {{ job.dates }}
-                  {% else %}
-                    {{ job.start-date | date: "%B %Y" }}-{{ job.end-date | date: "%B %Y" | default:"Present"}}
-                  {% endif %}
-                </span></td>
-              </tr>
-            </table>
-            <ul>
-              {% for highlight in job.highlights %}
-                <li>{{ highlight }}</li>
-              {% endfor %}
-            </ul>
-            {% endfor %}
-          </div> -->
+        
+        <h2>Publications</h2>
+        {% include publication_list.html %}
 
+        <h2>Conference Presentations</h2>
+        {% for conf in page.conference-presentations %}
+        <table class="dateditems">
+          <tr>
+            <td class="item">
+              "{{ conf.title }}"
+            </td>
+            <td class="date">
+              {{ conf.date }}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <i>{{ conf.venue }}.</i>
+            </td>
+          </tr>
+        </table>
+        {% endfor %}
+
+        <h2>Poster Presentations</h2>
+        {% for poster in page.poster-presentations %}
+        <table class="dateditems">
+          <tr>
+            <td class="item">
+              "{{ poster.title }}"
+            </td>
+            <td class="date">
+              {{ poster.date }}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <i>{{ poster.venue }}.</i>
+            </td>
+          </tr>
+        </table>
+        {% endfor %}
+        
+        <h2>Service Work</h2>
+        {% for service in page.service-work %}
+        <table class="dateditems">
+          <tr>
+            <td class="item">
+              <span class="degreename">{{ service.title }}</span>
+            </td>
+            <td class="date">
+              {{ service.date }}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <i>{{ service.location }}.</i>
+            </td>
+          </tr>
+        </table>
+        {% endfor %}
 
         <h2>Skills</h2>
         {{ page.skills | join: " ⦁ " }}
@@ -276,8 +303,6 @@ layout: default
           </div>
         {% endfor %}
 
-        <h2>Publications</h2>
-        {% include publication_list.html %}
 
       </section>
 

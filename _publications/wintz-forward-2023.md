@@ -11,5 +11,6 @@ has-pdf: true
 has-slides: true
 has-bibtex: true
 doi: 10.1109/CDC49753.2023.10383334
+awards: 
+    - Shortlisted for the Outstanding Student Paper Prize from the CSS Technical Committee on Hybrid Systems.
 ---
-
