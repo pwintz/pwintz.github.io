@@ -246,7 +246,7 @@ Hide Uncommon Terms?
         {% for link in links %}
           link
           (link)
-          {{ (link) | markdownify }}
+          {{ link | markdownify }}
         {% endfor %}
         {{ row["Markdown Links"] | markdownify }}
       </td>
