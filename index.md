@@ -15,7 +15,8 @@ I am a PhD student in the Department of Applied Mathematics at the University of
 - Model predictive control
 - Numerical simulation of hybrid systems
 
-Outside of research, I have wide-ranging interests including music, [art](/art/), improv, and reading. You can find links to my presence across the internet at my [LinkTree](https://linktr.ee/paulwintz). 
+Outside of research, I have wide-ranging interests including music, [art](/art/), improv comedy, and reading. 
+You can find links to my presence across the internet at my [LinkTree](https://linktr.ee/paulwintz). 
 
 # Pages
 - [Résumé](/resume)

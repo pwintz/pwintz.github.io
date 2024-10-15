@@ -2,8 +2,11 @@
 main:
     # - title: "About"
     #   url: /about
-    - title: Résumé
-      url: /resume
+    # - title: Résumé
+      # url: /resume
+    #- title: Curriculum Vitae
+    - title: CV
+      url: /cv
     - title: "Publications"
       url: /publications/
     # - title: "LaTeX Macros"
