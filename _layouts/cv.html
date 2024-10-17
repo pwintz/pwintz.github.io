@@ -3,11 +3,8 @@ layout: default
 ---
 
 <style>
-  @media print  
-  {
-    div{
-        page-break-inside: avoid;
-      }
+  .avoid-page-break {
+    page-break-inside: avoid;
   }
 </style>
 
@@ -38,7 +35,7 @@ layout: default
           </aside>
         {% endif %}
 
-        <div class="header-box">
+        <div class="header-box avoid-page-break">
           <!-- <img src="{{ site.author.avatar }}" alt="{{ site.author.name }}" style="width: 150px; border-radius: 50%;"> -->
           <h1>{{ site.author.name }}</h1>
           <p>{{page.tagline}}</p>
@@ -67,19 +64,21 @@ layout: default
           </div>
         </div>
 
-        <h2>Short Biography</h2>
-        {{ page.biography }}
-
-        <h2>Research Interests</h2>
-        {% assign research-interests = page.research-interests %}
-
-        {{ page.research-interests | join: " ⦁ " }}
+        <div class="avoid-page-break">
+          <h2>Short Biography</h2>
+          {{ page.biography }}
+        </div>
+        
+        <div class="avoid-page-break">
+          <h2>Research Interests</h2>
+          {{ page.research-interests | join: " ⦁ " }}
+        </div>
 
         <h2>Education</h2>
         {% assign schools = page.schools %}
         {% for school in schools %}
 
-          <div class="schoolitem">
+          <div class="schoolitem avoid-page-break">
             <table class="schoolheader">
               <tr>
                 <td style="text-align: left;"><span class="schoolname">{{ school.name }}</span> —&nbsp;<span class="schoolgpa">{{ school.gpa }}&nbsp;GPA</span></td>
@@ -88,33 +87,34 @@ layout: default
               </span></td>
               </tr>
             </table>
-          </div>
-          <div class="schoolcontent">
-            {% for item in school.items %}
-            <table class="degreeitem">
-              <tr>
-                <td style="text-align: left;"><span class="degreename">
-                    {{ item.name }}</span>
-                </td>
-              <td class="resumedate"><span class="resumedate">
-                  {{ item.date | date: "%B %Y" | default:" "}}
-                </span></td>
-              </tr>
-            </table>
-            {% endfor %}
-            <ul>
-              {% for item in school.honors %}
-                <li>{{ item }}</li>
+            <div class="schoolcontent">
+              {% for item in school.items %}
+              <table class="degreeitem">
+                <tr>
+                  <td style="text-align: left;"><span class="degreename">
+                      {{ item.name }}</span>
+                  </td>
+                <td class="resumedate"><span class="resumedate">
+                    {{ item.date | date: "%B %Y" | default:" "}}
+                  </span></td>
+                </tr>
+              </table>
               {% endfor %}
-            </ul>
+              <ul>
+                {% for item in school.honors %}
+                  <li>{{ item }}</li>
+                {% endfor %}
+              </ul>
+            </div>
           </div>
         {% endfor %}
 
+        
         <h2>Employment</h2>
         {% assign employers = page.employers %}
         {% for employer in employers %}
 
-          <div class="employeritem">
+          <div class="employeritem avoid-page-break">
             <table class="employerheader">
               <tr>
                 <td style="text-align: left;"><span class="employername">
@@ -122,32 +122,31 @@ layout: default
                 </span></td>
               </tr>
             </table>
-          <div class="employercontent">
-            {% for job in employer.jobs %}
-            <table class="degreeitem">
-              <tr>
-                <td style="text-align: left;"><span class="degreename">
-                    {{ job.title }}</span>
-                </td>
-              <td class="resumedate"><span class="resumedate">
-                  {% if job.dates %}
-                    {{ job.dates }}
-                  {% else %}
-                    {{ job.start-date | date: "%B %Y" }}-{{ job.end-date | date: "%B %Y" | default:"Present"}}
-                  {% endif %}
-                </span></td>
-              </tr>
-            </table>
-            <ul>
-              {% for highlight in job.highlights %}
-                <li>{{ highlight }}</li>
+            <div class="employercontent">
+              {% for job in employer.jobs %}
+              <table class="degreeitem">
+                <tr>
+                  <td style="text-align: left;"><span class="degreename">
+                      {{ job.title }}</span>
+                  </td>
+                <td class="resumedate"><span class="resumedate">
+                    {% if job.dates %}
+                      {{ job.dates }}
+                    {% else %}
+                      {{ job.start-date | date: "%B %Y" }}-{{ job.end-date | date: "%B %Y" | default:"Present"}}
+                    {% endif %}
+                  </span></td>
+                </tr>
+              </table>
+              <ul>
+                {% for highlight in job.highlights %}
+                  <li>{{ highlight }}</li>
+                {% endfor %}
+              </ul>
               {% endfor %}
-            </ul>
-            {% endfor %}
+            </div>
           </div>
-        </div>
         {% endfor %}
-
           
         <h2>Teaching Experiences</h2>
 
@@ -178,21 +177,21 @@ layout: default
 
         <h2>Honors</h2>
         {% for honor in page.honors %}
-        <table class="dateditems">
-          <tr>
-            <td class="item">
-              <span class="degreename">{{ honor.honor }}</span>
-            </td>
-            <td class="date">
-              {{ honor.date }}
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <i>{{ honor.location }}.</i>
-            </td>
-          </tr>
-        </table>
+          <table class="dateditems">
+            <tr>
+              <td class="item">
+                <span class="degreename">{{ honor.honor }}</span>
+              </td>
+              <td class="date">
+                {{ honor.date }}
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <i>{{ honor.location }}.</i>
+              </td>
+            </tr>
+          </table>
         {% endfor %}
         
         <h2>Publications</h2>
@@ -200,69 +199,71 @@ layout: default
 
         <h2>Conference Presentations</h2>
         {% for conf in page.conference-presentations %}
-        <table class="dateditems">
-          <tr>
-            <td class="item">
-              "{{ conf.title }}"
-            </td>
-            <td class="date">
-              {{ conf.date }}
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <i>{{ conf.venue }}.</i>
-            </td>
-          </tr>
-        </table>
+          <table class="dateditems">
+            <tr>
+              <td class="item">
+                "{{ conf.title }}"
+              </td>
+              <td class="date">
+                {{ conf.date }}
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <i>{{ conf.venue }}.</i>
+              </td>
+            </tr>
+          </table>
         {% endfor %}
 
         <h2>Poster Presentations</h2>
         {% for poster in page.poster-presentations %}
-        <table class="dateditems">
-          <tr>
-            <td class="item">
-              "{{ poster.title }}"
-            </td>
-            <td class="date">
-              {{ poster.date }}
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <i>{{ poster.venue }}.</i>
-            </td>
-          </tr>
-        </table>
+          <table class="dateditems">
+            <tr>
+              <td class="item">
+                "{{ poster.title }}"
+              </td>
+              <td class="date">
+                {{ poster.date }}
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <i>{{ poster.venue }}.</i>
+              </td>
+            </tr>
+          </table>
         {% endfor %}
         
         <h2>Service Work</h2>
         {% for service in page.service-work %}
-        <table class="dateditems">
-          <tr>
-            <td class="item">
-              <span class="degreename">{{ service.title }}</span>
-            </td>
-            <td class="date">
-              {{ service.date }}
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <i>{{ service.location }}.</i>
-            </td>
-          </tr>
-        </table>
+          <table class="dateditems">
+            <tr>
+              <td class="item">
+                <span class="degreename">{{ service.title }}</span>
+              </td>
+              <td class="date">
+                {{ service.date }}
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <i>{{ service.location }}.</i>
+              </td>
+            </tr>
+          </table>
         {% endfor %}
 
-        <h2>Skills</h2>
-        {{ page.skills | join: " ⦁ " }}
+        <div class="avoid-page-break">
+          <h2>Skills</h2>
+          {{ page.skills | join: " ⦁ " }}
+        </div>
 
         <h2>Other Activities</h2>
         {% assign other-activities = page.other-activities %}
         {% for activity in other-activities %}
 
-          <div class="activityitem">
+          <div class="activityitem avoid-page-break">
             <table class="activityheader">
               <tr>
                 <td style="text-align: left;"><span class="activityname">
@@ -277,38 +278,33 @@ layout: default
                   </span></td>
               </tr>
             </table>
-          </div>
-          <div class="activitycontent">
-            {% for job in activity.jobs %}
-            <table class="degreeitem">
-              <tr>
-                <td style="text-align: left;"><span class="degreename">
-                    {{ job.title }}</span>
-                </td>
-              <td class="resumedate"><span class="resumedate">
-                  {% if job.dates %}
-                    {{ job.dates }} 
-                  {% elsif job.start-date %}
-                    {{ job.start-date | date: "%B %Y" }}-{{ job.end-date | date: "%B %Y" | default:"Present"}}
-                  {% endif %}
-                </span></td>
-              </tr>
-            </table>
-            {% endfor %}
-            <ul>
-              {% for highlight in activity.highlights %}
-                <li>{{ highlight }}</li>
+            <div class="activitycontent">
+              {% for job in activity.jobs %}
+              <table class="degreeitem">
+                <tr>
+                  <td style="text-align: left;"><span class="degreename">
+                      {{ job.title }}</span>
+                  </td>
+                <td class="resumedate"><span class="resumedate">
+                    {% if job.dates %}
+                      {{ job.dates }} 
+                    {% elsif job.start-date %}
+                      {{ job.start-date | date: "%B %Y" }}-{{ job.end-date | date: "%B %Y" | default:"Present"}}
+                    {% endif %}
+                  </span></td>
+                </tr>
+              </table>
               {% endfor %}
-            </ul>
+              <ul>
+                {% for highlight in activity.highlights %}
+                  <li>{{ highlight }}</li>
+                {% endfor %}
+              </ul>
+            </div>
           </div>
         {% endfor %}
 
-
       </section>
-
     </div>
-
-
   </article>
-
 </div>
