@@ -8,8 +8,7 @@
 
 table.schoolitem, 
 table.employeritem, 
-table.degreeitem, 
-table.activityitem {
+table.degreeitem {
   width: 100%;
   line-height: 1.2em;
   padding: 0em;
@@ -73,7 +72,7 @@ table.dateditems {
   // }
 }
 
-.schoolcontent, .employercontent, .activitycontent {
+.schoolcontent, .employercontent {
   margin-top: 0em;
   margin-bottom: 1.2em;
   padding-top: 0em;
@@ -84,6 +83,7 @@ table.dateditems {
 
 .schoolname, .employername, .activityname {
   font-weight: bold;
+  // font-size: larger;
   // font-size: large
   // Modidfying margin and padding here has no effect.
   // margin-bottom: 10.5em;
@@ -95,7 +95,6 @@ table.dateditems {
   font-size: smaller
 }
 
-
 .resumedate {
   text-align: right; 
   vertical-align: top; 
@@ -103,7 +102,6 @@ table.dateditems {
   padding-left: 1em;
   font-style: italic;
 }
-
 
 .avoid-page-breaks {
   page-break-inside: avoid;

@@ -70,8 +70,7 @@ layout: default
         </div>
 
         <h2>Education</h2>
-        {% assign schools = page.schools %}
-        {% for school in schools %}
+        {% for school in page.schools %}
 
           <!-- <div class="schoolitem avoid-page-breaks"> -->
             <table class="dateditems">
@@ -80,19 +79,19 @@ layout: default
                   <span class="schoolname">{{ school.name }}</span> —&nbsp;<span class="schoolgpa">{{ school.gpa }}&nbsp;GPA</span>
                 </td>
                 <td class="date">
-                  {{ school.start-date | date: "%B %Y" }}-{{ school.end-date | date: "%B %Y" | default:"Present"}}
+                  {{ school.start-date | date: "%B %Y" | replace: " ", "&nbsp;"}}-{{ school.end-date | date: "%B %Y" | default:"Present" | replace: " ", "&nbsp;"}}
                 </td>
               </tr>
               <tr>
                 <td colspan="2">
                   {% for item in school.items %}
-                    <table class="degreeitem">
+                    <table class="schoolitem">
                       <tr>
                         <td style="text-align: left;"><span class="degreename">
                             {{ item.name }}</span>
                         </td>
                       <td class="resumedate"><span class="resumedate">
-                          {{ item.date | date: "%B %Y" | default:" "}}
+                          {{ item.date | date: "%B %Y" | default:" "| replace: " ", "&nbsp;"}}
                         </span></td>
                       </tr>
                     </table>
@@ -115,48 +114,50 @@ layout: default
 
         
         <h2>Employment</h2>
-        {% assign employers = page.employers %}
-        {% for employer in employers %}
-
-          <div class="employeritem avoid-page-breaks">
-            <table class="employerheader">
-              <tr>
-                <td style="text-align: left;"><span class="employername">
-                  {{ employer.name }}
-                </span></td>
-              </tr>
-            </table>
-            <div class="employercontent">
-              {% for job in employer.jobs %}
-              <table class="degreeitem">
-                <tr>
-                  <td style="text-align: left;"><span class="degreename">
-                      {{ job.title }}</span>
-                  </td>
-                <td class="resumedate"><span class="resumedate">
-                    {% if job.dates %}
-                      {{ job.dates }}
-                    {% else %}
-                      {{ job.start-date | date: "%B %Y" }}-{{ job.end-date | date: "%B %Y" | default:"Present"}}
+        {% for employer in page.employers %}
+          <table class="dateditems">
+            <tr>
+              <td class="item">
+                <span class="employername">{{ employer.name }}</span>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                {% for job in employer.jobs %}
+                  <table class="dateditems">
+                    <tr>
+                      <td class="item">
+                          {{ job.title }}
+                      </td>
+                      <td class="date">
+                        {% if job.dates %}
+                          <!-- The odd replacement we do here is to ensure non-breaking spaces before years starting with "2", e.g., " Sumemr 2023" -->
+                          {{ job.dates | replace: " 2", "&nbsp;2"}}
+                        {% else %}
+                          {{ job.start-date | date: "%B %Y" | replace: " ", "&nbsp;"}}-{{ job.end-date | date: "%B %Y" | default:"Present" | replace: " ", "&nbsp;"}}
+                        {% endif %}
+                      </td>
+                    </tr>
+                    {% if job.highlights %} 
+                      <tr>
+                        <td colspan="2">
+                          <ul style="margin-top: 0px; margin-bottom: 0px">
+                            {% for highlight in job.highlights %}
+                              <li>{{ highlight }}</li>
+                            {% endfor %}
+                          </ul>
+                        </td>
+                      </tr>
                     {% endif %}
-                  </span></td>
-                </tr>
-              </table>
-              <ul>
-                {% for highlight in job.highlights %}
-                  <li>{{ highlight }}</li>
+                  </table>
                 {% endfor %}
-              </ul>
-              {% endfor %}
-            </div>
-          </div>
+              </td>
+            </tr>
+          </table>
         {% endfor %}
-          
-        <h2>Teaching Experiences</h2>
 
-        {% assign teaching-experiences = page.teaching-experiences %}
-        
-        {% for teaching-experience in teaching-experiences %}
+        <h2>Teaching Experiences</h2>
+        {% for teaching-experience in page.teaching-experiences %}
           <table class="dateditems">
             <tr>
               <td class="item">
