@@ -9,11 +9,10 @@
 
 1. GSRs are encouraged to participate in alternative transportation programs, if offered, at each location including shuttles, public transportation, bicycle programs, carpool programs and other alternative transportation programs.
 2. The University shall move toward enhanced transit programs as follows:
-a. Within 12 months of ratification:
-1) Ensure all locations make pre-tax programs available to eligible employees paid regular wages through UC PATH (excludes Fellows, Trainees) to pay for transit options.
-2) Access to a UC-negotiated e-bike purchase discount program, minimally at fifteen percent (15%), with the goal of twenty percent (20%), below the published retail price for the same bike from the same retailer, subject to appropriate participation in the program. UAW commits to encouraging its bargaining unit members to take advantage of such program through its regular channels of communication.
-3) As a public transit allowance, the University will double match the bargaining unit employee's contribution up to thirty dollars ($30) per month into the pre-tax account referenced in section 1) above according to the following schedule:
-
+  a. Within 12 months of ratification:
+    1) Ensure all locations make pre-tax programs available to eligible employees paid regular wages through UC PATH (excludes Fellows, Trainees) to pay for transit options.
+    2) Access to a UC-negotiated e-bike purchase discount program, minimally at fifteen percent (15%), with the goal of twenty percent (20%), below the published retail price for the same bike from the same retailer, subject to appropriate participation in the program. UAW commits to encouraging its bargaining unit members to take advantage of such program through its regular channels of communication.
+    3) As a public transit allowance, the University will double match the bargaining unit employee's contribution up to thirty dollars ($30) per month into the pre-tax account referenced in section 1) above according to the following schedule:
 ## Employee Contribution University Double Match Monthly
 
 | GSR | UC | TOTAL |
@@ -21,10 +20,10 @@ a. Within 12 months of ratification:
 | $5 | $10 | $15 |
 | $10 | $20 | $30 |
 | $15 | $30 | $45 |
-
-Bargaining unit members at locations which provide access to a no- cost transit pass, as outlined in Section E below (including as part of student fee remission), shall not receive this double matching allowance. The Lawrence Berkeley National Laboratory will be included to the extent permitted by the terms of its Department of Energy contract related to cost allowability.
-b. Within 24 months of ratification: Bargaining unit access to enhanced UC Travel measures to reduce the impact of university business travel on carbon emissions, including more accurate carbon impact estimates of travel itineraries and access to discounted electric vehicle rentals.
-c. Within 36 months of ratification: Best efforts by UC to negotiate reduced-fee or no-fee access to the appropriate regional transit system(s) for each location, pursuant to Section E below, where practicable.
+    
+    Bargaining unit members at locations which provide access to a no- cost transit pass, as outlined in Section E below (including as part of student fee remission), shall not receive this double matching allowance. The Lawrence Berkeley National Laboratory will be included to the extent permitted by the terms of its Department of Energy contract related to cost allowability.
+  b. Within 24 months of ratification: Bargaining unit access to enhanced UC Travel measures to reduce the impact of university business travel on carbon emissions, including more accurate carbon impact estimates of travel itineraries and access to discounted electric vehicle rentals.
+  c. Within 36 months of ratification: Best efforts by UC to negotiate reduced-fee or no-fee access to the appropriate regional transit system(s) for each location, pursuant to Section E below, where practicable.
 
 ## C. NOTICE
 

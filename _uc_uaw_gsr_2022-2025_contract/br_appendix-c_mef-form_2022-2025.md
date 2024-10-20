@@ -14,7 +14,7 @@ If you have any questions about this form, do not reply to this email. Please co
 
 Welcome to your Union (UAW and its Locals 2865 and 58I0)!
 
-This is the form by which every Academic Worker in a unit represented by the UAW - <span class="tooltip">Academic Student Employees<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span>, Student Researchers, Postdoctoral Scholars, and <span class="tooltip">Academic Researchers<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Researcher" %}{{ tooltip_term[0]["Meaning"] }}</span></span> - voluntarily accepts or declines Union membership.
+This is the form by which every Academic Worker in a unit represented by the UAW - <span class="tooltip">Academic Student Employees<span class="tooltip-text"><b>Academic Student Employee</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span>, Student Researchers, Postdoctoral Scholars, and <span class="tooltip">Academic Researchers<span class="tooltip-text"><b>Academic Researcher</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Researcher" %}{{ tooltip_term[0]["Meaning"] }}</span></span> - voluntarily accepts or declines Union membership.
 
 By forming a Union at the University of California, Academic Workers have won:
 

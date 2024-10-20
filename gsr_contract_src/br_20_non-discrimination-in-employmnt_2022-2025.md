@@ -60,8 +60,8 @@ c. For sexual harassment cases, the University will follow the University of Cal
 
 a. If a grievance is filed in accordance with Article 11 - Grievance and Arbitration that includes an alleged violation of this Article, the University shall forward the allegation(s) to the Title IX/EEO Officer for review. If the Title IX/EEO Officer determines an investigation is warranted, the Union and the University may agree in writing that the grievance, or a portion thereof, be held in abeyance while the investigation is ongoing.
 b. As soon as practicable, after the Title IX/EEO Officer receives the grievance, they will make an initial assessment to determine whether:
-  (i) the allegation(s) constitute a prima facie case of an act of prohibited behavior; and
-  (ii) such conduct has a sufficient nexus to the University for it to intervene.
+    (i) the allegation(s) constitute a prima facie case of an act of prohibited behavior; and
+    (ii) such conduct has a sufficient nexus to the University for it to intervene.
 c. The Title IX/EEO Officer may implement interim measures, in accordance with section D.2. above.
 d. In the event that a formal investigation is conducted, the investigation shall be conducted in accordance with the SVSH Policy.
 e. When the University issues the report or otherwise concludes its review/investigation, the abeyance shall automatically terminate, and the Step 1 process shall resume.

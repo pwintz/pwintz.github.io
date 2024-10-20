@@ -11,10 +11,10 @@
 | Los Angeles Health | https://grad.ucla.edu/funding/working-at-ucla/academic-student-employees-appointments-union-contract/ |
 | Merced | https://graduatedivision.ucmerced.edu/node/10461 |
 | Riverside | https://graduate.ucr.edu/resources-and-policies |
-| San Diego | https://grad.ucsd.edu/financial/employment/<span class="tooltip">ases<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span>/new-employee-orientation.html |
-| San Diego Health | https://grad.ucsd.edu/financial/employment/<span class="tooltip">ases<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span>/new-employee-orientation.html |
+| San Diego | https://grad.ucsd.edu/financial/employment/<span class="tooltip">ases<span class="tooltip-text"><b>Academic Student Employee</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span>/new-employee-orientation.html |
+| San Diego Health | https://grad.ucsd.edu/financial/employment/<span class="tooltip">ases<span class="tooltip-text"><b>Academic Student Employee</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span>/new-employee-orientation.html |
 | San Francisco |  |
-| Santa Barbara | https://id.ucsb.edu/teaching/<span class="tooltip">ta<span class="tooltip-text">{% assign tooltip_term = site.data.union_glossary | where: "Term", "teaching assistant" %}{{ tooltip_term[0]["Meaning"] }}</span></span>-training/new-tas |
+| Santa Barbara | https://id.ucsb.edu/teaching/<span class="tooltip">ta<span class="tooltip-text"><b>Teaching assistant</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "teaching assistant" %}{{ tooltip_term[0]["Meaning"] }}</span></span>-training/new-tas |
 | Santa Cruz | https://shr.ucsc.edu/elr/uaw-new-employee-orientation.html |
 | LBNL | N/A |
 
