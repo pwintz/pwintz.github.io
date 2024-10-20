@@ -21,7 +21,6 @@ b. These title and job codes will be applicable to this category of Graduate Stu
     ix. GSR-TUIT & FEE REM-UCSD-GRP E, 3262
     x. GSR-TUIT & FEE REM-UCSD-GRP F, 3263
     xi. GSR-TUIT & FEE REM-UCSD-GRP G, 3264
-
 2. "Trainee" Category of Employees
 
 a. Definition: Where the graduate student meets the terms identified in Section B.1.a and the funding source from which they receive remuneration deems that the money provided cannot be characterized as wages, the graduate student is an employee and the University will place the graduate student employee in a new "Trainee" title code that reflects that the money provided is not subject to a W -2.

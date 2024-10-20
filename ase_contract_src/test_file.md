@@ -1,4 +1,4 @@
-♂# ARTICLE 130 <br> TEST
+# ARTICLE 130 <br> TEST
 
 # Standard itemization:
 
