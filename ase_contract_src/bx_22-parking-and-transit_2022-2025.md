@@ -13,15 +13,31 @@ a. Within 12 months of ratification:
     1) Ensure all locations make pre-tax programs available to eligible employees paid regular wages through UC PATH to pay for transit options.
     2) Access to a UC-negotiated e-bike purchase discount program, minimally at fifteen percent (15%), with the goal of twenty percent (20%), below the published retail price for the same bike from the same retailer, subject to appropriate participation in the program. UAW commits to encouraging its bargaining unit members to take advantage of such program through its regular channels of communication.
     3) As a public transit allowance, the University will double match the bargaining unit employee's contribution up to thirty dollars (\$30) per month into the pre-tax account referenced in section 1) above according to the following schedule:
+        <table>
+            <caption><b>Employee Contribution University Double Match Monthly Total</b></caption>
+            <thead>
+                <tr>
+                    <th>$5</th>
+                    <th>$10</th>
+                    <th>$15</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>$10</td>
+                    <td>$20</td>
+                    <td>$30</td>
+                </tr>
+                <tr>
+                    <td>$15</td>
+                    <td>$30</td>
+                    <td>$45</td>
+                </tr>
+            </tbody>
+        </table>
 
-## Employee Contribution University Double Match Monthly Total
 
-| $5 | $10 | $15 |
-| :--- | :--- | :--- |
-| $10 | $20 | $30 |
-| $15 | $30 | $45 |
-
-Bargaining unit members at locations which provide access to a nocost transit pass, as outlined in Section E below (including as part of student fee remission), shall not receive this double matching allowance. The Lawrence Berkeley National Laboratory will be included to the extent permitted by the terms of its Department of Energy contract related to cost allowability.
+Bargaining unit members at locations which provide access to a no-cost transit pass, as outlined in Section E below (including as part of student fee remission), shall not receive this double matching allowance. The Lawrence Berkeley National Laboratory will be included to the extent permitted by the terms of its Department of Energy contract related to cost allowability.
 b. Within 24 months of ratification:
 
 Bargaining unit access to enhanced UC Travel measures to reduce the impact of university business travel on carbon emissions, including more accurate carbon impact estimates of travel itineraries and access to discounted electric vehicle rentals.
@@ -48,14 +64,12 @@ The University reserves the sole right to establish and change parking and trans
 | UC Berkeley | Student Easy Pass (AC Transit/Bear Transit) |
 | UC Davis | SacRT Connect Card |
 | UC San Francisco | Clipper "A" Pass: Muni (includes Cable Car) + BART within SF |
-| Lawrence Berkeley National Laboratory | LBNL Shuttle |
-| :--- | :--- |
-|  | For ASEs Only: Student Easy Pass (AC Transit/Bear Transit) |
+| Lawrence Berkeley National Laboratory | LBNL Shuttle <br> For ASEs Only: Student Easy Pass (AC Transit/Bear Transit) |
 | UC Merced | MTA (The Bus) 31 Day Fixed Route Pass |
-| :--- | :--- |
 | UC Santa Cruz | 31 Day METRO Pass |
 | UC Santa Barbara | MTD Monthly Pass |
 | UC Los Angeles | Bruin Grad Pass |
 | UC Riverside | RTA U-Pass Program |
 | UC Irvine | OCTA 30-day Pass UC San Diego COASTER Pass |
+| UC San Diego | FaST Pass or COASTER Pass |
 
