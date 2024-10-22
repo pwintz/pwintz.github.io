@@ -48,8 +48,8 @@ The Written Notice of Summer Session Appointment will also include the following
 
 If the University fails to notify an <span class="tooltip">ASE<span class="tooltip-text"><b>Academic Student Employee</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> prior to the commencement of the second meeting of the assigned section or class that a position offered and accepted is no longer available, the University will ensure the individual:
 <div class="lvl3"><b>a.</b> is placed in an appointment at the classification and equivalent compensation level offered and accepted, or</div>
-<div class="lvl3"><b>b.</b> receives equivalent compensation in lieu of the position for the session at the level offered.</div>
-
+<div class="lvl3"><b>b.</b> receives equivalent compensation in lieu of the position for the session at the level offered.
+</div>
 ## E. JOB POSTING FOR SUMMER SESSION
 
 ### 1. Campus-Wide Posting
@@ -60,8 +60,8 @@ As soon as practicable, but no later than February 1 of each year, the Universit
 <div class="lvl3"><b>c.</b> A general description of the duties performed by each of the classifications covered by the agreement.</div>
 <div class="lvl3"><b>d.</b> The "minimum qualifications" by classification as established by and at the sole discretion of the University.</div>
 <div class="lvl3"><b>e.</b> A statement indicating that exceptions to the minimum eligibility qualifications may be granted at the sole discretion of the University.</div>
-<div class="lvl3"><b>f.</b> The application procedures or hiring unit contact for <span class="tooltip">ASE<span class="tooltip-text"><b>Academic Student Employee</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> positions.</div>
-
+<div class="lvl3"><b>f.</b> The application procedures or hiring unit contact for <span class="tooltip">ASE<span class="tooltip-text"><b>Academic Student Employee</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> positions.
+</div>
 ### 2. Department-Level Posting
 
 Nothing in this Article or in this Agreement shall prevent departments or other campus hiring units from providing additional information regarding <span class="tooltip">ASE<span class="tooltip-text"><b>Academic Student Employee</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> employment opportunities on bulletin boards or other websites. For those departments and hiring units that have formal written guidelines regarding hiring for and allocations of ASE positions, the guidelines will be posted. Changes in written guidelines shall be posted prior to implementation.

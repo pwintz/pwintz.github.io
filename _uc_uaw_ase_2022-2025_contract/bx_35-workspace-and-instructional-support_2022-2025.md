@@ -9,7 +9,7 @@ toc: True
 ---
 
 
-<div class="lvl1"><b>A.</b> The University shall provide access to required facilities, services, texts and instructional support. Access to required facilities, services, texts, and instructional support will not be unreasonably denied. These required facilities, services, texts and instructional support may include, if applicable:</div>
+<div class="lvl1"><b>A.</b> The University shall provide access to required facilities, services, texts and instructional support. Access to required facilities, services, texts, and instructional support will not be unreasonably denied. These required facilities, services, texts and instructional support may include, if applicable:
 
 <div class="lvl2"><b>1.</b> Office and desk space, telephone,</div>
 <div class="lvl2"><b>2.</b> A computer,</div>
@@ -18,4 +18,4 @@ toc: True
 <div class="lvl2"><b>5.</b> Mailbox,</div>
 <div class="lvl2"><b>6.</b> Office supplies and teaching supplies,</div>
 <div class="lvl2"><b>7.</b> Texts and/or reading material,</div>
-<div class="lvl2"><b>8.</b> Art/performance studio space.</div>
+<div class="lvl2"><b>8.</b> Art/performance studio space.</div></div>

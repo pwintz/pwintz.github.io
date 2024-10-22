@@ -15,8 +15,8 @@ toc: True
 <div class="lvl2"><b>1.</b> The actual salary ranges/rates following application of any range adjustments applied pursuant to this Article may vary slightly due to rounding.</div>
 <div class="lvl2"><b>2.</b> Implementation of the prospective annual increase shall coincide with the first full pay period in the Fall term commencing with October 1st for monthly paid employees and the first pay period commencing after October 1st for bi-weekly paid employees.</div>
 <div class="lvl2"><b>3.</b> Nothing precludes the University, at its sole discretion, from providing compensation to individual <span class="tooltip">ASEs<span class="tooltip-text"><b>Academic Student Employee</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> at salaries that exceed the maximum rate for their title on Tables 18, 19 and 20.</div>
-<div class="lvl2"><b>4.</b> All rates described in this Article are reflective of a 100% rate, not a 50% rate.</div>
-
+<div class="lvl2"><b>4.</b> All rates described in this Article are reflective of a 100% rate, not a 50% rate.
+</div>
 ## B. ACADEMIC YEAR 2022-2023
 
 Effective the first full monthly pay period occurring no more than ninety (90) calendar days from ratification, the University shall implement the following general range adjustment:
@@ -36,14 +36,14 @@ The single full-time annual salary rate for Teaching Fellow shall be established
 ### 4. All other ASE titles
 
 <div class="lvl3"><b>a.</b> The University shall increase the wage ranges for all other salaried <span class="tooltip">ASEs<span class="tooltip-text"><b>Academic Student Employee</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> by 7.5%.</div>
-<div class="lvl3"><b>b.</b> Effective the first full bi-weekly pay period occurring no more than ninety (90) calendar days from ratification, the University shall increase the wage rates for hourly <span class="tooltip">ASEs<span class="tooltip-text"><b>Academic Student Employee</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> by $\$ 1.50$ per hour.</div>
-
+<div class="lvl3"><b>b.</b> Effective the first full bi-weekly pay period occurring no more than ninety (90) calendar days from ratification, the University shall increase the wage rates for hourly <span class="tooltip">ASEs<span class="tooltip-text"><b>Academic Student Employee</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> by $\$ 1.50$ per hour.
+</div>
 ## C. ACADEMIC YEAR 2023-24
 
 ### 1. Implementation of Experience-Based Salary Points
 
 Beginning in Fall Term 2023, the Experience Based Salary Wage Schedule shall be implemented. <span class="tooltip">Teaching Assistants<span class="tooltip-text"><b>Teaching assistant</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "teaching assistant" %}{{ tooltip_term[0]["Meaning"] }}</span></span> and Associate Instructors shall be placed on the new Experience Based Salary Wage Schedule as follows:
-<div class="lvl3"><b>a.</b> <span class="tooltip">Teaching Assistant<span class="tooltip-text"><b>Teaching assistant</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "teaching assistant" %}{{ tooltip_term[0]["Meaning"] }}</span></span></div>
+<div class="lvl3"><b>a.</b> <span class="tooltip">Teaching Assistant<span class="tooltip-text"><b>Teaching assistant</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "teaching assistant" %}{{ tooltip_term[0]["Meaning"] }}</span></span>
 
 <div class="lvl4"><b>1.</b> 
  The University will increase the <span class="tooltip">TA<span class="tooltip-text"><b>Teaching assistant</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "teaching assistant" %}{{ tooltip_term[0]["Meaning"] }}</span></span> rate to $\$ 62,531$, which is approximately a 25.1% increase.</div>
@@ -52,8 +52,8 @@ Beginning in Fall Term 2023, the Experience Based Salary Wage Schedule shall be 
 <div class="lvl4"><b>3.</b> 
  If a <span class="tooltip">Teaching Assistant<span class="tooltip-text"><b>Teaching assistant</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "teaching assistant" %}{{ tooltip_term[0]["Meaning"] }}</span></span> has University teaching experience at 25% <span class="tooltip">FTE<span class="tooltip-text"><b>Full-time equivalent</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "full-time equivalent" %}{{ tooltip_term[0]["Meaning"] }}</span></span> or more per term at their campus of 3 quarters/2 semesters, they shall be placed on salary point 2 upon their first teaching appointment on or following the 2023-2024 Fall term.</div>
 <div class="lvl4"><b>4.</b> 
- If a <span class="tooltip">Teaching Assistant<span class="tooltip-text"><b>Teaching assistant</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "teaching assistant" %}{{ tooltip_term[0]["Meaning"] }}</span></span> has University teaching experience at 25% <span class="tooltip">FTE<span class="tooltip-text"><b>Full-time equivalent</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "full-time equivalent" %}{{ tooltip_term[0]["Meaning"] }}</span></span> or more per term at their campus of 6 quarters/4 semesters, they shall be placed on salary point 3 upon their first teaching appointment on or following the 2023-2024 Fall term.</div>
-<div class="lvl3"><b>b.</b> Associate Instructor</div>
+ If a <span class="tooltip">Teaching Assistant<span class="tooltip-text"><b>Teaching assistant</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "teaching assistant" %}{{ tooltip_term[0]["Meaning"] }}</span></span> has University teaching experience at 25% <span class="tooltip">FTE<span class="tooltip-text"><b>Full-time equivalent</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "full-time equivalent" %}{{ tooltip_term[0]["Meaning"] }}</span></span> or more per term at their campus of 6 quarters/4 semesters, they shall be placed on salary point 3 upon their first teaching appointment on or following the 2023-2024 Fall term.</div></div>
+<div class="lvl3"><b>b.</b> Associate Instructor
 <div class="lvl4"><b>5.</b> 
  The University will increase salary point 1 on Table 19 to $\$ 65,516$, which is approximately a 25.1% increase.</div>
 <div class="lvl4"><b>6.</b> 
@@ -63,8 +63,8 @@ Beginning in Fall Term 2023, the Experience Based Salary Wage Schedule shall be 
 <div class="lvl4"><b>8.</b> 
  If an Associate Instructor has University teaching experience at 25% <span class="tooltip">FTE<span class="tooltip-text"><b>Full-time equivalent</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "full-time equivalent" %}{{ tooltip_term[0]["Meaning"] }}</span></span> or more per term at their campus of 6 quarters/4 semesters, they shall be placed on salary point 3, unless already placed on a higher salary point.</div>
 <div class="lvl4"><b>9.</b> 
- If an Associate Instructor has advanced to candidacy and has University teaching experience at 25% <span class="tooltip">FTE<span class="tooltip-text"><b>Full-time equivalent</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "full-time equivalent" %}{{ tooltip_term[0]["Meaning"] }}</span></span> or more per term at their campus of 6 quarters/4 semesters, they shall be placed on salary point 5, unless already placed on a higher salary point.</div>
-
+ If an Associate Instructor has advanced to candidacy and has University teaching experience at 25% <span class="tooltip">FTE<span class="tooltip-text"><b>Full-time equivalent</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "full-time equivalent" %}{{ tooltip_term[0]["Meaning"] }}</span></span> or more per term at their campus of 6 quarters/4 semesters, they shall be placed on salary point 5, unless already placed on a higher salary point.
+</div></div>
 ### 2. Teaching Fellows and other salaried ASEs
 
 The University shall increase the salary rate for Teaching Fellows and other salaried <span class="tooltip">ASEs<span class="tooltip-text"><b>Academic Student Employee</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> by approximately 25.1% to $\$ 74,220$, excluding <span class="tooltip">Teaching Assistants<span class="tooltip-text"><b>Teaching assistant</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "teaching assistant" %}{{ tooltip_term[0]["Meaning"] }}</span></span> and Associate Instructors.
@@ -76,8 +76,8 @@ The University shall increase the wage rates for hourly <span class="tooltip">AS
 ## D. ACADEMIC YEAR 2024-2025
 
 <div class="lvl2"><b>1.</b> The University shall increase the wage ranges for all salaried <span class="tooltip">ASEs<span class="tooltip-text"><b>Academic Student Employee</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> by 16.7%.</div>
-<div class="lvl2"><b>2.</b> The University shall increase the wage rates for hourly <span class="tooltip">ASEs<span class="tooltip-text"><b>Academic Student Employee</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> by $\$ 1.00$ per hour.</div>
-
+<div class="lvl2"><b>2.</b> The University shall increase the wage rates for hourly <span class="tooltip">ASEs<span class="tooltip-text"><b>Academic Student Employee</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> by $\$ 1.00$ per hour.
+</div>
 ## E. ABOVE-SCALE ASEs
 
 During the life of the Agreement, <span class="tooltip">ASEs<span class="tooltip-text"><b>Academic Student Employee</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> paid at a rate above the maximum for their title on Tables 18, 19 and 20 shall receive a 2% annual increase on October 1st or will be placed on the appropriate salary point on the corresponding table for their title, whichever increase is greater.

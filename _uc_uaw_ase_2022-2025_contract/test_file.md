@@ -1,15 +1,24 @@
-# ARTICLE 130 <br> TEST
+---
+contract: ASE 2022-2025
+article_number: 130
+article_name: Test
+title: Article 130 - Test
+permalink: /uaw/ase-2022-2025-contract/article-130
+pdf_name: test_file.pdf
+toc: True
+---
+
 
 # Standard itemization:
 
-<div class="lvl1"><b>A.</b> First level</div>
+<div class="lvl1"><b>A.</b> First level
 <div class="lvl2"><b>1.</b> Second level</div>
-<div class="lvl2"><b>2.</b> Second level</div>
+<div class="lvl2"><b>2.</b> Second level
 <div class="lvl3"><b>a.</b> Third level</div>
-<div class="lvl3"><b>b.</b> Third level</div>
-<div class="lvl2"><b>3.</b> Second level</div>
-<div class="lvl1"><b>B.</b> First level</div>
-
+<div class="lvl3"><b>b.</b> Third level</div></div>
+<div class="lvl2"><b>3.</b> Second level</div></div>
+<div class="lvl1"><b>B.</b> First level
+</div>
 # Header enumeration
 
 ## A. First level
@@ -36,7 +45,7 @@ Here is some content.
 # Custom Itemization
 We can manually impose second and third level lists using indentation.
 
-<div class="lvl1"><b>A.</b> First level</div>
+<div class="lvl1"><b>A.</b> First level
 <div class="lvl3"><b>1.</b> 
  Second level</div>
 <div class="lvl3"><b>b.</b> 
@@ -46,7 +55,7 @@ We can manually impose second and third level lists using indentation.
 <div class="lvl3"><b>i)</b> 
  Second level</div>
 <div class="lvl3"><b>IV.</b> 
- Second level</div>
+ Second level
 <div class="lvl4"><b>1.</b> 
  Third level</div>
 <div class="lvl4"><b>b.</b> 
@@ -56,7 +65,7 @@ We can manually impose second and third level lists using indentation.
 <div class="lvl4"><b>i)</b> 
  Third level</div>
 <div class="lvl4"><b>IV.</b> 
- Third level</div>
+ Third level
 <div class="lvl5"><b>1.</b> 
  Fourth level</div>
 <div class="lvl5"><b>b.</b> 
@@ -66,8 +75,8 @@ We can manually impose second and third level lists using indentation.
 <div class="lvl5"><b>i)</b> 
  Fourth level</div>
 <div class="lvl5"><b>IV.</b> 
- Fourth level</div>
+ Fourth level</div></div></div>
 <div class="lvl3"><b>3.</b> 
- Second level</div>
+ Second level</div></div>
 <div class="lvl1"><b>B.</b> First level</div>
-<div class="lvl1"><b>B.</b> First level</div>
+B. First level

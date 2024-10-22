@@ -13,8 +13,8 @@ toc: True
 
 <div class="lvl2"><b>1.</b> An <span class="tooltip">Academic Student Employee<span class="tooltip-text"><b>Academic Student Employee</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> (ASE) appointment is established only by the issuance of a Written Notice of Appointment as provided in this Article.</div>
 <div class="lvl2"><b>2.</b> A Written Notice of Appointment is an official document which meets the requirements of Sections B and C below.</div>
-<div class="lvl2"><b>3.</b> These requirements include satisfying work eligibility requirements for U.S. citizens and non-citizens, where applicable, and the timely submission of all documents required by the University to process a request for work authorizatiion.</div>
-
+<div class="lvl2"><b>3.</b> These requirements include satisfying work eligibility requirements for U.S. citizens and non-citizens, where applicable, and the timely submission of all documents required by the University to process a request for work authorizatiion.
+</div>
 ## B. TEACHING ASSISTANT, ASSOCIATE INSTRUCTOR, SPECIAL READER, AND TEACHING FELLOW
 
 ### 1. Timing of Written Notice of Appointment
@@ -42,22 +42,22 @@ Written notices of appointment shall be sent by email or other electronic system
 <div class="lvl3"><b>o.</b> a statement that the name and department address of all <span class="tooltip">ASEs<span class="tooltip-text"><b>Academic Student Employee</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> are released to the UAW each term (quarter/semester),</div>
 <div class="lvl3"><b>p.</b> a direct link to the UAW website containing the Membership Election Form,</div>
 <div class="lvl3"><b>q.</b> a statement that the <span class="tooltip">ASE<span class="tooltip-text"><b>Academic Student Employee</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> may contact the UAW for assistance, and,</div>
-<div class="lvl3"><b>r.</b> a statement that when an <span class="tooltip">ASE<span class="tooltip-text"><b>Academic Student Employee</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> has any concerns regarding the assigned workload in the ASE's appointment, the ASE shall immediately communicate to the supervisor as required by <a href="/uaw/ase-2022-2025-contract/article-34">Article 34 - Workload</a>.</div>
-
+<div class="lvl3"><b>r.</b> a statement that when an <span class="tooltip">ASE<span class="tooltip-text"><b>Academic Student Employee</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> has any concerns regarding the assigned workload in the ASE's appointment, the ASE shall immediately communicate to the supervisor as required by <a href="/uaw/ase-2022-2025-contract/article-34">Article 34 - Workload</a>.
+</div>
 ### 3. Supplemental Documentation
 
 <div class="lvl3"><b>a.</b> 
- Timing</div>
+ Timing
 <div class="lvl4"><b>i.</b> 
  At least thirty (30) calendar days prior to the beginning of the term, the University will provide to <span class="tooltip">Teaching Assistants<span class="tooltip-text"><b>Teaching assistant</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "teaching assistant" %}{{ tooltip_term[0]["Meaning"] }}</span></span>, Associates In, Special Readers and Teaching Fellows supplemental documentation in accordance with <a href="/uaw/ase-2022-2025-contract/article-2">Article 2</a> Section B.3.b.</div>
 <div class="lvl4"><b>ii.</b> 
  When a position becomes available more than thirty (30) calendar days in advance of the assignment, the <span class="tooltip">ASE<span class="tooltip-text"><b>Academic Student Employee</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> will receive supplemental documentation (<a href="https://ucnet.universityofcalifornia.edu/wp-content/uploads/labor/bargaining-units/bx/docs/bx_appendix-c_mef-form_2022-2025.pdf">Appendix C</a> and other relevant documents) no less than thirty (30) calendar days before the start of the assignment.</div>
 <div class="lvl4"><b>iii.</b> 
- In cases in which positions become available less than thirty (30) calendar days before the commencement of an academic term, notification will be made as soon as possible.</div>
+ In cases in which positions become available less than thirty (30) calendar days before the commencement of an academic term, notification will be made as soon as possible.</div></div>
 <div class="lvl3"><b>b.</b> 
- Form and Content of Supplemental Documentation</div>
+ Form and Content of Supplemental Documentation
 <div class="lvl4"><b>i.</b> 
- Supplemental documentation shall set forth the following:</div>
+ Supplemental documentation shall set forth the following:
 <div class="lvl5"><b>A.</b> 
  a description of required duties (<a href="https://ucnet.universityofcalifornia.edu/wp-content/uploads/labor/bargaining-units/bx/docs/bx_appendix-c_mef-form_2022-2025.pdf">Appendix C</a> and other relevant documents);</div>
 <div class="lvl5"><b>B.</b> 
@@ -69,20 +69,20 @@ Written notices of appointment shall be sent by email or other electronic system
 <div class="lvl5"><b>E.</b> 
  departmental policy on class, section and/or lab size where it exists; and</div>
 <div class="lvl5"><b>F.</b> 
- it may include estimated time for effective completion of each duty.</div>
+ it may include estimated time for effective completion of each duty.</div></div>
 <div class="lvl4"><b>ii.</b> 
- The University shall provide advance notice when the above referenced duties are changed significantly. Such changes will be confirmed in writing.</div>
-  
+ The University shall provide advance notice when the above referenced duties are changed significantly. Such changes will be confirmed in writing.
+  </div></div>
 ## C. READER, REMEDIAL TUTOR AND TUTOR
 
 ### 1. Timing of Written Notice of Appointment
 <div class="lvl3"><b>a.</b> When a position becomes available more than thirty (30) calendar days in advance of the assignment, the <span class="tooltip">ASE<span class="tooltip-text"><b>Academic Student Employee</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> will receive Written Notice of Appointment by email or other electronic systems no less than thirty (30) calendar days before the start of the assignment.</div>
-<div class="lvl3"><b>b.</b> In cases in which a position becomes available less than thirty (30) calendar days before the commencement of an academic term, notification will be made as soon as possible.</div>
-
+<div class="lvl3"><b>b.</b> In cases in which a position becomes available less than thirty (30) calendar days before the commencement of an academic term, notification will be made as soon as possible.
+</div>
 ### 2. Form and Content
 
 <div class="lvl3"><b>a.</b> 
- Written notices of appointment shall be sent by email or other electronic systems and will include the following:</div>
+ Written notices of appointment shall be sent by email or other electronic systems and will include the following:
 <div class="lvl4"><b>i.</b> 
  the applicable appointment title,</div>
 <div class="lvl4"><b>ii.</b> 
@@ -130,15 +130,15 @@ Written notices of appointment shall be sent by email or other electronic system
 <div class="lvl4"><b>xxiii.</b> 
  it may include estimated time for effective completion of each duty.</div>
 <div class="lvl4"><b>xxiv.</b> 
- A statement that when an <span class="tooltip">ASE<span class="tooltip-text"><b>Academic Student Employee</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> has any concerns regarding the assigned workload in the ASE's appointment, the ASE shall immediately communicate to the supervisor as required by <a href="/uaw/ase-2022-2025-contract/article-34">Article 34 - Workload</a>".</div>
+ A statement that when an <span class="tooltip">ASE<span class="tooltip-text"><b>Academic Student Employee</b>: {% assign tooltip_term = site.data.union_glossary | where: "Term", "Academic Student Employee" %}{{ tooltip_term[0]["Meaning"] }}</span></span> has any concerns regarding the assigned workload in the ASE's appointment, the ASE shall immediately communicate to the supervisor as required by <a href="/uaw/ase-2022-2025-contract/article-34">Article 34 - Workload</a>".</div></div>
 <div class="lvl3"><b>b.</b> 
- The University shall provide advance notice when the above referenced duties are changed significantly. Such changes will be confirmed in writing.</div>
-
+ The University shall provide advance notice when the above referenced duties are changed significantly. Such changes will be confirmed in writing.
+</div>
 ## D. ADDITIONAL INFORMATION FOR WRITTEN NOTICES OF APPOINTMENT
 
 <div class="lvl2"><b>1.</b> Campuses may provide additional information in appointment letters.</div>
-<div class="lvl2"><b>2.</b> A sample appointment letter is appended to this Agreement as <a href="https://ucnet.universityofcalifornia.edu/wp-content/uploads/labor/bargaining-units/bx/docs/bx_appendix-e_ase-sample-appt-letter_2022-2025.pdf">Appendix E</a>.</div>
-
+<div class="lvl2"><b>2.</b> A sample appointment letter is appended to this Agreement as <a href="https://ucnet.universityofcalifornia.edu/wp-content/uploads/labor/bargaining-units/bx/docs/bx_appendix-e_ase-sample-appt-letter_2022-2025.pdf">Appendix E</a>.
+</div>
 ## E. FAILURE TO RESPOND
 
 The University may consider an individual who fails to respond, as required in the notice, to have rejected the appointment.
