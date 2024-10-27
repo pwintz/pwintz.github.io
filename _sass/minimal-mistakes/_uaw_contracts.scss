@@ -36,36 +36,7 @@
     padding-bottom: 0;
     vertical-align: baseline;
   }
-  // h1, // Article
-  // h2, // Section
-  // h3  // Subsection
-  // {
-  //   // position: -webkit-sticky;
-  //   position: sticky;
-  //   height: 30px;
-  //   // color: red;
-  //   background-color: white; /* Background color */
-  //   // vertical-align: middle; 
-  //   color: red;
-  //   // overflow: hidden;
-  //   // text-overflow: ellipsis;
-  //   // word-wrap: break-word;
-  //   // display: block;
-  //   // line-height: 1em; /* a */
-  //   // max-height: 1em; /* a x number of line to show (ex : 2 line)  */
-  // }
-  h1 {
-    top: 0px;
-    z-index:6;
-  }
-  h2 {
-    top: 30px;
-    z-index:5;
-  }
-  h3 {
-    top: 60px;
-    z-index:4;
-  }
+  
 
   .lvl1 // Article
   {
