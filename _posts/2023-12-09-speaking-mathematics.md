@@ -11,35 +11,50 @@ comments:
   id: 111736829673674058
 ---
 
-Throughout mathematical literature, many mathematical statements written as equations rather than as natural language. 
-The motivations for using equations are clear. 
-Compared to describing mathematical claims in an English sentence, an equation is often much more compact, less prone to ambiguity, and allows information to be arranged on the page in ways that aids clarity.
-The use of parentheses to indicate grouping is a simple example of a mathematical notation that is easy to write in an equation but often cumbersome to translate into words. 
+A common difficulty encountered by math students is the difficulty of translating equations into words.
+Such translations are unavoidable when verbally discussing mathematics, and being a fluent translator is also a powerful aid to a student's understanding. 
+<!-- Throughout mathematical literature, many mathematical statements written are as equations rather than as natural language.  -->
+<!-- The motivations for using equations are clear.  -->
+Equations are, of course, ubiquitous in mathematics (although this was not the case in antiquity; cf. [Euclid's Elements](https://philomatica.org/wp-content/uploads/2024/04/Elements.pdf)). 
+Compared to an English sentence, an equation is often more compact, less ambiguous, and allows information to be arranged on the page in ways that aids clarity.
+
+<!-- There are three sources of difficulties when translating an equation: 
+
+1. Identifying the name and meaning of each symbol. (e.g., "$\int$" means "integral", and "$\mathbb{R}$" means the set of real numbers). -->
+
+Even simple equations can be difficult to put into words accurately. 
+One example is the use of parentheses to indicate grouping.
+ <!-- of a mathematical notation that is easy to write in an equation but often cumbersome to translate into words.  -->
 Consider the equation, 
 
-$$a (b + c) = 1 / (b + c).$$
+$$
+a (b + c) = 1 / (b + c).
+$$
 
-A naive translation into English would be "a times b plus c equals one over b plus c". 
-But this sentence loses the groupings, so it would likely be wrongly interpreted as 
+A naive translation into English would lose the groupings imposed by the parentheses: "a times b plus c equals one over b plus c". 
+Indeed, this sentence erroneous translation indicates a different equation: 
 
 $$
 ab + c = 1/b + c.
 $$
 
-Thus, the speaker must be careful to include the groupings. 
-A more precise translation is "a times the sum of b plus c equals one over the sum of b plus c".
-
-The remainder of this document describes how to translate specific mathematical expressions into English. 
+This example illustrates how a speaker must be careful to indicate the groupings in their speech.
+It is not self-evident how to do this and the remainder of this document describes how to translate specific mathematical expressions into English. 
+For this example, a precise translation is "a times the sum of b plus c equals one over the sum of b plus c".
 
 
 # Math to English Translation Recipes
 
+This section contains recipes for how to translate from various mathematical expressions into English.
+Since any mathematical expression can be translated multiple ways, several translations are given in the right column of each table.
+
+<!-- When all else fails, one may resot -->
 ## Parentheses and Grouping
 
 <table>
 <tr>
   <th></th>
-  <th>Equation</th>
+  <th>Mathematical Expression</th>
   <th>English Translation</th>
 </tr>
 <tr>
@@ -56,7 +71,7 @@ The remainder of this document describes how to translate specific mathematical 
   <td>Arithmetic Grouping</td>
   <td>$(a+b)c$</td>
   <td>
-      "a plus b all times c." <br>
+      "a plus b <b>all</b> times c." <br>
       "The product of a plus b times c."<br>
       "The quantity a plus b multiplied by c."
   </td>
@@ -66,7 +81,7 @@ The remainder of this document describes how to translate specific mathematical 
   <td>$(a + b)/c$</td>
   <td>
     "a plus b all divided by c"<br>
-    "The sum of a and b all divided by c"<br>
+    "The sum of a and b <b>all</b> divided by c"<br>
     "The fraction a plus b over c"<br>
   </td>
 </tr>
@@ -218,8 +233,7 @@ The remainder of this document describes how to translate specific mathematical 
 </tr>
 </table>
 
-<!-- TODO -->
-<!-- ## Linear Algebra
+## Linear Algebra
 <table>
 <tr>
   <th></th>
@@ -227,15 +241,75 @@ The remainder of this document describes how to translate specific mathematical 
   <th>English Translation</th>
 </tr>
 <tr>
-  <td>Integrals</td>
-  <td>$$\int_a^b f(x) dx$$</td>
+  <td>Matrix Element</td>
+  <td>$$A_{ij}$$</td>
   <td>
-    "The integral of f of x over x from a to b."<br>
-    "The integral of f of x, dee-x with lower limit a and upper limit b."<br>
+    "The $i$,$j$ element of $A$."<br>
+  </td>
+</tr>
+<tr>
+  <td>Matrix Multiplication</td>
+  <td>$$Ax$$</td>
+  <td>
+    "$A$ times $x$."<br>
+    "$A$ $x$."<br>
+  </td>
+</tr>
+<tr>
+  <td>Transpose</td>
+  <td>$$A^\top$$</td>
+  <td>
+    "$A$ transpose."<br>
+    "The transpose of $A$."<br>
+  </td>
+</tr>
+<tr>
+  <td>Inverse</td>
+  <td>$$A^{-1}$$</td>
+  <td>
+    "$A$ inverse."<br>
+    "The inverse of $A$."<br>
+  </td>
+</tr>
+<tr>
+  <td>Dot Product</td>
+  <td>$$x \cdot y$$</td>
+  <td>
+    "$x$ dot $y$."<br>
+    "The dot product of $x$ and $y$."<br>
+  </td>
+</tr>
+<tr>
+  <td>Inner Product</td>
+  <td>$$\langle x, y\rangle$$</td>
+  <td>
+    "The inner product of $x$ and $y$."<br>
+  </td>
+</tr>
+<tr>
+  <td>Null space</td>
+  <td>$$\operatorname{null} A$$</td>
+  <td>
+    "The null space of matrix $A$."<br>
+  </td>
+</tr>
+<tr>
+  <td>Column space</td>
+  <td>$$\operatorname{col} A$$</td>
+  <td>
+    "The column space of matrix $A$."<br>
+  </td>
+</tr>
+<tr>
+  <td>Coordinate</td>
+  <td>$$[x]_{\mathcal{B}}$$</td>
+  <td>
+    "The coordinate vector of (vector) $x$ relative to (basis) $\mathcal{B}$."<br>
+    "The $\mathcal{B}$-coordinate vector of $x$."<br>
   </td>
 </tr>
 </table> 
--->
+
 
 This is document is a work in progress that will continue to grow as I find examples that are worthy of inclusion. If you have suggestions, please [contact me](mailto:pwintz+ws@ucsc.edu).
 
