@@ -15,27 +15,27 @@
 ## C. WRITTEN NOTICE OF APPOINTMENT - Graduate Student Researchers
 
 1. FORM AND CONTENT: Written notices of appointment shall be sent by email or other electronic systems and will include the following:
-a. the applicable appointment title,
-b. appointment percentage,
-c. effective start and end dates,
-d. salary/wages/stipend,
-e. health and other applicable benefits or deductions, including Personal Time Off,
-f. tuition, fee, and health benefit remissions, if applicable,
-g. hiring unit,
-h. hiring unit contact,
-i. a brief statement of the required work duties,
-j. the name of the faculty member or supervisor to whom the GSR will report,
-k. the worksite,
-l. response requirements,
-m. a statement that a GSR who anticipates a need for access to all-gender restrooms and/or lactation support should refer to Article 20 -Non-Discrimination in Employment in the collective bargaining agreement for the applicable process;
-n. a statement that a GSR who needs or anticipates a need for a work-related accommodation should refer to Article 24 Reasonable Accommodation in the collective bargaining agreement for the applicable process; The following statement on reasonable accommodation: "Graduate Student Researchers who are disabled or become disabled should notify their supervisor or department to request reasonable accommodations, in advance of their start date or any time during their appointment, in accordance with Article 24 - Reasonable Accommodation."
-o. a statement that the position is covered by the collective bargaining agreement between the parties,
-p. reference to Article 4 - Childcare and a link to childcare reimbursement information and eligibility;
-q. information regarding any applicable new GSR orientations,
-r. A statement that the GSR will have an employment file and that new material may be added to it over the course of their employment, and how to access their file;
-s. a statement that the name and department address of all GSRs are released to the UAW each term (quarter/semester),
-t. a link to the UAW 2865 contract website;
-u. a direct link to the UAW website containing the Membership Election Form,
+  a. the applicable appointment title,
+  b. appointment percentage,
+  c. effective start and end dates,
+  d. salary/wages/stipend,
+  e. health and other applicable benefits or deductions, including Personal Time Off,
+  f. tuition, fee, and health benefit remissions, if applicable,
+  g. hiring unit,
+  h. hiring unit contact,
+  i. a brief statement of the required work duties,
+  j. the name of the faculty member or supervisor to whom the GSR will report,
+  k. the worksite,
+  l. response requirements,
+  m. a statement that a GSR who anticipates a need for access to all-gender restrooms and/or lactation support should refer to Article 20 -Non-Discrimination in Employment in the collective bargaining agreement for the applicable process;
+  n. a statement that a GSR who needs or anticipates a need for a work-related accommodation should refer to Article 24 Reasonable Accommodation in the collective bargaining agreement for the applicable process; The following statement on reasonable accommodation: "Graduate Student Researchers who are disabled or become disabled should notify their supervisor or department to request reasonable accommodations, in advance of their start date or any time during their appointment, in accordance with Article 24 - Reasonable Accommodation."
+  o. a statement that the position is covered by the collective bargaining agreement between the parties,
+  p. reference to Article 4 - Childcare and a link to childcare reimbursement information and eligibility;
+  q. information regarding any applicable new GSR orientations,
+  r. A statement that the GSR will have an employment file and that new material may be added to it over the course of their employment, and how to access their file;
+  s. a statement that the name and department address of all GSRs are released to the UAW each term (quarter/semester),
+  t. a link to the UAW 2865 contract website;
+  u. a direct link to the UAW website containing the Membership Election Form,
 2. Campuses may provide additional information in appointment letters.
 3. A sample appointment letter is appended to this Agreement as Appendix D.
 

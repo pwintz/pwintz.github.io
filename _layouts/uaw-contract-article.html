@@ -2,19 +2,22 @@
 layout: single
 contract-link: "{{page.name}}"
 toc: true
+toc_sticky: true
 ---
 
+<div class="contract-article">
 
-{% if page.contract == "GSR 2022-2025" %}
-    {% capture pdf_link %}https://ucnet.universityofcalifornia.edu/wp-content/uploads/labor/bargaining-units/br/docs/{{ page.pdf_name }}{% endcapture %}
-{% elsif page.contract == "ASE 2022-2025" %}
-    {% capture pdf_link %} https://ucnet.universityofcalifornia.edu/wp-content/uploads/labor/bargaining-units/bx/docs/{{ page.pdf_name }}{% endcapture %}
-{% else %}
-    ERROR: page "contract" variable must be either "GSR 2022-2025" or "ASE 2022-2025".
-{% endif %}
+    {% if page.contract == "GSR 2022-2025" %}
+        {% capture pdf_link %}https://ucnet.universityofcalifornia.edu/wp-content/uploads/labor/bargaining-units/br/docs/{{ page.pdf_name }}{% endcapture %}
+    {% elsif page.contract == "ASE 2022-2025" %}
+        {% capture pdf_link %} https://ucnet.universityofcalifornia.edu/wp-content/uploads/labor/bargaining-units/bx/docs/{{ page.pdf_name }}{% endcapture %}
+    {% else %}
+        ERROR: page "contract" variable must be either "GSR 2022-2025" or "ASE 2022-2025".
+    {% endif %}
 
-{% include contract_ocr_warning.html pdf_link=pdf_link %}
-{% include google_translate.html %}
+    {% include contract_ocr_warning.html pdf_link=pdf_link %}
+    {% include google_translate.html %}
 
-{{ page.content | markdownify }}
-  
+    {{ page.content | markdownify }}
+
+</div>

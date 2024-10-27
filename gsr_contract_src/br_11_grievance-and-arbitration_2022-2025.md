@@ -4,9 +4,9 @@
 
 1. A grievance is a claim by an individual GSR, a group of GSRs, or the UAW, that the University has violated a specific provision of this agreement during the term of this agreement. A grievant may be represented at all stages of the grievance and arbitration procedures.
 2. Only the UAW has standing to file a grievance on the following:
-a) A campus' failure to provide GSR lists in accordance with Article 30 - Union Access and Rights, and Article 31 - Union Security.
-b) "Locking out" employees in accordance with Article 19 - No Strikes.
-c) Failure to provide the necessary information to the UAW as set forth in Article 31 - Union Security.
+  a) A campus' failure to provide GSR lists in accordance with Article 30 - Union Access and Rights, and Article 31 - Union Security.
+  b) "Locking out" employees in accordance with Article 19 - No Strikes.
+  c) Failure to provide the necessary information to the UAW as set forth in Article 31 - Union Security.
 3. A grievant shall have the right to be represented at all steps of the Grievance Procedure by the UAW, another representative, be self-represented or by any person of their choice other than a University employee who has been designated as supervisorial, managerial or confidential within the meaning of the Higher Education Employee Employer Relations Act (HEERA). The grievant shall provide the University written notice of the name and contact information of their representative, if applicable. The grievant's representative may be assisted in grievance meetings by one other representative and/or, if applicable, a union representative.
 
 # B. FILING GRIEVANCES
@@ -41,15 +41,15 @@ Grievances, responses and appeals must be filed via email at the campus labor re
 # 1. Step 1 (Optional) Informal Resolution
 
 The grievant may discuss the grievance with their immediate supervisor in a timely manner. Informal resolutions, although final shall not be precedential nor inconsistent with this agreement.
-a) If the grievance is not resolved through informal discussion, the grievant may seek review as set forth below.
-b) Attempts at informal resolution (including grievances that alleged violation of harassment or discrimination) do not extend the thirty (30) calendar day time limit to file at Step 2.
+  a) If the grievance is not resolved through informal discussion, the grievant may seek review as set forth below.
+  b) Attempts at informal resolution (including grievances that alleged violation of harassment or discrimination) do not extend the thirty (30) calendar day time limit to file at Step 2.
 
 # 2. Step 2 - Campus Review
 
 A grievant may file a written grievance as set forth below.
-a) A written grievance must be filed with the campus labor relations office using the grievance form agreed to by the parties (Appendix A). The grievance must be filed no later than thirty (30) calendar days from the following instances, whichever occurs first: a) the date of the event/action which gave rise to the grievance, or b) the date on which either the grievant or the representative knew or reasonably should have known of the alleged violation of the Agreement.
-b) If the UAW requested a meeting on the grievance form, or if the University requests a meeting, the campus labor relations office shall convene a meeting with the grievant(s) and the grievant's representative, if any, to attempt to resolve the grievance. The meeting shall be convened no later than fifteen (15) calendar days following receipt of the Step 2 grievance filing. During the Step 2 meeting, the parties shall discuss information and contentions relative to the grievance.
-c) A written decision shall be issued within fifteen (15) calendar days following the Step 2 meeting, or receipt of the Step 2 grievance filing if it is agreed that no meeting will be held. If the University does not respond within the time limit, the procedures below will apply.
+  a) A written grievance must be filed with the campus labor relations office using the grievance form agreed to by the parties (Appendix A). The grievance must be filed no later than thirty (30) calendar days from the following instances, whichever occurs first: xa) the date of the event/action which gave rise to the grievance, or b) the date on which either the grievant or the representative knew or reasonably should have known of the alleged violation of the Agreement.
+  b) If the UAW requested a meeting on the grievance form, or if the University requests a meeting, the campus labor relations office shall convene a meeting with the grievant(s) and the grievant's representative, if any, to attempt to resolve the grievance. The meeting shall be convened no later than fifteen (15) calendar days following receipt of the Step 2 grievance filing. During the Step 2 meeting, the parties shall discuss information and contentions relative to the grievance.
+  c) A written decision shall be issued within fifteen (15) calendar days following the Step 2 meeting, or receipt of the Step 2 grievance filing if it is agreed that no meeting will be held. If the University does not respond within the time limit, the procedures below will apply.
 
 # 3. Step 3-Review (Office of the President)
 

@@ -3,17 +3,17 @@
 ## A. GENERAL CONDITIONS
 
 1. The University and the UAW acknowledge that promoting and maintaining a safe and healthy workplace (in accordance with state and federal mandates, and University policies) is a shared responsibility.
-2. The University shall ensure GSRs have sufficient safety training, as determined by the Office of Environmental Health and Safety (EH\&S), regarding the safe handling of materials and/or equipment the researcher is required to work with in advance of performing the duties.
+2. The University shall ensure GSRs have sufficient safety training, as determined by the Office of Environmental Health and Safety (EH&S), regarding the safe handling of materials and/or equipment the researcher is required to work with in advance of performing the duties.
 3. All GSRs shall adhere to all health and safety policies and procedures and shall perform their duties in a safe manner, including full participation in training and using appropriate health and safety equipment provided by the University in accordance with standard operating procedures.
 4. If a GSR believes there has been an exposure to an unsafe work environment and/or practice, the GSR has a responsibility to immediately report the issue to the supervisor and departmental safety designees without reprisal.
-5. Additionally, GSRs have the right to report health and safety issues to the EH\&S, University Risk Services, University Safety Committees, and/or to the appropriate regulatory agency, including CAL-OSHA.
+5. Additionally, GSRs have the right to report health and safety issues to the EH&S, University Risk Services, University Safety Committees, and/or to the appropriate regulatory agency, including CAL-OSHA.
 6. No GSR shall be retaliated against for identifying and/or expressing concern about any safety-related issue.
 7. A critical component of the University's health and safety program is for GSRs to follow safe work practices and work safely.
 8. All GSRs shall comply with the University's established health and safety policies and procedures in this article, inaddition to state and federal mandates.
 9. A GSR who has complied with the procedures in Section D.1. below, has the right to refuse abnormally dangerous or hazardous tasks, while the University is investigating or remedying their concern.
 10. This Article does not cover mental or emotional reactions to the work environment in and of themselves, or physical reactions arising from mentalor emotional reactions to the work environment.
 11. The University and UAW will comply with all Cal-OSHA rules and regulations relating to worksite inspections. If a Cal-OSHA Inspector arrives to inspect a worksite in which a GSR is located, a Union Representative may be present at the opening conference and to accompany the inspector during a walk around inspection.
-12. Within a reasonable time following a written request by the Union, the University will provide the UAW with copies of EH\&S inspection reports related to work sites of GSRs. The University may charge the Union for the reasonable costs associated with the provision of such materials if providing the materials is burdensome.
+12. Within a reasonable time following a written request by the Union, the University will provide the UAW with copies of EH&S inspection reports related to work sites of GSRs. The University may charge the Union for the reasonable costs associated with the provision of such materials if providing the materials is burdensome.
 
 ## B. COMMITMENT TO HEALTH AND SAFETY
 
@@ -29,14 +29,14 @@
 
 ## D. REPORTING PROCEDURES
 
-1. All GSRs must notify their immediate supervisor as soon as they consider an assigned task to be abnormally hazardous or dangerous and believe they have insufficient safety training and/or experience to perform the task safely. The GSR shall then identify the components of the assignment that they allege to be abnormallyhazardous or dangerous.
+1. All GSRs must notify their immediate supervisor as soon as they consider an assigned task to be abnormally hazardous or dangerous and believe they have insufficient safety training and/or experience to perform the task safely. The GSR shall then identify the components of the assignment that they allege to be abnormally hazardous or dangerous.
 a. In attempting to resolve the GSR's claim, the supervisor may attempt to make workplace task performance and/or task assignment changes consistent with health and safety considerations and the availability of additional or alternate personnel, including assigning the GSR to complete appropriate safety training.
 b. If the supervisor does not make assignment changes, the supervisor shall have the GSR's claim assessed by a health and safety professional responsible, in accordance with local procedures, for the assessment of abnormally hazardous or dangerous conditions.
 c. If, in the assessment of the University's health and safety professional responsible, the assignment is abnormally hazardous or dangerous, the supervisor shall follow local procedures to remedy the abnormally hazardous or dangerous situation prior to assigning the work to the GSR. Once the modifications which remedy the abnormally hazardous or dangerous situation are made, the GSR may be required to perform the work.
 d. If, in the assessment of the University's health and safety professional responsible, the assignment is not abnormally hazardous or dangerous, and the GSR has been properly trained to perform the assignment, the supervisor may assign the GSR to perform the assignment or, may assign the affected GSR to other available work consistent with the work usually performed by the GSR or may assign another qualified employee to perform the assignment.
 e. The assessment of the University's health and safety professional as to whether the assignment is abnormally hazardous or dangerous shall be final.
 
-## E. HEALTH \& SAFETY TRAINING
+## E. HEALTH & SAFETY TRAINING
 
 1. On an ongoing basis, the University shall provide training and information about the University's health and safety programs. GSRs shall take all required training based on the requirements of the workplace. Training includes information about:
 a. the health and safety protocols and emergency procedures associated with the GSR's research and, where applicable, known specific hazards associated with the GSR's research;
@@ -66,13 +66,13 @@ c. the procedures available to GSRs to abate or reportany unsafe or unhealthy wo
 ## I. LABOR MANAGEMENT COMMITTEE
 
 1. The UAW may raise local health and safety concerns by contacting the campus labor relations office.
-2. In addition, the University and the UAW agree to address Health \& Safety matters in scheduled campus labor/management meetings.
+2. In addition, the University and the UAW agree to address Health & Safety matters in scheduled campus labor/management meetings.
 a. Such meetings may be scheduled periodically at the UAW's request.
 b. Thirty (30) calendar days prior to the meeting, the University and the UAW shall exchange agenda items each party wants to discuss, and the names of the attendees whom the UAW has selected to attend. In the event neither party identifies agenda items by the 30-day period, the meeting may be cancelled.
 c. Each party shall designate a person to serve as co-chair for the meetings. The co-chairs shall work together to schedule the meetingtimes and locations, shall specify the agenda, and agree on the information and necessary participants
 to conduct an informed meeting.
 3. The campus shall provide release time for the GSRs to attend the meeting.
-4. A University EH\&S professional may be invited to attend, based on the agenda items.
+4. A University EH&S professional may be invited to attend, based on the agenda items.
 
 ## J. COMPLIANCE
 

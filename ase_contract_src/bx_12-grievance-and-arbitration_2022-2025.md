@@ -89,10 +89,10 @@ c) If a grievance is not appealed to arbitration, the University's Step 3 respon
 ## 2. Procedure
 
 An appeal to arbitration shall be made in the following way:
-a) Email to AppealAGrievance@ucop.edu:
-      I. Email submissions must include PDFs of all documents, information and signatures necessary to be in compliance with the Arbitration provisions of this Agreement.
-      II. The 'date of filing' for emailed Appeals to Arbitration shall be the date received on the University server, provided that the appeal is received during business hours. If an appeal to Arbitration is received outside of normal business hours, the following business day will be deemed the filing date of the Appeal to Arbitration.
-      III. The University shall acknowledge receipt of the UAW's Appeal to Arbitration through a computer-generated, automatic email response.
+  a) Email to AppealAGrievance@ucop.edu:
+    I. Email submissions must include PDFs of all documents, information and signatures necessary to be in compliance with the Arbitration provisions of this Agreement.
+    II. The 'date of filing' for emailed Appeals to Arbitration shall be the date received on the University server, provided that the appeal is received during business hours. If an appeal to Arbitration is received outside of normal business hours, the following business day will be deemed the filing date of the Appeal to Arbitration.
+    III. The University shall acknowledge receipt of the UAW's Appeal to Arbitration through a computer-generated, automatic email response.
 
 ## K. SELECTION OF THE ARBITRATOR/PRE-ARBITRATION CONFERENCE
 

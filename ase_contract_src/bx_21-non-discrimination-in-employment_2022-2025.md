@@ -33,7 +33,8 @@ b. Hostile Environment: Unwelcome sexual or other sex-based conduct is sufficien
 
 Reports of alleged violations of Section A. or B.1-4. above and/or University Policy may be addressed through the complaint procedure and/or the grievance procedure. Additionally, Alternative Resolution may be used at any time to address the issues. Formal Investigations may be initiated as part of the complaint resolution or grievance procedure.
 
-1. Alternative Resolution: ASE(s) and/or the Union and/or the University may seek Alternative Resolution at any time.
+# 1. Alternative Resolution: 
+ASE(s) and/or the Union and/or the University may seek Alternative Resolution at any time.
 a. After a preliminary assessment of the facts, the Title IX / EEO Officer may initiate an Alternative Resolution process, which may include: mediation (except in cases of sexual violence); separating the parties; providing for safety; referring the parties to counseling; referral for disciplinary action; a settlement agreement; conducting targeted preventive educational and training programs; and conducting a follow-up review to ensure that the resolution has been implemented effectively.
 b. Only the Title IX/EEO Officer has the authority to initiate Alternative Resolution.
 c. If Alternative Resolution is unsuccessful, the Title IX/EEO Officer may initiate a formal investigation.

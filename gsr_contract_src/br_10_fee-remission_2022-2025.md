@@ -10,8 +10,8 @@
 ## B. PARTIAL FEE REMISSION
 
 1. For those GSRs eligible for a Partial Fee Remission, the University will provide:
-a. A Partial Fee Remission of 100% of Tuition and the Student Services Fee;
-b. Partial Fee Remission of $\$100$ per quarter or $\$150$ per semester to partially cover campus fees.
+  a. A Partial Fee Remission of 100% of Tuition and the Student Services Fee;
+  b. Partial Fee Remission of $\$100$ per quarter or $\$150$ per semester to partially cover campus fees.
 2. Commencing Academic Year 2023-2024, the University shall provide a Partial Fee Remission to cover 100% of campus fees, not to exceed the maximum campus fees for each campus.
 
 ## C. FEE EQUIVALENCY FOR GSRs ENROLLED IN SELF-SUPPORTING PROGRAMS

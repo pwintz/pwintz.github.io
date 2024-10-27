@@ -16,36 +16,220 @@
   color: #795548; /* Slightly darker color for emphasis */
 }
 
+.contract, .contract-article {
+  h1, // Article
+  h2, // Section
+  h3, // Subsection
+  h4, // enumeration1
+  h5, // enumeration2
+  h6  // enumeration3
+  {
+    // No upper margin for enumerations
+    margin-top: 0pt;
+    margin-bottom: 0pt;
+    vertical-align: text-top;
+  }
+  .inline-header {
+    display: inline-block;
+    // Remove any padding that normal headers have.
+    padding-top: 0;
+    padding-bottom: 0;
+    vertical-align: baseline;
+  }
+  // h1, // Article
+  // h2, // Section
+  // h3  // Subsection
+  // {
+  //   // position: -webkit-sticky;
+  //   position: sticky;
+  //   height: 30px;
+  //   // color: red;
+  //   background-color: white; /* Background color */
+  //   // vertical-align: middle; 
+  //   color: red;
+  //   // overflow: hidden;
+  //   // text-overflow: ellipsis;
+  //   // word-wrap: break-word;
+  //   // display: block;
+  //   // line-height: 1em; /* a */
+  //   // max-height: 1em; /* a x number of line to show (ex : 2 line)  */
+  // }
+  h1 {
+    top: 0px;
+    z-index:6;
+  }
+  h2 {
+    top: 30px;
+    z-index:5;
+  }
+  h3 {
+    top: 60px;
+    z-index:4;
+  }
+
+  .lvl1 // Article
+  {
+    padding-left: 0px; /* Indent the list */
+  }  
+  .lvl1, // Article
+  .lvl2, // Section
+  .lvl3  // Subsection
+  {
+    padding-left: 1em; /* Indent the list */
+    margin-top: 10px; /* Indent the list */
+    margin-bottom: 10px; /* Indent the list */
+  }
+  
+  // Enumerations
+  .lvl4,  // Enumeration1
+  .lvl5,  // Enumeration2
+  .lvl6 { // Enumeration3
+    padding-left: 1em;   /* Indent the list */
+    margin-top:  5px;   
+    margin-bottom: 0px; 
+  }
+
+}
+
+// // Define style for an article page.
+// .contract-article {
+//   h1, // Article
+//   h2, // Section
+//   h3, // Subsection
+//   h4, // enumeration1
+//   h5  // enumeration2
+//   {
+//     // No upper margin for enumerations
+//     margin-top: 0pt;
+//     margin-bottom: 0pt;
+//     vertical-align: text-top;
+//   }
+//   // h1, // Article
+//   // h2, // Section
+//   // h3  // Subsection
+//   // {
+//   //   // position: -webkit-sticky;
+//   //   position: sticky;
+//   //   height: 30px;
+//   //   // color: red;
+//   //   background-color: white; /* Background color */
+//   //   // vertical-align: middle; 
+//   //   color: red;
+//   //   // overflow: hidden;
+//   //   // text-overflow: ellipsis;
+//   //   // word-wrap: break-word;
+//   //   // display: block;
+//   //   // line-height: 1em; /* a */
+//   //   // max-height: 1em; /* a x number of line to show (ex : 2 line)  */
+//   // }
+//   h1 {
+//     top: 0px;
+//     z-index:6;
+//   }
+//   h2 {
+//     top: 30px;
+//     z-index:5;
+//   }
+//   h3 {
+//     top: 60px;
+//     z-index:4;
+//   }
 // 
-.lvl1 {
-margin-left: 0px; /* Indent the list */
-margin-top: 10px; /* Indent the list */
-margin-bottom: 10px; /* Indent the list */
-}
+//   .lvl1 // Article
+//   {
+//     margin-left: 0px; /* Indent the list */
+//   }  
+//   .lvl1, // Article
+//   .lvl2, // Section
+//   .lvl3  // Subsection
+//   {
+//     margin-left: 1em; /* Indent the list */
+//     margin-top: 10px; /* Indent the list */
+//     margin-bottom: 10px; /* Indent the list */
+//   }
+//   
+//   // Enumerations
+//   .lvl4,
+//   .lvl5,
+//   .lvl6 {
+//     margin-left: 1em;   /* Indent the list */
+//     margin-top:  5px;   
+//     margin-bottom: 0px; 
+//   }
+// 
+// 
+// 
+//   h1, // Article
+//   h2, // Section
+//   h3 // Subsection
+//   h4 // enumeration1
+//   h5 // enumeration2
+//   // h4 // subsubsection
+//   // h5  // enumeration
+//   {
+//     // position: -webkit-sticky;
+//     // position: sticky;
+//     margin:0;
+//     margin-top: 0px;
+//     height: 30px;
+//     // color: red;
+//     background-color: white; /* Background color */
+//     // vertical-align: middle; 
+//     color: red;
+//     // overflow: hidden;
+//     // text-overflow: ellipsis;
+//     // word-wrap: break-word;
+//     // display: block;
+//     // line-height: 1em; /* a */
+//     // max-height: 1em; /* a x number of line to show (ex : 2 line)  */
+//   }
+// 
+//   // h1 {
+//   //   top: 0px;
+//   //   z-index:6;
+//   // }
+//   h2 {
+//     top: 0px;
+//     z-index:5;
+//   }
+//   h3 {
+//     top: 50px;
+//     z-index:4;
+//   }
+// 
+//   // 
+//   // .lvl1 {
+//   //   margin-left: 0px; /* Indent the list */
+//   //   margin-top: 10px; /* Indent the list */
+//   //   margin-bottom: 10px; /* Indent the list */
+//   // }
+//   
+//   .lvl2 {
+//     margin-left: 0em; /* Indent the list */
+//     margin-top: 0px; /* Indent the list */
+//     margin-bottom: 0px; /* Indent the list */
+//   }
+//   
+//   .lvl3 {
+//     margin-left: 1em; /* Indent the list */
+//     margin-top:  0px; /* Indent the list */
+//     margin-bottom: 0px; /* Indent the list */
+//   }
+//   
+//   .lvl4 {
+//     margin-left: 1em; /* Indent the list */
+//   }
+//   
+//   .lvl5 {
+//     margin-left: 1em; /* Indent the list */
+//   }
+//   
+//   .lvl6 {
+//     margin-left: 1em; /* Indent the list */
+//   }
+// }
 
-.lvl2 {
-margin-left: 1em; /* Indent the list */
-margin-top: 10px; /* Indent the list */
-margin-bottom: 10px; /* Indent the list */
-}
 
-.lvl3 {
-margin-left: 1em; /* Indent the list */
-margin-top:  0px; /* Indent the list */
-margin-bottom: 0px; /* Indent the list */
-}
-
-.lvl4 {
-  margin-left: 1em; /* Indent the list */
-}
-
-.lvl5 {
-  margin-left: 1em; /* Indent the list */
-}
-
-.lvl6 {
-  margin-left: 1em; /* Indent the list */
-}
 
 .tooltip {
   position: relative; /* Required for the tooltip text positioning */
@@ -66,7 +250,7 @@ margin-bottom: 0px; /* Indent the list */
   border-radius: 6px; /* Rounded corners */
   padding: 10px; /* Padding inside the tooltip */
   position: absolute; /* Position relative to the tooltip text */
-  z-index: 1; /* Ensures the tooltip appears above other content */
+  z-index: 100; /* Ensures the tooltip appears above other content */
   bottom: 125%; /* Position tooltip above the hover text */
   left: 0%; /* Center align tooltip horizontally */
   margin-left: -70px; /* Offset to center the tooltip */

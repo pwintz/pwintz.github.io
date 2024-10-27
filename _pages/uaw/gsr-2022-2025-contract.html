@@ -22,9 +22,10 @@ toc: true
 %}
 {% include google_translate.html %}
 
+<div class="contract">
 {% for article in site.uc_uaw_gsr_2022-2025_contract %}
     
-  <h1>
+  <h1 class="article-header">
   {% if article.link %}
     <a href="{{ article.link }}">{{ article.title }}</a> <a href="{{ article.url | relative_url }}" rel="permalink"><i class="fas fa-link" aria-hidden="true" title="permalink"></i><span class="sr-only">Permalink</span></a>
   {% else %}
@@ -33,4 +34,5 @@ toc: true
   </h1>
   {{ article.content }}
 
-{% endfor %} 
+{% endfor %}
+</div>

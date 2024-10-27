@@ -59,17 +59,59 @@ The University reserves the sole right to establish and change parking and trans
 
 ## E. REGIONAL TRANSIT SYSTEM PASS CHART
 
-| Campus | Transit Pass Classification |
-| :--- | :--- |
-| UC Berkeley | Student Easy Pass (AC Transit/Bear Transit) |
-| UC Davis | SacRT Connect Card |
-| UC San Francisco | Clipper "A" Pass: Muni (includes Cable Car) + BART within SF |
-| Lawrence Berkeley National Laboratory | LBNL Shuttle <br> For ASEs Only: Student Easy Pass (AC Transit/Bear Transit) |
-| UC Merced | MTA (The Bus) 31 Day Fixed Route Pass |
-| UC Santa Cruz | 31 Day METRO Pass |
-| UC Santa Barbara | MTD Monthly Pass |
-| UC Los Angeles | Bruin Grad Pass |
-| UC Riverside | RTA U-Pass Program |
-| UC Irvine | OCTA 30-day Pass UC San Diego COASTER Pass |
-| UC San Diego | FaST Pass or COASTER Pass |
+<table>
+    <thead>
+        <tr>
+            <th>Campus</th>
+            <th>Transit Pass Classification</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>UC Berkeley</td>
+            <td>Student Easy Pass (AC Transit/Bear Transit)</td>
+        </tr>
+        <tr>
+            <td>UC Davis</td>
+            <td>SacRT Connect Card</td>
+        </tr>
+        <tr>
+            <td>UC San Francisco</td>
+            <td>Clipper "A" Pass: Muni (includes Cable Car) + BART within SF</td>
+        </tr>
+        <tr>
+            <td>Lawrence Berkeley National Laboratory</td>
+            <td>LBNL Shuttle <br> For ASEs Only: Student Easy Pass (AC Transit/Bear Transit)</td>
+        </tr>
+        <tr>
+            <td>UC Merced</td>
+            <td>MTA (The Bus) 31 Day Fixed Route Pass</td>
+        </tr>
+        <tr>
+            <td>UC Santa Cruz</td>
+            <td>31 Day METRO Pass</td>
+        </tr>
+        <tr>
+            <td>UC Santa Barbara</td>
+            <td>MTD Monthly Pass</td>
+        </tr>
+        <tr>
+            <td>UC Los Angeles</td>
+            <td>Bruin Grad Pass</td>
+        </tr>
+        <tr>
+            <td>UC Riverside</td>
+            <td>RTA U-Pass Program</td>
+        </tr>
+        <tr>
+            <td>UC Irvine</td>
+            <td>OCTA 30-day Pass UC San Diego COASTER Pass</td>
+        </tr>
+        <tr>
+            <td>UC San Diego</td>
+            <td>FaST Pass or COASTER Pass</td>
+        </tr>
+    </tbody>
+</table>
+
 

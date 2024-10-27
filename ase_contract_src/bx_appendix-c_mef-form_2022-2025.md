@@ -10,7 +10,7 @@ To access the Form, click the "View Documents" button below. This will take you 
 If you have already received this form, please disregard this notice.
 If you have any questions about this form, do not reply to this email. Please contact the Union at info@uc-uaw.org.
 
-## UAW Membership Election \& Dues Deduction Authorization Form
+## UAW Membership Election & Dues Deduction Authorization Form
 
 Welcome to your Union (UAW and its Locals 2865 and 58I0)!
 
