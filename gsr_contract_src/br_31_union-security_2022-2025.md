@@ -6,7 +6,7 @@
 2. For GSRs appointed to Fellowship/Trainee titles, in accordance with Article 1 Recognition, dues deductions shall be implemented in accordance with the Dues Deductions Side Letter.
 3. After the Dues Deduction Side Letter is implemented, in the event a GSR is paid directly from an external agency and from a GSR title or via a Fellowship/Trainee title, the Union Deductions required as a result of combining the gross earnings from both pay sources shall be deducted entirely from the portions of Employee or Fellowship/Trainee pay. In the event the pay is insufficient to cover the full amount of Union Deductions, the University shall deduct the maximum amount possible, and remit the amount of the deduction to the Union.
 4. Deduction Reporting Lists
-a. On a monthly basis, the University shall provide a list of Graduate Student Researchers (as described in Article 1 - Recognition, Section B. 1) by name, title code, department/hiring unit, total in-unit gross monthly pay, and amount deducted.
+a. On a monthly basis, the University shall provide a list of Graduate Student Researchers (as described in Article 1 - Recognition, Section B.1) by name, title code, department/hiring unit, total in-unit gross monthly pay, and amount deducted.
 b. One hundred and eighty (180) days following the ratification of this Agreement, the University shall provide this information for the Trainees and Fellows (as described in Article 1 - Recognition, Section B.2 and 3).
 c. After the first list for the Trainees and Fellows, the University shall provide this information for all bargaining unit members.
 

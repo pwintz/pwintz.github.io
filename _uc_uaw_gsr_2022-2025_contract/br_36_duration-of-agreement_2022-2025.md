@@ -25,7 +25,7 @@ toc: True
 </div><!-- End of level 3: 2.-->
 <div class="lvl3"><h3 class="inline-header">3.</h3> If neither party notifies the other of its intent to open the Agreement for successor negotiations, the Agreement shall remain in full force and effect and the procedures in Section C below shall apply.
 </div><!-- End of level 3: 3.-->
-<div class="lvl3"><h3 class="inline-header">4.</h3> If the conditions under B.1. and B. 2 are met, the Union shall provide the University with written notice of its selected article(s) and a list of bargaining team members by no later than January 14, 2025.
+<div class="lvl3"><h3 class="inline-header">4.</h3> If the conditions under B.1. and B.2 are met, the Union shall provide the University with written notice of its selected article(s) and a list of bargaining team members by no later than January 14, 2025.
 </div><!-- End of level 3: 4.-->
 <div class="lvl3"><h3 class="inline-header">5.</h3> If the conditions under B.1., B.2., and B.4. are met, the University shall provide the Union with written notice of its selected article(s) by no later than January 28, 2025.
 </div><!-- End of level 3: 5.-->
