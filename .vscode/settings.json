@@ -4,5 +4,9 @@
   "pasteImage.showFilePathConfirmInputBox": true,
   "pasteImage.insertPattern": "<img src=\"/assets/images/${imageFileName}\" alt=\"alt text\"/>",
   "pasteImage.encodePath": "none",
-  "pasteImage.basePath": "${projectRoot}/assets/images"
+  "pasteImage.basePath": "${projectRoot}/assets/images",
+  "cSpell.words": [
+    "Pano",
+    "Slagle"
+  ]
 }

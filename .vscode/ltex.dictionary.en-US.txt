@@ -3,3 +3,6 @@ Semidefinite
 semialgebraic
 HEERA
 grievant
+Fence-A-Thon
+USFA
+cv
