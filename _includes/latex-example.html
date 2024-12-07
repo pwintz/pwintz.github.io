@@ -1,0 +1,43 @@
+<style>
+  .code-output-container {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 10px;
+      background-color: #f9f9f9;
+      /* font-family: 'Courier New', Courier, monospace; */
+      margin: 10px 0;
+  }
+
+  .code-output-container .code-block,
+  .code-output-container .output-block {
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+  }
+
+  .code-output-container .output-block {
+      background-color: #fff;
+  }
+
+</style>
+
+<div class="code-output-container">
+  <strong>Code:</strong>
+  <pre class="language-latex line-numbers"><!-- Use comments to prevent line breaks from appearing in output.
+-->{% if include.code_displayed %}<!--
+-->{{ include.code_displayed }}<!--
+-->{% else %}<!--
+-->{{ include.code }}<!--
+-->{% endif %}<!--
+--></pre>
+  <strong>Output:</strong>
+  <div class="output-block">
+      <td>
+        $${{ include.code }}$$
+      </td>
+  </div>
+</div>
