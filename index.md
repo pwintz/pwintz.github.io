@@ -19,10 +19,10 @@ Outside of research, I have wide-ranging interests including music, [art](/art/)
 You can find links to my presence across the internet at my [LinkTree](https://linktr.ee/paulwintz). 
 
 # Pages
-- [Résumé](/resume)
-- [Publications](/publications)
-- [LaTeX Macros](/latex-macros/)
-- [Writing Tips](/writing-tips/)
+<!-- - [CV](/cv)
+- [Publications](/publications) -->
+- [Writing Tips](/writing-tips/): A collection of tips for mathematical writing.
+- [LaTeX Macros](/latex-macros/): A collection of useful LaTeX macros that I have created.
 <!-- - [Music](/music) -->
 - [Photography Portfolio](/photography/)
 - [Art Portfolio](/art/)
