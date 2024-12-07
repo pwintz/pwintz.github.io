@@ -17,16 +17,7 @@ $$
 % Define macros.
 \def\reals{\mathbb{R}}
 \def\realsn{\reals^n}
-\def\Safe{{\mathbf{Safe}}}
-\def\Unsafe{{\mathbf{Unsafe}}}
-\def\Init{{\mathbf{Init}}}
-\newcommand{\ip}[2]{\left\langle #1, #2 \right\rangle}
-$$
-{% endraw %}
-
-
-
-## Equivalence Between Polynomial Positive Definite and Matrix Positive Definite
+Positive Definite
 
 Working with polynomials directly is difficult. 
 It is easier to work with matrices. 
@@ -207,3 +198,6 @@ It doesn't seem to work with Mosek. Try [https://github.com/sqlp/sedumi](SeDuMi)
 
 # Bibliography
 {% bibliography --cited %}
+
+<img src="assets/images/2024-07-02-22-50-13.png" alt="alt text" width="200"/>
+
