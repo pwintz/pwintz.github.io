@@ -27,17 +27,11 @@
 
 <div class="code-output-container">
   <strong>Code:</strong>
-  <pre class="language-latex line-numbers"><!-- Use comments to prevent line breaks from appearing in output.
--->{% if include.code_displayed %}<!--
--->{{ include.code_displayed }}<!--
--->{% else %}<!--
+  <pre class="language-{{include.language | default:latex}}"><!-- Use comments to prevent line breaks from appearing in output.
 -->{{ include.code }}<!--
--->{% endif %}<!--
 --></pre>
   <strong>Output:</strong>
   <div class="output-block">
-      <td>
-        $${{ include.code }}$$
-      </td>
+      <td>{{ include.output }}</td>
   </div>
 </div>

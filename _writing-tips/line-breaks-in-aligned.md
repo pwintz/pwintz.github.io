@@ -11,7 +11,7 @@ draft: true
 <!-- In Latex, the `align` and `aligned` envio -->
 When writing a multiline expressions in LaTeX using `align` or `aligned` environments, use well-placed line breaks and alignment and proper spacing to improve readability.
 The following example is an example of a poorly formatted equation:
-{% include latex-example.html code_displayed=
+{% include latex-equation-example.html code=
 "\begin{align}
     f(x) 
     &:= \sum (a + b + c) + \\
@@ -19,7 +19,7 @@ The following example is an example of a poorly formatted equation:
     &- x + y + z +  \sin\Big(x + y \\ 
     &+ x^2 - y^2 \Big) \\ 
 \end{align}"
-code=
+output=
 "\begin{align}
     f(x) 
     &:= \sum (a + b + c) + \label{eq:operator at end} \\
@@ -45,7 +45,7 @@ When a break is placed inside parentheses, the start of the new line should alig
 <!-- place line breaks before binary operators (is possible) and place `{}` after the line break and before the binary operator to achieve correct spacing. -->
 
 Fixing the above problems results in the following aligned equation: 
-{% include latex-example.html code=
+{% include latex-equation-example.html code=
 "\begin{align}
     f(x) :={} & \sum (a + b + c) \\ 
     &{} + \iiint f(x + y + z) dx\, dy\, dz \\
@@ -54,7 +54,7 @@ Fixing the above problems results in the following aligned equation:
 \end{align}" %}
 
 If the expression inside the parentheses of the `\sin` function were longer, and needed to be placed on multiple lines, then the contents should be aligned using manual spacing via the `\hspace` command:
-{% include latex-example.html code=
+{% include latex-equation-example.html code=
 "\begin{align}
     f(x) :={} & \sum (a + b + c) \\ 
     &{} + \iiint f(x + y + z) dx\, dy\, dz \\
@@ -63,7 +63,7 @@ If the expression inside the parentheses of the `\sin` function were longer, and
     &\hspace{3em} {} - x^2 - y^2 \big)
 \end{align}" %}
 Alternatively, alignment can be achieved using `\phantom` to insert space equal to the space needed for its argument if its argument was rendered (which it is not). 
-{% include latex-example.html code=
+{% include latex-equation-example.html code=
 "\begin{align}
     f(x) :={} & \sum (a + b + c) \\ 
     &{} + \iiint f(x + y + z) dx\, dy\, dz \\

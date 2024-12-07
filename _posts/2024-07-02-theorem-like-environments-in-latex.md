@@ -11,12 +11,42 @@ comments:
    username: pwintz
    id: 112738148972158290
 ---
-
+<style>
+  .theorem {
+  display: block;
+  font-style: italic;
+  }
+  .theorem:before {
+  content: "Theorem. ";
+  font-weight: bold;
+  font-style: normal;
+  }
+  .theorem[name]:before {
+  content: "Theorem (" attr(name) ") ";
+  }
+</style>
 In this post, I will describe the setup I use for theorem-type environments in LaTeX (includes theorems, definitions, etc.).
+
+A basic example of the code and output for a Theorem in a LaTeX document is shown here:
+{% include code-example.html language='latex' code=
+"\begin{theorem}[Pythagorean]
+  For a right triangle with sides $a$ and $b$, 
+  and hypotenuse $c,$
+  \[ a^2 + b^2 = c^2. \]
+\end{theorem}
+"
+output=
+'<div class="theorem" name="Pythagorean">
+Given a right triangle with sides $a$ and $b$, and hypotenuse $c,$
+$$a^2 + b^2 = c^2.$$
+</div>'
+%}
+The remainder of this document shows how to 
+- Setup `amsthm` for 
 
 # Packages
 
-To set up theorem-like environments, we load several packages in the preamble of the document. 
+<!-- To set up theorem-like environments, we load several packages in the preamble of the document.  -->
 
 ## amsthm Package
 The [`amsthm`](https://ctan.org/pkg/amsthm) package defines macros and environments for creating theorem-like environments.

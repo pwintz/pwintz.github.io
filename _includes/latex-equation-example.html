@@ -1,0 +1,6 @@
+
+<!-- Wrap the output in equation, using  -->
+{% capture output %}$$
+    {{include.output | default:include.code}}
+$${% endcapture %}
+{% include code-example.html code=include.code output=output language=latex %}
