@@ -12,12 +12,12 @@ source: |
 
 By default, LaTeX will insert line breaks at any space between words.
 Although this is generally desirable, there a line break should be avoided in the following cases:
-- between a number and its unit of measure: "1000 miles", "183~billion"
+- between a number and its unit of measure: "1000 miles", "183 billion"
 - in a date, between the month and the number: "July 4", "19 June",
 - within a reference to a location in the document: "Section 4", "Fig. 1.2", "Theorem 3.1415",
 - before each citation (e.g., "...as was shown by Smith [12]"),
 - before the last word of a paragraph, such that the last word is placed on a line by itself, especially if the word is short.
-- Generally, any number or symbol that is strongly tied to the preceding or succeeding words: "the "width w", "from A to B".
+- Generally, any number or symbol that is strongly tied to the preceding or succeeding words: "width $w$", "$A$ to $B$".
 
 In LaTeX, the character `~` inserts a non-breaking space. 
 Here are code snippets from the examples above:
@@ -29,8 +29,8 @@ Here are code snippets from the examples above:
 - `Fig.~1.2`
 - `Theorem~3.1415`
 - `...as was shown by Smith~\cite{smith_2020}`
-- `the width~$w$`
-- `From A~to~B`
+- `width~$w$`
+- `A~to~B`
 
 ## Preventing Line Breaks in Equations
 
