@@ -310,6 +310,14 @@ However, many of the Fraktur characters are easily confused with each other so c
 
 ![Fraktur Characters](/assets/images/fraktur_alphabet.png)
 
+### Placing Modifiers Over $i$ and $j$ 
+
+When placing modifiers over $i$ and $j$, such as $\hat{i}$ or $\bar{j}$, the dots in the letters creates a crowded appearance with the modifier. 
+To fix this, replace `i` and `j` with `\imath` and `\jmath`, which renders the respective letters without dots, e.g., $\imath$ and $\jmath$. 
+The resulting combination with hats and bars is more pleasing: $\hat{\imath}$ (`\hat{\imath}`) and $\bar{\jmath}$ (`\bar{\jmath}`).
+
+In this context, I prefer `\bar{\jmath}`, which is rendered as $\bar{\jmath}$, instead of `\overline{\jmath}`, which is rendered as $\overline{\jmath}$, because the line is better aligned with the top of the character.
+ 
 ## Choosing Symbols Based on Type of Mathematical Object
 
 There are conventions for notating certain types of mathematical objects. The following rules are not universally accepted, but are merely taken from my personal observations. 
