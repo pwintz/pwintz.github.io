@@ -1,7 +1,7 @@
 ---
 layout: single
 title: | 
-     If-then Statements (Hypothetical Suggestions)
+     Formatting If-then Statements (Hypotheticals)
 # excerpt: Writing hypotheticals that 
 permalink: permalink/if-then
 tags: clarity
