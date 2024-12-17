@@ -4,7 +4,7 @@ title: >
   Set Builder Notation (<code>\setdef</code> and <code>\suchthat</code>)
 summary: 
 description: >
-  To insert a set \({A | B}\) (using set builder notation), 
+  To insert a set \(\{A | B\}\) (using set builder notation), 
   type "\setdef{A \suchthat B}". The heights of the braces and 
   center bar will adjust automatically to the height of the contents.
 definition: |- 
