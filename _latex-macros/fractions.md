@@ -4,12 +4,12 @@ title: >
   Fractions
 summary: 
 description: >
-  This collection of macros make it easier to insert fractions, including defining a <code>\fracshort</code> that causes a fraction to be rendered like $a/b$ (making it easier to switch between $\frac{a}{b}$ and $a/b$).
+  This collection of LaTeX macros make it easier to insert fractions, including defining a <code>\fracshort</code> macro that causes a fraction to be rendered like $a/b$ (making it easier to switch between $\frac{a}{b}$ and $a/b$).
   The slash inserted by <code>\fracshort</code> scales with the height of the numerator and denominator. 
   Also included are common fractions, $\frac{1}{2}$ (<code>\half</code>), $\frac{1}{3}$ (<code>\third</code>), etc. 
-  Each of these commands can take one optional argument that sets the numerator to the given values, such as <code>\half[x]</code> ($\frac{x}{2}$), and have short versions (<code>\quartershort[\theta]</code> creates $\theta/4$) and a display style version (e.g., <code>\dtenth[n]</code> creates $\dfrac{n}{10}$, but you should never use display style fractions in a line of text).  
+  Each of these commands can take one optional argument that sets the numerator to the given values, such as <code>\half[x]</code> ($\frac{x}{2}$), and have short versions (<code>\quartershort[\theta]</code> creates $\theta/4$) and a display style version (e.g., <code>\dtenth[n]</code> creates $\dfrac{n}{10}$, but you should <a href="/writing-tips/formatting-fractions">never use display style fractions in a line of text</a>).  
   Finally, the <code>\oneover</code>, <code>\oneovershort</code>, and <code>\doneover</code> macros inserts fractions with $1$ in the numerator and the denominator given as an argument: <code>\oneover{x}</code> creates $\frac{1}{x}$.
-
+  <p>
   When using the short fractions, make sure you insert parentheses, as needed, around the numerator and denominator!
 definition: |- 
   \newcommand{\fracshort}[2]{\left.#1 \middle/ #2\right.}

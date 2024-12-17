@@ -55,3 +55,9 @@ When writing a fraction in LaTeX, consider the following guidelines:
  
 1. Do not use display style fractions inline, in text. They will look bad and cause the height of the lines to grow.
 2. Only use text style fractions for simple fractions, such as $\frac{1}{2}$. Do you want to read a fraction like $\frac{1+\sqrt{x^2}}{e^{-\frac{x}{\pi}}}$? I wouldn't! Either make the equation a display equation (e.g., if it is in a `bmatrix` environment where there is sufficient space), or rewrite the equation with a slash, like $(1+\sqrt{x^2})/(e^{-x/\pi})$.
+3. If writing a fraction using the slash notation and the expression for the numerator or denominator is taller than a typical line of text, use 
+    ```latex
+    \left. <numerator> \middle/ <denominator>\right
+    ```
+    to ensure that the slash matches the height of the numerator and denominator. The `\shortfrac` macro provided [here](/latex-macros/fractions) automatically scales the slash for you.
+
