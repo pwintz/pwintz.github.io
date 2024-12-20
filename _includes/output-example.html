@@ -1,0 +1,28 @@
+<style>
+  .output-container {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 10px;
+      background-color: #f9f9f9;
+      /* font-family: 'Courier New', Courier, monospace; */
+      margin: 10px 0;
+  }
+
+  .output-container .output-block {
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #fff;
+  }
+
+</style>
+
+<div class="output-container">
+  <div class="output-block">
+      <td>{{ include.output }}</td>
+  </div>
+</div>
