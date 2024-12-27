@@ -1,0 +1,42 @@
+<p>{{ include.description }}</p>
+
+<!-- {{ page.content | markdownify }} -->
+  
+<h3>Examples</h3>
+<table>
+  <tr>
+    <th style="text-align:center;">Code</th>
+    <th style="text-align:center;">Output</th>
+  </tr>
+  {% for example in page.examples %}
+    <tr>
+      <td style="max-width: min-content;">
+        <pre class="language-latex">{{ example.code_displayed }}</pre>
+      </td>
+      <td>
+        $${{ example.code_rendered }}$$
+      </td>
+      {% if example.description %}
+        <td>
+          {{ example.description }} 
+        </td>
+      {% endif %}
+    </tr>
+  {% endfor %}
+</table>
+
+
+<details>
+  <summary><b>Definition</b></summary>
+  {%- highlight latex -%}
+  {{ page.definition }}
+  {%- endhighlight-%}
+</details><br>
+{% if page.vs-code-snippets %} 
+<details>
+  <summary><b>VS Code Snippets</b></summary>
+  In VS Code, the following code can be added to the LaTeX <a href="https://code.visualstudio.com/docs/editor/userdefinedsnippets">snippet file</a> to enable nice autocompletion of the macro:
+  <pre class="language-json">{{ page.vs-code-snippets }}</pre>
+</details>
+<br>
+{% endif %}

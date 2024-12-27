@@ -2,36 +2,15 @@
 layout: single
 ---
 
-<p>{{ page.description }}</p>
+{% 
+  include latex-macro-single.html 
+  description=page.description 
+  definition=page.definition 
+  examples=page.examples 
+  vs-code-snippets=page.vs-code-snippets 
+%}
 
-<details>
-  <summary><b>Definition</b></summary>
-  {%- highlight latex -%}
-  {{ page.definition }}
-  {%- endhighlight-%}
-</details>
-
-{{ page.content | markdownify }}
-  
-<h3>Examples</h3>
-  <table>
-    <tr>
-      <th style="text-align:center;">Code</th>
-      <th style="text-align:center;">Output</th>
-    </tr>
-    {% for example in page.examples %}
-      <tr>
-        <td style="max-width: min-content;">
-          <pre class="language-latex">{{ example.code_displayed }}</pre>
-        </td>
-        <td>
-          $${{ example.code_rendered }}$$
-        </td>
-        {% if example.description %}
-          <td>
-            {{ example.description }} 
-          </td>
-        {% endif %}
-      </tr>
-    {% endfor %}
-    </table>
+{% include info_box.html  
+  content="More LaTeX macros are available at <a href=\"/latex-macros\">paulwintz.com/latex-macros</a>."
+%}
+<!-- {% include breadcrumbs.html %} -->

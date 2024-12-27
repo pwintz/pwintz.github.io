@@ -1,7 +1,7 @@
 ---
 layout: latex-macro
 title: >
-  Set Builder Notation (<code>\setdef</code> and <code>\suchthat</code>)
+  Set Builder Notation
 summary: 
 description: >
   To insert a set \(\{A | B\}\) (using set builder notation), 
@@ -23,4 +23,17 @@ examples:
       \setdef{A, B, C}
     code_rendered: |
       \left\{A, B, C\right\}
+vs-code-snippets: |
+  "Set builder notation":{
+    "prefix": ["\\setbuild"],
+    "body": [
+      "\\setdef{$TM_SELECTED_TEXT${1:x} \\suchthat $2} $0"
+    ]
+  },
+  "Set definition":{
+    "prefix": ["\\setdef"],
+    "body": [
+      "\\setdef{$TM_SELECTED_TEXT$1} $0"
+    ]
+  }
 ---

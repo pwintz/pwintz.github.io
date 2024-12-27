@@ -15,38 +15,12 @@ This page lists LaTeX commands (or "macros") that can save you time while typese
       <a href="{{ macro.url | relative_url }}" rel="permalink">{{ macro.title }}</a>
     {% endif %}
   </h2>
-  <p>{{ macro.description }}</p>
-  
-  <details>
-    <summary><b>Definition</b></summary>
-    {%- highlight latex -%}
-    {{ macro.definition }}
-    {%- endhighlight-%}
-  </details>
-  
-  {{ macro.content | markdownify }}
-   
-  <h3>Examples</h3>
-    <table>
-      <tr>
-        <th style="text-align:center;">Code</th>
-        <th style="text-align:center;">Output</th>
-      </tr>
-      {% for example in macro.examples %}
-        <tr>
-          <td style="max-width: min-content;">
-            <pre class="language-latex">{{ example.code_displayed }}</pre>
-          </td>
-          <td>
-            $${{ example.code_rendered }}$$
-          </td>
-          {% if example.description %}
-            <td>
-              {{ example.description }} 
-            </td>
-          {% endif %}
-        </tr>
-      {% endfor %}
-    </table>
+  {% 
+    include latex-macro-single.html 
+    description=macro.description 
+    definition=macro.definition 
+    examples=macro.examples 
+    vs-code-snippets=macro.vs-code-snippets 
+  %}
 
 {% endfor %}
