@@ -43,7 +43,7 @@ Here is a example that demonstrates text style fractions:
     $$
 {% endraw %}{% endcapture %}
 {% include code-example.html  
-    language=latex
+    language="latex"
     code=textstyle_code
     output=textstyle_output
 %}

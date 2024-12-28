@@ -27,9 +27,10 @@
 
 <details>
   <summary><b>Definition</b></summary>
-  {%- highlight latex -%}
-  {{ include.definition }}
-  {%- endhighlight-%}
+  {% include code-example.html  
+    language="latex"
+    code=include.definition
+  %}
 </details><br>
 {% if include.vs-code-snippets %} 
 <details>

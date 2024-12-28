@@ -8,7 +8,7 @@ tags: latex notation
 ---
 By default, LaTeX inserts some space outside the parentheses when using `\left(...\right)`, which often results in awkward spacing, such as when the parentheses contain the argument(s) of a function:
 {% include code-example.html  
-    language=latex
+    language="latex"
     code="\sin\left(\int_0^t f(t)\right)"
     output="$$\sin\left(\int_0^t f(t)\right)$$"
 %}
@@ -22,7 +22,7 @@ Instead of modifying all of my `\left`/`\right` pairs, however, I use the follow
 ```
 Then, the no extra spacing occurs throughout my document:
 {% include code-example.html  
-    language=latex
+    language="latex"
     code="\sin\left(\int_0^t f(t)\right)"
     output="$$\sin\hspace{-3mu}\left(\int_0^t f(t)\right)$$"
 %}

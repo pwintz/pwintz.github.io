@@ -82,7 +82,7 @@ Consider the default output of the title code, in [one](publications/wintz-ctg-2
     </h1>
 {% endraw %}{% endcapture %}
 {% include code-example.html  
-    language=latex
+    language="latex"
     code=title_code
     output=title_output
 %}
@@ -103,7 +103,7 @@ While we're at it, I also put `~` into "Conical~Transition~Graphs" and "Asymptot
     </h1>
 {% endraw %}{% endcapture %}
 {% include code-example.html  
-    language=latex
+    language="latex"
     code=title_code
     output=title_output
 %}
@@ -126,7 +126,7 @@ Ultimately, though, I decided to add even more nonbreaking spaces to prevent the
     </h1>
 {% endraw %}{% endcapture %}
 {% include code-example.html  
-    language=latex
+    language="latex"
     code=title_code
     output=title_output
 %}
