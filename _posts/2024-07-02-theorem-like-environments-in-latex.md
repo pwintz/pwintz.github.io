@@ -42,7 +42,13 @@ $$a^2 + b^2 = c^2.$$
 </div>'
 %}
 The remainder of this document shows how to 
-- Setup `amsthm` for 
+- Setup the `amsthm`, `hyperref`, and `cleveref` packages for inserting and referencing Theorems, Definitions, and the like.
+- Modify the style of Theorem environments to use slanted text instead of italics to improve readability in certain fonts (most notably, Times New Roman).
+- Modify the QED mark or "Halmos Tombstone" (i.e., "$\square$") that appears at the end of proofs and other environments.
+- Define new theorem-like environments.
+- Change the Theorem numbering scheme to include the chapter numbers.  
+- Create unnumbered theorem environments.
+- Insert proofs, including modifying the introductory "_Proof._" and moving the QED mark.
 
 # Packages
 

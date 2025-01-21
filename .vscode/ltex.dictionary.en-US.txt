@@ -6,3 +6,8 @@ grievant
 Fence-A-Thon
 USFA
 cv
+LTeX
+MORFOLOGIK
+Zotero
+Zotero
+BibLaTeX

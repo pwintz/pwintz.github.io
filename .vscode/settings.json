@@ -6,6 +6,8 @@
   "pasteImage.encodePath": "none",
   "pasteImage.basePath": "${projectRoot}/assets/images",
   "cSpell.words": [
+    "Didier",
+    "includegraphics",
     "Pano",
     "Slagle"
   ]
