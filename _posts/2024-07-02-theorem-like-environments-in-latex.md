@@ -37,7 +37,7 @@ A basic example of the code and output for a Theorem in a LaTeX document is show
 "
 output=
 '<div class="theorem" name="Pythagorean">
-Given a right triangle with sides $a$ and $b$, and hypotenuse $c,$
+Given a right triangle with sides $a$ and $b$, and hypotenuse $c$,
 $$a^2 + b^2 = c^2.$$
 </div>'
 %}
@@ -83,7 +83,7 @@ You will likely want to modify some of the `hyperref` options.
 
 ## cleveref Package
 The [`cleveref`](https://ctan.org/pkg/cleveref) package defines the `\cref` macro for inserting internal references to labeled object. 
-In contrast to `\ref`, `\cref` inserts the type of environment referenced, so a reference `\cref{my first theorem}` will appears as "Theorem 1", whereas `\ref{my first theorem}` only appears as "1". 
+In contrast to `\ref`, `\cref` inserts the type of environment referenced, so a reference `\cref{my first theorem}` will appears as "Theorem&nbsp;1", whereas `\ref{my first theorem}` only appears as "1". 
 
 <pre class="language-latex">
 % Display "Theorem 1", "Lemma 2", etc. in cross references.  
@@ -197,14 +197,17 @@ There are three default theorem styles: `plain`, `definition`, and `remark`, but
 
 The `sltheorem` (or `plain`) style displays a boldface label and slanted (or italic) body text.
 
-<pre class="language-latex">
+{% include code-example.html language='latex' code=
+'<pre class="language-latex">
 \begin{theorem}[Pythagorean Theorem]
   \label{result:pythagorean}
   The sum of the squares of the legs of a right 
   triangle equals the square of the hypotenuse.
 \end{theorem}
-</pre>
-<img src="/assets/images/theoremstyle-sltheorem.png" alt="Screenshot of a theorem rendered using the 'sltheorem' style"/>
+</pre>'
+output=
+'<img src="/assets/images/theoremstyle-sltheorem.png" alt="Screenshot of a theorem rendered using the sltheorem style"/>'
+%}
 
 I use the theorem style for any environments that make truth claims, namely `theorem`, `proposition`, `lemma`, `corollary`, and `conjecture`. 
 
@@ -239,7 +242,8 @@ I use the theorem style for any environments that make truth claims, namely `the
 
 The `definition` style displays a boldface label and upright body text.
 
-<pre class="language-latex">
+{% include code-example.html language='latex' code=
+'<pre class="language-latex">
 \begin{definition}
   \label{def:ring center}
   Let $R$ be a ring.
@@ -247,10 +251,12 @@ The `definition` style displays a boldface label and upright body text.
   that contains all elements $c \in R$ such that 
   $c x = x c$ for every $x$ in $R$.
 \end{definition}
-</pre>
-<img src="/assets/images/theoremstyle-definition.png" alt="Screenshot of an environment using the 'definition' theoremstyle"/>
+</pre>'
+output=
+'<img src="/assets/images/theoremstyle-definition.png" alt="Screenshot of an environment using the definition theorem style"/>'
+%}
 
-I use the `defintion` style define the following environments: `definition`, `problem`, `example`, and `assumption`.
+I use the `definition` style define the following environments: `definition`, `problem`, `example`, and `assumption`.
 <pre class="language-latex">
 %%---------------------------------------------------%%
 %| Define environments that use the definition style |%
@@ -289,12 +295,15 @@ Unlike `\textit{}`, however, the `\emph` macro will switch to upright text if th
 
 The `remark` style displays an italic label and upright body text. 
 
-<pre class="language-latex">
+{% include code-example.html language='latex' code=
+'<pre class="language-latex">
 \begin{remark}
   Here is a remark.
 \end{remark}
-</pre>
-<img src="/assets/images/theoremstyle-remark.png" alt="Screenshot of an environment using the 'remark' theoremstyle"/>
+</pre>'
+output=
+'<img src="/assets/images/theoremstyle-remark.png" alt="Screenshot of an environment using the remark theorem style"/>'
+%}
 
 I use the `remark` style only for the `remark` environment. 
 
@@ -310,7 +319,7 @@ I use the `remark` style only for the `remark` environment.
 
 # Chapter-based Numbering
 
-For document classes that use chapters, I prefer to number the theorem-like environments on a chapter-by-chapter basis (e.g., "Theorem 1.1", "Theorem 1.2" in Chapter 1 and "Theorem 2.1", "Theorem 2.2" in Chapter 2.) 
+For document classes that use chapters, I prefer to number the theorem-like environments on a chapter-by-chapter basis (e.g., "Theorem&nbsp;1.1", "Theorem&nbsp;1.2" in Chapter&nbsp;1 and "Theorem&nbsp;2.1", "Theorem&nbsp;2.2" in Chapter&nbsp;2.) 
 The following code automatically enables chapter-based numbering when the `chapter` [counter](https://www.overleaf.com/learn/latex/Counters) is defined.
 
 <pre class="language-latex">
@@ -331,7 +340,7 @@ The following code automatically enables chapter-based numbering when the `chapt
 </pre>
 
 # Unnumbered Environments
-In some contexts, namely presentations, you may wish to use unnumbered environments (e.g., "Theorem" instead "Theorem 1").
+In some contexts, namely presentations, you may wish to use unnumbered environments (e.g., "Theorem" instead "Theorem&nbsp;1").
 To omit theorem numbering, define theorem environments using `\newtheorem*` macro instead of `\newtheorem`. 
 If you already have `theorem` defined, you must use a different name for the unnumbered theorem environment, such as `theorem*`. 
 
@@ -348,49 +357,64 @@ I've found the default definition to be exactly how I want it, with a white squa
 
 The usage is as follows: 
 
-<pre class="language-latex">
+{% include code-example.html language='latex' code=
+'<pre class="language-latex">
 \begin{proof}
-  It's true 'cause I say so.
+  It is true because I say so.
 \end{proof}
-</pre>
-<img src="/assets/images/proof-example.png" alt="Screenshot of a basic proof environment."/>
+</pre>'
+output=
+'<img src="/assets/images/proof-example.png" alt="Screenshot of a basic proof environment."/>'
+%}
 
 You can change the "proof" label by using an optional environment argument.
-<pre class="language-latex">
+{% include code-example.html language='latex' code=
+'<pre class="language-latex">
 \begin{proof}[Proof Sketch]
   This example is too small to contain the proof.
 \end{proof}
-</pre>
-<img src="/assets/images/proof-sketch.png" alt="Screenshot of a proof environment that is labeled as 'Proof Sketch' instead of 'Proof'."/>
+</pre>'
+output=
+'<img src="/assets/images/proof-sketch.png" alt="Screenshot of a proof environment that is labeled as Proof Sketch instead of Proof."/>'
+%}
 
 Using the optional argument is particularly useful if a theorem and its proof are separated by other text:
-<pre class="language-latex">
+{% include code-example.html language='latex' code=
+'<pre class="language-latex">
 \begin{proof}[Proof of \cref{result:an earlier theorem}]
   This proof does not occur immediately 
   after \cref{result:an earlier theorem}.
 \end{proof}
-</pre>
-<img src="/assets/images/proof-separated-from-theorem.png" alt="LaTeX output shows a proof that references a theorem from earlier in the document."/>
+</pre>'
+output=
+'<img src="/assets/images/proof-separated-from-theorem.png" alt="LaTeX output shows a proof that references a theorem from earlier in the document."/>'
+%}
 Note that the QED symbol in above example appears at the end of the next line because the first line fills the text width.
 
 If the proof ends with an equation or a list, then the QED symbol will be placed below the equation or list, even if there is space to the side, which wastes space and looks bad:
-<pre class="language-latex">
+{% include code-example.html language='latex' code=
+'<pre class="language-latex">
 \begin{proof}
   The conclusion follow directly from this equation:
   \[
     1 + 1 = 2.
   \] 
 \end{proof}
-</pre>
-<img src="/assets/images/proof-qed-after-equation.png" alt="Screenshot of a proof environment that ends with an equation, resulting in the QED mark placed below the equation."/>
+</pre>'
+output=
+'<img src="/assets/images/proof-qed-after-equation.png" alt="Screenshot of a proof environment that ends with an equation, resulting in the QED mark placed below the equation."/>'
+%}
 
 To fix this problem, place `\qedhere` inside the equation or list (at the end) to display the QED symbol at the correct location:
-<pre class="language-latex">
+{% include code-example.html language='latex' code=
+'<pre class="language-latex">
 \begin{proof}
   The conclusion follow directly from this equation:
   \[
     1 + 1 = 2. \qedhere
   \] 
 \end{proof}
-</pre>
-<img src="/assets/images/proof-qedhere-within-equation.png" alt="Screenshot of a proof environment that ends with an equation using \qedhere so that the QED mark is placed next to the equation."/>
+</pre>'
+output=
+'<img src="/assets/images/proof-qedhere-within-equation.png" alt="Screenshot of a proof environment that ends with an equation using \qedhere so that the QED mark is placed next to the equation."/>'
+%}
