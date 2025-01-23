@@ -38,7 +38,7 @@ As the reader progresses through the sentence, they cannot (without prior knowle
 In particular, they cannot know whether the comma indicates the end of the antecedent or is merely separating items in a list. 
 For example, although Statement 3' is familiar to anybody who has studied geometry, the portion after the comma could, in fact, go to unexpected places:
 
-- **Statement 3''.** "If a triangle is a right triangle, the sum of the squared legs is equal to the square of the hypotenuse, and 1=2, then I am the king of England." 
+- **Statement 3''.** "If a triangle is a right triangle, the sum of the squared legs is equal to the square of the hypotenuse, and $1=2$, then I am the king of England." 
 
 That's a very different claim than Statement 3'! (And, perhaps surprisingly, it is true.)
 
@@ -51,7 +51,7 @@ or
 - "If P, then Q and R".
 
 (Compare without "then": "If P, Q, and R, S" and "If P, Q, and R".)
-Without "then", you can the reader off kilter and trying to fill in the gap, so always include it!
+Without "then", you place an extra cognitive load on the reader, forcing them to fill in the gap. So always include "then" after "if"!
 <!-- (For some cases, the lack of "then" may leave the statement wholly ambiguous, leaving the most careful reader guessing, although I have not found a good example, currently.) -->
 
 ## Rewriting Hypotheticals

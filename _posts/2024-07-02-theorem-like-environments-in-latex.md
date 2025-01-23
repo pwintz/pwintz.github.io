@@ -5,7 +5,7 @@ excerpt: Description of various configurations for LaTeX theorem environments us
 date: 2024-07-02 12:00:00 -0800
 toc: true
 categories: mathematical-writing
-tags: typesetting
+tags: typesetting latex
 comments:
    host: mathstodon.xyz
    username: pwintz
