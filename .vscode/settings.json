@@ -7,8 +7,16 @@
   "pasteImage.basePath": "${projectRoot}/assets/images",
   "cSpell.words": [
     "Didier",
+    "eqref",
     "includegraphics",
+    "mathbb",
+    "newcommand",
+    "operatorname",
     "Pano",
-    "Slagle"
+    "relint",
+    "Slagle",
+    "Subequations",
+    "Subsubsction",
+    "synctex"
   ]
 }

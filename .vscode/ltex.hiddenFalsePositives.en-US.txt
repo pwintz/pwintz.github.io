@@ -11,3 +11,6 @@
 {"rule":"PASSIVE_VOICE","sentence":"^\\QI find large chunks of italic text hard to read, so I create and use a different theorem style that uses slanted text, so that theorems are still differentiated without compromising readability.\\E$"}
 {"rule":"PASSIVE_VOICE","sentence":"^\\QThis way, theorems are differentiated from surrounding text without compromising readability.\\E$"}
 {"rule":"PASSIVE_VOICE","sentence":"^\\QThe following code automatically enables chapter-based numbering when the \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q counter is defined.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qrelint: Allows for defining custom linting rules to highlighting writing errors that are specific to your context.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QThe \\E(?:Dummy|Ina|Jimmy-|Dummy-|Maniquí-|Maniquíes-)[0-9]+\\Q rule requires that you are using the \\E(?:Dummy|Ina|Jimmy-|Dummy-|Maniquí-|Maniquíes-)[0-9]+\\Q package and label equations using labels starting with \"eq:\".\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QYou should also have \\E(?:Dummy|Ina|Jimmy-|Dummy-|Maniquí-|Maniquíes-)[0-9]+\\Q configured to reference equations using a number inside a parenthesis, e.g., \"(12)\" rather than \"Eq. 12\".\\E$"}

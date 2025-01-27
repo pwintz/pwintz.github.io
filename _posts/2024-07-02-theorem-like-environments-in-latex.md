@@ -83,7 +83,7 @@ You will likely want to modify some of the `hyperref` options.
 
 ## cleveref Package
 The [`cleveref`](https://ctan.org/pkg/cleveref) package defines the `\cref` macro for inserting internal references to labeled object. 
-In contrast to `\ref`, `\cref` inserts the type of environment referenced, so a reference `\cref{my first theorem}` will appears as "Theorem&nbsp;1", whereas `\ref{my first theorem}` only appears as "1". 
+In contrast to `\ref`, `\cref` inserts the type of environment referenced, so a reference `\cref{my first theorem}` will appear as "Theorem&nbsp;1", whereas `\ref{my first theorem}` only appears as "1". 
 
 <pre class="language-latex">
 % Display "Theorem 1", "Lemma 2", etc. in cross references.  
@@ -198,13 +198,11 @@ There are three default theorem styles: `plain`, `definition`, and `remark`, but
 The `sltheorem` (or `plain`) style displays a boldface label and slanted (or italic) body text.
 
 {% include code-example.html language='latex' code=
-'<pre class="language-latex">
-\begin{theorem}[Pythagorean Theorem]
+'<pre class="language-latex">\begin{theorem}[Pythagorean Theorem]
   \label{result:pythagorean}
   The sum of the squares of the legs of a right 
   triangle equals the square of the hypotenuse.
-\end{theorem}
-</pre>'
+\end{theorem}</pre>'
 output=
 '<img src="/assets/images/theoremstyle-sltheorem.png" alt="Screenshot of a theorem rendered using the sltheorem style"/>'
 %}

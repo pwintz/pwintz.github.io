@@ -83,7 +83,7 @@ Thus, my guiding principle for choosing between equivalent logical expressions i
 - "
 
 - "If  -->
-<!-- When w/riting the hypothetical "If P, then Q", you can reorder this statement as, "Q, only if P  -->
+<!-- When writing the hypothetical "If P, then Q", you can reorder this statement as, "Q, only if P  -->
 
 <!-- 2. Omitting "then" can cause a statement to be ambiguous.  -->
 <!-- "If P, Q", "If P, Q and R" -->

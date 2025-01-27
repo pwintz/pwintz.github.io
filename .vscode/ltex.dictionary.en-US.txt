@@ -11,3 +11,8 @@ MORFOLOGIK
 Zotero
 Zotero
 BibLaTeX
+SyncTeX
+LaTex-Formatter
+relint
+endraw
+ltex

@@ -59,6 +59,6 @@ When writing a fraction in LaTeX, consider the following guidelines:
     ```latex
     \left. <numerator> \middle/ <denominator>\right
     ```
-    to ensure that the slash matches the height of the numerator and denominator. The `\shortfrac` macro provxided [here](/latex-macros/fractions) automatically scales the slash for you.
+    to ensure that the slash matches the height of the numerator and denominator. The `\shortfrac` macro provided [here](/latex-macros/fractions) automatically scales the slash for you.
 4. When a minus sign occurs before a fraction, it more easily lost in calculations, so consider rewriting the expression. For instance, rewrite "$-\frac{a}{b}$" into "\frac{-a}{b}". If possible, eliminate the minus sign by distributing it to the numerator or denominator, such as "$-\frac{a - b}{c}$" changing to "$\frac{b - a}{c}$."
 5. When practical, avoid placing fractions inside fractions. For instance, change $$\frac{1 + 1/n}{1} \quad \text{into} \quad \frac{n + 1}{n}.$$ 
