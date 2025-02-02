@@ -15,12 +15,12 @@ VS Code is a powerful LaTeX editor.
 In this post, I outline my setup for creating LaTeX documents in VS Code, leveraging various extensions, tools, and settings to enhance document creation, collaboration, and organization.
 
 In this document, I describe how to use and configure VS Code to achieve the following:
-- Compilation of LaTeX documents in VS Code with SyncTeX to jump to and from locations in the code the corresponding position in the PDF.
-- Sell checking and grammar checking with support for LaTeX syntax.
+- Compilation of LaTeX documents in VS Code with SyncTeX to jump between locations in the code and the PDF.
+- Spell checking and grammar checking with support for LaTeX syntax.
 - Pasting images into LaTeX documents.
 - Collaboratively editing documents hosted on Overleaf.
 - LaTeX "snippets" for actions like toggling between inline equations (i.e., `$...$`) and display equations (`\[...\]`).
-- Custom linting tools for identifying syntax errors faster (before compiling), and highlighting formatting or coding errors. 
+- Custom linting tools for quickly identifying syntax errors (before compiling), and highlighting formatting or coding errors. 
 
 
 # VS Code Settings
