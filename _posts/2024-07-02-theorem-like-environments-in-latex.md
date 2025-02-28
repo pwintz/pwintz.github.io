@@ -480,7 +480,7 @@ If the proof ends with an equation or a list, then the QED symbol will be placed
 \end{proof}
 </pre>'
 output=
-'<img src="/assets/images/proof-qed-after-equation.png" alt="Screenshot of a proof environment that ends with an equation, resulting in the QED mark placed below the equation."/>'
+'<img src="/assets/images/theorem-like-environments-in-latex/proof-qed-after-equation.png" alt="Screenshot of a proof environment that ends with an equation, resulting in the QED mark placed below the equation."/>'
 %}
 
 To fix this problem, place `\qedhere` inside the equation or list (at the end) to display the QED symbol at the correct location:
@@ -494,5 +494,43 @@ To fix this problem, place `\qedhere` inside the equation or list (at the end) t
 \end{proof}
 </pre>'
 output=
-'<img src="/assets/images/proof-qedhere-within-equation.png" alt="Screenshot of a proof environment that ends with an equation using \qedhere so that the QED mark is placed next to the equation."/>'
+'<img src="/assets/images/theorem-like-environments-in-latex/proof-qedhere-within-equation.png" alt="Screenshot of a proof environment that ends with an equation using \qedhere so that the QED mark is placed next to the equation."/>'
 %}
+
+# Displaying Environment Labels in the Margin
+
+When working on a draft, it is convenient to have the labels assigned to an theorem-like environment (via `\label`) in the document itself.  
+To show these labels, along with labels for equations, figures, tables, and whatnot, use the [`showlabels`](https://ctan.org/pkg/showlabels) package.
+By default, `showlabels` displays each label in the right margin with somewhat unfortunate formatting. 
+In particular, labels use inconsistent text weight (some labels are bold while others are not)and long labels extend off the page, without line breaks, even between words.
+
+![Screenshot of labels using the default settings of the showlabels package](/assets/images/theorem-like-environments-in-latex/showlabels_with_default_settings.png)
+
+The following configuration fixes all of these problems by showing each label using a small teletype font in a box that is the width of the right margin, with line breaks after words, as needed. 
+Some extra care is taken to avoid warnings from underfull and overfull boxes. 
+
+{% raw %} 
+```latex
+\usepackage[right]{showlabels}
+% Using "\upshape" ensures that the label is displayed without italics (e.g., if inside a theorem), and "\ttfamily" displays label with a    font, since it is essentially code.
+\renewcommand{\showlabelfont}{\scriptsize\upshape\ttfamily}
+\renewcommand{\showlabelsetlabel}[1]{%
+  % We use 95% of the marginparwidth because it looks slightly nicer to not have the box extend to the edge of the page.
+  % "\raggedright" prevents underfull hbox warnings when the label doesn't fit nicely in a line.
+  \fbox{\parbox{0.95\marginparwidth}{%
+    \raggedright% Prevent underfull box warnings.
+    \hfuzz=1000em% Prevent overfull box warnings (unless more than 1000em too wide!) 
+    \showlabelfont #1}}%
+}
+```
+{% endraw %}
+
+The result looks like this:
+![Screenshot of labels displayed by showlabels using my settings instead of the defaults.](/assets/images/theorem-like-environments-in-latex/showlabels_with_my_settings.png)
+<!-- The overlap between the boxes, but it is a compromise that I accept because the labels are easily legible. -->
+
+Of course, the labels should typically be hidden from the final version of the document (e.g., before publication). 
+Fortunately, `showlabels` automatically hides the labels when the document is compiled with the `final` option passed to the document class, such as 
+```latex
+\documentclass[final]{article}
+```
