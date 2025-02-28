@@ -119,6 +119,56 @@ This way, theorems are differentiated from surrounding text without compromising
 \theoremstyle{sltheorem}
 </pre>
 
+# Discouraging Page Breaks in Theorems
+
+By default, LaTeX will insert page breaks into the middle of a theorem statement just as readily as anywhere else in the document. 
+This leads to unfortunate cases where one or two lines are on a separate page. 
+LaTeX visual processor decides where to insert page breaks by a collection of penalties, with the goal of total minimizing the sum of the penalties. 
+Thus, to discourage LaTeX from putting page breaks in a theorem, we can increase the penalties for page breaks between lines, and before and after display equations, which are stored in these macros:
+```latex
+\interlinepenalty   % Page break between lines.
+\predisplaypenalty  % Page breaks before a display equation.
+\postdisplaypenalty % Page break after equations.
+```
+To check the default values of these penalties, you can print them in your document by prefixing each macro with [`\the`](https://tex.stackexchange.com/a/38680/153678), such as,
+```latex
+  interlinepenalty=\the\interlinepenalty  \\
+ predisplaypenalty=\the\predisplaypenalty \\
+postdisplaypenalty=\the\postdisplaypenalty
+```
+For the document I used to the above code, the results were `interlinepenalty=0`, `predisplaypenalty=10000`, and `postdisplaypenalty=0`. 
+
+To modify the penalties use the syntax `\interlinepenalty=<whole number>`. 
+You don't want to manually set the penalties within in each theorem, however, so use a theorem style to set the values, as follows: 
+{% raw %}
+```latex
+\newtheoremstyle{breakResistantTheorem}
+     {}          % Space above
+     {}          % Space below
+     {%          % Theorem body font (default is "\upshape")
+         \interlinepenalty=100%    Discourage breaking between lines.
+         \predisplaypenalty=10000% Never break right before a display equation.
+         \postdisplaypenalty=100%  Discourage breaking after equations.
+         \slshape% Use slanted font for Theorem body
+     }           
+     {}          % Indent amount
+     {\bfseries} % Theorem head font % (default is \mdseries)
+     {.}         % Punctuation after theorem head % default: no punctuation
+     { }         % Space after theorem head
+     {}          % Theorem head spec
+```
+{% endraw %}
+My initial testing has shown that these penalties value seem to work well, but you can increase them if you find LaTeX is still inserting page breaks in theorems more often then you like or decrease them if your document ends up with a lot of extra vertical space.
+The range of valid penalties are `0` (no penalty) to `10000` (max penalty).
+
+After creating the new theorem style, you must enable it before using `\newtheorem`, namely,
+```latex
+\theoremstyle{breakResistantTheorem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+% etc...
+```
+
 # Custom QED Marks at End of Environments
 
 For long environments that are in upright font, I prefer to include a mark at the end of the environment to notify readers where the section ends.

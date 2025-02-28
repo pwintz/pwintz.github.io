@@ -6,18 +6,29 @@
   "pasteImage.encodePath": "none",
   "pasteImage.basePath": "${projectRoot}/assets/images",
   "cSpell.words": [
+    "bfseries",
     "Didier",
+    "endraw",
     "eqref",
+    "Hanon",
     "includegraphics",
+    "interlinepenalty",
     "mathbb",
     "newcommand",
+    "newtheorem",
+    "newtheoremstyle",
     "operatorname",
     "Pano",
+    "postdisplaypenalty",
+    "predisplaypenalty",
     "recompiles",
     "relint",
     "Slagle",
     "Subequations",
     "Subsubsction",
-    "synctex"
+    "synctex",
+    "theoremstyle",
+    "Tickables",
+    "upshape"
   ]
 }
