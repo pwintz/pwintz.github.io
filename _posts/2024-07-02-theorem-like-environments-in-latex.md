@@ -214,7 +214,7 @@ Here are several options for symbols that can be used to end environments:
 
 ## `\providetheorem` definition
 
-In my LaTeX setup, I prefer to use the same preamble file for all of my documents, but I've found that some document classes or packages define `theorem` or other related environments. 
+In my LaTeX setup, I prefer to use the same preamble file for all of my documents, but I've found that some document classes or packages define the `theorem` environment and other related environments, which causes compilation errors. 
 To avoid errors when trying to define to new theorem-like environments, `\providetheorem` first checks whether the environment is defined.
 
 {% raw %}
@@ -365,7 +365,37 @@ I use the `remark` style only for the `remark` environment.
 \providetheorem{remark}{Remark}
 </pre>
 
-# Chapter-based Numbering
+# Theorem-like Environment Numbering
+This section describes how to modify the automatic numbering of Theorem-like environments, such as using unified numbering for multiple types of environments, chapter-based numbering, and using no numbering at all. 
+
+## Unified Numbering of Different Environment Types
+Some authors prefer to use one counter for all the results in their document, so instead of 
+
+- Theorem 1
+- Theorem 2
+- Lemma 1
+- Theorem 3
+- Proposition 1
+
+the numbering would be
+
+- Theorem 1
+- Theorem 2
+- Lemma 3
+- Theorem 4
+- Proposition 5
+
+The benefit of this method is that it is easier for the reader navigate to a particular result via bisection, but it may confuse readers who try to find "Lemma&nbsp;1" and "Lemma&nbsp;2".
+
+To make LaTeX use a unified numbering, you create the first environment, such as `theorem`, and then pass the name `theorem` as an optional argument when creating the other environments:
+```latex
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+%                          ^--- optional argument.
+```
+
+## Chapter-based Numbering
 
 For document classes that use chapters, I prefer to number the theorem-like environments on a chapter-by-chapter basis (e.g., "Theorem&nbsp;1.1", "Theorem&nbsp;1.2" in Chapter&nbsp;1 and "Theorem&nbsp;2.1", "Theorem&nbsp;2.2" in Chapter&nbsp;2.) 
 The following code automatically enables chapter-based numbering when the `chapter` [counter](https://www.overleaf.com/learn/latex/Counters) is defined.
@@ -387,8 +417,8 @@ The following code automatically enables chapter-based numbering when the `chapt
 \fi
 </pre>
 
-# Unnumbered Environments
-In some contexts, namely presentations, you may wish to use unnumbered environments (e.g., "Theorem" instead "Theorem&nbsp;1").
+## Unnumbered Environments
+In some contexts, such as presentations, you may wish to use unnumbered environments (e.g., "Theorem" instead "Theorem&nbsp;1").
 To omit theorem numbering, define theorem environments using `\newtheorem*` macro instead of `\newtheorem`. 
 If you already have `theorem` defined, you must use a different name for the unnumbered theorem environment, such as `theorem*`. 
 
