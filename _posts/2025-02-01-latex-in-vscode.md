@@ -104,7 +104,7 @@ Sometimes, word wrap in the editor makes certain tasks more difficult (especiall
 1. Open command pallet (`CTRL+SHIFT+P` on Windows)
 2. Select `View: Toggle Word Wrap` (`CTRL+SHIRT+P` on Windows)
 
-The `relint` extension, described below, is a great tool for helping you enforce consistent code styling.
+I published the Dryer Lint extension, described below, to help (among other things) enforce a consistent code style.
 
 <!-- # VS Code Settings -->
 
@@ -147,7 +147,7 @@ My favorites are listed here, with descriptions of my settings for each extensio
 - **[Overleaf Workshop](https://marketplace.visualstudio.com/items?itemName=iamhyc.overleaf-workshop):** Allows editing Overleaf Projects in VS Code. 
 <!-- - **[Better Comments](https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments):** Provides customizable code highlighting for comments that match certain strings, such as "`TODO`", "`!!`", or "`??`". -->
 <!-- - **[Tomorrow and Tomorrow Night Theme Kit](https://marketplace.visualstudio.com/items?itemName=ms-vscode.Theme-TomorrowKit)**: Provides my preferred color theme "Tomorrow Night Bright," which uses a pallet of clearly distinguishable and aesthetically-pleasing colors while achieving high contrast.  -->
-- **[relint](https://marketplace.visualstudio.com/items?itemName=n0brain3r.relint)**: Allows for defining custom linting rules to highlighting writing errors that are specific to your context.
+- **[Dryer Lint](https://marketplace.visualstudio.com/items?itemName=pwintz.dryer-lint&ssr=false#overview)**: Allows for defining custom linting rules to highlighting writing errors that are specific to your context.
 <!-- - **[Error Lens](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens):** Displays error and warning messages in the editor at the end of the line where the error occurs. -->
 
 ## _LaTeX Workshop_
@@ -451,9 +451,10 @@ The _LaTex-Formatter_ extension allows for automatic formatting of LaTeX files, 
 - custom indentation rules -->
 
 
-## _relint_ Extension
+## _Dryer Lint_ Extension
 
-The _relint_ extension allows you to define custom [linting](https://en.wikipedia.org/wiki/Lint_(software)) patterns.
+The _Dryer Lint_ extension allows you to define custom [linting](https://en.wikipedia.org/wiki/Lint_(software)) patterns using regular expressions.
+I created the Dryer Lint based on the [_relint_](https://marketplace.visualstudio.com/items?itemName=n0brain3r.relint) by [Ryan Blonna](https://github.com/n0bra1n3r). 
 <!-- to perform static code analysis, such as checking for  -->
 In the subsections below, I list the lint rules that I developed to 1) identify syntax errors before compiling, 2) highlight formatting faux pas, and 3) enforce my preferred coding style. 
 Some other uses you might consider on a project-by-project basis are rules to check for 
@@ -462,10 +463,10 @@ Some other uses you might consider on a project-by-project basis are rules to ch
 - Check for expressions that you commonly mix up, such as `$\distA{z}$` instead of `$\distA{x}$`
 - Check that you use a semantically important macro instead of its definition.
 
-All relint rules are defined by JavaScript style regular expressions. 
+All Dryer Lint rules are defined by JavaScript style regular expressions. 
 They should be placed in your `settings.json` file, in the following entry:
 ```jsonc
-  "relint": {
+  "dryer-lint": {
       "language": "latex",
       "rules": [
           {
