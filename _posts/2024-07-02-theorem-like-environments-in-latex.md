@@ -49,6 +49,7 @@ The remainder of this document shows how to
 - Change the Theorem numbering scheme to include the chapter numbers.  
 - Create unnumbered theorem environments.
 - Insert proofs, including modifying the introductory "_Proof._" and moving the QED mark.
+<!-- TODO: Add "Unified numbering", "labels in margins", and "discouraging page breaks". -->
 
 # Packages
 
