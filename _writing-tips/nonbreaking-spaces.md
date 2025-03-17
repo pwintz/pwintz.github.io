@@ -7,7 +7,7 @@ excerpt: The character `~` should be used to prevent poorly-placed line breaks.
 tags: typesetting
 source: | 
     <a href="https://practicaltypography.com/nonbreaking-spaces.html">Butterick’s Practical Typography, 2nd Edition.</a>, 
-    and <a href="https://tex.stackexchange.com/a/15549">TeX</a> <a href="https://tex.stackexchange.com/a/15555">StackExchange</a>
+    <a href="https://tex.stackexchange.com/a/15549">TeX</a> <a href="https://tex.stackexchange.com/a/15555">StackExchange</a>, and <i>The TeXbook</i> by Donald E. Knuth, p. 92. 
 ---
 
 By default, LaTeX will insert line breaks at any space between words.
