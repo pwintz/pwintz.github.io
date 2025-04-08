@@ -1,0 +1,24 @@
+---
+layout: single
+permalink: /tools/activity_log/
+title: Periodic Activity Logger
+---
+
+This page is designed to help you keep track of your activities and remind you of what you should be doing. 
+It allows you to log your current activity, set a delay for the next activity, and provide suggestions for what to do next.
+
+To get started, please select a Markdown file where you want to record your activities. 
+Content will be appended to the end of the file.
+
+<!-- <button onclick="updateCurrentActivity()">Try it</button> -->
+<p>
+  <button id="selectFileButton">Select File</button>
+</p>
+<p>
+  Delay: <input id="nDelayMinutes" type="number" defaultValue="15" width="12em"> minutes
+</p>
+What were you doing? <p id="lastActivity">Pending</p>
+What (if anything) is something else you should be doing? <p id="replacementActivity">Pending</p>
+What will you do next? <p id="nextActivity">Pending</p>
+
+<script src="/assets/js/activityLogger.js"></script>
