@@ -9,11 +9,13 @@ name: Build Jekyll site
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches-ignore:
-      - main
+    branches: ["main", "dev", "build-test"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+
+  # Allow this workflow to be called from other workflows, 
+  workflow_call:
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
@@ -29,7 +31,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Setup Ruby
-        uses: ruby/setup-ruby@ee2113536afb7f793eed4ce60e8d3b26db912da4 # v1.127.0
+        uses: ruby/setup-ruby@086ffb1a2090c870a3f881cc91ea83aa4243d408 # v1.195.0
         with:
           ruby-version: '3.1' # Not needed with a .ruby-version file
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
@@ -46,4 +48,4 @@ jobs:
           JEKYLL_ENV: production
       - name: Upload artifact
         # Automatically uploads an artifact from the './_site' directory by default
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
