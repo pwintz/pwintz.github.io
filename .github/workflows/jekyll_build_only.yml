@@ -7,21 +7,17 @@
 name: Build Jekyll site
 
 on:
-  # Runs on pushes targeting the default branch
+  # Runs on pushes not to main (for testing).
+  # Pushes to main should trigger the build and deploy workflow which will call this one.
   push:
-    branches: ["main", "dev", "build-test"]
+    branches-ignore:
+      - main
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
   # Allow this workflow to be called from other workflows, 
   workflow_call:
-
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
 
 jobs:
   # Build job

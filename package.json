@@ -41,7 +41,7 @@
     "add-banner": "node banner.js",
     "watch:js": "onchange \"assets/js/**/*.js\" -e \"assets/js/main.min.js\" -- npm run build:js",
     "build:js": "npm run uglify && npm run add-banner",
-    "build": "esbuild assets/ts/src/*.tsx assets/ts/src/*.ts --bundle --outdir=assets/js --format=esm",
+    "build": "esbuild assets/ts/src/*.tsx assets/ts/src/*.ts --bundle --outdir=assets/ts/out --format=esm",
     "watch": "esbuild assets/ts/src/*.tsx assets/ts/src/*.ts --bundle --outdir=assets/ts/out --format=esm --watch"
   },
   "dependencies": {
