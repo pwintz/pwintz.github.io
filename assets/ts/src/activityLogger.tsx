@@ -11,11 +11,7 @@ class AppState {
   promptText: string;
   textAssignmentCallback: (text: string) => void;
 
-  static INITIAL = new AppState(false, false, "", (text: string) => {});
-  static FILE_SELECTED = new AppState(true, false, "", (text: string) => {});
-  static ASK_CURRENT_ACTIVITY = new AppState(false, false, "", (text: string) => {});
-  static ASK_BETTER_ACTIVITY = new AppState(false, false, "", (text: string) => {});
-  static ASK_NEXT_ACTIVITY = new AppState(false, false, "", (text: string) => {});
+  static INITIAL = new AppState(false, false, "", (_text: string) => {});
 
   constructor(
     isFileSelected: boolean,
@@ -46,7 +42,8 @@ class ExampleApp extends React.Component<{}, AppState> {
   // inputElement: HTMLInputElement;
   activityInputRef: React.RefObject<HTMLInputElement | null>;
   nMinutesDelayRef: React.RefObject<HTMLInputElement | null>;
-  cancelPauseFnc: (() => void) | undefined;
+  cancelPauseFnc: (() => void);
+  clearNotificationFnc: (() => void);
 
   constructor(props: {}) {
     super(props);
@@ -65,6 +62,9 @@ class ExampleApp extends React.Component<{}, AppState> {
     this.cancel = this.cancel.bind(this);
     this.skipPause = this.skipPause.bind(this);
     this.appendToFile = this.appendToFile.bind(this);
+
+    this.cancelPauseFnc = () => {};
+    this.clearNotificationFnc = () => {};
 
     this.lastActivityText = "";
     this.betterActivityText = "";
@@ -105,7 +105,9 @@ class ExampleApp extends React.Component<{}, AppState> {
 
           const onPauseEndCallback = () => { 
             this.nextState()
-            notifyMe(`Time to record your activity check-in! (${nowTimeString()})`);
+            // Clear the notification, if it exists, so that we don't get multiple notifications.
+            this.clearNotificationFnc();
+            this.clearNotificationFnc = notifyMe(`Time to record your activity check-in! (${nowTimeString()})`);
           }
           if (nDelayMinutes > 0) {
             // If the user has not given a delay, then nDaleyMinutes will be NaN, so this case will not be used.
@@ -158,6 +160,9 @@ class ExampleApp extends React.Component<{}, AppState> {
 
   nextState(): void {
     
+    this.clearNotificationFnc();
+    this.clearNotificationFnc = () => {};
+
     var text = "";
     if (this.activityInputRef.current !== null) {
       text = this.activityInputRef.current.value;
@@ -185,7 +190,7 @@ class ExampleApp extends React.Component<{}, AppState> {
     }
     console.log("Canceling pause.");
     this.cancelPauseFnc() 
-    this.cancelPauseFnc = undefined;
+    this.cancelPauseFnc = () => {};
     this.nextState();
   }
 
@@ -226,14 +231,22 @@ class ExampleApp extends React.Component<{}, AppState> {
         Content will be appended to the end of the file.
 
         <p>
-          <button id="selectFileButton" onClick={this.selectFile}>Select File</button>
+          <button 
+          id="selectFileButton" 
+            onClick={this.selectFile}
+            disabled={this.state.isFileSelected}
+            style={{
+              // opacity: this.state.isFileSelected? 0.5 : 1,
+              display: this.state.isFileSelected? 'none' : 'block'
+            }}
+        >Select File</button>
         </p>
         <p>
           Delay: <input ref={this.nMinutesDelayRef} type="number" defaultValue="15" style={{ width: '3em' }} /> minutes
           {/* Button that skips the pause when clicked */}
         <button 
           onClick={this.skipPause}
-          disabled={!this.state.isFileSelected}
+          disabled={!this.state.isFileSelected || this.state.showModal}
           style={{
             opacity: this.state.isFileSelected ? 1 : 0.5,
             cursor: this.state.isFileSelected ? 'pointer' : 'not-allowed'
@@ -241,11 +254,11 @@ class ExampleApp extends React.Component<{}, AppState> {
         >Skip Delay</button>
         </p>
 
-        <p><b>{this.stateSequence[0].promptText}</b> 
+        <p><b>{this.stateSequence[0].promptText}</b>&nbsp;
         {this.lastActivityText}</p>
-        <p><b>{this.stateSequence[1].promptText}</b> 
+        <p><b>{this.stateSequence[1].promptText}</b>&nbsp; 
         {this.betterActivityText}</p>
-        <p><b>{this.stateSequence[2].promptText}</b> 
+        <p><b>{this.stateSequence[2].promptText}</b>&nbsp; 
         {this.betterActivityText}{this.nextActivityText}</p>
 
         {/* ReactModal component with configuration props */}
@@ -283,10 +296,19 @@ class ExampleApp extends React.Component<{}, AppState> {
             }
           }}
         >
-          {this.state.promptText}
-          <input type="text" placeholder="Activity" ref={this.activityInputRef}/>
+            {this.state.promptText}
+            <input 
+            type="text" 
+            placeholder="Activity" 
+            ref={this.activityInputRef} 
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+              this.nextState();
+              }
+            }}
+            />
           {/* Button inside modal that closes it */}
-          <button onClick={this.cancel}>Cancel</button>
+          {/* <button onClick={this.cancel}>Cancel</button> */}
           <button onClick={this.nextState}>Enter</button>
         </ReactModal>
       </div>
@@ -316,7 +338,8 @@ root.render(<ExampleApp />);
 
 
 // ----- Some utility functions -----
-function notifyMe(notificationMessage: string) {
+function notifyMe(notificationMessage: string): () => void {
+  // Returns a callback for dismissing the notification.
   const onclickCallback = () => {
     window.focus();
   };
@@ -325,7 +348,7 @@ function notifyMe(notificationMessage: string) {
   if (!("Notification" in window)) {
     // Check if the browser supports notifications
     alert("This browser does not support desktop notification");
-    return
+    return () => {};
   } else if (Notification.permission === "granted") {
     // Check whether notification permissions have already been granted;
     // if so, create a notification
@@ -342,6 +365,12 @@ function notifyMe(notificationMessage: string) {
   }
   if (notification) {
     notification.onclick = onclickCallback;
+    return () => {
+      notification?.close();
+      notification = null;
+    }
+  } else {
+    return () => {};
   }
 }
 

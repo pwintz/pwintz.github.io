@@ -6,6 +6,7 @@
   "pasteImage.encodePath": "none",
   "pasteImage.basePath": "${projectRoot}/assets/images",
   "cSpell.words": [
+    "Appender",
     "bfseries",
     "Didier",
     "documentclass",
@@ -22,6 +23,7 @@
     "newtheorem",
     "newtheoremstyle",
     "numberwithin",
+    "openmode",
     "operatorname",
     "Pano",
     "parbox",
