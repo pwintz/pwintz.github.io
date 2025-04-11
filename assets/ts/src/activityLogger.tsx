@@ -259,7 +259,7 @@ class ExampleApp extends React.Component<{}, AppState> {
         <p><b>{this.stateSequence[1].promptText}</b>&nbsp; 
         {this.betterActivityText}</p>
         <p><b>{this.stateSequence[2].promptText}</b>&nbsp; 
-        {this.betterActivityText}{this.nextActivityText}</p>
+        {this.nextActivityText}</p>
 
         {/* ReactModal component with configuration props */}
         <ReactModal 
