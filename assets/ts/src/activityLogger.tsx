@@ -28,6 +28,178 @@ class AppState {
   }
 }
 
+export {};
+
+abstract class Appender {
+  private _cumulativeAppendedContent: string;
+
+  constructor() {
+    this._cumulativeAppendedContent = "";
+  }
+  
+  protected abstract pushAppend(contentToAppend: string | string[]): void;
+  
+  append(contentToAppend: string | string[]): void {
+    // Convert contentToAppend to a string if it's an array, with each entry as a line.
+    if (contentToAppend instanceof Array) {
+      contentToAppend = contentToAppend.join("\n");
+    }
+
+    this._cumulativeAppendedContent += "\n" + contentToAppend;
+    this.pushAppend(contentToAppend);
+  }
+  
+  public get cumulativeAppendedContent(): string {
+    return this._cumulativeAppendedContent;
+  }
+}
+
+class ObsidianAdvancedURIAppender extends Appender {
+  vaultName: string;
+  fileName: string;
+  
+  constructor(vaultName: string, fileName: string) {
+    super()
+    this.vaultName = vaultName;
+    this.fileName = fileName;
+  }
+
+  buildAppendAdvancedURI(contentToAppend: string): string {
+    return [
+      `obsidian://adv-uri`,
+      `?vault=${encodeURIComponent(this.vaultName)}`,
+      `&filepath=${encodeURIComponent(this.fileName)}`,
+      // Don't show the Obsidian window.
+      `&openmode=silent`,
+      // Set the data we want to append.
+      `&data=${encodeURIComponent(contentToAppend)}`,
+      // Put the data at the end of the file. No line break is added by Advanced URI.
+      `&mode=append`
+    ].join('');
+  }
+
+  protected pushAppend(contentToAppend: string): void {
+    const obsidianURI = this.buildAppendAdvancedURI(contentToAppend);
+    console.log(`obsidianURI: ${obsidianURI}`); // Log the URI to the console for debugging
+    window.location.href = obsidianURI;
+    // Give the browser a moment to process the URI before focusing on the window.
+    sleepMilliseconds(1000, window.focus); 
+  }
+}
+
+class ObsidianURIAppender extends Appender {
+  vaultName: string;
+  fileName: string;
+  
+  constructor(vaultName: string, fileName: string) {
+    super()
+    this.vaultName = vaultName;
+    this.fileName = fileName;
+  }
+  
+  buildAppendURI(contentToAppend: string): string {
+    return [
+      `obsidian://new`,
+      `?vault=${encodeURIComponent(this.vaultName)}`,
+      `&file=${encodeURIComponent(this.fileName)}`,
+      // Don't show the Obsidian window.
+      `&silent`,
+      // Set the data we want to append.
+      `&content=${encodeURIComponent(contentToAppend)}`,
+      // Put the data at the end of the file. No line break is added by Advanced URI.
+      `&append`
+    ].join('');
+  }
+
+  protected pushAppend(contentToAppend: string): void {
+    const obsidianURI = this.buildAppendURI(contentToAppend);
+    console.log(`obsidianURI: ${obsidianURI}`); // Log the URI to the console for debugging
+    window.location.href = obsidianURI;
+    // Give the browser a moment to process the URI before focusing on the window.
+    sleepMilliseconds(1000, window.focus); 
+  }
+}
+
+
+class FileSystemAPIAppender extends Appender {
+  // The design of this class is motivated by the need for a file picker to be opened via a user action in the UI, such as a button click. 
+  // Thus, if there are is a request for file access before the file is selected, we should store that requests and 
+
+  // private fileHandle: FileSystemFileHandle | undefined;
+  // getFilePromise: () => Promise<File>;
+  fileHandlePromise: Promise<FileSystemFileHandle>;
+  private onFileSelectedCallback: ((fileSystemHandle: FileSystemFileHandle) => void);
+
+  constructor() {
+    super()
+
+    // The following callback should never be called, but we need to assign something to onFileSelectedCallback so that the type can be not undefined.
+    this.onFileSelectedCallback = () => {
+      throw new Error("onFileSelectedCallback was called, but fileHandlePromise has not been set yet.");
+    }
+    
+    this.fileHandlePromise = new Promise((resolve, reject) => {
+      this.onFileSelectedCallback = (fileHandle: FileSystemFileHandle) => {
+        if (fileHandle === undefined) {
+          reject(new Error("No file was selected."));
+        }
+        console.log(`File selected: ${fileHandle.name}`);
+        resolve(fileHandle);
+      }
+    });
+    this.promptFileSelection = this.promptFileSelection.bind(this);
+  }
+
+  promptFileSelection() {
+    if(typeof(window.showOpenFilePicker) === "undefined"){
+      // The File System API is not supported.
+      alert("The File System API is not supported.")
+      throw new Error("The File System API is not supported. Cannot use FileSystemAPIAppender.");
+    }
+
+    window.showOpenFilePicker({
+      id: 'obsidianLogFile', // The browser remembers different directories for different IDs. 
+      startIn: 'documents',
+      multiple: false
+    }).then((fileList) => {
+        console.log(`File selected in file picker: ${fileList[0].name}`);
+        return this.onFileSelectedCallback(fileList[0]);
+    });
+  }
+
+  protected async pushAppend(contentToAppend: string): Promise<void> {
+    await this.fileHandlePromise.then(
+      async (fileHandle) => {
+        console.log(`Appending to file: ${fileHandle.name}.`);
+        // if (fileHandle === undefined) {
+        //   throw new Error('No file selected.');
+        // }
+        const file: File = await fileHandle.getFile();
+        var text: string = await file.text()
+        text += "\n" + contentToAppend;
+        if ((await fileHandle.queryPermission()) === 'granted') {
+            const writable = await fileHandle.createWritable();
+            await writable.write(text);
+            await writable.close();
+        } else {
+          console.log("Permission denied");
+        }
+    });
+  }
+}
+
+// Get an appender that matches what the browser supports.
+const appender: Appender = (() => {
+    if(typeof(window.showOpenFilePicker) !== "undefined"){
+      return new FileSystemAPIAppender();
+    } else {
+      // TODO: Check if the Obsidian Advanced URI plugin is installed.
+      return new ObsidianAdvancedURIAppender("Paul's Vault", "Activity Log");
+      // return new ObsidianURIAppender("Paul's Vault", "Activity Log");
+    }
+  } 
+)();
+
 // Define a React component class that manages a modal dialog
 // React.Component<Props, State> is a generic class where we specify:
 // - Props: {} (empty object because this component takes no properties)
@@ -39,7 +211,6 @@ class ExampleApp extends React.Component<{}, AppState> {
   betterActivityText: string
   nextActivityText: string
   activityLogFileHandle: FileSystemFileHandle | undefined;
-  // inputElement: HTMLInputElement;
   activityInputRef: React.RefObject<HTMLInputElement | null>;
   nMinutesDelayRef: React.RefObject<HTMLInputElement | null>;
   cancelPauseFnc: (() => void);
@@ -48,20 +219,16 @@ class ExampleApp extends React.Component<{}, AppState> {
   constructor(props: {}) {
     super(props);
     
-    // TODO: This does not seem like the "right" way to get the input element.
-    // this.inputElement = document.getElementById("activityInput") as HTMLInputElement;
-
     this.activityInputRef = React.createRef();
     this.nMinutesDelayRef = React.createRef();
     // console.log(`this.inputElement: ${this.inputElement}`)
 
     // Bind event handler methods to this instance
     // This ensures 'this' refers to the component instance when these methods are called
-    this.selectFile = this.selectFile.bind(this);
     this.nextState = this.nextState.bind(this);
     this.cancel = this.cancel.bind(this);
     this.skipPause = this.skipPause.bind(this);
-    this.appendToFile = this.appendToFile.bind(this);
+    // this.appendToFile = this.appendToFile.bind(this);
 
     this.cancelPauseFnc = () => {};
     this.clearNotificationFnc = () => {};
@@ -96,27 +263,40 @@ class ExampleApp extends React.Component<{}, AppState> {
         promptText: "What will you do now?", 
         textAssignmentCallback: (text: string) => { 
           this.nextActivityText = text; 
-          this.appendToFile(`| ${nowTimeString()} | ${this.lastActivityText} | ${this.betterActivityText} | ${this.nextActivityText} |`);
+
+          const logLine = `| ${nowTimeString()} | ${this.lastActivityText} | ${this.betterActivityText} | ${this.nextActivityText} |`;
+          appender.append(logLine);
+          // this.appendToFile(logLine);
 
           if (this.nMinutesDelayRef.current == null) {
             throw new Error('nMinutesDelayRef element was not found.')
           }
           var nDelayMinutes = this.nMinutesDelayRef.current.valueAsNumber;
+          var nDelaySeconds: number = 0; 
+          if (nDelayMinutes > 0) {
+            console.log(`Delaying ${nDelayMinutes} minutes`);
+            nDelaySeconds = 60 * nDelayMinutes;
+          } else {
+            console.log('No delay given. Only delaying 5 seconds, for testing.');
+            nDelaySeconds = 5
+          }
+
 
           const onPauseEndCallback = () => { 
             this.nextState()
             // Clear the notification, if it exists, so that we don't get multiple notifications.
             this.clearNotificationFnc();
             this.clearNotificationFnc = notifyMe(`Time to record your activity check-in! (${nowTimeString()})`);
+
+            
+            this.cancelPauseFnc = sleepSeconds(nDelaySeconds, () => {
+              this.clearNotificationFnc();
+              this.clearNotificationFnc = notifyMe(`Time to record your activity check-in! (${nowTimeString()})`);
+            });
+
           }
-          if (nDelayMinutes > 0) {
-            // If the user has not given a delay, then nDaleyMinutes will be NaN, so this case will not be used.
-            console.log(`Delaying ${nDelayMinutes} minutes`);
-            this.cancelPauseFnc = sleepMinutes(nDelayMinutes, onPauseEndCallback);
-          } else {
-            console.log('No delay given. Only delaying 5 seconds');
-            this.cancelPauseFnc = sleepSeconds(5, onPauseEndCallback);
-          }
+
+          this.cancelPauseFnc = sleepSeconds(nDelaySeconds, onPauseEndCallback);
           
         }
       },
@@ -134,28 +314,41 @@ class ExampleApp extends React.Component<{}, AppState> {
 
     // Initialize the component's state
     // this.state = this.stateSequence[0]; // TODO: Change back to INITIAL.
-    this.state = AppState.INITIAL;
-  }
-  
-  async selectFile() {
-    console.log(`Select file clicked`);
-    const fileList = await window.showOpenFilePicker({
-        id: 'obsidianLogFile', // The browser remembers different directories for different IDs. 
-        startIn: 'documents',
-        multiple: false
-    });
-    this.activityLogFileHandle = fileList[0];
+    // this.state = AppState.INITIAL;
 
-    await this.appendToFile([
+    appender.append([
       '', 
       `# ${nowDateString()}`,
       "| Time | What I was Doing | What Should I be Doing | What Will I do Next? |",
       "| ----------- | ----------- | ----------- | ----------- |"
-    ]);
+    ])
+    console.log(`Appended header for date to file. Setting state to first state in sequence.`)
 
-    // Set the state to the first element in the sequence.
-    this.stateSequenceIndex = 0;
-    this.setState(this.stateSequence[0]);
+    // If using FileSystemAPIAppender, we need to wait for the file to be selected before moving to next state. 
+    // Otherwise, we can move immediately.
+    if (appender instanceof FileSystemAPIAppender) {
+      this.state = AppState.INITIAL;
+      appender.fileHandlePromise.then((fileHandle) => {
+        if (fileHandle === undefined) {
+          alert('No file selected.');
+          throw new Error('No file selected.');
+        } else {
+          // Set the state to the first element in the sequence.
+          this.stateSequenceIndex = 0;
+          this.setState(this.stateSequence[0]);
+        }
+      });
+    } else {
+      this.stateSequenceIndex = 0;
+      this.state = this.stateSequence[0];
+    }
+  }
+  
+  remindToCheckIn(nDelaySeconds: number): void { 
+    this.cancelPauseFnc = sleepSeconds(nDelaySeconds, () => {
+      this.clearNotificationFnc();
+      this.clearNotificationFnc = notifyMe(`Time to record your activity check-in! (${nowTimeString()})`);
+    });
   }
 
   nextState(): void {
@@ -183,40 +376,10 @@ class ExampleApp extends React.Component<{}, AppState> {
   }
 
   skipPause(): void {
-    // this.sleepPromise.
-    if (this.cancelPauseFnc === undefined) {
-      console.log("No cancelPauseFnc to resolve");
-      return;
-    }
     console.log("Canceling pause.");
     this.cancelPauseFnc() 
     this.cancelPauseFnc = () => {};
     this.nextState();
-  }
-
-  async appendToFile(contentToAppend: string | string[]): Promise<void> {
-    if (this.activityLogFileHandle === undefined) {
-      throw new Error('No file selected.')
-    }
-    const file = await this.activityLogFileHandle.getFile();
-
-    // Convert contentToAppend to a string if it's an array, with each entry as a line.
-    if (contentToAppend instanceof Array) {
-      contentToAppend = contentToAppend.join("\n");
-    }
-  
-    var contents = await file.text();
-    contents += "\n" + contentToAppend;
-  
-    if(typeof this.activityLogFileHandle !== "undefined") {
-      if ((await this.activityLogFileHandle.queryPermission()) === 'granted') {
-          const writable = await this.activityLogFileHandle.createWritable();
-          await writable.write(contents);
-          await writable.close();
-      } else {
-        console.log("Permission denied");
-      }
-    }
   }
 
   // The render method defines what the component displays
@@ -230,17 +393,27 @@ class ExampleApp extends React.Component<{}, AppState> {
         To get started, please select a Markdown file where you want to record your activities. 
         Content will be appended to the end of the file.
 
-        <p>
-          <button 
-          id="selectFileButton" 
-            onClick={this.selectFile}
-            disabled={this.state.isFileSelected}
-            style={{
-              // opacity: this.state.isFileSelected? 0.5 : 1,
-              display: this.state.isFileSelected? 'none' : 'block'
-            }}
-        >Select File</button>
-        </p>
+        {/* Requirements: You must install the Advanced URI plugin in Obsidian.  */}
+
+        {this.state.isFileSelected ? null : (
+          <p>
+            <button 
+              id="selectFileButton" 
+                onClick={appender instanceof FileSystemAPIAppender ? appender.promptFileSelection : () => {}}
+                disabled={this.state.isFileSelected}
+                style={{
+                  // opacity: this.state.isFileSelected? 0.5 : 1,
+                  display: this.state.isFileSelected? 'none' : 'block'
+                }}
+            >Select File</button>
+          </p>
+        )}
+        {appender instanceof ObsidianAdvancedURIAppender ? (
+          <p> 
+            <b>Vault Name:</b>&nbsp;<input type="text" defaultValue={(appender as ObsidianAdvancedURIAppender).vaultName} style={{ width: '20em' }} /><br></br>
+            <b>File path in vault:</b>&nbsp;<input type="text" defaultValue={(appender as ObsidianAdvancedURIAppender).fileName} style={{ width: '100%' }} />
+          </p>
+        ) : null}
         <p>
           Delay: <input ref={this.nMinutesDelayRef} type="number" defaultValue="15" style={{ width: '3em' }} /> minutes
           {/* Button that skips the pause when clicked */}
@@ -254,12 +427,26 @@ class ExampleApp extends React.Component<{}, AppState> {
         >Skip Delay</button>
         </p>
 
-        <p><b>{this.stateSequence[0].promptText}</b>&nbsp;
+        Appended content:
+        <pre>
+          {appender.cumulativeAppendedContent}
+        </pre>
+
+        {/* Obsidian URI Preview:
+        <pre>
+          {appender.buildAppendURI("")}
+        </pre>
+        Obsidian Advanced URI preview:
+        <pre>
+          {appender.buildAppendAdvancedURI("")}
+        </pre> */}
+
+        {/* <p><b>{this.stateSequence[0].promptText}</b>&nbsp;
         {this.lastActivityText}</p>
         <p><b>{this.stateSequence[1].promptText}</b>&nbsp; 
         {this.betterActivityText}</p>
         <p><b>{this.stateSequence[2].promptText}</b>&nbsp; 
-        {this.nextActivityText}</p>
+        {this.nextActivityText}</p> */}
 
         {/* ReactModal component with configuration props */}
         <ReactModal 
