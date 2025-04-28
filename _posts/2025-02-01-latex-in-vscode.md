@@ -79,59 +79,6 @@ The typical structure of my LaTeX projects is shown here:
 
 You can see a template LaTeX Git repository I made [here](https://github.com/pwintz/hsl_templates). -->
 
-## Code Formatting
-
-In any programming languages, adopting a sensible and consistent coding style improves readability and maintainability, and sometimes highlights errors that would otherwise go unnoticed. 
-
-Previous sources have written at length about LaTeX coding style (see ["Towards LATEX coding standards"](https://www.tug.org/TUGboat/tb32-3/tb102verna.pdf) by Didier Verna). 
-I will add my two cents for a piece of code style that substantially improves tracking changes in Git. 
-When I first started writing LaTeX, I would put entire paragraphs on a single line of code, with line wrapping turned on in the editor. While editing, this was …fine, but caused difficulties in version control. 
-In particular, when I was committing or merging changes in Git, it would be difficult to see where in a line changes were made. 
-Later, I switched to adding line breaks after every 80 characters or so (without regards to sentences), so that the entirety of each line code would be visible line wrapping off.
-This fixed the difficulty with seeing diff's, but required a lot of effort to keep each line roughly my desired width.
-
-To fix both problems, I now write every sentence on its own line. 
-As an added benefit, having a one sentence per line allows for easily checking the lengths of sentence to see if any are too long and if there is a nice variation lengths.
- 
-To make word-wrapping appear nicely in the editor, I use the following settings:
-
-  ```json
-  "editor.wordWrap": "on",
-  "editor.wrappingIndent": "indent"
-  ```
-
-Sometimes, word wrap in the editor makes certain tasks more difficult (especially when using multi-cursors on aligned text), in which case you can use the command pallet (or the shortcut shown therein) to toggle word wrap:
-1. Open command pallet (`CTRL+SHIFT+P` on Windows)
-2. Select `View: Toggle Word Wrap` (`CTRL+SHIRT+P` on Windows)
-
-I published the Dryer Lint extension, described below, to help (among other things) enforce a consistent code style.
-
-<!-- # VS Code Settings -->
-
-<!-- 
-# General VS Code Preferences
-```jsonc
-{
-  "editor.renderWhitespace": "all",
-  "editor.guides.bracketPairs": "active",
-  // If a line gets too long, then wrap it to the next line, but include an indentation to visually suggest the line continuation.
-  "editor.wordWrap": "on",
-  "editor.wrappingIndent": "indent",
-    
-  # Set the minimum distance of the cursor from edge of window before VS Code starts scrolling
-  "editor.cursorSurroundingLines": 4, 
-  "editor.quickSuggestions": {
-      "other": "off"
-  },
-  "editor.tabSize": 2,
-  "workbench.editor.alwaysShowEditorActions": true,
-  "workbench.editor.highlightModifiedTabs": true,
-  "workbench.editor.pinnedTabsOnSeparateRow": true,
-  "window.density.editorTabHeight": "compact",
-  "editor.comments.ignoreEmptyLines": false,
-}
-``` -->
-
 
 # VS Code Extensions
 
@@ -141,7 +88,7 @@ My favorites are listed here, with descriptions of my settings for each extensio
 <!-- When writing LaTeX code in VS Code, the following extensions provide essential baseline functionality, such as  -->
 <!-- Essential Extensions: -->
 - **[LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop):** Comprehensive support for LaTeX projects, including auto-completion, document compiling, syntax highlighting, and PDF preview.
-- **[LTeX](https://marketplace.visualstudio.com/items?itemName=valentjn.vscode-ltex):** Grammar and spell-checking with support for LaTeX syntax.
+- **[LTeX+](https://marketplace.visualstudio.com/items/?itemName=ltex-plus.vscode-ltex-plus):** Grammar and spell-checking with support for LaTeX syntax.
 - **[Paste Image](https://marketplace.visualstudio.com/items?itemName=mushan.vscode-paste-image):** Simplifies inserting images into your project, allowing images to be directly pasted into LaTeX documents.
 <!-- - **[Latex-formatter](https://github.com/nfode/latex-formatter)** with [latexindent.pl](https://github.com/cmhughes/latexindent.pl): Provide automatic code reformatting for LaTeX code with customizable style.  -->
 - **[Overleaf Workshop](https://marketplace.visualstudio.com/items?itemName=iamhyc.overleaf-workshop):** Allows editing Overleaf Projects in VS Code. 
@@ -257,24 +204,18 @@ I dislike these previews so I disable them.
 
 ## _LTeX_: Spell-checking and Grammar Checking for LaTeX
 
-In LaTeX documents, run-of-the-mill spell checkers and grammar checkers don't work well due equations and macros.
-For example, the following statement is correct but "`$ ... $`", "`\mathbb`", "`\emph{continuous}`", etc., will confuse most checkers:
-```latex
-A function $f : \mathbb{R} \to \mathbb{R}$ is \emph{continuous} at $x_0 \in \mathbb{R}$ if
-\[
-   \lim_{x \to x_0} f(x) = f(x_0).
-\]
+In LaTeX documents, standard document spell checkers and grammar checkers don't work well due to the presence of non-text content, like equations and macros.
+For example, the sentence "`The function $f : \mathbb{R} \to \mathbb{R}$ are \emph{continuous}.`" will confuse most checkers, which will show false positive for `$f`, `\mathbb`, etc., and will likely not identify the mismatched pluralization of "The function ... are continuous".  
 
-```
+Fortunately, there is a checker called _LTeX+_ that is built specifically to handle LaTeX documents (LTeX+ is based on the now deprecated extension [LTeX](https://marketplace.visualstudio.com/items?itemName=valentjn.vscode-ltex)).
+In VS Code, the LTeX+ extension performs spell checking and grammar checking that is (mostly) aware of LaTeX syntax. 
+LTeX+ does a pretty good job of catching mistakes "out of the box", with its default settings, but adjusting the settings can allow it to catch more mistakes and have less false-positives.
 
-Thankfully, there is a checker called _LTeX_ that is built specifically to handle LaTeX documents.
-In VS Code, the LTeX extension performs spell checking and grammar checking that is (mostly) aware of LaTeX syntax. 
-LTeX does a pretty good job of catching mistakes "out of the box", with its default settings, but adjusting the settings can allow it to catch more mistakes and have less false-positives.
 
 <!-- The following sections describe the changes that I make to the defaults regardless of documents. -->
 
-### Increase LTeX Pickiness
-By default, LTeX only highlights spelling and grammar errors, but it also can provide a broader range of suggestions for "picky" rules. 
+### Increase LTeX+ Pickiness
+By default, LTeX+ only highlights spelling and grammar errors, but it also can provide a broader range of suggestions for "picky" rules. 
 Many of the picky rules regard writing style, such as alerting you to sentences that are too long, or when several sentences in a row start with the same word. 
 The following setting enables "picky" rules:
  ```json 
@@ -284,7 +225,7 @@ Using picky rules produces some false-positives, but the overall benefit is wort
 
 ### Adjusting Severity Levels
 
-By default, LTeX displays all problems using VS Code's "Information" formatting, which results in serious issues, such as misspelled words, being lost in the shuffle of minor problems, like using a passive voice. 
+By default, LTeX+ displays all problems using VS Code's "Information" formatting, which results in serious issues, such as misspelled words, being lost in the shuffle of minor problems, like using a passive voice. 
 The severity of type of issue is set via the [`"ltex.diagnosticSeverity"`](https://ltex-plus.github.io/ltex-plus/settings.html#ltexdiagnosticseverity) setting. 
 I keep the default as `"information"`, increase spelling errors to a `"warning"` level, and decrease the severity of some stylistic suggestions to "hints". 
 For spelling, the name of the rule is `"MORFOLOGIK_RULE_EN_US"`.
@@ -301,7 +242,7 @@ I use the following values for my `"ltex.diagnosticSeverity"` setting:
 A full list of LTeX rules is available [here](https://community.languagetool.org/rule/list).
 
 ### Defining How LTeX Parses New LaTeX Commands 
-LTeX has built-in knowledge of many LaTeX macros, but for LTeX to correctly check text that has user-defined macros or environments, we need to provide additional information via the [`"ltex.latex.commands"`](https://ltex-plus.github.io/ltex-plus/settings.html#ltexdiagnosticseverity) and ["`ltex.latex.environments`"](https://ltex-plus.github.io/ltex-plus/settings.html#ltexlatexenvironments) settings.
+LTeX has built-in knowledge of many LaTeX macros, but for LTeX+ to correctly check text that has user-defined macros or environments, we need to provide additional information via the [`"ltex.latex.commands"`](https://ltex-plus.github.io/ltex-plus/settings.html#ltexdiagnosticseverity) and ["`ltex.latex.environments`"](https://ltex-plus.github.io/ltex-plus/settings.html#ltexlatexenvironments) settings.
 <!-- Although LTeX handles built-in LaTeX macros, it does not know how to interpret user-defined macros. In particular, for some macros, you want the contents of the macro's arguments to be checked where other they should be ignored. Other times, a macro should be interpreted as a word that is either plural or singular, and either starts with a vowel or a constant.   -->
 ```json
 "ltex.latex.commands": {
@@ -354,7 +295,7 @@ LTeX has built-in knowledge of many LaTeX macros, but for LTeX to correctly chec
 ```
 
 ### Hiding False Positives
-LTeX has a mechanism for [hiding false positives](https://ltex-plus.github.io/ltex-plus/advanced-usage.html), but it is fragile, requiring you to re-mark each false positive whenever any part of the sentence changes. 
+LTeX+ has a mechanism for [hiding false positives](https://ltex-plus.github.io/ltex-plus/advanced-usage.html), but it is fragile, requiring you to re-mark each false positive whenever any part of the sentence changes. 
 Instead, I define several ``dummy`` LaTeX macros to the values `"ignore"`, `"dummy"`, and `"voweldummy"` from the `"that I include in the `"ltex.latex.commands"` setting:
 ```latex
 % Definitions for telling LTeX to ignore certain parts of the LaTeX code.
@@ -382,10 +323,10 @@ It is also sometimes useful to include text that LTeX reads but is not included 
 ```
 
 ### Ignoring Irrelevant BibTeX Fields
-In BibTeX files, I typically have entries automatically generated by Zotero. Typically, each entry has an abstract and these tend to have a lot of false positives but are not included in the output. Instead of handling each issue individually, I use the `"ltex.bibtex.fields"` setting to disable LTeX-checking of bibliography abstracts.
+In BibTeX files, I typically have entries automatically generated by Zotero. Typically, each entry has an abstract and these tend to have a lot of false positives but are not included in the output. Instead of handling each issue individually, I use the `"ltex.bibtex.fields"` setting to disable LTeX+-checking of bibliography abstracts.
 ```jsonc
  "ltex.bibtex.fields": {
-    # Abstracts in bibliography entries typically are not typed by the user and are rarely inserted into the document, but tend to have a lot of LTeX warnings, so I disable warnings for the abstracts.
+    # Abstracts in bibliography entries typically are not typed by the user and are rarely inserted into the document, but tend to have a lot of LTeX+ warnings, so I disable warnings for the abstracts.
     "abstract": false
   }
 ```
@@ -734,6 +675,62 @@ The _Tomorrow and Tomorrow Night Theme Kit_ provides my preferred color theme "T
 
 Here is a screenshot:
 <img src="/assets/images/tomorrow-night-bright.png" alt="alt text"/> -->
+
+
+## Code Formatting
+
+In any programming languages, adopting a sensible and consistent coding style improves readability and maintainability, and sometimes highlights errors that would otherwise go unnoticed. 
+
+Previous sources have written at length about LaTeX coding style (see ["Towards LATEX coding standards"](https://www.tug.org/TUGboat/tb32-3/tb102verna.pdf) by Didier Verna). 
+I will add my two cents for a piece of code style that substantially improves tracking changes in Git. 
+When I first started writing LaTeX, I would put entire paragraphs on a single line of code, with line wrapping turned on in the editor. 
+While editing, this was …fine, but caused difficulties in version control. 
+In particular, when I was committing or merging changes in Git, it would be difficult to see where in a line changes were made. 
+Later, I switched to adding line breaks after every 80 characters or so (without regards to sentences), so that the entirety of each line code would be visible line wrapping off.
+This fixed the difficulty with seeing diff's, but required a lot of effort to keep each line roughly my desired width.
+
+To fix both problems, I now write every sentence on its own line. 
+As an added benefit, having a one sentence per line allows for easily checking the lengths of sentence to see if any are too long and if there is a nice variation lengths.
+ 
+To make word-wrapping appear nicely in the editor, I use the following settings:
+
+  ```json
+  "editor.wordWrap": "on",
+  "editor.wrappingIndent": "indent"
+  ```
+
+Sometimes, word wrap in the editor makes certain tasks more difficult (especially when using multi-cursors on aligned text), in which case you can use the command pallet (or the shortcut shown therein) to toggle word wrap:
+1. Open command pallet (`CTRL+SHIFT+P` on Windows)
+2. Select `View: Toggle Word Wrap` (`CTRL+SHIRT+P` on Windows)
+
+I published the Dryer Lint extension, described above, to help (among other things) enforce a consistent code style.
+
+<!-- # VS Code Settings -->
+
+<!-- 
+# General VS Code Preferences
+```jsonc
+{
+  "editor.renderWhitespace": "all",
+  "editor.guides.bracketPairs": "active",
+  // If a line gets too long, then wrap it to the next line, but include an indentation to visually suggest the line continuation.
+  "editor.wordWrap": "on",
+  "editor.wrappingIndent": "indent",
+    
+  # Set the minimum distance of the cursor from edge of window before VS Code starts scrolling
+  "editor.cursorSurroundingLines": 4, 
+  "editor.quickSuggestions": {
+      "other": "off"
+  },
+  "editor.tabSize": 2,
+  "workbench.editor.alwaysShowEditorActions": true,
+  "workbench.editor.highlightModifiedTabs": true,
+  "workbench.editor.pinnedTabsOnSeparateRow": true,
+  "window.density.editorTabHeight": "compact",
+  "editor.comments.ignoreEmptyLines": false,
+}
+``` -->
+
 
 # VS Code Snippets
 
@@ -1370,4 +1367,6 @@ There are several other LaTeX tools that can be useful: -->
 
 
 # Conclusion
-Using VS Code for LaTeX development can be highly efficient with the right tools and configurations. By integrating extensions like LaTeX Workshop, LTeX, and Paste Image, alongside structured project organization, you can significantly streamline your workflow. Explore these configurations to tailor a setup that works best for you!
+Using VS Code for LaTeX development can be highly efficient with the right tools and configurations. 
+By integrating extensions like LaTeX Workshop, LTeX+, and Paste Image, alongside structured project organization, you can significantly streamline your workflow. 
+Explore these configurations to tailor a setup that works best for you!
