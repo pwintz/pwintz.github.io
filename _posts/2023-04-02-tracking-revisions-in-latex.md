@@ -4,7 +4,7 @@ title: Tracking Revisions in LaTeX
 excerpt: Introduction to the \changes package for annotating chnages.
 date: 2023-04-02 08:00:00 -0800
 toc: true
-tags: latex collaboration
+tags: latex collaboration changes
 permalink: /permalink/tracking-revisions-in-latex
 comments:
   host: mathstodon.xyz
@@ -154,6 +154,95 @@ If `comment` is an _environment_, as is defined by the `verbatim` package, then 
 \let\endcomment\@undefined
 \makeatother
 </pre>
+
+## Defining Added/Deleted Environment Blocks
+
+The `changes` package only defines macros for added, deleted, and replaced text, but not environments. 
+Although macros are fine for short text, they have downsides for long blocks of text. 
+For example, you cannot put empty lines of code, e.g., to write multiple paragraphs, in the argument of `\added{}` (the result is a cryptic `Paragraph ended before \addcontentsline was complete.` error).
+Furthermore, any errors that occur with the argument of `\added{}` are marked at the end of `\added{}`, making it difficult the source of errors if the text inside `\added{}` is long, possibly including several sentences or equations. 
+Similarly, SyncTeX does not locate specific code with an `\added{}` macro, making it more difficult to navigate between your code and PDF.  
+   
+To fix all of these problems, I define environment versions of `\added{}` and `\deleted{}` as follows:
+{% raw %}<!-- We need this raw block to block Liquid from misinterpreting "{%".-->
+<pre class="language-latex">% Define environments for blocks of deleted text. 
+\usepackage{ifdraft}% Provides macros for testing if in draft or final mode. 
+\usepackage{xcolor}% 
+% We use \NewEnviron from environ to create environments that do not show their contents.
+\RequirePackage{environ}
+\definecolor{deletedColor}{rgb}{0.760, 0.000, 0.000}% Hex: #C20000FF (dark red)
+\definecolor{addedColor}  {rgb}{0.169, 0.243, 0.714}% Hex: #2B3EB6FF (dark blue)
+\NewEnviron{addedblock}{%
+    \ifoptionfinal{%
+        \BODY% Added content is inserted without modification in final version.
+    }{% If not final, then show color
+        {\color{addedColor}\BODY}%
+    }%
+}
+\NewEnviron{deletedblock}{%
+    \ifoptionfinal{%
+        % Deleted content is omitted in final version.
+    }{% If not final, then show color
+        {\color{deletedColor}\BODY}%
+    }%
+}
+</pre>
+{% endraw %}
+An example of the usage is
+<pre class="language-latex">\begin{addedblock}%
+    Here is some text. 
+
+		Here is a new paragraph. 
+\end{addedblock}
+</pre>
+I have not defined a `replacedblock` environment because there is not a straightforward way to give the added and deleted text. 
+To indicate deleted text, I simply combine an `addedblock` and a `deletedblock:
+<pre class="language-latex">\begin{addedblock}% Start of replacement text
+This is new text.
+\end{addedblock}% End of replacement text
+\begin{deletedblock}% Start of replaced text
+    This is old text.
+\end{deletedblock}% End of replaced text
+</pre>
+
+I wrote the several snippets to make these environments easy to use in VS Code.
+See the section on "Visual Studio Configuration", below for more info about defining snippets.
+```jsonc
+"Added Block Environment":{
+	"prefix": ["\\addedblock"],
+	"body": [
+		"\\begin{addedblock}%",
+		// Do not indent the added text because we want to 
+		// eventually delete \begin{added} and \end{added} 
+		// without needing to reformat the code.
+		"${0:$TM_SELECTED_TEXT}", 
+		"\\end{addedblock}%"
+	]
+},
+"Deleted Block Environment":{
+	"prefix": ["\\deletedblock"],
+	"body": [
+		"\\begin{deletedblock}%",
+		"\t$TM_SELECTED_TEXT",
+		"\\end{deletedblock}%", 
+		"$0"
+	]
+},
+"Replaced Block Environment":{
+	"prefix": ["\\replacedblock"],
+	"body": [
+		"\\begin{addedblock}% Start of replacement text",
+		// Do not indent the added text because we want to 
+		// eventually delete \begin{added} and \end{added} 
+		// without needing to reformat the code.
+		"${0:$TM_SELECTED_TEXT}",
+		"\\end{addedblock}% End of replacement text",
+		"\\begin{deletedblock}% Start of replaced text",
+		"\t$TM_SELECTED_TEXT",
+		"\\end{deletedblock}% End of replaced text"
+	]
+},
+```
 
 ## Visual Studio Configuration
 
