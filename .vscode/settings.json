@@ -17,6 +17,7 @@
     "ifcsname",
     "includegraphics",
     "interlinepenalty",
+    "invs",
     "marginparwidth",
     "mathbb",
     "newcommand",
@@ -32,6 +33,7 @@
     "providetheorem",
     "qedhere",
     "raggedright",
+    "realsn",
     "recompiles",
     "relint",
     "renewcommand",
@@ -50,5 +52,45 @@
     "underfull",
     "upshape",
     "usepackage"
+  ], 
+  "dryerLint.ruleSets": [
+    // ╭─────────────────────────────────────────────────────────────╮
+    // │ ╭─────────────────────────────────────────────────────────╮ │
+    // │ │   Dryer Lint Rule Set: "paulwintz.com Markdown Rules"   │ │
+    // │ ╰─────────────────────────────────────────────────────────╯ │
+    // ╰─────────────────────────────────────────────────────────────╯
+    {
+      "name": "paulwintz.com Markdown Rules",
+      "language": "markdown",
+      // "glob": "*",
+      "rules": [
+        {
+          "name": "Must have empty code line before or after display equation delimiter \"$$\" ", 
+          "pattern": [
+            // This pattern matches any "$$" that does not have an empty line before it and a nonempty line after it.
+            "[^ \\r\\n\\t][ \\t]*\\r?\\n?[ \\t]*\\$\\$(?![ \\t]*\\r?\\n[ \\t]*(?:\\r?\\n|$))"
+          ], 
+          "maxLines": 3
+          // Non-matching Test cases:
+          // 
+          //  $$ 
+          //  h_1(x) \geq 0,~h_2(x) \geq 0,~\dots,~h_{p-1}(x) \geq 0,~h_p(x) \geq 0.
+          //  $$
+          //  
+          //  $$ h_1(x) \geq 0,~h_2(x) \geq 0,~\dots,~h_{p-1}(x) \geq 0,~h_p(x) \geq 0.$$ 
+          // 
+          // Non-matching Test cases:
+          // 
+          //  text
+          //  $$
+          //  h_1(x) \geq 0,~h_2(x) \geq 0,~\dots,~h_{p-1}(x) \geq 0,~h_p(x) \geq 0.
+          //  $$
+          //  text
+          //  
+          //  text $$ h_1(x) \geq 0,~h_2(x) \geq 0,~\dots,~h_{p-1}(x) \geq 0,~h_p(x) \geq 0.$$ 
+          //  text
+        }, 
+      ]
+    },
   ]
 }

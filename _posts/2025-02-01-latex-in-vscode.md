@@ -202,12 +202,12 @@ I dislike these previews so I disable them.
   "latex-workshop.hover.preview.enabled": false,
 ```
 
-## _LTeX_: Spell-checking and Grammar Checking for LaTeX
+## _LTeX+_: Spell-checking and Grammar Checking for LaTeX
 
 In LaTeX documents, standard document spell checkers and grammar checkers don't work well due to the presence of non-text content, like equations and macros.
 For example, the sentence "`The function $f : \mathbb{R} \to \mathbb{R}$ are \emph{continuous}.`" will confuse most checkers, which will show false positive for `$f`, `\mathbb`, etc., and will likely not identify the mismatched pluralization of "The function ... are continuous".  
 
-Fortunately, there is a checker called _LTeX+_ that is built specifically to handle LaTeX documents (LTeX+ is based on the now deprecated extension [LTeX](https://marketplace.visualstudio.com/items?itemName=valentjn.vscode-ltex)).
+Fortunately, there is a checker called [_LTeX+_](https://marketplace.visualstudio.com/items/?itemName=ltex-plus.vscode-ltex-plus) that is built specifically to handle LaTeX documents ([_LTeX+_](https://marketplace.visualstudio.com/items/?itemName=ltex-plus.vscode-ltex-plus) is based on the now deprecated extension [_LTeX_](https://marketplace.visualstudio.com/items?itemName=valentjn.vscode-ltex)).
 In VS Code, the LTeX+ extension performs spell checking and grammar checking that is (mostly) aware of LaTeX syntax. 
 LTeX+ does a pretty good job of catching mistakes "out of the box", with its default settings, but adjusting the settings can allow it to catch more mistakes and have less false-positives.
 
@@ -215,13 +215,19 @@ LTeX+ does a pretty good job of catching mistakes "out of the box", with its def
 <!-- The following sections describe the changes that I make to the defaults regardless of documents. -->
 
 ### Increase LTeX+ Pickiness
-By default, LTeX+ only highlights spelling and grammar errors, but it also can provide a broader range of suggestions for "picky" rules. 
+By default, LTeX+ only highlights spelling and grammar errors, but it also can provide a broader range of suggestions for ["picky"](https://ltex-plus.github.io/ltex-plus/settings.html#ltexadditionalrulesenablepickyrules) rules. 
 Many of the picky rules regard writing style, such as alerting you to sentences that are too long, or when several sentences in a row start with the same word. 
 The following setting enables "picky" rules:
  ```json 
  "ltex.additionalRules.enablePickyRules": true
  ```
-Using picky rules produces some false-positives, but the overall benefit is worth it to me.
+
+Using picky rules produces more false-positives. 
+To resolve false positives, you can disable specific rules by selecting text that violates the rule and selecting "Disable Rule" from the quick suggestions panel:
+
+<img src="/assets/images/ltex_disable_rule.png" alt="screen show showing the Quick Suggestions panel with 'Disable rule' selected."/>
+
+Alternatively, you can select "hide false positive", as described [below](#hiding-false-positives) (see below), although I rarely use this feature.
 
 ### Adjusting Severity Levels
 
@@ -241,8 +247,8 @@ I use the following values for my `"ltex.diagnosticSeverity"` setting:
 ```
 A full list of LTeX rules is available [here](https://community.languagetool.org/rule/list).
 
-### Defining How LTeX Parses New LaTeX Commands 
-LTeX has built-in knowledge of many LaTeX macros, but for LTeX+ to correctly check text that has user-defined macros or environments, we need to provide additional information via the [`"ltex.latex.commands"`](https://ltex-plus.github.io/ltex-plus/settings.html#ltexdiagnosticseverity) and ["`ltex.latex.environments`"](https://ltex-plus.github.io/ltex-plus/settings.html#ltexlatexenvironments) settings.
+### Defining How LTeX+ Parses User-Defined LaTeX Commands 
+LTeX has built-in knowledge of some LaTeX macros or environments, but for LTeX+ to correctly check code with less common or user-defined macros or environments, we need to provide additional information via the [`"ltex.latex.commands"`](https://ltex-plus.github.io/ltex-plus/settings.html#ltexdiagnosticseverity) and ["`ltex.latex.environments`"](https://ltex-plus.github.io/ltex-plus/settings.html#ltexlatexenvironments) settings.
 <!-- Although LTeX handles built-in LaTeX macros, it does not know how to interpret user-defined macros. In particular, for some macros, you want the contents of the macro's arguments to be checked where other they should be ignored. Other times, a macro should be interpreted as a word that is either plural or singular, and either starts with a vowel or a constant.   -->
 ```json
 "ltex.latex.commands": {
@@ -295,7 +301,8 @@ LTeX has built-in knowledge of many LaTeX macros, but for LTeX+ to correctly che
 ```
 
 ### Hiding False Positives
-LTeX+ has a mechanism for [hiding false positives](https://ltex-plus.github.io/ltex-plus/advanced-usage.html), but it is fragile, requiring you to re-mark each false positive whenever any part of the sentence changes. 
+LTeX+ has a mechanism for [hiding false positives](https://ltex-plus.github.io/ltex-plus/advanced-usage.html), but it is fragile, requiring you to either re-mark each false positive whenever any part of the sentence changes or try to [write a regular expression](https://ltex-plus.github.io/ltex-plus/advanced-usage.html#hiding-false-positives-with-regular-expressions) to match the false positive.
+I don't recommend either of those methods.
 Instead, I define several ``dummy`` LaTeX macros to the values `"ignore"`, `"dummy"`, and `"voweldummy"` from the `"that I include in the `"ltex.latex.commands"` setting:
 ```latex
 % Definitions for telling LTeX to ignore certain parts of the LaTeX code.
@@ -322,11 +329,28 @@ It is also sometimes useful to include text that LTeX reads but is not included 
 \newcommand{\ltexhidden}[1]{}
 ```
 
+<!-- **Example (Using LTeX Macros to Hide False Positives).** 
+Below is a LaTeX snippet demonstrating how to use the macros `\ltexignore`, `\ltexdummy`, and `\ltexvoweldummy` to hide or adjust LTeX+ warnings:
+
+```latex
+% Example usage in your document:
+The function $\mathbb{R}$ is \ltexdummy{contnuous}. % "contnuous" is a false positive, so we hide it.
+We define the set $\mathcal{A}$ as \ltexignore{fllows}. % "fllows" is ignored by LTeX+.
+An \ltexvoweldummy{exmple} of this is shown below. % "exmple" is treated as starting with a vowel for grammar checks.
+```
+
+- Use `\ltexignore{...}` to completely ignore the contents for grammar and spelling.
+- Use `\ltexdummy{...}` to treat the contents as a regular word (for hiding false positives).
+- Use `\ltexvoweldummy{...}` to treat the contents as a word starting with a vowel (for correct article suggestions). -->
+
 ### Ignoring Irrelevant BibTeX Fields
 In BibTeX files, I typically have entries automatically generated by Zotero. Typically, each entry has an abstract and these tend to have a lot of false positives but are not included in the output. Instead of handling each issue individually, I use the `"ltex.bibtex.fields"` setting to disable LTeX+-checking of bibliography abstracts.
 ```jsonc
  "ltex.bibtex.fields": {
-    # Abstracts in bibliography entries typically are not typed by the user and are rarely inserted into the document, but tend to have a lot of LTeX+ warnings, so I disable warnings for the abstracts.
+    # Abstracts in bibliography entries typically are not 
+    # typed by the user and are rarely inserted into the 
+    # document, but tend to have a lot of LTeX+ warnings, 
+    # so I disable warnings for the abstracts.
     "abstract": false
   }
 ```
@@ -1364,6 +1388,45 @@ There are several other LaTeX tools that can be useful: -->
 <!-- latexindent.pl looks useful for auto-formatting LaTeX files. [latex-formatter](https://github.com/nfode/latex-formatter) is a VS Code extension for calling latexindent.pl. -->
 
 <!-- - https://www.nongnu.org/chktex/ linter for checking that LaTeX code doesn't have certain types of typographical and formatting mistakes. Does not provide binaries for Windows, so you have to build them yourself. -->
+
+# LaTeX Development
+This section contains info about setting up VS Code for development of LaTeX packages or classes. 
+I don't expect the suggestions to be useful if you are just writing documents in LaTeX without writing your own packages or classes.
+
+## Code Spell Extension
+When writing LaTeX packages or classes, it is nice to have a spell checker that is designed for code rather than documents. 
+The [_Code Spell_](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) extension serves this purpose. 
+In contrast to LTeX+, Code Spell will check variable names that are formed from the conjunction of multiple words such as `is_ready` or `MyVariable`, and allows for defining language specific dictionaries to avoid false positives when you use predefined names such as `includegraphics` in LaTeX.   
+
+My LaTeX dictionary (incomplete) is available [here](/assets/example_code/cspell-dictionaries/latex.txt).
+To create the dictionary file, you can use the Command `Spell: Create a Custom Dictionary` in the VS Code Command Pallet (`CTRL + SHIFT + P` or `CMD + SHIFT + P`, by default).
+
+My Code Spell settings in `settings.json` are shown here:
+```jsonc
+"cSpell.customDictionaries": {
+  "latex": {
+      "addWords": true,
+      "name": "latex",
+      "path": "C:/path/to/dictionary/latex.txt",
+      "scope": "user"
+  },
+  "custom": true, // Enable the `custom` dictionary
+},
+"cSpell.languageSettings": [
+  {
+    "dictionaries": [
+        "latex"
+    ],
+    "languageId": ["tex", "latex-expl3"]
+  },
+],
+// Add names and other words to the dictionary 
+// that are specific to your work, but not language specific.
+"cSpell.userWords": [
+  "Wintz",
+  // ...
+]
+```
 
 
 # Conclusion
