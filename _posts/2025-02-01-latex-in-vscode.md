@@ -418,7 +418,7 @@ The _LaTex-Formatter_ extension allows for automatic formatting of LaTeX files, 
 
 ## _Dryer Lint_ Extension
 
-The _Dryer Lint_ extension allows you to define custom [linting](https://en.wikipedia.org/wiki/Lint_(software)) patterns using regular expressions.
+The [_Dryer Lint_](https://marketplace.visualstudio.com/items?itemName=pwintz.dryer-lint) extension allows you to define custom [linting](https://en.wikipedia.org/wiki/Lint_(software)) patterns using regular expressions.
 I created the Dryer Lint based on the [_relint_](https://marketplace.visualstudio.com/items?itemName=n0brain3r.relint) by [Ryan Blonna](https://github.com/n0bra1n3r). 
 <!-- to perform static code analysis, such as checking for  -->
 In the subsections below, I list the lint rules that I developed to 1) identify syntax errors before compiling, 2) highlight formatting faux pas, and 3) enforce my preferred coding style. 
