@@ -30,8 +30,10 @@
   <pre class="language-{{include.language | default:latex}}"><!-- Use comments to prevent line breaks from appearing in output.
 -->{{ include.code }}<!--
 --></pre>
-  <!-- <strong>Output:</strong> -->
-  <div class="output-block">
-      <td>{{ include.output }}</td>
-  </div>
+  {% if include.output %} 
+    <!-- <strong>Output:</strong> -->
+    <div class="output-block">
+        <td>{{ include.output }}</td>
+    </div>
+  {% endif %}
 </div>

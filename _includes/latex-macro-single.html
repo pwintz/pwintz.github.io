@@ -1,3 +1,11 @@
+<details open="true">
+  <summary><b>Macro Code</b></summary>
+  {% include code-example.html  
+    language="latex"
+    code=include.definition
+  %}
+</details><br>
+
 <p>{{ include.description }}</p>
 
 <!-- {{ include.content | markdownify }} -->
@@ -25,13 +33,6 @@
   {% endfor %}
 </table>
 
-<details>
-  <summary><b>Definition</b></summary>
-  {% include code-example.html  
-    language="latex"
-    code=include.definition
-  %}
-</details><br>
 {% if include.vs-code-snippets %} 
 <details>
   <summary><b>VS Code Snippets</b></summary>

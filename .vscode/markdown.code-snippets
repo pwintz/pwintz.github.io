@@ -25,9 +25,15 @@
 		]
 	},
 	"Link" : {
-		"prefix": "/htmllink",
+		"prefix": ["/htmllink", "url"],
 		"body": [
 			"<a href=\"$TM_SELECTED_TEXT$1\">$TM_SELECTED_TEXT$0</a>"
 		]
-	}
+	}, 
+	"Markdown Link": {
+		"prefix": ["url", "link", "hyperlink"],
+		"body": [
+			"[${1:$TM_SELECTED_TEXT}](${2:url})"
+		],
+	},
 }
