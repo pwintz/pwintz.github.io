@@ -3,7 +3,7 @@ layout: latex-macro
 title: >
   Optimization Problems (<code>\minimize</code>, <code>\maximize</code>, <code>\subjectto</code>)
 description: >
-  I define <code>\minimize</code>, <code>\maximize</code>, and <code>\subjectto</code> as math operators using the <code>amsmath</code> package's macros <code>\DeclareMathOperator</code> and <code>\DeclareMathOperator*</code> (the resulting macros are equivalent to placing <code>\operatorname*{minimize}</code> in the body of your document).
+  I define <code>\minimize</code>, <code>\maximize</code>, and <code>\subjectto</code> as <a href="https://tex.stackexchange.com/questions/84302/what-is-the-difference-of-mathop-operatorname-and-declaremathoperator">math operators</a> using the <code>amsmath</code> package's macros <code>\DeclareMathOperator</code> and <code>\DeclareMathOperator*</code> (the resulting macros are equivalent to placing <code>\operatorname*{minimize}</code> in the body of your document).
   Defining the macros as math operators ensures that the font matches the roman math font (cf. using <code>\text{minimize}</code> which will become italicized when used in the body of a theorem), and gives us control over the placement of "limits" on the text, e.g., "<code>\minimize_{x \in \reals}</code>". 
   In particular, using <code>\DeclareMathOperator*</code> instead of <code>\DeclareMathOperator</code> causes subscripts to be placed below the text in display equations, so <code>\[\minimize_{x \in \reals}\]</code> is rendered as 
 
