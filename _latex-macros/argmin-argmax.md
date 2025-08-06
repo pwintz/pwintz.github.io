@@ -14,11 +14,11 @@ description: >
     <li>a slight space is included between "arg" and "min".</li>
   </ol>
 
-  As a side note, $\operatorname{arg\hspace{1mu}min} f$ (and $\operatorname{arg\hspace{1mu}max} f$) is a set, since there is not, in general, $f$ can have multiple minimizing arguments. Consider, for example, $(x, y) \mapsto f(x, y) := x^2$. Then, 
+  Side note: $\operatorname{arg\hspace{1mu}min} f$ generally denotes a <em>set</em>, since $f$ can have multiple minimizing arguments. Consider, for example, $(x, y) \mapsto f(x, y) := x^2$. Then, 
   
   $$\operatorname{arg\hspace{1mu}min} f = \{(0, y) : y \in \reals\}$$
   
-  Thus, in general, one should write $x \in \operatorname{arg\,min} f$ instead of $x = \operatorname{arg\,min} f$ unless $f$ is known to be minimized at a unique point (e.g., if $f$ is strictly convex). 
+  Thus, in general, one should write "$x \in \operatorname{arg\,min} f$" instead of "$x = \operatorname{arg\,min} f$" unless $f$ is known to be minimized at a unique point (e.g., if $f$ is strictly convex). 
 definition: | 
   % Define "\argmax" and "\argmin" macros.
   % These definitions require the amsmath package, 
@@ -35,5 +35,5 @@ examples:
         \argmax_x f(x)
       \]
     code_rendered: 
-      \operatorname*{arg\hspace{1mu}min}_{x} f(x)
+      \operatorname*{arg\hspace{1mu}max}_{x} f(x)
 ---
