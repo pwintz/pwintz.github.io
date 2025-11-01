@@ -1,0 +1,172 @@
+<!-- LTeX: disable -->
+<div id="osmdContainer"/>
+<script src="scripts/opensheetmusicdisplay.min.js"></script>
+
+
+<script>
+// Load the XML file using fetch
+fetch('scripts/piano_template.xml')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok ' + response.statusText);
+    }
+    return response.text();
+  })
+  .then(xmlString => {
+    // Parse the XML string into a DOM object
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(xmlString, "text/xml");
+
+    // Now you have a DOM object and can manipulate it.
+    // For example, update the work title:
+    const workTitleElement = xmlDoc.getElementsByTagName("work-title")[0];
+    workTitleElement.textContent = "The Virtuoso Pianist - Revised";
+    // console.log(xmlDoc);
+
+    // If you need to convert the updated DOM back to an XML string:
+    const serializer = new XMLSerializer();
+    const updatedXmlString = serializer.serializeToString(xmlDoc);
+    console.log(updatedXmlString);
+  })
+  .catch(error => { 
+    console.error('Error loading or parsing XML:', error);
+  });
+
+
+</script>
+<!-- <script>
+  var parser = new DOMParser();
+  var pianoTemplateDoc = null;
+  var measureTemplateDoc = null;
+
+  // async getJSON() {
+  //   return fetch('/website/MyJsonFile.json')
+  //       .then((response)=>response.json())
+  //       .then((responseJson)=>{return responseJson});
+  // }
+
+  const xmlString = `<!DOCTYPE score-partwise PUBLIC>
+            <score>
+            </score>
+          `;
+  // Parse the XML string
+  const xmlDoc = parser.parseFromString(xmlString, "text/xml");
+  console.log("xmlDoc", xmlDoc);
+
+</script>  -->
+
+<script>
+  /*
+  async function getXmlDoc(url) {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+      console.log("response from ", url, " (before parsing)", response);
+      // return parser.parseFromString(xmlStr, "text/xml");
+      xmlDoc = parser.parseFromString(response, "text/xml");
+      console.log("xmlDoc", xmlDoc);
+      return xmlDoc;
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
+  
+  function generateNoteXML() {
+    var noteDoc = document.implementation.createDocument("", "", null);
+    var note = noteDoc.createElement("note");
+
+    var pitch = noteDoc.createElement("pitch");
+    var step = noteDoc.createElement("step");
+    step.textContent = "D";
+    var octave = noteDoc.createElement("octave");
+    octave.textContent = "5";
+    pitch.appendChild(step);
+    pitch.appendChild(octave);
+
+    var duration = noteDoc.createElement("duration");
+    duration.textContent = "4";
+
+    var voice = noteDoc.createElement("voice");
+    voice.textContent = "1";
+
+    var type = noteDoc.createElement("type");
+    type.textContent = "eighth";
+
+    var stem = noteDoc.createElement("stem");
+    stem.textContent = "up";
+
+    var staff = noteDoc.createElement("staff");
+    staff.textContent = "1";
+
+    note.appendChild(pitch);
+    note.appendChild(duration);
+    note.appendChild(voice);
+    note.appendChild(type);
+    note.appendChild(stem);
+    note.appendChild(staff);
+
+    return noteDoc;
+  }
+
+  (async() => {
+    console.log('========= START ==========');
+
+    pianoTemplateDoc = getXmlDoc('scripts/piano_template.xml');
+    measureTemplateDoc = getXmlDoc('scripts/measure_template.xml');
+    
+    pianoTemplateDoc = await pianoTemplateDoc; 
+    measureTemplateDoc = await measureTemplateDoc;
+
+    console.log("Read: pianoTemplateDoc after await\n", pianoTemplateDoc); 
+    console.log("Read: measureTemplateDoc after await\n", measureTemplateDoc)
+
+    var noteXML = generateNoteXML();
+    console.log("noteXML: ", noteXML);
+
+    var measureXML = measureTemplateDoc.getElementById("measure").appendChild(noteXML);
+    pianoTemplateDoc.getElementById("piano").appendChild(measureXML);
+
+
+    var osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay("osmdContainer");
+    osmd.setOptions({
+      backend: "svg",
+      drawTitle: true,
+      // drawingParameters: "compacttight" // don't display title, composer etc., smaller margins
+    });
+    osmd
+      .load("scripts/test_music.xml")
+      .then(
+        function() {
+          osmd.render();
+        }
+      );
+    console.log('========= END =========='); 
+  })(); 
+
+  // pianoTemplateDoc = fetch('scripts/piano_template.xml')
+  //   .then(response => response.text())
+  //   .then(data => {
+  //     pianoTemplateDoc = parser.parseFromString(data, "application/xml");
+  //     console.log("pianoTemplateDoc in anonymous function\n", pianoTemplateDoc);
+  //     return pianoTemplateDoc;
+  //   })
+  //   .catch(error => console.error('Error fetching the XML file:', error));
+
+  // fetch('scripts/measure_template.xml')
+  //   .then(response => response.text())
+  //   .then(data => {
+  //     measureTemplateDoc = parser.parseFromString(data, "application/xml");
+  //   })
+  //   .catch(error => console.error('Error fetching the XML file:', error));
+  
+  // Print the templates.
+  // console.log("pianoTemplateDoc\n", pianoTemplateDoc); 
+  // console.log(measureTemplateDoc)
+*/
+</script>
+
+Hell
+
