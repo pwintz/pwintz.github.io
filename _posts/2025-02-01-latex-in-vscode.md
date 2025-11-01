@@ -22,12 +22,11 @@ In this document, I describe how to use and configure VS Code to achieve the fol
 - LaTeX "snippets" for actions like toggling between inline equations (i.e., `$...$`) and display equations (`\[...\]`).
 - Custom linting tools for quickly identifying syntax errors (before compiling), and highlighting formatting or coding errors. 
 
-
 # VS Code Settings
 This section describes the VS Code settings I use, along with the VS Code Extensions described below, for my LaTeX editing environment.
 <!-- In addition to VS Code extensions, there are several built-in VS Code settings and features that improve LaTeX editing. -->
 
-To In my LaTeX projects, I use the following settings to help VS Code handle LaTeX-related file formats correctly.
+In my LaTeX projects, I use the following settings to help VS Code handle LaTeX-related file formats correctly.
 ```jsonc
   // Treat new files (before first save) as LaTeX files.
   "files.defaultLanguage": "latex",
@@ -303,7 +302,7 @@ LTeX has built-in knowledge of some LaTeX macros or environments, but for LTeX+ 
 ### Hiding False Positives
 LTeX+ has a mechanism for [hiding false positives](https://ltex-plus.github.io/ltex-plus/advanced-usage.html), but it is fragile, requiring you to either re-mark each false positive whenever any part of the sentence changes or try to [write a regular expression](https://ltex-plus.github.io/ltex-plus/advanced-usage.html#hiding-false-positives-with-regular-expressions) to match the false positive.
 I don't recommend either of those methods.
-Instead, I define several ``dummy`` LaTeX macros to the values `"ignore"`, `"dummy"`, and `"voweldummy"` from the `"that I include in the `"ltex.latex.commands"` setting:
+Instead, I define several ``dummy`` LaTeX macros to the values `"ignore"`, `"dummy"`, and `"voweldummy"` that I include in the `"ltex.latex.commands"` setting:
 ```latex
 % Definitions for telling LTeX to ignore certain parts of the LaTeX code.
 % Example: "This is a \ltexdummy{miskate}."
@@ -390,7 +389,7 @@ This extension is not designed for LaTeX in particular, however, so you need to 
 
 
 
-## Pasting Images into LaTeX
+<!-- ## Pasting Images into LaTeX
 
 The `Paste Images` extension simplifies inserting images into LaTeX documents. 
 In particular, you can insert images from your clipboard into a LaTeX documents and `Paste Images` will create an image file in a specified directory and insert LaTeX code that references it.
@@ -406,7 +405,7 @@ Since the `Paste Image` extension is not designed for LaTeX, specifically, you n
     "pasteImage.defaultName": "${currentFileNameWithoutExt}-HH-mm-ss",
     "pasteImage.path": "${currentFileDir}/pasted-images",
   }
-  ```
+  ``` -->
 
 <!-- ## _LaTex-Formatter_ extension
 
