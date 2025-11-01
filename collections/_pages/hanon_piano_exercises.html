@@ -1,0 +1,51 @@
+---
+layout: single
+permalink: /tools/hanon/
+title: Hanon Piano Exercises
+---
+
+<!-- <script src="_vextab.js"></script> -->
+
+<script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
+
+<span id="hanon-key">C major</span> 
+<!-- Up Pattern -->
+<span id="hanon-up-pattern" style="display:none;">C, E, F, G, A, G, F, E</span>
+<span  id="hanon-up-right-fingers-pattern" style="display:none;">1,2,3,4,5,4,3,2</span> 
+<span  id="hanon-up-left-fingers-pattern" style="display:none;">5,4,3,2,1,2,3,4</span> 
+<!-- Down pattern -->
+<span  id="hanon-down-pattern" style="display:none;">G, E, D, C, B, C, D, E</span> 
+<span  id="hanon-down-left-fingers-pattern" style="display:none;"> 1, 2, 3, 4, 5, 4, 3, 2</span> 
+<span  id="hanon-down-right-fingers-pattern" style="display:none;">5, 4, 3, 2, 1, 2, 3, 4</span> 
+
+<div class="vextab-auto"
+    width=600 scale=0.8 id="hanon">
+    options space=20
+	  stave notation=true key=C time=2/4
+
+    notes :16 <span id="hanon-up-notes"></span> 
+    text  :16,<span id="hanon-up-fingers"></span> |
+
+    stave notation=true key=C
+
+    notes :16 <span id="hanon-down-notes"></span> 
+    text  :16,<span id="hanon-down-fingers"></span> |
+</div>
+
+<pre>
+=== Debug output === 
+<span id="hanon-debug"></span>  
+<!-- Up
+<span id="hanon-up-notes-debug"></span>  
+<span id="hanon-up-fingers-debug"></span>
+Down
+<span id="hanon-down-notes-debug"></span>  
+<span id="hanon-down-fingers-debug"></span> -->
+</pre>
+
+<div id="output"></div>
+<div id="output2"></div>
+<div id="output3"></div>
+
+<script src="scripts/hanon_generation.js"></script>
+<script src="/assets/js/_vextab.js"></script>
