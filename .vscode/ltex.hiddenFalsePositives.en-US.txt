@@ -14,3 +14,4 @@
 {"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qrelint: Allows for defining custom linting rules to highlighting writing errors that are specific to your context.\\E$"}
 {"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QThe \\E(?:Dummy|Ina|Jimmy-|Dummy-|Maniquí-|Maniquíes-)[0-9]+\\Q rule requires that you are using the \\E(?:Dummy|Ina|Jimmy-|Dummy-|Maniquí-|Maniquíes-)[0-9]+\\Q package and label equations using labels starting with \"eq:\".\\E$"}
 {"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QYou should also have \\E(?:Dummy|Ina|Jimmy-|Dummy-|Maniquí-|Maniquíes-)[0-9]+\\Q configured to reference equations using a number inside a parenthesis, e.g., \"(12)\" rather than \"Eq. 12\".\\E$"}
+{"rule":"PLUS_MINUS","sentence":"^\\QInstead of handling each issue individually, I use the \\E(?:Dummy|Ina|Jimmy-|Dummy-|Maniquí-|Maniquíes-|Dummy\\+|Dummy's\\+)[0-9]+\\Q setting to disable LTeX+-checking of bibliography abstracts.\\E$"}

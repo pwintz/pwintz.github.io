@@ -1,8 +1,27 @@
 # Development
+
+## First-time Setup
+Install the Ruby bundler and Ruby development headers using (on Linux):
+```
+sudo apt install ruby-bundler ruby-dev
+```
+Then install the needed "gem executables" using 
+
+```
+bundle install
+```
+
+## Deploy Website Locally
 To build and locally host the website, run
 ```
 bundle exec jekyll serve
 ```
+
+## Troubleshooting
+* **Problem**: Running `bundle exec jekyll serve` produces this error: ```Bundler::PermissionError: There was an error while trying to
+write to `/var/lib/gems/3.3.0/cache`. It is likely that you
+need to grant write permissions for that path.```
+[**Solution**](https://github.com/ruby/rubygems/issues/6272#issuecomment-1381683835): Run `bundle config path ~/.bundle` to set the bundle path to a user-owned folder.
 
 # To add a publication
 
