@@ -48,6 +48,26 @@
 
 }
 
+.contract, .contract-article {
+  
+  // ╭───────────────────────────────────────────────────────╮
+  // │             Make Article headers "Sticky"             │
+  // ╰───────────────────────────────────────────────────────╯
+  // Make each article header stick to the top of the screen as you scroll down. This helps the reader orient themselves.
+  // We don't h2 and h3 headers because it becomes difficult to make sure the headers are correctly stacked.
+  h1 // Article
+  {
+    position: -webkit-sticky;
+    position: sticky;
+    background-color: white; /* Background color */
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    display: block;
+    top: 0px;
+    z-index:6;
+  }
+}
+
 // // Define style for an article page.
 // .contract-article {
 //   h1, // Article
@@ -200,7 +220,7 @@
 
 .tooltip .tooltip-text {
   visibility: hidden; /* Initially hidden */
-  width: 450px; /* Tooltip box width */
+  width: 400px; /* Tooltip box width */
   background-color: #405c82; /* Background color */
   color: #fff; /* Text color */
   text-align: left; /* Center text inside the tooltip */
