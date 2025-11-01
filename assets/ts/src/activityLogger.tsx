@@ -6,23 +6,29 @@ import ReactModal from 'react-modal';  // A modal dialog component
 
 // TypeScript interface defining the state of our component.
 class AppState {
+  name: string; // A human readable name for the state
   isFileSelected: boolean;
   showModal: boolean;  // Tracks whether modal is visible or hidden
   promptText: string;
-  textAssignmentCallback: (text: string) => void;
+  // The onExitCallback property defines actions that occur as the app is leaving the current state.
+  onExitCallback: (text: string) => void;
 
-  static INITIAL = new AppState(false, false, "", (_text: string) => {});
+  static INITIAL = new AppState("Initial", false, false, "", (_text: string) => {});
 
   constructor(
+    name: string,
     isFileSelected: boolean,
     showModal: boolean,
     promptText: string,
-    textAssignmentCallback: (text: string) => void) {
-      this.isFileSelected = isFileSelected;
-      this.showModal = showModal;
-      this.promptText = promptText;
-      this.textAssignmentCallback = textAssignmentCallback;
+    onExitCallback: (text: string) => void
+  ) {
+    this.name = name;
+    this.isFileSelected = isFileSelected;
+    this.showModal = showModal;
+    this.promptText = promptText;
+    this.onExitCallback = onExitCallback;
   }
+
   toString() {
     return `AppState{isFileSelected=${this.isFileSelected}, showModal=${this.showModal}, promptText=${this.promptText}}`;
   }
@@ -82,8 +88,14 @@ class ObsidianAdvancedURIAppender extends Appender {
     const obsidianURI = this.buildAppendAdvancedURI(contentToAppend);
     console.log(`obsidianURI: ${obsidianURI}`); // Log the URI to the console for debugging
     window.location.href = obsidianURI;
+    // const handle = window.open(obsidianURI, "_self");
+    // alert(`handle: ${handle}`)
+    // window.focus()
     // Give the browser a moment to process the URI before focusing on the window.
-    sleepMilliseconds(1000, window.focus); 
+    // sleepMilliseconds(1000, () => {
+    //   console.log("Focusing on window after 1 second delay.");
+    //   return window.focus();
+    // }); 
   }
 }
 
@@ -115,6 +127,8 @@ class ObsidianURIAppender extends Appender {
     const obsidianURI = this.buildAppendURI(contentToAppend);
     console.log(`obsidianURI: ${obsidianURI}`); // Log the URI to the console for debugging
     window.location.href = obsidianURI;
+    // const handle = window.open(obsidianURI, "_blank", "popup");
+    // alert(`handle: ${handle}`)
     // Give the browser a moment to process the URI before focusing on the window.
     sleepMilliseconds(1000, window.focus); 
   }
@@ -200,6 +214,218 @@ const appender: Appender = (() => {
   } 
 )();
 
+// class DelayedReminderState {
+//   permissionGranted: boolean;
+// }
+
+class DelayedReminder {
+
+}
+
+interface DelayedReminderViewProps {
+  onDelayEndCallback: () => void;
+}
+
+class DelayedReminderView extends React.Component<DelayedReminderViewProps, {}> {
+  statusMsg: string;
+  notificationPermissionPromise: Promise<NotificationPermission>;
+  nextReminderTime: Date | undefined;
+  nMinutesDelayRef: React.RefObject<HTMLInputElement | null>;
+  onDelayEndCallback: () => void;
+  clearNotificationFnc: (() => void);
+  interruptSleepFnc: (() => void);
+  permissionStatus: NotificationPermission | undefined;
+
+  constructor(props: {onDelayEndCallback: () => void}) { 
+    super(props);
+    this.statusMsg = "[Default Notification Status].";
+    this.nMinutesDelayRef = React.createRef();
+    this.onDelayEndCallback = props.onDelayEndCallback;
+
+    this.nMinutesDelayRef = React.createRef();
+    this.setReminder = this.setReminder.bind(this);
+    this.updateReminder = this.updateReminder.bind(this);
+    this.cancelReminders = this.cancelReminders.bind(this);
+    this.requestNotificationPermission = this.requestNotificationPermission.bind(this);
+    
+    this.interruptSleepFnc = () => {};
+    this.clearNotificationFnc = () => {};
+
+    if (!("Notification" in window)) {
+      // Check if the browser supports notifications
+      this.statusMsg = "This browser does not support desktop notification";
+    } 
+
+    this.notificationPermissionPromise = this.requestNotificationPermission();
+  }
+
+  private requestNotificationPermission(): Promise<NotificationPermission> {
+    this.notificationPermissionPromise = Notification.requestPermission();
+    this.notificationPermissionPromise.then((permission) => {
+      if (permission === "granted") {
+        this.statusMsg = "Notification permission granted.";
+      } else if (permission === "denied") {
+        this.statusMsg = "Notification permission denied.";
+      } else {
+        this.statusMsg = "Notification permission default.";
+      }
+      this.permissionStatus = permission;
+      console.log(`Notification permission during construction of DelayedReminderView: ${permission}`);
+    });
+    return this.notificationPermissionPromise;
+  }
+
+  render(): React.ReactNode {
+    var requestNotificationPermissionButton: React.ReactNode | null = null;
+    if (this.permissionStatus === "default") {
+      requestNotificationPermissionButton = (
+        <button onClick={this.requestNotificationPermission}>
+          Enable Notifications
+        </button>
+      );
+    } 
+
+    return (
+      <div>        
+
+        <p>
+          Delay: <input ref={this.nMinutesDelayRef} type="number" defaultValue="0" style={{ width: '3em' }} /> minutes
+          {/* Skip Pause Button */}
+          <button 
+            onClick={
+              () => {
+                console.log('Skip delay button clicked');
+                this.skipDelay();
+              }
+            }
+            disabled={this.nextReminderTime === undefined}
+            style={{
+              opacity: this.nextReminderTime === undefined ? 1 : 0.5,
+              cursor: this.nextReminderTime === undefined ? 'pointer' : 'not-allowed'
+            }}
+          >Skip Delay</button>
+          Next reminder: {niceFormatTime(this.nextReminderTime)}
+          <button
+            onClick={
+              this.nextReminderTime === undefined? this.updateReminder : this.cancelReminders
+            }
+          >
+            {this.nextReminderTime === undefined? "Restart reminders" : "Cancel"}
+          </button>
+        </p>
+        <p>Notification Status: {this.statusMsg} {requestNotificationPermissionButton}</p>
+      </div>
+    );
+  }
+
+  updateReminder(): void {
+    var nDelaySeconds: number | undefined = undefined;
+    if (this.nMinutesDelayRef.current == null) {
+      throw new Error('nMinutesDelayRef element was not found.')
+    }
+    const nDelayMinutes = this.nMinutesDelayRef.current.valueAsNumber
+    if (nDelayMinutes > 0) {
+      console.log(`Delaying ${nDelayMinutes} minutes`);
+      nDelaySeconds = 60 * nDelayMinutes;
+    } else {
+      console.log('No delay given. Only delaying 5 seconds, for testing.');
+      nDelaySeconds = 5
+    }
+    this.setReminder(nDelaySeconds);
+  }
+
+  private setReminder(nDelaySeconds: number): void {
+    // Set a reminder for the next activity check-in.
+    this.nextReminderTime = new Date(Date.now() + nDelaySeconds * 1000);
+    console.log(`Next reminder: ${this.nextReminderTime}`);
+
+    const onPauseEndCallback = () => { 
+      this.onDelayEndCallback();
+      // Clear the notification, if it exists, so that we don't get multiple notifications.
+      this.clearNotificationFnc();
+      this.clearNotificationFnc = this.notifyMe(`Time to record your activity check-in! (${nowTimeString()})`);
+
+      // Create a reminder to check-in. 
+      const recurrentReminder = () => {
+        this.clearNotificationFnc();
+        this.clearNotificationFnc = this.notifyMe(`Remember to check-in! (${nowTimeString()})`);
+        this.interruptSleepFnc = sleepSeconds(nDelaySeconds, recurrentReminder);
+      };
+      sleepSeconds(nDelaySeconds, recurrentReminder)
+    }
+
+    this.interruptSleepFnc = sleepSeconds(nDelaySeconds, onPauseEndCallback);
+    this.setState({});
+  }
+
+  onDelayEnd(): void {
+    // Called when the delay ends.
+    console.log("Delay ended.");
+    this.onDelayEndCallback();
+    this.clearNotificationFnc();
+    this.clearNotificationFnc = this.notifyMe(`Time to record your activity check-in! (${nowTimeString()})`);
+  }
+
+  skipDelay(): void {
+    console.log("Skipping pause.");
+    this.interruptSleepFnc() 
+    this.interruptSleepFnc = () => {};
+    this.onDelayEnd();
+  }
+
+  cancelReminders(): void {
+    console.log("Canceling reminders.");
+    this.nextReminderTime = undefined;
+    this.interruptSleepFnc() 
+    this.interruptSleepFnc = () => {};
+    this.setState({})
+  }
+
+  notifyMe(notificationMessage: string): () => void {
+    // Returns a callback for dismissing the notification.
+    const onclickCallback = () => {
+      window.focus();
+    };
+    var notification: Notification | null = null;
+
+    // if (!("Notification" in window)) {
+    //   // Check if the browser supports notifications
+    //   alert("This browser does not support desktop notification");
+    //   return () => {};
+    // } else 
+    window.postMessage("hello");
+    this.notificationPermissionPromise.then((permission) => {
+      if (permission === "granted") {
+      }
+      
+    });
+    if (Notification.permission === "granted") {
+      // Check whether notification permissions have already been granted;
+      // if so, create a notification
+      notification = new Notification(notificationMessage, );
+      // …
+    } else if (Notification.permission !== "denied") {
+      // We need to ask the user for permission
+      Notification.requestPermission().then((permission) => {
+        // If the user accepts, let's create a notification
+        console.log(`Notification permission: ${permission}`);
+        if (permission === "granted") {
+          notification = new Notification(notificationMessage);
+        }
+      });
+    }
+    if (notification) {
+      notification.onclick = onclickCallback;
+      return () => {
+        notification?.close();
+        notification = null;
+      }
+    } else {
+      return () => {};
+    }
+  }
+}
+
 // Define a React component class that manages a modal dialog
 // React.Component<Props, State> is a generic class where we specify:
 // - Props: {} (empty object because this component takes no properties)
@@ -212,26 +438,22 @@ class ExampleApp extends React.Component<{}, AppState> {
   nextActivityText: string
   activityLogFileHandle: FileSystemFileHandle | undefined;
   activityInputRef: React.RefObject<HTMLInputElement | null>;
-  nMinutesDelayRef: React.RefObject<HTMLInputElement | null>;
-  cancelPauseFnc: (() => void);
-  clearNotificationFnc: (() => void);
+  delayedReminderViewRef: React.RefObject<DelayedReminderView | null>;
 
   constructor(props: {}) {
     super(props);
     
     this.activityInputRef = React.createRef();
-    this.nMinutesDelayRef = React.createRef();
+    this.delayedReminderViewRef = React.createRef();
     // console.log(`this.inputElement: ${this.inputElement}`)
-
+    
     // Bind event handler methods to this instance
     // This ensures 'this' refers to the component instance when these methods are called
     this.nextState = this.nextState.bind(this);
-    this.cancel = this.cancel.bind(this);
-    this.skipPause = this.skipPause.bind(this);
+    this.submitActivityLogEntry = this.submitActivityLogEntry.bind(this);
+    // this.cancel = this.cancel.bind(this);
     // this.appendToFile = this.appendToFile.bind(this);
 
-    this.cancelPauseFnc = () => {};
-    this.clearNotificationFnc = () => {};
 
     this.lastActivityText = "";
     this.betterActivityText = "";
@@ -243,78 +465,48 @@ class ExampleApp extends React.Component<{}, AppState> {
       //   isFileSelected: false,
       //   showModal: false,
       //   promptText: "", 
-      //   textAssignmentCallback: (text: string) => { this.lastActivityText = text; }
+      //   onExitCallback: (text: string) => { this.lastActivityText = text; }
       // },
       {
+        name: "First prompt",
         isFileSelected: true,
         showModal: true,
         promptText: "What were you doing?", 
-        textAssignmentCallback: (text: string) => { this.lastActivityText = text; }
+        onExitCallback: (text: string) => { 
+          this.lastActivityText = text; 
+        }
       },
       {
+        name: "Second prompt",
         isFileSelected: true,
         showModal: true,
         promptText: "What should you be doing?", 
-        textAssignmentCallback: (text: string) => { this.betterActivityText = text; }
+        onExitCallback: (text: string) => { 
+          this.betterActivityText = text; 
+        }
       },
       {
+        name: "Third prompt",
         isFileSelected: true,
         showModal: true,
         promptText: "What will you do now?", 
-        textAssignmentCallback: (text: string) => { 
+        onExitCallback: (text: string) => { 
           this.nextActivityText = text; 
-
-          const logLine = `| ${nowTimeString()} | ${this.lastActivityText} | ${this.betterActivityText} | ${this.nextActivityText} |`;
-          appender.append(logLine);
-          // this.appendToFile(logLine);
-
-          if (this.nMinutesDelayRef.current == null) {
-            throw new Error('nMinutesDelayRef element was not found.')
-          }
-          var nDelayMinutes = this.nMinutesDelayRef.current.valueAsNumber;
-          var nDelaySeconds: number = 0; 
-          if (nDelayMinutes > 0) {
-            console.log(`Delaying ${nDelayMinutes} minutes`);
-            nDelaySeconds = 60 * nDelayMinutes;
-          } else {
-            console.log('No delay given. Only delaying 5 seconds, for testing.');
-            nDelaySeconds = 5
-          }
-
-
-          const onPauseEndCallback = () => { 
-            this.nextState()
-            // Clear the notification, if it exists, so that we don't get multiple notifications.
-            this.clearNotificationFnc();
-            this.clearNotificationFnc = notifyMe(`Time to record your activity check-in! (${nowTimeString()})`);
-
-            
-            this.cancelPauseFnc = sleepSeconds(nDelaySeconds, () => {
-              this.clearNotificationFnc();
-              this.clearNotificationFnc = notifyMe(`Time to record your activity check-in! (${nowTimeString()})`);
-            });
-
-          }
-
-          this.cancelPauseFnc = sleepSeconds(nDelaySeconds, onPauseEndCallback);
-          
+          this.submitActivityLogEntry();
         }
       },
       { // Pause before next entry.
+        name: "Pause",
         isFileSelected: true,
         showModal: false,
         promptText: "", 
-        textAssignmentCallback: (_text: string) => { 
+        onExitCallback: (_text: string) => { 
           this.lastActivityText = ""; 
           this.betterActivityText = "";
           this.nextActivityText = "";
         }
       },
     ]
-
-    // Initialize the component's state
-    // this.state = this.stateSequence[0]; // TODO: Change back to INITIAL.
-    // this.state = AppState.INITIAL;
 
     appender.append([
       '', 
@@ -343,44 +535,62 @@ class ExampleApp extends React.Component<{}, AppState> {
       this.state = this.stateSequence[0];
     }
   }
+
+  // Each time the state updates, give focus to the text box, if the modal prompt is open.
+  componentDidUpdate(prevProps: {}, prevState: AppState) { 
+    console.log(`componentDidUpdate: this.state: ${(this.state.name)}, prevState: ${prevState.name}`);
+      if (this.state.showModal) {
+        
+        if (this.activityInputRef.current === null) {
+          // throw new Error("this.activityInputRef.current was null")
+          console.error("this.activityInputRef.current was null");
+        } else {
+          this.activityInputRef.current.focus()
+        }
+      }
+  }
+
+  componentDidMount() {
+    if (this.state.showModal && this.activityInputRef.current) {
+      this.activityInputRef.current.focus();
+    }
+  }
   
-  remindToCheckIn(nDelaySeconds: number): void { 
-    this.cancelPauseFnc = sleepSeconds(nDelaySeconds, () => {
-      this.clearNotificationFnc();
-      this.clearNotificationFnc = notifyMe(`Time to record your activity check-in! (${nowTimeString()})`);
-    });
+  // remindToCheckIn(nDelaySeconds: number): void { 
+  //   this.interruptSleepFnc = sleepSeconds(nDelaySeconds, () => {
+  //     this.clearNotificationFnc();
+  //     this.clearNotificationFnc = notifyMe(`Time to record your activity check-in! (${nowTimeString()})`);
+  //   });
+  // }
+
+  submitActivityLogEntry(): void {
+    const logLine = `| ${nowTimeString()} | ${this.lastActivityText} | ${this.betterActivityText} | ${this.nextActivityText} |`;
+    appender.append(logLine);
+    // this.appendToFile(logLine);
+    this.delayedReminderViewRef.current?.updateReminder();
   }
 
   nextState(): void {
-    
-    this.clearNotificationFnc();
-    this.clearNotificationFnc = () => {};
-
     var text = "";
     if (this.activityInputRef.current !== null) {
       text = this.activityInputRef.current.value;
       this.activityInputRef.current.value = "";
-      this.activityInputRef.current.focus();
     }
 
-    this.state.textAssignmentCallback(text || "");
+    this.state.onExitCallback(text || "");
     this.stateSequenceIndex = (this.stateSequenceIndex + 1) % this.stateSequence.length;
     this.setState(this.stateSequence[this.stateSequenceIndex]);
     console.log(`this.stateSequenceIndex: ${this.stateSequenceIndex}  `)
+
+    // Update notification.
+    this.delayedReminderViewRef.current?.updateReminder();
   }
 
-  cancel(): void {
-    this.stateSequenceIndex = 0;
-    this.setState(this.stateSequence[0]);
-    this.state.textAssignmentCallback("")
-  }
-
-  skipPause(): void {
-    console.log("Canceling pause.");
-    this.cancelPauseFnc() 
-    this.cancelPauseFnc = () => {};
-    this.nextState();
-  }
+  // cancel(): void {
+  //   this.stateSequenceIndex = 0;
+  //   this.setState(this.stateSequence[0]);
+  //   this.state.onExitCallback("")
+  // }
 
   // The render method defines what the component displays
   // It's called automatically when state or props change
@@ -399,33 +609,29 @@ class ExampleApp extends React.Component<{}, AppState> {
           <p>
             <button 
               id="selectFileButton" 
-                onClick={appender instanceof FileSystemAPIAppender ? appender.promptFileSelection : () => {}}
-                disabled={this.state.isFileSelected}
-                style={{
-                  // opacity: this.state.isFileSelected? 0.5 : 1,
-                  display: this.state.isFileSelected? 'none' : 'block'
-                }}
+              onClick={appender instanceof FileSystemAPIAppender ? appender.promptFileSelection : () => {}}
+              disabled={this.state.isFileSelected}
+              style={{
+                // opacity: this.state.isFileSelected? 0.5 : 1,
+                display: this.state.isFileSelected? 'none' : 'block'
+              }}
             >Select File</button>
           </p>
         )}
+
+        <DelayedReminderView 
+          ref={this.delayedReminderViewRef} 
+          onDelayEndCallback={() => {
+            this.nextState()
+          }}
+        />
+
         {appender instanceof ObsidianAdvancedURIAppender ? (
           <p> 
             <b>Vault Name:</b>&nbsp;<input type="text" defaultValue={(appender as ObsidianAdvancedURIAppender).vaultName} style={{ width: '20em' }} /><br></br>
             <b>File path in vault:</b>&nbsp;<input type="text" defaultValue={(appender as ObsidianAdvancedURIAppender).fileName} style={{ width: '100%' }} />
           </p>
         ) : null}
-        <p>
-          Delay: <input ref={this.nMinutesDelayRef} type="number" defaultValue="15" style={{ width: '3em' }} /> minutes
-          {/* Button that skips the pause when clicked */}
-        <button 
-          onClick={this.skipPause}
-          disabled={!this.state.isFileSelected || this.state.showModal}
-          style={{
-            opacity: this.state.isFileSelected ? 1 : 0.5,
-            cursor: this.state.isFileSelected ? 'pointer' : 'not-allowed'
-          }}
-        >Skip Delay</button>
-        </p>
 
         Appended content:
         <pre>
@@ -466,34 +672,34 @@ class ExampleApp extends React.Component<{}, AppState> {
             // Set the style for the modal popup box.
             content: {
               position: 'absolute',
-              width: '400px',
+              // maxWidth: '80%',
+              maxWidth: '400px',
+              // width: '400px',
               height: '200px',
               textAlign: 'center',
               margin: '10% auto',
-              // top: '40px',
-              // left: '40px',
-              // right: '40px',
-              // bottom: '40px',
               border: '1px solid #ccc',
               background: '#fff',
               overflow: 'auto',
-              borderRadius: '4px',
+              borderRadius: '5px',
               outline: 'none',
               padding: '20px'
             }
           }}
         >
-            {this.state.promptText}
-            <input 
+          {this.state.promptText}
+          <input 
             type="text" 
             placeholder="Activity" 
             ref={this.activityInputRef} 
+            autoFocus
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
-              this.nextState();
+                e.preventDefault();
+                this.nextState();
               }
             }}
-            />
+          />
           {/* Button inside modal that closes it */}
           {/* <button onClick={this.cancel}>Cancel</button> */}
           <button onClick={this.nextState}>Enter</button>
@@ -520,56 +726,25 @@ const root = createRoot(rootElement);
 // Render our ExampleApp component into the root element
 root.render(<ExampleApp />);
 
-// Export the component so it can be imported elsewhere
-// export default ExampleApp;
-
 
 // ----- Some utility functions -----
-function notifyMe(notificationMessage: string): () => void {
-  // Returns a callback for dismissing the notification.
-  const onclickCallback = () => {
-    window.focus();
-  };
-  var notification: Notification | null = null;
-
-  if (!("Notification" in window)) {
-    // Check if the browser supports notifications
-    alert("This browser does not support desktop notification");
-    return () => {};
-  } else if (Notification.permission === "granted") {
-    // Check whether notification permissions have already been granted;
-    // if so, create a notification
-    notification = new Notification(notificationMessage, );
-    // …
-  } else if (Notification.permission !== "denied") {
-    // We need to ask the user for permission
-    Notification.requestPermission().then((permission) => {
-      // If the user accepts, let's create a notification
-      if (permission === "granted") {
-        notification = new Notification(notificationMessage);
-      }
-    });
-  }
-  if (notification) {
-    notification.onclick = onclickCallback;
-    return () => {
-      notification?.close();
-      notification = null;
-    }
-  } else {
-    return () => {};
-  }
-}
 
 function nowTimeString(): string {
   const now = new Date();
-  const hours = now.getHours();
-  const minutes = now.getMinutes();
-  return `${hours % 12 || 12}:${minutes.toString().padStart(2, '0')} ${hours >= 12 ? 'pm' : 'am'}`;
+  return niceFormatTime(now);
 }
 
 function nowDateString(): string {
   return new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+}
+
+function niceFormatTime(date: Date | undefined): string {
+  if (date === undefined) {
+    return "--:--";
+  }
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  return `${hours % 12 || 12}:${minutes.toString().padStart(2, '0')} ${hours >= 12 ? 'pm' : 'am'}`;
 }
 
 function sleepMilliseconds(ms: number, callback?: () => void): () => void {
