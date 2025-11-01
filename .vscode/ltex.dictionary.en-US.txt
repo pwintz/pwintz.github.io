@@ -18,3 +18,4 @@ endraw
 ltex
 IntelliSense
 recompiles
+Halmos

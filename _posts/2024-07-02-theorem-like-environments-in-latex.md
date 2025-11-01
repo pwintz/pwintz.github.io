@@ -51,6 +51,8 @@ The remainder of this document shows how to
 - Insert proofs, including modifying the introductory "_Proof._" and moving the QED mark.
 <!-- TODO: Add "Unified numbering", "labels in margins", and "discouraging page breaks". -->
 
+
+
 # Packages
 
 <!-- To set up theorem-like environments, we load several packages in the preamble of the document.  -->

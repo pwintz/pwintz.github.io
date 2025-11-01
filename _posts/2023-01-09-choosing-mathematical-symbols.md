@@ -28,7 +28,7 @@ This document contains guidelines for picking good symbols and examples to short
 
 ### Based on the Starting Sound
 
-When choosing a symbol, it is helpful to choose it such that there is a connection between the symbol and its meaning. The most basic approach is to use the Latin character that starts a word related to the symbol’s meaning, such as $g$ or $G$ for gravity. After exhausting the Latin alphabet, the Greek alphabet can be used. The name of each Greek letter generally starts with the sound it makes. For instance, gamma ($\gamma$ and $\Gamma$) makes a “g” sound, so it would be a reasonable choice for a gravity symbol if $g$  and $G$  are already used elsewhere. In the following table, the second column lists possible choices of symbols to represent a object that has a name or description that starts with the sound or letter given in the first column.
+When picking a symbol, it is helpful to choose it such that there is a connection between the symbol and its meaning. The most basic approach is to use the Latin character that starts a word related to the symbol’s meaning, such as $g$ or $G$ for gravity. After exhausting the Latin alphabet, the Greek alphabet can be used. The name of each Greek letter generally starts with the sound it makes. For instance, gamma ($\gamma$ and $\Gamma$) makes a “g” sound, so it would be a reasonable choice for a gravity symbol if $g$ and $G$ are already used elsewhere. In the following table, the second column lists possible choices of symbols to represent a object that has a name or description that starts with the sound or letter given in the first column.
 
 <table>
 <tr>
@@ -510,7 +510,8 @@ Here is a table of upper case Greek letters, omitting all letters that are ident
 ## Modifying Symbols
 <!-- to Create a New, Related Symbol  -->
 
-Suppose we are using the symbol $x$ and want to introduce a second symbol that is strongly related to $x.$  The following modifications can be used to create a new symbol.
+Suppose we are using the symbol $x$ and want to introduce a second symbol that is strongly related to $x.$  
+The following modifications can be used to create a new symbol.
 
 <table>
 <tr markdown="block">
@@ -720,7 +721,7 @@ Avoid $i, j, k, m, n$ because they are commonly used for integers and avoid $l, 
 
 ### Integers (and Natural Numbers)
 
-Typically, lowercase and (less frequently) uppercase Latin letters are used to represent integers. The letters $i, j, k, m, n$  are common choices, especially for indices. Choosing one of them offers a hint to the reader that the variable is an integer when they encounter it after its introduction. In some contexts, $i$ or $j$ is reserved for the imaginary unit $\sqrt{-1}$. The letters $a, b, c, d, p, q$ are also commonly used for integers but are also used as real numbers. Avoid $l, o$ (due to potential confusion with $1$  and $0$—$\ell$ can be used instead of $l$). A capital letter is useful to convey that an integer will be “large”, e.g., defining a sequence $x_i$ in $\mathbb{R}$ to be unbounded if "for every $M > 0$, there exists $i \in \mathbb{N}$ such that $x_i > M$." 
+Typically, lowercase and (less frequently) uppercase Latin letters are used to represent integers. The letters $i, j, k, m, n$ are common choices, especially for indices. Choosing one of them offers a hint to the reader that the variable is an integer when they encounter it after its introduction. In some contexts, $i$ or $j$ is reserved for the imaginary unit $\sqrt{-1}$. The letters $a, b, c, d, p, q$ are also commonly used for integers but are also used as real numbers. Avoid $l, o$ (due to potential confusion with $1$ and $0$—$\ell$ can be used instead of $l$). A capital letter is useful to convey that an integer will be “large”, e.g., defining a sequence $x_i$ in $\mathbb{R}$ to be unbounded if "for every $M > 0$, there exists $i \in \mathbb{N}$ such that $x_i > M$." 
 
 ## Variables vs. Constants
 
@@ -729,7 +730,7 @@ In particular, I tend to use $a,$ $b,$ $c,$ $d,$ $p,$ $q,$ $r$ for constants and
 
 ## Example: Picking Notation for Upper and Lower Bounds
 In this section we present a case study of picking symbols for the upper and lower bounds on a real number $x$.
-At first, we can simply take the first two letter of the alphabet. 
+At first, we can simply take the first two letters of the alphabet. 
 
 $$a \leq x \leq b $$
 
@@ -742,7 +743,7 @@ The use of italicized text for $lb$ and $ub$ is bad form, however. A better choi
 
 $$x_{\mathrm{lb}} \leq x \leq x_{\mathrm{ub}}.$$
 
-This choice is pretty good, but writing letter subscripts can get tedious and makes equations somewhat messy. y
+This choice is pretty good, but writing letter subscripts can get tedious and makes equations somewhat messy.
 For this reason, I prefer to simply underline $x$ for the lower bound and overline $x$ for the upper bound.  
 
 $$\underline{x} \leq x \leq \overline{x}.$$
