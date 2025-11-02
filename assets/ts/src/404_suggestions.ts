@@ -1,3 +1,8 @@
+// ╭───────────────────────────────────────────────────────────────╮
+// │             Suggest similar URL in 404 error page             │
+// ╰───────────────────────────────────────────────────────────────╯
+// Source: https://ben.balter.com/2022/06/30/helpful-404s-for-jekyll-and-github-pages/
+
 import { closest } from 'fastest-levenshtein';
 
 const div = document.getElementById('four-oh-four-suggestion');
