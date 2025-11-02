@@ -5,10 +5,6 @@ excerpt: "Avoid losing work: How to check the status of all Git repositories in 
 toc: 1
 tags: git
 date: 2025-11-01 00:00:00 -0800
-# comments:
-#    host: mathstodon.xyz
-#    username: pwintz
-#    id: 112738148972158290
 ---
 
 When you have many Git repositories, it is easy to overlook some and forget to commit or push all of your recent changes. 
@@ -25,11 +21,11 @@ In Bash, you can use `find` to search your user directory:
 find . -type d -name .git
 ```
 Add the list to `~/.gitconfig` in the following format:
-```
+```conf
 # ╭───────────────────────────────────────────────╮
 # │             List all repositories             │
 # ╰───────────────────────────────────────────────╯
-# List all Git repositories on this machine. This allows print the status of all repositories using git check-all, which, in turn, calls git_all_status.sh'
+# List all Git repositories on this machine. This allows print the status of all repositories using git check-all, which, in turn, calls git_check_all.sh'
 [allRepos]
   # ⋘──────── Code directories ────────⋙
   repo = /path/to/repo_1
@@ -49,11 +45,11 @@ git config get --all allRepos.repo
 
 ## 2. Script for checking 
 
-Copy the following script onto your system at (for example), `~/scripts/git_all_status.sh`.
-You may need to make it executable using `chmod +x git_all_status.sh`.
-From the directory containing `git_all_status.sh`, you can run it, now, and it should produce a list of all of the Git repositories you listed:
+Copy the following script onto your system at (for example), `~/scripts/git_check_all.sh`.
+You may need to make it executable using `chmod +x git_check_all.sh`.
+From the directory containing `git_check_all.sh`, you can run it, now, and it should produce a list of all of the Git repositories you listed:
 ```bash
-$ ./git_all_status.sh
+$ ./git_check_all.sh
 ```
 Output:
 ```plaintext
@@ -65,7 +61,7 @@ Not a Git repository: /path/to/repo_5
 ```
 If repository is not listed, then changes have been committed and pushed.
 
-Here is the `git_all_status.sh` script:
+Here is the `git_check_all.sh` script:
 ```bash
 #!/usr/bin/env bash
 
@@ -90,19 +86,17 @@ do
     git_status_out=$(git status --porcelain 2> /dev/null)
     git_status_exit_status=$?
 
+    # Check if the repository has any branches that have not been pushed.
     # Based on https://stackoverflow.com/a/48180899/6651650
     git_unpushed_branches=$(git log --branches --not --remotes --no-walk  --oneline 2> /dev/null)
 
     if [[ $git_status_exit_status -eq 128 ]]; then # Error 128: Not a Git directory.
       echo "Not a Git repository: $repo_dir"
     elif [[ $git_status_exit_status -ne 0 ]]; then # Unknown error (non-zero exit code).
-      # Failed
       echo "Unexpected error code  $git_status_exit_status from `gitstatus` in $repo_dir."
     elif [[ -n "$git_status_out" ]]; then # If status is non-empty.
-      # Failed 
+      # 'git status' produced a non-empty output, which indicates there are uncommitted changes.
       echo " Uncommitted changes: $repo_dir"
-      # For debugging, it may be useful to print the status.
-      # echo $git_status_out
     elif [[ -n "$git_unpushed_branches" ]]; then 
       # If the unpushed branches output is nonempty.
       echo "    Unpushed commits: $repo_dir"
@@ -115,7 +109,7 @@ echo 'Finished.'
 
 ## 3. Configure a Git Alias
 
-You can configure a Git alias `check-all` to execute `git_all_status.sh` similar to other Git commands (e.g., `git push` and `git add`):
+You can configure a Git alias `check-all` to execute `git_check_all.sh` similar to other Git commands (e.g., `git push` and `git add`):
 ``` 
 git check-all
 ```
@@ -127,9 +121,9 @@ To do this, modify `~/.gitconfig` to contain
 # │  ╰────────────────────────────────────────╯  │
 # ╰──────────────────────────────────────────────╯
 [alias]
-  check-all = !~/scripts/git_all_status.sh
+  check-all = !~/scripts/git_check_all.sh
 ```
-The `!` before `~/scripts/git_all_status.sh` indicates that it should be run as a shell script.
+The `!` before `~/scripts/git_check_all.sh` indicates that it should be run as a shell script.
 
 <!-- 
 ## 4. To-do: Scheduled Checks
