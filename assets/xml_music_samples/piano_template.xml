@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 3.0 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
+<score-partwise version="3.0">
+  <work>
+    <work-title>The Virtuoso Pianist</work-title>
+    <work-number>Exercise No. 1</work-number>
+  </work>
+  <identification>
+    <creator type="composer">Charles-Louis Hanon</creator>
+  </identification>
+  <part-list>
+    <score-part id="piano">
+      <part-name>Piano</part-name>
+    </score-part>
+  </part-list>
+  <!--=========================================================-->
+  <part id="piano">
+    <!-- Add measures here. -->
+  </part>
+  <!--=========================================================-->
+</score-partwise>
