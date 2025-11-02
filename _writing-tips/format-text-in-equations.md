@@ -1,5 +1,4 @@
 ---
-layout: single
 title: |
     Correctly Format Text in Equations
 excerpt: 

@@ -1,9 +1,8 @@
 ---
-layout: single
 title: |
     "So That" vs. "Such That"
 excerpt: The phrase "so that" indicates <i>motivation</i> whereas "such that" imposes a <i>constraint</i>. 
-permalink: permalink/so-that-vs-such-that
+permalink: writing-tips/so-that-vs-such-that
 tags: clarity
 # source: 
 ---

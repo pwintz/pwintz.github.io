@@ -1,5 +1,4 @@
 ---
-layout: single
 title: |
     Dashes for Parenthetical Statements
 excerpt: 

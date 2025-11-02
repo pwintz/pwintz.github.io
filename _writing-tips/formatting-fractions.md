@@ -1,5 +1,4 @@
 ---
-layout: single
 title: |
     Formatting Fractions
 # excerpt: When writing an optimization problem, write "minimize" and "subject to" instead of "min" and "such that" or "s.t."

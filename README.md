@@ -114,3 +114,7 @@ permalink: /:categories/:title/
 
 
 To change the layout used to render each item of the collection on individual pages, modify `defaults` property in `_config.yml` by adding a new `scope`.
+
+
+# Creating redirects
+To redirect a URL to a different address, create a file in `_pages/redirects` (copy the format of the files there).

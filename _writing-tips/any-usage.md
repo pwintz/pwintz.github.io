@@ -1,5 +1,4 @@
 ---
-layout: single
 title: |
     Usage of "Any" in Math
 excerpt: 

@@ -1,0 +1,26 @@
+<!-- 
+Use this layout to automatically redirect users to a different page.
+
+Usage:
+1. Create a file in `<project root>/_pages/redirects`. 
+2. Add the following template: 
+
+```
+  ---
+  layout: redirect
+  permalink: /redirect/source/url
+  redirect-target: /redirect/target/url
+  ---
+```
+3. Modify `/redirect/source/url` and `/redirect/target/url` as desired.
+
+We might want to add a meta tag to redirect pages to avoid them from showing up in search results:
+https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag
+But it may be that Google already handles redirects OK.
+-->
+
+You should be automatically redirected to <a href="{{ page.redirect-target | absolute_url }}">{{ page.redirect-target | absolute_url }}</a>.
+If you are not, click <a href="{{ page.redirect-target }}">here</a>.
+
+<!-- Automatically redirect the visitor -->
+<meta http-equiv="refresh" content="0; url={{ page.redirect-target }}" />

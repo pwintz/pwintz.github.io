@@ -1,5 +1,4 @@
 ---
-layout: single
 title: |
     Presenting a Sequence of Manipulations to an Expression
 excerpt: 

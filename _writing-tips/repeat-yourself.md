@@ -1,5 +1,4 @@
 ---
-layout: single
 title: |
     Repeat Yourself
 excerpt: When saying something important and difficult to understand, find ways to repeat the information in different ways. 

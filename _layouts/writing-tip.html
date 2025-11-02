@@ -1,0 +1,20 @@
+---
+layout: single
+---
+
+<!-- For more writing tips, see the full collection <a href="/writing-tips">here</a>. -->
+<!-- <a href="/writing-tips">Writing Tips</a> -->
+<!-- <p>{{ page.description }}</p> -->
+
+<div id="writingtips" class="writingtips">
+{{ page.content | markdownify }}
+
+{% if page.source %}
+  <hr>
+  <div class="source"><i>Reference: {{ page.source}}</i></div>
+{% endif %}
+
+<!-- <footer>
+  <p>For more writing tips, see the full collection <a href="/writing-tips">here</a>.</p>
+</footer> -->
+</div>

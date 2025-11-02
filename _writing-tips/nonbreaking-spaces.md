@@ -1,5 +1,4 @@
 ---
-layout: single
 title: |
     Nonbreaking Spaces
 excerpt: The character `~` should be used to prevent poorly-placed line breaks.

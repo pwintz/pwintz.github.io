@@ -1,5 +1,4 @@
 ---
-layout: single
 title: |
     The Best Notation is (Sometimes) No Notation
 excerpt: 

@@ -1,9 +1,8 @@
 ---
-layout: single
 title: |
     Best Practices for Formatting Tables  
 excerpt: 
-permalink: permalink/table-formatting
+permalink: writing-tips/table-formatting
 tags: clarity
 source: 
     N. J. Higham, "Handbook of Writing for the Mathematical Sciences", Section 6.10 

@@ -1,9 +1,8 @@
 ---
-layout: single
 title: | 
      Formatting If-then Statements (Hypotheticals)
 # excerpt: Writing hypotheticals that 
-permalink: permalink/if-then
+permalink: writing-tips/if-then
 tags: clarity
 # source: 
 ---

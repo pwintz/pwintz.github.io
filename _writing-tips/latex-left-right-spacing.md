@@ -1,5 +1,4 @@
 ---
-layout: single
 title: |
     Correct Spacing Around <code>\left(</code> and <code>\right)</code> in LaTeX Math
 excerpt: 

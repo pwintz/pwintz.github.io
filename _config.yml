@@ -302,16 +302,25 @@ defaults:
       share: false
       related: true
       image_path: /assets/images/
-  # Defaults for uc_uaw_gsr_2022-2025_contract collection
+  # ⋘──────── Defaults for writing_tips collection ────────⋙
+  - scope:
+      path: ""
+      type: writing-tips
+    values:
+      # Use the layout given in _layouts/writing-tip.html.
+      layout: writing-tip
+  # ⋘──────── Defaults for uc_uaw_gsr_2022-2025_contract collection ────────⋙
   - scope:
       path: ""
       type: uc_uaw_gsr_2022-2025_contract
     values:
+      # Use the layout given in _layouts/uaw-contract-article.html.
       layout: uaw-contract-article
-  # Defaults for uc_ase_gsr_2022-2025_contract collection
+  # ⋘──────── Defaults for uc_ase_gsr_2022-2025_contract collection ────────⋙
   - scope:
       path: ""
       type: uc_uaw_ase_2022-2025_contract
     values:
+      # Use the layout given in _layouts/uaw-contract-article.html.
       layout: uaw-contract-article
       

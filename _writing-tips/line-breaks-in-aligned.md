@@ -1,5 +1,4 @@
 ---
-layout: single
 title: |
     Formatting of <code>align</code> and <code>aligned</code> Environments
 excerpt: 

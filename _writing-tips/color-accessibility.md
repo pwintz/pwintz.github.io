@@ -1,9 +1,8 @@
 ---
-layout: single
 title: |
     Make Your Document Color Accessible
 excerpt: 
-permalink: permalink/color-accessibility
+permalink: writing-tips/color-accessibility
 tags: clarity accessibility color
 # source: 
 ---

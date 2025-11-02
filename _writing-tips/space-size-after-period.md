@@ -1,5 +1,4 @@
 ---
-layout: single
 title: |
     Size of Spaces of a Period
 excerpt: 

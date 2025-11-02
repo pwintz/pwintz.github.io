@@ -1,5 +1,4 @@
 ---
-layout: single
 title: |
     Don't Use Reuse Mathematical Symbols for Different Meanings
 excerpt: 

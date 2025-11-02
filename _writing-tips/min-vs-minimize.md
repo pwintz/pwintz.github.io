@@ -1,5 +1,4 @@
 ---
-layout: single
 title: |
     "Minimize" vs. "Min" in Optimization Problems
 excerpt: When writing an optimization problem, write "minimize" and "subject to" instead of "min" and "such that" or "s.t."

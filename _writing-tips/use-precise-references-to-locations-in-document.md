@@ -1,11 +1,11 @@
 ---
-layout: single
 title: |
     Use Precise References to Locations in Documents
 excerpt: 
-permalink: permalink/precise-references
+permalink: writing-tips/precise-references
 tags: references links citations
 ---
+
 LaTeX is a powerful tool for cross-referencing. 
 
 Use it. 

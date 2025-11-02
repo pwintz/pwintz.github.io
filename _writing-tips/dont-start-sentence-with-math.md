@@ -1,5 +1,4 @@
 ---
-layout: single
 title: |
     Don't Start a Sentence With a Mathematical Expression
 excerpt: 
