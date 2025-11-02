@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "Check All Your Git Repositories for Uncommitted Changes"
+title: "How to Check All Your Git Repositories for Uncommitted Changes"
 excerpt: "Avoid losing work: How to check the status of all Git repositories in bulk."
 toc: 1
 tags: git
