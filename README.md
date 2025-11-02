@@ -67,13 +67,14 @@ npm install --global typescript
 To add a NPM dependency:
 
 1. Modify `<project root>/package.json` to include the desired packages. 
-2. Run `npm install`
+2. Run `npm install`.
 
 ## Compiling TypeScript 
 
-To compile all of the TypeScript files in the project, run `npm build` from the root of the project.
-Options for the TypeScript compiler are stored in [`<project root>/tsconfig.json`](/tsconfig.json).
-The `tsconfig` file is only used when `tsc` is invoked without an input file.
+To compile all of the TypeScript files in the project, run `npm run build` from the root of the project. 
+To automatically refresh upon source code changes, use `npm run watch` instead.
+<!-- Options for the TypeScript compiler are stored in [`<project root>/tsconfig.json`](/tsconfig.json).
+The `tsconfig` file is only used when `tsc` is invoked without an input file. -->
 
 ## Adding script to a webpage
 

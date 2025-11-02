@@ -1,0 +1,59 @@
+\documentclass{article}
+ 
+% \usepackage[total={3.5in,8.75in}, inner=1in, outer=1in,
+%         marginparwidth=34mm]{geometry} 
+\usepackage[paperheight=4in,
+            paperwidth=5in,
+            inner=0.3in, outer=1.3in,
+            marginparwidth=1in]{geometry}
+
+\usepackage[ % import "changes" package
+    % If any of the changes commands are already defined, then the option "commandnameprefix=ifneeded" 
+    % tells changes to append "ch" to the name of the changes command in order to avoid a name collision.
+    % Commonly, "\comment" will be changed to "\chcomment".
+    commandnameprefix=ifneeded, 
+    % Changes imports the "todo" package. The following options are passed to the "todo" package.
+    todonotes={colorinlistoftodos,
+                prependcaption,
+                textsize=small,
+                backgroundcolor=orange!10,
+                textcolor=black,
+                linecolor=orange,
+                bordercolor=orange} % 
+    % draft, % <- enable line to show annotations regardless of the document being in 'final' mode.
+    % final, % <- enable line to hide annotations regardless of the document being in 'draft' mode.
+]{changes}
+
+\usepackage{xcolor}
+\colorlet{added}{blue!80!black} 
+
+\begin{document}
+
+Here is \added{added}, \deleted{deleted} 
+and \replaced{replaced}{replaysed} text.
+\comment{Maybe I shouldn't have written this?}
+\vspace{5pt}
+
+\todo[inline]{To-do: Write something worthwhile.}
+
+
+\newpage
+\color{added} 
+% Paragraph 1 (Added)
+Lorem ipsum dolor sit amet, consectetur 
+adipiscing elit, sed do eiusmod tempor 
+incididunt ut labore et dolore magna aliqua. 
+
+% Paragraph 2 (Added)
+Duis aute irure dolor in reprehenderit 
+in voluptate velit esse cillum dolore 
+eu fugiat nulla pariatur.
+\color{black} 
+
+% Paragraph 3 (No change)
+Excepteur sint occaecat cupidatat non 
+proident, sunt in culpa qui officia 
+deserunt mollit anim id est laborum.
+
+
+\end{document}
