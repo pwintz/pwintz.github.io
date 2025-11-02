@@ -1,9 +1,11 @@
 ---
 layout: single
 contract-link: "{{page.name}}"
-toc: true
-toc_sticky: true
+# Disable the TOC because it doesn't work with our HTML implementation of the contract body.
+toc: false
 ---
+
+For the full contract, see <a href="{{ page.url | split: "/" | pop | join: "/" }}">here</a>.
 
 <div class="contract-article">
 

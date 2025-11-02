@@ -84,3 +84,33 @@ Then, it is used on a page via a tag like the following:
 <script src="/assets/ts/out/activityLogger.js" type="module"></script>
 ```
 
+
+
+# Bibliography and References
+
+To do.
+
+
+# Jekyll Collections
+
+This website has several Jekyll collections:
+
+* `_writing_tips`
+* `_latex_macros`
+* `_uc_uaw_ase_2022-2025_contract`
+* `_uc_uaw_gsr_2022-2025_contract`
+* `_publications`
+
+To add a collection:
+
+1. Create a new folder `_collection_name` in the project root.
+2. Add the collection to the `collections` property in `_config.yml`.
+
+If `output: true` for a given collection, then each element of the collection will be rendered on its own page. 
+The  default location of these pages is configured in `_config.yml` by 
+```yml
+permalink: /:categories/:title/
+```
+
+
+To change the layout used to render each item of the collection on individual pages, modify `defaults` property in `_config.yml` by adding a new `scope`.
