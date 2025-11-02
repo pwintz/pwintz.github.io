@@ -27,7 +27,8 @@
 /// @see su-gutter
 /// @see su-slice
 
-
+@use "sass:map";
+@use "sass:meta";
 
 /// ## Shorthand
 ///
@@ -142,11 +143,11 @@
 ) {
   $output: susy-compile($span, $config);
 
-  @if map-get($output, 'span') {
+  @if map.get($output, 'span') {
     @return su-call('su-span', $output);
   }
 
-  $actual: '[#{type-of($span)}] `#{inspect($span)}`';
+  $actual: '[#{meta.type-of($span)}] `#{meta.inspect($span)}`';
   @return _susy-error(
     'Unable to determine span value from #{$actual}.',
     'susy-span');
@@ -311,7 +312,7 @@
 ///     }
 ///   }
 ///
-///   @for $span from 1 through length(susy-get('columns')) {
+///   @for $span from 1 through list.length(susy-get('columns')) {
 ///     [data-span*='#{$span}'] {
 ///       width: span($span);
 ///     }

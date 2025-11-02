@@ -10,6 +10,7 @@
 
 @use "sass:map";
 @use "sass:list";
+@use "sass:meta";
 
 // Parse
 // -----
@@ -74,7 +75,7 @@
   $next: false;
 
   // Allow context-only shorthand, without span
-  @if ($context-only) and (not index($shorthand, 'of')) {
+  @if ($context-only) and (not list.index($shorthand, 'of')) {
     @if su-valid-columns($shorthand, 'fail-silent') {
       $shorthand: 'of' $shorthand;
     } @else {
@@ -83,9 +84,9 @@
   }
 
   // loop through the shorthand list
-  @for $i from 1 through length($shorthand) {
-    $item: nth($shorthand, $i);
-    $type: type-of($item);
+  @for $i from 1 through list.length($shorthand) {
+    $item: list.nth($shorthand, $i);
+    $type: meta.type-of($item);
     $error: false;
     $details: '[#{$type}] `#{$item}`';
 
@@ -103,8 +104,8 @@
       // Keywords…
       @if ($type == 'string') {
         // Check the map for keywords…
-        @if map-has-key($options, $item) {
-          $setting: map-get($options, $item);
+        @if map.has-key($options, $item) {
+          $setting: map.get($options, $item);
 
           // Spread could be on the span or the container…
           @if ($setting == 'spread') and ($of) {

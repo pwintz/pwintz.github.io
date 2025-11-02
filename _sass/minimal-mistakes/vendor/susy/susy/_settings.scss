@@ -320,11 +320,11 @@ $_susy-defaults: (
 ) {
   $settings: susy-settings();
 
-  @if not map-has-key($settings, $key) {
+  @if not map.has-key($settings, $key) {
     @return _susy-error(
       'There is no Susy setting called `#{$key}`',
       'susy-get');
   }
 
-  @return map-get($settings, $key);
+  @return map.get($settings, $key);
 }

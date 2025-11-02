@@ -1,7 +1,8 @@
 // SVG Utilities
 // =============
 
-
+@use "sass:map";
+@use "sass:meta";
 
 // SVG Validate Units
 // ------------------
@@ -22,14 +23,14 @@
   $name: null
 ) {
   $_svg-units: ('em', 'ex', 'px', 'pt', 'pc', 'cm', 'mm', 'in', '%');
-  $string: type-of($length) == 'string';
+  $string: meta.type-of($length) == 'string';
 
-  @if ($length == 0) or ($string) or index($_svg-units, unit($length)) {
+  @if ($length == 0) or ($string) or list.index($_svg-units, math.unit($length)) {
     @return $length;
   }
 
   @return _susy-error(
-    '`#{unit($length)}` #{$name} units are not supported in SVG',
+    '`#{math.unit($length)}` #{$name} units are not supported in SVG',
     '_susy-svg-validate-units');
 }
 
@@ -59,7 +60,7 @@
   $width: _susy-svg-validate-units($width);
   $offset: if($offset == 0, null, $offset);
 
-  @if (type-of($offset) == 'number') and (type-of($x) == 'number') {
+  @if (meta.type-of($offset) == 'number') and (meta.type-of($x) == 'number') {
     @if comparable($x, $offset) {
       $x: $x + $offset;
     } @else {
@@ -92,7 +93,7 @@
 ) {
   $color: inspect($color); // convert to string
 
-  @if (str-index($color, '#') == 1) {
+  @if (string.index($color, '#') == 1) {
     $color: '%23' + str-slice($color, 2);
   }
 
@@ -121,9 +122,9 @@
   $gradient: '#{$gradient} id="susy-svg-gradient"';
   $gradient: '#{$gradient} x1="0%" y1="0%" x2="100%" y2="0%"%3E';
 
-  @for $i from 1 through length($colors) {
-    $color: _susy-svg-color(nth($colors, $i));
-    $offset: percentage(($i - 1) / (length($colors) - 1));
+  @for $i from 1 through list.length($colors) {
+    $color: _susy-svg-color(list.nth($colors, $i));
+    $offset: percentage(($i - 1) / (list.length($colors) - 1));
     $stop: '%3Cstop offset="#{$offset}" style="stop-color:#{$color};" /%3E';
 
     $gradient: $gradient + $stop;
