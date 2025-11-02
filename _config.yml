@@ -226,6 +226,9 @@ whitelist:
   - jekyll-feed
   - jekyll-include-cache
 
+# ╭───────────────────────────────────────────────╮
+# │             Jekyll Plugin Options             │
+# ╰───────────────────────────────────────────────╯
 # Scholar Plugin Options
 scholar:
   style: /_bibliography/ieee.csl

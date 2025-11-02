@@ -1,3 +1,10 @@
+// ╭───────────────────────────────────────────────────────────╮
+// │  ╭─────────────────────────────────────────────────────╮  │
+// │  │             Activity Logger - React App             │  │
+// │  ╰─────────────────────────────────────────────────────╯  │
+// ╰───────────────────────────────────────────────────────────╯
+
+
 // Import necessary React libraries and components
 import React from 'react';  // Core React library
 import { createRoot } from 'react-dom/client';  // Used to render React components to the DOM

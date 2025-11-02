@@ -22,19 +22,16 @@
     "node": ">= 0.10.0"
   },
   "devDependencies": {
-    "@types/react": "^19.1.0",
-    "@types/react-dom": "^19.1.1",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
     "@types/react-modal": "^3.16.3",
-    "esbuild": "^0.25.2",
-    "html-webpack-plugin": "^5.6.3",
+    "esbuild": "^0.25.12",
+    "fastest-levenshtein": "^1.0.12",
     "npm-run-all": "^4.1.5",
     "onchange": "^7.1.0",
-    "ts-loader": "^9.5.2",
-    "typescript": "^5.8.3",
-    "uglify-js": "^3.13.6",
-    "webpack": "^5.99.5",
-    "webpack-cli": "^6.0.1",
-    "webpack-dev-server": "^5.2.1"
+    "ts-loader": "^9.5.4",
+    "typescript": "^5.9.3",
+    "uglify-js": "^3.19.3"
   },
   "scripts": {
     "uglify": "uglifyjs assets/js/vendor/jquery/jquery-3.6.0.js assets/js/plugins/jquery.fitvids.js assets/js/plugins/jquery.greedy-navigation.js assets/js/plugins/jquery.magnific-popup.js assets/js/plugins/jquery.ba-throttle-debounce.js assets/js/plugins/smooth-scroll.js assets/js/plugins/gumshoe.js assets/js/_main.js -c -m -o assets/js/main.min.js",
@@ -45,9 +42,10 @@
     "watch": "esbuild assets/ts/src/*.tsx assets/ts/src/*.ts --bundle --outdir=assets/ts/out --format=esm --watch"
   },
   "dependencies": {
-    "@types/wicg-file-system-access": "^2023.10.6",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "@types/wicg-file-system-access": "^2023.10.7",
+    "fastest-levenshtein": "^1.0.12",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "react-modal": "^3.16.3"
   }
 }

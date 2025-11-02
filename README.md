@@ -45,3 +45,41 @@ bibtex: false
     * `<first author last name>-<first title word>-<YYYY>.pdf`
     * `<first author last name>-<first title word>-<YYYY>.pdf`. Set `slides: true` in `<first author last name>-<first title word>-<YYYY>.md`.
     * `<first author last name>-<first title word>-<YYYY>.bib`. Set `bibtex: false` in `<first author last name>-<first title word>-<YYYY>.md`.
+
+
+# JavaScript and TypeScript scripts
+
+## Setup
+Install NVM (for updating Node), Node, and the Typescript compiler (globally) using 
+```bash
+# Install NVM 
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+
+# Install and use the long-term support version of NVM
+nvm install --lts
+nvm use --lts
+
+# Install typescript.
+npm install --global typescript
+```
+
+## Adding NPM Package Dependencies
+To add a NPM dependency:
+
+1. Modify `<project root>/package.json` to include the desired packages. 
+2. Run `npm install`
+
+## Compiling TypeScript 
+
+To compile all of the TypeScript files in the project, run `npm build` from the root of the project.
+Options for the TypeScript compiler are stored in [`<project root>/tsconfig.json`](/tsconfig.json).
+The `tsconfig` file is only used when `tsc` is invoked without an input file.
+
+## Adding script to a webpage
+
+If adding a TypeScript script, it needs to first be compiled. 
+Then, it is used on a page via a tag like the following: 
+```html
+<script src="/assets/ts/out/activityLogger.js" type="module"></script>
+```
+

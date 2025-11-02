@@ -1,5 +1,7 @@
 # coding: utf-8
 
+
+
 Gem::Specification.new do |spec|
   spec.name                    = "minimal-mistakes-jekyll"
   spec.version                 = "4.24.0"
@@ -15,6 +17,7 @@ Gem::Specification.new do |spec|
     f.match(%r{^(assets|_(data|includes|layouts|sass)/|(LICENSE|README|CHANGELOG)((\.(txt|md|markdown)|$)))}i)
   end
 
+  # Minimal Mistakes dependencies
   spec.add_runtime_dependency "jekyll", ">= 3.7", "< 5.0"
   spec.add_runtime_dependency "jekyll-paginate", "~> 1.1"
   spec.add_runtime_dependency "jekyll-sitemap", "~> 1.3"
