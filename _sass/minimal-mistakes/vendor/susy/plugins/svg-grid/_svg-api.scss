@@ -3,6 +3,8 @@
 /// @group plugin_svg-grid
 /// @see susy-svg-grid
 
+@use "sass:map";
+
 
 
 /// ## Overview
@@ -90,7 +92,7 @@
     'span': map-get($grid, 'columns'),
     'spread': map-get($grid, 'container-spread'),
   );
-  $span: map-merge($grid, $span);
+  $span: map.merge($grid, $span);
   $image-width: su-call('su-span', $span);
   $image-width: if((type-of($image-width) == 'number'), $image-width, 100%);
 

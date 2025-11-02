@@ -19,3 +19,4 @@ ltex
 IntelliSense
 recompiles
 Halmos
+Wintz

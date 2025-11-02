@@ -1,6 +1,7 @@
 ////////////////////////
 // Default the Breakpoints variable
 ////////////////////////
+@use "sass:map";
 $breakpoints: () !default;
 $BREAKPOINTS: () !default;
 
@@ -50,7 +51,7 @@ $BREAKPOINTS: () !default;
       @return $breakpoints;
     }
     @else if not map-has-key($breakpoints, $name) or $overwrite == true {
-      @return map-merge($breakpoints, $output);
+      @return map.merge($breakpoints, $output);
     }
   }
 }
@@ -67,7 +68,7 @@ $BREAKPOINTS: () !default;
       $BREAKPOINTS: $BREAKPOINTS !global;
     }
     @else if not map-has-key($BREAKPOINTS, $name) or $overwrite == true {
-      $BREAKPOINTS: map-merge($BREAKPOINTS, $output) !global;
+      $BREAKPOINTS: map.merge($BREAKPOINTS, $output) !global;
     }
   }
 }

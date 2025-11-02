@@ -1,3 +1,4 @@
+@use "sass:map";
 //////////////////////////////
 // Private Breakpoint Variables
 //////////////////////////////
@@ -66,7 +67,7 @@ $private-breakpoint-query-count: 0 !default;
       }
     }
     $v-holder: append($v-holder, $value);
-    $private-breakpoint-context-holder: map-merge($private-breakpoint-context-holder, ($feature: $v-holder)) !global;
+    $private-breakpoint-context-holder: map.merge($private-breakpoint-context-holder, ($feature: $v-holder)) !global;
   }
   @else {
     $v-holder: map-get($private-breakpoint-context-holder, $feature);
@@ -80,7 +81,7 @@ $private-breakpoint-query-count: 0 !default;
       }
     }
     $v-holder: append($v-holder, $value);
-    $private-breakpoint-context-holder: map-merge($private-breakpoint-context-holder, ($feature: $v-holder)) !global;
+    $private-breakpoint-context-holder: map.merge($private-breakpoint-context-holder, ($feature: $v-holder)) !global;
   }
 
   @return true;

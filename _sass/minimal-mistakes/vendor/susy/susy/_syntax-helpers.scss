@@ -51,7 +51,7 @@
 ///     }
 ///   }
 
-
+@use "sass:map";
 
 // Compile
 // -------
@@ -117,7 +117,7 @@
   $normal-short: susy-normalize($short, $normal-config);
 
   // Merge and return
-  @return map-merge($normal-config, $normal-short);
+  @return map.merge($normal-config, $normal-short);
 }
 
 
@@ -184,7 +184,7 @@
 
   @each $arg in $args {
     $value: map-get($config, $arg);
-    $output: if($value, map-merge($output, ($arg: $value)), $output);
+    $output: if($value, map.merge($output, ($arg: $value)), $output);
   }
 
   @return call($call, $output...);

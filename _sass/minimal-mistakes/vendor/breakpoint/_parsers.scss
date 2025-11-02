@@ -1,6 +1,7 @@
 //////////////////////////////
 // Import Parser Pieces
 //////////////////////////////
+@use "sass:map";
 @import "parsers/query";
 @import "parsers/single";
 @import "parsers/double";
@@ -85,9 +86,9 @@ $Memo-Exists: function-exists(memo-get) and function-exists(memo-set);
       }
       $context-map: ();
       @each $context in $contexts {
-        $context-map: map-merge($context-map, ($context: breakpoint-get-context($context)));
+        $context-map: map.merge($context-map, ($context: breakpoint-get-context($context)));
       }
-      $return: map-merge($return, (context: $context-map));
+      $return: map.merge($return, (context: $context-map));
     }
 
     // Reset Global Private Breakpoint Context
@@ -208,7 +209,7 @@ $Memo-Exists: function-exists(memo-get) and function-exists(memo-set);
         }
       }
     }
-    $private-breakpoint-context-holder: map-merge($private-breakpoint-context-holder, ($f: $v-holder)) !global;
+    $private-breakpoint-context-holder: map.merge($private-breakpoint-context-holder, ($f: $v-holder)) !global;
   }
 
   @return $query-print;

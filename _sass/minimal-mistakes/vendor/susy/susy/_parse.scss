@@ -8,7 +8,8 @@
 ///
 /// @group x-parser
 
-
+@use "sass:map";
+@use "sass:list";
 
 // Parse
 // -----
@@ -77,7 +78,7 @@
     @if su-valid-columns($shorthand, 'fail-silent') {
       $shorthand: 'of' $shorthand;
     } @else {
-      $shorthand: join('of', $shorthand);
+      $shorthand: list.join('of', $shorthand);
     }
   }
 
@@ -92,7 +93,7 @@
     @if $next {
 
       // Add to the return map
-      $return: map-merge($return, ($next: $item));
+      $return: map.merge($return, ($next: $item));
 
       // Reset next to `false`
       $next: false;
@@ -107,9 +108,9 @@
 
           // Spread could be on the span or the container…
           @if ($setting == 'spread') and ($of) {
-            $return: map-merge($return, ('container-spread': $item));
+            $return: map.merge($return, ('container-spread': $item));
           } @else {
-            $return: map-merge($return, ($setting: $item));
+            $return: map.merge($return, ($setting: $item));
           }
 
         } @else if ($item == 'all') {
@@ -150,12 +151,12 @@
 
   // If we have span, merge it in
   @if $span {
-    $return: map-merge($return, ('span': $span));
+    $return: map.merge($return, ('span': $span));
   }
 
   // If we have columns, merge them in
   @if $columns {
-    $return: map-merge($return, ('columns': $columns));
+    $return: map.merge($return, ('columns': $columns));
   }
 
   // Return the map of settings…

@@ -3,7 +3,8 @@
 // - Susy Error Output Override [variable]
 // - Susy Error [function]
 
-
+@use "sass:map";
+@use "sass:list";
 
 // Susy Error Output Override
 // --------------------------
@@ -123,7 +124,7 @@ $_susy-error-output-override: false !default;
     }
   }
 
-  @return map-merge($map, ($unit: $has + $value));
+  @return map.merge($map, ($unit: $has + $value));
 }
 
 
@@ -156,7 +157,7 @@ $_susy-error-output-override: false !default;
   @each $item in $list {
     @if (type-of($item) == 'list') {
       $item: _susy-flatten($item);
-      $flat: join($flat, $item);
+      $flat: list.join($flat, $item);
     } @else {
       $flat: append($flat, $item);
     }
