@@ -48,7 +48,7 @@ For this example, a precise translation is "a times the sum of b plus c equals o
 This section contains recipes for how to translate from various mathematical expressions into English.
 Since any mathematical expression can be translated multiple ways, several translations are given in the right column of each table.
 
-<!-- When all else fails, one may resot -->
+<!-- When all else fails, one may resort to reading out the latex code -->
 ## Parentheses and Grouping
 
 <table>
@@ -87,6 +87,55 @@ Since any mathematical expression can be translated multiple ways, several trans
 </tr>
 </table>
 
+## Algebra
+
+<table>
+<tr>
+  <th></th>
+  <th>Mathematical Expression</th>
+  <th>English Translation</th>
+</tr>
+<tr>
+  <td>Squared</td>
+  <td>$x^2$</td>
+  <td>
+      "x squared"<br>
+      "x to the power of two."<br>
+  </td>
+</tr>
+<tr>
+  <td>Exponent</td>
+  <td>$e^x2$</td>
+  <td>
+      "e to the x"<br>
+  </td>
+</tr>
+<tr>
+  <td>Square Root</td>
+  <td>$\sqrt{2}$</td>
+  <td>
+      "square root of 2"<br>
+      "root 2"<br>
+  </td>
+</tr>
+<tr>
+  <td>nth Root</td>
+  <td>$\sqrt[n]{2}$</td>
+  <td>
+      "nth root of 2"<br>
+  </td>
+</tr>
+<tr>
+  <td>Natural log</td>
+  <td>$\ln{x}$</td>
+  <td>
+      "natural log of x"<br>
+      "log of x"<br>
+      "log x"<br>
+      "ell-en of x"<br>
+  </td>
+</tr>
+</table>
 
 ## Sets
 
@@ -300,6 +349,7 @@ Since any mathematical expression can be translated multiple ways, several trans
   <td>$$\operatorname{null} A$$</td>
   <td>
     "The null space of matrix $A$."<br>
+    "null space of $A$."<br>
   </td>
 </tr>
 <tr>
@@ -307,6 +357,7 @@ Since any mathematical expression can be translated multiple ways, several trans
   <td>$$\operatorname{col} A$$</td>
   <td>
     "The column space of matrix $A$."<br>
+    "column space of $A$."<br>
   </td>
 </tr>
 <tr>
