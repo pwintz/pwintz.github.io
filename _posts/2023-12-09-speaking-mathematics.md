@@ -174,10 +174,19 @@ Since any mathematical expression can be translated multiple ways, several trans
   <th>English Translation</th>
 </tr>
 <tr>
-  <td>Integrals</td>
+  <td>Definite Integrals</td>
   <td>$$\int_a^b f(x) dx$$</td>
   <td>
-    "The integral of f of x over x from a to b."<br>
+    "The integral of f of x with respect to x."<br>
+    "The integral of f of x, dee-x."<br>
+    "integral f of x, dee-x."<br>
+  </td>
+</tr>
+<tr>
+  <td>Indefinite Integrals</td>
+  <td>$$\int_a^b f(x) dx$$</td>
+  <td>
+    "The integral of f of x with respect to x from a to b."<br>
     "The integral of f of x, dee-x with lower limit a and upper limit b."<br>
   </td>
 </tr>
