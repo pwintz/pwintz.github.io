@@ -133,6 +133,15 @@ Since any mathematical expression can be translated multiple ways, several trans
       "log of x"<br>
       "log x"<br>
       "ell-en of x"<br>
+      "ell-en x"<br>
+  </td>
+</tr>
+<tr>
+  <td>Factorial</td>
+  <td>$n!$</td>
+  <td>
+      "n factorial"<br>
+      "factorial of n"<br>
   </td>
 </tr>
 </table>
