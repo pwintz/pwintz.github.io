@@ -35,7 +35,7 @@ Add the list to `~/.gitconfig` in the following format:
   repo = /path/to/repo_5
   repo = /path/to/repo_6
 ```
-Note; Each path should be to the parent directory of the `.git/` directory.
+Note: Each path should be to the parent directory of the `.git/` directory.
 This list can contain directories that are not Git repositories but should be, so that you are warned that **none** of the code has been committed.
 
 You can check the contents of your list using 
@@ -80,26 +80,37 @@ repo_paths_array=($repo_paths)
 
 for repo_dir in "${repo_paths_array[@]}"
 do
+  
+  if [[ ! -e  $repo_dir ]]; then 
+    echo "Directory does not exist: $repo_dir"
+    continue
+  fi
+
+  if [[ ! -d  $repo_dir ]]; then 
+    echo " Path is not a directory: $repo_dir"
+    continue
+  fi
+
   # Run within a subshell, so that changing directory does not persist.
   (
     cd $repo_dir
     git_status_out=$(git status --porcelain 2> /dev/null)
     git_status_exit_status=$?
 
-    # Check if the repository has any branches that have not been pushed.
     # Based on https://stackoverflow.com/a/48180899/6651650
     git_unpushed_branches=$(git log --branches --not --remotes --no-walk  --oneline 2> /dev/null)
 
     if [[ $git_status_exit_status -eq 128 ]]; then # Error 128: Not a Git directory.
-      echo "Not a Git repository: $repo_dir"
+      echo "    Not a Git repository: $repo_dir"
     elif [[ $git_status_exit_status -ne 0 ]]; then # Unknown error (non-zero exit code).
-      echo "Unexpected error code  $git_status_exit_status from `gitstatus` in $repo_dir."
+      # Failed
+      echo "    Unexpected error code  $git_status_exit_status from `gitstatus` in $repo_dir."
     elif [[ -n "$git_status_out" ]]; then # If status is non-empty.
-      # 'git status' produced a non-empty output, which indicates there are uncommitted changes.
-      echo " Uncommitted changes: $repo_dir"
+      # Failed 
+      echo "     Uncommitted changes: $repo_dir"
     elif [[ -n "$git_unpushed_branches" ]]; then 
       # If the unpushed branches output is nonempty.
-      echo "    Unpushed commits: $repo_dir"
+      echo "        Unpushed commits: $repo_dir"
     fi
   )
 done
