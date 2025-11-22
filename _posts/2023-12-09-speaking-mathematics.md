@@ -9,6 +9,220 @@ comments:
   host: mathstodon.xyz
   username: pwintz
   id: 111736829673674058
+
+example-categories:
+  - name: Arithmetic
+    items: 
+      - name: "Addition"
+        example-expression: $2 + 3$
+        translations: 
+          - "\"two plus three\""
+          - "\"the sum of two and three\""
+          - "\"two added to three\""
+      - name: "Multiplication"
+        example-expression: $2\times 3$, <br> $2 \cdot 3$, <br> $(2)(3)$
+        translations: 
+          - "\"two times three\""
+          - "\"the product of two and three\""
+          - "\"two multiplied with three\""
+      - name: "Subtraction"
+        example-expression: $2 - 3$
+        translations: 
+          - "\"two minus three\""
+          - "\"the difference of two and three\""
+          - "\"three subtracted from two\""
+      - name: "Division"
+        example-expression: $2 / 3$
+        translations: 
+          - "\"two over three\""
+          - "\"two divided by three\""
+          - "\"two quotient three\""
+          - "\"the division of two by three\""
+  - name: Parentheses and Grouping
+    items: 
+      - name: "Multiplication"
+        example-expression: $a(b+c)$
+        translations: 
+          - "\"a times open parentheses b plus c close parentheses.\" (avoid this, if possible!)"
+          - "\"a times the sum of b and c.\" "
+          - "\"a times the quantity b plus c.\""
+          - "\"The product of a and the quantity b plus c.\""
+          - "\"The multiplication of a distributed over the sum of b and c.\""
+      - name: "Multiplication"
+        example-expression: $(a+b)c$
+        translations: 
+          - "\"a plus b <b>all</b> times c.\""
+          - "\"The product of a plus b times c.\""
+          - "\"The quantity a plus b multiplied by c.\""
+      - name: "Division"
+        example-expression: $(a + b)/c$
+        translations: 
+          - "\"a plus b all divided by c\""
+          - "\"The sum of a and b <b>all</b> divided by c\""
+          - "\"The fraction a plus b over c\""
+  - name: Algebra
+    items: 
+      - name: Squared
+        example-expression: $x^2$
+        translations: 
+          - "\"x squared\""
+          - "\"x to the power of two.\""
+      - name: Exponent
+        example-expression: $e^x$
+        translations: 
+          - "\"e to the x\""
+      - name: Square Root
+        example-expression: $\sqrt{2}$
+        translations: 
+          - "\"square root of 2\""
+          - "\"root 2\""
+      - name: nth Root
+        example-expression: $\sqrt[n]{2}$
+        translations: 
+          - "\"nth root of 2\""
+      - name: Natural log
+        example-expression: $\ln{x}$
+        translations: 
+          - "\"natural log of x\""
+          - "\"log of x\""
+          - "\"log x\""
+          - "\"ell-en of x\""
+          - "\"ell-en x\""
+      - name: Factorial
+        example-expression: $n!$
+        translations: 
+          - "\"n factorial\""
+          - "\"factorial of n\""
+  - name: Relations
+    items: 
+    - name: Equal 
+      example-expression: $a = b$
+      translations: 
+        - "\"a equals b\""
+        - "\"a is equal to b\""
+        - "\"a and b are equal\""
+    - name: Not-equal
+      example-expression: $a \neq b$
+      translations: 
+        - "\"a equals b\""
+        - "\"a is equal to b\""
+        - "\"a and b are equal\""
+    - name: Approximately Equal
+      example-expression: $a \approx b$
+      translations: 
+        - "\"a is approximately b\""
+        - "\"a is approximately equal to b\""
+    - name: Less-than 
+      example-expression: $a < b$
+      translations: 
+        - "\"a less than b\""
+        - "\"a is less than b\""
+        - "\"a is strictly less than b\""
+    - name: Greater-than 
+      example-expression: $a > b$
+      translations: 
+        - "\"a greater than b\""
+        - "\"a is greater than b\""
+        - "\"a is strictly greater than b\""
+    - name: Less-than-or-equal
+      example-expression: $a \leq b$
+      translations: 
+        - "\"a less than or equal b\""
+        - "\"a is less than or equal to b\""
+        - "\"a is no more than b\""
+        - "\"a is at most b\""
+    - name: Greater-than-or-equal
+      example-expression: $a \geq b$
+      translations: 
+        - "\"a greater than or equal b\""
+        - "\"a is greater than or equal to b\""
+        - "\"a is no less than b\""
+        - "\"a is at least b\""
+    - name: Equivalent
+      example-expression: $a \sim b$
+      translations: 
+        - "\"a is equivalent to b\""
+  - name: Propositional Logic
+    items: 
+      - name: "And"
+        example-expression: "$p \\wedge q$"
+        translations: 
+          - "\"p and q\""
+          - "\"Both p and q\""
+          - "\"The conjunction of p and q\""
+      - name: "Or"
+        example-expression: "$p \\vee q$"
+        translations: 
+          - "\"p or q\""
+          - "\"Either p or q\""
+          - "\"The disjunction of p and q\""
+      - name: "Not"
+        example-expression: "$\\neg p$"
+        translations: 
+          - "\"Not p\""
+      - name: "N"
+        example-expression: "$\\neg p$"
+        translations: 
+          - "\"Not p\""
+      - name: "Logical implication"
+        example-expression: $p \implies q$
+        translations: 
+          - "\"p implies q\""
+          - "\"if p, then q\""
+      - name: "Implied by"
+        example-expression: $p \impliedby q$
+        translations: 
+          - "\"p is implied by q\""
+          # - "\"p implied by q\""
+      - name: "If and only if"
+        example-expression: $p \iff q$
+        translations: 
+          - "\"p if and only if q\""
+
+  - name: Logic
+    items:
+      # Discussion of entailment and "can be proven by":
+      # https://math.stackexchange.com/a/3578239/364370
+      # Source for "Semantic entailment": https://math.stackexchange.com/a/280397/364370
+      - name: "Semantic Entailment"
+        example-expression: $p \vDash q$
+        translations: 
+          - "\"p entails q\""
+          - "\"q is entailed by p\""
+
+      # https://math.stackexchange.com/questions/280384/notation-question-what-does-vdash-mean-in-logic?rq=1
+      # Source for "syntactic entailment": https://math.stackexchange.com/a/280397/364370
+      - name: "Syntactic entailment"
+        example-expression: $p \vdash q$
+        translations: 
+          - "\"p proves q\""
+          - "\"q is provable/derivable from p\""
+          - "\"q can be derived from p\""
+      - name: "Derivable/Provable"
+        example-expression: $\vdash p$
+        translations: 
+          - "\"p is provable/derivable (from axioms)\""
+
+
+  - name: Predicate Logic/Quantifiers
+    items:
+      - name: There exists
+        example-expression: $\exists x$
+        translations: 
+          - "\"There exists x\""
+      - name: For all
+        example-expression: $\forall x$
+        translations: 
+          - "\"For all x\""
+      - name: "There exists ... such that"
+        example-expression: "$\\exists x : x = 0$"
+        translations: 
+          - "\"For all x such that x is zero \""
+      # - name: "For all ... such that"
+      #   example-expression: "$\\forall x : x > 0$"
+      #   translations: 
+      #     - "\"For all x such that x > 0 \""
+
 ---
 
 A common difficulty encountered by math students is the difficulty of translating equations into words.
@@ -48,103 +262,43 @@ For this example, a precise translation is "a times the sum of b plus c equals o
 This section contains recipes for how to translate from various mathematical expressions into English.
 Since any mathematical expression can be translated multiple ways, several translations are given in the right column of each table.
 
-<!-- When all else fails, one may resort to reading out the latex code -->
-## Parentheses and Grouping
+
+<!-- ╭────────────────────────────────────────────────────────────╮ -->
+<!-- │  ╭──────────────────────────────────────────────────────╮  │ -->
+<!-- │  │             Generate Table from YAML Data            │  │ -->
+<!-- │  ╰──────────────────────────────────────────────────────╯  │ -->
+<!-- ╰────────────────────────────────────────────────────────────╯ -->
+{% for category in page.example-categories %}
+
+## {{ category.name }}
 
 <table>
-<tr>
-  <th></th>
-  <th>Mathematical Expression</th>
-  <th>English Translation</th>
-</tr>
-<tr>
-  <td>Arithmetic Grouping</td>
-  <td>$a(b+c)$</td>
-  <td>
-      "a times open parentheses b plus c close parentheses." (avoid this!)<br>
-      "a times the sum of b and c." <br>
-      "a times the quantity b plus c."<br>
-      "The product of a and the quantity b plus c."<br>
-  </td>
-</tr>
-<tr>
-  <td>Arithmetic Grouping</td>
-  <td>$(a+b)c$</td>
-  <td>
-      "a plus b <b>all</b> times c." <br>
-      "The product of a plus b times c."<br>
-      "The quantity a plus b multiplied by c."
-  </td>
-</tr>
-<tr>
-  <td>Division</td>
-  <td>$(a + b)/c$</td>
-  <td>
-    "a plus b all divided by c"<br>
-    "The sum of a and b <b>all</b> divided by c"<br>
-    "The fraction a plus b over c"<br>
-  </td>
-</tr>
+  <!-- ⋘──────── Table Header ────────⋙ -->
+  <tr>
+    <th></th>
+    <th>Mathematical Expression</th>
+    <th>English Translation</th>
+  </tr>
+  <!-- ⋘──────── Table body ────────⋙ -->
+  {% for item in category.items %}
+    <tr>
+      <th>
+        {{ item.name}}
+      </th>
+      <td>
+        {{ item.example-expression}}
+      </td>
+      <td>
+        {% for translation in item.translations %}
+          {{ translation }} <br>
+        {% endfor %}
+      </td>
+    </tr>
+  {% endfor %}
 </table>
 
-## Algebra
 
-<table>
-<tr>
-  <th></th>
-  <th>Mathematical Expression</th>
-  <th>English Translation</th>
-</tr>
-<tr>
-  <td>Squared</td>
-  <td>$x^2$</td>
-  <td>
-      "x squared"<br>
-      "x to the power of two."<br>
-  </td>
-</tr>
-<tr>
-  <td>Exponent</td>
-  <td>$e^x2$</td>
-  <td>
-      "e to the x"<br>
-  </td>
-</tr>
-<tr>
-  <td>Square Root</td>
-  <td>$\sqrt{2}$</td>
-  <td>
-      "square root of 2"<br>
-      "root 2"<br>
-  </td>
-</tr>
-<tr>
-  <td>nth Root</td>
-  <td>$\sqrt[n]{2}$</td>
-  <td>
-      "nth root of 2"<br>
-  </td>
-</tr>
-<tr>
-  <td>Natural log</td>
-  <td>$\ln{x}$</td>
-  <td>
-      "natural log of x"<br>
-      "log of x"<br>
-      "log x"<br>
-      "ell-en of x"<br>
-      "ell-en x"<br>
-  </td>
-</tr>
-<tr>
-  <td>Factorial</td>
-  <td>$n!$</td>
-  <td>
-      "n factorial"<br>
-      "factorial of n"<br>
-  </td>
-</tr>
-</table>
+{% endfor %}
 
 ## Sets
 
@@ -176,6 +330,14 @@ Since any mathematical expression can be translated multiple ways, several trans
   <td>
       "'x' is an element of 'A'."<br>
       "'x' is in 'A'."<br>
+  </td>
+</tr>
+<tr>
+  <td>Not an element of</td>
+  <td>$x \notin A$</td>
+  <td>
+      "'x' is not an element of 'A'."<br>
+      "'x' is not in 'A'."<br>
   </td>
 </tr>
 <tr>
@@ -242,10 +404,10 @@ Since any mathematical expression can be translated multiple ways, several trans
 </tr>
 <tr>
   <td>Indefinite Integrals</td>
-  <td>$$\int_a^b f(x) dx$$</td>
+  <td>$$\int f(x) dx$$</td>
   <td>
-    "The integral of f of x with respect to x from a to b."<br>
-    "The integral of f of x, dee-x with lower limit a and upper limit b."<br>
+    "The integral of f of x with respect to x."<br>
+    "The integral of f of x, dee-x."<br>
   </td>
 </tr>
 <tr>
@@ -382,5 +544,8 @@ Since any mathematical expression can be translated multiple ways, several trans
 
 This is document is a work in progress that will continue to grow as I find examples that are worthy of inclusion. If you have suggestions, please [contact me](mailto:pwintz+ws@ucsc.edu).
 
-For more on this topic, see ["How can we speak math?"](https://people.eecs.berkeley.edu/~fateman/papers/speakmath.pdf) by Richard Fateman.
+For more on this topic, see 
+
+* ["How can we speak math?"](https://people.eecs.berkeley.edu/~fateman/papers/speakmath.pdf) by Richard Fateman.
+* [Wikipedia - List of mathematical symbols](https://simple.wikipedia.org/wiki/List_of_mathematical_symbols)
 
