@@ -62,6 +62,7 @@ Not a Git repository: /path/to/repo_5
 If repository is not listed, then changes have been committed and pushed.
 
 Here is the `git_check_all.sh` script:
+
 ```bash
 #!/usr/bin/env bash
 
@@ -134,7 +135,7 @@ To do this, modify `~/.gitconfig` to contain
 [alias]
   check-all = !~/scripts/git_check_all.sh
 ```
-The `!` before `~/scripts/git_check_all.sh` indicates that it should be run as a shell script.
+The `!` before `~/scripts/git_check_all.sh` indicates that it is to be run as a shell script instead of a git subcommand.
 
 <!-- 
 ## 4. To-do: Scheduled Checks
