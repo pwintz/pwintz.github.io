@@ -13,7 +13,7 @@ bundle install
 
 ## Deploy Website Locally
 To build and locally host the website, run
-```
+```bash
 bundle exec jekyll serve
 ```
 
@@ -23,28 +23,43 @@ write to `/var/lib/gems/3.3.0/cache`. It is likely that you
 need to grant write permissions for that path.```
 [**Solution**](https://github.com/ruby/rubygems/issues/6272#issuecomment-1381683835): Run `bundle config path ~/.bundle` to set the bundle path to a user-owned folder.
 
-# To add a publication
+# Publication List
 
-1. Add metadata as a markdown file in _publications named as `<first author last name>-<first title word>-<YYYY>.md` with the following contents
-```
----
-layout: publication
-title: > 
-    add title
-authors: Paul K. Wintz and  Ricardo G. Sanfelice
-publication: add publication
-year: 2023
-abstract: >
-    add abstract
-teaser-image: false
-slides: false
-bibtex: false
----
-```
-2. Add files to the `downloads/` folder. Pick a base name in the format `FIRSTAUTHOR-TITLEWORD-YEAR`. There can be the following files:
-    * `<first author last name>-<first title word>-<YYYY>.pdf`
-    * `<first author last name>-<first title word>-<YYYY>.pdf`. Set `slides: true` in `<first author last name>-<first title word>-<YYYY>.md`.
-    * `<first author last name>-<first title word>-<YYYY>.bib`. Set `bibtex: false` in `<first author last name>-<first title word>-<YYYY>.md`.
+A list of publications are published at [paulwintz.com/publications/](https://paulwintz.com/publications/).
+Each publication is defined in a Markdown file in the [_publications](_publications) folder. 
+An example is [wintz-ctg-2024.md](_publications/wintz-ctg-2024.md). 
+Files associated with each publication, such as PDFs, are located in the [downloads/](downloads) folder.
+
+# How to add a publication
+
+1. Create a markdown file in `_publications` named as `<first author last name>-<first title word>-<YYYY>.md` with the following properties:
+    ```yaml
+    ---
+    layout: publication
+    title: > 
+        add title
+    authors: Paul K. Wintz and  Ricardo G. Sanfelice
+    publication: [add publication venue (conference or journal name)]
+    year: [add year]
+    abstract: >
+        [add abstract]
+    teaser-image: false
+    slides: false
+    bibtex: false
+    ---
+    ```
+2. Add any of the following files to the `downloads/` folder:
+    * Document: `<first author last name>-<first title word>-<YYYY>.pdf`
+    * Slides: `<first author last name>-<first title word>-<YYYY>_slides.pdf`. 
+        * Set `slides: true` in `<first author last name>-<first title word>-<YYYY>.md`.
+    * `<first author last name>-<first title word>-<YYYY>.bib`. 
+        * Set `bibtex: false` in `<first author last name>-<first title word>-<YYYY>.md`.
+
+After publication is complete:
+
+3. Set the DOI
+4. Add the bibtex file.
+
 
 
 # JavaScript and TypeScript scripts
