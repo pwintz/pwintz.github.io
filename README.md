@@ -133,3 +133,37 @@ To change the layout used to render each item of the collection on individual pa
 
 # Creating redirects
 To redirect a URL to a different address, create a file in `_pages/redirects` (copy the format of the files there).
+
+# HTML and Markdown Components
+
+## Collapsible Block
+To create a collapsible component in a web page (without CSS+JS), use a `<details>` block. 
+```
+<details>
+  Content that is hidden by default
+</details>
+```
+The result looks something like this:
+<details>
+  Content that is **collapsed** when the page loads.
+</details>
+Note that Markdown is not processed in block-level HTML tags. 
+[To enable Markdown](https://stackoverflow.com/a/29378250/6651650), use `markdown=1`, which reenables Markdown processing (at least with our Markdown processor).
+
+To change the header text for the collapsed block, place a `<summary>` tag inside. 
+The resulting code is 
+```html
+<details markdown=1>
+    <summary>
+        Example summary.
+    </summary>
+    Content that is **collapsed** when the page loads.
+</details>
+```
+Output: 
+<details markdown=1>
+    <summary>
+        Example summary.
+    </summary>
+    Content that is **collapsed** when the page loads.
+</details>
