@@ -1,196 +1,256 @@
 ---
 layout: cv 
-permalink: /cv
 title: CV
-<!-- toc: true -->
-tagline: Mathematician. Educator. Creator. 
+permalink: /cv
+tagline: Mathematician. Teacher. Creator. 
+
 biography:
-  Paul K. Wintz received a B.S. degree in Engineering/Physics with a minor in Music from Westmont College, Santa Barbara, CA in 2016, an M.S. degree in Scientific Computing and Applied Mathematics from the University of California, Santa Cruz in 2020, a PhD in Applied Mathematics from the University of California, Santa Cruz in 2025. 
-  Mr. Wintz was a finalist for the Best Student Paper award at the 2022 American Control Conference.
+  Paul K. Wintz received a B.S. degree in Engineering/Physics with a minor in Music from Westmont College, Santa Barbara, CA in 2016, an M.S. degree in Scientific Computing and Applied Mathematics from the University of California, Santa Cruz (UCSC) in 2020, and a PhD in Applied Mathematics from UCSC in 2025. 
+  Dr. Wintz was a finalist for the Best Student Paper award at the 2022 American Control Conference.
+
 research-interests:
   - Hybrid dynamical systems
   - Model predictive control
-  - Switched feedback for exploiting uncertified controllers 
+  - Uniting feedback for exploiting uncertified controllers 
   - Computationally-constrained cyber-physical systems
   - Graph-based asymptotic and reachability analysis of hybrid systems
   - Formal methods for verification of dynamical systems and control systems
-<!-- professional-positions:
-  - ... -->
+
 honors:
   - honor: Dissertation Year Fellowship
     location: University of California, Santa Cruz
     date: Fall 2024 - Spring 2025
+
   - honor: 🥈 Shortlisted for Outstanding Student Paper Prize
     location: CSS Technical Committee on Hybrid Systems
     date: 2024
+
   - honor: 🎖️ Department Service Award
     location: Applied Mathematics Department, University of California, Santa Cruz
     date: Spring 2024
+
   - honor: Advancement to Candidacy with Honors
     location: University of California, Santa Cruz
     date: Spring 2023
+
   - honor: 🥈 Best Student Paper Award Finalist
     location: American Control Conference
     date: June 2022
+
   - honor: Regents Fellowship
     location: University of California, Santa Cruz
     # <!--Dates: Fall 2020-Spring 2021   -->
     date: 2020-2021  
+
   - honor: Dean's Fellowship
     location: Baskin School of Engineering, University of California, Santa Cruz
     # <!--TODO: Check the date   -->
     date: 2020-2021
+
   - honor: AMS/SAM Fellowship
     location: University of California, Santa Cruz
     # <!--Dates: 2020 Spring, 2021 Spring   -->
     date: Spring 2020, Spring 2021
+
   - honor: Graduate SciCAM Fellowship
     location: University of California, Santa Cruz
     # <!--Dates: 2018 Fall - 2019 Spring  -->
     date: 2018-2019  
+
   - honor: Burnand-Partridge Foundation Fund
     location: Scholarship Foundation of Santa Barbara
     date: 2018-2020
+
   - honor: 🥇 Top Student Award
     location: Westmont College
     date: May 2016
+
   - honor: 🎖️ Outstanding Senior Award
     location: Department of Physics, Westmont College
     date: May 2016
+
   - honor: Transfer President's Scholarship
     location: Westmont College
     date: 2014-2016
+
   - honor: Music Scholarship 
     location: Westmont College
     date: 2014-2016
+
   - honor: B. Paul Moser Memorial Trust Scholarship
     <!-- See paulandhisviolin: https://mail.google.com/mail/u/0/?shva=1#search/the+santa+barbara+foundatio/FMfcgxmLbGzqvznsxnBCGHPjjfjjRvkB -->
     location: Scholarship Foundation of Santa Barbara
     date: 2015-2016
+
   - honor: Al Slagle Memorial Scholarship
     location: Scholarship Foundation of Santa Barbara
     # <!-- TODO: Check date -->
     date: 2012-2013
+
   - honor: Pillsbury Music Scholarship 
     # <!-- TODO: Check date -->
     location: Santa Barbara Foundation
     date: 2012-2013
+
   - honor: Applied Music Program (Scholarship) 
     # <!-- TODO: Check date -->
     location: Santa Barbara City College
     date: 2011-2013
 
+
 teaching-experiences:
+
   - role: Adjunct Professor
     type: Undergraduate Course
     name: Analytic Geometry and Calculus II 
-    location: Hartnell College, Salinas
+    location: Hartnell College
     date: Fall 2025
+
   - role: Group Tutor
     type: Undergraduate Course
     name: Introduction to Cyber-Physical Systems
-    location: Department of Computer Engineering, University of California, Santa Cruz
+    location: UCSC, Department of Computer Engineering
     date: Spring 2024
+
   - role: Instructor
     type: Undergraduate Course
-    name: Mathematical Methods for Engineers I (Linear Algebra)
+    name: Linear Algebra for Engineers (AM10)
     date: Winter 2024
-    location: Department of Applied Mathematics, University of California, Santa Cruz 
+    location: UCSC, Department of Applied Mathematics
+    # Previously named  Mathematical Methods for Engineers I
+
   - role: Group Tutor
     type: Undergraduate Course
     name: Introduction to Cyber-Physical Systems
-    department: Department of Computer Engineering
     date: Spring 2022
-    location: University of California, Santa Cruz 
+    location: UCSC, Department of Computer Engineering
+
   - role: Teaching Assistant 
     type: Undergraduate Course
     name: Mathematical Methods for Engineers I (Linear Algebra)
     date: Summer 2020
-    location: Department of Applied Mathematics, University of California, Santa Cruz 
+    location: UCSC, Department of Applied Mathematics
+
   - role: Teaching Assistant 
     type: Undergraduate Course 
     name: Mathematical Methods for Economists II (Integral Calculus)
     date: Spring 2020
-    location: Department of Applied Mathematics, University of California, Santa Cruz 
+    location: UCSC, Department of Applied Mathematics
+
   - role: Teaching Assistant 
     type: Undergraduate Course 
     name: Mathematical Methods for Economists I (Differential Calculus)
     date: Spring 2020
-    location: Department of Applied Mathematics, University of California, Santa Cruz 
+    location: UCSC, Department of Applied Mathematics
+
   - role: Teaching Assistant
     type: Undergraduate Course
     name: Mathematical Methods for Engineers I (Linear Algebra)
     date: Winter 2020
-    location: Department of Applied Mathematics, University of California, Santa Cruz 
+    location: UCSC, Department of Applied Mathematics
+
   - role: Teaching Assistant 
     type: Undergraduate Course 
     name: Applied Dynamical Systems
     date: Fall 2019
-    location: Department of Applied Mathematics, University of California, Santa Cruz 
+    location: UCSC, Department of Applied Mathematics
+
   - role: Teaching Assistant 
     type: Undergraduate Course 
     name: Mathematical Methods for Economists I (Differential Calculus)
     date: Fall 2019
-    location: Department of Applied Mathematics, University of California, Santa Cruz 
+    location: UCSC, Department of Applied Mathematics
+
   - role: Teaching Assistant 
     type: Undergraduate Course 
-    name: Mathematical Methods for Engineers II (Ordinary Differential Equations)
+    name: Ordinary Differential Equations for Engineers
     date: Summer 2019
-    location: Department of Applied Mathematics, University of California, Santa Cruz 
+    location: UCSC, Department of Applied Mathematics
+    # Previously named "Mathematical Methods for Engineers II"
+
   - role: Teaching Assistant 
     type: Undergraduate Course 
     name: Electricity & Magnetism
     department: 
     date: Spring 2016
     location: Department of Physics, Westmont College
+
   - role: Teaching Assistant 
     type: Undergraduate Course 
     name: General Physics
     date: Fall 2015
     location: Department of Physics, Westmont College
+
   - role: Group Tutor
     type: Undergraduate Course 
     name: Music Theory
     date: Fall 2013
     location: Department of Music, Santa Barbara City College
+
 #  - role: Private Tutor
 #    type: Primary and Secondary
 #    name: Algebra
 #    # Not sure of these dates.
 #    date: 2013 - 2014
 #    location: Self-employed
+
 #  - role: Private Instructor
 #    # type: Primary and Secondary
 #    name: Violin
 #    date: 2012 - 2014
 #    location: Self-employed
+
 conference-presentations:
+  - title: Relaxed Lyapunov Conditions for Compact Sets in Dynamical Systems
+    venue: American Control Conference 
+    date: July, 2025 
+    location: Denver, Colorado
+
+  - title: "SHARC: Simulator for Hardware Architecture and Real-time Control"
+    venue: "ACM International Conference on Hybrid Systems: Computation and Control (HSCC)"
+    date: May, 2025 
+    location: Irvine, California
+
   - title: Conical Transition Graphs for Analysis of Asymptotic Stability in Hybrid Dynamical Systems
-    venue: IFAC Conference on Analysis and Design of Hybrid Systems
+    venue: IFAC Conference on Analysis and Design of Hybrid Systems (ADHS)
     date: July 2024 
+    location: Boulder, Colorado
+
   - title: Forward Invariance-Based Hybrid Control Using Uncertified Controllers
     date: April 26, 2024
     venue: Northern California Control Workshop
+    location: Merced, California
+
   - title: Forward Invariance-Based Hybrid Control Using Uncertified Controllers
     venue: IEEE Conference on Decision and Control
     date: December 2023
+    location: Singapore
+
   - title: Global Asymptotic Stability of Nonlinear Systems while Exploiting Properties of Uncertified Feedback Controllers via Opportunistic Switching
     venue: American Control Conference
     date: June 2022
+    location: Atlanta, Georgia
+
 poster-presentations:
-  - venue: Bay Area Robotics Symposium
+  - title: Global Asymptotic Stability of Nonlinear Systems while Exploiting Properties of Uncertified Feedback Controllers via Opportunistic Switching
+    venue: Bay Area Robotics Symposium
     date: October 2022
-    title: Global Asymptotic Stability of Nonlinear Systems while Exploiting Properties of Uncertified Feedback Controllers via Opportunistic Switching
-  - venue: Westmont College Student Research Symposium
-    title: Helmholtz Motion of Violin String Driven by Stick-Slip Interactions Between Bow and String
+    location: Berkeley, California
+
+  - title: Helmholtz Motion of Violin String Driven by Stick-Slip Interactions Between Bow and String
+    venue: Westmont College Student Research Symposium
     date: April 2016
+    location: Montecito, California
+
 service-work:
   - title: Graduate Student Association representative for Advisory Committee on Campus Transportation and Parking
     location: University of California, Santa Cruz
     date: 2023-2025
+
   - title: Graduate Student Social Coordinator 
     location: Applied Math Department, University of California, Santa Cruz
     date: 2023-2024
+
 schools:
   - name: University of California, Santa Cruz
     gpa: 3.93
@@ -198,9 +258,11 @@ schools:
     end-date: 12/2025 
     items:
       - name: PhD in Applied Mathematics
-        date: Fall 2025
+        date: 12/2025
+
       - name: M.S. in Scientific Computing and Applied Mathematics
         date: 09/2020
+
     # honors:
     #   - Finalist for Best Student Paper at the 2022 American Control Conference.
     #   - Advancement to Candidacy with Honors
@@ -208,6 +270,7 @@ schools:
     #   - BSOE Dean's Fellowship
     #   - Applied Mathematics Department Service Award 
     #   - Graduate student representative for Advisory Committee on Campus Transportation and Parking
+
   - name: Westmont College
     gpa: 4.00
     start-date: 09/2014
@@ -220,6 +283,7 @@ schools:
     #   - Phi Kappa Phi Honor Society
     #   - Transfer President's Scholarship
     #   - Westmont Orchestra - First Violin
+
   - name: Santa Barbara City College
     gpa: 4.00
     start-date: 09/2011
@@ -233,11 +297,13 @@ schools:
     #   - Phi Theta Kappa Honor Society
       
 employers: 
+
 - name: Hartnell College
   jobs:
     - title: Adjunct Faculty
       start-date: Fall 2025
       end-date: 
+
 - name: University of California, Santa Cruz
   jobs:
     - title: Graduate Student Researcher
@@ -247,20 +313,25 @@ employers:
         - Conducted and published research in the mathematical control of hybrid dynamical systems.
         - Finalist for Best Student Paper at the American Control Conference. 
         #- Mentored junior members of research group.
+
     - title: Group Tutor for Introduction to Cyber-Physical Systems
       dates: Spring 2022, Spring 2024
-    - title: Graduate Student Instructor for AM 10 (Linear Algebra)
+
+    - title: Graduate Student Instructor for Linear Algebra for Engineers (AM 10)
       dates: Winter 2024
       highlights:
       - Designed syllabus, wrote lesson plans and exams, and lectured for a class of 230 students.
       - Supervised a large team of readers, graders, and teaching assistants.
       - Solicited frequent feedback from students and adapted to their comments to improve student outcomes.
+      - Successfully petitioned for the course to be renamed from "Mathematical Methods for Engineers I" to "Linear Algebra for Engineers".
       # - Received strong positive feedback from students.
+
     - title: Teaching Assistant
       start-date: Summer 2019
       end-date: Summer 2020
       highlights:
         - Prepared discussion sections, encouraged student learning, and provided detailed feedback to student submissions.  
+
 - name: Arthrex California Technology
   jobs:
     - title: Junior Software Engineer
@@ -269,9 +340,11 @@ employers:
       highlights:
         - Designed and implemented features on Android and embedded Linux systems.
         - Created prototype for the video transformation software used in the <a href="https://www.linkedin.com/posts/paul-wintz-10621049_whatsnewatarthrex-arthrex-medicaleducation-activity-7176801620503003136-Ya8f?utm_source=share&utm_medium=member_desktop">Pano scope system</a></a>. 
+
     - title: Software Quality Assurance Intern
       start-date: 06/2015
       end-date: 08/2015
+
 - name: Westmont College
   jobs: 
     - title: Physics Teaching Assistant
@@ -287,7 +360,7 @@ skills:
   - Python
   - MATLAB
   - C++
-  - HTML/CSS/Javascript
+  - HTML/CSS/JavaScript
   - Software Design
   - Docker
   - Git
@@ -350,6 +423,4 @@ software:
   - name: Spryotechnics
   # _ name: Multi-frequency Music Tuner 
   - name: Dryer Lint Regex Linter Extension for VS Code
-
 ---
-

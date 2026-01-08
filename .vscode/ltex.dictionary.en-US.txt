@@ -20,3 +20,7 @@ IntelliSense
 recompiles
 Halmos
 Wintz
+ComedySportz
+ComedySportz
+SciCAM
+Baskin
