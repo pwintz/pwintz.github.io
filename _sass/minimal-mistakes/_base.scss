@@ -151,29 +151,6 @@ button:focus {
   @extend %tab-focus;
 }
 
-/* code */
-
-tt,
-code,
-kbd,
-samp,
-pre {
-  font-family: $monospace;
-}
-
-pre {
-  overflow-x: auto; /* add scrollbars to wide code blocks*/
-  padding: 10px;
-  border-radius: 5px;
-  -moz-tab-size: 2; /* Firefox */
-  tab-size: 2;
-}
- 
-tt, code {
-  padding-left: 3px;
-  padding-right: 2px;
-  border-radius: 2px;
-}
 
 /* horizontal rule */
 

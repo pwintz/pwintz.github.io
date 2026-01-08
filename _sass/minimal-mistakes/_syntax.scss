@@ -1,7 +1,39 @@
-/* ==========================================================================
-   Syntax highlighting
-   ========================================================================== */
+// ╭───────────────────────────────────────────────╮
+// │  ╭─────────────────────────────────────────╮  │
+// │  │             Code Formatting             │  │
+// │  ╰─────────────────────────────────────────╯  │
+// ╰───────────────────────────────────────────────╯
 
+tt,
+code,
+kbd,
+samp,
+pre {
+  font-family: $monospace;
+}
+
+// Configure pre-formatted blocks.
+pre {
+  /* add scrollbars to wide code blocks*/
+  overflow-x: auto; 
+  padding: 10px;
+  border-radius: 5px;
+  -moz-tab-size: 2; /* Firefox */
+  tab-size: 2;
+  // Add space below code blocks.
+  margin-bottom: 1em;
+}
+ 
+// Configure code and tt elements.
+tt, code {
+  padding-left: 3px;
+  padding-right: 2px;
+  border-radius: 2px;
+}
+
+// ╭─────────────────────────────────────────────╮
+// │             Syntax highlighting             │
+// ╰─────────────────────────────────────────────╯
 div.highlighter-rouge,
 figure.highlight {
   position: relative;
@@ -16,7 +48,8 @@ figure.highlight {
 
   > pre,
   pre.highlight {
-    margin: 0;
+    // Add padding below 
+    margin: 0em 0em 1em 0em;
     padding: $code-block-padding;
   }
 }
@@ -57,7 +90,7 @@ figure.highlight {
   width: 100%;
 }
 
-.highlight pre,code {
+.highlight pre, code {
   font-size: $type-size-5;
 }
 
@@ -67,51 +100,51 @@ figure.highlight {
 .highlight {
   .c {
     /* Comment */
-    color: $base04;
+    color: $code-comment-color;
   }
   .err {
     /* Error */
-    color: $base08;
+    color: $code-color-error;
   }
   .k {
     /* Keyword */
-    color: $base0e;
+    color: $code-color-keyword;
   }
   .l {
     /* Literal */
-    color: $base09;
+    color: $code-color-literal;
   }
   .n {
     /* Name */
-    color: $base05;
+    color: $code-color-name;
   }
   .o {
     /* Operator */
-    color: $base0c;
+    color: $code-color-operator;
   }
   .p {
     /* Punctuation */
-    color: $base05;
+    color: $code-color-punctuation;
   }
   .cm {
     /* Comment.Multiline */
-    color: $base04;
+    color: $code-color-comment-multiline;
   }
   .cp {
     /* Comment.Preproc */
-    color: $base04;
+    color: $code-color-comment-preproc;
   }
   .c1 {
     /* Comment.Single */
-    color: $base04;
+    color: $code-color-comment-single;
   }
   .cs {
     /* Comment.Special */
-    color: $base04;
+    color: $code-color-comment-special;
   }
   .gd {
     /* Generic.Deleted */
-    color: $base08;
+    color: $code-color-generic-deleted;
   }
   .ge {
     /* Generic.Emph */

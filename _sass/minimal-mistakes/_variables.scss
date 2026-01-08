@@ -53,10 +53,16 @@ $h-size-4: 1.0625em !default; // ~17px
 $h-size-5: 1.03125em !default; // ~16.5px
 $h-size-6: 1em !default; // ~16px
 
-/*
-   Colors
-   ========================================================================== */
 
+// ╭──────────────────────────────────────╮
+// │  ╭────────────────────────────────╮  │
+// │  │             Colors             │  │
+// │  ╰────────────────────────────────╯  │
+// ╰──────────────────────────────────────╯
+
+// ╭──────────────────────────────────────╮
+// │             Basic Colors             │
+// ╰──────────────────────────────────────╯
 $gray: #7a8288 !default;
 $dark-gray: color.mix(#000, $gray, 50%) !default;
 $darker-gray: color.mix(#000, $gray, 60%) !default;
@@ -64,8 +70,6 @@ $light-gray: color.mix(#fff, $gray, 50%) !default;
 $lighter-gray: color.mix(#fff, $gray, 90%) !default;
 
 $background-color: #fff !default;
-$code-background-color: #fafafa !default;
-$code-background-color-dark: $light-gray !default;
 $text-color: $dark-gray !default;
 $muted-text-color: color.mix(#fff, $text-color, 20%) !default;
 $border-color: $lighter-gray !default;
@@ -125,6 +129,8 @@ $notice-background-mix: 80% !default;
 $code-notice-background-mix: 90% !default;
 
 /* Code block styling */
+$code-background-color: #fafafa !default;
+$code-background-color-dark: $light-gray !default;
 $code-block-padding: 1em;
 
 /* syntax highlighting (base16) */
@@ -144,6 +150,20 @@ $base0c: #89ddff !default;
 $base0d: #82aaff !default;
 $base0e: #c792ea !default;
 $base0f: #ff5370 !default;
+
+// ⋘──────── Syntax Highlighting Color ────────⋙
+$code-comment-color:           $base04;
+$code-color-error:             $base08;
+$code-color-keyword:           $base0e;
+$code-color-literal:           $base09;
+$code-color-name:              $base05;
+$code-color-operator:          $base0c;
+$code-color-punctuation:       $base05;
+$code-color-comment-multiline: $base04;
+$code-color-comment-preproc:   $base04;
+$code-color-comment-single:    $base04;
+$code-color-comment-special:   $base04;
+$code-color-generic-deleted:   $base08;
 
 /*
    Breakpoints
