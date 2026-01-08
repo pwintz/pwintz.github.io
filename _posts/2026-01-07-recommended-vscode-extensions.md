@@ -20,7 +20,7 @@ extensions:
     id: edwinhuish.better-comments-next
     sort-placement: 5 # Low numbers earlier. Duplicates OK. 
     description: |
-        Allows customization of comment styling in the code editor based on the character(s) at the beginning of the comment. Useful for making comments more readable, such as highlighting to-do items. "Better Comments Next" is a fork of "Better Comments", which is no longer updated.
+        The Better Comments Next extension allows customization of comment styling in the code editor based on the character(s) at the beginning of the comment. Useful for making comments more readable, such as highlighting to-do items. Better Comments Next is a fork of the Better Comments extension, which is no longer updated.
     settings: |
       ```jsonc
       // ╭────────────────────────────────────────────────────╮
@@ -147,27 +147,35 @@ extensions:
           },
       ],
       ```
+
   - name: Code Spell Checker
     id: streetsidesoftware.code-spell-checker
     sort-placement: 3 # Low numbers earlier. Duplicates OK. 
     description: |
-        Provides spell checking in the code editor for the names of variables, functions, etc., and code comments. Highly customizable. Handles common methods for concatenating words in code like camelCase and snake_case.
+        The Code Spell Checker extension provides spell checking in the code editor for the names of variables, functions, etc., and code comments. Spell checking correctly handles common methods for concatenating words in code like camelCase and snake_case.
+    # This extension is highly customizable. 
     settings: |
+
   - name: Dryer Lint
     id: pwintz.dryer-lint
     sort-placement: 4 # Low numbers earlier. Duplicates OK. 
     description: |
-        A language- and framework-agnostic linter for VS Code, suppports user-defined lint rules that are specific to a given user and project. I use it extension extensively to check for common mistakes I make and enforce my code style. I find it extremely, but I am the extension's author, so I am biased :)
+        Dryer Lint is a customizable linter for VS Code. 
+        It suppports user-defined lint rules that are specific to a given user and project. 
+        Rules are defined as regular expressions.
+        I use Dryer Lint extensively to enforce my code style and to check for common mistakes I make while programming and writing. I find Dryer Lint extremely useful, but I am a bit biased since I wrote it :)
     settings: |
+
   - name: Error Lens
     id: usernamehw.errorlens 
     sort-placement: 2 # Low numbers earlier. Duplicates OK. 
     description: |
-        Improves how diagnostics (errors, warnings, information, and hints) are displayed in the code editor. Supports displaying the diagnostic text in-line, so you do not need to open the Problems pane or hover over the problem to identify the problem. Also allow you to customize the display style for each type of diagnostic. 
+        Error Lens improves how the code editor displays diagnostics (errors, warnings, information, and hints).
+        It supports displaying diagnostic messages in-line, so you do not need to open the Problems pane or hover over the problem to identify the problem. It also allows you to customize the display style (e.g., colors) for each type of diagnostic. 
     settings: |
-      The settings for Error Lens is largely a matter of taste, but the color and alignment are important for making the messages readable in the editor. 
-      Here are my settings to serve as a baseline for your own.
+      My Error Lens settings, shown below, are chosen to improve the readability of diagnostic messages, with more severe diagnostics being displayed with brighter colors.
       ```jsonc
+      // In settings.json
       // ╭────────────────────────────────────────╮
       // │ ╭────────────────────────────────────╮ │
       // │ │             Error Lens             │ │
@@ -207,7 +215,7 @@ extensions:
               "backgroundColor": "#0585",
           },
           "hintMessage": {
-              // Torquoise
+              // Turquoise
               "color": "#387", // Text color
           },
           "hintRange": {
@@ -250,7 +258,7 @@ extensions:
     id: mushan.vscode-paste-image
     sort-placement: 6 # Low numbers earlier. Duplicates OK. 
     description: |
-        Simplifies the process of adding images from your clipboard (such as screenshots) to documents, such as LaTeX or Markdown. When activated, the current clipboard contents (if an image) are saved to a file and code is inserted into the current document to display the image. The extension is rough around the edges, in places, but gets the job done better than any alternatives I've found.
+        The Paste Image extension simplifies the process of adding images from your clipboard (such as screenshots) to documents, such as LaTeX or Markdown. When activated, the current clipboard contents (if an image) are saved to a file and code is inserted into the current document to display the image. The extension is rough around the edges, in places, but gets the job done better than any alternatives I've found.
     settings: |
       My settings for Paste Image (for LaTeX) are described in [LaTeX in VS Code](/latex-in-vscode/#paste-image-image-pasting-into-latex-code).
     
@@ -258,14 +266,16 @@ extensions:
     id: lesgrieve.paste-indent
     sort-placement: 8 # Low numbers earlier. Duplicates OK. 
     description: |
-        Adjusts the way that pasted text is indented. The default behavior of VS Code often results in the first line of pasted text having a different indentation. This extension fixes that problem.
+        The paste-indent extension adjusts the way that pasted text is indented. The default behavior of VS Code often results in the first line of pasted text having a different indentation. This extension fixes that problem.
     settings: |
       None.
+
   - name: TabOut
     id: albert.TabOut
     sort-placement: 5 # Low numbers earlier. Duplicates OK. 
     description: |
-        Changes the behavior when TAB is typed in an editor to move outside of the next closing bracket instead of inserting whitespace. 
+        The TabOut extension changes the editor behavior when the TAB key is pressed.
+        By default  inserting whitespace. 
     settings: |
         <pre>
         "tabout.charactersToTabOutFrom": [
@@ -280,11 +290,12 @@ extensions:
             {"open": "`",   "close": "`"},
         ],
         </pre>
+
   - name: Tomorrow and Tomorrow Night Theme Kit
     id: ms-vscode.Theme-TomorrowKit
-    sort-placement: 10 # Low numbers earlier. Duplicates OK. 
+    sort-placement: 100 # Low numbers earlier. Duplicates OK. 
     description: |
-        Provides my preferred editor theme "Tomorrow Night Bright", which has good contrast while remaining aesthetically pleasing. 
+        The Tomorrow and Tomorrow Night Theme Kit provides my favorite editor theme "Tomorrow Night Bright", which has good contrast while remaining aesthetically pleasing. 
     settings: |
       To set the color theme, open the command pallet (`CTRL+SHIFT+P`) and select `Preferences: Color Theme`.
       After the color is changed, you will the follow line in your `settings.json` file:
@@ -318,7 +329,7 @@ Microsoft describes [these steps](https://code.visualstudio.com/docs/configure/e
   <details markdown=1>
   <!-- ! Do not increase the indentation of the summary, the contents of the details tag, otherwise it is rendered as a code block. -->
   <summary>
-    Configuration Details
+    <i>Configuration Details</i>
   </summary>
   {{ extension.settings }}
   </details>
