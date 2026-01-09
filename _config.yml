@@ -104,24 +104,35 @@ analytics:
 
 # Site Author
 author:
-  name             : "Paul Wintz"
+  name             : "Paul K. Wintz"
   avatar           : "assets/images/paul.jpg"
   bio              : "PhD graduate in Applied Mathematics."
-  location         : "University of California, Santa Cruz"
+  location         : "Santa Cruz, California"
   email            : &email pwintz+ws@ucsc.edu
+
+  # ⋘──────── Sidebar links to profiles on other websites ────────⋙
+  # These use Font Awesome icons. The format of the icon specification are 
+  # - Icon family: "fab" (Font Awesome Brand) or "fas" (Font Awesome solid).
+  # - Size/spacing/alignment modifiers:"fa-fw" (fixed width).
+  # - Icon name: "fa-github", "fa-linkedin", etc.
+  # 
+  # ! When changing these icons, use "bundle exec jekyll serve", not "bundle exec jekyll serve --incremental", otherwise changes are not reflected in the rendered webpage.
   links:
-    - label: "LinkTree"
-      icon: "fas fa-fw fa-link"
-      url: "https://linktr.ee/paulwintz"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: &github "https://github.com/pwintz"
+
     - label: "LinkedIn"
-      icon: "fas fa-fw fa-link"
+      icon: "fab fa-fw fa-linkedin"
       url: &linkedin "https://www.linkedin.com/in/paul-wintz-10621049/"
+
     - label: "Mastodon"
-      icon: "fa fa-brands fa-mastodon"
+      icon: "fab fa-fw fa-mastodon"
       url: &mastodon "https://mastodon.world/@pwintz"
+
+    # - label: "LinkTree"
+    #   icon: "fab fa-fw fa-linktree"
+    #   url: "https://linktr.ee/paulwintz"
 
 # Site Scripts
 head_scripts:
@@ -137,7 +148,7 @@ footer:
       icon: "fab fa-fw fa-github"
       url: *github
     - label: "LinkedIn"
-      icon: "fas fa-fw fa-link"
+      icon: "fab fa-fw fa-linkedin"
       url: *linkedin
 
 # Reading Files

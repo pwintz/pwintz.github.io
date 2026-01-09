@@ -19,6 +19,7 @@
     "interlinepenalty",
     "invs",
     "marginparwidth",
+    "markdownify",
     "mathbb",
     "newcommand",
     "newtheorem",
