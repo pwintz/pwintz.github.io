@@ -1,5 +1,8 @@
 # Development
 
+This website is implemented using Jekyll with the [Minimal Mistakes](https://mmistakes.github.io/minimal-mistakes) theme.
+Documentation for configuring Minimal Mistakes is found [here](https://mmistakes.github.io/minimal-mistakes/docs/configuration/).
+
 ## First-time Setup
 Install the Ruby bundler and Ruby development headers using (on Linux):
 ```

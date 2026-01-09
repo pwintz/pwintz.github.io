@@ -307,7 +307,8 @@ employers:
 - name: University of California, Santa Cruz
   jobs:
     - title: Graduate Student Researcher
-      dates: Spring 2021-Fall 2025, except Winter 2024
+      dates: Spring 2021-Fall 2025
+      # dates: Spring 2021-Fall 2025, except Winter 2024
       end-date: 
       highlights:
         - Conducted and published research in the mathematical control of hybrid dynamical systems.
@@ -317,13 +318,13 @@ employers:
     - title: Group Tutor for Introduction to Cyber-Physical Systems
       dates: Spring 2022, Spring 2024
 
-    - title: Graduate Student Instructor for Linear Algebra for Engineers (AM 10)
+    - title: "Graduate Student Instructor for Linear Algebra for Engineers (AM&nbsp;10)"
       dates: Winter 2024
       highlights:
       - Designed syllabus, wrote lesson plans and exams, and lectured for a class of 230 students.
       - Supervised a large team of readers, graders, and teaching assistants.
       - Solicited frequent feedback from students and adapted to their comments to improve student outcomes.
-      - Successfully petitioned for the course to be renamed from "Mathematical Methods for Engineers I" to "Linear Algebra for Engineers".
+      # - Successfully petitioned for AM10 to be renamed from "Mathematical Methods for Engineers&nbsp;I" to "Linear Algebra for Engineers".
       # - Received strong positive feedback from students.
 
     - title: Teaching Assistant

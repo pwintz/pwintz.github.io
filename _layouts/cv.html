@@ -11,6 +11,9 @@ layout: default
         margin: 0.5in 1in 0.3in 1in;  
       }
   }
+  /* Allow the tables to be broken across multiple pages. */
+  table { page-break-inside:auto }
+  tr    { page-break-inside:avoid; page-break-after:auto }
 </style>
 
 <div id="main" role="main">
@@ -40,6 +43,8 @@ layout: default
           </aside>
         {% endif %}
 
+        
+        <!-- # Header Block -->
         <div class="header-box avoid-page-breaks">
           <!-- <img src="{{ site.author.avatar }}" alt="{{ site.author.name }}" style="width: 150px; border-radius: 50%;"> -->
           <h1>{{ site.author.name }}</h1>
@@ -57,11 +62,12 @@ layout: default
             <a href="mailto:{{ email_address }}" style="margin-right: 10px;">{{ email_address | replace: "+ws", ""}}</a>
             {% endif %}
         
-            <!-- Insert Phone Number -->
-            {% capture phone_number %}{% include my_phone_number.html %}{% endcapture %}
-            {% if phone_number != "" %}
-            <!-- In order to keep my phone number off of the internet, I make a template that is ignored by Git. Thus, to generate a PDF of my resume, I host my website locally. -->
-              <i class="fas fa-phone"></i>&nbsp;<span style="margin-right: 10px;">{{ phone_number }}</span>
+            <!-- # Insert Phone Number -->
+            <!-- In order to keep my phone number off of the internet, I created an empty file my_phone_number.html and committed it to Git. Then, I told Git to ignore changes and put my phone number in my_phone_number.html so that it is only available when the website is hosted locally. The following conditional shows the phone icon if and only if the website is locally hosted.  -->
+            {% if site.url contains "localhost" or site.url contains "127.0.0.1" %}
+              <i class="fas fa-phone"></i>&nbsp;<span style="margin-right: 10px;">
+                {% include my_phone_number.html %}
+              </span>
             {% endif %}
         
             <!-- Insert URL for Website -->
@@ -69,16 +75,19 @@ layout: default
           </div>
         </div>
 
+        <!-- # Biography -->
         <div class="avoid-page-breaks">
           <h2>Short Biography</h2>
           {{ page.biography }}
         </div>
         
+        <!-- # Research Interests -->
         <div class="avoid-page-breaks">
           <h2>Research Interests</h2>
           {{ page.research-interests | join: " ⦁ " }}
         </div>
 
+        <!-- # Education - List of Schools -->
         <h2>Education</h2>
         {% for school in page.schools %}
 
@@ -123,53 +132,51 @@ layout: default
         {% endfor %}
 
         
+        <!-- # Employment - List of Jobs -->
         <h2>Employment</h2>
-        {% for employer in page.employers %}
-          <table class="dateditems">
+        <table class="dateditems">
+          {% for employer in page.employers %}
             <tr>
               <td class="item">
                 <span class="employername">{{ employer.name }}</span>
               </td>
             </tr>
-            <tr>
-              <td colspan="2">
-                {% for job in employer.jobs %}
-                  <table class="dateditems">
-                    <tr>
-                      <td class="item">
-                          {{ job.title }}
-                      </td>
-                      <td class="date">
-                        {% if job.dates %}
-                          <!-- The odd replacement we do here is to ensure non-breaking spaces before years starting with "2", e.g., " Sumemr 2023" -->
-                          {{ job.dates | replace: " 2", "&nbsp;2"}}
-                        {% else %}
-                          {{ job.start-date | date: "%B %Y" | replace: " ", "&nbsp;"}}-{{ job.end-date | date: "%B %Y" | default:"Present" | replace: " ", "&nbsp;"}}
-                        {% endif %}
-                      </td>
-                    </tr>
-                    {% if job.highlights %} 
-                      <tr>
-                        <td colspan="2">
-                          <ul style="margin-top: 0px; margin-bottom: 0px">
-                            {% for highlight in job.highlights %}
-                              <li>{{ highlight }}</li>
-                            {% endfor %}
-                          </ul>
-                        </td>
-                      </tr>
-                    {% endif %}
-                  </table>
-                {% endfor %}
-              </td>
-            </tr>
-          </table>
-        {% endfor %}
+            {% for job in employer.jobs %}
+              <!-- # Job Row -->
+              <!-- We use "page-break-after:avoid" to prevent put the job title row and job description row on the same page. -->
+              <tr style="page-break-after:avoid"> 
+                <td class="item" style="padding-left: 1em;">
+                  {{ job.title }}
+                </td>
+                <td class="date">
+                  {% if job.dates %}
+                    <!-- The odd replacement we do here is to ensure non-breaking spaces before years starting with "2", e.g., " Summer 2023" -->
+                    {{ job.dates | replace: " 2", "&nbsp;2"}}
+                  {% else %}
+                    {{ job.start-date | date: "%B %Y" | replace: " ", "&nbsp;"}}-{{ job.end-date | date: "%B %Y" | default:"Present" | replace: " ", "&nbsp;"}}
+                  {% endif %}
+                </td>
+              </tr>
+              {% if job.highlights %} 
+                <tr>
+                  <td colspan="2">
+                    <ul style="margin-top: 0px; margin-bottom: 0px">
+                      {% for highlight in job.highlights %}
+                        <li>{{ highlight }}</li>
+                      {% endfor %}
+                    </ul>
+                  </td>
+                </tr>
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+        </table>
 
         <h2>Teaching Experiences</h2>
         {% for teaching-experience in page.teaching-experiences %}
           <table class="dateditems">
-            <tr>
+            <!-- # Teaching Role Row -->
+            <tr style="page-break-after:avoid">
               <td class="item">
                 <b>{{ teaching-experience.role }}</b>
               </td>
@@ -193,7 +200,7 @@ layout: default
         <h2>Honors</h2>
         {% for honor in page.honors %}
           <table class="dateditems">
-            <tr>
+            <tr style="page-break-after:avoid">
               <td class="item">
                 <b>{{ honor.honor }}</b>
               </td>
@@ -215,7 +222,7 @@ layout: default
         <h2>Conference Presentations</h2>
         {% for conf in page.conference-presentations %}
           <table class="dateditems">
-            <tr>
+            <tr style="page-break-after:avoid">
               <td class="item">
                 "{{ conf.title }}"
               </td>
@@ -234,7 +241,7 @@ layout: default
         <h2>Poster Presentations</h2>
         {% for poster in page.poster-presentations %}
           <table class="dateditems">
-            <tr>
+            <tr style="page-break-after:avoid">
               <td class="item">
                 "{{ poster.title }}"
               </td>
@@ -253,7 +260,7 @@ layout: default
         <h2>Service Work</h2>
         {% for service in page.service-work %}
           <table class="dateditems">
-            <tr>
+            <tr style="page-break-after:avoid">
               <td class="item">
                 <span class="degreename">{{ service.title }}</span>
               </td>
@@ -277,11 +284,11 @@ layout: default
         <h2>Other Activities</h2>
         {% for activity in page.other-activities %}
           <table class="dateditems">
-            <tr>
-              <td class="item">
-                <span class="activityname">
+            <tr style="page-break-after:avoid">
+              <td class="item activityname">
+                <!-- <span class=""> -->
                   {{ activity.name }}
-                </span>
+                <!-- </span> -->
               </td>
               <td class="date">
                 {% if activity.dates %}
