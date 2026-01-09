@@ -408,7 +408,7 @@ other-activities:
   - Collaboratively organized and ran biannual youth retreat
   - Mentored students 
 - name: Not For Sale Club (Anti-Human Trafficking)
-  start-date: 09/14 
+  start-date: 09/2014 
   end-date: 06/2016
   jobs: 
     - title: Club President
