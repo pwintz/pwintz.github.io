@@ -111,19 +111,28 @@ author:
   email            : &email pwintz+ws@ucsc.edu
 
   # ⋘──────── Sidebar links to profiles on other websites ────────⋙
-  # These use Font Awesome icons. The format of the icon specification are 
+  # These use Font Awesome icons. To find the appropriate icon, use the Font Awesome search:
+  # https://fontawesome.com/search
+  # 
+  # The format of the icon specification are 
   # - Icon family: "fab" (Font Awesome Brand) or "fas" (Font Awesome solid).
   # - Size/spacing/alignment modifiers:"fa-fw" (fixed width).
   # - Icon name: "fa-github", "fa-linkedin", etc.
   # 
   # ! When changing these icons, use "bundle exec jekyll serve", not "bundle exec jekyll serve --incremental", otherwise changes are not reflected in the rendered webpage.
+  # 
+  # The Font Awesome CSS code is loaded in head.html. To update to a newer version of Font Awesome, modify the "7" in "fontawesome-free@7" to the new version number.
   links:
     - label: "GitHub"
-      icon: "fab fa-fw fa-github"
+      icon: &github-icon "fab fa-fw fa-github"
       url: &github "https://github.com/pwintz"
 
+    - label: "Google Scholar"
+      icon: &google-scholar-icon "fab fa-fw fa-google-scholar"
+      url: &google-scholar "https://scholar.google.com/citations?user=AqFMHkEAAAAJ"
+
     - label: "LinkedIn"
-      icon: "fab fa-fw fa-linkedin"
+      icon: &linkedin-icon "fab fa-fw fa-linkedin"
       url: &linkedin "https://www.linkedin.com/in/paul-wintz-10621049/"
 
     - label: "Mastodon"
@@ -145,10 +154,15 @@ head_scripts:
 footer:
   links:
     - label: "GitHub"
-      icon: "fab fa-fw fa-github"
+      icon: *github-icon
       url: *github
+
+    - label: "Google Scholar"
+      icon: *google-scholar-icon
+      url: *google-scholar
+      
     - label: "LinkedIn"
-      icon: "fab fa-fw fa-linkedin"
+      icon: *linkedin-icon
       url: *linkedin
 
 # Reading Files
