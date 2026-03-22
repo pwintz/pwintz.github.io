@@ -2,11 +2,12 @@
 layout: cv 
 title: CV
 permalink: /cv
-tagline: Mathematician. Teacher. Creator. 
+# tagline: Mathematician. Teacher. Musician. Artist.
 
 biography:
-  Paul K. Wintz received a B.S. degree in Engineering/Physics with a minor in Music from Westmont College, Santa Barbara, CA in 2016, an M.S. degree in Scientific Computing and Applied Mathematics from the University of California, Santa Cruz (UCSC) in 2020, and a PhD in Applied Mathematics from UCSC in 2025. 
+  Paul K. Wintz received a B.S. degree in Engineering/Physics with a minor in Music from Westmont College in 2016, an M.S. degree in Scientific Computing and Applied Mathematics from the University of California, Santa Cruz (UCSC) in 2020, and a PhD in Applied Mathematics from UCSC in 2025. 
   Dr. Wintz was a finalist for the Best Student Paper award at the 2022 American Control Conference.
+  He now teaches calculus as adjunct faculty at Hartnell College.
 
 research-interests:
   - Hybrid dynamical systems
@@ -102,7 +103,19 @@ teaching-experiences:
 
   - role: Adjunct Professor
     type: Undergraduate Course
-    name: Analytic Geometry and Calculus II 
+    name: Calculus for Managerial, Life, and Social Sciences
+    location: Hartnell College
+    date: Spring 2026
+
+  - role: Adjunct Professor
+    type: Undergraduate Course
+    name: Analytic Geometry and Calculus II (MAT-3B)
+    location: Hartnell College
+    date: Spring 2026
+
+  - role: Adjunct Professor
+    type: Undergraduate Course
+    name: Analytic Geometry and Calculus II (MAT-3B)
     location: Hartnell College
     date: Fall 2025
 
@@ -300,9 +313,15 @@ employers:
 
 - name: Hartnell College
   jobs:
-    - title: Adjunct Faculty
+    - title: Adjunct Mathematics Faculty
       start-date: Fall 2025
       end-date: 
+      highlights:
+        - Implemented learning target-based grading system that improved student mastery by breaking skills into specific, achievable objectives.
+        - Designed curriculum emphasizing study skills, problem-solving strategies, and digital literacy.
+        - Fostered growth mindset pedagogy to combat "math person" stereotypes and promote mathematical persistence.
+        - Transitioned from online homework to paper-based homework to strengthen students' written problem-solving practices and reduce over-reliance on mental calculation.
+        # - Developed digital workflow to streamline delivery of personalized, annotated feedback.
 
 - name: University of California, Santa Cruz
   jobs:
