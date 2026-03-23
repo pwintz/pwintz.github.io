@@ -101,6 +101,12 @@ honors:
 
 teaching-experiences:
 
+  - role: Lecturer
+    type: Undergraduate Course
+    name: Multivariate Calculus for Engineers (AM 30)
+    location: UCSC
+    date: (Anticipated) Summer 2026
+
   - role: Adjunct Professor
     type: Undergraduate Course
     name: Calculus for Managerial, Life, and Social Sciences
@@ -325,6 +331,10 @@ employers:
 
 - name: University of California, Santa Cruz
   jobs:
+    - title: Lecturer
+      dates: (Anticipated) Summer 2026
+      highlights: Will teach Multivariate Calculus for Engineers (AM 30) during the summer session.
+
     - title: Graduate Student Researcher
       dates: Spring 2021-Fall 2025
       # dates: Spring 2021-Fall 2025, except Winter 2024
