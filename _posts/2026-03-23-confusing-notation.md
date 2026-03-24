@@ -20,9 +20,12 @@ Consider these three examples:
 
 1. **The missing comma**: When I write $a_{23}$ to indicate the entry in the second row and third column of a matrix, I see two separate indices. Many students see "subscript twenty-three" and wonder why we're suddenly talking about the twenty-third element. In other contexts, the juxtaposition of "2" and "3" suggests a single two-digit number, not two separate coordinates. Similarly, when one index is a variable, such as $a_{2i}$, a student might reasonably assume that "$2i$" indicates multiplication. To remove the confusion, one may separate the indices with a comma, "$a_{2,3}$", but this is (justifiably) rarely done in practice. 
 
-2. **The Inverse That Isn't**: Students learn that $x^{-1} = \frac{1}{x}$ and $\sin^2(x) = (\sin(x))^2$, so they naturally assume $$\sin^{-1}(x) \overset{?}{=} \frac{1}{\sin(x)}.$$ Except it doesn't mean this at all—it means the inverse function, arcsine. To further muddy the waters, outside of trigonometry, "$f^2(x)$" often means "$f(f(x))$".  The same superscript notation means entirely different things depending on context.
+2. **The Inverse That Isn't**: Students learn that $x^{-1} = \frac{1}{x}$ and $\sin^2(x) = (\sin(x))^2$, so they naturally assume that $\sin^{-1}(x)$ means $$\frac{1}{\sin(x)}.$$ 
+In fact, however, this is a special case where "-1" in a superscript does not indicate an exponent—it means the inverse function, arcsine.
+To further muddy the waters, outside of trigonometry, "$f^2(x)$" often means "$f(f(x))$".
+The same superscript notation means entirely different things depending on context.
 
-3. **Subtle Distinctions**: An experienced mathematician immediately recognizes the differences between "$2x^2$" and "$2\times 2$", but students often miss the slight notational differences, namely "$x$" (a variable) vs. "$\times$" (an operator) and the "$2$" (baseline text) vs. "${}^2$" (superscript text), especially in handwritten expressions.
+3. **Subtle Distinctions**: An experienced mathematician immediately recognizes the differences between "$2x^2$" and "$2{\times} 2$", but students sometimes miss the slight notational differences, especially in handwritten expressions. They misinterpret "$x$" (a variable) as "$\times$" (an operator) and the "$2$" (baseline text) vs. "${}^2$" (superscript text).
 
 
 ### Why This Matters
@@ -138,24 +141,25 @@ The equals sign appears constantly in mathematics, but it doesn't always mean th
 - **Identities**: $\sin^2(x) + \cos^2(x) = 1$ is always true for all values of $x$
 - **Equations/predicates**: $x^2 = 4$ is true only for specific values of $x$ (namely $x = 2$ or $x = -2$)
 <!-- - **Assignment in algorithms**: In computational contexts, $x = x + 1$ means "update $x$ by adding 1" -->
-- **Abbreviation in proofs**: Sometimes used to indicate "which equals" or "which simplifies to" in a chain of reasoning
+<!-- - **Abbreviation in proofs**: Sometimes used to indicate "which equals" or "which simplifies to" in a chain of reasoning -->
 
 Students often struggle to distinguish between "this is always true" (identity) versus "find the values that make this true" (equation to solve) versus "this is how we define this object" (definition). The same symbol "=" serves all three purposes.
 
 <!-- For more uses of the equals sign in mathematics, see the [Glossary of Mathematical Symbols](https://en.wikipedia.org/wiki/Glossary_of_mathematical_symbols#Equality_sign). -->
 
 ### Implicit Notation
+
 *Notation that we don't write*
 
-One of the most challenging aspects of mathematical notation is what we *don't* write. Experienced mathematicians fill in these gaps automatically, but novices often miss them entirely.
+One of the most challenging aspects of mathematical notation is what we *don't* write. Experienced mathematicians fill in these gaps automatically, but novices may miss them entirely.
 
-- **Juxtaposition for multiplication**: $ab$ means $a$ times $b$. We omit the multiplication symbol entirely, and students must recognize that two symbols written next to each other implies multiplication.
+- **Juxtaposition for multiplication**: "$ab$" means "$a$ times $b$". We omit the multiplication symbol entirely, and students must recognize that two symbols written next to each other implies multiplication.
 
 - **Implicit grouping via order of operations**: $2x^2$ means $2 \times (x^2)$, not $(2x)^2$. The order of operations (exponents before multiplication) creates implicit grouping that students must internalize. Similarly, $2 + 3 \times 4$ means $2 + (3 \times 4)$, with the multiplication grouped before the addition despite no visible parentheses.
 
-- **Missing parentheses in function notation**: $\sin(x) = \sin x$ and $\ln x = \ln(x)$. For well-known functions, we often omit the parentheses around the argument. Students must recognize that $\sin x$ still means "apply sine to $x$," not "multiply sin by $x$." The parentheses are implied but not written.
+- **Missing parentheses in function notation**: $\sin(x) = \sin x$ and $\ln x = \ln(x)$. For well-known functions, we can omit the parentheses around the argument. Students must recognize that $\sin x$ still means "apply sine to $x$," not "multiply $\sin$ by $x$." The parentheses are implied but not written.
 
-- **Missing comma between array indices**: $x_{11} = x_{1,1}$ (typically). When writing matrix or array indices, we often omit the comma between indices for brevity, expecting readers to parse the subscript as two separate values rather than a single two-digit number.
+- **Missing comma between array indices**: $x_{11} = x_{1,1}$ (typically). When writing matrix or array indices, we typically omit the comma between indices for brevity, expecting readers to parse the subscript as two separate values rather than a single two-digit number.
 
 ## Similar Notation Does Not Mean Similar Meaning
 *Small visual differences that carry large mathematical significance*
