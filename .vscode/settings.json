@@ -59,19 +59,12 @@
     "upshape",
     "usepackage"
   ], 
-  "dryerLint.ruleSets": [
-    // ╭─────────────────────────────────────────────────────────────╮
-    // │ ╭─────────────────────────────────────────────────────────╮ │
-    // │ │   Dryer Lint Rule Set: "paulwintz.com Markdown Rules"   │ │
-    // │ ╰─────────────────────────────────────────────────────────╯ │
-    // ╰─────────────────────────────────────────────────────────────╯
-    {
-      "name": "paulwintz.com Markdown Rules",
+  "dryerLint.ruleSets": {
+    "paulwintz.com Markdown Rules": {
       "language": "markdown",
       // "glob": "*",
-      "rules": [
-        {
-          "name": "Must have empty code line before or after display equation delimiter \"$$\" ", 
+      "rules": {
+          "Must have empty code line before or after display equation delimiter \"$$\" ": {
           "pattern": [
             // This pattern matches any "$$" that does not have an empty line before it and a nonempty line after it.
             "[^ \\r\\n\\t][ \\t]*\\r?\\n?[ \\t]*\\$\\$(?![ \\t]*\\r?\\n[ \\t]*(?:\\r?\\n|$))"
@@ -95,10 +88,17 @@
           //  
           //  text $$ h_1(x) \geq 0,~h_2(x) \geq 0,~\dots,~h_{p-1}(x) \geq 0,~h_p(x) \geq 0.$$ 
           //  text
+          },
+          "Markdown Headers Start with H2": {
+            "pattern": [
+              "^# "
+            ],
+            "message": "Start with 2nd level headers \"##\", since the page title is formatted with a level one header.",
+            "fix": "## "
+          },
         }, 
-      ]
     },
-  ],
+  },
   "ltex.enabled": [
     "bibtex",
     "context",
