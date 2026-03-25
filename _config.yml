@@ -285,7 +285,10 @@ tag_archive:
 #     category: /categories/:name/
 #     tag: /tags/:name/
 
-# Collections
+# ╭─────────────────────────────────────╮
+# │             Collections             │
+# ╰─────────────────────────────────────╯
+collections_dir: collections
 collections:
   latex-macros:
     output: true
