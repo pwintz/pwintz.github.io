@@ -1,0 +1,1 @@
+gradient, Jacobian, directional derivative, differential, Lie derivative

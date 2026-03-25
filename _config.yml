@@ -165,10 +165,13 @@ footer:
       icon: *linkedin-icon
       url: *linkedin
 
-# Reading Files
+# ╭───────────────────────────────────────╮
+# │             Reading Files             │
+# ╰───────────────────────────────────────╯
 include:
   - .htaccess
   - _pages
+# Files to ignore when building the site.
 exclude:
   - "*.sublime-project"
   - "*.sublime-workspace"
@@ -191,11 +194,14 @@ exclude:
   - package-lock.json
   - Rakefile
   - README
+  - "**/README.md"
   - tmp
 keep_files:
   - .git
   - .svn
 encoding: "utf-8"
+
+# File extensions to treat as Markdown.
 markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 
 

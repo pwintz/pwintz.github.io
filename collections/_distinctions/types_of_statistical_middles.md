@@ -1,0 +1,1 @@
+mean, average, mode, median, weighted average, expected value

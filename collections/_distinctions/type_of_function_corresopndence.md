@@ -1,0 +1,5 @@
+bijective
+surjective
+endomorphism
+automorphism
+injective

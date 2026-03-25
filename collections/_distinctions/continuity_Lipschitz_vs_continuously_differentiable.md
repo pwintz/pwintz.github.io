@@ -1,0 +1,1 @@
+Continuously differentiable ⊂ Lipschitz continuous

@@ -1,0 +1,1 @@
+transform vs. function vs. operator vs. functional vs maps

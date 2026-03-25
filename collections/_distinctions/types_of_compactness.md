@@ -1,0 +1,1 @@
+compact, locally compact, paracompact

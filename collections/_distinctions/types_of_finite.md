@@ -1,0 +1,1 @@
+Constrained, bounded, finite, compact, convergent function

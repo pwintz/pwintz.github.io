@@ -62,7 +62,7 @@
   "dryerLint.ruleSets": {
     "paulwintz.com Markdown Rules": {
       "language": "markdown",
-      // "glob": "*",
+      "glob": "!**/README.md",
       "rules": {
           "Must have empty code line before or after display equation delimiter \"$$\" ": {
           "pattern": [
