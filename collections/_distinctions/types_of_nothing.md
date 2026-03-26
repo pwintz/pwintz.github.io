@@ -1,10 +1,13 @@
 zero
-empty
+empty set
 measure zero
 zero vector
-identity
+additive identity
+vacuous
+does not exist
+nowhere dense
 
 
-# See also
+## See also
 
 Zero vs. root of polynomial

@@ -1,1 +1,0 @@
-Asymptotically stable vs. uniformly globally asymptotically stable
