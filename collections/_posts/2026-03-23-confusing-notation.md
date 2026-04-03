@@ -35,7 +35,7 @@ Notational confusion isn't merely a minor stumbling block—it's a fundamental b
 
 This means that as teachers, we cannot assume notational fluency. We must explicitly teach these conventions, anticipate common misinterpretations, and create opportunities for students to practice decoding mathematical expressions before we ask them to manipulate those expressions or apply the concepts they represent.
 
-In the remainder of this post, I've identified six categories of notational confusion that create barriers to mathematical understanding. Understanding these categories helps us anticipate where students will struggle—and design instruction that addresses these barriers head-on.
+In the remainder of this post, I've identified four categories of notational confusion that create barriers to mathematical understanding. Understanding these categories helps us anticipate where students will struggle—and design our instruction to directly addresses these barriers.
 
 ## Categories of Confusion
 
@@ -44,7 +44,7 @@ I have organized the notation pitfalls into four categories based on the underly
 1. Missing Knowledge of Symbols
 1. Multiple Ways to Write the Same Thing
 1. Context-Dependent Notation 
-1. Similar Notation Does Not Mean Similar Meaning
+1. Similar Notation Does Not Have Similar Meaning
 
 
 ## Missing Knowledge of Symbols
@@ -161,7 +161,7 @@ One of the most challenging aspects of mathematical notation is what we *don't* 
 
 - **Missing comma between array indices**: $x_{11} = x_{1,1}$ (typically). When writing matrix or array indices, we typically omit the comma between indices for brevity, expecting readers to parse the subscript as two separate values rather than a single two-digit number.
 
-## Similar Notation Does Not Mean Similar Meaning
+## Similar Notation Does Not Have Similar Meaning
 *Small visual differences that carry large mathematical significance*
 
 Students learning to read mathematical notation must develop sensitivity to subtle visual distinctions that experienced mathematicians process automatically. Slight difference in size, position, or shape can completely change the meaning of an expression.
@@ -184,11 +184,12 @@ Symbols that look similar but have different shapes carry different meanings:
 
 ### Handwritten pitfalls:
 Handwritten mathematics introduces additional ambiguities. Poor handwriting can make distinct symbols indistinguishable:
-- $a$ vs. $\alpha$
-- $b$ vs. $\beta$
-- $1$ that looks like $l$ (lowercase L) or $I$ (uppercase i)
-- Unclear superscripts that could be read as baseline text
-- I have even seen a very poorly drawn $\lambda$ (lambda) that was indistinguishable from a $\tau$ (tau)
+- $a$ vs. $\alpha$ (Greek alpha)
+- $b$ vs. $\beta$ (Greek beta)
+- $1$ (number) vs. $l$ (lowercase L) vs. $I$ (uppercase i)
+<!-- - Unclear superscripts that could be read as baseline text -->
+
+I have even seen a very poorly drawn $\lambda$ (lambda) that was indistinguishable from a $\tau$ (tau)
 
 These small visual differences aren't decorative—they're semantically crucial. Students must learn to attend to details that might seem trivial but that completely change mathematical meaning.
 
