@@ -1,12 +1,12 @@
 ---
 layout: single
 permalink: /tools/hanon/
-title: Hanon Piano Exercises
+title: Hanon Piano Exercises (WIP)
+draft: true
 ---
 
-<!-- <script src="_vextab.js"></script> -->
-
-<script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
+<!-- In this page, I am trying to generate hanon piano exercises in user-selectable keys. 
+-->
 
 <span id="hanon-key">C major</span> 
 <!-- Up Pattern -->
@@ -32,6 +32,10 @@ title: Hanon Piano Exercises
     text  :16,<span id="hanon-down-fingers"></span> |
 </div>
 
+
+VexFlow output:
+<div id="vexflow output"></div>
+
 <pre>
 === Debug output === 
 <span id="hanon-debug"></span>  
@@ -43,9 +47,57 @@ Down
 <span id="hanon-down-fingers-debug"></span> -->
 </pre>
 
-<div id="output"></div>
-<div id="output2"></div>
-<div id="output3"></div>
 
-<script src="scripts/hanon_generation.js"></script>
-<script src="/assets/js/_vextab.js"></script>
+output
+<!-- <div id="output"></div> -->
+
+
+output3
+<!-- <div id="output3"></div> -->
+
+
+<!-- 
+⋘──────── Load VexFlow ────────⋙
+Load VexFlow from an online repository. If this stops working, then you might need to update the version number. To see a directory of VexFlow versions, see https://cdn.jsdelivr.net/npm/vexflow/ 
+
+-->
+<script src="https://cdn.jsdelivr.net/npm/vexflow@4/build/cjs/vexflow.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script> -->
+<!-- <script src="/assets/js/vextab.js"></script> -->
+ <!-- Load the hanon generation script. -->
+<script src="/assets/js/hanon_generation.js"></script>
+
+
+<!-- 
+ ╭───────────────────────────────────────────────────╮
+ │  ╭─────────────────────────────────────────────╮  │
+ │  │             Sample VexFlow Code             │  │
+ │  ╰─────────────────────────────────────────────╯  │
+ ╰───────────────────────────────────────────────────╯
+-->
+ <!-- VexFlow sample code output:
+<div id="vexflow sample output"></div>
+<script>
+
+    const { Factory, EasyScore, System } = Vex.Flow;
+    
+    const vf = new Factory({
+      renderer: { elementId: 'vexflow sample output', width: 500, height: 200 },
+    });
+    
+    const score = vf.EasyScore();
+    const system = vf.System();
+    
+    system
+      .addStave({
+        voices: [
+          score.voice(score.notes('C#5/q, B4, A4, G#4', { stem: 'up' })),
+          score.voice(score.notes('C#4/h, C#4', { stem: 'down' })),
+        ],
+      })
+      .addClef('treble')
+      .addTimeSignature('4/4');
+    
+    vf.draw();
+</script> -->
+

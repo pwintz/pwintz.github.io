@@ -197,9 +197,11 @@ system.addConnector()
 vf.draw();
 */ 
 
-
+// Create a VexFlow Factory.
 const vf = new Factory({
-  renderer: { elementId: 'output2', width: 800, height: 700 },
+  renderer: { elementId: 'vexflow output', 
+    width: 800, 
+    height: 700 },
 });
 
 const score = vf.EasyScore();
@@ -209,7 +211,16 @@ const system = vf.System();
 system
   .addStave({
     voices: [
-      score.voice(score.notes('C#5/16[fingerings="1"],B4, A4,G#4, C4,D4, E4, F4,B4, A4,G#4, C4,D4, E4, F4,A4', { stem: 'up' })),
+      score.voice(
+        score.notes(
+          'E#5/16[fingerings="1"],B4, A4,G#4, C4,D4, E4, F4,B4, A4,G#4, C4,D4, E4, F4,A4', 
+          { stem: 'down' }
+        ),
+        score.notes(
+          'C#4/16[fingerings="1"],B4, A4,G#4, C4,D4, E4, F4,B4, A4,G#4, C4,D4, E4, F4,A4', 
+          { stem: 'up' }
+        )
+      ),
     ],
   })
   .addClef('treble')
@@ -217,7 +228,9 @@ system
 system
   .addStave({
     voices: [
-      score.voice(score.notes('C#5/q, B4, A4, G#4 | A4, ', { stem: 'down' }))
+      score.voice(
+        score.notes('C#5/q, B4, A4, G#4 | A4, ', { stem: 'down' })
+      )
     ],
   })
   .addClef('treble')
