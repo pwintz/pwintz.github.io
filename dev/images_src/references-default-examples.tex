@@ -1,0 +1,320 @@
+\documentclass{article}
+
+% https://ctan.org/pkg/geometry
+\usepackage[
+  a6paper,
+  % landscape,
+]{geometry}
+\setlength{\parindent}{0pt}    % No indentation
+
+
+% ⋘──────── Define colors for links ────────⋙
+\usepackage{xcolor}
+\colorlet{internal link color}{black!50!green}
+\colorlet{file link color}{magenta}
+\colorlet{url link color}{black!30!blue}
+\colorlet{internal link color}{black!50!green}
+\colorlet{cite link color}{black!50!orange}
+
+% ⋘──────── Load hyperref ────────⋙
+\usepackage{hyperref}
+\hypersetup{
+  % Include links even if document is in 'draft' mode.
+  final,                   
+  % Prevent boxes from being drawn around links in some viewers.
+  hidelinks,               
+  % Allow line breaks in the middle of links
+  breaklinks=true,         
+  colorlinks=true,
+  % TOC, links to labeled equations and environments
+  linkcolor=internal link color,         
+  filecolor=file link color,      
+  % URLS including links in references  
+  urlcolor=url link color,  
+  % In-line citations  
+  citecolor=cite link color, 
+}
+
+\usepackage{amsthm}
+\usepackage{cleveref}
+\usepackage{xr}
+\externaldocument{xr-src}
+
+
+
+\newtheorem{theorem}{Thereom}
+\newtheorem{lemma}{Lemma}
+
+\begin{document}
+
+  % ╭────────────────────────────────────────────────────────╮
+  % │  ╭──────────────────────────────────────────────────╮  │
+  % │  │             Make things to reference             │  │
+  % │  ╰──────────────────────────────────────────────────╯  │
+  % ╰────────────────────────────────────────────────────────╯
+  % ╭──────────────────────────────────╮
+  % │             Sections             │
+  % ╰──────────────────────────────────╯
+  \section{My First Section}
+  \label{sec:section 1}
+  \subsection{My First Subsection}
+  \label{sec:subsection 1.1}
+  \subsubsection{My First Subsubsection}
+  \label{sec:subsubsection 1.1.1}
+  \subsubsection{My First Subsubsection}
+  \label{sec:subsubsection 1.1.2}
+  \subsection{My Second Subsection}
+  \label{sec:subsection 1.2}
+  \subsubsection{My First Subsubsection}
+  \label{sec:subsubsection 1.2.1}
+  \subsubsection{My First Subsubsection}
+  \label{sec:subsubsection 1.2.2}
+  \section{My Second Section}
+  \label{sec:section 2}
+
+  \label{sec  }
+
+  % ╭───────────────────────────────────╮
+  % │             Equations             │
+  % ╰───────────────────────────────────╯
+  \begin{equation}
+    \label{eq:1}
+    \int f(x) dx = 1.
+  \end{equation}
+  \begin{equation}
+    \label{eq:2}
+    \int f(x) dx = 1.
+  \end{equation}
+  \begin{equation}
+    \label{eq:3}
+    \int f(x) dx = 1.
+  \end{equation}
+  \begin{equation}
+    \label{eq:4}
+    \int f(x) dx = 1.
+  \end{equation}
+  \begin{equation}
+    \label{eq:5}
+    \int f(x) dx = 1.
+  \end{equation}
+  \begin{equation}
+    \label{eq:6}
+    \int f(x) dx = 1.
+  \end{equation}
+  \begin{equation}
+    \label{eq:7}
+    \int f(x) dx = 1.
+  \end{equation}
+  \begin{equation}
+    \label{eq:8}
+    \int f(x) dx = 1.
+  \end{equation}
+  \begin{equation}
+    \label{eq:9}
+    \int f(x) dx = 1.
+  \end{equation}
+  \begin{equation}
+    \label{eq:10}
+    \int f(x) dx = 1.
+  \end{equation}
+  \begin{equation}
+    \label{eq:11}
+    \int f(x) dx = 1.
+  \end{equation}
+  
+  % ╭───────────────────────────────────────────╮
+  % │             Theorems             │
+  % ╰───────────────────────────────────────────╯
+  \begin{theorem}
+    \label{result:theorem 1}
+  \end{theorem}
+  \begin{theorem}
+    \label{result:theorem 2}
+  \end{theorem}
+  \begin{theorem}
+    \label{result:theorem 3}
+  \end{theorem}
+  \begin{theorem}
+    \label{result:theorem 4}
+  \end{theorem}
+  
+  % ╭────────────────────────────────╮
+  % │             Lemmas             │
+  % ╰────────────────────────────────╯
+  \begin{lemma} 
+    \label{result:lemma 1}
+  \end{lemma}
+  \begin{lemma}
+    \label{result:lemma 2}
+  \end{lemma}
+  \begin{lemma}
+    \label{result:lemma 3}
+  \end{lemma}
+  \begin{lemma}
+    \label{result:lemma 4}
+  \end{lemma}
+  
+  % ╭────────────────────────────────────────╮
+  % │  ╭──────────────────────────────────╮  │
+  % │  │             Cleveref             │  │
+  % │  ╰──────────────────────────────────╯  │
+  % ╰────────────────────────────────────────╯
+
+
+% ╭────────────────────────────────────────╮
+% │  ╭──────────────────────────────────╮  │
+% │  │             Cleveref             │  │
+% │  ╰──────────────────────────────────╯  │
+% ╰────────────────────────────────────────╯
+
+\section{Macro: \normalfont{\texttt{\textbackslash{}cref}}}
+% ⋘──────── External Equations - Middle of sentence ────────⋙
+% Single
+\cref{eq:1}\\
+% Two in a row.
+\cref{eq:1,eq:2}\\
+% Three in a row.
+\cref{eq:1,eq:2,eq:3}\\
+% Skip one.
+\cref{eq:1,eq:2,eq:4}\\
+% Labels are not in order.
+\cref{eq:1,eq:4,eq:2}\\
+
+\subsection{Multiple ranges, middle of sentence}
+\cref{eq:1,eq:2,eq:3,eq:4,eq:5,eq:6,eq:7}\\
+% Two ranges
+\cref{eq:1,eq:2,eq:3,eq:5,eq:6,eq:7,eq:8,eq:9}\\
+% Three ranges
+\cref{eq:1,eq:2,eq:3,eq:5,eq:6,eq:7,eq:9,eq:10,eq:11}\\
+% Mixture: non range and range
+\cref{eq:1,eq:3,eq:4,eq:5,eq:6,eq:7}\\
+\cref{eq:1,eq:2,eq:4,eq:5,eq:6,eq:7}\\
+\cref{eq:1,eq:2,eq:3,eq:4,eq:6,eq:7}\\
+\cref{eq:1,eq:2,eq:3,eq:4,eq:5,eq:7}\\
+
+% ⋘──────── Equations - Start of sentence ────────⋙
+% Single
+\Cref{eq:1}\\
+% Two in a row.
+\Cref{eq:1,eq:2}\\
+% Three in a row.
+\Cref{eq:1,eq:2,eq:3}\\
+% Skip one.
+\Cref{eq:1,eq:2,eq:4}\\
+% Labels are not in order.
+\Cref{eq:1,eq:4,eq:2}\\
+
+
+\subsubsection{Crefrange}
+\Crefrange{eq:1}{eq:1}\\
+\Crefrange{eq:1}{eq:2}\\
+\Crefrange{eq:1}{eq:3}\\
+\Crefrange{eq:3}{eq:1}\\
+
+% ⋘───────────────────────────────────────────────⋙
+\subsection{Ranges at various points in Cref}
+% One range
+\Cref{eq:1,eq:2,eq:3,eq:4,eq:5,eq:6,eq:7}\\
+% Two ranges
+\Cref{eq:1,eq:2,eq:3,eq:5,eq:6,eq:7,eq:8,eq:9}\\
+% Three ranges
+\Cref{eq:1,eq:2,eq:3,eq:5,eq:6,eq:7,eq:9,eq:10,eq:11}\\
+% Mixture: non range and range
+\Cref{eq:1,eq:3,eq:4,eq:5,eq:6,eq:7}\\
+\Cref{eq:1,eq:2,eq:4,eq:5,eq:6,eq:7}\\
+\Cref{eq:1,eq:2,eq:3,eq:4,eq:6,eq:7}\\
+\Cref{eq:1,eq:2,eq:3,eq:4,eq:5,eq:7}\\
+
+  \cref{sec:section 1,sec:subsection 1.1,sec:subsubsection 1.1.1}\\
+  \cref{sec:subsubsection 1.1.1}\\
+
+  \Cref{sec:my 1st section,sec:my 1st subsection,sec:my 1st subsubsection}
+
+  \Crefrange{sec:my 1st section}{sec:my 1st subsubsection}
+
+  \begin{enumerate}
+    \item \label{item:my first item}
+  \end{enumerate}
+  \begin{description}
+    \item[First Description\label{item:my 1st description item}] Some text.
+    \item[Second Description\label{item:my 2nd description item}] Some text.
+  \end{description}
+  
+  As we see in \ref{item:my first item} \cref{item:my first item}.
+
+  \begin{equation}
+    \label{eq:my 1st math}
+    1 + 2 = 3.
+  \end{equation}
+  \begin{equation}
+    \label{eq:my 2nd math}
+    2 + 2 = 4.
+  \end{equation}
+  \begin{equation}
+    \label{eq:my 3rd math}
+    2 + 2 + 2 = 6.
+  \end{equation}
+  \begin{theorem}[Pythagorean Theorem]
+    \label{result:my 1st theorem}
+    \[ a^2 + b^2 = c^2. \]
+  \end{theorem}
+  \begin{theorem}
+    \label{result:my 2nd theorem}
+    \[ \sqrt{a^2 + b^2} \leq c^2. \]
+  \end{theorem}
+
+
+
+  % ╭───────────────────────────────────────╮
+  % │  ╭─────────────────────────────────╮  │
+  % │  │             nameref             │  │
+  % │  ╰─────────────────────────────────╯  │
+  % ╰───────────────────────────────────────╯
+  \nameref{sec:my 1st section} \\
+  \nameref{sec:my 1st subsection} \\
+  \nameref{sec:my 1st subsubsection} \\
+  \nameref{result:my 1st theorem} \\
+  \nameref{item:my 1st description item} \\ 
+  \nameref{item:my 2nd description item} \\ 
+
+  % ╭──────────────────────────────────╮
+  % │  ╭────────────────────────────╮  │
+  % │  │             xr             │  │
+  % │  ╰────────────────────────────╯  │
+  % ╰──────────────────────────────────╯
+  % Test external references
+
+  \ref{eq:external equation 1}\\
+  \ref{sec:External Section}\\
+  \pageref{eq:external equation 1}\\
+  % Using \cref requires that the target document was compiled using cleveref.
+
+
+  % ⋘──────── External Equations - Middle of sentence ────────⋙
+  % Single
+  \cref{eq:external equation 1}\\
+  % Two in a row.
+  \cref{eq:external equation 1,eq:external equation 2}\\
+  % Three in a row.
+  \cref{eq:external equation 1,eq:external equation 2,eq:external equation 3}\\
+  % Skip one.
+  \cref{eq:external equation 1,eq:external equation 2,eq:external equation 4}\\
+  % Labels are not in order.
+  \cref{eq:external equation 1,eq:external equation 4,eq:external equation 2}\\
+
+  % ⋘──────── External Equations - Start of sentence ────────⋙
+  % Single
+  \Cref{eq:external equation 1}\\
+  % Two in a row.
+  \Cref{eq:external equation 1,eq:external equation 2}\\
+  % Three in a row.
+  \Cref{eq:external equation 1,eq:external equation 2,eq:external equation 3}\\
+  % Skip one.
+  \Cref{eq:external equation 1,eq:external equation 2,eq:external equation 4}\\
+  % Labels are not in order.
+  \Cref{eq:external equation 1,eq:external equation 4,eq:external equation 2}\\
+
+  % Using \nameref requires that the target document was compiled using nameref.
+  \nameref{sec:External Section}\\
+
+\end{document}

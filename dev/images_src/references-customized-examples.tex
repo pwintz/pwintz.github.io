@@ -1,0 +1,463 @@
+\documentclass{article}
+
+% ╭───────────────────────────────────────╮
+% │             Example setup             │
+% ╰───────────────────────────────────────╯
+% ⋘──────── Make small pages ────────⋙
+% https://ctan.org/pkg/geometry
+\usepackage[
+  a6paper,
+  % landscape,
+]{geometry}
+\setlength{\parindent}{0pt}    % No indentation
+
+% Load amsthm and create some theorem environments.
+\usepackage{amsthm}
+\newtheorem{theorem}{Thereom}
+\newtheorem{lemma}{Lemma}
+
+% ⋘──────── Define colors for links ────────⋙
+\usepackage{xcolor}
+\colorlet{internal link color}{black!50!green}
+\colorlet{file link color}{magenta}
+\colorlet{url link color}{black!30!blue}
+\colorlet{internal link color}{black!50!green}
+\colorlet{cite link color}{black!50!orange}
+
+% ⋘──────── Load hyperref ────────⋙
+\usepackage{hyperref}
+\hypersetup{
+  % Include links even if document is in 'draft' mode.
+  final,                   
+  % Prevent boxes from being drawn around links in some viewers.
+  hidelinks,               
+  % Allow line breaks in the middle of links
+  breaklinks=true,         
+  colorlinks=true,
+  % TOC, links to labeled equations and environments
+  linkcolor=internal link color,         
+  filecolor=file link color,      
+  % URLS including links in references  
+  urlcolor=url link color,  
+  % In-line citations  
+  citecolor=cite link color, 
+}
+
+
+% Reference names
+\usepackage{nameref}
+
+% External references.
+\usepackage{xr}
+\externaldocument{xr-src}
+
+
+
+% ╭───────────────────────────────────────────────────────╮
+% │             Cleveref: Internal References             │
+% ╰───────────────────────────────────────────────────────╯
+
+% Display "Theorem 1", "Lemma 2", etc. in cross references.  
+% IT'S IMPORTANT TO LOAD THIS LAST AFTER ALL THE OTHER \RequirePackage's.
+\RequirePackage[
+    % Use "Theorem 1" instead of "Thm. 1"  
+    noabbrev,   
+    % Use "Theorem 1" instead of "theorem 1"
+    capitalise, 
+    % When inserting the reference "Theorem 1", make the entire reference "Theorem 1" hyperlinked instead of just "1". You should also use the hyperref package option "hidelinks" to prevent boxes around each link.
+    nameinlink, 
+    % nosort,
+    % compress
+]{cleveref} 
+
+
+% ⋘────────── Use n-dash for ranges ──────────⋙
+% Make ranges of references use an n-dash between the numbers.
+% See https://tex.stackexchange.com/a/18988/153678
+\newcommand{\crefrangeconjunction}{--} 
+
+% ⋘────────── Enable Oxford Comma ──────────⋙
+% https://tex.stackexchange.com/a/161340/153678
+\newcommand{\creflastconjunction}{, and~}
+
+% ⋘──────── Configure Cleveref for Equations ────────⋙
+% Make equations referenced as "(1)" instead of "Equation 1".
+% By default, cleveref uses an upright font for equation numbers, so we don't need to change that. (Previously, we explicitly specified "\textup{(...)}", but this seems to have been unnecessary).
+
+% Configure cleveref to use "Equation"/"Equations" when \Cref is used 
+% to reference an equation/equations at the start of a sentence and 
+% to omit "Equation" when \cref{} is used to reference an equation 
+% in the middle of a sentence.
+\Crefname{equation}{Equation}{Equations}% Start of sentences.
+\crefname{equation}{}{}% Middle of sentences.
+
+% % ⋘──────── Single equation references ────────⋙
+% % Define format for a single equation referenced in the middle of a sentence.
+% % When inserting "(1)", use upright text for the parentheses and number.
+% % For equations referenced at the start of a sentence, we want to include "Equation" or "Equations". The following formats are used when "\Cref" is used instead of "\cref". 
+% % * The first argument #1 is the formatted version of the label counter (e.g.\theequation). 
+% % * Arguments #2 and #3 mark the beginning and end of the part of the cross-reference that is hyperlinked when the hyperref package is used.
+% % Define format for a single equation referenced at the start of sentence.
+% % \Crefformat{equation}{Equation~\textup{(#2#1#3)}}
+% \crefformat{equation}{\textup{(#2#1#3)}}
+% 
+% 
+% % Define format for multiple equations referenced in the middle of a sentence.
+% \crefmultiformat{equation}    % {type}
+%     {\textup{(#2#1#3)}}       % {first}
+%     { and~\textup{(#2#1#3)}}  % {second}
+%     {, \textup{(#2#1#3)}}     % {middle}
+%     {, and~\textup{(#2#1#3)}} % {last}
+% 
+% % ⋘──────── Equation at start of sentence ────────⋙
+% 
+% % Define format for a multiple equation referenced at the start of sentence.
+% \Crefmultiformat{equation}        % {type}   
+%     {Equations~\textup{(#2#1#3)}} % {first}           
+%     { and~\textup{(#2#1#3)}}      % {second}       
+%     {, \textup{(#2#1#3)}}         % {middle}   
+%     {, and~\textup{(#2#1#3)}}     % {last}   
+% 
+% \crefrangemultiformat{equation}   % {type}   
+%     {\textup{(#3#1#4)}\crefrangeconjunction\textup{(#5#2#6)}} % {first}           
+%     { and~\textup{(#3#1#4)}\crefrangeconjunction\textup{(#5#2#6)}}      % {second}       
+%     {, \textup{(#3#1#4)}\crefrangeconjunction\textup{(#5#2#6)}}         % {middle}   
+%     {, and~\textup{(#3#1#4)}\crefrangeconjunction\textup{(#5#2#6)}}     % {last}   
+% \Crefrangemultiformat{equation}   % {type}   
+%     {Equations~\textup{(#3#1#4)}\crefrangeconjunction\textup{(#5#2#6)}} % {first}           
+%     { and~\textup{(#3#1#4)}\crefrangeconjunction\textup{(#5#2#6)}}      % {second}       
+%     {, \textup{(#3#1#4)}\crefrangeconjunction\textup{(#5#2#6)}}         % {middle}   
+%     {, and~\textup{(#3#1#4)}\crefrangeconjunction\textup{(#5#2#6)}}     % {last}   
+% % Define text inserted before a range of equations at the start of a sentence. 
+% % (We cannot use "\crefrangepreconjunction" for this purpose the prefix defined by \crefrangepreconjunction is inserted for both the start of sentence and middle of sentence macros.) 
+% \Crefrangeformat{equation}{%
+%   Equations!!~\textup{(#3#1#4)}\crefrangeconjunction\textup{(#5#2#6)}
+% }
+% \crefrangeformat{equation}{%
+%   \textup{(#3#1#4)}\crefrangeconjunction\textup{(#5#2#6)}
+% }
+% \crefrangeformat{equation}{crefrangeformat\textup{(#3#1#4)}\crefrangeconjunction\textup{(#5#2#6)}}    
+% \Crefrangeformat{equation}{Crefrangeformat\textup{(#3#1#4)}\crefrangeconjunction\textup{(#5#2#6)}}    
+
+
+% When inserting items using "\cref", don't prefix the reference with "Item".
+\crefname{enumi}{}{}%
+\crefname{enumii}{}{}%
+\crefname{enumiii}{}{}%
+\crefname{enumiv}{}{}%
+
+
+\begin{document}
+
+  % ╭────────────────────────────────────────────────────────╮
+  % │  ╭──────────────────────────────────────────────────╮  │
+  % │  │             Make things to reference             │  │
+  % │  ╰──────────────────────────────────────────────────╯  │
+  % ╰────────────────────────────────────────────────────────╯
+  % ╭──────────────────────────────────╮
+  % │             Sections             │
+  % ╰──────────────────────────────────╯
+  \section{My First Section}
+  \label{sec:section 1}
+  \subsection{My First Subsection}
+  \label{sec:subsection 1.1}
+  \subsubsection{My First Subsubsection}
+  \label{sec:subsubsection 1.1.1}
+  \subsubsection{My First Subsubsection}
+  \label{sec:subsubsection 1.1.2}
+  \subsection{My Second Subsection}
+  \label{sec:subsection 1.2}
+  \subsubsection{My First Subsubsection}
+  \label{sec:subsubsection 1.2.1}
+  \subsubsection{My First Subsubsection}
+  \label{sec:subsubsection 1.2.2}
+  \section{My Second Section}
+  \label{sec:section 2}
+
+  % ╭───────────────────────────────────╮
+  % │             Equations             │
+  % ╰───────────────────────────────────╯
+  \begin{equation}
+    \label{eq:1}
+    \int f(x) dx = 1.
+  \end{equation}
+  \begin{equation}
+    \label{eq:2}
+    \int f(x) dx = 1.
+  \end{equation}
+  \begin{equation}
+    \label{eq:3}
+    \int f(x) dx = 1.
+  \end{equation}
+  \begin{equation}
+    \label{eq:4}
+    \int f(x) dx = 1.
+  \end{equation}
+  \begin{equation}
+    \label{eq:5}
+    \int f(x) dx = 1.
+  \end{equation}
+  \begin{equation}
+    \label{eq:6}
+    \int f(x) dx = 1.
+  \end{equation}
+  \begin{equation}
+    \label{eq:7}
+    \int f(x) dx = 1.
+  \end{equation}
+  \begin{equation}
+    \label{eq:8}
+    \int f(x) dx = 1.
+  \end{equation}
+  \begin{equation}
+    \label{eq:9}
+    \int f(x) dx = 1.
+  \end{equation}
+  \begin{equation}
+    \label{eq:10}
+    \int f(x) dx = 1.
+  \end{equation}
+  \begin{equation}
+    \label{eq:11}
+    \int f(x) dx = 1.
+  \end{equation}
+  
+  % ╭───────────────────────────────────────────╮
+  % │             Theorems             │
+  % ╰───────────────────────────────────────────╯
+  \begin{theorem}
+    \label{result:theorem 1}
+  \end{theorem}
+  \begin{theorem}
+    \label{result:theorem 2}
+  \end{theorem}
+  \begin{theorem}
+    \label{result:theorem 3}
+  \end{theorem}
+  \begin{theorem}
+    \label{result:theorem 4}
+  \end{theorem}
+  
+  % ╭────────────────────────────────╮
+  % │             Lemmas             │
+  % ╰────────────────────────────────╯
+  \begin{lemma} 
+    \label{result:lemma 1}
+  \end{lemma}
+  \begin{lemma}
+    \label{result:lemma 2}
+  \end{lemma}
+  \begin{lemma}
+    \label{result:lemma 3}
+  \end{lemma}
+  \begin{lemma}
+    \label{result:lemma 4}
+  \end{lemma}
+  
+  % ╭────────────────────────────────────────╮
+  % │  ╭──────────────────────────────────╮  │
+  % │  │             Cleveref             │  │
+  % │  ╰──────────────────────────────────╯  │
+  % ╰────────────────────────────────────────╯
+
+  \section*{Theorem References}
+  \cref{%
+    result:theorem 1,%
+    result:theorem 2,%
+    % result:theorem 3,%
+    result:theorem 4,%
+    result:lemma 1,%
+    result:lemma 2,%
+    % result:lemma 3,%
+    result:lemma 4%
+  }, 
+  \cref{%
+    % result:theorem 1,%
+    result:theorem 2,%
+    % result:theorem 3,%
+    result:theorem 4,%
+    result:lemma 1,%
+    result:lemma 2,%
+    % result:lemma 3,%
+    result:lemma 4%
+  },  
+  \cref{%
+    % result:theorem 1,%
+    result:theorem 2,%
+    % result:theorem 3,%
+    result:theorem 4,%
+    result:lemma 1,%
+    result:lemma 2,%
+    % result:lemma 3,%
+    result:lemma 4%
+  }  
+
+  \section*{Cleveref Equation References - Middle-of-sentence}
+  \subsection*{{\normalfont\texttt{\textbackslash{}cref}} macro}
+  % ⋘──────── External Equations - Middle of sentence ────────⋙
+  One\\
+  \cref{eq:1}\\
+  Two in a row:\\
+  \cref{eq:1,eq:2}\\
+  Three in a row:\\
+  \cref{eq:1,eq:2,eq:3}\\
+  Three, skipping one:\\
+  \cref{eq:1,eq:2,eq:4}\\
+  Several, not in order:\\
+  \cref{eq:7,eq:1,eq:4,eq:2}\\
+  Single range:\\
+  \cref{eq:1,eq:2,eq:3,eq:4,eq:5,eq:6,eq:7}\\
+  Two ranges:\\
+  \cref{eq:1,eq:2,eq:3,eq:5,eq:6,eq:7,eq:8,eq:9}\\
+  Three ranges: \\
+  \cref{eq:1,eq:2,eq:3,eq:5,eq:6,eq:7,eq:9,eq:10,eq:11}\\
+  Mixtures ranges and non-ranges:\\
+  \cref{eq:1,eq:3,eq:4,eq:5,eq:6,eq:7}\\
+  \cref{eq:1,eq:2,eq:4,eq:5,eq:6,eq:7}\\
+  \cref{eq:1,eq:2,eq:3,eq:4,eq:6,eq:7}\\
+  \cref{eq:1,eq:2,eq:3,eq:4,eq:5,eq:7}\\
+  
+  
+  \subsection*{{\normalfont\texttt{\textbackslash{}crefrange}}}
+  \crefrange{eq:1}{eq:1}\\
+  \crefrange{eq:1}{eq:2}\\
+  \crefrange{eq:1}{eq:3}\\
+  \crefrange{eq:3}{eq:1}\\
+
+  {
+    \itshape
+    This is italicized text. We can reference a single equation like \cref{eq:1}, two equations, like \cref{eq:1,eq:2}, three equations like \cref{eq:1,eq:2,eq:3}, or three non-consecutive equations like \cref{eq:1,eq:2,eq:4}.
+  }
+
+  % ⋘──────── Equations - Start of sentence ────────⋙
+  \section*{Start of sentence}
+  \subsection*{{\normalfont\texttt{\textbackslash{}Cref}}}
+  One:\\
+  \Cref{eq:1}\\
+  Two in a row:\\
+  \Cref{eq:1,eq:2}\\
+  Three in a row:\\
+  \Cref{eq:1,eq:2,eq:3}\\
+  Three, skipping one:\\
+  \Cref{eq:1,eq:2,eq:4}\\
+  Several, not in order:\\
+  \Cref{eq:7,eq:1,eq:4,eq:2}\\
+  Single range:\\
+  \Cref{eq:1,eq:2,eq:3,eq:4,eq:5,eq:6,eq:7}\\
+  Two ranges:\\
+  \Cref{eq:1,eq:2,eq:3,eq:5,eq:6,eq:7,eq:8,eq:9}\\
+  Three ranges: \\
+  \Cref{eq:1,eq:2,eq:3,eq:5,eq:6,eq:7,eq:9,eq:10,eq:11}\\
+  Mixtures ranges and non-ranges:\\
+  \Cref{eq:1,eq:3,eq:4,eq:5,eq:6,eq:7}\\
+  \Cref{eq:1,eq:2,eq:4,eq:5,eq:6,eq:7}\\
+  \Cref{eq:1,eq:2,eq:3,eq:4,eq:6,eq:7}\\
+  \Cref{eq:1,eq:2,eq:3,eq:4,eq:5,eq:7}\\
+
+  
+  \subsection*{{\normalfont\texttt{\textbackslash{}Crefrange}}}
+  \Crefrange{eq:1}{eq:1}\\
+  \Crefrange{eq:1}{eq:2}\\
+  \Crefrange{eq:1}{eq:3}\\
+  \Crefrange{eq:3}{eq:1}\\
+
+  
+  % ⋘───────────────────────────────────────────────⋙
+  % \subsection{Ranges at various points in Cref}
+  % One range
+  
+  
+  \subsection{Subsection references}
+  \cref{sec:subsubsection 1.1.1}\\
+
+  \Cref{sec:section 1,sec:subsection 1.1,sec:subsubsection 1.1.1}
+
+  \Crefrange{sec:section 1}{sec:section 2} \\
+  \Cpagerefrange{sec:section 1}{sec:section 2}
+
+  \begin{enumerate}
+    \item \label{item:my first item} First item.
+  \end{enumerate}
+  \begin{description}
+    \item[First Description\label{item:my 1st description item}] Some text.
+    \item[Second Description\label{item:my 2nd description item}] Some text.
+  \end{description}
+  
+  As we see in \ref{item:my first item} \cref{item:my first item}.
+
+  \begin{equation}
+    \label{eq:my 1st math}
+    1 + 2 = 3.
+  \end{equation}
+  \begin{equation}
+    \label{eq:my 2nd math}
+    2 + 2 = 4.
+  \end{equation}
+  \begin{equation}
+    \label{eq:my 3rd math}
+    2 + 2 + 2 = 6.
+  \end{equation}
+  \begin{theorem}[Pythagorean Theorem]
+    \label{result:my 1st theorem}
+    \[ a^2 + b^2 = c^2. \]
+  \end{theorem}
+  \begin{theorem}
+    \label{result:my 2nd theorem}
+    \[ \sqrt{a^2 + b^2} \leq c^2. \]
+  \end{theorem}
+
+
+
+  % ╭───────────────────────────────────────╮
+  % │  ╭─────────────────────────────────╮  │
+  % │  │             nameref             │  │
+  % │  ╰─────────────────────────────────╯  │
+  % ╰───────────────────────────────────────╯
+  \nameref{sec:my 1st section} \\
+  \nameref{sec:my 1st subsection} \\
+  \nameref{sec:my 1st subsubsection} \\
+  \nameref{result:my 1st theorem} \\
+  \nameref{item:my 1st description item} \\ 
+  \nameref{item:my 2nd description item} \\ 
+
+  % ╭──────────────────────────────────╮
+  % │  ╭────────────────────────────╮  │
+  % │  │             xr             │  │
+  % │  ╰────────────────────────────╯  │
+  % ╰──────────────────────────────────╯
+  % Test external references
+
+  \ref{eq:external equation 1}\\
+  \ref{sec:External Section}\\
+  \pageref{eq:external equation 1}\\
+  % Using \cref requires that the target document was compiled using cleveref.
+
+
+  % ⋘──────── External Equations - Middle of sentence ────────⋙
+  % Single
+  \cref{eq:external equation 1}\\
+  % Two in a row.
+  \cref{eq:external equation 1,eq:external equation 2}\\
+  % Three in a row.
+  \cref{eq:external equation 1,eq:external equation 2,eq:external equation 3}\\
+  % Skip one.
+  \cref{eq:external equation 1,eq:external equation 2,eq:external equation 4}\\
+  % Labels are not in order.
+  \cref{eq:external equation 1,eq:external equation 4,eq:external equation 2}\\
+
+  % ⋘──────── External Equations - Start of sentence ────────⋙
+  % Single
+  \Cref{eq:external equation 1}\\
+  % Two in a row.
+  \Cref{eq:external equation 1,eq:external equation 2}\\
+  % Three in a row.
+  \Cref{eq:external equation 1,eq:external equation 2,eq:external equation 3}\\
+  % Skip one.
+  \Cref{eq:external equation 1,eq:external equation 2,eq:external equation 4}\\
+  % Labels are not in order.
+  \Cref{eq:external equation 1,eq:external equation 4,eq:external equation 2}\\
+
+  % Using \nameref requires that the target document was compiled using nameref.
+  \nameref{sec:External Section}\\
+
+\end{document}
