@@ -100,8 +100,9 @@ Some notational conventions actively contradict each other, requiring students t
   $\sin^{-1}(x)$ is not equal to $(\sin(x))^{-1},$
   since $\sin^{-1}(x)$ means but the inverse function $\arcsin(x)$, not the reciprocal.
 - Outside of trigonometry, $f^2(x)$ often means $f(f(x))$ (function composition), not $(f(x))^2$.
-<!-- TODO: Fix comment appearing in published document. -->
-<!-- - $f(x)$ indicates function evaluation but $3(x)$ indicates multiplication
+
+<!-- More examples: 
+  - $f(x)$ indicates function evaluation but $3(x)$ indicates multiplication
   - Example: Students simplify "$f(x + h)$" as "$fx + fh$" -->
 
 
