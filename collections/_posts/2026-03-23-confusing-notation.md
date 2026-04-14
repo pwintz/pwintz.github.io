@@ -47,7 +47,7 @@ I have organized the notation pitfalls into four categories based on the underly
 1. Similar Notation Does Not Have Similar Meaning
 
 
-## Missing Knowledge of Symbols
+### 1. Missing Knowledge of Symbols
 <!-- *Baseline literacy: What symbols mean and how to read them* -->
 
 Before students can navigate the subtleties of mathematical notation, they need basic symbol literacy. Students often forget notation that we take as obvious. Even if a student knows (conceptually) that $3x = x + x + x$, they may forget that they can expand it, or that $3^2$ indicates repeated multiplication. Students seem to have particular trouble remembering "$<$" is "less than" and "$>$" is "greater than". 
@@ -60,27 +60,33 @@ Helping students remember the definitions of notation is beyond the scope of thi
 - Understanding what $1+2$ means -->
 <!-- - Likely: $\pm$ and $\mp$ confuse some students -->
 
-## Multiple Ways to Write the Same Thing
+
+<!-- !! The antidote: Teaching students the meaning of symbols is well recognized as a part of math education, and this large comes down to the student studying and practicing with the symbols. One thing teachers can do, however, is to speak the meaning of symbols as they write mathematical expressions, when reasonable. If writing an eigenvalue $\lambda$, it is better to verbalize "eigenvalue \lambda" instead of just "\lambda." Pointing out mnemonics is also helpful. Things like "\rho" is used for "radius" because "\rho" makes an "r" sound in Greek. "\Sigma" stands for "Sum". The integral sign is a stylized "S", which also stands for "sum".-->
+
+### 2. Multiple Ways to Write the Same Thing
 
 Mathematical notation often provides multiple ways to express the same concept, and students must learn to recognize all of them as equivalent. This multiplicity can be overwhelming for novices who are still building their mathematical vocabulary.
 
-### Multiple ways to write fractions:
+<!-- !! The antidote: Calling it out. Using all of the relevant notations to illustrate. Explaining how one notation vs. another is preferable at different times. -->
+
+#### Multiple ways to write fractions:
 - $\displaystyle x^{-1} = \frac{1}{x} = 1/x$
 <!-- TODO: Add a note about mixed fractions. -->
 <!-- - Mixed fractions: $1\frac{1}{2}$ vs $1 \cdot \frac{1}{2}$ -->
 
-### Multiple ways to write multiplication:
+#### Multiple ways to write multiplication:
 - $ab = a\cdot b = a \times b = (a)(b) = a(b)$
 - Note: "$\cdot$" can also mean dot product in vector contexts, and "$\times$" can mean cross product
 
-### Multiple ways to write the same function:
+#### Multiple ways to write the same function:
 - $e^x$ and $\exp(x)$
 - $\arcsin(x)$ and $\sin^{-1}(x)$
+- $f'(x)$ and $\frac{df}{dx}$
 
-### Using different letters as variables:
+#### Using different letters as variables:
 Students are often not robust to inconsequential changes in notation. They get confused when you change $\int x^2 \, dx$ to $\int y^2 \, dy$, not recognizing that the choice of variable name is arbitrary. Even more confusing: using $h$ as a constant (height) in one context and as a function $h(x)$ in another. The same letter can represent completely different mathematical objects depending on context, and students must learn to adapt to these shifts.
 
-## Context-Dependent Notation 
+## 3. Context-Dependent Notation 
 *Same symbols, different meanings based on context*
 
 Perhaps the most challenging aspect of mathematical notation is that the same symbol can mean entirely different things depending on context. Students must learn to read mathematical expressions not just symbol-by-symbol, but with an awareness of the surrounding mathematical landscape.
@@ -90,10 +96,16 @@ Perhaps the most challenging aspect of mathematical notation is that the same sy
 
 Some notational conventions actively contradict each other, requiring students to memorize which context demands which interpretation. These inconsistencies are historical accidents that we're now stuck with.
 
-- As noted above, $x^{-1} = \frac{1}{x}$ and $\sin^2(x) = (\sin(x))^2$ but $$\sin^{-1}(x) \neq (\sin(x))^{-1}$$ since $\sin^{-1}(x)$ means but the inverse function $\arcsin(x)$, not the reciprocal.
-- Outside of trigonometry, $f^2(x)$ often means $f(f(x))$ (function composition), not $(f(x))^2$
+- As noted above, $x^{-1} = \frac{1}{x}$ and $\sin^2(x) = (\sin(x))^2$ but 
+  $\sin^{-1}(x)$ is not equal to $(\sin(x))^{-1},$
+  since $\sin^{-1}(x)$ means but the inverse function $\arcsin(x)$, not the reciprocal.
+- Outside of trigonometry, $f^2(x)$ often means $f(f(x))$ (function composition), not $(f(x))^2$.
+<!-- TODO: Fix comment appearing in published document. -->
 <!-- - $f(x)$ indicates function evaluation but $3(x)$ indicates multiplication
   - Example: Students simplify "$f(x + h)$" as "$fx + fh$" -->
+
+
+<!-- !! The antidote: Highlighting the conflicting conventions. Emphasizing that you must identify which convention an author uses. Explaining the logic between the inconsistencies. Helping students understand the context itself better. -->
 
 ### Superscripts
 
@@ -161,10 +173,14 @@ One of the most challenging aspects of mathematical notation is what we *don't* 
 
 - **Missing comma between array indices**: $x_{11} = x_{1,1}$ (typically). When writing matrix or array indices, we typically omit the comma between indices for brevity, expecting readers to parse the subscript as two separate values rather than a single two-digit number.
 
-## Similar Notation Does Not Have Similar Meaning
+## 4. Similar Notation Does Not Have Similar Meaning
 *Small visual differences that carry large mathematical significance*
 
 Students learning to read mathematical notation must develop sensitivity to subtle visual distinctions that experienced mathematicians process automatically. Slight difference in size, position, or shape can completely change the meaning of an expression.
+
+
+
+<!-- !! The antidote: Choose symbols carefully. Explicitly state small differences. Avoid sloppy handwriting. -->
 
 ### Size and position matter:
 The same digit in different positions means entirely different things:
@@ -175,23 +191,22 @@ The same digit in different positions means entirely different things:
 
 These positional differences are critical, yet students—especially when reading handwritten work—often overlook them.
 
-### Shape matters:
-Symbols that look similar but have different shapes carry different meanings:
+### Shape matters
+Students struggle to distinguish differences between symbols with very similar shapes---especially in sloppy handwriting. 
+Several commonly confused symbols are:
+<!-- Handwritten mathematics introduces additional ambiguities. Poor handwriting can make distinct symbols indistinguishable: -->
+
 - $x$ (variable, typically italic) vs $\times$ (multiplication operator)
 - $t$ (lowercase variable) vs $T$ (uppercase variable or constant) vs $\tau$ (Greek tau) vs $+$ (plus sign)
-- $|x|$ (absolute value bars) vs $1$ (the number one) — especially problematic in handwritten work
-- Dot products vs scalar multiplication: $a \cdot b$ can mean different things in different contexts
-
-### Handwritten pitfalls:
-Handwritten mathematics introduces additional ambiguities. Poor handwriting can make distinct symbols indistinguishable:
+<!-- - Dot products vs scalar multiplication: $a \cdot b$ can mean different things in different contexts -->
 - $a$ vs. $\alpha$ (Greek alpha)
 - $b$ vs. $\beta$ (Greek beta)
-- $1$ (number) vs. $l$ (lowercase L) vs. $I$ (uppercase i)
-<!-- - Unclear superscripts that could be read as baseline text -->
+- $1$ (number) vs. $l$ (lowercase L) vs. $I$ (uppercase i) vs. vertical bars, such as $\lvert x \rvert$
 
 I have even seen a very poorly drawn $\lambda$ (lambda) that was indistinguishable from a $\tau$ (tau)
 
-These small visual differences aren't decorative—they're semantically crucial. Students must learn to attend to details that might seem trivial but that completely change mathematical meaning.
+<!-- These small visual differences aren't decorative—they're semantically crucial.  -->
+Students must learn to attend to details that might seem trivial but that completely change mathematical meaning.
 
 
 ## Conclusion 
