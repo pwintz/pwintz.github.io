@@ -437,6 +437,41 @@ Since any mathematical expression can be translated multiple ways, several trans
   </td>
 </tr>
 <tr>
+  <td>Derivative (Prime notation)</td>
+  <td>$$f'(x)$$</td>
+  <td>
+    "f prime"<br>
+    "The derivative of f"<br>
+  </td>
+</tr>
+<tr>
+  <td>Second Derivative (Prime notation)</td>
+  <td>$$f''(x)$$</td>
+  <td>
+    "f double prime"<br>
+    <!-- "f second prime"<br> -->
+    "second derivative of f"<br>
+  </td>
+</tr>
+<tr>
+  <td>Third Derivative (Prime notation)</td>
+  <td>$$f''(x)$$</td>
+  <td>
+    "f triple prime"<br>
+    <!-- "f second prime"<br> -->
+    "third derivative of f"<br>
+  </td>
+</tr>
+<tr>
+  <td>Nth Derivative (Prime notation)</td>
+  <td>$$f^{(n)}(x)$$</td>
+  <td>
+    "f nth prime"<br>
+    <!-- "f second prime"<br> -->
+    "nth derivative of f"<br>
+  </td>
+</tr>
+<tr>
   <td>Total Derivatives (Evaluated)</td>
   <td>$$\frac{df}{dx}\Big\rvert_{x_0}$$</td>
   <td>
