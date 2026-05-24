@@ -1,0 +1,22 @@
+---
+layout: single
+---
+
+{% 
+  include software.html 
+  name=page.name
+  summary=page.summary 
+  description=page.description 
+  pricing=page.pricing 
+  alternatives=page.alternatives 
+  homepage=page.homepage 
+%}
+
+
+{% if page.content %} 
+  <!-- </hr> -->
+
+  <hr>
+
+  <p>{{ page.content }}</p>
+{% endif %}

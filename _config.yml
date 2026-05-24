@@ -306,6 +306,9 @@ collections:
   writing-tips:
     output: true
     permalink: /writing-tips/:name
+  useful-software:
+    output: true
+    permalink: /useful-software/:name
   uc_uaw_gsr_2022-2025_contract:
     output: true
     permalink: /uaw/gsr-2022-2025-contract/:name

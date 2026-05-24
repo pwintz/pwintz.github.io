@@ -1,0 +1,64 @@
+
+{{ include.summary }} 
+
+{% if include.homepage %} 
+  (<a href="{{ include.homepage }}">Link</a>)
+{% endif %}
+
+<!-- <table>
+  {% if include.description %} 
+    <tr>
+      <th>Description</th>
+      <td>{{ include.description }}</td>
+    </tr>
+  {% endif %}
+
+  {% if include.pricing %} 
+    <tr>
+      <th>Pricing</th>
+      <td>{{ include.pricing }}</td>
+    </tr>
+  {% endif %}
+
+  {% if include.alternatives %} 
+    <tr>
+      <th>Alternatives</th>
+      <td>
+        <ul>
+          {% for alt in include.alternatives %}
+            <li>{{ alt }}</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+  {% endif %}
+</table> -->
+<dl>
+  
+  {% if include.description %} 
+    <dt>Description</dt>
+    {{ include.description }}
+  {% endif %}
+  
+  {% if include.pricing %} 
+    <dt>Pricing</dt>
+    {{ include.pricing }}
+  {% endif %}
+
+  {% if include.alternatives %} 
+    <dt>Alternatives</dt>
+
+    {% if include.alternatives.size == 1 %} 
+      {{ include.alternatives }}
+    {% else %}
+      <ul>
+        {% for alt in include.alternatives %}
+          <li>{{ alt }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+  {% endif %}
+</dl>
+
+
