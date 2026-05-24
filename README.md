@@ -20,6 +20,27 @@ To build and locally host the website, run
 bundle exec jekyll serve
 ```
 
+## Testing GitHub Actions locally
+
+First, setup `act` as a GitHub CLI extension:
+
+1. [Install Docker](https://docs.docker.com/engine/install/ubuntu/).
+2. [Add your user to `docker` group](https://stackoverflow.com/a/48957722/6651650) so that you can run docker as a non-root user.
+3. Install `act`:
+```bash
+gh extension install https://github.com/nektos/gh-act
+```
+
+Once `act` is setup, test the build action (specified in actions [.github/workflows/jekyll_build_only.yml](.github/workflows/jekyll_build_only.yml)) using 
+```bash
+gh act --job build
+```
+To check the workflow for syntax errors, use:
+```bash
+gh act push --dryrun --strict
+```
+
+
 ## Troubleshooting
 * **Problem**: Running `bundle exec jekyll serve` produces this error: ```Bundler::PermissionError: There was an error while trying to
 write to `/var/lib/gems/3.3.0/cache`. It is likely that you

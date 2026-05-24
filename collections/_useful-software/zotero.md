@@ -10,8 +10,7 @@ pricing: Zotero is free and open source, with a small amount of free cloud stora
 #   - 
 ---
 
-If I recall correctly, Zotero works well out of the box. 
-I used the following plugins and modifications to improve my experience:
+Although Zotero works well out of the box, I use the following plugins and configurations to improve my experience:
 
 - Install the Zotero Connector for your web browser (available on the [Zotero download page](https://www.zotero.org/download/)).
 - Change Zotero settings to store PDFs in Google Drive (or your own choice of cloud storage).
