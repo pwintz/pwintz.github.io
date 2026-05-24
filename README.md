@@ -31,15 +31,11 @@ First, setup `act` as a GitHub CLI extension:
 gh extension install https://github.com/nektos/gh-act
 ```
 
-Once `act` is setup, test the build action (specified in actions [.github/workflows/jekyll_build_only.yml](.github/workflows/jekyll_build_only.yml)) using 
+Once `act` is configured, test the build action (specified in actions [.github/workflows/jekyll_build_only.yml](.github/workflows/jekyll_build_only.yml)) using 
 ```bash
-gh act --job build
+gh act push --dryrun --strict # Check for syntax errors in workflows.
+gh act --job build            # Run the build (but not deploy job) 
 ```
-To check the workflow for syntax errors, use:
-```bash
-gh act push --dryrun --strict
-```
-
 
 ## Troubleshooting
 * **Problem**: Running `bundle exec jekyll serve` produces this error: ```Bundler::PermissionError: There was an error while trying to
