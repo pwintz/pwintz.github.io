@@ -1,8 +1,8 @@
 {
-  "name": "minimal-mistakes",
+  "name": "paulwintz.com",
   "private": true,
   "version": "4.24.0",
-  "description": "Minimal Mistakes 2 column Jekyll theme.",
+  "description": "Paul Wintz's Personal Website. Based on the Minimal Mistakes 2 column Jekyll theme.",
   "repository": {
     "type": "git",
     "url": "git://github.com/mmistakes/minimal-mistakes.git"
@@ -12,12 +12,11 @@
     "theme",
     "minimal"
   ],
-  "author": "Michael Rose",
-  "license": "MIT",
+  "author": "Paul Wintz",
   "bugs": {
-    "url": "https://github.com/mmistakes/minimal-mistakes/issues"
+    "url": "https://github.com/pwintz/pwintz.github.io/issues"
   },
-  "homepage": "https://mmistakes.github.io/minimal-mistakes/",
+  "homepage": "https://paulwintz.com",
   "engines": {
     "node": ">= 0.10.0"
   },

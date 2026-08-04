@@ -7,7 +7,7 @@ permalink: /cv
 biography:
   Paul K. Wintz received a B.S. degree in Engineering/Physics with a minor in Music from Westmont College in 2016, an M.S. degree in Scientific Computing and Applied Mathematics from the University of California, Santa Cruz (UCSC) in 2020, and a PhD in Applied Mathematics from UCSC in 2025. 
   Dr. Wintz was a finalist for the Best Student Paper award at the 2022 American Control Conference.
-  He now teaches calculus as adjunct faculty at Hartnell College.
+  He has taught undergraduate mathematics as an adjunct faculty at Hartnell College and is currently an instructor at UCSC.
 
 research-interests:
   - Hybrid dynamical systems
@@ -79,7 +79,7 @@ honors:
     date: 2014-2016
 
   - honor: B. Paul Moser Memorial Trust Scholarship
-    <!-- See paulandhisviolin: https://mail.google.com/mail/u/0/?shva=1#search/the+santa+barbara+foundatio/FMfcgxmLbGzqvznsxnBCGHPjjfjjRvkB -->
+    # <!-- See paulandhisviolin: https://mail.google.com/mail/u/0/?shva=1#search/the+santa+barbara+foundatio/FMfcgxmLbGzqvznsxnBCGHPjjfjjRvkB -->
     location: Scholarship Foundation of Santa Barbara
     date: 2015-2016
 
@@ -103,13 +103,31 @@ teaching-experiences:
 
   - role: Lecturer
     type: Undergraduate Course
+    name: Mathematical Methods for Economists I (AM 11A)
+    location: UCSC
+    date: Spring 2027 (Planned)
+
+  - role: Lecturer
+    type: Undergraduate Course
+    name: Linear Algebra for Engineers (AM 10)
+    location: UCSC
+    date: Fall 2026, Winter 2027 (Planned)
+    
+  - role: Lecturer
+    type: Undergraduate Course
     name: Multivariate Calculus for Engineers (AM 30)
     location: UCSC
-    date: (Anticipated) Summer 2026
+    date: Summer 2026
 
   - role: Adjunct Professor
     type: Undergraduate Course
-    name: Calculus for Managerial, Life, and Social Sciences
+    name: Analytic Geometry and Calculus II (MAT-3B)
+    location: Hartnell College
+    date: Summer 2026
+    
+  - role: Adjunct Professor
+    type: Undergraduate Course
+    name: Calculus for Managerial, Life, and Social Sciences (MAT-2)
     location: Hartnell College
     date: Spring 2026
 
@@ -321,7 +339,7 @@ employers:
   jobs:
     - title: Adjunct Mathematics Faculty
       start-date: Fall 2025
-      end-date: 
+      end-date: Summer 2026
       highlights:
         - Implemented learning target-based grading system that improved student mastery by breaking skills into specific, achievable objectives.
         - Designed curriculum emphasizing study skills, problem-solving strategies, and digital literacy.
@@ -332,8 +350,8 @@ employers:
 - name: University of California, Santa Cruz
   jobs:
     - title: Lecturer
-      dates: (Anticipated) Summer 2026
-      highlights: Will teach Multivariate Calculus for Engineers (AM 30) during the summer session.
+      dates: Summer 2026-Spring 2027 (Planned)
+      # highlights: Will teach Multivariate Calculus for Engineers (AM 30) during the summer session.
 
     - title: Graduate Student Researcher
       dates: Spring 2021-Fall 2025
