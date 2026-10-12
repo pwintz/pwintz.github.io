@@ -74,12 +74,13 @@ layout: default
             <i class="fas fa-home"></i>&nbsp;<a style="margin-right: 10px;" href="https://paulwintz.com">paulwintz.com</a>
           </div>
         </div>
-
         <!-- # Biography -->
-        <div class="avoid-page-breaks">
-          <h2>Short Biography</h2>
-          {{ page.biography }}
-        </div>
+        <p>
+          <div class="avoid-page-breaks">
+            <!-- <h2>Short Biography</h2> -->
+            {{ page.biography }}
+          </div>
+        </p>
         
         <!-- # Research Interests -->
         <div class="avoid-page-breaks">
@@ -172,30 +173,32 @@ layout: default
           {% endfor %}
         </table>
 
-        <h2>Teaching Experiences</h2>
-        {% for teaching-experience in page.teaching-experiences %}
-          <table class="dateditems">
-            <!-- # Teaching Role Row -->
-            <tr style="page-break-after:avoid">
-              <td class="item">
-                <b>{{ teaching-experience.role }}</b>
-              </td>
-              <td class="date">
-                {{ teaching-experience.date }}
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2">
-                {{ teaching-experience.type }}: {{ teaching-experience.name }}.
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2">
-                <i>{{ teaching-experience.location }}</i>
-              </td>
-            </tr>
-          </table>
-        {% endfor %}
+        {% if page.teaching-experiences %} 
+          <h2>Teaching Experiences</h2>
+          {% for teaching-experience in page.teaching-experiences %}
+            <table class="dateditems">
+              <!-- # Teaching Role Row -->
+              <tr style="page-break-after:avoid">
+                <td class="item">
+                  <b>{{ teaching-experience.role }}</b>
+                </td>
+                <td class="date">
+                  {{ teaching-experience.date }}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  {{ teaching-experience.type }}: {{ teaching-experience.name }}.
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <i>{{ teaching-experience.location }}</i>
+                </td>
+              </tr>
+            </table>
+          {% endfor %}
+        {% endif %}
 
         <h2>Honors</h2>
         {% for honor in page.honors %}
@@ -216,117 +219,133 @@ layout: default
           </table>
         {% endfor %}
         
-        <h2>Publications</h2>
-        {% include publication_list.html %}
+        {% if page.include-publications %} 
+          <h2>Publications</h2>
+          {% include publication_list.html %}
+        {% endif %}
 
-        <h2>Conference Presentations</h2>
-        {% for conf in page.conference-presentations %}
-          <table class="dateditems">
-            <tr style="page-break-after:avoid">
-              <td class="item">
-                "{{ conf.title }}"
-              </td>
-              <td class="date">
-                {{ conf.date }}
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2">
-                <i>{{ conf.venue }}.</i>
-              </td>
-            </tr>
-          </table>
-        {% endfor %}
+        {% if page.conference-presentations %} 
+          <h2>Conference Presentations</h2>
+          {% for conf in page.conference-presentations %}
+            <table class="dateditems">
+              <tr style="page-break-after:avoid">
+                <td class="item">
+                  "{{ conf.title }}"
+                </td>
+                <td class="date">
+                  {{ conf.date }}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <i>{{ conf.venue }}.</i>
+                </td>
+              </tr>
+            </table>
+          {% endfor %}
+        {% endif %}
 
-        <h2>Poster Presentations</h2>
-        {% for poster in page.poster-presentations %}
-          <table class="dateditems">
-            <tr style="page-break-after:avoid">
-              <td class="item">
-                "{{ poster.title }}"
-              </td>
-              <td class="date">
-                {{ poster.date }}
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2">
-                <i>{{ poster.venue }}.</i>
-              </td>
-            </tr>
-          </table>
-        {% endfor %}
+        {% if page.poster-presentations %} 
+          <h2>Poster Presentations</h2>
+          {% for poster in page.poster-presentations %}
+            <table class="dateditems">
+              <tr style="page-break-after:avoid">
+                <td class="item">
+                  "{{ poster.title }}"
+                </td>
+                <td class="date">
+                  {{ poster.date }}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <i>{{ poster.venue }}.</i>
+                </td>
+              </tr>
+            </table>
+          {% endfor %}
+        {% endif %}
         
-        <h2>Service Work</h2>
-        {% for service in page.service-work %}
-          <table class="dateditems">
-            <tr style="page-break-after:avoid">
-              <td class="item">
-                <span class="degreename">{{ service.title }}</span>
-              </td>
-              <td class="date">
-                {{ service.date }}
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2">
-                <i>{{ service.location }}.</i>
-              </td>
-            </tr>
-          </table>
-        {% endfor %}
+        {% if page.service-work %} 
+          <h2>Service Work</h2>
+          {% for service in page.service-work %}
+            <table class="dateditems">
+              <tr style="page-break-after:avoid">
+                <td class="item">
+                  <span class="degreename">{{ service.title }}</span>
+                </td>
+                <td class="date">
+                  {{ service.date }}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <i>{{ service.location }}.</i>
+                </td>
+              </tr>
+            </table>
+          {% endfor %}
+        {% endif %}
 
         <div class="avoid-page-breaks">
           <h2>Skills</h2>
           {{ page.skills | join: " ⦁ " }}
         </div>
 
-        <h2>Other Activities</h2>
-        {% for activity in page.other-activities %}
-          <table class="dateditems">
-            <tr style="page-break-after:avoid">
-              <td class="item activityname">
-                <!-- <span class=""> -->
-                  {{ activity.name }}
-                <!-- </span> -->
-              </td>
-              <td class="date">
-                {% if activity.dates %}
-                  {{ activity.dates }} 
-                {% elsif activity.start-date %}
-                  {{ activity.start-date | date: "%B %Y" }}-{{ activity.end-date | date: "%B %Y" | default:"Present"}}
-                {% endif %}
-              </td>
-            </tr>
-            <tr colspan="2">
-                <table class="dateditems">
-                {% for job in activity.jobs %}
+
+         <!-- 
+         ╭──────────────────────────────────────────╮
+         │             Other Activities             │
+         ╰──────────────────────────────────────────╯
+         -->
+        {% if page.other-activities %}
+          <h2>Other Activities</h2>
+          {% for activity in page.other-activities %}
+            <table class="dateditems">
+              <tr style="page-break-after:avoid">
+                <td class="item activityname">
+                  <!-- <span class=""> -->
+                    {{ activity.name }}
+                  <!-- </span> -->
+                </td>
+                <td class="date">
+                  {% if activity.dates %}
+                    {{ activity.dates }} 
+                  {% elsif activity.start-date %}
+                    {{ activity.start-date | date: "%B %Y" }}-{{ activity.end-date | date: "%B %Y" | default:"Present"}}
+                  {% endif %}
+                </td>
+              </tr>
+              <tr colspan="2">
+                  <table class="dateditems">
+                  {% for job in activity.jobs %}
+                    <tr>
+                      <td class="item">
+                          {{ job.title }}
+                      </td>
+                      <td class="date">
+                        {% if job.dates %}
+                          {{ job.dates }} 
+                        {% elsif job.start-date %}
+                          {{ job.start-date | date: "%B %Y" }}-{{ job.end-date | date: "%B %Y" | default:"Present"}}
+                        {% endif %}
+                      </td>
+                    </tr>
+                  </table>
+                  {% endfor %}
                   <tr>
-                    <td class="item">
-                        {{ job.title }}
-                    </td>
-                    <td class="date">
-                      {% if job.dates %}
-                        {{ job.dates }} 
-                      {% elsif job.start-date %}
-                        {{ job.start-date | date: "%B %Y" }}-{{ job.end-date | date: "%B %Y" | default:"Present"}}
-                      {% endif %}
-                    </td>
+                    <ul>
+                      {% for highlight in activity.highlights %}
+                        <li>{{ highlight }}</li>
+                      {% endfor %}
+                    </ul>
                   </tr>
-                </table>
-                {% endfor %}
-                <tr>
-                  <ul>
-                    {% for highlight in activity.highlights %}
-                      <li>{{ highlight }}</li>
-                    {% endfor %}
-                  </ul>
-                </tr>
-              </div>
-            </tr>
-          </table>
-          <!-- </div> -->
-        {% endfor %}
+                </div>
+              </tr>
+            </table>
+            <!-- </div> -->
+          {% endfor %}
+        {% endif %}
 
       </section>
     </div>

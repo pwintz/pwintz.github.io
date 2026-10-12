@@ -2,6 +2,7 @@
 layout: cv 
 title: CV
 permalink: /cv
+include-publications: true
 # tagline: Mathematician. Teacher. Musician. Artist.
 
 biography:
