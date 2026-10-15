@@ -1,0 +1,36 @@
+
+{% assign publication = include %}
+
+<div class="pubitem avoid-page-breaks">
+  {% if publication.teaser-image %}
+    <div class="pubteaser">
+      <a href="{{publication.url}}">
+        <img
+          src="/assets/images/publication-pages/{{ publication.teaser-image }}_small.jpg"
+          alt="{{publication.title}} publication teaser"
+        />
+      </a>
+    </div>
+  {% endif %}
+  <div class="pubtitle"><a href="{{publication.url}}">{{ publication.title }}</a></div>
+  <div class="pubauthors">{{ publication.authors }}</div>
+  <span class="pubpublication">{{ publication.publication }}</span>, <span class="pubyear">{{ publication.year}}</span>.&nbsp;
+  {% if publication.awards %}
+    <div class="pubawards">
+      <ul>
+        {% for award in publication.awards %}
+          <li>{{ award }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  <div class="publinks">
+    {% include publication_files.html 
+      slug=publication.slug
+      has-pdf=publication.has-pdf
+      youtube-link=publication.youtube-link
+      has-slides=publication.has-slides
+      has-bibtex=publication.has-bibtex
+      doi=publication.doi %}
+    </div>
+</div>

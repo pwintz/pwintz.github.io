@@ -232,11 +232,22 @@ layout: default
           </table>
         {% endfor %}
         
+        <!-- 
+        ╭───────────────────────────────────────────╮
+        │             Publications List             │
+        ╰───────────────────────────────────────────╯
+        -->
         {% if page.include-publications %} 
           <h2>Publications</h2>
           {% include publication_list.html %}
         {% endif %}
 
+
+        <!-- 
+        ╭───────────────────────────────────────────╮
+        │       Conference Presentations List       │
+        ╰───────────────────────────────────────────╯
+        -->
         {% if page.conference-presentations %} 
           <h2>Conference Presentations</h2>
           {% for conf in page.conference-presentations %}
@@ -258,6 +269,12 @@ layout: default
           {% endfor %}
         {% endif %}
 
+
+        <!-- 
+        ╭───────────────────────────────────────────╮
+        │         Poster Presentations List         │
+        ╰───────────────────────────────────────────╯
+        -->
         {% if page.poster-presentations %} 
           <h2>Poster Presentations</h2>
           {% for poster in page.poster-presentations %}
