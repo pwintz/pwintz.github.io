@@ -12,11 +12,11 @@ biography:
 
 research-interests:
   - Hybrid dynamical systems
-  - Model predictive control
   - Uniting feedback for exploiting uncertified controllers 
+  - Formal methods for verification of dynamical systems and control systems
   - Computationally-constrained cyber-physical systems
   - Graph-based asymptotic and reachability analysis of hybrid systems
-  - Formal methods for verification of dynamical systems and control systems
+  - Model predictive control
 
 honors:
   - honor: Dissertation Year Fellowship
@@ -104,104 +104,138 @@ teaching-experiences:
 
   - role: Lecturer
     type: Undergraduate Course
-    name: Mathematical Methods for Economists I (AM 11A)
+    name: Mathematical Methods for Economists I 
+    course-code: AM11A
+    catalog-link: https://catalog.ucsc.edu/en/2025-2026/general-catalog/courses/am-applied-mathematics/lower-division/am-11a
     location: UCSC
     date: Spring 2027 (Planned)
 
   - role: Lecturer
     type: Undergraduate Course
-    name: Linear Algebra for Engineers (AM 10)
+    name: Linear Algebra for Engineers 
+    course-code: AM10
+    catalog-link: https://catalog.ucsc.edu/en/2025-2026/general-catalog/courses/am-applied-mathematics/lower-division/am-10
     location: UCSC
     date: Fall 2026, Winter 2027 (Planned)
     
   - role: Lecturer
     type: Undergraduate Course
-    name: Multivariate Calculus for Engineers (AM 30)
+    name: Multivariate Calculus for Engineers 
+    course-code: AM30
+    catalog-link: https://catalog.ucsc.edu/en/2025-2026/general-catalog/courses/am-applied-mathematics/lower-division/am-30
     location: UCSC
     date: Summer 2026
 
   - role: Adjunct Professor
     type: Undergraduate Course
-    name: Analytic Geometry and Calculus II (MAT-3B)
+    name: Analytic Geometry and Calculus II 
+    course-code: MAT-3B
+    # catalog-link: 
     location: Hartnell College
     date: Summer 2026
     
   - role: Adjunct Professor
     type: Undergraduate Course
-    name: Calculus for Managerial, Life, and Social Sciences (MAT-2)
+    name: Calculus for Managerial, Life, and Social Sciences 
+    course-code: MAT-2
+    # catalog-link: 
     location: Hartnell College
     date: Spring 2026
 
   - role: Adjunct Professor
     type: Undergraduate Course
-    name: Analytic Geometry and Calculus II (MAT-3B)
+    name: Analytic Geometry and Calculus II 
+    course-code: MAT-3B
+    # catalog-link: 
     location: Hartnell College
     date: Spring 2026
 
   - role: Adjunct Professor
     type: Undergraduate Course
-    name: Analytic Geometry and Calculus II (MAT-3B)
+    name: Analytic Geometry and Calculus II 
+    course-code: MAT-3B
+    # catalog-link: 
     location: Hartnell College
     date: Fall 2025
 
   - role: Group Tutor
     type: Undergraduate Course
-    name: Introduction to Cyber-Physical Systems
+    name: Introduction to Cyber-Physical Systems 
+    course-code: ECE149
+    catalog-link: https://catalog.ucsc.edu/en/2025-2026/general-catalog/courses/ece-electrical-and-computer-engineering/upper-division/ece-149
     location: UCSC, Department of Computer Engineering
     date: Spring 2024
 
   - role: Instructor
     type: Undergraduate Course
-    name: Linear Algebra for Engineers (AM10)
+    name: Linear Algebra for Engineers
+    course-code: AM10
+    catalog-link: https://catalog.ucsc.edu/en/2025-2026/general-catalog/courses/am-applied-mathematics/lower-division/am-10
     date: Winter 2024
     location: UCSC, Department of Applied Mathematics
     # Previously named  Mathematical Methods for Engineers I
 
   - role: Group Tutor
     type: Undergraduate Course
-    name: Introduction to Cyber-Physical Systems
+    name: Introduction to Cyber-Physical Systems 
+    course-code: ECE149
+    catalog-link: https://catalog.ucsc.edu/en/2025-2026/general-catalog/courses/ece-electrical-and-computer-engineering/upper-division/ece-149
     date: Spring 2022
     location: UCSC, Department of Computer Engineering
 
   - role: Teaching Assistant 
     type: Undergraduate Course
-    name: Mathematical Methods for Engineers I (Linear Algebra)
+    name: Linear Algebra for Engineers 
+    course-code: AM10
+    catalog-link: https://catalog.ucsc.edu/en/2025-2026/general-catalog/courses/am-applied-mathematics/lower-division/am-10
     date: Summer 2020
     location: UCSC, Department of Applied Mathematics
 
   - role: Teaching Assistant 
     type: Undergraduate Course 
-    name: Mathematical Methods for Economists II (Integral Calculus)
+    name: Mathematical Methods for Economists II 
+    course-code: AM11B
+    catalog-link: https://catalog.ucsc.edu/en/2025-2026/general-catalog/courses/am-applied-mathematics/lower-division/am-11b
     date: Spring 2020
     location: UCSC, Department of Applied Mathematics
 
   - role: Teaching Assistant 
     type: Undergraduate Course 
-    name: Mathematical Methods for Economists I (Differential Calculus)
+    name: Mathematical Methods for Economists I 
+    course-code: AM11A
+    catalog-link: https://catalog.ucsc.edu/en/2025-2026/general-catalog/courses/am-applied-mathematics/lower-division/am-11a
     date: Spring 2020
     location: UCSC, Department of Applied Mathematics
 
   - role: Teaching Assistant
     type: Undergraduate Course
-    name: Mathematical Methods for Engineers I (Linear Algebra)
+    name: Linear Algebra for Engineers 
+    course-code: AM10
+    catalog-link: https://catalog.ucsc.edu/en/2025-2026/general-catalog/courses/am-applied-mathematics/lower-division/am-10
     date: Winter 2020
     location: UCSC, Department of Applied Mathematics
 
   - role: Teaching Assistant 
     type: Undergraduate Course 
-    name: Applied Dynamical Systems
+    name: Applied Dynamical Systems 
+    course-code: AM114
+    catalog-link: https://catalog.ucsc.edu/en/2024-2025/general-catalog/courses/am-applied-mathematics/upper-division/am-114/
     date: Fall 2019
     location: UCSC, Department of Applied Mathematics
 
   - role: Teaching Assistant 
     type: Undergraduate Course 
-    name: Mathematical Methods for Economists I (Differential Calculus)
+    name: Mathematical Methods for Economists I 
+    course-code: AM11A
+    catalog-link: https://catalog.ucsc.edu/en/2025-2026/general-catalog/courses/am-applied-mathematics/lower-division/am-11a
     date: Fall 2019
     location: UCSC, Department of Applied Mathematics
 
   - role: Teaching Assistant 
     type: Undergraduate Course 
     name: Ordinary Differential Equations for Engineers
+    course-code: AM20
+    catalog-link: https://catalog.ucsc.edu/en/2025-2026/general-catalog/courses/am-applied-mathematics/lower-division/am-20
     date: Summer 2019
     location: UCSC, Department of Applied Mathematics
     # Previously named "Mathematical Methods for Engineers II"

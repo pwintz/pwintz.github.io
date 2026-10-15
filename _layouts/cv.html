@@ -19,6 +19,11 @@ layout: default
 <div id="main" role="main">
   <!-- {% include sidebar.html %} -->
 
+   <!-- 
+   ╭─────────────────────────────────────╮
+   │             Page Header             │
+   ╰─────────────────────────────────────╯
+   -->
   <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
     {% if page.title %}
       <meta itemprop="headline" content="{{ page.title | markdownify | strip_html | strip_newlines | escape_once }}">
@@ -188,7 +193,15 @@ layout: default
               </tr>
               <tr>
                 <td colspan="2">
-                  {{ teaching-experience.type }}: {{ teaching-experience.name }}.
+                  {{ teaching-experience.type }}: {{ teaching-experience.name }}
+                  {% if teaching-experience.course-code %} 
+
+                    {% if teaching-experience.catalog-link %} 
+                      (<a href="{{ teaching-experience.catalog-link }}">{{ teaching-experience.course-code }}</a>)
+                    {% else %}
+                      ({{ teaching-experience.course-code }})
+                    {% endif %}
+                  {% endif %}
                 </td>
               </tr>
               <tr>
