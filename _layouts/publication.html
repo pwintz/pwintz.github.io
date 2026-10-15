@@ -14,12 +14,30 @@ layout: single
 </div>
 {% endif %}
 {% if page.abstract %}
-<h2>Abstract</h2>
-{{ page.abstract }}
+  <h2>Abstract</h2>
+  {{ page.abstract }}
 {% endif %}
+
 {{ content }}
+
+<!-- 
+ ╭───────────────────────────────────────╮
+ │             YouTube video             │
+ ╰───────────────────────────────────────╯
+-->
+{% if page.youtube-link %} 
+  <div style="left:0;width:100%;height:0;position:relative;padding-bottom:56.25%">
+    <iframe src="{{page.youtube-link}}" 
+    style="top: 20px; left:0;width:100%;height:100%;position:absolute;border:0" 
+    allowfullscreen 
+    scrolling="no" 
+    referrerpolicy="strict-origin">
+    </iframe>
+  </div>
+{% endif %}
+
 {% if page.has-pdf or page.has-slides or page.has-bibtex %}
-<h2 id="downloads">Downloads</h2>
+  <h2 id="downloads">Downloads</h2>
   {% include publication_files.html 
     slug=page.slug
     has-pdf=page.has-pdf
@@ -27,3 +45,4 @@ layout: single
     has-bibtex=page.has-bibtex
     doi=page.doi %}
 {% endif %}
+

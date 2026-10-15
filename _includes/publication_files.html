@@ -4,6 +4,9 @@
       ><i class="far fa-file-pdf"></i> PDF</a
     >&nbsp;&nbsp;
   {% endif %}
+  {% if include.youtube-link %}
+    <a href="{{ include.youtube-link }}"><i class="fa-brands fa-youtube"></i> Video</a>&nbsp;&nbsp; 
+  {% endif %}
   {% if include.has-slides %}
     <a href="/downloads/{{ include.slug }}_slides.pdf"><i class="far fa-file-pdf"></i> Slides</a>&nbsp;&nbsp; 
   {% endif %}
@@ -14,5 +17,6 @@
   {% endif %}
   {% if include.doi %}
   <a href=" https://doi.org/{{ include.doi }}"><i class="fas fa-external-link-alt"></i> DOI</a
-  >&nbsp;&nbsp; {% endif %}
+  >&nbsp;&nbsp; 
+  {% endif %}
 </p>
