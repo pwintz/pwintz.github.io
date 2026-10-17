@@ -1,0 +1,204 @@
+---
+layout: single
+permalink: /tools/gmail_link/
+title: Gmail Link Converter
+---
+
+<style>
+  .gmail-link input,
+  .gmail-link button {
+    font: inherit;
+    padding: 0.45rem 0.7rem;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 6px;
+  }
+  .gmail-link button { cursor: pointer; }
+  /* The theme adds bottom margins to inputs and labels, which pushes them off-center in a row. */
+  .gmail-link input,
+  .gmail-link label { margin: 0; }
+  .gmail-link { --gl-field-height: 2.6rem; }
+  .gl-row { display: flex; gap: 0.5rem; }
+  .gl-row input { flex: 1; min-width: 0; }
+  .gl-output {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 6px;
+  }
+  .gl-output a { flex: 1; align-self: center; overflow-wrap: anywhere; }
+  /* Square icon buttons (copy and remove) that sit inside a bordered box at its right edge. */
+  .gmail-link .gl-icon-button[hidden] { display: none; }
+  .gmail-link .gl-icon-button {
+    flex: none;
+    align-self: center;
+    width: 2.2em;
+    height: 2.2em;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 150ms, border-color 150ms, color 150ms;
+  }
+  .gl-icon-button svg {
+    width: 1.1em;
+    height: 1.1em;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  /* Copy button: success/failure swap the icon and color instead of changing text. */
+  #gl-copy .gl-icon-check,
+  #gl-copy .gl-icon-fail,
+  #gl-copy.gl-copied .gl-icon-copy,
+  #gl-copy.gl-copy-failed .gl-icon-copy { display: none; }
+  #gl-copy.gl-copied .gl-icon-check,
+  #gl-copy.gl-copy-failed .gl-icon-fail { display: block; }
+  #gl-copy.gl-copied      { background: #188038; border-color: #188038; color: #fff; animation: gl-pop 250ms ease-out; }
+  #gl-copy.gl-copy-failed { background: #c5221f; border-color: #c5221f; color: #fff; animation: gl-pop 250ms ease-out; }
+  @keyframes gl-pop {
+    50% { transform: scale(1.15); }
+  }
+  .gl-message { margin-top: 0.5rem; font-size: 0.9em; }
+  .gl-message.gl-error { color: #c5221f; }
+  .gl-accounts { list-style: none; padding: 0; margin: 0 0 0.75rem; }
+  .gl-account {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;   /* label | body (handle, email, remove) */
+    gap: 0.5rem;
+    align-items: start;                  /* Keep the label beside the field when an error shows */
+    margin-bottom: 0.4rem;
+  }
+  .gl-account label {
+    height: var(--gl-field-height);
+    display: flex;
+    align-items: center;
+    font-family: monospace;
+  }
+  .gl-account-body {
+    display: grid;
+    grid-template-columns: 1fr;   /* email box (handle and remove button inside), then any error */
+    gap: 0.5rem;
+    align-items: center;
+    border-radius: 6px;
+  }
+
+  /* Email box: a bordered box holding a borderless input and the remove button, like the output box. */
+  .gl-field {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    height: var(--gl-field-height);
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0 0.25rem 0 0;   /* Set all sides: the theme pads <form> elements by 1em */
+    overflow: hidden;   /* Clip the handle's gray strip to the box's rounded corners */
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 6px;
+    background: #fff;
+  }
+  .gmail-link .gl-field input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    outline: none;
+  }
+  .gl-field:focus-within { border-color: #6f777d; box-shadow: 0 0 5px rgba(111, 119, 125, 0.7); }
+  .gl-field:has(input[aria-invalid="true"]) { border-color: #c5221f; box-shadow: 0 0 0 1px #c5221f; }
+  .gmail-link .gl-remove:hover { color: #c5221f; border-color: #c5221f; }
+
+  /* Drag handle: a gray strip at the left edge inside the email box. Hidden with one account. */
+  .gmail-link .gl-handle {
+    flex: none;
+    align-self: stretch;
+    width: 1.8em;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #efefef;
+    color: inherit;
+    border: none;
+    border-right: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 0;
+    cursor: grab;
+    touch-action: none;   /* Let touch drags reorder instead of scrolling the page */
+  }
+  .gmail-link .gl-handle[hidden] { display: none; }
+  .gmail-link .gl-handle:hover,
+  .gmail-link .gl-handle:focus-visible { background: #e2e2e2; }
+  .gl-handle svg { width: 1.1em; height: 1.1em; fill: currentColor; opacity: 0.6; }
+  .gl-handle:hover svg,
+  .gl-handle:focus-visible svg { opacity: 1; }
+
+  /* The entry being dragged follows the pointer above the others; its "u/N" label stays put.
+     The script sets its transform, and slides the other entries into their new slots. */
+  .gl-account-body { position: relative; }
+  .gl-account.gl-dragging .gl-account-body { z-index: 1; cursor: grabbing; }
+  .gl-account.gl-dragging .gl-field { box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22); }
+  .gl-account.gl-dragging .gl-handle { cursor: grabbing; background: #e2e2e2; }
+  .gl-account.gl-dragging .gl-handle svg { opacity: 1; }
+  .gmail-link .gl-account-error {   /* .gmail-link beats the theme's paragraph margins */
+    margin: -0.2rem 0 0.2rem;
+    font-size: 0.85em;
+    color: #c5221f;
+  }
+  .gl-bookmarklet {
+    display: inline-block;
+    padding: 0.3rem 0.7rem;
+    border: 1px dashed currentColor;
+    border-radius: 6px;
+    cursor: grab;
+  }
+</style>
+
+<div class="gmail-link">
+  <p>
+    Paste a Google URL that uses an account number (like
+    <code>https://mail.google.com/mail/u/0/#inbox/…</code>) to get one tied to the
+    account's email address, so it opens in the right account no matter the sign-in order.
+  </p>
+
+  <!-- Same bordered box as the account emails, with a clear button inside (shown once there's text). -->
+  <form id="gl-form" class="gl-field">
+    <input id="gl-input" type="text" inputmode="url" placeholder="https://mail.google.com/mail/u/0/" aria-label="Google URL" autocomplete="off">
+    <button id="gl-clear" class="gl-icon-button" type="button" aria-label="Clear URL" title="Clear URL" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"/></svg>
+    </button>
+  </form>
+
+  <div id="gl-output" class="gl-output gl-row" hidden>
+    <a id="gl-output-link" href="#" target="_blank" rel="noopener"></a>
+    <button id="gl-copy" class="gl-icon-button" type="button" aria-label="Copy link" title="Copy link">
+      <!-- Only one icon is visible at a time; see the .gl-copied and .gl-copy-failed styles. -->
+      <svg class="gl-icon-copy" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <svg class="gl-icon-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+      <svg class="gl-icon-fail" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"/></svg>
+    </button>
+  </div>
+
+  <p id="gl-message" class="gl-message" role="status" hidden></p>
+
+  <h2>Your accounts</h2>
+  <p>
+    Enter the email for each account number, in the order shown in Gmail's account switcher
+    (<code>u/0</code> is the account you signed into first). These are saved only in this
+    browser, not on the website.
+  </p>
+
+  <ol id="gl-accounts" class="gl-accounts"></ol>
+  <button id="gl-add" type="button">Add account</button>
+
+  <h2>Bookmarklet</h2>
+  <p>
+    Drag this to your bookmarks bar. Clicking it on any Gmail page sends that page's URL here
+    and converts it.
+  </p>
+  <p><a id="gl-bookmarklet" class="gl-bookmarklet" href="#">Gmail → email link</a></p>
+</div>
+
+<script src="/assets/ts/out/gmail_link.js" type="module"></script>
