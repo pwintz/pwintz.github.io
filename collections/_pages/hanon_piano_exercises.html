@@ -1,103 +1,305 @@
 ---
 layout: single
 permalink: /tools/hanon/
-title: Hanon Piano Exercises (WIP)
+title: Hanon Piano Exercises
 draft: true
 ---
 
-<!-- In this page, I am trying to generate hanon piano exercises in user-selectable keys. 
--->
+<style>
+  .hanon-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .hanon-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
+    align-items: end;
+  }
 
-<span id="hanon-key">C major</span> 
-<!-- Up Pattern -->
-<span id="hanon-up-pattern" style="display:none;">C, E, F, G, A, G, F, E</span>
-<span  id="hanon-up-right-fingers-pattern" style="display:none;">1,2,3,4,5,4,3,2</span> 
-<span  id="hanon-up-left-fingers-pattern" style="display:none;">5,4,3,2,1,2,3,4</span> 
-<!-- Down pattern -->
-<span  id="hanon-down-pattern" style="display:none;">G, E, D, C, B, C, D, E</span> 
-<span  id="hanon-down-left-fingers-pattern" style="display:none;"> 1, 2, 3, 4, 5, 4, 3, 2</span> 
-<span  id="hanon-down-right-fingers-pattern" style="display:none;">5, 4, 3, 2, 1, 2, 3, 4</span> 
+  /* Each group of options is a panel, so the groups have the same visual weight. The view options
+     panel is collapsible. */
+  .hanon-panel,
+  .hanon-view-options {
+    align-self: flex-start;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 8px;
+    background: rgba(128, 128, 128, 0.06);
+  }
+  .hanon-panel { padding: 0.5rem 0.75rem 0.6rem; }
+  /* Option labels in the main panels match the weight of the "View options" header. */
+  .hanon-panel > .hanon-row > label,
+  .hanon-panel > .hanon-row > .hanon-field > label { font-weight: 600; }
+  .hanon-panel select { font-weight: normal; }
+  /* On narrow screens, panels and menus shrink to fit (long mode names would otherwise overflow). */
+  .hanon-panel, .hanon-view-options { max-width: 100%; box-sizing: border-box; }
+  .hanon-panel .hanon-row > * { min-width: 0; max-width: 100%; }
+  .hanon-controls select { max-width: 100%; }
+  .hanon-view-options summary {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.9em; font-weight: 600;
+    cursor: pointer; user-select: none;
+  }
+  .hanon-view-options summary:hover { background: rgba(128, 128, 128, 0.08); border-radius: 8px; }
+  .hanon-view-options[open] summary { border-bottom: 1px solid rgba(128, 128, 128, 0.25); border-radius: 8px 8px 0 0; }
+  .hanon-view-options > .hanon-row { padding: 0.6rem 0.75rem 0.5rem; }
+  .hanon-controls label { display: flex; flex-direction: column; gap: 0.2rem; margin: 0; font-size: 0.9em; }
+  .hanon-controls select { margin: 0; min-width: 6rem; }
+  .hanon-controls .hanon-size { min-width: 9rem; }
+  .hanon-controls .hanon-size input { margin: 0; padding: 0; width: 100%; }
+  .hanon-controls .hanon-checkbox { flex-direction: row; align-items: center; gap: 0.4rem; padding-bottom: 0.4rem; }
+  .hanon-controls .hanon-checkbox input { margin: 0; }
+  .hanon-field { display: flex; flex-direction: column; gap: 0.2rem; font-size: 0.9em; }
+  .hanon-field label { margin: 0; font-size: inherit; }   /* The theme sets its own label size */
+  .hanon-field[hidden] { display: none; }
 
-<div class="vextab-auto"
-    width=600 scale=0.8 id="hanon">
-    options space=20
-	  stave notation=true key=C time=2/4
+  /* Sharp/flat toggle for roots with two spellings, styled as a segmented control. */
+  .hanon-spelling { display: inline-flex; border: 1px solid rgba(128, 128, 128, 0.5); border-radius: 6px; overflow: hidden; }
+  .hanon-spelling { align-self: flex-start; }
+  .hanon-spelling label { position: relative; margin: 0; padding: 0.1rem 0.55rem; line-height: 1.5; cursor: pointer; }
+  .hanon-spelling label + label { border-left: 1px solid rgba(128, 128, 128, 0.5); }
+  .hanon-spelling input { position: absolute; opacity: 0; pointer-events: none; }
+  .hanon-spelling label:has(input:checked) { background: #6f777d; color: #fff; }
+  .hanon-spelling label:has(input:disabled) { opacity: 0.4; cursor: not-allowed; }
+  .hanon-spelling label:has(input:focus-visible) { outline: 2px solid #6f777d; outline-offset: -3px; }
 
-    notes :16 <span id="hanon-up-notes"></span> 
-    text  :16,<span id="hanon-up-fingers"></span> |
+  /* "?" help button with a popup, beside the fingering option. */
+  .hanon-fingering-option { display: inline-flex; align-items: center; gap: 0.35rem; padding-bottom: 0.4rem; }
+  .hanon-fingering-option .hanon-checkbox { padding-bottom: 0; }
+  .hanon-help { position: relative; display: inline-flex; }
+  .hanon-help button {
+    width: 1.35em; height: 1.35em; padding: 0;
+    border: 1px solid currentColor; border-radius: 50%;
+    background: transparent; color: inherit; opacity: 0.65;
+    font-size: 0.8em; font-weight: bold; line-height: 1; cursor: pointer;
+  }
+  .hanon-help button:hover, .hanon-help button:focus-visible { opacity: 1; }
+  .hanon-help-popup {
+    position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%); z-index: 10;
+    width: max-content; max-width: 16rem; padding: 0.5rem 0.7rem;
+    border-radius: 6px; background: #333; color: #fff; font-size: 0.8em; line-height: 1.4;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  .hanon-help:hover .hanon-help-popup { display: block; }   /* Hover shows it even while [hidden] */
+  .hanon-title { margin: 0.5rem 0 0; }
+  .hanon-general { margin: 0 0 1.25rem; font-size: 0.9em; }
+  .hanon-general p { margin: 0 0 0.5em; }
+  .hanon-general footer { font-size: 0.9em; font-style: normal; opacity: 0.8; }
+  .hanon-print-only { display: none; }
 
-    stave notation=true key=C
+  /* Notes under the options in a panel: Hanon's notes on the exercise, and about the mode. */
+  .hanon-panel-info {
+    max-width: 44rem;
+    margin-top: 0.6rem; padding-top: 0.5rem;
+    border-top: 1px solid rgba(128, 128, 128, 0.25);
+    font-size: 0.85em;
+  }
+  .hanon-panel-info[hidden], .hanon-info-fingers[hidden] { display: none; }
+  .hanon-panel-info h3 { margin: 0 0 0.3rem; font-size: 1em; }
+  .hanon-panel-info p { margin: 0 0 0.4em; }
+  .hanon-panel-info p:last-child { margin-bottom: 0; }
+  .hanon-info-fingers { font-style: italic; }
+  .hanon-info-scale { font-variant-numeric: tabular-nums; }
 
-    notes :16 <span id="hanon-down-notes"></span> 
-    text  :16,<span id="hanon-down-fingers"></span> |
+  /* Playback bar. */
+  .hanon-playback {
+    position: sticky; top: 0; z-index: 5;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.25rem;
+    padding: 0.5rem 0; background: #fff;
+  }
+  #hanon-play {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.35rem 0.9rem; margin: 0;
+    border: 1px solid #6f777d; border-radius: 6px;
+    background: #6f777d; color: #fff; font: inherit; font-size: 0.9em; cursor: pointer;
+  }
+  #hanon-play:hover { filter: brightness(1.1); }
+  #hanon-play svg { width: 1em; height: 1em; fill: currentColor; }
+  #hanon-play .hanon-icon-stop,
+  #hanon-play[aria-pressed="true"] .hanon-icon-play { display: none; }
+  #hanon-play[aria-pressed="true"] .hanon-icon-stop { display: block; }
+  .hanon-tempo { display: flex; flex-direction: column; gap: 0.1rem; margin: 0; font-size: 0.9em; min-width: 10rem; }
+  .hanon-tempo input { margin: 0; padding: 0; width: 100%; }
+  .hanon-sound { display: flex; flex-direction: column; gap: 0.1rem; margin: 0; font-size: 0.9em; }
+  .hanon-sound select { margin: 0; }
+  .hanon-quarter { font-family: Bravura; font-size: 1.3em; line-height: 0; vertical-align: -0.1em; }
+
+  /* The notes currently sounding. */
+  #hanon-score .hanon-playing { fill: #1a73e8; stroke: #1a73e8; }
+  #hanon-score { width: 100%; min-height: 300px; }
+  #hanon-score svg { display: block; overflow: visible; }
+  .hanon-status { color: #c5221f; }
+  .hanon-credit { font-size: 0.8em; opacity: 0.8; }
+  .hanon-print-credit { display: none; }
+
+  /* Share bar. */
+  .hanon-share { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin: 1.25rem 0 0.5rem; font-size: 0.9em; }
+  .hanon-share-label { margin-right: 0.25rem; font-weight: 600; }
+  .hanon-share button,
+  .hanon-share .hanon-share-button {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    margin: 0; padding: 0.3rem 0.75rem;
+    border: 1px solid rgba(128, 128, 128, 0.5); border-radius: 999px;
+    background: transparent; color: inherit; font: inherit; text-decoration: none; cursor: pointer;
+  }
+  .hanon-share button[hidden] { display: none; }
+  .hanon-share button:hover,
+  .hanon-share .hanon-share-button:hover { background: rgba(128, 128, 128, 0.1); }
+  .hanon-share svg {
+    width: 1.05em; height: 1.05em;
+    fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  }
+  #hanon-copy-link.hanon-copied { border-color: #188038; color: #188038; }
+
+  /* Print just the music, scaled to the page width, with page breaks only between lines. */
+  @media print {
+    .masthead, .page__footer, .breadcrumbs, .hanon-controls, .hanon-playback, .hanon-intro, .hanon-credit, .hanon-share, .page__title { display: none !important; }
+    .hanon-print-only { display: inline; }
+    /* Nothing should follow the music: no trailing margins that could spill onto an empty page
+       (seen in Firefox), and no theme extras after the content. */
+    .page__meta, .page__share, .page__related, .page__comments, .pagination, .sidebar, .search-content { display: none !important; }
+    html, body { height: auto !important; }
+    body, #main, .page, .page__inner-wrap, .page__content, #hanon-score, .hanon-print-credit { margin-bottom: 0 !important; padding-bottom: 0 !important; }
+    #hanon-score { min-height: 0; }
+    .hanon-title { break-after: avoid; page-break-after: avoid; }
+    .hanon-line { break-inside: avoid; page-break-inside: avoid; }
+    #hanon-score svg { width: 100% !important; height: auto !important; }
+    #hanon-score .hanon-playing { fill: currentColor; stroke: currentColor; }
+    /* Where supported, the script prints the attribution in the bottom margin of every page (an
+       @page margin box) and adds .hanon-margin-credit; otherwise it follows the music. */
+    .hanon-print-credit { display: block; margin-top: 1em; font-size: 9pt; color: #555; }
+    .hanon-margin-credit .hanon-print-credit { display: none; }
+    .hanon-print-credit a { color: inherit; }
+  }
+</style>
+
+<p class="hanon-intro">
+  Exercises 1–20 from Hanon's <em>The Virtuoso Pianist</em>, transposed to any key. 
+</p>
+
+<div class="hanon-controls">
+  <!-- Row 1: what to practice, with Hanon's notes on it -->
+  <div class="hanon-panel">
+    <div class="hanon-row">
+      <label>Exercise
+        <select id="hanon-exercise"></select>
+      </label>
+    </div>
+    <div class="hanon-panel-info">
+      <!-- No id on the heading, so the theme doesn't add a "Permalink" anchor to it. -->
+      <h3 class="hanon-info-title">Hanon's notes</h3>
+      <p id="hanon-info-fingers" class="hanon-info-fingers"></p>
+      <div id="hanon-info-text"></div>
+    </div>
+  </div>
+
+  <!-- Row 2: key, with a description of the mode -->
+  <div class="hanon-panel">
+    <div class="hanon-row">
+      <div class="hanon-field">
+        <label for="hanon-root">Key</label>
+        <select id="hanon-root"></select>
+      </div>
+      <label>Mode
+        <select id="hanon-mode"></select>
+      </label>
+    </div>
+    <div id="hanon-info-mode" class="hanon-panel-info" hidden></div>
+  </div>
+
+  <!-- Row 3: how the music is shown (collapsible) -->
+  <details id="hanon-view-options" class="hanon-view-options">
+    <summary>View options</summary>
+    <div class="hanon-row">
+      <!-- Shown only for roots with two spellings (e.g. A♯ / B♭). -->
+      <div id="hanon-spelling-field" class="hanon-field" hidden>
+        <span>Spelling</span>
+        <span id="hanon-spelling" class="hanon-spelling" role="radiogroup" aria-label="Spelling"></span>
+      </div>
+      <span class="hanon-fingering-option">
+        <label class="hanon-checkbox">
+          <input id="hanon-fingering" type="checkbox" checked>
+          Show fingering
+        </label>
+        <span class="hanon-help">
+          <button id="hanon-fingering-help-button" type="button" aria-label="About fingering"
+                  aria-expanded="false" aria-controls="hanon-fingering-help">?</button>
+          <span id="hanon-fingering-help" class="hanon-help-popup" role="tooltip" hidden>
+            Fingering is Hanon's, written for C major; adjust it as needed in other keys.
+          </span>
+        </span>
+      </span>
+      <label class="hanon-checkbox" title="Show only the first measures, the turn, and the ending">
+        <input id="hanon-abbreviate" type="checkbox">
+        Abbreviate
+      </label>
+      <label class="hanon-size"><span>Size <output id="hanon-zoom-value" for="hanon-zoom">75%</output></span>
+        <input id="hanon-zoom" type="range" min="50" max="150" step="5" value="75">
+      </label>
+    </div>
+  </details>
 </div>
 
+<!-- No id, so the theme doesn't add a "Permalink" anchor that the title updates would wipe out. -->
+<h2 class="hanon-title"></h2>
 
-VexFlow output:
-<div id="vexflow output"></div>
+<!-- Playback: stays at the top of the window while scrolling, so it can be stopped anywhere. -->
+<div class="hanon-playback">
+  <button id="hanon-play" type="button" aria-pressed="false">
+    <svg class="hanon-icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg>
+    <svg class="hanon-icon-stop" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="1.5"/></svg>
+    <span id="hanon-play-label">Play</span>
+  </button>
+  <label class="hanon-tempo"><span>Tempo <output id="hanon-tempo-value" for="hanon-tempo">72</output></span>
+    <input id="hanon-tempo" type="range" min="20" max="160" step="4" value="72">
+  </label>
+  <label class="hanon-sound">Sound
+    <select id="hanon-sound">
+      <option value="piano">Piano</option>
+      <option value="piano-metronome">Piano + metronome</option>
+      <option value="metronome">Metronome only</option>
+    </select>
+  </label>
+</div>
+<p id="hanon-status" class="hanon-status" role="status" hidden></p>
+<div id="hanon-score" aria-label="Sheet music"></div>
 
-<pre>
-=== Debug output === 
-<span id="hanon-debug"></span>  
-<!-- Up
-<span id="hanon-up-notes-debug"></span>  
-<span id="hanon-up-fingers-debug"></span>
-Down
-<span id="hanon-down-notes-debug"></span>  
-<span id="hanon-down-fingers-debug"></span> -->
-</pre>
+<!-- Sharing: links include the current exercise, key, and mode. -->
+<div class="hanon-share">
+  <span class="hanon-share-label">Share this exercise</span>
+  <button id="hanon-share-native" type="button" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+    Share…
+  </button>
+  <button id="hanon-copy-link" type="button">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>
+    <span id="hanon-copy-label">Copy link</span>
+  </button>
+  <a id="hanon-share-email" class="hanon-share-button" href="mailto:">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+    Email
+  </a>
+  <button id="hanon-print" type="button">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/></svg>
+    Print / PDF
+  </button>
+</div>
 
+<!-- Printed under the music (hidden on screen) in browsers without @page margin boxes; others print
+     the same credit in the bottom margin of each page (see the script). -->
+<p class="hanon-print-credit">
+  Generated by Paul Wintz's Hanon exercise tool:
+  <a id="hanon-print-link" href="{{ site.url }}{{ page.url }}" data-base="{{ site.url }}{{ page.url }}">paulwintz.com{{ page.url }}</a>.
+  Notes from the Mutopia Project edition (typeset by Javier Ruiz-Alma, CC BY-SA 4.0).
+</p>
 
-output
-<!-- <div id="output"></div> -->
+<p class="hanon-credit">
+  Music engraved with <a href="https://www.vexflow.com/">VexFlow</a>.
+  
+  Notes are from the <a href="https://www.mutopiaproject.org/cgibin/piece-info.cgi?id=2037">Mutopia Project edition</a>
+  (typeset in C Major by Javier Ruiz-Alma, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>).
+</p>
 
-
-output3
-<!-- <div id="output3"></div> -->
-
-
-<!-- 
-⋘──────── Load VexFlow ────────⋙
-Load VexFlow from an online repository. If this stops working, then you might need to update the version number. To see a directory of VexFlow versions, see https://cdn.jsdelivr.net/npm/vexflow/ 
-
--->
-<script src="https://cdn.jsdelivr.net/npm/vexflow@4/build/cjs/vexflow.js"></script>
-<!-- <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script> -->
-<!-- <script src="/assets/js/vextab.js"></script> -->
- <!-- Load the hanon generation script. -->
-<script src="/assets/js/hanon_generation.js"></script>
-
-
-<!-- 
- ╭───────────────────────────────────────────────────╮
- │  ╭─────────────────────────────────────────────╮  │
- │  │             Sample VexFlow Code             │  │
- │  ╰─────────────────────────────────────────────╯  │
- ╰───────────────────────────────────────────────────╯
--->
- <!-- VexFlow sample code output:
-<div id="vexflow sample output"></div>
-<script>
-
-    const { Factory, EasyScore, System } = Vex.Flow;
-    
-    const vf = new Factory({
-      renderer: { elementId: 'vexflow sample output', width: 500, height: 200 },
-    });
-    
-    const score = vf.EasyScore();
-    const system = vf.System();
-    
-    system
-      .addStave({
-        voices: [
-          score.voice(score.notes('C#5/q, B4, A4, G#4', { stem: 'up' })),
-          score.voice(score.notes('C#4/h, C#4', { stem: 'down' })),
-        ],
-      })
-      .addClef('treble')
-      .addTimeSignature('4/4');
-    
-    vf.draw();
-</script> -->
-
+<script src="/assets/ts/out/hanon.js" type="module"></script>
