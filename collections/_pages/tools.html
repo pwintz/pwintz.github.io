@@ -1,0 +1,48 @@
+---
+layout: single
+permalink: /tools/
+title: Tools
+excerpt: Small web tools I've made for music practice, writing, and productivity.
+---
+
+<style>
+  .tools-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .tools-list li { margin: 0; }
+  .tools-card {
+    display: block;
+    height: 100%;
+    padding: 0.9rem 1rem;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 8px;
+    background: rgba(128, 128, 128, 0.06);
+    color: inherit;
+    text-decoration: none;
+    box-sizing: border-box;
+    transition: border-color 150ms, background-color 150ms;
+  }
+  .tools-card:hover,
+  .tools-card:focus-visible { border-color: #6f777d; background: rgba(128, 128, 128, 0.12); }
+  .tools-card h2 { margin: 0 0 0.35rem; font-size: 1.05em; border: none; }
+  .tools-card p { margin: 0; font-size: 0.85em; opacity: 0.85; }
+</style>
+
+<!-- Lists every page whose URL is under /tools/, so new tools appear here automatically. Each
+     tool's description is the `excerpt` in its front matter. -->
+{% assign tools = site.pages | where_exp: "item", "item.url contains '/tools/'" | where_exp: "item", "item.url != page.url" | sort: "title" %}
+<ul class="tools-list">
+  {% for tool in tools %}
+  <li>
+    <a class="tools-card" href="{{ tool.url | relative_url }}">
+      <h2>{{ tool.title }}</h2>
+      {% if tool.excerpt %}<p>{{ tool.excerpt | strip_html }}</p>{% endif %}
+    </a>
+  </li>
+  {% endfor %}
+</ul>
