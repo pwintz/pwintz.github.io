@@ -5,6 +5,10 @@
 // https://mail.google.com/mail/a/me@gmail.com/#inbox/abc so that the link opens
 // in the same account regardless of the order the accounts were signed in.
 //
+// Gmail accepts the email in the path ("/a/email/"), but Drive, Docs, Calendar, and other Google
+// apps don't, so for those the account index is removed from the path and the email is given as
+// the "authuser" query parameter instead (e.g. https://drive.google.com/drive/my-drive?authuser=me@gmail.com).
+//
 // The index → email mapping is stored only in this browser's localStorage,
 // so no email addresses are published in the site's source.
 
@@ -19,7 +23,7 @@ export interface ConversionResult {
 
 const STORAGE_KEY = "gmail-link-accounts";        // localStorage key for the account list
 const ACCOUNT_RE  = /\/u\/(\d+)(?=\/|$)/;          // Matches "/u/0" followed by "/" or end of path
-const EMAIL_RE    = /\/[ua]\/[^/]+@[^/]+(?=\/|$)/; // Matches "/a/someone@example.com" (or "/u/…")
+const EMAIL_RE    = /\/[ua]\/([^/]+@[^/]+)(?=\/|$)/; // Matches "/a/someone@example.com" (or "/u/…")
 const ADDRESS_RE  = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)+$/; // A plausible email: "name@domain.tld", no spaces
 
 // Icons for the account rows (static markup, styled by the page's CSS).
@@ -50,6 +54,11 @@ export function emailProblem(index: number, accounts: string[]): string {
     return `This email is already used for u/${first}. Each account appears only once in Google's list.`;
   }
   return "";
+}
+
+// The URL as text, with "@" left readable in the authuser parameter (Google accepts it unencoded).
+function readableHref(url: URL): string {
+  return url.href.replace(/([?&]authuser=)([^&#]*)/, (_, key: string, value: string) => key + value.replace(/%40/gi, "@"));
 }
 
 // Looks up the email for an account index, throwing a readable error if it's missing or invalid.
@@ -87,18 +96,34 @@ export function convertUrl(input: string, accounts: string[]): ConversionResult 
     throw new Error("Only google.com URLs (Gmail, Drive, Docs, Calendar, …) are supported.");
   }
 
-  // ⋘──────── Already email-based: nothing to do ────────⋙
-  if (EMAIL_RE.test(url.pathname)) {
-    return { url: url.href, index: null, email: null, note: "This URL already uses an email address." };
+  const isGmail = url.hostname === "mail.google.com";
+
+  // ⋘──────── Already email-based ────────⋙
+  const emailInPath = url.pathname.match(EMAIL_RE);
+  if (emailInPath && !isGmail) {
+    // Other apps don't accept an email in the path (e.g. links made by an earlier version of this
+    // tool), so move it to the authuser parameter.
+    const email = decodeURIComponent(emailInPath[1]);
+    url.pathname = url.pathname.replace(EMAIL_RE, "");
+    url.searchParams.set("authuser", email);
+    return { url: readableHref(url), index: null, email, note: "Moved the email address to the authuser parameter, which this app supports." };
+  }
+  if (emailInPath || url.searchParams.get("authuser")?.includes("@")) {
+    return { url: readableHref(url), index: null, email: null, note: "This URL already uses an email address." };
   }
 
-  // ⋘──────── Case 1: "/u/N/" in the path (Gmail, Drive, Docs, Calendar) → "/a/email/" ────────⋙
+  // ⋘──────── Case 1: "/u/N/" in the path: Gmail → "/a/email/", other apps → "?authuser=email" ────────⋙
   const match = url.pathname.match(ACCOUNT_RE);
   if (match) {
     const index = parseInt(match[1], 10);
     const email = emailFor(index, accounts);
-    url.pathname = url.pathname.replace(ACCOUNT_RE, `/a/${encodeEmail(email)}`);
-    return { url: url.href, index, email };
+    if (isGmail) {
+      url.pathname = url.pathname.replace(ACCOUNT_RE, `/a/${encodeEmail(email)}`);
+    } else {
+      url.pathname = url.pathname.replace(ACCOUNT_RE, "");
+      url.searchParams.set("authuser", email);
+    }
+    return { url: readableHref(url), index, email };
   }
 
   // ⋘──────── Case 2: "?authuser=N" query parameter ────────⋙
@@ -107,14 +132,14 @@ export function convertUrl(input: string, accounts: string[]): ConversionResult 
     const index = parseInt(authuser, 10);
     const email = emailFor(index, accounts);
     url.searchParams.set("authuser", email);
-    return { url: url.href, index, email };
+    return { url: readableHref(url), index, email };
   }
 
   // ⋘──────── Case 3: bare Gmail URL ("/mail/" with no index means account 0) ────────⋙
   if (url.hostname === "mail.google.com" && /^\/mail(\/|$)/.test(url.pathname)) {
     const email = emailFor(0, accounts);
     url.pathname = url.pathname.replace(/^\/mail\/?/, `/mail/a/${encodeEmail(email)}/`);
-    return { url: url.href, index: 0, email, note: "No account index found, so u/0 (the default) was assumed." };
+    return { url: readableHref(url), index: 0, email, note: "No account index found, so u/0 (the default) was assumed." };
   }
 
   throw new Error("Couldn't find an account index (/u/N/ or authuser=N) in that URL.");
