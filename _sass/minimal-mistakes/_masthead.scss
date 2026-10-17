@@ -2,6 +2,8 @@
    MASTHEAD
    ========================================================================== */
 
+@use "globals" as *;
+
 .masthead {
   position: relative;
   border-bottom: 1px solid $border-color;

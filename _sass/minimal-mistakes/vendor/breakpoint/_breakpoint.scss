@@ -1,8 +1,12 @@
+// Flattened into a single module so that it can be loaded with @use (Sass @import is deprecated).
+@use "sass:map";
+@use "sass:meta";
+@use "sass:list";
+@use "sass:string";
+@use "sass:math";
 //////////////////////////////
 // Default Variables
 //////////////////////////////
-@use "sass:map";
-@use "sass:meta";
 
 $Breakpoint-Settings: (
   'default media': all,
@@ -26,15 +30,1066 @@ $breakpoint: () !default;
 //////////////////////////////
 // Imports
 //////////////////////////////
-@import "settings";
-@import "context";
-@import "helpers";
-@import "parsers";
-@import "no-query";
+//////////////////////////////
+// Has Setting
+//////////////////////////////
 
-@import "respond-to";
+@function breakpoint-has($setting) {
+  @if map.has-key($breakpoint, $setting) {
+    @return true;
+  }
+  @else {
+    @return false;
+  }
+}
 
-@import "legacy-settings";
+//////////////////////////////
+// Get Settings
+//////////////////////////////
+@function breakpoint-get($setting) {
+  @if breakpoint-has($setting) {
+    @return map.get($breakpoint, $setting);
+  }
+  @else {
+    @return map.get($Breakpoint-Settings, $setting);
+  }
+}
+
+//////////////////////////////
+// Set Settings
+//////////////////////////////
+@function breakpoint-set($setting, $value) {
+  @if (string.index($setting, '-') or string.index($setting, '_')) and string.index($setting, ' ') == null {
+    @warn "Words in Breakpoint settings should be separated by spaces, not dashes or underscores. Please replace dashes and underscores between words with spaces. Settings will not work as expected until changed.";
+  }
+  $breakpoint: map.merge($breakpoint, ($setting: $value)) !global;
+  @return true;
+}
+
+@mixin breakpoint-change($setting, $value) {
+  $breakpoint-change: breakpoint-set($setting, $value);
+}
+
+@mixin breakpoint-set($setting, $value) {
+  @include breakpoint-change($setting, $value);
+}
+
+@mixin bkpt-change($setting, $value) {
+  @include breakpoint-change($setting, $value);
+}
+@mixin bkpt-set($setting, $value) {
+  @include breakpoint-change($setting, $value);
+}
+
+//////////////////////////////
+// Remove Setting
+//////////////////////////////
+@function breakpoint-reset($settings...) {
+  @if list.length($settings) == 1 {
+    $settings: list.nth($settings, 1);
+  }
+
+  @each $setting in $settings {
+    $breakpoint: map.remove($breakpoint, $setting) !global;
+  }
+  @return true;
+}
+
+@mixin breakpoint-reset($settings...) {
+  $breakpoint-reset: breakpoint-reset($settings);
+}
+
+@mixin bkpt-reset($settings...) {
+  $breakpoint-reset: breakpoint-reset($settings);
+}
+//////////////////////////////
+// Private Breakpoint Variables
+//////////////////////////////
+$private-breakpoint-context-holder: ();
+$private-breakpoint-query-count: 0 !default;
+
+//////////////////////////////
+// Breakpoint Has Context
+// Returns whether or not you are inside a Breakpoint query
+//////////////////////////////
+@function breakpoint-has-context() {
+  @if list.length($private-breakpoint-query-count) {
+    @return true;
+  }
+  @else {
+    @return false;
+  }
+}
+
+//////////////////////////////
+// Breakpoint Get Context
+// $feature: Input feature to get it's current MQ context. Returns false if no context
+//////////////////////////////
+@function breakpoint-get-context($feature) {
+  @if map.has-key($private-breakpoint-context-holder, $feature) {
+    $get: map.get($private-breakpoint-context-holder, $feature);
+    // Special handling of no-query from get side so /false/ prepends aren't returned
+    @if $feature == 'no-query' {
+      @if meta-meta.type-of($get) == 'list' and list.length($get) > 1 and list.nth($get, 1) == false {
+        $get: list.nth($get, list.length($get));
+      }
+    }
+    @return $get;
+  }
+  @else {
+    @if breakpoint-has-context() and $feature == 'media' {
+      @return breakpoint-get('default media');
+    }
+    @else {
+      @return false;
+    }
+  }
+}
+
+//////////////////////////////
+// Private function to set context
+//////////////////////////////
+@function private-breakpoint-set-context($feature, $value) {
+  @if $value == 'monochrome' {
+    $feature: 'monochrome';
+  }
+
+  $current: map.get($private-breakpoint-context-holder, $feature);
+  @if $current and list.length($current) == $private-breakpoint-query-count {
+    @warn "You have already queried against `#{$feature}`. Unexpected things may happen if you query against the same feature more than once in the same `and` query. Breakpoint is overwriting the current context with `#{$value}`";
+  }
+
+  @if not map.has-key($private-breakpoint-context-holder, $feature) {
+    $v-holder: ();
+    @for $i from 1 to $private-breakpoint-query-count {
+      @if $feature == 'media' {
+        $v-holder: list.append($v-holder, breakpoint-get('default media'));
+      }
+      @else {
+        $v-holder: list.append($v-holder, false);
+      }
+    }
+    $v-holder: list.append($v-holder, $value);
+    $private-breakpoint-context-holder: map.merge($private-breakpoint-context-holder, ($feature: $v-holder)) !global;
+  }
+  @else {
+    $v-holder: map.get($private-breakpoint-context-holder, $feature);
+    $length: list.length($v-holder);
+    @for $i from $length to $private-breakpoint-query-count - 1 {
+      @if $feature == 'media' {
+        $v-holder: list.append($v-holder, breakpoint-get('default media'));
+      }
+      @else {
+        $v-holder: list.append($v-holder, false);
+      }
+    }
+    $v-holder: list.append($v-holder, $value);
+    $private-breakpoint-context-holder: map.merge($private-breakpoint-context-holder, ($feature: $v-holder)) !global;
+  }
+
+  @return true;
+}
+
+//////////////////////////////
+// Private function to reset context
+//////////////////////////////
+@mixin private-breakpoint-reset-contexts {
+  $private-breakpoint-context-holder: () !global;
+  $private-breakpoint-query-count: 0 !global;
+}
+//////////////////////////////
+// Converts the input value to Base EMs
+//////////////////////////////
+
+@function breakpoint-to-base-em($value) {
+  $value-unit: math.unit($value);
+
+  // Will convert relative EMs into root EMs.
+  @if breakpoint-get('base font size') and meta.type-of(breakpoint-get('base font size')) == 'number' and $value-unit == 'em' {
+    $base-unit: math.unit(breakpoint-get('base font size'));
+
+    @if $base-unit == 'px' or $base-unit == '%' or $base-unit == 'em' or $base-unit == 'pt' {
+      @return base-conversion($value) / base-conversion(breakpoint-get('base font size')) * 1em;
+    }
+    @else {
+      @warn '#{breakpoint-get(\'base font size\')} is not set in valid units for font size!';
+      @return false;
+    }
+  }
+  @else {
+    @return base-conversion($value);
+  }
+}
+
+@function base-conversion($value) {
+  $unit: math.unit($value);
+
+  @if $unit == 'px' {
+    @return calc($value / 16px * 1em);
+  }
+  @else if $unit == '%' {
+    @return $value / 100% * 1em;
+  }
+  @else if $unit == 'em' {
+    @return $value;
+  }
+  @else if $unit == 'pt' {
+    @return $value / 12pt * 1em;
+  }
+  @else {
+    @return $value;
+//    @warn 'Everything is terrible! What have you done?!';
+  }
+}
+
+//////////////////////////////
+// Returns whether the feature can have a min/max pair
+//////////////////////////////
+$breakpoint-min-max-features: 'color',
+                              'color-index',
+                              'aspect-ratio',
+                              'device-aspect-ratio',
+                              'device-height',
+                              'device-width',
+                              'height',
+                              'monochrome',
+                              'resolution',
+                              'width';
+
+@function breakpoint-min-max($feature) {
+  @each $item in $breakpoint-min-max-features {
+    @if $feature == $item {
+      @return true;
+    }
+  }
+  @return false;
+}
+
+//////////////////////////////
+// Returns whether the feature can have a string value
+//////////////////////////////
+$breakpoint-string-features:  'orientation',
+                              'scan',
+                              'color',
+                              'aspect-ratio',
+                              'device-aspect-ratio',
+                              'pointer',
+                              'luminosity';
+
+@function breakpoint-string-value($feature) {
+  @each $item in $breakpoint-string-features {
+    @if breakpoint-min-max($item) {
+      @if $feature == 'min-#{$item}' or $feature == 'max-#{$item}' {
+        @return true;
+      }
+    }
+    @else if $feature == $item {
+      @return true;
+    }
+  }
+  @return false;
+}
+
+//////////////////////////////
+// Returns whether the feature is a media type
+//////////////////////////////
+$breakpoint-media-types:  'all',
+                          'braille',
+                          'embossed',
+                          'handheld',
+                          'print',
+                          'projection',
+                          'screen',
+                          'speech',
+                          'tty',
+                          'tv';
+
+@function breakpoint-is-media($feature) {
+  @each $media in $breakpoint-media-types {
+    @if ($feature == $media) or ($feature == 'not #{$media}') or ($feature == 'only #{$media}') {
+      @return true;
+    }
+  }
+
+  @return false;
+}
+
+//////////////////////////////
+// Returns whether the feature can stand alone
+//////////////////////////////
+$breakpoint-single-string-features: 'color',
+                                    'color-index',
+                                    'grid',
+                                    'monochrome';
+
+@function breakpoint-single-string($feature) {
+  @each $item in $breakpoint-single-string-features {
+    @if $feature == $item {
+      @return true;
+    }
+  }
+  @return false;
+}
+
+//////////////////////////////
+// Returns whether the feature
+//////////////////////////////
+@function breakpoint-is-resolution($feature) {
+  $resolutions: 'device-pixel-ratio', 'dpr';
+
+  @if breakpoint-get('transform resolutions') {
+    $resolutions: list.append($resolutions, 'resolution');
+  }
+
+  @each $reso in $resolutions {
+    @if list.index($feature, $reso) or list.index($feature, 'min-#{$reso}') or list.index($feature, 'max-#{$reso}') {
+      @return true;
+    }
+  }
+
+  @return false;
+}
+
+//////////////////////////////
+// Import Parser Pieces
+//////////////////////////////
+
+@function breakpoint-parse-query($query) {
+  // Parse features out of an individual query
+  $feature-holder: ();
+  $query-holder: ();
+  $length: list.length($query);
+
+  @if $length == 2 {
+    // If we've got a string/number, number/string, check to see if it's a valid string/number pair or two singles
+    @if (meta.type-of(list.nth($query, 1)) == 'string' and meta.type-of(list.nth($query, 2)) == 'number') or (meta.type-of(list.nth($query, 1)) == 'number' and meta.type-of(list.nth($query, 2)) == 'string') {
+
+      $number: '';
+      $value: '';
+
+      @if meta.type-of(list.nth($query, 1)) == 'string' {
+        $number: list.nth($query, 2);
+        $value: list.nth($query, 1);
+      }
+      @else {
+        $number: list.nth($query, 1);
+        $value: list.nth($query, 2);
+      }
+
+      // If the string value can be a single value, check to see if the number passed in is a valid input for said single value. Fortunately, all current single-value options only accept unitless numbers, so this check is easy.
+      @if breakpoint-single-string($value) {
+        @if math.is-unitless($number) {
+          $feature-holder: list.append($value, $number, space);
+          $query-holder: list.append($query-holder, $feature-holder, comma);
+          @return $query-holder;
+        }
+      }
+      // If the string is a media type, split the query
+      @if breakpoint-is-media($value) {
+        $query-holder: list.append($query-holder, list.nth($query, 1));
+        $query-holder: list.append($query-holder, list.nth($query, 2));
+        @return $query-holder;
+      }
+      // If it's not a single feature, we're just going to assume it's a proper string/value pair, and roll with it.
+      @else {
+        $feature-holder: list.append($value, $number, space);
+        $query-holder: list.append($query-holder, $feature-holder, comma);
+        @return $query-holder;
+      }
+
+    }
+    // If they're both numbers, we assume it's a double and roll with that
+    @else if (meta.type-of(list.nth($query, 1)) == 'number' and meta.type-of(list.nth($query, 2)) == 'number') {
+      $feature-holder: list.append(list.nth($query, 1), list.nth($query, 2), space);
+      $query-holder: list.append($query-holder, $feature-holder, comma);
+      @return $query-holder;
+    }
+    // If they're both strings and neither are singles, we roll with that.
+    @else if (meta.type-of(list.nth($query, 1)) == 'string' and meta.type-of(list.nth($query, 2)) == 'string') {
+      @if not breakpoint-single-string(list.nth($query, 1)) and not breakpoint-single-string(list.nth($query, 2)) {
+        $feature-holder: list.append(list.nth($query, 1), list.nth($query, 2), space);
+        $query-holder: list.append($query-holder, $feature-holder, comma);
+        @return $query-holder;
+      }
+    }
+  }
+  @else if $length == 3 {
+    // If we've got three items and none is a list, we check to see
+    @if meta.type-of(list.nth($query, 1)) != 'list' and meta.type-of(list.nth($query, 2)) != 'list' and meta.type-of(list.nth($query, 3)) != 'list' {
+      // If none of the items are single string values and none of the values are media values, we're good.
+      @if (not breakpoint-single-string(list.nth($query, 1)) and not breakpoint-single-string(list.nth($query, 2)) and not breakpoint-single-string(list.nth($query, 3))) and  ((not breakpoint-is-media(list.nth($query, 1)) and not breakpoint-is-media(list.nth($query, 2)) and not breakpoint-is-media(list.nth($query, 3)))) {
+        $feature-holder: list.append(list.nth($query, 1), list.nth($query, 2), space);
+        $feature-holder: list.append($feature-holder, list.nth($query, 3), space);
+        $query-holder: list.append($query-holder, $feature-holder, comma);
+        @return $query-holder;
+      }
+      // let's check to see if the first item is a media type
+      @else if breakpoint-is-media(list.nth($query, 1)) {
+        $query-holder: list.append($query-holder, list.nth($query, 1));
+        $feature-holder: list.append(list.nth($query, 2), list.nth($query, 3), space);
+        $query-holder: list.append($query-holder, $feature-holder);
+        @return $query-holder;
+      }
+    }
+  }
+
+  // If it's a single item, or if it's not a special case double or triple, we can simply return the query.
+  @return $query;
+}
+
+//////////////////////////////
+// Import Pieces
+//////////////////////////////
+
+@function breakpoint-parse-default($feature) {
+  $default: breakpoint-get('default feature');
+
+  // Set Context
+  $context-setter: private-breakpoint-set-context($default, $feature);
+
+  @if (breakpoint-get('to ems') == true) and (meta.type-of($feature) == 'number') {
+    @return '#{$default}: #{breakpoint-to-base-em($feature)}';
+  }
+  @else {
+    @return '#{$default}: #{$feature}';
+  }
+}
+
+
+@function breakpoint-parse-single($feature, $empty-media, $first) {
+  $parsed: '';
+  $leader: '';
+  // If we're forcing
+  @if not ($empty-media) or not ($first) {
+    $leader: 'and ';
+  }
+
+  // If it's a single feature that can stand alone, we let it
+  @if (breakpoint-single-string($feature)) {
+    $parsed: $feature;
+    // Set Context
+    $context-setter: private-breakpoint-set-context($feature, $feature);
+  }
+  // If it's not a stand alone feature, we pass it off to the default handler.
+  @else {
+    $parsed: breakpoint-parse-default($feature);
+  }
+
+  @return $leader + '(' + $parsed + ')';
+}
+
+//////////////////////////////
+// Import Pieces
+//////////////////////////////
+
+
+@function breakpoint-parse-default-pair($first, $second) {
+  $default: breakpoint-get('default pair');
+  $min: '';
+  $max: '';
+
+  // Sort into min and max
+  $min: min($first, $second);
+  $max: max($first, $second);
+
+  // Set Context
+  $context-setter: private-breakpoint-set-context(min-#{$default}, $min);
+  $context-setter: private-breakpoint-set-context(max-#{$default}, $max);
+
+  // Make them EMs if need be
+  @if (breakpoint-get('to ems') == true) {
+    $min: breakpoint-to-base-em($min);
+    $max: breakpoint-to-base-em($max);
+  }
+
+  @return '(min-#{$default}: #{$min}) and (max-#{$default}: #{$max})';
+}
+
+@function breakpoint-parse-double-string($first, $second) {
+  $feature: '';
+  $value: '';
+
+  // Test to see which is the feature and which is the value
+  @if (breakpoint-string-value($first) == true) {
+    $feature: $first;
+    $value: $second;
+  }
+  @else if (breakpoint-string-value($second) == true) {
+    $feature: $second;
+    $value: $first;
+  }
+  @else {
+    @warn "Neither #{$first} nor #{$second} is a valid media query name.";
+  }
+
+  // Set Context
+  $context-setter: private-breakpoint-set-context($feature, $value);
+
+  @return '(#{$feature}: #{$value})';
+}
+
+@function breakpoint-parse-double-default($first, $second) {
+  $feature: '';
+  $value: '';
+
+  @if meta.type-of($first) == 'string' {
+    $feature: $first;
+    $value: $second;
+  }
+  @else {
+    $feature: $second;
+    $value: $first;
+  }
+
+  // Set Context
+  $context-setter: private-breakpoint-set-context($feature, $value);
+
+  @if (breakpoint-get('to ems') == true) {
+    $value: breakpoint-to-base-em($value);
+  }
+
+  @return '(#{$feature}: #{$value})'
+}
+
+
+@function breakpoint-parse-double($feature, $empty-media, $first) {
+  $parsed: '';
+  $leader: '';
+  // If we're forcing
+  @if not ($empty-media) or not ($first) {
+    $leader: 'and ';
+  }
+
+  $first: list.nth($feature, 1);
+  $second: list.nth($feature, 2);
+
+  // If we've got two numbers, we know we need to use the default pair because there are no media queries that has a media feature that is a number
+  @if meta.type-of($first) == 'number' and meta.type-of($second) == 'number' {
+    $parsed: breakpoint-parse-default-pair($first, $second);
+  }
+  // If they are both strings, we send it through the string parser
+  @else if meta.type-of($first) == 'string' and meta.type-of($second) == 'string' {
+    $parsed: breakpoint-parse-double-string($first, $second);
+  }
+  // If it's a string/number pair, we parse it as a normal double
+  @else {
+    $parsed: breakpoint-parse-double-default($first, $second);
+  }
+
+  @return $leader + $parsed;
+}
+
+//////////////////////////////
+// Import Pieces
+//////////////////////////////
+@function breakpoint-parse-triple-default($feature, $first, $second) {
+
+  // Sort into min and max
+  $min: min($first, $second);
+  $max: max($first, $second);
+
+  // Set Context
+  $context-setter: private-breakpoint-set-context(min-#{$feature}, $min);
+  $context-setter: private-breakpoint-set-context(max-#{$feature}, $max);
+
+  // Make them EMs if need be
+  @if (breakpoint-get('to ems') == true) {
+    $min: breakpoint-to-base-em($min);
+    $max: breakpoint-to-base-em($max);
+  }
+
+  @return '(min-#{$feature}: #{$min}) and (max-#{$feature}: #{$max})';
+}
+
+
+@function breakpoint-parse-triple($feature, $empty-media, $first) {
+  $parsed: '';
+  $leader: '';
+
+  // If we're forcing
+  @if not ($empty-media) or not ($first) {
+    $leader: 'and ';
+  }
+
+  // separate the string features from the value numbers
+  $string: null;
+  $numbers: null;
+  @each $val in $feature {
+    @if meta.type-of($val) == string {
+      $string: $val;
+    }
+    @else {
+      @if meta.type-of($numbers) == 'null' {
+        $numbers: $val;
+      }
+      @else {
+        $numbers: list.append($numbers, $val);
+      }
+    }
+  }
+
+  $parsed: breakpoint-parse-triple-default($string, list.nth($numbers, 1), list.nth($numbers, 2));
+
+  @return $leader + $parsed;
+
+}
+
+
+
+
+@function breakpoint-make-resolutions($resolution) {
+  $length: list.length($resolution);
+
+  $output: ();
+
+  @if $length == 2 {
+    $feature: '';
+    $value: '';
+
+    // Find which is number
+    @if meta.type-of(list.nth($resolution, 1)) == 'number' {
+      $value: list.nth($resolution, 1);
+    }
+    @else {
+      $value: list.nth($resolution, 2);
+    }
+
+    // Determine min/max/standard
+    @if list.index($resolution, 'min-resolution') {
+      $feature: 'min-';
+    }
+    @else if list.index($resolution, 'max-resolution') {
+      $feature: 'max-';
+    }
+
+    $standard: '(#{$feature}resolution: #{$value})';
+
+    // If we're not dealing with dppx,
+    @if math.unit($value) != 'dppx' {
+      $base: 96dpi;
+      @if math.unit($value) == 'dpcm' {
+        $base: 243.84dpcm;
+      }
+      // Write out feature tests
+      $webkit: '';
+      $moz: '';
+      $webkit: '(-webkit-#{$feature}device-pixel-ratio: #{$value / $base})';
+      $moz: '(#{$feature}-moz-device-pixel-ratio: #{$value / $base})';
+      // Append to output
+      $output: list.append($output, $standard, space);
+      $output: list.append($output, $webkit, space);
+      $output: list.append($output, $moz, space);
+    }
+    @else {
+      $webkit: '';
+      $moz: '';
+      $webkit: '(-webkit-#{$feature}device-pixel-ratio: #{$value / 1dppx})';
+      $moz: '(#{$feature}-moz-device-pixel-ratio: #{$value / 1dppx})';
+      $fallback: '(#{$feature}resolution: #{$value / 1dppx * 96dpi})';
+      // Append to output
+      $output: list.append($output, $standard, space);
+      $output: list.append($output, $webkit, space);
+      $output: list.append($output, $moz, space);
+      $output: list.append($output, $fallback, space);
+    }
+
+  }
+
+  @return $output;
+}
+
+
+@function breakpoint-build-resolution($query-print, $query-resolution, $empty-media, $first) {
+  $leader: '';
+  // If we're forcing
+  @if not ($empty-media) or not ($first) {
+    $leader: 'and ';
+  }
+
+  @if breakpoint-get('transform resolutions') and $query-resolution {
+    $resolutions: breakpoint-make-resolutions($query-resolution);
+    $length: list.length($resolutions);
+    $query-holder: '';
+
+    @for $i from 1 through $length {
+      $query: '#{$query-print} #{$leader}#{list.nth($resolutions, $i)}';
+      @if $i == 1 {
+        $query-holder: $query;
+      }
+      @else {
+        $query-holder: '#{$query-holder}, #{$query}';
+      }
+    }
+
+    @return $query-holder;
+  }
+  @else {
+    // Return with attached resolution
+    @return $query-print;
+  }
+}
+
+
+$Memo-Exists: meta.function-exists(memo-get) and meta.function-exists(memo-set);
+
+//////////////////////////////
+// Breakpoint Function
+//////////////////////////////
+@function breakpoint($query, $contexts...) {
+  $run: true;
+  $return: ();
+
+  // Grab the Memo Output if Memoization can be a thing
+  @if $Memo-Exists {
+    $return: memo-get(breakpoint, breakpoint $query $contexts);
+
+    @if $return != null {
+      $run: false;
+    }
+  }
+
+  @if not $Memo-Exists or $run {
+    // Internal Variables
+    $query-string: '';
+    $query-fallback: false;
+    $return: ();
+
+    // Reserve Global Private Breakpoint Context
+    $holder-context: $private-breakpoint-context-holder;
+    $holder-query-count: $private-breakpoint-query-count;
+
+    // Reset Global Private Breakpoint Context
+    $private-breakpoint-context-holder: () !global;
+    $private-breakpoint-query-count: 0 !global;
+
+
+    // Test to see if it's a comma-separated list
+    $or-list: if(sass(list.separator($query) == 'comma'): true; else: false);
+
+
+    @if ($or-list == false and breakpoint-get('legacy syntax') == false) {
+      $query-string: breakpoint-parse($query);
+    }
+    @else {
+      $length: list.length($query);
+
+      $last: list.nth($query, $length);
+      $query-fallback: breakpoint-no-query($last);
+
+      @if ($query-fallback != false) {
+        $length: $length - 1;
+      }
+
+      @if (breakpoint-get('legacy syntax') == true) {
+        $mq: ();
+
+        @for $i from 1 through $length {
+          $mq: list.append($mq, list.nth($query, $i), comma);
+        }
+
+        $query-string: breakpoint-parse($mq);
+      }
+      @else {
+        $query-string: '';
+        @for $i from 1 through $length {
+          $query-string: $query-string + if(sass($i == 1): ''; else: ', ') + breakpoint-parse(list.nth($query, $i));
+        }
+      }
+    }
+
+    $return: ('query': $query-string,
+        'fallback': $query-fallback,
+        'context holder': $private-breakpoint-context-holder,
+        'query count': $private-breakpoint-query-count
+    );
+    @if list.length($contexts) > 0 and list.nth($contexts, 1) != false {
+      @if $query-fallback != false {
+        $context-setter: private-breakpoint-set-context('no-query', $query-fallback);
+      }
+      $context-map: ();
+      @each $context in $contexts {
+        $context-map: map.merge($context-map, ($context: breakpoint-get-context($context)));
+      }
+      $return: map.merge($return, (context: $context-map));
+    }
+
+    // Reset Global Private Breakpoint Context
+    $private-breakpoint-context-holder: () !global;
+    $private-breakpoint-query-count: 0 !global;
+
+    @if $Memo-Exists {
+      $holder: memo-set(breakpoint, breakpoint $query $contexts, $return);
+    }
+  }
+
+  @return $return;
+}
+
+//////////////////////////////
+// General Breakpoint Parser
+//////////////////////////////
+@function breakpoint-parse($query) {
+  // Increase number of 'and' queries
+  $private-breakpoint-query-count: $private-breakpoint-query-count + 1 !global;
+
+  // Set up Media Type
+  $query-print: '';
+
+  $force-all: ((breakpoint-get('force all media type') == true) and (breakpoint-get('default media') == 'all'));
+  $empty-media: true;
+  @if ($force-all == true) or (breakpoint-get('default media') != 'all') {
+    // Force the print of the default media type if (force all is true and default media type is all) or (default media type is not all)
+    $query-print: breakpoint-get('default media');
+    $empty-media: false;
+  }
+
+
+  $query-resolution: false;
+
+  $query-holder: breakpoint-parse-query($query);
+
+
+
+  // Loop over each parsed out query and write it to $query-print
+  $first: true;
+
+  @each $feature in $query-holder {
+    $length: list.length($feature);
+
+    // Parse a single feature
+    @if ($length == 1) {
+      // Feature is currently a list, grab the actual value
+      $feature: list.nth($feature, 1);
+
+      // Media Type must by convention be the first item, so it's safe to flat override $query-print, which right now should only be the default media type
+      @if (breakpoint-is-media($feature)) {
+        @if ($force-all == true) or ($feature != 'all') {
+          // Force the print of the default media type if (force all is true and default media type is all) or (default media type is not all)
+          $query-print: $feature;
+          $empty-media: false;
+
+          // Set Context
+          $context-setter: private-breakpoint-set-context(media, $query-print);
+        }
+      }
+      @else {
+        $parsed: breakpoint-parse-single($feature, $empty-media, $first);
+        $query-print: '#{$query-print} #{$parsed}';
+        $first: false;
+      }
+    }
+    // Parse a double feature
+    @else if ($length == 2) {
+      @if (breakpoint-is-resolution($feature) != false) {
+        $query-resolution: $feature;
+      }
+      @else {
+        $parsed: null;
+        // If it's a string/number pair,
+        // we check to see if one is a single-string value,
+        // then we parse it as a normal double
+        $alpha: list.nth($feature, 1);
+        $beta: list.nth($feature, 2);
+        @if breakpoint-single-string($alpha) or breakpoint-single-string($beta) {
+          $parsed: breakpoint-parse-single($alpha, $empty-media, $first);
+          $query-print: '#{$query-print} #{$parsed}';
+          $first: false;
+          $parsed: breakpoint-parse-single($beta, $empty-media, $first);
+          $query-print: '#{$query-print} #{$parsed}';
+        }
+        @else {
+          $parsed: breakpoint-parse-double($feature, $empty-media, $first);
+          $query-print: '#{$query-print} #{$parsed}';
+          $first: false;
+        }
+      }
+    }
+    // Parse a triple feature
+    @else if ($length == 3) {
+      $parsed: breakpoint-parse-triple($feature, $empty-media, $first);
+      $query-print: '#{$query-print} #{$parsed}';
+      $first: false;
+    }
+
+  }
+
+  @if ($query-resolution != false) {
+    $query-print: breakpoint-build-resolution($query-print, $query-resolution, $empty-media, $first);
+  }
+
+  // Loop through each feature that's been detected so far and append 'false' to the the value list to increment their counters
+  @each $f, $v in $private-breakpoint-context-holder {
+    $v-holder: $v;
+    $length: list.length($v-holder);
+    @if list.length($v-holder) < $private-breakpoint-query-count {
+      @for $i from $length to $private-breakpoint-query-count {
+        @if $f == 'media' {
+          $v-holder: list.append($v-holder, breakpoint-get('default media'));
+        }
+        @else {
+          $v-holder: list.append($v-holder, false);
+        }
+      }
+    }
+    $private-breakpoint-context-holder: map.merge($private-breakpoint-context-holder, ($f: $v-holder)) !global;
+  }
+
+  @return $query-print;
+}
+
+@function breakpoint-no-query($query) {
+  @if meta.type-of($query) == 'list' {
+    $keyword: list.nth($query, 1);
+
+    @if meta.type-of($keyword) == 'string' and ($keyword == 'no-query' or $keyword == 'no query' or $keyword == 'fallback') {
+      @return list.nth($query, 2);
+    }
+    @else {
+      @return false;
+    }
+  }
+  @else {
+    @return false;
+  }
+}
+
+
+////////////////////////
+// Default the Breakpoints variable
+////////////////////////
+
+$breakpoints: () !default;
+$BREAKPOINTS: () !default;
+
+////////////////////////
+// Respond-to API Mixin
+////////////////////////
+@mixin respond-to($context, $no-query: false) {
+  @if list.length($breakpoints) > 0 and list.length($BREAKPOINTS) == 0 {
+    @warn "In order to avoid variable namespace collisions, we have updated the way to add breakpoints for respond-to. Please change all instances of `$breakpoints: add-breakpoint()` to `@include add-breakpoint()`. The `add-breakpoint()` function will be deprecated in a future release.";
+    $BREAKPOINTS: $breakpoints !global;
+    $breakpoints: () !global;
+  }
+
+  @if meta.type-of($BREAKPOINTS) != 'map' {
+    // Just in case someone writes gibberish to the $breakpoints variable.
+    @warn "Your breakpoints aren't a map! `respond-to` expects a map. Please check the value of $BREAKPOINTS variable.";
+    @content;
+  }
+  @else if map.has-key($BREAKPOINTS, $context) {
+    @include breakpoint(map.get($BREAKPOINTS, $context), $no-query) {
+      @content;
+    }
+  }
+  @else if not map.has-key($BREAKPOINTS, $context) {
+    @warn "`#{$context}` isn't a defined breakpoint! Please add it using `$breakpoints: add-breakpoint(`#{$context}`, $value);`";
+    @content;
+  }
+  @else {
+    @warn "You haven't created any breakpoints yet! Make some already! `@include add-breakpoint($name, $bkpt)`";
+    @content;
+  }
+}
+
+//////////////////////////////
+// Add Breakpoint to Breakpoints
+// TODO: Remove function in next release
+//////////////////////////////
+@function add-breakpoint($name, $bkpt, $overwrite: false) {
+  $output: ($name: $bkpt);
+
+  @if list.length($breakpoints) == 0 {
+    @return $output;
+  }
+  @else {
+    @if map.has-key($breakpoints, $name) and $overwrite != true {
+      @warn "You already have a breakpoint named `#{$name}`, please choose another breakpoint name, or pass in `$overwrite: true` to overwrite the previous breakpoint.";
+      @return $breakpoints;
+    }
+    @else if not map.has-key($breakpoints, $name) or $overwrite == true {
+      @return map.merge($breakpoints, $output);
+    }
+  }
+}
+
+@mixin add-breakpoint($name, $bkpt, $overwrite: false) {
+  $output: ($name: $bkpt);
+
+  @if list.length($BREAKPOINTS) == 0 {
+    $BREAKPOINTS: $output !global;
+  }
+  @else {
+    @if map.has-key($BREAKPOINTS, $name) and $overwrite != true {
+      @warn "You already have a breakpoint named `#{$name}`, please choose another breakpoint name, or pass in `$overwrite: true` to overwrite the previous breakpoint.";
+      $BREAKPOINTS: $BREAKPOINTS !global;
+    }
+    @else if not map.has-key($BREAKPOINTS, $name) or $overwrite == true {
+      $BREAKPOINTS: map.merge($BREAKPOINTS, $output) !global;
+    }
+  }
+}
+
+@function get-breakpoint($name: false) {
+  @if $name == false {
+    @return $BREAKPOINTS;
+  }
+  @else {
+    @return map.get($BREAKPOINTS, $name);
+  }
+}
+
+
+
+@mixin legacy-settings-warning {
+  $legacyVars: (
+    'default-media': 'default media',
+    'default-feature': 'default feature',
+    'force-media-all': 'force all media type',
+    'to-ems': 'to ems',
+    'resolutions': 'transform resolutions',
+    'no-queries': 'no queries',
+    'no-query-fallbacks': 'no query fallbacks',
+    'base-font-size': 'base font size',
+    'legacy-syntax': 'legacy syntax'
+  );
+
+  @each $legacy, $new in $legacyVars {
+    @if meta.global-variable-exists('breakpoint-' + $legacy) {
+      @warn "In order to avoid variable namspace collisions, we have updated the way to change settings for Breakpoint. Please change all instances of `$breakpoint-#{$legacy}: {{setting}}` to `@include breakpoint-set('#{$new}', {{setting}})`. Variable settings, as well as this warning will be deprecated in a future release."
+    }
+  };
+
+  //////////////////////////////
+  // Hand correct each setting
+  //////////////////////////////
+  @if meta.global-variable-exists('breakpoint-default-media') and $breakpoint-default-media != breakpoint-get('default media') {
+    @include breakpoint-set('default media', $breakpoint-default-media);
+  }
+  @if meta.global-variable-exists('breakpoint-default-feature') and $breakpoint-default-feature != breakpoint-get('default feature') {
+    @include breakpoint-set('default feature', $breakpoint-default-feature);
+  }
+  @if meta.global-variable-exists('breakpoint-force-media-all') and $breakpoint-force-media-all != breakpoint-get('force all media type') {
+    @include breakpoint-set('force all media type', $breakpoint-force-media-all);
+  }
+  @if meta.global-variable-exists('breakpoint-to-ems') and $breakpoint-to-ems != breakpoint-get('to ems') {
+    @include breakpoint-set('to ems', $breakpoint-to-ems);
+  }
+  @if meta.global-variable-exists('breakpoint-resolutions') and $breakpoint-resolutions != breakpoint-get('transform resolutions') {
+    @include breakpoint-set('transform resolutions', $breakpoint-resolutions);
+  }
+  @if meta.global-variable-exists('breakpoint-no-queries') and $breakpoint-no-queries != breakpoint-get('no queries') {
+    @include breakpoint-set('no queries', $breakpoint-no-queries);
+  }
+  @if meta.global-variable-exists('breakpoint-no-query-fallbacks') and $breakpoint-no-query-fallbacks != breakpoint-get('no query fallbacks') {
+    @include breakpoint-set('no query fallbacks', $breakpoint-no-query-fallbacks);
+  }
+  @if meta.global-variable-exists('breakpoint-base-font-size') and $breakpoint-base-font-size != breakpoint-get('base font size') {
+    @include breakpoint-set('base font size', $breakpoint-base-font-size);
+  }
+  @if meta.global-variable-exists('breakpoint-legacy-syntax') and $breakpoint-legacy-syntax != breakpoint-get('legacy syntax') {
+    @include breakpoint-set('legacy syntax', $breakpoint-legacy-syntax);
+  }
+}
 
 //////////////////////////////
 // Breakpoint Mixin

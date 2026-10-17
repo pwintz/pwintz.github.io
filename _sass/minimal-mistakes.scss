@@ -4,44 +4,44 @@
  * Licensed under MIT (https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE)
 */
 
-/* Variables */
-@import "minimal-mistakes/variables";
-
 /* Mixins and functions */
-@import "minimal-mistakes/vendor/breakpoint/breakpoint";
-@include breakpoint-set("to ems", true);
-@import "minimal-mistakes/vendor/magnific-popup/magnific-popup"; // Magnific Popup
-@import "minimal-mistakes/vendor/susy/susy";
-@import "minimal-mistakes/mixins";
+@use "minimal-mistakes/vendor/magnific-popup/magnific-popup"; // Magnific Popup
+@use "minimal-mistakes/globals"; // Variables, mixins, and functions (Breakpoint and Susy)
 
 /* Core CSS */
-@import "minimal-mistakes/reset";
-@import "minimal-mistakes/base";
-@import "minimal-mistakes/forms";
-@import "minimal-mistakes/tables";
-@import "minimal-mistakes/animations";
+@use "minimal-mistakes/reset";
+@use "minimal-mistakes/base";
+@use "minimal-mistakes/forms";
+@use "minimal-mistakes/tables";
+@use "minimal-mistakes/animations";
 
 /* Components */
-@import "minimal-mistakes/buttons";
-@import "minimal-mistakes/boxes";
-@import "minimal-mistakes/notices";
-@import "minimal-mistakes/masthead";
-@import "minimal-mistakes/navigation";
-@import "minimal-mistakes/footer";
-@import "minimal-mistakes/search";
-@import "minimal-mistakes/syntax";
-@import "minimal-mistakes/bibliography";
+@use "minimal-mistakes/buttons";
+@use "minimal-mistakes/boxes";
+@use "minimal-mistakes/notices";
+@use "minimal-mistakes/masthead";
+@use "minimal-mistakes/navigation";
+@use "minimal-mistakes/footer";
+@use "minimal-mistakes/search";
+@use "minimal-mistakes/syntax";
+@use "minimal-mistakes/bibliography";
 
 /* Utility classes */
-@import "minimal-mistakes/utilities";
+@use "minimal-mistakes/utilities";
 
 /* Layout specific */
-@import "minimal-mistakes/page";
-@import "minimal-mistakes/archive";
-@import "minimal-mistakes/sidebar";
-@import "minimal-mistakes/print";
-@import "minimal-mistakes/publication";
-@import "minimal-mistakes/resume";
-@import "minimal-mistakes/writingtips";
-@import "minimal-mistakes/resume";
-@import "minimal-mistakes/uaw_contracts";
+@use "minimal-mistakes/page";
+@use "minimal-mistakes/archive";
+@use "minimal-mistakes/sidebar";
+@use "minimal-mistakes/print";
+@use "minimal-mistakes/publication";
+@use "minimal-mistakes/resume";
+@use "minimal-mistakes/writingtips";
+@use "minimal-mistakes/uaw_contracts";
+
+/* Extensions */
+// With @use, an @extend only applies to the modules that the extending file loads,
+// so extensions that must reach selectors in several partials are placed here.
+.comment__date {
+  @extend .page__meta;
+}

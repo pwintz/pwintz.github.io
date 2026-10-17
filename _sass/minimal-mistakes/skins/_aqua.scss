@@ -2,6 +2,8 @@
    Aqua skin
    ========================================================================== */
 
+@use "sass:color";
+
 /* Colors */
 $gray                       : #1976d2 !default;
 $dark-gray                  : color.mix(#000, $gray, 40%) !default;
@@ -32,3 +34,28 @@ $masthead-link-color-hover  : color.mix(#000, $primary-color, 25%) !default;
 /* notices */
 $notice-background-mix: 90% !default;
 $code-notice-background-mix: 95% !default;
+
+@use "../variables" with (
+  $gray: $gray,
+  $dark-gray: $dark-gray,
+  $darker-gray: $darker-gray,
+  $light-gray: $light-gray,
+  $lighter-gray: $lighter-gray,
+  $background-color: $background-color,
+  $code-background-color: $code-background-color,
+  $code-background-color-dark: $code-background-color-dark,
+  $text-color: $text-color,
+  $border-color: $border-color,
+  $primary-color: $primary-color,
+  $success-color: $success-color,
+  $warning-color: $warning-color,
+  $danger-color: $danger-color,
+  $info-color: $info-color,
+  $link-color: $link-color,
+  $link-color-hover: $link-color-hover,
+  $link-color-visited: $link-color-visited,
+  $masthead-link-color: $masthead-link-color,
+  $masthead-link-color-hover: $masthead-link-color-hover,
+  $notice-background-mix: $notice-background-mix,
+  $code-notice-background-mix: $code-notice-background-mix
+);

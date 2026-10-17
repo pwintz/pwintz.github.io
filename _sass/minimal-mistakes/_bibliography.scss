@@ -6,6 +6,8 @@
 // See: https://github.com/inukshuk/jekyll-scholar/issues/160#issuecomment-241184311
 // {% if site.scholar.style == "ieee" %}
 /* Turn off the numbered items for the IEEE style list */
+@use "globals" as *;
+
 ol.bibliography li {
   list-style-type: none !important; 
 }

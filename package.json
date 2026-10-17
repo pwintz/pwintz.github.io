@@ -47,6 +47,7 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-modal": "^3.16.3",
+    "vexflow": "^5.0.0",
     "vextab": "^4.0.5"
   }
 }

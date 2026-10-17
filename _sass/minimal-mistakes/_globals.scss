@@ -1,0 +1,14 @@
+/* ==========================================================================
+   GLOBALS
+   Variables, mixins, and functions shared by all of the theme partials.
+   Each partial loads this module with `@use "globals" as *;`.
+   ========================================================================== */
+
+@forward "variables";
+@forward "vendor/breakpoint/breakpoint";
+@forward "vendor/susy/susy";
+@forward "mixins";
+
+@use "vendor/breakpoint/breakpoint";
+
+@include breakpoint.breakpoint-set("to ems", true);

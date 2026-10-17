@@ -6,6 +6,8 @@
    Default
    ========================================================================== */
 
+@use "globals" as *;
+
 .sidebar {
   @include clearfix();
   // @include breakpoint(max-width $large) {

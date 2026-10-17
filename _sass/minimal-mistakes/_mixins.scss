@@ -1,6 +1,7 @@
 /* ==========================================================================
    MIXINS
    ========================================================================== */
+@use "variables" as *;
 @use "sass:color";
 
 %tab-focus {
@@ -70,7 +71,7 @@
 
   @if $yiq-debug { @debug $yiq, $threshold; }
 
-  @return if($yiq >= $threshold, true, false);
+  @return if(sass($yiq >= $threshold): true; else: false);
 }
 
 @function yiq-contrast-color(
@@ -79,7 +80,7 @@
   $light: $yiq-contrasted-light-default,
   $threshold: $yiq-contrasted-threshold
 ) {
-  @return if(yiq-is-light($color, $threshold), $yiq-contrasted-dark-default, $yiq-contrasted-light-default);
+  @return if(sass(yiq-is-light($color, $threshold)): $yiq-contrasted-dark-default; else: $yiq-contrasted-light-default);
 }
 
 @mixin yiq-contrasted(

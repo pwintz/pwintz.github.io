@@ -5,6 +5,7 @@
 /*
    Breadcrumb navigation links
    ========================================================================== */
+@use "globals" as *;
 @use "sass:color";
 
 .breadcrumbs {

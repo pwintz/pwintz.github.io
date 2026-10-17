@@ -1,6 +1,7 @@
 /* ==========================================================================
    SINGLE PAGE/POST
    ========================================================================== */
+@use "globals" as *;
 @use "sass:color";
 
 #main {
@@ -506,7 +507,7 @@ body {
 }
 
 .comment__date {
-  @extend .page__meta;
+  // `@extend .page__meta` is in minimal-mistakes.scss so that it applies to every partial.
   margin: 0;
 
   a {

@@ -2,6 +2,8 @@
    Dark skin
    ========================================================================== */
 
+@use "sass:color";
+
 /* Colors */
 $background-color: #252a34 !default;
 $text-color: #eaeaea !default;
@@ -17,6 +19,23 @@ $link-color-visited: color.mix(#000, $link-color, 25%) !default;
 $masthead-link-color: $text-color !default;
 $masthead-link-color-hover: color.mix(#000, $text-color, 20%) !default;
 $navicon-link-color-hover: color.mix(#000, $background-color, 30%) !default;
+
+@use "../variables" with (
+  $background-color: $background-color,
+  $text-color: $text-color,
+  $primary-color: $primary-color,
+  $border-color: $border-color,
+  $code-background-color: $code-background-color,
+  $code-background-color-dark: $code-background-color-dark,
+  $form-background-color: $form-background-color,
+  $footer-background-color: $footer-background-color,
+  $link-color: $link-color,
+  $link-color-hover: $link-color-hover,
+  $link-color-visited: $link-color-visited,
+  $masthead-link-color: $masthead-link-color,
+  $masthead-link-color-hover: $masthead-link-color-hover,
+  $navicon-link-color-hover: $navicon-link-color-hover
+);
 
 .author__urls.social-icons i,
 .author__urls.social-icons .svg-inline--fa,

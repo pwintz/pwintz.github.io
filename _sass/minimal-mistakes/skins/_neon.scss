@@ -2,6 +2,8 @@
    Neon skin
    ========================================================================== */
 
+@use "sass:color";
+
 /* Colors */
 $background-color: #141010 !default;
 $text-color: #fff6fb !default;
@@ -39,6 +41,41 @@ $base0c: #1faaaa !default;
 $base0d: #3777e6 !default;
 $base0e: #ad00a1 !default;
 $base0f: #cc6633 !default;
+
+@use "../variables" with (
+  $background-color: $background-color,
+  $text-color: $text-color,
+  $primary-color: $primary-color,
+  $border-color: $border-color,
+  $code-background-color: $code-background-color,
+  $code-background-color-dark: $code-background-color-dark,
+  $form-background-color: $form-background-color,
+  $footer-background-color: $footer-background-color,
+  $link-color: $link-color,
+  $link-color-hover: $link-color-hover,
+  $link-color-visited: $link-color-visited,
+  $masthead-link-color: $masthead-link-color,
+  $masthead-link-color-hover: $masthead-link-color-hover,
+  $navicon-link-color-hover: $navicon-link-color-hover,
+  $notice-background-mix: $notice-background-mix,
+  $code-notice-background-mix: $code-notice-background-mix,
+  $base00: $base00,
+  $base01: $base01,
+  $base02: $base02,
+  $base03: $base03,
+  $base04: $base04,
+  $base05: $base05,
+  $base06: $base06,
+  $base07: $base07,
+  $base08: $base08,
+  $base09: $base09,
+  $base0a: $base0a,
+  $base0b: $base0b,
+  $base0c: $base0c,
+  $base0d: $base0d,
+  $base0e: $base0e,
+  $base0f: $base0f
+);
 
 .author__urls.social-icons i,
 .author__urls.social-icons .svg-inline--fa,

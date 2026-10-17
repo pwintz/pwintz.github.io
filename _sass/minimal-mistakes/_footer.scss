@@ -2,6 +2,8 @@
    FOOTER
    ========================================================================== */
 
+@use "globals" as *;
+
 .page__footer {
   @include clearfix;
   float: left;
