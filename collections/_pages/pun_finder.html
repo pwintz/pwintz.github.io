@@ -1,0 +1,348 @@
+---
+layout: single
+permalink: /tools/pun_finder/
+title: Pun Finder
+excerpt: "Search for words with matching or similar sounds based on their phonetic similarity."
+---
+
+<style>
+  .pun-finder input[type=text],
+  .pun-finder button {
+    font: inherit;
+    padding: 0.45rem 0.7rem;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 6px;
+  }
+  .pun-finder button { cursor: pointer; }
+  /* The theme adds bottom margins to inputs and labels, which pushes them off-center in a row. */
+  .pun-finder input,
+  .pun-finder label { margin: 0; }
+  .pf-row { display: flex; gap: 0.5rem; margin: 0; padding: 0; }
+  .pf-row input { flex: 1; min-width: 0; }
+  .pun-finder .pf-status { margin: 0.6rem 0 0; font-size: 0.9em; }
+  .pf-status.pf-error { color: #c5221f; }
+
+  /* Info button and the IPA guide it shows. */
+  .pun-finder .pf-guide-toggle {
+    flex: none;
+    width: 2.6rem;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pf-guide-toggle svg { width: 1.3em; height: 1.3em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+  .pun-finder .pf-guide-toggle[aria-expanded="true"] { background: #1a73e8; border-color: #1a73e8; color: #fff; }
+  .pf-guide {
+    margin: 0.75rem 0 0;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 6px;
+    background: rgba(128, 128, 128, 0.06);
+    font-size: 0.9em;
+  }
+  .pf-guide[hidden] { display: none; }
+  .pf-guide p { margin: 0 0 0.75em; }
+  .pf-guide h3 { margin: 0.75em 0 0.4em; font-size: 1em; }
+  .pf-guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(4.5rem, 1fr));
+    gap: 0.3rem;
+    margin: 0 0 0.75em;
+  }
+  .pf-guide-grid div {
+    padding: 0.2rem 0.3rem;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 6px;
+    background: #fff;
+    text-align: center;
+  }
+  .pf-guide-grid dt { margin: 0; font-size: 1.25em; font-weight: normal; }
+  .pf-guide-grid dd { margin: 0; font-size: 0.8em; opacity: 0.8; }
+
+  /* Pronunciations: one row of phoneme chips each. */
+  .pf-pron { margin: 1rem 0; }
+  .pf-pron-ipa { display: block; margin-bottom: 0.35rem; font-size: 0.9em; opacity: 0.8; }
+  /* One column per sound: the sound's chip, then smaller chips for its similar sounds. */
+  .pf-slots { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 0.6rem 0.35rem; }
+  .pf-slot { position: relative; display: flex; flex-direction: column; align-items: stretch; gap: 0.25rem; }
+
+  /* Stress mark in the top-left corner of a stressed vowel's button; solid when locked. */
+  .pun-finder .pf-stress {
+    position: absolute;
+    top: -0.5rem;
+    left: -0.45rem;
+    z-index: 1;
+    width: 1.4rem;
+    height: 1.4rem;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed #80868b;
+    border-radius: 50%;
+    background: #fff;
+    color: #5f6368;
+    font-size: 1.3em;   /* The stress marks are small glyphs */
+    font-weight: bold;
+    line-height: 1;
+  }
+  /* ˈ sits high and ˌ sits low in their character boxes; nudge them to the circle's center. */
+  .pf-stress-main span { transform: translateY(0.4em); }
+  .pf-stress-secondary span { transform: translateY(-0.4em); }
+  .pf-stress span { display: inline-block; }
+  .pun-finder .pf-stress:hover { border-style: solid; color: #202124; }
+  .pun-finder .pf-stress.pf-on { border: 1px solid #174ea6; background: #174ea6; color: #fff; }
+
+  /* "…" before and after the selection; a bracket when pinned to the word's start or end. */
+  .pun-finder .pf-anchor {
+    align-self: flex-start;
+    min-width: 1.7rem;
+    padding: 0.3rem 0.2rem;
+    border: 1px dashed #80868b;
+    background: transparent;
+    color: #5f6368;
+    font-size: 1.25em;
+    line-height: 1.2;
+  }
+  .pun-finder .pf-anchor:hover { border-style: solid; color: #202124; }
+  .pun-finder .pf-anchor.pf-on { border: 1px solid #174ea6; background: #174ea6; color: #fff; }
+  .pun-finder .pf-chip {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 2.8rem;
+    padding: 0.3rem 0.45rem;
+    background: rgba(128, 128, 128, 0.06);
+    transition: background-color 150ms, border-color 150ms, color 150ms;
+  }
+  .pun-finder .pf-chip:hover { border-color: #6f777d; background: rgba(128, 128, 128, 0.14); }
+  .pf-chip-ipa { font-size: 1.25em; line-height: 1.2; }
+  .pun-finder .pf-chip.pf-on { background: #1a73e8; border-color: #1a73e8; color: #fff; }
+  .pun-finder .pf-alt { padding: 0.15rem 0.3rem; border-style: dashed; background: transparent; }
+  .pf-alt .pf-chip-ipa { font-size: 0.95em; }
+  .pf-chip-reason { font-size: 0.62em; opacity: 0.75; white-space: nowrap; }
+  .pun-finder .pf-alt.pf-on { background: #8ab4f8; border-color: #1a73e8; border-style: solid; color: #000; }
+
+  .pf-options {
+    margin: 0.5rem 0 1rem;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 6px;
+    font-size: 0.9em;
+  }
+  .pf-options[hidden] { display: none; }
+  .pf-options legend { padding: 0 0.3rem; font-weight: bold; }
+  .pf-option-group { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; margin: 0.25rem 0; }
+  .pf-option-group label { display: inline-flex; align-items: center; gap: 0.3rem; }
+  .pun-finder .pf-option-group select { width: auto; margin: 0; padding: 0.15rem 0.3rem; font: inherit; }
+
+  /* Results: each word with its pronunciation, the matching sounds highlighted. */
+  .pf-summary { font-weight: bold; }
+  .pf-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+    gap: 0.4rem;
+    margin: 0.5rem 0 1rem;
+    padding: 0;
+    list-style: none;
+  }
+  .pun-finder { position: relative; }  /* Anchors the definition popover */
+  .pf-result {
+    position: relative;
+    margin: 0;
+    padding: 0.35rem 0.6rem;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 6px;
+  }
+  .pf-result-word { display: block; padding-right: 1.6rem; font-weight: bold; overflow-wrap: anywhere; }
+  .pf-rank { font-size: 0.72em; font-weight: normal; opacity: 0.6; white-space: nowrap; }
+  .pf-offensive { display: block; margin-top: 0.15rem; font-size: 0.75em; color: #b3261e; }
+  .pf-credits { margin-top: 2rem; font-size: 0.85em; }
+  .pun-finder .pf-credits h2 { font-size: 1.15em; }
+
+  /* A heading for each group of matches (exact, similar sounds, 1 extra sound, ...). */
+  .pun-finder .pf-group { margin: 1.2rem 0 0.4rem; font-size: 1em; }
+  .pf-group-count {
+    display: inline-block;
+    min-width: 1.4em;
+    padding: 0 0.4em;
+    border-radius: 999px;
+    background: rgba(128, 128, 128, 0.15);
+    font-size: 0.8em;
+    font-weight: normal;
+    text-align: center;
+  }
+
+  /* "?" button in each result's corner, and the definition popover it opens. */
+  .pun-finder .pf-define {
+    position: absolute;
+    top: 0.3rem;
+    right: 0.3rem;
+    width: 1.6rem;
+    height: 1.6rem;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: inherit;
+    opacity: 0.45;
+    transition: opacity 150ms, background-color 150ms;
+  }
+  .pun-finder .pf-define:hover,
+  .pun-finder .pf-define:focus-visible,
+  .pun-finder .pf-define[aria-expanded="true"] { opacity: 1; background: rgba(128, 128, 128, 0.15); }
+  .pf-define svg { width: 1.15em; height: 1.15em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+  .pf-definition {
+    position: absolute;
+    z-index: 10;
+    width: min(24rem, 100%);
+    max-height: 22rem;
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid rgba(128, 128, 128, 0.45);
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+    font-size: 0.85em;
+  }
+  .pf-definition[hidden] { display: none; }
+  .pf-definition strong { display: block; font-size: 1.15em; }
+  .pun-finder .pf-definition p { margin: 0.4em 0 0.2em; }
+  .pun-finder .pf-definition .pf-definition-pos { font-style: italic; opacity: 0.75; }
+  .pun-finder .pf-definition ol { margin: 0 0 0.4em 1.2em; padding: 0; }
+  .pun-finder .pf-definition li { margin: 0 0 0.2em; }
+  .pf-definition .pf-error { color: #c5221f; }
+  .pf-result-phones { font-size: 0.85em; opacity: 0.85; }
+  .pf-result-phones mark { background: #fde293; color: inherit; border-radius: 2px; }
+  .pf-result-phones mark.pf-substituted { background: #c6e5fa; }
+  /* Words not in the frequency list (shown only when including rare words). */
+  .pf-result.pf-rare { opacity: 0.55; border-style: dashed; }
+  .pun-finder .pf-more[hidden] { display: none; }
+</style>
+
+<div class="pun-finder">
+  <p>
+    Type a word to see how it's pronounced, then click the sounds you want to pun on. Every
+    word that contains those sounds in the same order is listed below, with the shared
+    sounds highlighted. If you skip sounds in the middle, the matching words must have
+    something in that gap too.
+  </p>
+  <p>
+    The match can be anywhere in a word. To pin it to the start or end of the word, click
+    the <strong>…</strong> before or after your selection so it becomes a bracket (⟦ or ⟧);
+    turn on both to find words that sound the same. Stress is ignored unless you click the
+    small stress mark (ˈ or ˌ) in the corner of a stressed vowel, which keeps only words that
+    stress that vowel the same way.
+  </p>
+  <p>
+    Below each sound are similar sounds you can match instead of it, or as well as it. For
+    vowels, these differ in one feature: higher or lower, rounded or unrounded, or
+    further front or back. For consonants, they differ in voicing (like <em>t</em> and
+    <em>d</em>). Words matched through a similar sound are highlighted in blue instead of
+    yellow.
+  </p>
+  <p>
+    Results are grouped by how closely they match, from exact matches to words with extra
+    sounds, and each group is sorted from the most to the least common word. The number
+    beside each word is its rank by how often it's used (#1 is the most common), and
+    “common words” are ones used at least once per million words. Click
+    <span aria-label="the question mark button">?</span> on a word to see its definition.
+  </p>
+
+  <form id="pf-form" class="pf-row">
+    <input id="pf-input" type="text" placeholder="lettuce" aria-label="Word" autocomplete="off" autocapitalize="off" spellcheck="false">
+    <button type="submit">Look up</button>
+    <button id="pf-guide-toggle" class="pf-guide-toggle" type="button" aria-expanded="false" aria-controls="pf-guide" aria-label="About the pronunciation symbols" title="About the pronunciation symbols">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r="0.6" fill="currentColor"/></svg>
+    </button>
+  </form>
+
+  <div id="pf-guide" class="pf-guide" hidden>
+    <p>
+      Sounds are written in the
+      <a href="https://en.wikipedia.org/wiki/International_Phonetic_Alphabet">International Phonetic Alphabet</a>
+      (IPA), which uses one symbol per sound, however it's spelled. For example, the
+      <em>c</em> in <em>cat</em> and the <em>k</em> in <em>kit</em> are both <em>k</em>, and
+      <em>th</em> is either <em>θ</em> (<em>thin</em>) or <em>ð</em> (<em>this</em>).
+    </p>
+    <p>
+      A raised mark ˈ goes before the syllable with the main stress, and a lowered mark ˌ
+      before a syllable with secondary stress: <em>lettuce</em> is /ˈlɛtəs/, and
+      <em>alligator</em> is /ˈæləˌɡeɪtɚ/. On the sound buttons, the mark sits in the
+      corner of the stressed vowel. The vowels <em>ə</em> and <em>ɚ</em> are unstressed,
+      “reduced” vowels.
+    </p>
+    <p>
+      The similar sounds come from how sounds are made. Vowels differ in how high the tongue
+      is (high <em>i</em> in <em>eat</em>, low <em>ɑ</em> in <em>odd</em>), where the
+      tongue is (front <em>i</em>, back <em>u</em> in <em>two</em>), and whether the lips are
+      rounded (rounded <em>ɔ</em> in <em>ought</em>, unrounded <em>ɑ</em>). Consonants come in
+      pairs that differ only in whether the vocal cords vibrate: voiced <em>b</em>,
+      voiceless <em>p</em>.
+    </p>
+    <div id="pf-guide-sounds"></div>
+    <p><small>
+      These symbols are for North American English, as in the dictionary; the example
+      words may sound different in other accents.
+    </small></p>
+  </div>
+
+  <p id="pf-status" class="pf-status" role="status" hidden></p>
+
+  <div id="pf-pronunciations"></div>
+
+  <fieldset id="pf-options" class="pf-options" hidden>
+    <legend>Words to show</legend>
+    <div class="pf-option-group">
+      <label><input id="pf-letters-only" type="checkbox" checked> Skip abbreviations and words with apostrophes</label>
+    </div>
+    <div class="pf-option-group">
+      <label>Words:
+        <select id="pf-commonness">
+          <option value="common">Common words only</option>
+          <option value="dictionary" selected>All dictionary words and names</option>
+          <option value="all">All, including rare names and spellings</option>
+        </select>
+      </label>
+      <label><input id="pf-hide-offensive" type="checkbox" checked> Hide offensive words</label>
+    </div>
+  </fieldset>
+
+  <p id="pf-summary" class="pf-summary" hidden></p>
+  <div id="pf-results"></div>
+  <div id="pf-definition" class="pf-definition" role="region" aria-live="polite" aria-label="Definition" hidden></div>
+  <button id="pf-more" class="pf-more" type="button" hidden>Show more</button>
+
+  <section class="pf-credits">
+    <h2>Acknowledgements</h2>
+    <ul>
+      <li>
+        Pronunciations: the
+        <a href="https://github.com/cmusphinx/cmudict">CMU Pronouncing Dictionary</a>, which
+        covers about 135,000 North American English words, including many names.
+      </li>
+      <li>
+        Word frequencies: <a href="https://github.com/rspeer/wordfreq">wordfreq</a>
+        (CC BY-SA 4.0).
+      </li>
+      <li>
+        Dictionary words and the capitalization of names: the
+        <a href="https://github.com/wooorm/dictionaries">Hunspell</a> en_US spelling
+        dictionary, from <a href="http://wordlist.aspell.net/">SCOWL</a>.
+      </li>
+      <li>
+        Offensive words: <a href="https://github.com/dsojevic/profanity-list">profanity-list</a>
+        by David Sojevic (MIT).
+      </li>
+      <li>
+        Definitions: <a href="https://en.wiktionary.org/">Wiktionary</a> (CC BY-SA).
+      </li>
+    </ul>
+  </section>
+</div>
+
+<script src="/assets/ts/out/pun_finder.js" type="module"></script>
