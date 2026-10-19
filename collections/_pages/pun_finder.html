@@ -161,8 +161,16 @@ excerpt: "Search for words with matching or similar sounds based on their phonet
   .pf-credits { margin-top: 2rem; font-size: 0.85em; }
   .pun-finder .pf-credits h2 { font-size: 1.15em; }
 
-  /* A heading for each group of matches (exact, similar sounds, 1 extra sound, ...). */
-  .pun-finder .pf-group { margin: 1.2rem 0 0.4rem; font-size: 1em; }
+  /* Section headings by the number of similar sounds ("Exact sounds", "One similar sound", ...),
+     and subheadings by the number of extra sounds. */
+  .pun-finder .pf-section {
+    margin: 1.8rem 0 0.2rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.35);
+    font-size: 1.15em;
+  }
+  .pun-finder .pf-section-description { margin: 0 0 0.4rem; font-size: 0.85em; opacity: 0.75; }
+  .pun-finder .pf-group { margin: 0.9rem 0 0.4rem; font-size: 0.95em; font-weight: 600; }
   .pf-group-count {
     display: inline-block;
     min-width: 1.4em;
@@ -246,15 +254,16 @@ excerpt: "Search for words with matching or similar sounds based on their phonet
     yellow.
   </p>
   <p>
-    Results are grouped by how closely they match, from exact matches to words with extra
-    sounds, and each group is sorted from the most to the least common word. The number
+    Results are grouped by how closely they match: first words with only your original
+    sounds, then words with one similar sound, then two, and so on, each from fewest to most
+    extra sounds. Each group is sorted from the most to the least common word. The number
     beside each word is its rank by how often it's used (#1 is the most common), and
     “common words” are ones used at least once per million words. Click
     <span aria-label="the question mark button">?</span> on a word to see its definition.
   </p>
 
   <form id="pf-form" class="pf-row">
-    <input id="pf-input" type="text" placeholder="lettuce" aria-label="Word" autocomplete="off" autocapitalize="off" spellcheck="false">
+    <input id="pf-input" type="text" placeholder="Paul" aria-label="Word" autocomplete="off" autocapitalize="off" spellcheck="false">
     <button type="submit">Look up</button>
     <button id="pf-guide-toggle" class="pf-guide-toggle" type="button" aria-expanded="false" aria-controls="pf-guide" aria-label="About the pronunciation symbols" title="About the pronunciation symbols">
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6"/><circle cx="12" cy="7.5" r="0.6" fill="currentColor"/></svg>

@@ -26,8 +26,8 @@
 // "w" (dictionary word), "n" (proper noun), or "" (neither, e.g. a rare surname), and offensive
 // is a severity from 1 (mild) to 4 (severe), or empty, from dsojevic/profanity-list.
 //
-// Matches are grouped by how closely they match (extra sounds, then similar sounds), and sorted
-// within each group from most to least common.
+// Matches are grouped by how closely they match (similar sounds, then extra sounds; see groupOf),
+// and sorted within each group from most to least common.
 
 // ⋘──────── Types and constants ────────⋙
 
@@ -36,7 +36,8 @@ const DICT_URL =
   "https://raw.githubusercontent.com/cmusphinx/cmudict/74790861f652b15e4ac49015a90074ad62a27690/cmudict.dict";
 const WORDS_URL  = "/assets/data/pun_finder_words.tsv";
 const COMMON_ZIPF = 3;  // "Common words" are used at least once per million words
-const MAX_EXTRA_GROUP = 5;  // Matches with this many extra sounds or more are grouped together
+const MAX_EXTRA_GROUP   = 5;  // Matches with this many extra sounds or more are grouped together
+const MAX_SIMILAR_GROUP = 3;  // Likewise for similar sounds matched instead of the original
 // Definitions are fetched from Wiktionary when the user asks for one. Titles are case-sensitive.
 const DEFINITION_API  = "https://en.wiktionary.org/api/rest_v1/page/definition/";
 const WIKTIONARY_PAGE = "https://en.wiktionary.org/wiki/";
@@ -49,6 +50,7 @@ const QUESTION_ICON   = `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx=
 const SUBSTITUTION_COST = 0.5;   // Matching a similar sound instead of the original
 const STRESS_COST       = 0.25;  // Matching a vowel with different stress (when it isn't locked)
 const PAGE_SIZE      = 200;  // Number of results shown before "Show more"
+const DEFAULT_WORD   = "Paul";  // Looked up when the page opens without a ?word= in its URL
 const MAX_PHRASE_PRONUNCIATIONS = 12; // Cap on pronunciation combinations for a multi-word phrase
 
 // Selected sounds at each selected position: position → base phonemes (no stress digit).
@@ -392,20 +394,34 @@ export function findMatches(
   return [...best.values()].sort(compareMatches);
 }
 
-// How closely a word matches, as a group number (lower is closer): by the number of extra
-// sounds (capped at MAX_EXTRA_GROUP), then whether any sounds are similar instead of the same.
+// How closely a word matches, as a group number (lower is closer): by the number of similar
+// sounds matched instead of the original ones (capped at MAX_SIMILAR_GROUP), then by the number
+// of extra sounds (capped at MAX_EXTRA_GROUP). So all matches with only the original sounds come
+// first, from fewest to most extra sounds, then those with one similar sound, and so on.
 export function groupOf(match: Match): number {
-  return Math.min(match.extra, MAX_EXTRA_GROUP) * 2 + (match.substituted > 0 ? 1 : 0);
+  return Math.min(match.substituted, MAX_SIMILAR_GROUP) * (MAX_EXTRA_GROUP + 1)
+    + Math.min(match.extra, MAX_EXTRA_GROUP);
 }
 
-export function groupLabel(group: number): string {
-  const extra   = Math.floor(group / 2);
-  const similar = group % 2 === 1;
+// A group's number of similar sounds (its section) and of extra sounds (its subsection).
+export function groupParts(group: number): { similar: number; extra: number } {
+  return { similar: Math.floor(group / (MAX_EXTRA_GROUP + 1)), extra: group % (MAX_EXTRA_GROUP + 1) };
+}
+
+// Section heading and description, by the number of similar sounds.
+const SIMILAR_SECTIONS = [
+  { title: "Exact sounds",                 description: "Every selected sound matches exactly." },
+  { title: "One similar sound",            description: "One sound is swapped for a similar one (highlighted in blue)." },
+  { title: "Two similar sounds",           description: "Two sounds are swapped for similar ones (highlighted in blue)." },
+  { title: "Three or more similar sounds", description: "Three or more sounds are swapped for similar ones (highlighted in blue)." },
+];
+
+// Subsection heading, by the number of extra sounds: "No extra sounds", "1 extra sound", ...
+export function extraLabel(extra: number): string {
   if (extra === 0) {
-    return similar ? "Similar sounds" : "Exact matches";
+    return "No extra sounds";
   }
-  const count = extra === MAX_EXTRA_GROUP ? `${extra} or more extra sounds` : `${extra} extra sound${extra === 1 ? "" : "s"}`;
-  return similar ? `${count}, with similar sounds` : count;
+  return extra === MAX_EXTRA_GROUP ? `${extra} or more extra sounds` : `${extra} extra sound${extra === 1 ? "" : "s"}`;
 }
 
 // Closest group first; within a group, most common first, then alphabetical.
@@ -878,22 +894,41 @@ function initPage(): void {
     showMore();
   }
 
+  function countBadge(count: number): HTMLSpanElement {
+    const badge = document.createElement("span");
+    badge.className = "pf-group-count";
+    badge.textContent = count.toLocaleString();
+    return badge;
+  }
+
   function showMore(): void {
     const next = matches.slice(shown, shown + PAGE_SIZE);
     for (const match of next) {
-      // Each group gets a heading and its own list; "Show more" can continue a group.
+      // Each number of similar sounds gets a section heading, and each number of extra sounds
+      // within it a subheading and its own list; "Show more" can continue a group.
       const group = groupOf(match);
       if (group !== shownGroup || !groupList) {
-        const heading = document.createElement("h3");
-        heading.className = "pf-group";
-        heading.textContent = groupLabel(group);
-        const count = document.createElement("span");
-        count.className = "pf-group-count";
-        count.textContent = (groupSizes.get(group) ?? 0).toLocaleString();
-        heading.append(" ", count);
+        const { similar, extra } = groupParts(group);
+        if (shownGroup < 0 || groupParts(shownGroup).similar !== similar) {
+          const section = SIMILAR_SECTIONS[similar];
+          const heading = document.createElement("h3");
+          heading.className = "pf-section";
+          heading.textContent = section.title;
+          const total = [...groupSizes].filter(([g]) => groupParts(g).similar === similar)
+            .reduce((sum, [, size]) => sum + size, 0);
+          heading.append(" ", countBadge(total));
+          const description = document.createElement("p");
+          description.className = "pf-section-description";
+          description.textContent = section.description;
+          results.append(heading, description);
+        }
+        const subheading = document.createElement("h4");
+        subheading.className = "pf-group";
+        subheading.textContent = extraLabel(extra);
+        subheading.append(" ", countBadge(groupSizes.get(group) ?? 0));
         groupList = document.createElement("ul");
         groupList.className = "pf-results";
-        results.append(heading, groupList);
+        results.append(subheading, groupList);
         shownGroup = group;
       }
 
@@ -1070,7 +1105,7 @@ function initPage(): void {
   });
 
   const params = new URLSearchParams(location.search);
-  input.value = params.get("word") ?? "";
+  input.value = params.get("word") ?? DEFAULT_WORD;
   const initial = { pron: Number(params.get("pron") ?? 0), sel: params.get("sel") ?? "", stress: params.get("stress") ?? "" };
   const at = params.get("at");
   anchorStart = at === "start" || at === "whole";
