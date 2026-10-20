@@ -160,7 +160,7 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
   .ge-current-op { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin: 0 0 0.2rem; font-size: 0.9em; }
   .ge-current { overflow-x: auto; max-width: 100%; padding: 0.3rem 0.6rem 0.3rem 0; }
   /* Small, expandable statuses: beside the latest step, and after the next step. */
-  .ge-status { flex: 0 1 22rem; min-width: 0; align-self: flex-start; margin-top: 0.2rem; }
+  .ge-status { flex: 1 1 13rem; min-width: 0; align-self: flex-start; margin-top: 0.2rem; }
   .ge-next .ge-status { margin: 0.5rem 0 0; }
   .ge-mini-status {
     padding: 0.3rem 0.7rem;
@@ -176,8 +176,20 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
   .ge-status-rref,
   .ge-status-done    { border-color: #188038; background: rgba(24, 128, 56, 0.08); }
   .ge-status-mistake { border-color: #f9ab00; background: #fef7e0; }
-  .gauss #ge-check-all { margin-top: 0.4rem; font-size: 0.8em; }
+  /* When students recognize the goal themselves: a button to say it's reached. */
+  /* The status area beside the latest matrix: compact, with small buttons on one line. */
+  .ge-status { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.6rem; }
+  .ge-status > details,
+  .ge-status > .ge-share,
+  .ge-status > .ge-suggestion { flex-basis: 100%; }
+  .ge-declare { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.5rem; font-size: 0.85em; }
+  .gauss .ge-declare button { padding: 0.15rem 0.6rem; font-size: 1em; }
+  .gauss #ge-check-all { padding: 0.15rem 0.6rem; font-size: 0.85em; }
+  .gauss .ge-declare p.ge-declare-wrong { flex-basis: 100%; margin: 0; color: #c5221f; font-weight: bold; }
+
   .ge-suggestion { margin: 0.5rem 0 0; font-size: 0.85em; }
+  .gauss .ge-share { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.8rem; margin: 0.5rem 0 0; font-size: 0.85em; }
+  .ge-share-feedback { color: #188038; overflow-wrap: anywhere; }
   .gauss .ge-suggestion button { margin-top: 0.3rem; font-size: 0.95em; }
   .ge-checklist { margin: 0.4rem 0 0; padding: 0; list-style: none; }
   .ge-checklist li { display: flex; gap: 0.4rem; margin: 0.1rem 0; }
@@ -359,7 +371,9 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
     <p>
       Under <strong>Practice tasks</strong>, choose what to practice: choosing the row operations,
       computing the new rows, or both. If you don't choose the operations, the page gives each one,
-      and you compute the new row. Rows you compute aren't checked automatically, so a mistake
+      and you compute the new row. With <strong>Recognize when it's in RREF</strong>, the page
+      doesn't tell you whether the matrix is in REF or RREF: say so yourself when you think it is
+      (saying so too early counts as a hint). Rows you compute aren't checked automatically, so a mistake
       carries forward as it would on paper. To check
       your work, use <strong>Check</strong> (before applying a step) or <strong>Check all
       steps</strong>; each counts as a hint. Stuck? <strong>Hint</strong> suggests what to aim for
@@ -388,6 +402,7 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
         <span class="ge-task-list">
           <label class="ge-checkbox"><input id="ge-task-choose" type="checkbox" checked><span>Choose row operations</span></label>
           <label class="ge-checkbox"><input id="ge-task-compute" type="checkbox"><span>Compute row operations</span></label>
+          <label class="ge-checkbox"><input id="ge-task-recognize" type="checkbox"><span id="ge-task-recognize-label">Recognize when it's in RREF</span></label>
         </span>
       </div>
       <div class="ge-section-row">
@@ -433,7 +448,7 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
       </div>
       <!-- Whether this matrix is in REF or RREF; expands to the conditions. -->
       <div id="ge-status" class="ge-status" role="status" aria-live="polite">
-        <button id="ge-check-all" type="button" hidden>Check all steps (counts as a hint)</button>
+        <button id="ge-check-all" type="button" title="Mark each row you computed right or wrong (counts as a hint)" hidden>Check all steps</button>
       </div>
     </div>
 
@@ -498,7 +513,6 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
       <span class="ge-row-entry-actions">
         <button id="ge-check-step" type="button" title="Check the new row (counts as a hint)">Check</button>
         <button id="ge-reveal" type="button" title="Show the new row (counts as a hint)">Show</button>
-        <span class="ge-note">(counts as a hint)</span>
       </span>
     </div>
 

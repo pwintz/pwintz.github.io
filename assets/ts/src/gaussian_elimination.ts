@@ -11,6 +11,8 @@
 //
 // The student practices one or both tasks: choosing the row operations, and computing the new rows.
 // When the student doesn't choose, the page gives each step (the standard algorithm's next one).
+// Optionally, the student also has to recognize when the goal is reached: the page doesn't say
+// whether the matrix is in REF or RREF until the student declares it.
 // When the student computes the new rows, their rows aren't checked automatically: a mistake carries
 // forward, as on paper. "Check" checks a row before it's applied, "Check all steps" checks the
 // rows so far, and "Show" fills a row in; each counts as a hint. Hints come in two
@@ -48,6 +50,8 @@ const SIZES: [number, number][] = [[2, 3], [3, 3], [3, 4], [4, 4], [4, 5]];
 const DEFAULT_SIZE = "3x4";
 const MAX_ENTRY = 12;  // Largest entry (in absolute value) in a random matrix
 const MAX_SIZE  = 8;   // Largest matrix a student can type in
+// Whether to offer "Share result" after finishing (see shareBox). Hidden for now.
+const SHOW_SHARE_BUTTON = false;
 
 // ⋘──────── Row operations ────────⋙
 
@@ -406,6 +410,8 @@ function initPage(): void {
   const ownDialog    = byId<HTMLDialogElement>("ge-own-dialog");
   const chooseBox    = byId<HTMLInputElement>("ge-task-choose");
   const computeBox   = byId<HTMLInputElement>("ge-task-compute");
+  const recognizeBox = byId<HTMLInputElement>("ge-task-recognize");
+  const recognizeLabel = byId<HTMLSpanElement>("ge-task-recognize-label");
   const rowEntry     = byId<HTMLDivElement>("ge-row-entry");
   const rowEntryCells = byId<HTMLDivElement>("ge-row-entry-cells");
   const revealButton = byId<HTMLButtonElement>("ge-reveal");
@@ -450,6 +456,12 @@ function initPage(): void {
   // standard algorithm (see nextStep), and the student computes the new row.
   let chooseOps = true;
   let computeRows = false;
+  // A third task: recognizing when the goal is reached. Then the page doesn't say whether the
+  // matrix is in REF or RREF until the student declares it is ("It's in RREF"). It needs the
+  // student to choose the operations: if the page gave them, running out would give it away.
+  let recognize = false;
+  let declaredAt = "";      // The state (see workKey) in which the student correctly declared the goal
+  let notYetAt = "";        // The state in which the student declared too early, to say "Not yet"
   let hintsUsed = 0;        // For the current matrix
   const matrix = () => steps.at(-1)?.m ?? start;
   const matrixBefore = (n: number) => n === 0 ? start : steps[n - 1].m;
@@ -466,10 +478,11 @@ function initPage(): void {
     if (goal !== "RREF") params.set("goal", goal);
     if (computeRows) params.set("compute", "1");
     if (!chooseOps) params.set("choose", "0");
+    if (recognize) params.set("recognize", "1");
     if (hintsUsed > 0) params.set("hints", `${hintsUsed}`);
     if (steps.length > 0) params.set("ops", steps.map(encodeStep).join(","));
     // URLSearchParams escapes these, but they're legal in a query and easier to read.
-    const query = params.toString().replace(/%2C/g, ",").replace(/%3B/g, ";").replace(/%2F/g, "/");
+    const query = params.toString().replace(/%2C/g, ",").replace(/%3B/g, ";").replace(/%2F/g, "/").replace(/%3A/g, ":");
     history.replaceState(null, "", `${location.pathname}?${query}`);
   }
 
@@ -478,7 +491,9 @@ function initPage(): void {
     const params = new URLSearchParams(location.search);
     goal = params.get("goal") === "REF" ? "REF" : "RREF";
     computeRows = params.get("compute") === "1";
+    recognize = params.get("recognize") === "1";
     chooseOps = params.get("choose") !== "0" || !computeRows;  // At least one task is on
+    if (!chooseOps) recognize = false;
     hintsUsed = Math.max(0, Math.floor(Number(params.get("hints")) || 0));
     const text = params.get("m");
     if (!text) return false;
@@ -665,7 +680,7 @@ function initPage(): void {
     }
     // The status after the step, once the step is fully chosen: the operation's result, or with
     // the row the student entered.
-    nextStatus.hidden = missing.length > 0 || (k !== "swap" && !c);
+    nextStatus.hidden = missing.length > 0 || (k !== "swap" && !c) || hidingForm();
     if (!nextStatus.hidden) {
       const op: Op = k === "swap" ? { kind: "swap", i, j }
         : k === "scale" ? { kind: "scale", i, c: reduce(c!) } : { kind: "replace", i, j, c: reduce(c!) };
@@ -909,8 +924,15 @@ function initPage(): void {
 
   // The status of the matrix shown beside the latest step (or before the step being edited).
   function renderStatus(): void {
+    // When the student recognizes the goal themselves, the status is replaced by a button to
+    // declare it, until they do so correctly.
+    if (hidingForm()) {
+      status.replaceChildren(declareBox(), checkAllButton);
+      return;
+    }
     // "Check all steps" sits under this status (it's shown when there are computed rows to check).
     status.replaceChildren(statusElement(formBase(), "current"), checkAllButton);
+    if (SHOW_SHARE_BUTTON && cleanFinish()) status.append(shareBox());
     // After finishing with the page doing the arithmetic, suggest computing the rows next time.
     const a = analyze(matrix());
     const finished = editing === null && (a.form === "RREF" || (goal === "REF" && a.form === "REF"));
@@ -926,6 +948,95 @@ function initPage(): void {
       suggestion.append(button);
       status.append(suggestion);
     }
+  }
+
+  // ⋘──────── Sharing a result ────────⋙
+
+  // Whether the student has finished with no mistakes in their computed rows (and, when
+  // recognizing the goal, has said so).
+  function cleanFinish(): boolean {
+    return editing === null && steps.length > 0 && goalReached(matrix()) && !hidingForm()
+      && !steps.some((step, n) => step.entered !== undefined && !stepIsRight(n));
+  }
+
+  // A summary of the result, like "I row reduced a 3 × 4 matrix to RREF in 8 steps with 2 hints
+  // (choosing the row operations and computing the rows) on Gaussian Elimination Practice."
+  function resultText(): string {
+    const count = (n: number, noun: string) => `${n} ${noun}${n === 1 ? "" : "s"}`;
+    const tasks = [
+      chooseOps ? "choosing the row operations" : "",
+      computeRows ? "computing the rows" : "",
+      recognize ? `recognizing ${goal}` : "",
+    ].filter(task => task !== "");
+    return `I row reduced a ${start.length} × ${start[0].length} matrix to ${goal} in ${count(steps.length, "step")} `
+      + `with ${count(hintsUsed, "hint")} (${joinAnd(tasks)}) on Gaussian Elimination Practice.`;
+  }
+
+  // "Share result": the summary and a link to the work (the page's URL holds the matrix, steps,
+  // and settings). Uses the device's share menu if there is one, or else copies to the clipboard.
+  function shareBox(): HTMLElement {
+    const box = element("p", "ge-share");
+    const button = element("button", "", "Share result");
+    button.type = "button";
+    const feedback = element("span", "ge-share-feedback");
+    feedback.setAttribute("role", "status");
+    button.addEventListener("click", async () => {
+      const text = resultText();
+      const url = location.href;
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: "Gaussian Elimination Practice", text, url });
+        } catch { /* The student closed the share menu */ }
+        return;
+      }
+      // If copying fails (or a browser leaves it waiting, e.g., on a permission prompt), show the
+      // text to copy by hand instead.
+      const timeout = new Promise<never>((_, reject) => setTimeout(() => reject(new Error("timeout")), 1500));
+      try {
+        await Promise.race([navigator.clipboard.writeText(`${text} ${url}`), timeout]);
+        feedback.textContent = "Copied the result and a link to your work.";
+      } catch {
+        feedback.textContent = `Copy this: ${text} ${url}`;
+      }
+    });
+    box.append(button, feedback);
+    return box;
+  }
+
+  // ⋘──────── Recognizing the goal ────────⋙
+
+  // The current work, to tell whether a declaration still applies after more steps or edits.
+  const workKey = () => [start.map(row => row.map(plain).join(",")).join(";"), goal, ...steps.map(encodeStep)].join("|");
+  const goalReached = (m: Matrix) => {
+    const form = analyze(m).form;
+    return form === "RREF" || (goal === "REF" && form === "REF");
+  };
+  // Whether the page is keeping quiet about the form (until the student correctly declares it).
+  const hidingForm = () => recognize && declaredAt !== workKey();
+
+  function declareBox(): HTMLElement {
+    const box = element("div", "ge-declare");
+    box.append(element("span", "", `Is it in ${goal}?`));
+    const button = element("button", "", `It's in ${goal}`);
+    button.type = "button";
+    button.title = `Decide for yourself when the matrix is in ${goal}. Saying so too early counts as a hint.`;
+    button.disabled = editing !== null;
+    button.addEventListener("click", () => {
+      if (goalReached(matrix())) {
+        declaredAt = workKey();
+        refresh();
+      } else {
+        // Saying so too early tells the student something, so it counts as a hint.
+        countHint("declared too early", workKey());
+        notYetAt = workKey();
+        renderStatus();
+      }
+    });
+    box.append(button);
+    if (notYetAt === workKey()) {
+      box.append(element("p", "ge-declare-wrong", `Not yet: this matrix isn't in ${goal}. Keep going.`));
+    }
+    return box;
   }
 
   // The work so far, one line per step as on paper: "∼", the matrix, and the operation that
@@ -1007,6 +1118,10 @@ function initPage(): void {
     computeBox.checked = computeRows;
     // The last task that's on can't be turned off.
     chooseBox.disabled = chooseOps && !computeRows;
+    recognizeBox.checked = recognize;
+    recognizeBox.disabled = !chooseOps;  // Needs the student to choose the operations
+    recognizeBox.title = chooseOps ? "" : "Needs “Choose row operations”";
+    recognizeLabel.textContent = `Recognize when it's in ${goal}`;
     computeBox.disabled = computeRows && !chooseOps;
     // When the page chooses the operations, the form shows the next one, locked.
     if (!chooseOps) fillGivenOp();
@@ -1017,7 +1132,8 @@ function initPage(): void {
     hintCount.textContent = `Hints used: ${hintsUsed}`;
     // Once the goal is reached, there's no next step to hint at.
     const a = analyze(matrix());
-    const finished = a.form === "RREF" || (goal === "REF" && a.form === "REF");
+    // (When recognizing the goal, the student has to say it's finished, so Hint stays until then.)
+    const finished = (a.form === "RREF" || (goal === "REF" && a.form === "REF")) && !hidingForm();
     hintButton.hidden = finished || !chooseOps;  // No hints needed when the operation is given
     if (finished) hintBox.hidden = true;
     hintButton.setAttribute("aria-expanded", `${!hintBox.hidden}`);
@@ -1049,6 +1165,7 @@ function initPage(): void {
     checkedThrough = 0;
     editing = null;
     hintsUsed = 0;
+    declaredAt = notYetAt = "";
     augmentedBox.checked = augmented;
     hintBox.hidden = true;
     fillRowSelects();
@@ -1100,11 +1217,13 @@ function initPage(): void {
     chooseBox.checked = true;
     chooseBox.dispatchEvent(new Event("change"));
   });
-  for (const box of [chooseBox, computeBox]) {
+  for (const box of [chooseBox, computeBox, recognizeBox]) {
     box.addEventListener("change", () => {
       chooseOps = chooseBox.checked;
       computeRows = computeBox.checked;
       if (!chooseOps && !computeRows) chooseOps = true;  // At least one task is on
+      recognize = recognizeBox.checked && chooseOps;
+      notYetAt = "";
       rowEntryKey = "";
       clearKind();
       for (const k of ["replace", "scale"]) multiplier(k).value = "";
@@ -1213,6 +1332,8 @@ function initPage(): void {
     hintBox.hidden = false;
     hintButton.setAttribute("aria-expanded", "true");
     if (!hint) {
+      // When recognizing the goal, this tells the student they've reached it, so it's a hint.
+      if (hidingForm()) countHint("already done", workKey());
       hintBox.replaceChildren(element("p", "", `The matrix is already in ${goal}, so no more steps are needed.`));
       return;
     }
