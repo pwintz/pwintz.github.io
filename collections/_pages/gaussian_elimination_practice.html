@@ -29,6 +29,19 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
   .ge-instructions { margin: 0 0 0.8rem; }
   .ge-instructions summary { cursor: pointer; font-weight: bold; font-size: 0.95em; }
   .ge-instructions[open] summary { margin-bottom: 0.4rem; }
+  .gauss .ge-related { margin: 0.2rem 0 0; font-size: 0.85em; color: #5f6368; }
+  /* The link that opens the current matrix in the REF/RREF Study Tool; emphasized after "Not yet". */
+  .ge-study-link { font-size: 0.8em; }
+  .gauss .ge-study-link.ge-emphasized {
+    display: inline-block;
+    margin-top: 0.3rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    background: #fef7e0;
+    box-shadow: inset 3px 0 0 #f9ab00;
+    font-size: 1em;
+    font-weight: bold;
+  }
 
   /* Controls: size, augmented, new matrix, and the goal and mode choices. */
   /* The settings, in two sections side by side (stacked on narrow screens). */
@@ -381,6 +394,10 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
       address, so you can reload the page or share a link.
     </p>
   </details>
+  <p class="ge-related">
+    To practice telling whether a matrix is in REF or RREF, try the
+    <a href="{{ '/tools/rref_study_tool/' | relative_url }}">REF/RREF Study Tool</a>.
+  </p>
 
   <div class="ge-sections">
     <section class="ge-section" aria-labelledby="ge-matrix-title">
@@ -541,4 +558,5 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
 
 </div>
 
+<script>window.REF_STUDY_TOOL_URL = "{{ '/tools/rref_study_tool/' | relative_url }}";</script>
 <script src="/assets/ts/out/gaussian_elimination.js" type="module"></script>

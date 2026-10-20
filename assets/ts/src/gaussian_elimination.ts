@@ -928,10 +928,12 @@ function initPage(): void {
     // declare it, until they do so correctly.
     if (hidingForm()) {
       status.replaceChildren(declareBox(), checkAllButton);
+      // After "Not yet", the link is part of that message (emphasized) instead.
+      if (notYetAt !== workKey()) status.append(studyToolLink(false));
       return;
     }
     // "Check all steps" sits under this status (it's shown when there are computed rows to check).
-    status.replaceChildren(statusElement(formBase(), "current"), checkAllButton);
+    status.replaceChildren(statusElement(formBase(), "current"), checkAllButton, studyToolLink(false));
     if (SHOW_SHARE_BUTTON && cleanFinish()) status.append(shareBox());
     // After finishing with the page doing the arithmetic, suggest computing the rows next time.
     const a = analyze(matrix());
@@ -1003,6 +1005,30 @@ function initPage(): void {
     return box;
   }
 
+  // ⋘──────── The REF/RREF Study Tool ────────⋙
+
+  // A link that opens the matrix shown (in a new tab) in the REF/RREF Study Tool, which explains
+  // which conditions it meets. It's emphasized after declaring the goal too early. When the
+  // student is recognizing the goal, the study tool would say whether it's reached, so following
+  // the link counts as a hint.
+  function studyToolLink(emphasized: boolean): HTMLAnchorElement {
+    const base = (globalThis as { REF_STUDY_TOOL_URL?: string }).REF_STUDY_TOOL_URL ?? "/tools/rref_study_tool/";
+    const m = formBase();
+    const query = `m=${m.map(row => row.map(plain).join(",")).join(";")}${augmented ? "" : "&aug=0"}`;
+    const link = element("a", `ge-study-link${emphasized ? " ge-emphasized" : ""}`,
+      // (Non-breaking spaces keep "Tool ↗" together.)
+      emphasized ? "Work through the conditions in the REF/RREF Study\u00a0Tool\u00a0↗"
+        : "Check this matrix in the REF/RREF Study\u00a0Tool\u00a0↗");
+    link.href = `${base}?${query}`;
+    link.target = "_blank";
+    link.rel = "noopener";
+    link.title = hidingForm() ? "Opens in a new tab (counts as a hint)" : "Opens in a new tab";
+    link.addEventListener("click", () => {
+      if (hidingForm()) countHint("study tool", workKey());
+    });
+    return link;
+  }
+
   // ⋘──────── Recognizing the goal ────────⋙
 
   // The current work, to tell whether a declaration still applies after more steps or edits.
@@ -1034,7 +1060,9 @@ function initPage(): void {
     });
     box.append(button);
     if (notYetAt === workKey()) {
-      box.append(element("p", "ge-declare-wrong", `Not yet: this matrix isn't in ${goal}. Keep going.`));
+      const wrong = element("p", "ge-declare-wrong", `Not yet: this matrix isn't in ${goal}. `);
+      wrong.append(element("br"), studyToolLink(true));
+      box.append(wrong);
     }
     return box;
   }

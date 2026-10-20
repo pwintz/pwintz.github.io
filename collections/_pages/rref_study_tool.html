@@ -111,6 +111,7 @@ excerpt: "Check whether a matrix is in row echelon form (REF) or reduced row ech
 
   /* Collapsible instructions. */
   .mx-instructions { margin: 0 0 0.8rem; }
+  .echelon-form .mx-related { margin: 0 0 0.8rem; font-size: 0.85em; color: #5f6368; }
   .mx-instructions summary { margin-bottom: 0.4rem; cursor: pointer; font-weight: bold; font-size: 0.95em; }
   .mx-instructions:not([open]) summary { margin-bottom: 0; }
   /* Leading entries are circled. Each entry sits in a wrapper that draws the circle, which
@@ -160,10 +161,10 @@ excerpt: "Check whether a matrix is in row echelon form (REF) or reduced row ech
   .echelon-form button.mx-row-label.mx-mark-right { border: 1px solid #188038; background: #188038; color: #fff; }
   .echelon-form button.mx-row-label.mx-mark-wrong { border: 1px solid #c5221f; background: #c5221f; color: #fff; }
   .echelon-form button.mx-row-label.mx-mark-missed { border: 2px dashed #c5221f; color: #c5221f; }
-  .mx-quiz-marks { margin: 0.6rem 0 0; padding: 0; list-style: none; font-size: 0.88em; font-weight: bold; }
+  /* Feedback on the optional marks (leading entries and zero rows), in plain text: these aren't
+     the point of the quiz, so they shouldn't stand out like the answers to the questions. */
+  .mx-quiz-marks { margin: 0.6rem 0 0; padding: 0; list-style: none; font-size: 0.85em; color: #000; }
   .mx-quiz-marks li { margin: 0.2rem 0; }
-  .mx-quiz-marks .mx-q-right { color: #188038; }
-  .mx-quiz-marks .mx-q-wrong { color: #c5221f; }
   .echelon-form .mx-cell.mx-bad { background: var(--mx-bad-bg); }
   .echelon-form .mx-cell.mx-focus { outline: 3px solid var(--mx-focus, #c5221f); outline-offset: 1px; }
   .echelon-form .mx-cell.mx-invalid { border-color: #c5221f; border-style: dashed; color: #c5221f; }
@@ -409,6 +410,10 @@ excerpt: "Check whether a matrix is in row echelon form (REF) or reduced row ech
       (Shift+Enter moves up).
     </p>
   </details>
+  <p class="mx-related">
+    To practice row reducing a matrix step by step, try
+    <a href="{{ '/tools/gaussian_elimination_practice/' | relative_url }}">Gaussian Elimination Practice</a>.
+  </p>
 
   <div class="mx-modes" role="group" aria-label="Mode">
     <button id="mx-mode-check" type="button" aria-pressed="true">Explore</button>
