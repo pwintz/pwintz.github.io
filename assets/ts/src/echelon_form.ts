@@ -39,27 +39,12 @@
 // (by clicking row labels), and these marks are graded along with the answers. If the matrix is
 // in REF, a second part then asks for the rank, nullity, and number of solutions.
 
+import { Fraction, formatFraction, parseEntry } from "./matrix/fraction";
+import {
+  Analysis, CONDITIONS, Cell, Form, REF_CONDITIONS, ambiguityNote, analyze, joinAnd, systemInfo,
+} from "./matrix/echelon";
+
 // ⋘──────── Types and constants ────────⋙
-
-export interface Fraction { num: bigint; den: bigint }  // den > 0; not necessarily reduced
-export type Cell = [row: number, col: number];          // Zero-based
-export interface Violation { message: string; cells: Cell[] }
-export type Form = "RREF" | "REF" | "neither";
-
-export interface Analysis {
-  leading    : (number | null)[];  // Column of each row's leading entry, or null for a zero row
-  violations : Violation[][];      // Violations of each condition, indexed like CONDITIONS
-  ambiguous  : number[];           // Nonzero rows below a zero row, where condition 2 is ambiguous
-  form       : Form;
-}
-
-export const CONDITIONS = [
-  "Every zero row is at the bottom (below any nonzero rows).",
-  "The leading entry of each nonzero row is to the right of the leading entry of the row above it.",
-  "Every leading entry is 1.",
-  "Every entry above a leading entry is 0.",
-];
-const REF_CONDITIONS = 2;  // The first two conditions define REF; RREF requires all four
 
 // A color for each condition, used to tint the entries that break it and in the list of
 // conditions. These avoid blue (leading entries), green (correct), and red (wrong).
@@ -100,78 +85,6 @@ const DEFAULT_MATRIX = [
   ["0", "0",  "2", "6"],
 ];
 
-// A number with an optional decimal point, like "3", "2.5", "4.", or ".5".
-const NUMBER   = String.raw`(\d+(?:\.\d*)?|\.\d+)`;
-const ENTRY_RE = new RegExp(`^([+-]?)${NUMBER}(?:/([+-]?)${NUMBER})?$`);
-
-// ⋘──────── Parsing and formatting entries ────────⋙
-
-function decimal(text: string): Fraction {
-  const [whole, frac = ""] = text.split(".");
-  return { num: BigInt(whole + frac), den: 10n ** BigInt(frac.length) };
-}
-
-// Parses an entry like "3", "-2.5", or "1/3". A blank entry is zero. Returns null if the text
-// isn't a number (or divides by zero).
-export function parseEntry(text: string): Fraction | null {
-  const s = text.replace(/\s+/g, "").replace(/[−–]/g, "-");  // Accept typographic minus signs
-  if (s === "") return { num: 0n, den: 1n };
-  const match = ENTRY_RE.exec(s);
-  if (!match) return null;
-  const [, sign, top, bottomSign, bottom] = match;
-  let { num, den } = decimal(top);
-  if (sign === "-") num = -num;
-  if (bottom !== undefined) {
-    const divisor = decimal(bottom);
-    if (divisor.num === 0n) return null;
-    // (n1/d1) / (n2/d2) = (n1 d2) / (d1 n2)
-    num *= divisor.den;
-    den *= divisor.num;
-    if (bottomSign === "-") num = -num;
-  }
-  return { num, den };
-}
-
-const isZero = (x: Fraction) => x.num === 0n;
-const isOne  = (x: Fraction) => x.num === x.den;
-
-function gcd(a: bigint, b: bigint): bigint {
-  a = a < 0n ? -a : a;
-  while (b !== 0n) [a, b] = [b, a % b];
-  return a;
-}
-
-// Formats a fraction in lowest terms, like "−3" or "1/2".
-export function formatFraction(x: Fraction): string {
-  const g = gcd(x.num, x.den) || 1n;
-  const num = x.num / g, den = x.den / g;
-  const text = den === 1n ? `${num}` : `${num}/${den}`;
-  return text.replace("-", "−");
-}
-
-// ⋘──────── Checking the conditions ────────⋙
-
-// "rows 2, 3, and 5"
-function joinAnd(items: (number | string)[]): string {
-  if (items.length <= 2) return items.join(" and ");
-  return `${items.slice(0, -1).join(", ")}, and ${items[items.length - 1]}`;
-}
-
-// Describes the nonzero entries in the given (zero-based) rows of one column.
-function nonzeroEntriesIn(rows: number[]): string {
-  return rows.length === 1
-    ? `a nonzero entry in row ${rows[0] + 1}`
-    : `nonzero entries in rows ${joinAnd(rows.map(r => r + 1))}`;
-}
-
-// Explains why condition 2 isn't checked for rows below a zero row.
-export function ambiguityNote(a: Analysis): string {
-  const rows = a.ambiguous.map(r => r + 1);
-  const which = rows.length === 1 ? `Row ${rows[0]} has` : `Rows ${joinAnd(rows)} have`;
-  return `${which} a zero row directly above, which has no leading entry to compare with, so `
-    + `condition 2 is ambiguous there and isn't checked. (Condition 1 is violated instead.)`;
-}
-
 // When a student picks the wrong form, the conditions (by index) whose answers would have pointed
 // to the right one, each with a note on how. Conditions 1 and 2 decide REF; 3 and 4 decide RREF.
 export function formHints(a: Analysis, picked: Form): Map<number, string> {
@@ -196,111 +109,6 @@ export function formHints(a: Analysis, picked: Form): Map<number, string> {
     }
   }
   return hints;
-}
-
-export function analyze(m: Fraction[][]): Analysis {
-  const rowCount = m.length;
-  const leading = m.map(row => {
-    const col = row.findIndex(x => !isZero(x));
-    return col < 0 ? null : col;
-  });
-  const violations: Violation[][] = CONDITIONS.map(() => []);
-  const rowCells = (r: number): Cell[] => m[r].map((_, c) => [r, c]);
-
-  // 1. All rows of zeros are at the bottom.
-  for (let r = 0; r < rowCount; r++) {
-    if (leading[r] !== null) continue;
-    const below = leading.findIndex((col, k) => k > r && col !== null);
-    if (below >= 0) {
-      violations[0].push({
-        message: `Row ${r + 1} is all zeros, but row ${below + 1} below it is not.`,
-        cells: [...rowCells(r), [below, leading[below]!]],
-      });
-    }
-  }
-
-  // 2. Each leading entry is to the right of the leading entry of the row directly above it. If
-  // that row is a zero row, the condition is ambiguous, so the row isn't checked.
-  const ambiguous: number[] = [];
-  for (let r = 1; r < rowCount; r++) {
-    const col = leading[r];
-    if (col === null) continue;
-    const previous = r - 1;
-    if (leading[previous] === null) {
-      ambiguous.push(r);
-    } else {
-      const previousCol = leading[previous]!;
-      if (col === previousCol) {
-        violations[1].push({
-          message: `The leading entries of rows ${previous + 1} and ${r + 1} are both in column ${col + 1}.`,
-          cells: [[previous, previousCol], [r, col]],
-        });
-      } else if (col < previousCol) {
-        violations[1].push({
-          message: `The leading entry of row ${r + 1} is in column ${col + 1}, which is left of `
-            + `the leading entry of row ${previous + 1} in column ${previousCol + 1}.`,
-          cells: [[previous, previousCol], [r, col]],
-        });
-      }
-    }
-  }
-
-  for (let r = 0; r < rowCount; r++) {
-    const col = leading[r];
-    if (col === null) continue;
-    const pivot: Cell = [r, col];
-    const nonzeroRows = (keep: (k: number) => boolean) =>
-      m.map((_, k) => k).filter(k => keep(k) && !isZero(m[k][col]));
-
-    // 3. Every leading entry is 1.
-    if (!isOne(m[r][col])) {
-      violations[2].push({
-        message: `The leading entry of row ${r + 1} is ${formatFraction(m[r][col])}, not 1.`,
-        cells: [pivot],
-      });
-    }
-
-    // 4. Every entry above a leading entry is 0.
-    const above = nonzeroRows(k => k < r);
-    if (above.length > 0) {
-      violations[3].push({
-        message: `Column ${col + 1} has ${nonzeroEntriesIn(above)}, above the leading entry of row ${r + 1}.`,
-        cells: [pivot, ...above.map((k): Cell => [k, col])],
-      });
-    }
-  }
-
-  const holds = (i: number) => violations[i].length === 0;
-  const isRef = CONDITIONS.slice(0, REF_CONDITIONS).every((_, i) => holds(i));
-  const form: Form = !isRef ? "neither" : CONDITIONS.every((_, i) => holds(i)) ? "RREF" : "REF";
-  return { leading, violations, ambiguous, form };
-}
-
-// ⋘──────── Rank, nullity, and solutions ────────⋙
-
-export type SolutionCount = "none" | "one" | "infinite";
-
-export interface SystemInfo {
-  rankA      : number;    // Rank of the coefficient matrix A (all but the last column)
-  rankAb     : number;    // Rank of the augmented matrix [A | b]
-  pivotCols  : number[];  // Columns of A with a leading entry (basic variables)
-  freeCols   : number[];  // Columns of A without one (free variables)
-  bRow       : number | null;  // The row whose leading entry is in the b column, if any
-  solutions  : SolutionCount;
-}
-
-// Rank and solutions of Ax = b for an augmented matrix [A | b] with the given leading-entry
-// columns. Only valid in REF, where the rank is the number of leading entries; in REF, at most one
-// row can have its leading entry in the b column.
-export function systemInfo(leading: (number | null)[], cols: number): SystemInfo {
-  const variables = cols - 1;
-  const pivotCols = leading.filter((col): col is number => col !== null && col < variables);
-  const freeCols  = [...Array(variables).keys()].filter(col => !pivotCols.includes(col));
-  const bRow      = leading.indexOf(variables);
-  const rankA     = pivotCols.length;
-  const rankAb    = leading.filter(col => col !== null).length;
-  const solutions = bRow >= 0 ? "none" : freeCols.length === 0 ? "one" : "infinite";
-  return { rankA, rankAb, pivotCols, freeCols, bRow: bRow >= 0 ? bRow : null, solutions };
 }
 
 // ⋘──────── Random matrices ────────⋙
