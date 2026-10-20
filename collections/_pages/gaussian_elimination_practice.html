@@ -31,9 +31,37 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
   .ge-instructions[open] summary { margin-bottom: 0.4rem; }
 
   /* Controls: size, augmented, new matrix, and the goal and mode choices. */
-  .ge-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1.4rem; margin: 0.8rem 0 0; font-size: 0.9em; }
-  .ge-control { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; }
-  .ge-checkbox input { width: auto; }
+  /* The settings, in two sections side by side (stacked on narrow screens). */
+  .ge-sections { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 0.8rem 0 0; font-size: 0.9em; }
+  .ge-section {
+    flex: 1 1 18rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    padding: 0.7rem 0.9rem 0.8rem;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 8px;
+  }
+  .gauss .ge-section-title {
+    margin: 0;
+    padding: 0;
+    border: none;
+    font-size: 0.8em;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #5f6368;
+  }
+  .ge-section-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.2rem; }
+  .ge-control { display: inline-flex; align-items: center; gap: 0.4rem; }
+  .ge-option-label { min-width: 7.5rem; font-weight: bold; }
+  .ge-task-list { display: inline-flex; flex-direction: column; gap: 0.3rem; }
+  /* The label lines up with the first checkbox, not the middle of the list. */
+  .ge-section-row.ge-tasks { align-items: baseline; }
+  /* Checkboxes beside their text (the theme otherwise stacks them). */
+  .gauss .ge-checkbox { display: inline-flex; align-items: center; gap: 0.4rem; cursor: pointer; }
+  .gauss .ge-checkbox input { display: inline-block; width: auto; margin: 0; vertical-align: middle; }
+  .ge-checkbox:has(input:disabled) { cursor: default; }
+  .ge-checkbox:has(input:disabled) span { opacity: 0.75; }
   /* Pill-shaped radio buttons. */
   .ge-pills { display: inline-flex; flex-wrap: wrap; gap: 0.3rem; }
   .ge-pill { position: relative; cursor: pointer; }
@@ -48,6 +76,11 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
   .ge-pill:hover span { border-color: #1a73e8; }
   .ge-pill input:checked + span { background: #1a73e8; border-color: #1a73e8; color: #fff; }
   .ge-pill input:focus-visible + span { outline: 2px solid #1a73e8; outline-offset: 2px; }
+  /* Locked (when the page gives the operation): the unchosen kinds fade. */
+  .ge-pill:has(input:disabled) { cursor: default; }
+  .ge-pill:has(input:disabled:not(:checked)) span { opacity: 0.45; }
+  .ge-pill:has(input:disabled):hover span { border-color: rgba(128, 128, 128, 0.45); }
+  .ge-pill:has(input:disabled:checked):hover span { border-color: #1a73e8; }
 
   /* Matrices: bracketed grids, with a bar before the constants column. */
   .ge-matrix {
@@ -142,6 +175,10 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
   .ge-status-ref     { border-color: #1a73e8; background: rgba(26, 115, 232, 0.07); }
   .ge-status-rref,
   .ge-status-done    { border-color: #188038; background: rgba(24, 128, 56, 0.08); }
+  .ge-status-mistake { border-color: #f9ab00; background: #fef7e0; }
+  .gauss #ge-check-all { margin-top: 0.4rem; font-size: 0.8em; }
+  .ge-suggestion { margin: 0.5rem 0 0; font-size: 0.85em; }
+  .gauss .ge-suggestion button { margin-top: 0.3rem; font-size: 0.95em; }
   .ge-checklist { margin: 0.4rem 0 0; padding: 0; list-style: none; }
   .ge-checklist li { display: flex; gap: 0.4rem; margin: 0.1rem 0; }
   .ge-check { flex: none; width: 1.1em; font-weight: bold; text-align: center; }
@@ -205,7 +242,10 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
   .gauss .ge-entry.ge-right { border: 2px solid #188038; background: rgba(24, 128, 56, 0.08); }
   .gauss .ge-entry.ge-wrong { border: 2px solid #c5221f; background: rgba(197, 34, 31, 0.07); }
   .ge-row-entry { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.8rem; }
-  .ge-row-entry-actions { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; font-size: 0.85em; }
+  .ge-row-entry-actions { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; margin-left: auto; font-size: 0.85em; }
+  .gauss .ge-given-note { margin: 0 0 0.7rem; font-size: 0.85em; color: #5f6368; }
+  .gauss .ge-given-note button { margin-left: 0.4rem; padding: 0.15rem 0.6rem; font-size: 0.95em; }
+  .gauss .ge-given-op { margin: 0 0 0.5rem; font-size: 1em; }
   /* The form's heading, with the hint button at the right. */
   .ge-form-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.4rem 1rem; margin: 0 0 0.6rem; }
   .gauss .ge-form-head h2 { margin: 0; }
@@ -244,6 +284,9 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
   .ge-next-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3rem 1rem; font-size: 0.9em; }
   .ge-next-head span:first-child { font-weight: bold; }
   .ge-missing-note { color: #6d4c00; }
+  /* Before an operation is chosen, the next-step matrix is just a copy of the current one. */
+  .ge-next-empty .ge-current-line { color: #9aa0a6; }
+  .ge-next-empty .ge-cell { color: inherit; }
   .ge-missing-note:empty { display: none; }
   .ge-next-preview .ge-cell { white-space: nowrap; }
   /* In the preview, the scalar is violet and the entries of the row being added are blue (on the
@@ -314,8 +357,10 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
       or <strong>Edit</strong> to change any step (the steps after it are redone).
     </p>
     <p>
-      Choose whether to enter just the row operations, or also compute each new row yourself. Your
-      rows aren't checked automatically, so a mistake carries forward as it would on paper. To check
+      Under <strong>Practice tasks</strong>, choose what to practice: choosing the row operations,
+      computing the new rows, or both. If you don't choose the operations, the page gives each one,
+      and you compute the new row. Rows you compute aren't checked automatically, so a mistake
+      carries forward as it would on paper. To check
       your work, use <strong>Check</strong> (before applying a step) or <strong>Check all
       steps</strong>; each counts as a hint. Stuck? <strong>Hint</strong> suggests what to aim for
       next, and you can then ask for a more specific hint. Your work is saved in this page's
@@ -323,13 +368,36 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
     </p>
   </details>
 
-  <div class="ge-controls">
-    <label class="ge-control">Size <select id="ge-size"></select></label>
-    <label class="ge-control ge-checkbox">
-      <input id="ge-augmented" type="checkbox" checked> Augmented
-    </label>
-    <button id="ge-new" type="button">New matrix</button>
-    <button id="ge-own-open" type="button" aria-haspopup="dialog">Enter your own…</button>
+  <div class="ge-sections">
+    <section class="ge-section" aria-labelledby="ge-matrix-title">
+      <h2 id="ge-matrix-title" class="ge-section-title">Matrix Selection</h2>
+      <div class="ge-section-row">
+        <label class="ge-control">Size <select id="ge-size"></select></label>
+        <label class="ge-checkbox"><input id="ge-augmented" type="checkbox" checked><span>Augmented</span></label>
+      </div>
+      <div class="ge-section-row">
+        <button id="ge-new" type="button">New matrix</button>
+        <button id="ge-own-open" type="button" aria-haspopup="dialog">Enter your own…</button>
+      </div>
+    </section>
+
+    <section class="ge-section" aria-labelledby="ge-practice-title">
+      <h2 id="ge-practice-title" class="ge-section-title">Practice Options</h2>
+      <div class="ge-section-row ge-tasks" role="group" aria-labelledby="ge-tasks-label">
+        <span id="ge-tasks-label" class="ge-option-label">Practice tasks</span>
+        <span class="ge-task-list">
+          <label class="ge-checkbox"><input id="ge-task-choose" type="checkbox" checked><span>Choose row operations</span></label>
+          <label class="ge-checkbox"><input id="ge-task-compute" type="checkbox"><span>Compute row operations</span></label>
+        </span>
+      </div>
+      <div class="ge-section-row">
+        <span class="ge-option-label">Goal</span>
+        <span class="ge-pills" role="radiogroup" aria-label="Goal">
+          <label class="ge-pill"><input type="radio" name="ge-goal" value="REF"><span>REF</span></label>
+          <label class="ge-pill"><input type="radio" name="ge-goal" value="RREF" checked><span>RREF</span></label>
+        </span>
+      </div>
+    </section>
   </div>
 
   <dialog id="ge-own-dialog" class="ge-dialog" aria-labelledby="ge-own-title">
@@ -347,28 +415,11 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
       </div>
     </form>
   </dialog>
-  <div class="ge-controls">
-    <span class="ge-control">
-      Goal
-      <span class="ge-pills" role="radiogroup" aria-label="Goal">
-        <label class="ge-pill"><input type="radio" name="ge-goal" value="REF"><span>REF</span></label>
-        <label class="ge-pill"><input type="radio" name="ge-goal" value="RREF" checked><span>RREF</span></label>
-      </span>
-    </span>
-    <span class="ge-control">
-      You enter
-      <span class="ge-pills" role="radiogroup" aria-label="What you enter">
-        <label class="ge-pill"><input type="radio" name="ge-mode" value="ops" checked><span>Row operations</span></label>
-        <label class="ge-pill"><input type="radio" name="ge-mode" value="compute"><span>Row operations and new rows</span></label>
-      </span>
-    </span>
-  </div>
 
   <!-- The steps so far, then the current matrix (sticky) and the form for the next step. -->
   <div class="ge-steps-header">
     <h2 class="ge-steps-title">Steps <span id="ge-step-count"></span></h2>
     <span class="ge-steps-buttons">
-      <button id="ge-check-all" type="button" hidden>Check all steps (counts as a hint)</button>
       <button id="ge-restart" type="button">Start over</button>
     </span>
   </div>
@@ -381,7 +432,9 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
         <div id="ge-current" class="ge-current" aria-label="Current matrix"></div>
       </div>
       <!-- Whether this matrix is in REF or RREF; expands to the conditions. -->
-      <div id="ge-status" class="ge-status" role="status" aria-live="polite"></div>
+      <div id="ge-status" class="ge-status" role="status" aria-live="polite">
+        <button id="ge-check-all" type="button" hidden>Check all steps (counts as a hint)</button>
+      </div>
     </div>
 
   <form id="ge-form" class="ge-form" autocomplete="off">
@@ -393,6 +446,15 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
       </span>
     </div>
     <div id="ge-hint-box" class="ge-hint-box" role="status" hidden></div>
+
+    <!-- When the page chooses the operations: the given step as a sentence, and how to choose. -->
+    <div id="ge-given" class="ge-given" hidden>
+      <p class="ge-given-note">
+        The page is choosing each row operation for you.
+        <button id="ge-choose-myself" type="button">Choose them myself</button>
+      </p>
+      <p id="ge-given-op" class="ge-given-op"></p>
+    </div>
 
     <span class="ge-pills ge-kinds" role="radiogroup" aria-label="Kind of row operation">
       <label class="ge-pill"><input type="radio" name="ge-kind" value="replace"><span>Replace</span></label>

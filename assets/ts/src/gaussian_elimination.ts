@@ -9,9 +9,9 @@
 // the standard algorithm, as a subgoal (like "make the entries below the leading entry in column 1
 // into 0s") rather than the step itself, and the page counts the hints used for each matrix.
 //
-// There are two modes for what the student enters: just the row operations (the page computes the
-// new rows), or the row operations and the new rows' entries. In the second mode, the student's
-// rows aren't checked automatically: a mistake carries
+// The student practices one or both tasks: choosing the row operations, and computing the new rows.
+// When the student doesn't choose, the page gives each step (the standard algorithm's next one).
+// When the student computes the new rows, their rows aren't checked automatically: a mistake carries
 // forward, as on paper. "Check" checks a row before it's applied, "Check all steps" checks the
 // rows so far, and "Show" fills a row in; each counts as a hint. Hints come in two
 // levels: a subgoal, then (on request) a more specific hint.
@@ -404,7 +404,8 @@ function initPage(): void {
   const ownText      = byId<HTMLTextAreaElement>("ge-own-text");
   const ownError     = byId<HTMLParagraphElement>("ge-own-error");
   const ownDialog    = byId<HTMLDialogElement>("ge-own-dialog");
-  const modeRadios   = [...document.querySelectorAll<HTMLInputElement>("input[name=ge-mode]")];
+  const chooseBox    = byId<HTMLInputElement>("ge-task-choose");
+  const computeBox   = byId<HTMLInputElement>("ge-task-compute");
   const rowEntry     = byId<HTMLDivElement>("ge-row-entry");
   const rowEntryCells = byId<HTMLDivElement>("ge-row-entry-cells");
   const revealButton = byId<HTMLButtonElement>("ge-reveal");
@@ -418,6 +419,10 @@ function initPage(): void {
   const nextMissing  = byId<HTMLSpanElement>("ge-next-missing");
   const nextMatrix   = byId<HTMLDivElement>("ge-next-matrix");
   const nextStatus   = byId<HTMLDivElement>("ge-next-status");
+  const nextBox      = document.querySelector<HTMLDivElement>(".ge-next")!;
+  const kindPills    = document.querySelector<HTMLElement>(".ge-kinds")!;
+  const givenBox     = byId<HTMLDivElement>("ge-given");
+  const givenOp      = byId<HTMLParagraphElement>("ge-given-op");
   const applyButton  = byId<HTMLButtonElement>("ge-apply");
   const cancelEditButton = byId<HTMLButtonElement>("ge-cancel-edit");
   const hintCount    = byId<HTMLSpanElement>("ge-hint-count");
@@ -440,7 +445,11 @@ function initPage(): void {
   let steps: Step[] = [];
   let checkedThrough = 0;   // The steps marked right or wrong by "Check all steps"
   let editing: number | null = null;  // The step being edited, if any
-  let computeMode = false;  // Whether the student computes the new rows
+  // The practice tasks: choosing the row operations, and computing the new rows. At least one is
+  // on. When the student doesn't choose the operations, the page gives the next step of the
+  // standard algorithm (see nextStep), and the student computes the new row.
+  let chooseOps = true;
+  let computeRows = false;
   let hintsUsed = 0;        // For the current matrix
   const matrix = () => steps.at(-1)?.m ?? start;
   const matrixBefore = (n: number) => n === 0 ? start : steps[n - 1].m;
@@ -455,7 +464,8 @@ function initPage(): void {
     params.set("m", start.map(row => row.map(plain).join(",")).join(";"));
     if (!augmented) params.set("aug", "0");
     if (goal !== "RREF") params.set("goal", goal);
-    if (computeMode) params.set("compute", "1");
+    if (computeRows) params.set("compute", "1");
+    if (!chooseOps) params.set("choose", "0");
     if (hintsUsed > 0) params.set("hints", `${hintsUsed}`);
     if (steps.length > 0) params.set("ops", steps.map(encodeStep).join(","));
     // URLSearchParams escapes these, but they're legal in a query and easier to read.
@@ -467,7 +477,8 @@ function initPage(): void {
   function loadFromUrl(): boolean {
     const params = new URLSearchParams(location.search);
     goal = params.get("goal") === "REF" ? "REF" : "RREF";
-    computeMode = params.get("compute") === "1";
+    computeRows = params.get("compute") === "1";
+    chooseOps = params.get("choose") !== "0" || !computeRows;  // At least one task is on
     hintsUsed = Math.max(0, Math.floor(Number(params.get("hints")) || 0));
     const text = params.get("m");
     if (!text) return false;
@@ -523,7 +534,7 @@ function initPage(): void {
   // The operation in the form, or a message about what's missing.
   function formOp(): Op | string {
     const k = kind();
-    if (!k) return "Choose Replace, Scale, or Swap.";
+    if (!k) return chooseOps ? "Choose Replace, Scale, or Swap." : `No more steps: the matrix is in ${goal}.`;
     const row = (name: string) => Number(rowSelect(k, name).value);
     if (k === "swap") return { kind: "swap", i: row("i"), j: row("j") };
     const text = multiplier(k).value;
@@ -536,7 +547,17 @@ function initPage(): void {
   // Shows the form's kind of operation, and previews it: the rows involved are highlighted, and
   // the new row is shown.
   function updateForm(): void {
-    for (const k of ["replace", "scale", "swap"]) fields(k).hidden = k !== kind();
+    // When the page chooses the operations, the given step is written as a sentence instead.
+    for (const k of ["replace", "scale", "swap"]) fields(k).hidden = k !== kind() || !chooseOps;
+    kindPills.hidden = !chooseOps;
+    givenBox.hidden = chooseOps;
+    preview.hidden = !chooseOps;
+    if (!chooseOps) {
+      const given = formOp();
+      givenOp.innerHTML = typeof given === "string" ? given
+        : given.kind === "swap" ? `Given the row operation ${opLabel(given)}, rows ${given.i + 1} and ${given.j + 1} trade places.`
+        : `Given the row operation ${opLabel(given)}, the new values of row ${given.i + 1} are`;
+    }
     // Each "Ri" written after the arrow repeats the row chosen before it.
     for (const echo of form.querySelectorAll<HTMLElement>(".ge-echo")) {
       echo.innerHTML = R(Number(rowSelect(echo.dataset.kind!, "i").value));
@@ -549,6 +570,7 @@ function initPage(): void {
       preview.textContent = typeof op === "string" && op === "Enter a multiplier." ? "" : problem ?? "";
       preview.classList.add("ge-preview-problem");
       renderRowEntry(null);
+      setApplyReady(typeof op === "string" ? op : problem!);
       renderCurrent();
       renderNext();
       return;
@@ -562,11 +584,24 @@ function initPage(): void {
     };
     // When the student computes the new rows, the preview mustn't give them away.
     preview.innerHTML = op.kind === "swap" ? `${opLabel(op)}: rows ${op.i + 1} and ${op.j + 1} trade places.`
-      : computeMode ? `${opLabel(op)}: enter the new row ${op.i + 1} below.`
+      : computeRows ? `${opLabel(op)}: enter the new row ${op.i + 1} below.`
       : `${opLabel(op)}: the new row ${op.i + 1} is ${rowText(op.i)}.`;
     renderRowEntry(op);
+    // When the student computes the new row, it needs every entry before it can be applied.
+    const entriesReady = !computeRows || op.kind === "swap"
+      || rowInputs.every(input => input.value.trim() !== "" && parseEntry(input.value) !== null);
+    setApplyReady(entriesReady ? null : "Enter every entry of the new row.");
+    // "Check" also needs the whole row ("Show" doesn't).
+    checkStepButton.disabled = !entriesReady;
+    checkStepButton.title = entriesReady ? "Check the new row (counts as a hint)" : "Enter every entry of the new row to check it.";
     renderCurrent();
     renderNext();
+  }
+
+  // "Apply" is enabled once the step is fully entered; otherwise its tooltip says what's missing.
+  function setApplyReady(missing: string | null): void {
+    applyButton.disabled = missing !== null;
+    applyButton.title = missing ?? "";
   }
 
   // The whole next step, as it will look in the steps: "∼", the new matrix with the changed row
@@ -576,10 +611,12 @@ function initPage(): void {
   function renderNext(): void {
     const k = kind();
     const base = formBase();
-    const title = editing === null ? "Next step" : `Step ${editing + 1}, as edited`;
+    const title = editing === null ? "Next step preview" : `Step ${editing + 1} preview, as edited`;
+    // Until an operation is chosen, the preview is just the current matrix, so it's grayed out.
+    nextBox.classList.toggle("ge-next-empty", !k);
     if (!k) {
       nextTitle.textContent = title;
-      nextMissing.textContent = "Still to choose: a kind of row operation (Replace, Scale, or Swap).";
+      nextMissing.textContent = chooseOps ? "Choose a row operation" : `No more steps: the matrix is in ${goal}.`;
       nextStatus.hidden = true;
       nextMatrix.replaceChildren(matrixElement(base, { augmented, labels: true, className: "ge-large ge-next-preview" }));
       return;
@@ -607,7 +644,8 @@ function initPage(): void {
       if (c) {
         const negative = reduce(c).num < 0n;
         const coef = coefficient(negative ? neg(reduce(c)) : reduce(c));
-        label = `${R(i)} → ${R(i)} ${SCALAR(`${negative ? "−" : "+"}${coef === "" ? "" : ` ${coef}`}`)}${ADDED(R(j))}`;
+        // "R₂ → R₂ − 2R₁", or "R₂ → R₂ − R₁" (with a space after the sign when there's no coefficient).
+        label = `${R(i)} → ${R(i)} ${SCALAR(`${negative ? "−" : "+"}${coef === "" ? "" : ` ${coef}`}`)}${coef === "" ? " " : ""}${ADDED(R(j))}`;
       } else {
         label = `${R(i)} → ${R(i)} + ${multiplierText}${ADDED(R(j))}`;
       }
@@ -616,7 +654,7 @@ function initPage(): void {
     // When the student computes the new row, the preview shows only what they've entered ("?" for
     // entries not entered yet), not the unsimplified row.
     let entered: (Fraction | null)[] | null = null;
-    if (computeMode && k !== "swap" && (k === "scale" || i !== j)) {
+    if (computeRows && k !== "swap" && (k === "scale" || i !== j)) {
       entered = base[i].map((_, col) => {
         const text = rowEntry.hidden ? "" : rowInputs[col]?.value.trim() ?? "";
         const x = text === "" ? null : parseEntry(text);
@@ -639,7 +677,7 @@ function initPage(): void {
       }
     }
     nextTitle.innerHTML = `${title}: ${label}`;
-    nextMissing.textContent = missing.length === 0 ? "" : `Still to choose: ${missing.join(" and ")}.`;
+    nextMissing.textContent = missing.length === 0 ? "" : `Still needed: ${missing.join(" and ")}.`;
     nextMatrix.replaceChildren(matrixElement(shown, {
       augmented,
       labels: true,
@@ -657,10 +695,10 @@ function initPage(): void {
 
   // Shows a box for each entry of the row the operation changes (not for swaps).
   function renderRowEntry(op: Op | null): void {
-    const show = computeMode && op !== null && op.kind !== "swap";
+    const show = computeRows && op !== null && op.kind !== "swap";
     rowEntry.hidden = !show;
     if (!show) return;
-    const key = `${op.kind}:${op.i}:${editing ?? "end"}:${steps.length}:${start[0].length}:${augmented}`;
+    const key = `${op.kind}:${op.i}:${editing ?? "end"}:${steps.length}:${start[0].length}:${augmented}:${chooseOps}`;
     if (key === rowEntryKey) return;
     rowEntryKey = key;
     rowInputs = start[0].map((_, c) => {
@@ -674,7 +712,7 @@ function initPage(): void {
       return input;
     });
     const label = element("span", "ge-row-entry-label");
-    label.innerHTML = `New ${R(op.i)} =`;
+    label.innerHTML = chooseOps ? `New ${R(op.i)} =` : `${R(op.i)} =`;
     const cells: HTMLElement[] = [label, element("span", "ge-bracket", "[")];
     rowInputs.forEach((input, c) => {
       if (augmented && c === rowInputs.length - 1) cells.push(element("span", "ge-bar", "|"));
@@ -734,7 +772,7 @@ function initPage(): void {
       return;
     }
     let entered: Fraction[] | undefined;
-    if (computeMode && op.kind !== "swap") {
+    if (computeRows && op.kind !== "swap") {
       // The student's row is applied as is, without checking it (see "Check").
       const values = rowInputs.map(input => input.value.trim() === "" ? null : parseEntry(input.value));
       if (values.includes(null)) {
@@ -833,18 +871,25 @@ function initPage(): void {
   function statusElement(m: Matrix, which: "current" | "next"): HTMLDetailsElement {
     const a = analyze(m);
     const reached = a.form === "RREF" || (goal === "REF" && a.form === "REF");
-    const done = which === "current" && editing === null && reached;
+    // Reaching the goal with a mistake in an entered row isn't done: the result isn't the RREF (or
+    // REF) of the starting matrix. Which step has the mistake is left for the student to find.
+    const mistaken = which === "current" && editing === null && reached
+      && steps.some((step, n) => step.entered !== undefined && !stepIsRight(n));
+    const done = which === "current" && editing === null && reached && !mistaken;
     const form = a.form === "RREF" ? "in RREF" : a.form === "REF" ? "in REF, but not RREF" : "not yet in REF";
     const ops = steps.length === 1 ? "1 step" : `${steps.length} steps`;
     const summary = element("summary", "", done ? `✓ Done: ${form}${steps.length > 0 ? ` after ${ops}` : ""}`
-      : which === "next" ? `After this step: ${form}`
+      : mistaken ? `⚠ ${form[0].toUpperCase() + form.slice(1)}, but check your work`
       : form[0].toUpperCase() + form.slice(1));
-    const details = element("details", `ge-mini-status ge-status-${done ? "done" : a.form.toLowerCase()}`);
+    const details = element("details", `ge-mini-status ge-status-${done ? "done" : mistaken ? "mistake" : a.form.toLowerCase()}`);
     details.open = statusOpen[which];
     details.addEventListener("toggle", () => { statusOpen[which] = details.open; });
     details.append(summary);
     if (which === "current") {
-      details.append(element("p", "", done
+      details.append(element("p", "", mistaken
+        ? `At least one of the rows you computed has a mistake, so this isn't the ${goal} of the starting `
+          + "matrix. Use “Check all steps” to find it, then edit that step."
+        : done
         ? (goal === "REF" && a.form !== "RREF" ? "Keep going (Gauss–Jordan elimination) to reach RREF." : "Nice work!")
         : a.form === "REF"
           ? "Next: make each leading entry 1, and the entries above the leading entries 0."
@@ -864,7 +909,23 @@ function initPage(): void {
 
   // The status of the matrix shown beside the latest step (or before the step being edited).
   function renderStatus(): void {
-    status.replaceChildren(statusElement(formBase(), "current"));
+    // "Check all steps" sits under this status (it's shown when there are computed rows to check).
+    status.replaceChildren(statusElement(formBase(), "current"), checkAllButton);
+    // After finishing with the page doing the arithmetic, suggest computing the rows next time.
+    const a = analyze(matrix());
+    const finished = editing === null && (a.form === "RREF" || (goal === "REF" && a.form === "REF"));
+    if (finished && !computeRows && steps.length > 0) {
+      const suggestion = element("p", "ge-suggestion", "Ready for more? Try computing each new row yourself. ");
+      const button = element("button", "", "New matrix, computing the rows myself");
+      button.type = "button";
+      button.addEventListener("click", () => {
+        computeRows = true;
+        rowEntryKey = "";
+        newRandomMatrix();
+      });
+      suggestion.append(button);
+      status.append(suggestion);
+    }
   }
 
   // The work so far, one line per step as on paper: "∼", the matrix, and the operation that
@@ -922,7 +983,7 @@ function initPage(): void {
     hintBox.hidden = true;
     rowEntryKey = "";
     refresh();
-    if (entered && computeMode) entered.forEach((x, c) => { rowInputs[c].value = plain(x); });
+    if (entered && computeRows) entered.forEach((x, c) => { rowInputs[c].value = plain(x); });
     form.scrollIntoView({ block: "nearest", behavior: "smooth" });
   }
 
@@ -939,21 +1000,45 @@ function initPage(): void {
     if (editing !== null && editing >= steps.length) editing = null;
     undoButton.disabled = restartButton.disabled = steps.length === 0 || editing !== null;
     hintButton.disabled = editing !== null;
-    formTitle.textContent = editing === null ? "Next row operation" : `Edit step ${editing + 1}`;
     applyButton.textContent = editing === null ? "Apply" : `Update step ${editing + 1}`;
     cancelEditButton.hidden = editing === null;
     for (const radio of goalButtons) radio.checked = radio.value === goal;
-    for (const radio of modeRadios) radio.checked = (radio.value === "compute") === computeMode;
+    chooseBox.checked = chooseOps;
+    computeBox.checked = computeRows;
+    // The last task that's on can't be turned off.
+    chooseBox.disabled = chooseOps && !computeRows;
+    computeBox.disabled = computeRows && !chooseOps;
+    // When the page chooses the operations, the form shows the next one, locked.
+    if (!chooseOps) fillGivenOp();
+    for (const control of form.querySelectorAll<HTMLInputElement | HTMLSelectElement>(".ge-kinds input, .ge-fields select, .ge-fields input")) {
+      control.disabled = !chooseOps;
+    }
+    formTitle.textContent = editing !== null ? `Edit step ${editing + 1}` : chooseOps ? "Next row operation" : "Next row operation (given)";
     hintCount.textContent = `Hints used: ${hintsUsed}`;
     // Once the goal is reached, there's no next step to hint at.
     const a = analyze(matrix());
     const finished = a.form === "RREF" || (goal === "REF" && a.form === "REF");
-    hintButton.hidden = finished;
+    hintButton.hidden = finished || !chooseOps;  // No hints needed when the operation is given
     if (finished) hintBox.hidden = true;
     hintButton.setAttribute("aria-expanded", `${!hintBox.hidden}`);
     renderStatus();
     renderSteps();
     updateForm();
+  }
+
+  // Puts the next operation of the standard algorithm (or the step being edited) into the form,
+  // when the page chooses the operations.
+  function fillGivenOp(): void {
+    const op = editing !== null ? steps[editing].op : nextStep(matrix(), goal)?.op;
+    if (!op) {
+      clearKind();
+      return;
+    }
+    for (const radio of kindRadios) radio.checked = radio.value === op.kind;
+    pickedKind = op.kind;
+    rowSelect(op.kind, "i").value = `${op.i}`;
+    if (op.kind !== "scale") rowSelect(op.kind, "j").value = `${op.j}`;
+    if (op.kind !== "swap") multiplier(op.kind).value = plain(op.c);
   }
 
   // Starts over with a new starting matrix.
@@ -1011,10 +1096,19 @@ function initPage(): void {
       pickedKind = radio.value;
     }
   });
-  for (const radio of modeRadios) {
-    radio.addEventListener("change", () => {
-      computeMode = radio.value === "compute";
+  byId("ge-choose-myself").addEventListener("click", () => {
+    chooseBox.checked = true;
+    chooseBox.dispatchEvent(new Event("change"));
+  });
+  for (const box of [chooseBox, computeBox]) {
+    box.addEventListener("change", () => {
+      chooseOps = chooseBox.checked;
+      computeRows = computeBox.checked;
+      if (!chooseOps && !computeRows) chooseOps = true;  // At least one task is on
       rowEntryKey = "";
+      clearKind();
+      for (const k of ["replace", "scale"]) multiplier(k).value = "";
+      hintBox.hidden = true;
       refresh();
     });
   }
@@ -1026,6 +1120,7 @@ function initPage(): void {
       rowInputs[c].classList.remove("ge-right", "ge-wrong");
     });
     countHint("show row", ...steps.map(encodeStep), encodeOp(op));
+    updateForm();  // The row is now complete, so "Apply" can be enabled
   });
   form.addEventListener("input", updateForm);
 
