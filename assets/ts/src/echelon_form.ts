@@ -1,5 +1,5 @@
 // ╭───────────────────────────────────────────────────────────────╮
-// │              Row echelon form explorer and quiz               │
+// │                      REF/RREF study tool                      │
 // ╰───────────────────────────────────────────────────────────────╯
 // In explore mode, students type the entries of an (augmented) matrix, and the page reports
 // whether it is in reduced row echelon form (RREF), row echelon form (REF), or neither, listing
