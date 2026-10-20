@@ -12,8 +12,8 @@
 // There are two modes for what the student enters: just the row operations (the page computes the
 // new rows), or the row operations and the new rows' entries. In the second mode, the student's
 // rows aren't checked automatically: a mistake carries
-// forward, as on paper. "Check step" checks a row before it's applied, "Check all steps" checks the
-// rows so far, and "Show the new row" fills a row in; each counts as a hint. Hints come in two
+// forward, as on paper. "Check" checks a row before it's applied, "Check all steps" checks the
+// rows so far, and "Show" fills a row in; each counts as a hint. Hints come in two
 // levels: a subgoal, then (on request) a more specific hint.
 //
 // A completed step can be edited: its operation (and entered row) is loaded into the form, and
@@ -300,6 +300,39 @@ const matrixText = (m: Matrix, augmented: boolean) => m.map(row => {
   return entries.join(" ");
 }).join("\n");
 
+// ⋘──────── Unsimplified rows ────────⋙
+
+// A placeholder for a part of an operation that hasn't been chosen yet.
+const MISSING = (text: string) => `<span class="ge-missing">${text}</span>`;
+// The scalar (violet) and the entries of the row being added (blue), so the parts of each
+// expression can be traced back to the operation.
+const SCALAR = (text: string) => `<span class="ge-scalar">${text}</span>`;
+const ADDED  = (text: string) => `<span class="ge-added">${text}</span>`;
+
+// An entry inside an expression: in parentheses if it's negative or a fraction.
+function factor(x: Fraction): string {
+  const text = formatFraction(x);
+  return x.num < 0n || text.includes("/") ? `(${text})` : text;
+}
+
+// One entry of a replaced row, before simplifying, like "3 − 2(−1)" for a + c·b (HTML). A null
+// multiplier hasn't been chosen yet.
+export function replaceExpression(a: Fraction, b: Fraction, c: Fraction | null): string {
+  if (!c) return `${formatFraction(a)} + ${MISSING("c")}(${ADDED(formatFraction(b))})`;
+  const negative = c.num < 0n;
+  const coef = coefficient(negative ? neg(c) : c);
+  // The sign goes with the scalar: in "4 − 2(3)", the scalar is −2.
+  const scalar = SCALAR(`${negative ? "−" : "+"}${coef === "" ? "" : ` ${coef}`}`);
+  return `${formatFraction(a)} ${scalar}${coef === "" ? ` ${ADDED(factor(b))}` : `(${ADDED(formatFraction(b))})`}`;
+}
+
+// One entry of a scaled row, before simplifying, like "(1/2)(4)" for c·a (HTML).
+export function scaleExpression(a: Fraction, c: Fraction | null): string {
+  if (!c) return `${MISSING("c")}(${formatFraction(a)})`;
+  if (isOne(c)) return formatFraction(a);
+  return `${SCALAR(coefficient(c))}(${formatFraction(a)})`;
+}
+
 // ⋘──────── Page ────────⋙
 
 function element<K extends keyof HTMLElementTagNameMap>(
@@ -318,6 +351,7 @@ interface MatrixOptions {
   target?   : number;                 // Row being changed (highlighted)
   source?   : number;                 // Row being added (outlined)
   className?: string;
+  html?     : Map<number, string[]>;  // Rows shown as HTML instead of their entries (by row)
 }
 
 // A bracketed matrix, with a bar before the constants column when augmented.
@@ -335,6 +369,9 @@ function matrixElement(m: Matrix, options: MatrixOptions): HTMLElement {
     if (options.labels) place(element("span", "ge-row-label", `R${r + 1}`), r + 1, 1);
     row.forEach((x, c) => {
       const cell = element("span", "ge-cell", formatFraction(x));
+      cell.dataset.row = `${r}`;
+      const html = options.html?.get(r)?.[c];
+      if (html !== undefined) cell.innerHTML = html;
       cell.style.setProperty("--len", `${cell.textContent!.length}`);
       if (options.leading?.[r] === c) cell.classList.add("ge-pivot");
       if (options.target === r) cell.classList.add("ge-target");
@@ -374,9 +411,21 @@ function initPage(): void {
   const checkStepButton = byId<HTMLButtonElement>("ge-check-step");
   const checkAllButton = byId<HTMLButtonElement>("ge-check-all");
   const formTitle    = byId<HTMLHeadingElement>("ge-form-title");
+  const currentTilde = byId<HTMLSpanElement>("ge-current-tilde");
+  const stepsHeader  = document.querySelector<HTMLDivElement>(".ge-steps-header")!;
+  const workspace    = byId<HTMLDivElement>("ge-workspace");
+  const nextTitle    = byId<HTMLSpanElement>("ge-next-title");
+  const nextMissing  = byId<HTMLSpanElement>("ge-next-missing");
+  const nextMatrix   = byId<HTMLDivElement>("ge-next-matrix");
+  const nextStatus   = byId<HTMLDivElement>("ge-next-status");
   const applyButton  = byId<HTMLButtonElement>("ge-apply");
   const cancelEditButton = byId<HTMLButtonElement>("ge-cancel-edit");
   const hintCount    = byId<HTMLSpanElement>("ge-hint-count");
+  // The current matrix sticks to the top of the window (see the page's CSS). A sentinel just above
+  // it shows when it's stuck, to add a shadow separating it from the form scrolling under it.
+  const sentinel = element("div");
+  workspace.before(sentinel);
+  new IntersectionObserver(([entry]) => workspace.classList.toggle("ge-stuck", !entry.isIntersecting)).observe(sentinel);
   // Each kind of operation's fields, by data-kind, with their row selects and multiplier inputs.
   const fields = (kind: string) => form.querySelector<HTMLElement>(`.ge-fields[data-kind=${kind}]`)!;
   const rowSelect = (kind: string, name: string) => fields(kind).querySelector<HTMLSelectElement>(`select[name=${name}]`)!;
@@ -444,7 +493,15 @@ function initPage(): void {
 
   // ⋘──────── The operation form ────────⋙
 
-  const kind = () => kindRadios.find(radio => radio.checked)?.value ?? "replace";
+  // The kind of operation chosen, if any. None is chosen when the page opens or after a step.
+  const kind = () => kindRadios.find(radio => radio.checked)?.value ?? null;
+  // Clicking the chosen kind again unselects it. Radio buttons don't do that on their own, so the
+  // chosen kind is remembered to tell when that happens.
+  let pickedKind: string | null = null;
+  const clearKind = () => {
+    kindRadios.forEach(radio => { radio.checked = false; });
+    pickedKind = null;
+  };
 
   function fillRowSelects(): void {
     const rows = start.length;
@@ -466,6 +523,7 @@ function initPage(): void {
   // The operation in the form, or a message about what's missing.
   function formOp(): Op | string {
     const k = kind();
+    if (!k) return "Choose Replace, Scale, or Swap.";
     const row = (name: string) => Number(rowSelect(k, name).value);
     if (k === "swap") return { kind: "swap", i: row("i"), j: row("j") };
     const text = multiplier(k).value;
@@ -492,6 +550,7 @@ function initPage(): void {
       preview.classList.add("ge-preview-problem");
       renderRowEntry(null);
       renderCurrent();
+      renderNext();
       return;
     }
     preview.classList.remove("ge-preview-problem");
@@ -506,7 +565,89 @@ function initPage(): void {
       : computeMode ? `${opLabel(op)}: enter the new row ${op.i + 1} below.`
       : `${opLabel(op)}: the new row ${op.i + 1} is ${rowText(op.i)}.`;
     renderRowEntry(op);
-    renderCurrent(op);
+    renderCurrent();
+    renderNext();
+  }
+
+  // The whole next step, as it will look in the steps: "∼", the new matrix with the changed row
+  // unsimplified (like "3 − 2(−1)"), and the operation. Parts not chosen yet are placeholders, and a
+  // note says what's missing. The unsimplified row shows the setup, not the arithmetic, so it's
+  // shown in both modes.
+  function renderNext(): void {
+    const k = kind();
+    const base = formBase();
+    const title = editing === null ? "Next step" : `Step ${editing + 1}, as edited`;
+    if (!k) {
+      nextTitle.textContent = title;
+      nextMissing.textContent = "Still to choose: a kind of row operation (Replace, Scale, or Swap).";
+      nextStatus.hidden = true;
+      nextMatrix.replaceChildren(matrixElement(base, { augmented, labels: true, className: "ge-large ge-next-preview" }));
+      return;
+    }
+    const i = Number(rowSelect(k, "i").value);
+    const j = k === "scale" ? i : Number(rowSelect(k, "j").value);
+    const text = k === "swap" ? "" : multiplier(k).value.trim();
+    const c = text === "" ? null : parseEntry(text);
+    const missing: string[] = [];
+    if (k !== "swap" && text === "") missing.push("a multiplier");
+    if (k !== "swap" && text !== "" && !c) missing.push("a multiplier that's a number, like −3 or 1/2");
+    if (k !== "scale" && i === j) missing.push("two different rows");
+    const multiplierText = c ? SCALAR(coefficient(reduce(c))) : MISSING("c");
+
+    let shown = base;
+    const html = new Map<number, string[]>();
+    let label: string;
+    if (k === "swap") {
+      label = `${R(i)} ↔ ${R(j)}`;
+      if (i !== j) shown = applyOp(base, { kind: "swap", i, j });
+    } else if (k === "scale") {
+      label = `${R(i)} → ${multiplierText}${R(i)}`;
+      html.set(i, base[i].map(x => scaleExpression(x, c && reduce(c))));
+    } else {
+      if (c) {
+        const negative = reduce(c).num < 0n;
+        const coef = coefficient(negative ? neg(reduce(c)) : reduce(c));
+        label = `${R(i)} → ${R(i)} ${SCALAR(`${negative ? "−" : "+"}${coef === "" ? "" : ` ${coef}`}`)}${ADDED(R(j))}`;
+      } else {
+        label = `${R(i)} → ${R(i)} + ${multiplierText}${ADDED(R(j))}`;
+      }
+      if (i !== j) html.set(i, base[i].map((x, col) => replaceExpression(x, base[j][col], c && reduce(c))));
+    }
+    // When the student computes the new row, the preview shows only what they've entered ("?" for
+    // entries not entered yet), not the unsimplified row.
+    let entered: (Fraction | null)[] | null = null;
+    if (computeMode && k !== "swap" && (k === "scale" || i !== j)) {
+      entered = base[i].map((_, col) => {
+        const text = rowEntry.hidden ? "" : rowInputs[col]?.value.trim() ?? "";
+        const x = text === "" ? null : parseEntry(text);
+        return x && reduce(x);
+      });
+      html.set(i, entered.map(x => x ? formatFraction(x) : MISSING("?")));
+      if (entered.includes(null)) missing.push("the new row's entries");
+    }
+    // The status after the step, once the step is fully chosen: the operation's result, or with
+    // the row the student entered.
+    nextStatus.hidden = missing.length > 0 || (k !== "swap" && !c);
+    if (!nextStatus.hidden) {
+      const op: Op = k === "swap" ? { kind: "swap", i, j }
+        : k === "scale" ? { kind: "scale", i, c: reduce(c!) } : { kind: "replace", i, j, c: reduce(c!) };
+      nextStatus.hidden = opProblem(op, start.length) !== null;
+      if (!nextStatus.hidden) {
+        const after = applyOp(base, op);
+        if (entered) after[i] = entered as Fraction[];
+        nextStatus.replaceChildren(statusElement(after, "next"));
+      }
+    }
+    nextTitle.innerHTML = `${title}: ${label}`;
+    nextMissing.textContent = missing.length === 0 ? "" : `Still to choose: ${missing.join(" and ")}.`;
+    nextMatrix.replaceChildren(matrixElement(shown, {
+      augmented,
+      labels: true,
+      target: k === "swap" && i !== j ? j : i,
+      source: k === "scale" || i === j ? undefined : k === "swap" ? i : j,
+      html,
+      className: "ge-large ge-next-preview",
+    }));
   }
 
   // ⋘──────── Computing the new row (in compute mode) ────────⋙
@@ -525,6 +666,7 @@ function initPage(): void {
     rowInputs = start[0].map((_, c) => {
       const input = element("input", "ge-entry");
       input.type = "text";
+      input.inputMode = "decimal";  // A number keyboard on phones (see the "−" and "/" keys)
       input.autocomplete = "off";
       input.spellcheck = false;
       input.setAttribute("aria-label", `New row ${op.i + 1}, column ${c + 1}`);
@@ -593,7 +735,7 @@ function initPage(): void {
     }
     let entered: Fraction[] | undefined;
     if (computeMode && op.kind !== "swap") {
-      // The student's row is applied as is, without checking it (see "Check step").
+      // The student's row is applied as is, without checking it (see "Check").
       const values = rowInputs.map(input => input.value.trim() === "" ? null : parseEntry(input.value));
       if (values.includes(null)) {
         errorText.textContent = rowInputs.some(input => input.value.trim() === "")
@@ -609,46 +751,105 @@ function initPage(): void {
       replayFrom(editing + 1);
       checkedThrough = Math.min(checkedThrough, editing);
       stopEditing();
+      animateApplied(op);
       return;
     }
     pushStep(op, entered);
     if (op.kind !== "swap") multiplier(op.kind).value = "";
+    clearKind();
     hintBox.hidden = true;
     refresh();
-    (op.kind === "swap" ? rowSelect("swap", "i") : multiplier(op.kind)).focus();
+    animateApplied(op);
+    kindRadios[0].focus();
+  }
+
+  // A brief animation when a step is applied: the current matrix (the new last line) slides into
+  // place, and the rows the step changed flash. The classes are added to the elements just drawn;
+  // redrawing (as the student starts the next step) simply removes them.
+  function animateApplied(op: Op): void {
+    const rows = op.kind === "swap" ? [op.i, op.j] : [op.i];
+    current.querySelector(".ge-matrix")?.classList.add("ge-arrive");
+    for (const r of rows) {
+      for (const cell of current.querySelectorAll<HTMLElement>(`.ge-cell[data-row="${r}"]`)) cell.classList.add("ge-flash");
+    }
   }
 
   // ⋘──────── Rendering ────────⋙
 
-  // The current matrix (or, when editing a step, the matrix before it), with the rows of a
-  // previewed operation highlighted.
-  function renderCurrent(op?: Op): void {
+  // The current matrix (or, when editing a step, the matrix before it), with the rows chosen in
+  // the form highlighted. It's the last line of the steps, so it starts with "∼" (unless
+  // it's the starting matrix), and its caption is the operation that produced it.
+  function renderCurrent(): void {
     const m = formBase();
-    const caption = element("p", "ge-current-caption", editing === null ? "" : `Before step ${editing + 1}:`);
-    caption.hidden = editing === null;
+    const { target, source } = formRows();
+    const shownStep = editing === null ? steps.length - 1 : editing - 1;  // −1 for the start
+    const caption = element("div", "ge-current-op");
+    if (editing !== null) {
+      caption.append(element("span", "ge-current-caption", `Before step ${editing + 1}:`));
+    } else if (shownStep < 0) {
+      caption.append(element("span", "ge-note", "Start"));
+    } else {
+      const label = element("span");
+      label.innerHTML = `Step ${shownStep + 1}: ${opLabel(steps[shownStep].op)}`;
+      caption.append(label, editButton(shownStep));
+      const mark = stepMark(shownStep);
+      if (mark) caption.append(mark);
+    }
+    currentTilde.textContent = shownStep >= 0 ? "∼" : "";
     current.replaceChildren(caption, matrixElement(m, {
       augmented,
       labels : true,
       leading: analyze(m).leading,
-      target : op?.i,
-      source : op && op.kind !== "scale" ? op.j : undefined,
+      target,
+      source,
       className: "ge-large",
     }));
   }
 
-  // The checklist of conditions, and whether the goal is reached.
-  function renderStatus(): void {
-    const a = analyze(matrix());
-    const ops = steps.length === 1 ? "1 row operation" : `${steps.length} row operations`;
+  // A button to edit step n.
+  function editButton(n: number): HTMLButtonElement {
+    const edit = element("button", "ge-edit", n === editing ? "Editing" : "Edit");
+    edit.type = "button";
+    edit.disabled = n === editing;
+    edit.setAttribute("aria-label", `Edit step ${n + 1}`);
+    edit.addEventListener("click", () => startEditing(n));
+    return edit;
+  }
+
+  // After "Check all steps", a mark for step n's entered row: ✓, or ✗ with the right row.
+  function stepMark(n: number): HTMLSpanElement | null {
+    const { op, entered } = steps[n];
+    if (!entered || n >= checkedThrough) return null;
+    if (stepIsRight(n)) return element("span", "ge-step-right", "✓");
+    const correct = applyOp(matrixBefore(n), op)[op.i].map(formatFraction);
+    if (augmented) correct.splice(correct.length - 1, 0, "|");
+    return element("span", "ge-step-wrong", `✗ Row ${op.i + 1} should be [ ${correct.join("  ")} ]`);
+  }
+
+  // A small, expandable status: a one-line verdict for a matrix, and on expanding, the
+  // conditions (and, for the current matrix, what to work on next). `open` remembers whether the
+  // student expanded it, across redrawing.
+  const statusOpen = { current: false, next: false };
+  function statusElement(m: Matrix, which: "current" | "next"): HTMLDetailsElement {
+    const a = analyze(m);
     const reached = a.form === "RREF" || (goal === "REF" && a.form === "REF");
-    const title = element("strong", "", a.form === "RREF" ? "In RREF" : a.form === "REF" ? "In REF, but not RREF" : "Not yet in REF");
-    const detail = element("span", "", reached
-      ? `✓ Done! You reached ${goal} with ${ops}.`
-        + (goal === "REF" && a.form !== "RREF" ? " Keep going (Gauss–Jordan elimination) to reach RREF." : "")
-      : a.form === "REF"
-        ? "Next: make each leading entry 1, and the entries above the leading entries 0."
-        : "Next: get the leading entries into a staircase, with 0s below them.");
-    status.className = `ge-status ge-status-${reached ? "done" : a.form.toLowerCase()}`;
+    const done = which === "current" && editing === null && reached;
+    const form = a.form === "RREF" ? "in RREF" : a.form === "REF" ? "in REF, but not RREF" : "not yet in REF";
+    const ops = steps.length === 1 ? "1 step" : `${steps.length} steps`;
+    const summary = element("summary", "", done ? `✓ Done: ${form}${steps.length > 0 ? ` after ${ops}` : ""}`
+      : which === "next" ? `After this step: ${form}`
+      : form[0].toUpperCase() + form.slice(1));
+    const details = element("details", `ge-mini-status ge-status-${done ? "done" : a.form.toLowerCase()}`);
+    details.open = statusOpen[which];
+    details.addEventListener("toggle", () => { statusOpen[which] = details.open; });
+    details.append(summary);
+    if (which === "current") {
+      details.append(element("p", "", done
+        ? (goal === "REF" && a.form !== "RREF" ? "Keep going (Gauss–Jordan elimination) to reach RREF." : "Nice work!")
+        : a.form === "REF"
+          ? "Next: make each leading entry 1, and the entries above the leading entries 0."
+          : "Next: get the leading entries into a staircase, with 0s below them."));
+    }
     const list = element("ul", "ge-checklist");
     CONDITIONS.forEach((text, i) => {
       if (goal === "REF" && i >= REF_CONDITIONS) return;
@@ -657,48 +858,54 @@ function initPage(): void {
       item.append(element("span", "ge-check", ok ? "✓" : "✗"), element("span", "", `${i + 1}. ${text}`));
       list.append(item);
     });
-    status.replaceChildren(title, detail, list);
+    details.append(list);
+    return details;
+  }
+
+  // The status of the matrix shown beside the latest step (or before the step being edited).
+  function renderStatus(): void {
+    status.replaceChildren(statusElement(formBase(), "current"));
   }
 
   // The work so far, one line per step as on paper: "∼", the matrix, and the operation that
-  // produced it. The first line is the starting matrix.
+  // produced it. The first line is the starting matrix. The last matrix is shown below the list,
+  // larger (see renderCurrent), except while editing, when the list shows every step.
   function renderSteps(): void {
     const leading = (m: Matrix) => analyze(m).leading;
+    const shown = editing === null ? steps.length - 1 : steps.length;  // Steps in the list
     const items: HTMLElement[] = [];
-    const startItem = element("li", "ge-step");
-    startItem.append(element("span", "ge-tilde"), matrixElement(start, { augmented, leading: leading(start), className: "ge-small" }),
-      element("span", "ge-op", "Start"));
-    items.push(startItem);
-    steps.forEach(({ op, m, entered }, n) => {
+    if (shown >= 0) {
+      const startItem = element("li", "ge-step");
+      startItem.append(element("span", "ge-tilde"), matrixElement(start, { augmented, leading: leading(start), className: "ge-small" }),
+        element("span", "ge-op", "Start"));
+      items.push(startItem);
+    }
+    steps.slice(0, Math.max(0, shown)).forEach(({ op, m }, n) => {
       const item = element("li", "ge-step");
       const label = element("span", "ge-op");
       label.innerHTML = opLabel(op);
-      item.append(element("span", "ge-tilde", "∼"), matrixElement(m, { augmented, leading: leading(m), className: "ge-small" }), label);
+      item.append(element("span", "ge-tilde", "∼"), matrixElement(m, { augmented, leading: leading(m), className: "ge-small" }), label, editButton(n));
       item.classList.toggle("ge-step-editing", n === editing);
-      const edit = element("button", "ge-edit", n === editing ? "Editing" : "Edit");
-      edit.type = "button";
-      edit.disabled = n === editing;
-      edit.setAttribute("aria-label", `Edit step ${n + 1}`);
-      edit.addEventListener("click", () => startEditing(n));
-      item.append(edit);
-      // After "Check all steps", each computed row is marked right or wrong.
-      if (entered && n < checkedThrough) {
-        const right = stepIsRight(n);
-        const mark = element("span", right ? "ge-step-right" : "ge-step-wrong");
-        if (right) {
-          mark.textContent = "✓";
-        } else {
-          const correct = applyOp(matrixBefore(n), op)[op.i].map(formatFraction);
-          if (augmented) correct.splice(correct.length - 1, 0, "|");
-          mark.textContent = `✗ Row ${op.i + 1} should be [ ${correct.join("  ")} ]`;
-        }
-        item.append(mark);
-      }
+      const mark = stepMark(n);
+      if (mark) item.append(mark);
       items.push(item);
     });
     checkAllButton.hidden = !steps.some(step => step.entered);
     stepsList.replaceChildren(...items);
+    stepsHeader.hidden = steps.length === 0;
     stepCount.textContent = steps.length === 0 ? "" : `(${steps.length})`;
+  }
+
+  // The rows chosen in the form, to highlight in the current matrix as soon as they're chosen
+  // (before the multiplier is entered): the row that changes, and the row added to it (or, for a
+  // swap, the other row).
+  function formRows(): { target?: number; source?: number } {
+    const k = kind();
+    if (!k) return {};
+    const i = Number(rowSelect(k, "i").value);
+    if (k === "scale") return { target: i };
+    const j = Number(rowSelect(k, "j").value);
+    return i === j ? { target: i } : { target: i, source: j };
   }
 
   // ⋘──────── Editing a step ────────⋙
@@ -708,6 +915,7 @@ function initPage(): void {
     editing = n;
     const { op, entered } = steps[n];
     for (const radio of kindRadios) radio.checked = radio.value === op.kind;
+    pickedKind = op.kind;
     rowSelect(op.kind, "i").value = `${op.i}`;
     if (op.kind !== "scale") rowSelect(op.kind, "j").value = `${op.j}`;
     if (op.kind !== "swap") multiplier(op.kind).value = plain(op.c);
@@ -720,6 +928,7 @@ function initPage(): void {
 
   function stopEditing(): void {
     editing = null;
+    clearKind();
     for (const k of ["replace", "scale"]) multiplier(k).value = "";
     rowEntryKey = "";
     refresh();
@@ -792,6 +1001,16 @@ function initPage(): void {
   }
 
   for (const radio of kindRadios) radio.addEventListener("change", updateForm);
+  form.querySelector(".ge-kinds")!.addEventListener("click", event => {
+    const radio = event.target;
+    if (!(radio instanceof HTMLInputElement)) return;
+    if (pickedKind === radio.value) {
+      clearKind();
+      updateForm();
+    } else {
+      pickedKind = radio.value;
+    }
+  });
   for (const radio of modeRadios) {
     radio.addEventListener("change", () => {
       computeMode = radio.value === "compute";
@@ -809,6 +1028,51 @@ function initPage(): void {
     countHint("show row", ...steps.map(encodeStep), encodeOp(op));
   });
   form.addEventListener("input", updateForm);
+
+  // In a row menu, typing a row's number selects it. (The browser's own type-to-select matches
+  // the start of the options' text, which is "R" for every row.)
+  for (const select of form.querySelectorAll<HTMLSelectElement>("select")) {
+    select.addEventListener("keydown", event => {
+      const n = Number(event.key);
+      if (!Number.isInteger(n) || n < 1 || n > start.length) return;
+      select.value = `${n - 1}`;
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+      event.preventDefault();
+    });
+  }
+
+  // On touch screens, the number keyboard may have no "−" or "/", so a bar with those keys appears
+  // while a number box has focus. Pressing a key doesn't take the focus, so the keyboard stays up.
+  const keyBar = byId<HTMLDivElement>("ge-keys");
+  const isNumberBox = (el: EventTarget | null): el is HTMLInputElement =>
+    el instanceof HTMLInputElement && (el.name === "c" || el.classList.contains("ge-entry"));
+  let keyTarget: HTMLInputElement | null = null;
+  form.addEventListener("focusin", event => {
+    if (!isNumberBox(event.target)) return;
+    keyTarget = event.target;
+    keyBar.classList.add("ge-active");
+  });
+  form.addEventListener("focusout", event => {
+    if (!isNumberBox(event.relatedTarget)) keyBar.classList.remove("ge-active");
+  });
+  for (const key of keyBar.querySelectorAll<HTMLButtonElement>("button")) {
+    key.addEventListener("pointerdown", event => event.preventDefault());
+    key.addEventListener("click", () => {
+      const input = keyTarget;
+      if (!input) return;
+      if (key.dataset.key === "minus") {
+        // Flips the sign of the number.
+        input.value = input.value.trimStart().startsWith("-") || input.value.trimStart().startsWith("−")
+          ? input.value.trimStart().slice(1) : `-${input.value.trimStart()}`;
+      } else {
+        // Inserts a fraction bar where the cursor is.
+        const at = input.selectionStart ?? input.value.length;
+        input.value = `${input.value.slice(0, at)}/${input.value.slice(input.selectionEnd ?? at)}`;
+        input.setSelectionRange(at + 1, at + 1);
+      }
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+  }
   form.addEventListener("change", updateForm);
   form.addEventListener("submit", event => {
     event.preventDefault();
@@ -868,7 +1132,7 @@ function initPage(): void {
     hintBox.replaceChildren(element("p", "", `Next goal: ${hint.subgoal}`), more);
   });
 
-  // "Check step" marks the entered row right or wrong before it's applied; it counts as a hint
+  // "Check" marks the entered row right or wrong before it's applied; it counts as a hint
   // (once for each set of entries checked).
   checkStepButton.addEventListener("click", () => {
     const op = formOp();
@@ -886,6 +1150,7 @@ function initPage(): void {
     countHint("check all", ...steps.map(encodeStep));
     checkedThrough = steps.length;
     renderSteps();
+    updateForm();
   });
 
   byId("ge-own-use").addEventListener("click", () => {

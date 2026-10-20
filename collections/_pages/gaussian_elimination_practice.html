@@ -94,25 +94,50 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
   .ge-target { background: #fef7e0; }
   .ge-source { background: rgba(26, 115, 232, 0.1); }
   .ge-large { font-size: 1.15em; }
+  /* When a step is applied, the new matrix slides into place and the changed rows flash green. */
+  @keyframes ge-arrive { from { opacity: 0.2; transform: translateY(0.8rem); } to { opacity: 1; transform: none; } }
+  @keyframes ge-flash { from { background-color: rgba(24, 128, 56, 0.4); } to { background-color: transparent; } }
+  .ge-arrive { animation: ge-arrive 0.35s ease-out; }
+  .ge-cell.ge-flash { animation: ge-flash 1.5s ease-out; }
+  @media (prefers-reduced-motion: reduce) {
+    .ge-arrive { animation: none; }
+  }
   .ge-large .ge-cell { padding: 0.3rem 0.5rem; }
   .ge-small { font-size: 0.85em; }
   .ge-small .ge-pivot::after { border-width: 1.5px; }
 
   /* The current matrix and its status, side by side when there's room. */
-  .ge-workspace { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 1rem 2rem; margin: 1.2rem 0 1rem; }
-  .ge-current { overflow-x: auto; max-width: 100%; padding: 0.3rem 0.6rem 0.3rem 0; }
-  .ge-status {
-    flex: 1 1 16rem;
+  .ge-workspace {
     display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-    padding: 0.6rem 0.9rem;
-    border: 1px solid;
-    border-left-width: 5px;
-    border-radius: 6px;
-    font-size: 0.88em;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 1rem 2rem;
+    margin: 0.3rem 0 1rem;
+    padding: 0.4rem 0;
+    background: #fff;
   }
-  .ge-status strong { font-size: 1.1em; }
+  /* The current matrix stays at the top of the window while scrolling through the form, so that
+  the latest step, the form, and the preview of the next step can be seen together (except on
+  very short screens, where it would cover too much). */
+  @media (min-height: 560px) {
+    .ge-workspace { position: sticky; top: 0; z-index: 5; }
+  }
+  .ge-workspace.ge-stuck { box-shadow: 0 6px 8px -6px rgba(0, 0, 0, 0.25); }
+  .ge-current-line { display: flex; align-items: center; gap: 0.6rem; max-width: 100%; }
+  .ge-current-op { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin: 0 0 0.2rem; font-size: 0.9em; }
+  .ge-current { overflow-x: auto; max-width: 100%; padding: 0.3rem 0.6rem 0.3rem 0; }
+  /* Small, expandable statuses: beside the latest step, and after the next step. */
+  .ge-status { flex: 0 1 22rem; min-width: 0; align-self: flex-start; margin-top: 0.2rem; }
+  .ge-next .ge-status { margin: 0.5rem 0 0; }
+  .ge-mini-status {
+    padding: 0.3rem 0.7rem;
+    border: 1px solid;
+    border-left-width: 4px;
+    border-radius: 6px;
+    font-size: 0.85em;
+  }
+  .ge-mini-status summary { cursor: pointer; font-weight: bold; }
+  .ge-mini-status p { margin: 0.4rem 0 0; }
   .ge-status-neither { border-color: #c5221f; background: rgba(197, 34, 31, 0.06); }
   .ge-status-ref     { border-color: #1a73e8; background: rgba(26, 115, 232, 0.07); }
   .ge-status-rref,
@@ -142,19 +167,32 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
     text-align: center;
   }
   .ge-echo { padding: 0 0.1rem; }
+  .ge-keys { display: none; gap: 0.4rem; margin: 0.5rem 0 0; }
+  @media (pointer: coarse) {
+    .ge-keys.ge-active { display: flex; }
+  }
+  .gauss .ge-keys button { min-width: 3rem; padding: 0.35rem 0.8rem; font-size: 1.1em; }
+  /* The same colors as the preview, kept subtle: the row that changes (yellow), the multiplier
+     (violet), and the row added to it (blue). For a swap, they match the two rows' highlights in
+     the current matrix (which follow the rows to their new places in the preview). */
+  .gauss .ge-fields select[name=i] { background: #fef7e0; border-color: #ecc66b; }
+  .gauss .ge-fields select[name=j] { background: #eef4fe; border-color: #9dbdf2; color: #1558d6; }
+  .gauss .ge-fields input[name=c] { border-color: #c9a6ec; color: #8430ce; }
+  .gauss .ge-fields input[name=c]::placeholder { color: #8430ce; opacity: 0.5; }
   .ge-preview { min-height: 1.5em; margin: 0.6rem 0 0; font-size: 0.9em; }
   .ge-preview-problem { color: #5f6368; }
   .ge-error { margin: 0.4rem 0 0; color: #c5221f; font-size: 0.9em; font-weight: bold; }
   .ge-error:empty { display: none; }
   /* Boxes for the new row's entries, in the mode where students compute them. */
   .ge-row-entry { margin: 0.7rem 0 0; }
-  .ge-row-entry-cells { display: flex; align-items: center; gap: 0.3rem; }
+  .ge-row-entry-cells { display: flex; flex: 0 1 auto; min-width: 0; max-width: 100%; align-items: center; gap: 0.3rem; }
   .ge-row-entry-label { margin-right: 0.3rem; white-space: nowrap; }
   .ge-bracket { font-size: 1.6em; line-height: 1; font-weight: 300; }
   .ge-bar { font-size: 1.4em; line-height: 1; }
   .gauss .ge-entry {
-    flex: 0 1 3.6rem;
-    min-width: 2.2rem;
+    flex: 1 1 3.6rem;
+    min-width: 1.8rem;
+    max-width: 3.6rem;
     width: 3.6rem;
     padding: 0.25rem 0.2rem;
     border: 1px solid rgba(128, 128, 128, 0.45);
@@ -166,11 +204,18 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
   }
   .gauss .ge-entry.ge-right { border: 2px solid #188038; background: rgba(24, 128, 56, 0.08); }
   .gauss .ge-entry.ge-wrong { border: 2px solid #c5221f; background: rgba(197, 34, 31, 0.07); }
-  .ge-row-entry-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; margin-top: 0.5rem; font-size: 0.85em; }
+  .ge-row-entry { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.8rem; }
+  .ge-row-entry-actions { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; font-size: 0.85em; }
+  /* The form's heading, with the hint button at the right. */
+  .ge-form-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.4rem 1rem; margin: 0 0 0.6rem; }
+  .gauss .ge-form-head h2 { margin: 0; }
+  .ge-hint-area { display: inline-flex; align-items: center; gap: 0.6rem; }
+  .ge-hint-box { margin: 0 0 0.7rem; }
+  .ge-steps-buttons { display: inline-flex; flex-wrap: wrap; gap: 0.5rem; }
   .ge-note { color: #5f6368; }
   .gauss .ge-error.ge-ok { color: #188038; }
   .ge-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-top: 0.9rem; }
-  .ge-hint-count { margin-left: auto; font-size: 0.85em; color: #5f6368; }
+  .ge-hint-count { font-size: 0.85em; color: #5f6368; }
   .ge-hint-box {
     margin: 0.7rem 0 0;
     padding: 0.6rem 0.8rem;
@@ -183,7 +228,7 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
   .ge-hint-box p:last-child { margin: 0; }
 
   /* The steps so far: one line per step, starting with "∼", like work on paper. */
-  .ge-steps-title { font-size: 1.05em; }
+  .ge-steps-title { margin-top: 1.2rem; font-size: 1.05em; }
   .ge-steps-title span { font-weight: normal; opacity: 0.7; }
   .ge-steps-header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem; }
   .gauss .ge-steps-header button { font-size: 0.85em; }
@@ -194,6 +239,28 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
   .gauss .ge-edit { padding: 0.1rem 0.5rem; font-size: 0.8em; opacity: 0.75; }
   .gauss .ge-edit:hover { opacity: 1; }
   .gauss .ge-edit:disabled { opacity: 1; cursor: default; border-color: #f9ab00; color: #6d4c00; }
+  /* The preview of the next step, below the form. */
+  .ge-next { margin: -0.4rem 0 1.5rem; padding: 0.6rem 0.9rem; border: 1px dashed rgba(128, 128, 128, 0.5); border-radius: 8px; }
+  .ge-next-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3rem 1rem; font-size: 0.9em; }
+  .ge-next-head span:first-child { font-weight: bold; }
+  .ge-missing-note { color: #6d4c00; }
+  .ge-missing-note:empty { display: none; }
+  .ge-next-preview .ge-cell { white-space: nowrap; }
+  /* In the preview, the scalar is violet and the entries of the row being added are blue (on the
+     changed row's yellow, and matching the added row's blue highlight). */
+  .ge-scalar { color: #8430ce; font-weight: bold; }
+  .ge-added { color: #1558d6; font-weight: bold; }
+  .ge-missing {
+    display: inline-block;
+    min-width: 0.9em;
+    padding: 0 0.15em;
+    border: 1.5px dashed #f9ab00;
+    border-radius: 4px;
+    background: #fef7e0;
+    color: #6d4c00;
+    font-style: italic;
+    line-height: 1.2;
+  }
   .ge-current-caption { margin: 0 0 0.2rem; font-size: 0.85em; font-weight: bold; color: #6d4c00; }
   .ge-step-wrong { color: #c5221f; font-weight: bold; font-size: 0.88em; white-space: nowrap; }
   .ge-step { display: flex; align-items: center; gap: 0.6rem; margin: 0.3rem 0; overflow-x: auto; }
@@ -243,13 +310,13 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
     <p>
       Multipliers can be integers, decimals, or fractions such as <code>-3</code>, <code>0.5</code>,
       or <code>1/2</code>. Leading entries are circled, and the checklist shows which conditions
-      still fail. Every step is listed below the form; use <strong>Undo</strong> to take one back,
+      still fail. Every step is listed above the form; use <strong>Undo</strong> to take one back,
       or <strong>Edit</strong> to change any step (the steps after it are redone).
     </p>
     <p>
       Choose whether to enter just the row operations, or also compute each new row yourself. Your
       rows aren't checked automatically, so a mistake carries forward as it would on paper. To check
-      your work, use <strong>Check step</strong> (before applying a step) or <strong>Check all
+      your work, use <strong>Check</strong> (before applying a step) or <strong>Check all
       steps</strong>; each counts as a hint. Stuck? <strong>Hint</strong> suggests what to aim for
       next, and you can then ask for a more specific hint. Your work is saved in this page's
       address, so you can reload the page or share a link.
@@ -297,20 +364,43 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
     </span>
   </div>
 
-  <div class="ge-workspace">
-    <div id="ge-current" class="ge-current" aria-label="Current matrix"></div>
-    <div id="ge-status" class="ge-status" role="status" aria-live="polite"></div>
+  <!-- The steps so far, then the current matrix (sticky) and the form for the next step. -->
+  <div class="ge-steps-header">
+    <h2 class="ge-steps-title">Steps <span id="ge-step-count"></span></h2>
+    <span class="ge-steps-buttons">
+      <button id="ge-check-all" type="button" hidden>Check all steps (counts as a hint)</button>
+      <button id="ge-restart" type="button">Start over</button>
+    </span>
   </div>
+  <ol id="ge-steps" class="ge-steps"></ol>
+
+  <div class="ge-work">
+    <div id="ge-workspace" class="ge-workspace">
+      <div class="ge-current-line">
+        <span id="ge-current-tilde" class="ge-tilde" aria-hidden="true"></span>
+        <div id="ge-current" class="ge-current" aria-label="Current matrix"></div>
+      </div>
+      <!-- Whether this matrix is in REF or RREF; expands to the conditions. -->
+      <div id="ge-status" class="ge-status" role="status" aria-live="polite"></div>
+    </div>
 
   <form id="ge-form" class="ge-form" autocomplete="off">
-    <h2 id="ge-form-title">Next row operation</h2>
-    <span class="ge-pills" role="radiogroup" aria-label="Kind of row operation">
-      <label class="ge-pill"><input type="radio" name="ge-kind" value="replace" checked><span>Replace</span></label>
+    <div class="ge-form-head">
+      <h2 id="ge-form-title">Next row operation</h2>
+      <span class="ge-hint-area">
+        <span id="ge-hint-count" class="ge-hint-count"></span>
+        <button id="ge-hint" type="button">Hint</button>
+      </span>
+    </div>
+    <div id="ge-hint-box" class="ge-hint-box" role="status" hidden></div>
+
+    <span class="ge-pills ge-kinds" role="radiogroup" aria-label="Kind of row operation">
+      <label class="ge-pill"><input type="radio" name="ge-kind" value="replace"><span>Replace</span></label>
       <label class="ge-pill"><input type="radio" name="ge-kind" value="scale"><span>Scale</span></label>
       <label class="ge-pill"><input type="radio" name="ge-kind" value="swap"><span>Swap</span></label>
     </span>
 
-    <div class="ge-fields" data-kind="replace">
+    <div class="ge-fields" data-kind="replace" hidden>
       <select name="i" aria-label="Row to replace"></select>
       <span>→</span>
       <span class="ge-echo" data-kind="replace"></span>
@@ -332,15 +422,22 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
       <select name="j" aria-label="Second row to swap"></select>
     </div>
 
+    <!-- On touch screens, number keyboards may lack "−" and "/", so these keys appear while
+         entering a number. -->
+    <div id="ge-keys" class="ge-keys" aria-hidden="true">
+      <button type="button" data-key="minus" tabindex="-1">−</button>
+      <button type="button" data-key="slash" tabindex="-1">/</button>
+    </div>
+
     <p id="ge-preview" class="ge-preview" aria-live="polite"></p>
 
     <div id="ge-row-entry" class="ge-row-entry" hidden>
       <div id="ge-row-entry-cells" class="ge-row-entry-cells"></div>
-      <div class="ge-row-entry-actions">
-        <button id="ge-check-step" type="button">Check step</button>
-        <button id="ge-reveal" type="button">Show the new row</button>
-        <span class="ge-note">(Each counts as a hint.)</span>
-      </div>
+      <span class="ge-row-entry-actions">
+        <button id="ge-check-step" type="button" title="Check the new row (counts as a hint)">Check</button>
+        <button id="ge-reveal" type="button" title="Show the new row (counts as a hint)">Show</button>
+        <span class="ge-note">(counts as a hint)</span>
+      </span>
     </div>
 
     <p id="ge-error" class="ge-error" role="alert"></p>
@@ -349,18 +446,23 @@ excerpt: "Row reduce a matrix to REF or RREF one row operation at a time, with h
       <button id="ge-apply" class="ge-primary" type="submit">Apply</button>
       <button id="ge-cancel-edit" type="button" hidden>Cancel edit</button>
       <button id="ge-undo" type="button">Undo</button>
-      <button id="ge-restart" type="button">Start over</button>
-      <button id="ge-hint" type="button">Hint</button>
-      <span id="ge-hint-count" class="ge-hint-count"></span>
     </div>
-    <div id="ge-hint-box" class="ge-hint-box" role="status" hidden></div>
   </form>
 
-  <div class="ge-steps-header">
-    <h2 class="ge-steps-title">Steps <span id="ge-step-count"></span></h2>
-    <button id="ge-check-all" type="button" hidden>Check all steps (counts as a hint)</button>
+    <!-- The whole next step, with the new row unsimplified, as it will look in the steps. -->
+    <div class="ge-next" aria-live="polite">
+      <div class="ge-next-head">
+        <span id="ge-next-title"></span>
+        <span id="ge-next-missing" class="ge-missing-note"></span>
+      </div>
+      <div class="ge-current-line">
+        <span class="ge-tilde" aria-hidden="true">∼</span>
+        <div id="ge-next-matrix" class="ge-current"></div>
+      </div>
+      <div id="ge-next-status" class="ge-status" role="status" aria-live="polite" hidden></div>
+    </div>
   </div>
-  <ol id="ge-steps" class="ge-steps"></ol>
+
 </div>
 
 <script src="/assets/ts/out/gaussian_elimination.js" type="module"></script>
