@@ -1,0 +1,506 @@
+---
+layout: single
+permalink: /tools/echelon_form/
+title: Row Echelon Form Explorer and Quiz
+excerpt: "Check whether a matrix is in row echelon form (REF) or reduced row echelon form (RREF), see which conditions fail, and quiz yourself on random matrices."
+---
+
+<style>
+  .echelon-form button {
+    font: inherit;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+  }
+  .echelon-form button:hover { background: rgba(128, 128, 128, 0.1); }
+  /* The theme adds bottom margins to inputs and labels, which pushes them off-center in a row. */
+  .echelon-form input,
+  .echelon-form label { margin: 0; }
+
+  /* Size controls: "Rows [−] 3 [+]" and so on. */
+  .mx-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem 1.4rem;
+    margin: 1rem 0 0;
+    font-size: 0.9em;
+  }
+  .mx-stepper { display: inline-flex; align-items: center; gap: 0.4rem; }
+  .echelon-form .mx-stepper button { width: 2rem; padding: 0.2rem 0; line-height: 1.2; }
+  .mx-stepper output { min-width: 1.2em; text-align: center; font-variant-numeric: tabular-nums; }
+  .mx-checkbox { display: inline-flex; align-items: center; gap: 0.35rem; cursor: pointer; }
+  .mx-checkbox input { width: auto; }
+  .mx-buttons { display: inline-flex; gap: 0.5rem; }
+
+  /* The matrix (and in quiz mode, the previous and next buttons beside it) stays at the top of
+     the window while scrolling through the results, except on short screens, where it would
+     cover too much. */
+  .mx-sticky {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 0.5rem 1rem;
+    margin: 1.2rem 0 0.5rem;
+    padding: 0.4rem 0;
+    background: #fff;
+  }
+  @media (min-height: 600px) {
+    .mx-sticky { position: sticky; top: 0; z-index: 5; }
+  }
+  /* While stuck, extra padding below the matrix gives it room above its shadow. The negative
+     margin takes back the same amount, so the page below doesn't jump when it sticks. */
+  .mx-sticky.mx-stuck {
+    padding-bottom: 1rem;
+    margin-bottom: -0.1rem;
+    box-shadow: 0 6px 8px -6px rgba(0, 0, 0, 0.25);
+  }
+  /* The matrix: column numbers above, row names to the left, entries in brackets. Wide matrices
+     scroll sideways. */
+  /* The vertical padding leaves room for the bracket corners, which extend past the grid. Only
+     narrow screens need to scroll a wide matrix sideways; elsewhere, the largest matrix fits,
+     and making this a scroll container can show a stray scrollbar in some browsers. */
+  .mx-scroll { min-width: 0; max-width: 100%; padding: 0.3rem 0.8rem 0.3rem 0; }
+  @media (max-width: 600px) {
+    .mx-scroll { overflow-x: auto; overflow-y: hidden; }
+  }
+  /* Bottom-aligned with the matrix, next to its last row. */
+  .mx-quiz-nav { display: flex; flex-wrap: wrap; gap: 0.5rem; align-self: flex-end; margin-left: auto; font-size: 0.9em; }
+  /* On phones, the previous and next buttons show only their arrows. */
+  @media (max-width: 480px) {
+    .mx-nav-text { display: none; }
+  }
+  .mx-grid {
+    --mx-cell-width: 3.4rem;
+    --mx-gap: 0.35rem;
+    position: relative;
+    display: inline-grid;
+    gap: var(--mx-gap);
+    align-items: center;
+    padding-left: 0.2rem;
+  }
+  .mx-col-label,
+  .mx-row-label { font-size: 0.75em; opacity: 0.6; text-align: center; }
+  .mx-row-label { padding-right: 0.8rem; }
+  .echelon-form .mx-cell {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.4rem 0.2rem;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 6px;
+    background: #fff;
+    color: #000;  /* The theme's inputs use its dark gray text color */
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+    transition: background-color 150ms, border-color 150ms, box-shadow 150ms;
+  }
+  .mx-cell::placeholder { color: inherit; opacity: 0.35; }
+  /* In quiz mode, entries are plain numbers (buttons that mark leading entries), not text boxes. */
+  .echelon-form .mx-cell-static {
+    border-color: transparent;
+    background: transparent;
+    line-height: 1.5;
+    cursor: pointer;
+  }
+  .echelon-form .mx-cell-static:hover { background: rgba(128, 128, 128, 0.12); }
+  .mx-grid:not(.mx-marking) .mx-cell-static { cursor: default; }
+  .mx-grid:not(.mx-marking) .mx-cell-static:hover { background: transparent; }
+
+  /* Collapsible instructions. */
+  .mx-instructions { margin: 0 0 0.8rem; }
+  .mx-instructions summary { margin-bottom: 0.4rem; cursor: pointer; font-weight: bold; font-size: 0.95em; }
+  .mx-instructions:not([open]) summary { margin-bottom: 0; }
+  /* Leading entries are circled. Each entry sits in a wrapper that draws the circle, which
+     widens into an oval for longer entries (--mx-len is the entry's length). Entries involved in
+     a violation are tinted red, and the entries of the violation under the pointer are tinted
+     more strongly. */
+  .mx-cell-wrap { position: relative; display: block; }
+  .mx-cell-wrap.mx-pivot::after,
+  .mx-cell-wrap.mx-marked::after,
+  .mx-cell-wrap.mx-mark-missed::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: clamp(1.9rem, calc(var(--mx-len, 1) * 0.6em + 1rem), calc(100% - 0.3rem));
+    height: 1.9rem;
+    box-sizing: border-box;
+    transform: translate(-50%, -50%);
+    border: 2px solid var(--mx-ring, #1a73e8);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  /* Quiz marks: students click entries to circle them (dark gray) and row labels to mark zero
+     rows. After checking, marks are green if right and red if wrong, and missed ones are dashed
+     red. */
+  .mx-marking .mx-cell { cursor: pointer; }
+  .mx-marking .mx-cell:hover { border-color: #3c4043; }
+  .mx-cell-wrap.mx-marked { --mx-ring: #3c4043; }
+  .echelon-form .mx-cell-wrap.mx-zero-row .mx-cell { background: rgba(128, 128, 128, 0.18); }
+  .echelon-form button.mx-row-label {
+    margin-right: 0.5rem;
+    padding: 0.1rem 0.45rem;
+    border: 1px dashed rgba(128, 128, 128, 0.6);
+    border-radius: 999px;
+    background: transparent;
+    opacity: 1;
+    font-size: 0.75em;
+  }
+  .echelon-form button.mx-row-label:disabled,
+  .mx-grid:not(.mx-marking) button.mx-row-label { cursor: default; }
+  .echelon-form button.mx-row-label.mx-zero-marked { border: 1px solid #3c4043; background: #3c4043; color: #fff; }
+  .mx-cell-wrap.mx-mark-right { --mx-ring: #188038; }
+  .mx-cell-wrap.mx-mark-wrong,
+  .mx-cell-wrap.mx-mark-missed { --mx-ring: #c5221f; }
+  .mx-cell-wrap.mx-mark-missed::after { border-style: dashed; }
+  .echelon-form button.mx-row-label.mx-mark-right { border: 1px solid #188038; background: #188038; color: #fff; }
+  .echelon-form button.mx-row-label.mx-mark-wrong { border: 1px solid #c5221f; background: #c5221f; color: #fff; }
+  .echelon-form button.mx-row-label.mx-mark-missed { border: 2px dashed #c5221f; color: #c5221f; }
+  .mx-quiz-marks { margin: 0.6rem 0 0; padding: 0; list-style: none; font-size: 0.88em; font-weight: bold; }
+  .mx-quiz-marks li { margin: 0.2rem 0; }
+  .mx-quiz-marks .mx-q-right { color: #188038; }
+  .mx-quiz-marks .mx-q-wrong { color: #c5221f; }
+  .echelon-form .mx-cell.mx-bad { background: var(--mx-bad-bg); }
+  .echelon-form .mx-cell.mx-focus { outline: 3px solid var(--mx-focus, #c5221f); outline-offset: 1px; }
+  .echelon-form .mx-cell.mx-invalid { border-color: #c5221f; border-style: dashed; color: #c5221f; }
+  .mx-brackets,
+  .mx-aug-bar { position: relative; align-self: stretch; pointer-events: none; }
+  .mx-brackets::before,
+  .mx-brackets::after {
+    content: "";
+    position: absolute;
+    top: -0.25rem;
+    bottom: -0.25rem;
+    width: 0.4rem;
+    border: 2px solid currentColor;
+  }
+  .mx-brackets::before { left: -0.5rem; border-right: none; }
+  .mx-brackets::after { right: -0.5rem; border-left: none; }
+  .mx-aug-bar { justify-self: start; margin-left: calc(var(--mx-gap) / -2 - 1px); border-left: 2px solid currentColor; }
+
+  .mx-legend { margin: 0 0 1.2rem; font-size: 0.8em; opacity: 0.8; }
+  .mx-swatch {
+    display: inline-block;
+    width: 0.9em;
+    height: 0.9em;
+    margin-right: 0.3em;
+    vertical-align: -0.1em;
+    border-radius: 3px;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+  }
+  .mx-swatch-pivot { border: 2px solid #1a73e8; border-radius: 50%; }
+  .mx-swatch-bad {
+    background: repeating-linear-gradient(135deg, #e8710a40 0 3px, #9334e640 3px 6px, #0d948840 6px 9px, #d0188440 9px 12px);
+  }
+
+  /* Verdict: a colored box with the form's name, an explanation, and a note when inconsistent. */
+  .mx-verdict {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid;
+    border-left-width: 5px;
+    border-radius: 6px;
+  }
+  .mx-verdict strong { font-size: 1.1em; }
+  .mx-verdict span { font-size: 0.9em; }
+  .mx-verdict .mx-note { margin-top: 0.3rem; font-weight: bold; }
+  .mx-verdict-rref    { border-color: #188038; background: rgba(24, 128, 56, 0.08); }
+  .mx-verdict-ref     { border-color: #1a73e8; background: rgba(26, 115, 232, 0.08); }
+  .mx-verdict-neither,
+  .mx-verdict-invalid { border-color: #c5221f; background: rgba(197, 34, 31, 0.07); }
+
+  /* The checklist of conditions. */
+  .mx-conditions h3 { margin: 1.4rem 0 0.4rem; font-size: 1em; }
+  .mx-condition-intro { margin: 0 0 0.3rem; font-size: 0.9em; }
+  .mx-condition-list { margin: 0; padding: 0; list-style: none; }
+  .mx-condition-list > li { position: relative; margin: 0 0 0.5rem; padding-left: 3.4rem; }
+  /* Each condition's number, and a ✓ or ✗, to the left of its text. */
+  .mx-condition-list > li::before {
+    content: counter(list-item) ".";
+    position: absolute;
+    left: 1.7rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .mx-icon {
+    position: absolute;
+    left: 0;
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 0.8em;
+    line-height: 1.3rem;
+    text-align: center;
+    font-weight: bold;
+  }
+  .mx-pass .mx-icon { background: #188038; }
+  .mx-fail .mx-icon { background: #c5221f; }
+  .mx-fail .mx-condition-text { font-weight: bold; }
+  .mx-violations { margin: 0.25rem 0 0; padding-left: 1.1rem; font-size: 0.88em; }
+  .mx-violation { margin: 0.15rem 0; cursor: default; border-radius: 4px; }
+  /* The quiz shows the conditions' colors only once the answers are checked. */
+  .mx-quiz:not(.mx-quiz-checked) .mx-condition-swatch { display: none; }
+  .mx-condition-note { margin: 0.25rem 0 0; font-size: 0.85em; font-style: italic; }
+  .mx-violation:hover,
+  .mx-violation:focus { background: var(--mx-tint); outline: none; }
+  /* Each condition's color, matching the tint on the entries that break it. */
+  .mx-condition-swatch {
+    display: inline-block;
+    width: 0.85em;
+    height: 0.85em;
+    margin-right: 0.45em;
+    vertical-align: -0.05em;
+    border: 2px solid var(--mx-color);
+    border-radius: 3px;
+    background: var(--mx-tint);
+  }
+
+  /* Rank and nullity table, and the number of solutions (styled like the verdict). */
+  .echelon-form .mx-rank-table {
+    display: table;  /* The theme makes tables blocks */
+    width: auto;
+    margin: 0 0 0.6rem;
+    border-collapse: collapse;
+    font-size: 0.9em;
+  }
+  .mx-rank-table th,
+  .mx-rank-table td { padding: 0.3rem 0.9rem; border-bottom: 1px solid rgba(128, 128, 128, 0.3); text-align: center; }
+  .mx-rank-table th[scope="row"] { text-align: left; white-space: nowrap; }
+  .mx-rank-table thead th { font-weight: bold; }
+  .mx-system .mx-verdict { margin-top: 0.8rem; }
+  .mx-solutions-one      { border-color: #188038; background: rgba(24, 128, 56, 0.08); }
+  .mx-solutions-infinite { border-color: #1a73e8; background: rgba(26, 115, 232, 0.08); }
+  .mx-solutions-none     { border-color: #c5221f; background: rgba(197, 34, 31, 0.07); }
+
+  .echelon-form [hidden] { display: none !important; }
+
+  /* Mode tabs: "Checker | Quiz". */
+  .mx-modes {
+    display: inline-flex;
+    margin: 0.4rem 0 0;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .echelon-form .mx-modes button { padding: 0.45rem 1.2rem; border: none; border-radius: 0; }
+  .echelon-form .mx-modes button + button { border-left: 1px solid rgba(128, 128, 128, 0.4); }
+  .echelon-form .mx-modes button[aria-pressed="true"] { background: #1a73e8; color: #fff; }
+  .echelon-form .mx-primary { background: #1a73e8; border-color: #1a73e8; color: #fff; }
+  .echelon-form .mx-primary:hover { background: #1765cc; }
+  .echelon-form .mx-primary:disabled { background: #1a73e8; opacity: 0.45; cursor: not-allowed; }
+
+  /* Quiz: one row per question, with pill-shaped choices (radio buttons) on the right. */
+  .mx-quiz {
+    margin: 0 0 1.5rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 8px;
+    background: rgba(128, 128, 128, 0.04);
+  }
+  .mx-quiz h2 { margin: 0 0 0.3rem; border: none; font-size: 1.05em; }
+  .mx-quiz-intro { margin: 0 0 0.5rem; font-size: 0.88em; }
+  .mx-quiz-list { margin: 0; padding: 0; list-style: none; }
+  .mx-quiz-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.35rem 1rem;
+    margin: 0;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+  }
+  .mx-quiz-question { flex: 1 1 18rem; font-size: 0.92em; }
+  .mx-quiz-form .mx-quiz-question { font-weight: bold; }
+  .mx-choices { display: inline-flex; flex-wrap: wrap; gap: 0.35rem; }
+  .mx-choice { position: relative; cursor: pointer; }
+  .mx-choice input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+  .mx-choice span {
+    display: inline-block;
+    padding: 0.2rem 0.75rem;
+    border: 1px solid rgba(128, 128, 128, 0.45);
+    border-radius: 999px;
+    background: #fff;
+    font-size: 0.85em;
+    transition: background-color 150ms, border-color 150ms, color 150ms;
+  }
+  .mx-choice:hover span { border-color: #1a73e8; }
+  .mx-choice input:checked + span { background: #1a73e8; border-color: #1a73e8; color: #fff; }
+  .mx-choice input:focus-visible + span { outline: 2px solid #1a73e8; outline-offset: 2px; }
+  .mx-choice:has(input:disabled) { cursor: default; }
+  /* After checking: the right choice is ringed in green, and the student's pick turns green if
+     it's right and red if it's wrong. */
+  .mx-choice.mx-key span { box-shadow: 0 0 0 2px #188038; }
+  .mx-choice.mx-right input:checked + span { background: #188038; border-color: #188038; }
+  .mx-choice.mx-wrong input:checked + span { background: #c5221f; border-color: #c5221f; }
+  .mx-quiz-mark { flex-basis: 100%; font-size: 0.85em; font-weight: bold; }
+  .mx-q-right .mx-quiz-mark { color: #188038; }
+  .mx-q-wrong .mx-quiz-mark { color: #c5221f; }
+  .mx-q-skipped .mx-quiz-mark { color: #5f6368; font-weight: normal; }
+  /* A skipped condition that shows the right form, when the student picked the wrong one. */
+  .mx-quiz-item.mx-q-hint {
+    margin: 0.3rem -0.6rem;
+    padding: 0.55rem 0.6rem;
+    border-bottom: none;
+    border-left: 4px solid #f9ab00;
+    border-radius: 6px;
+    background: #fef7e0;
+  }
+  .mx-q-hint .mx-quiz-mark { color: #6d4c00; font-weight: bold; }
+  /* Right-aligned, so the check buttons sit under the answer buttons, with notes to their left. */
+  .mx-quiz-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.6rem 1rem;
+    margin-top: 0.9rem;
+  }
+  .mx-quiz-actions > button { order: 1; }
+  /* On phones, the answer buttons wrap to the left, so the check button goes there too. */
+  @media (max-width: 600px) {
+    .mx-quiz-actions { justify-content: flex-start; }
+    .mx-quiz-actions > button { order: 0; }
+    .mx-quiz-actions .mx-quiz-ready { text-align: left; }
+  }
+  .mx-quiz-score { font-size: 0.9em; }
+  .mx-quiz-ready { font-size: 0.88em; color: #5f6368; text-align: right; }
+  .mx-explanation-title { margin: 0 0 0.8rem; font-size: 1.15em; }
+  /* Displayed math in the quiz feedback (e.g., the nullity formula), in normal weight and color. */
+  .mx-quiz-mark mjx-container[display="true"] { margin: 0.4em 0; color: #3d4144; font-weight: normal; }
+  .mx-quiz-part2 { margin-top: 1.4rem; padding-top: 1rem; border-top: 1px solid rgba(128, 128, 128, 0.35); }
+  .echelon-form .mx-quiz-number {
+    width: 4.5rem;
+    padding: 0.2rem 0.4rem;
+    border: 1px solid rgba(128, 128, 128, 0.45);
+    border-radius: 6px;
+    background: #fff;
+    font: inherit;
+    text-align: center;
+  }
+  .echelon-form .mx-quiz-number.mx-right { border: 2px solid #188038; background: rgba(24, 128, 56, 0.1); }
+  .echelon-form .mx-quiz-number.mx-wrong { border: 2px solid #c5221f; background: rgba(197, 34, 31, 0.08); }
+
+</style>
+
+<div class="echelon-form">
+  <details id="mx-instructions" class="mx-instructions" open>
+    <summary>Instructions</summary>
+    <p>
+      Type the entries of a matrix below to check whether it is in <strong>row echelon form
+      (REF)</strong>, <strong>reduced row echelon form (RREF)</strong>, or neither. Every condition
+      that fails is listed along with the entries that break it; point at a reason to highlight
+      those entries in the matrix. For a matrix in REF, the page also gives the rank and nullity
+      and the number of solutions of the system, with the reason.
+    </p>
+    <p>
+      To practice, switch to <strong>Quiz</strong>: the page shows a random matrix, and you decide
+      which conditions it satisfies and which form it's in, then check your answers.
+    </p>
+    <p>
+      Entries can be integers, decimals, or fractions such as <code>-2</code>, <code>0.5</code>, or
+      <code>1/3</code>. Blank entries count as 0. Use the arrow keys or Enter to move between entries
+      (Shift+Enter moves up).
+    </p>
+  </details>
+
+  <div class="mx-modes" role="group" aria-label="Mode">
+    <button id="mx-mode-check" type="button" aria-pressed="true">Explore</button>
+    <button id="mx-mode-quiz" type="button" aria-pressed="false">Quiz</button>
+  </div>
+
+  <div class="mx-controls">
+    <span class="mx-stepper">
+      Rows
+      <button id="mx-rows-minus" type="button" aria-label="Remove a row">−</button>
+      <output id="mx-rows" aria-live="polite"></output>
+      <button id="mx-rows-plus" type="button" aria-label="Add a row">+</button>
+    </span>
+    <span class="mx-stepper">
+      Columns
+      <button id="mx-cols-minus" type="button" aria-label="Remove a column">−</button>
+      <output id="mx-cols" aria-live="polite"></output>
+      <button id="mx-cols-plus" type="button" aria-label="Add a column">+</button>
+    </span>
+    <label class="mx-checkbox">
+      <input id="mx-augmented" type="checkbox" checked>
+      Augmented (last column is constants)
+    </label>
+    <span id="mx-check-buttons" class="mx-buttons">
+      <button id="mx-random" type="button">Random matrix</button>
+      <button id="mx-clear" type="button">Clear</button>
+    </span>
+  </div>
+
+  <div id="mx-sticky" class="mx-sticky">
+    <div class="mx-scroll">
+      <div id="mx-grid" class="mx-grid"></div>
+    </div>
+    <div id="mx-quiz-nav" class="mx-quiz-nav" hidden>
+      <button id="mx-quiz-prev" type="button" aria-label="Previous matrix" title="Previous matrix" hidden>
+        <span aria-hidden="true">←</span><span class="mx-nav-text"> Previous</span>
+      </button>
+      <button id="mx-quiz-next" type="button" aria-label="Next matrix" title="Next matrix">
+        <span class="mx-nav-text">Next </span><span aria-hidden="true">→</span>
+      </button>
+    </div>
+  </div>
+  <p id="mx-legend" class="mx-legend">
+    <span class="mx-swatch mx-swatch-pivot"></span>Leading entry
+    &emsp;
+    <span class="mx-swatch mx-swatch-bad"></span>Breaks a condition (colored by condition; see the list below)
+  </p>
+
+  <section id="mx-quiz" class="mx-quiz" aria-labelledby="mx-quiz-title" hidden>
+    <h2 id="mx-quiz-title">Is this matrix in REF, RREF, or neither?</h2>
+    <details id="mx-quiz-instructions" class="mx-instructions" open>
+      <summary>Instructions</summary>
+      <p class="mx-quiz-intro">
+        Answer yes or no for whether each condition is true of the matrix, then choose its form.
+        Answer as many as you like: it's fine to skip the conditions and just choose the form.
+        Click a selected answer again to unselect it. When you check your answers, the leading
+        entries are circled and each condition is explained below.
+      </p>
+      <p class="mx-quiz-intro">
+        <strong>Optional:</strong> first click the leading entries in the matrix to circle them,
+        and click the row labels (R1, R2, …) to mark the zero rows. These marks are checked too.
+      </p>
+    </details>
+    <ol id="mx-quiz-list" class="mx-quiz-list"></ol>
+    <ul id="mx-quiz-marks" class="mx-quiz-marks"></ul>
+    <div class="mx-quiz-actions">
+      <button id="mx-quiz-check" class="mx-primary" type="button">Check answers</button>
+      <span id="mx-quiz-ready" class="mx-quiz-ready">
+        Choose the matrix's form to check your answers. The other questions are optional.
+      </span>
+      <span id="mx-quiz-score" class="mx-quiz-score" role="status" aria-live="polite"></span>
+    </div>
+
+    <div id="mx-quiz-part2" class="mx-quiz-part2" hidden>
+      <h2>Part 2: Rank, nullity, and solutions</h2>
+      <p class="mx-quiz-intro">
+        Since the matrix is in REF, you can find these from its leading entries. When you check
+        your answers, the explanation appears below.
+      </p>
+      <ol id="mx-quiz-list2" class="mx-quiz-list"></ol>
+      <div class="mx-quiz-actions">
+        <button id="mx-quiz-check2" class="mx-primary" type="button">Check part 2</button>
+      </div>
+    </div>
+  </section>
+
+  <div id="mx-results">
+    <h2 id="mx-explanation-title" class="mx-explanation-title" hidden>Explanation</h2>
+    <div id="mx-verdict" class="mx-verdict" role="status" aria-live="polite"></div>
+    <div id="mx-conditions" class="mx-conditions"></div>
+    <div id="mx-system" class="mx-system mx-conditions"></div>
+  </div>
+</div>
+
+<script src="/assets/ts/out/echelon_form.js" type="module"></script>
