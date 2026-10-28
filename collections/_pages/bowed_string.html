@@ -1,0 +1,516 @@
+---
+layout: single
+permalink: /tools/bowed_string/
+title: The Physics of a Bowed String
+excerpt: "Watch a simulated violin string stick to and slip past the bow, see the Helmholtz corner travel along it, hear the result, and map which bow forces and positions produce a good tone."
+---
+
+<style>
+  .bowed button,
+  .bowed select {
+    font: inherit;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+  }
+  .bowed button:hover { background: rgba(128, 128, 128, 0.1); }
+  .bowed select { width: auto; padding: 0.25rem 0.4rem; }
+  /* The theme adds bottom margins to inputs and labels, which pushes them off-center in a row. */
+  .bowed input,
+  .bowed label,
+  .bowed select { margin: 0; }
+  .bowed canvas { display: block; width: 100%; }
+  .bowed h2 { margin-top: 2rem; }
+  .bowed .bs-primary { background: #1a73e8; border-color: #1a73e8; color: #fff; min-width: 6.5rem; }
+  .bowed .bs-primary:hover { background: #1765cc; }
+  .bowed #bs-live[aria-pressed="true"] { background: #e8f0fe; border-color: #1a73e8; }
+
+  .bs-playback {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem 1rem;
+    padding: 0.5rem 0;
+    font-size: 0.9em;
+  }
+  .bs-playback label { display: inline-flex; align-items: center; gap: 0.35rem; }
+
+  .bs-view {
+    position: relative;
+    margin: 0.25rem 0 0.5rem;
+    border: 1px solid rgba(128, 128, 128, 0.25);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  /* The animation (with its playback controls) and the charts can stay at the top of the window
+     while scrolling. When both are pinned, the charts stack below the animation. */
+  .bs-pinned { position: sticky; z-index: 5; background: #fff; }
+  #bs-animation.bs-pinned { top: 0; }
+  #bs-charts-view.bs-pinned { top: var(--bs-charts-top, 0); }
+  #bs-sound-view.bs-pinned { top: var(--bs-sound-top, 0); }
+  /* The pin buttons are just the icon, gray while unpinned. */
+  .bowed .bs-pin,
+  .bowed .bs-full {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    padding: 0.05rem 0.35rem;
+    font-size: 0.8em;
+    line-height: 1.3;
+    filter: grayscale(1);
+    opacity: 0.55;
+  }
+  .bowed .bs-pin:hover,
+  .bowed .bs-full:hover { opacity: 0.85; }
+  /* The full-screen button sits left of the pin, or in the corner where there's no pin. */
+  .bowed .bs-full { right: 36px; }
+  .bowed .bs-full.bs-alone { right: 4px; }
+  /* In full screen, the view fills the screen on a white background, without the pin. */
+  .bowed :fullscreen { background: #fff; padding: 12px; overflow: auto; }
+  .bowed :fullscreen .bs-pin { display: none; }
+  .bowed :fullscreen .bs-full { right: 4px; }
+  .bowed .bs-pin[aria-pressed="true"] { background: #e8f0fe; border-color: #1a73e8; filter: none; opacity: 1; }
+  .bs-status {
+    margin: 0 0 0.75rem;
+    padding: 0.45rem 0.8rem;
+    border-radius: 6px;
+    background: rgba(128, 128, 128, 0.08);
+    font-size: 0.9em;
+  }
+  .bs-status strong { font-weight: bold; }
+  .bs-status[data-motion="helmholtz"] { box-shadow: inset 4px 0 0 #1baf7a; }
+  .bs-status[data-motion="multiple"]  { box-shadow: inset 4px 0 0 #6b8fd6; }
+  .bs-status[data-motion="raucous"]   { box-shadow: inset 4px 0 0 #eb6834; }
+  .bs-status[data-motion="plucked"]   { box-shadow: inset 4px 0 0 #6b6b6b; }
+
+  .bs-settings {
+    margin: 0 0 1rem;
+    padding: 0.6rem 1rem 0.8rem;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 8px;
+    font-size: 0.9em;
+  }
+  .bs-settings legend { padding: 0 0.3rem; font-weight: bold; }
+  .bs-sliders {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 0.6rem 1.5rem;
+  }
+  .bs-slider { display: flex; flex-direction: column; gap: 0.2rem; }
+  .bs-slider span { display: flex; justify-content: space-between; gap: 0.5rem; }
+  .bs-slider output { opacity: 0.8; font-variant-numeric: tabular-nums; text-align: right; }
+  /* Marks the values of a slider that give Helmholtz motion. It's inset by half the width of the
+     slider's thumb, so that it lines up with the thumb's center. */
+  .bs-slider .bs-band {
+    display: block;
+    height: 6px;
+    margin: -1px 8px 0;
+    border-radius: 3px;
+    background-color: rgba(128, 128, 128, 0.15);
+    transition: opacity 150ms;
+  }
+  .bs-slider .bs-band.bs-band-stale { opacity: 0.35; }
+  .bs-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 1rem; margin-top: 0.7rem; }
+  .bs-row-label { font-weight: bold; }
+  .bowed .bs-row button { padding: 0.15rem 0.5rem; font-size: 0.9em; }
+  .bs-row label { display: inline-flex; align-items: center; gap: 0.35rem; cursor: pointer; }
+  .bs-row input[type="checkbox"] { width: auto; }
+
+  .bs-legend { display: flex; flex-wrap: wrap; gap: 0.3rem 1.2rem; margin: 0.3rem 0 0; font-size: 0.8em; opacity: 0.85; }
+  .bs-swatch {
+    display: inline-block;
+    width: 0.8em;
+    height: 0.8em;
+    margin-right: 0.35em;
+    border-radius: 2px;
+    vertical-align: -0.05em;
+  }
+  .bs-map { cursor: crosshair; touch-action: none; }
+  /* The oscilloscope and spectrum, side by side when there's room. */
+  .bs-sound { position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 0 0.6rem; }
+  .bowed [hidden] { display: none !important; }
+  .bs-show { margin: 0.5rem 0 0.6rem; font-size: 0.9em; }
+  .bs-row.bs-first-row { margin-top: 0.2rem; }
+  .bs-after-row { margin-top: 0.8rem; }
+  .bs-hint { font-size: 0.85em; opacity: 0.8; }
+</style>
+
+<div class="bowed">
+  <p>
+    When a bow is drawn across a violin string, the string doesn't just get dragged along. It
+    sticks to the rosined bow hair and is carried sideways, then suddenly slips and flies back, then
+    sticks again, hundreds of times a second. This simulation models a violin string as a chain of
+    small masses connected under tension and bows it with a simple model of rosin friction, so you
+    can watch that stick&ndash;slip cycle in slow motion.
+  </p>
+
+  <div id="bs-animation">
+  <div class="bs-playback">
+    <button id="bs-play" class="bs-primary" type="button">❚❚ Pause</button>
+    <label>
+      Slow motion
+      <select id="bs-rate">
+        <option value="0.5">one vibration every 0.5 s</option>
+        <option value="2" selected>one vibration every 2 s</option>
+        <option value="8">one vibration every 8 s</option>
+        <option value="30">one vibration every 30 s</option>
+      </select>
+    </label>
+    <button id="bs-restart" type="button">Start from rest</button>
+    <button id="bs-pluck" type="button">Pluck instead</button>
+    <button id="bs-listen" type="button">🔊 Listen</button>
+    <button id="bs-live" type="button" aria-pressed="false">🎻 Play continuously</button>
+  </div>
+
+  <div class="bs-view">
+    <canvas id="bs-string" aria-label="Animation of the bowed string"></canvas>
+    <button id="bs-pin-animation" class="bs-pin" type="button" aria-pressed="true">📌</button>
+    <button class="bs-full" type="button" data-full="bs-animation" aria-label="Full screen" title="Full screen">⛶</button>
+  </div>
+  </div>
+  <div class="bs-legend">
+    <span><span class="bs-swatch" style="background:#2a78d6"></span>Bow holding the string (sticking)</span>
+    <span><span class="bs-swatch" style="background:#eb6834"></span>String slipping under the bow</span>
+    <span id="bs-legend-velocity"><span class="bs-swatch" style="background:#6250d6"></span>Velocity of each mass</span>
+    <span id="bs-legend-force"><span class="bs-swatch" style="background:#008300"></span>Net force on each mass</span>
+  </div>
+  <div class="bs-row bs-show">
+    <span class="bs-row-label">Show</span>
+    <label><input id="bs-show-trail" type="checkbox" checked> Trail</label>
+    <label><input id="bs-show-corner" type="checkbox" checked> Corner</label>
+    <label><input id="bs-show-velocity" type="checkbox"> Velocities</label>
+    <label><input id="bs-show-force" type="checkbox"> Forces</label>
+  </div>
+  <p id="bs-status" class="bs-status" aria-live="polite"></p>
+
+  <div id="bs-charts-view" class="bs-view">
+    <canvas id="bs-charts" aria-label="Velocity of the string under the bow, bow friction, and bridge displacement over time"></canvas>
+    <button id="bs-pin-charts" class="bs-pin" type="button" aria-pressed="false">📌</button>
+    <button class="bs-full" type="button" data-full="bs-charts-view" aria-label="Full screen" title="Full screen">⛶</button>
+  </div>
+
+  <div id="bs-sound-view" class="bs-sound">
+    <div class="bs-view"><canvas id="bs-scope" aria-label="Oscilloscope trace of the output"></canvas></div>
+    <div class="bs-view"><canvas id="bs-spectrum" aria-label="Spectrum of the output, with the fundamental and harmonics marked"></canvas></div>
+    <button id="bs-pin-sound" class="bs-pin" type="button" aria-pressed="false">📌</button>
+    <button class="bs-full" type="button" data-full="bs-sound-view" aria-label="Full screen" title="Full screen">⛶</button>
+  </div>
+
+  <fieldset id="bs-bowing" class="bs-settings">
+    <legend>Bowing</legend>
+    <div class="bs-sliders">
+      <label class="bs-slider">
+        <span>Bow force <output id="bs-force-out"></output></span>
+        <input id="bs-force" type="range" min="0" max="1000" step="1">
+        <span id="bs-force-band" class="bs-band" aria-hidden="true"></span>
+      </label>
+      <label class="bs-slider">
+        <span>Bow speed <output id="bs-speed-out"></output></span>
+        <input id="bs-speed" type="range" min="0.05" max="1" step="0.01">
+        <span id="bs-speed-band" class="bs-band" aria-hidden="true"></span>
+      </label>
+      <label class="bs-slider">
+        <span>Distance from the bridge <output id="bs-position-out"></output></span>
+        <input id="bs-position" type="range" min="0.03" max="0.3" step="0.005">
+        <span id="bs-position-band" class="bs-band" aria-hidden="true"></span>
+      </label>
+      <label class="bs-slider">
+        <span>Static friction (sticking) <output id="bs-mu-static-out"></output></span>
+        <input id="bs-mu-static" type="range" min="0.2" max="1.5" step="0.01">
+        <span id="bs-mu-static-band" class="bs-band" aria-hidden="true"></span>
+      </label>
+      <label class="bs-slider">
+        <span>Sliding friction (fast slip) <output id="bs-mu-dynamic-out"></output></span>
+        <input id="bs-mu-dynamic" type="range" min="0.05" max="1" step="0.01">
+        <span id="bs-mu-dynamic-band" class="bs-band" aria-hidden="true"></span>
+      </label>
+    </div>
+    <p class="bs-hint">
+      <span class="bs-swatch" style="background:#1baf7a"></span>Green under a slider marks the
+      values that give clean Helmholtz motion (a good tone) with the other settings as they are.
+    </p>
+    <div class="bs-row">
+      <span class="bs-row-label">Examples</span>
+      <button type="button" data-preset="helmholtz">Good tone</button>
+      <button type="button" data-preset="light">Too little force</button>
+      <button type="button" data-preset="heavy">Too much force</button>
+      <button type="button" data-preset="bridge">Close to the bridge</button>
+    </div>
+  </fieldset>
+  <p id="bs-plucked-note" class="bs-settings bs-hint" hidden>
+    The string has been plucked, so the bow is lifted and its settings are hidden. Click "Start
+    from rest" or "Play continuously" to bow it again.
+  </p>
+
+  <fieldset class="bs-settings">
+    <legend>String</legend>
+    <div class="bs-row bs-first-row">
+      <span class="bs-row-label">Preset</span>
+      <select id="bs-string-select" aria-label="String preset"></select>
+      <span>Pitch: <output id="bs-pitch-out"></output></span>
+    </div>
+    <div class="bs-sliders bs-after-row">
+      <label class="bs-slider">
+        <span>Tension <output id="bs-tension-out"></output></span>
+        <input id="bs-tension" type="range" min="10" max="120" step="1">
+      </label>
+      <label class="bs-slider">
+        <span>Density (mass per length) <output id="bs-density-out"></output></span>
+        <input id="bs-density" type="range" min="0" max="1000" step="1">
+      </label>
+      <label class="bs-slider">
+        <span>Length <output id="bs-length-out"></output></span>
+        <input id="bs-length" type="range" min="150" max="700" step="1">
+      </label>
+      <label class="bs-slider">
+        <span>Damping (air and internal friction) <output id="bs-decay-out"></output></span>
+        <input id="bs-decay" type="range" min="0" max="1000" step="1">
+      </label>
+    </div>
+    <p class="bs-hint">
+      The damping is given as the time \(\tau\) for a free vibration to die down to \(1/e\) of
+      its size from these losses alone. A note dies away faster than that, because the simulation
+      also loses energy at short wavelengths (which rounds off sharp corners) and into the bridge.
+    </p>
+  </fieldset>
+
+  <fieldset class="bs-settings">
+    <legend>Bridge</legend>
+    <div class="bs-sliders">
+      <label class="bs-slider">
+        <span>Stiffness <output id="bs-stiffness-out"></output></span>
+        <input id="bs-stiffness" type="range" min="0" max="1000" step="1">
+      </label>
+      <label class="bs-slider">
+        <span>Damping <output id="bs-damping-out"></output></span>
+        <input id="bs-damping" type="range" min="0" max="1000" step="1">
+      </label>
+    </div>
+    <div class="bs-row">
+      <button id="bs-bridge-reset" type="button">Default bridge</button>
+      <span class="bs-hint">The bridge's moving mass is 1&nbsp;g.</span>
+    </div>
+  </fieldset>
+
+  <h2>What you're seeing</h2>
+  <p>
+    The string is held at the nut (left) and rests on the bridge (right). It's divided into 120 segments,
+    with a point mass \(m\) at each joint. Each mass is pulled by the tension \(T\) in the two
+    segments on either side of it, and when the string is straight those pulls cancel. When it's
+    bent, they don't: for small displacements, the net sideways force on mass \(i\) is
+    \[
+      F_i = \frac{T}{h}\,\bigl(y_{i+1} - 2y_i + y_{i-1}\bigr),
+    \]
+    where \(y_i\) is its displacement and \(h\) is the segment length. That force is proportional
+    to how sharply the string bends at that point, so a straight stretch of string feels no net
+    force and keeps moving at whatever speed it already has. Only the bends accelerate. Turn on
+    "Forces" to see this: the force is concentrated at the corners. With many segments, these
+    equations become the wave equation, with waves traveling at \(c = \sqrt{T/\mu}\), where
+    \(\mu\) is the mass per unit length.
+  </p>
+  <p>
+    The "String" settings choose \(T\), \(\mu\), and the length \(L\). A wave takes \(2L/c\) to
+    travel to one end of the string, back to the other, and return, so the open string's pitch is
+    \[
+      f_0 = \frac{c}{2L} = \frac{1}{2L}\sqrt{\frac{T}{\mu}}.
+    \]
+    Tightening the string raises the pitch; a heavier or longer string lowers it. The violin
+    presets all have the same length, and they get their different pitches mostly from their
+    different densities: the G string is more than six times heavier per meter than the E string.
+  </p>
+  <p>
+    The bow acts on the one mass under it. The rosin gives it two kinds of friction:
+  </p>
+  <ul>
+    <li>
+      <strong>Sticking.</strong> While the string moves with the bow hair, static friction holds it
+      there with any force up to \(\mu_s N\), where \(N\) is the bow force (how hard the bow presses
+      on the string) and \(\mu_s\) is the coefficient of static friction (0.8 by default).
+    </li>
+    <li>
+      <strong>Slipping.</strong> Once the tension pulls harder than that, the string breaks loose.
+      Sliding friction is weaker, and it gets weaker still the faster the string slides, falling
+      toward \(\mu_d N\) (with \(\mu_d = 0.3\) by default). That drop is what lets the string fly back so freely.
+    </li>
+  </ul>
+  <p>
+    The second chart shows the friction. While the string sticks, friction is whatever force it
+    takes to keep the string moving with the bow, which stays below the upper dashed line,
+    \(\mu_s N\). When the Helmholtz corner (below) reaches the bow, the force needed to hold the
+    string jumps above that line (the spike), and the string breaks loose. While it slips, friction
+    drops toward the lower dashed line, \(\mu_d N\), then climbs back as the string slows down,
+    until the string is moving at the bow's speed again and sticks (the dashed line in the first
+    chart). So a force limit decides when the string starts to slip, and the bow's speed decides
+    when it stops.
+  </p>
+  <p>
+    When you change a setting, the view skips ahead to the motion the string settles into, which
+    takes dozens of vibrations. To watch it get started instead, click "Start from rest". The
+    vertical scale is exaggerated a great deal. A real string swings by a millimeter or
+    two at most, less than 1% of its length.
+  </p>
+
+  <h2>Helmholtz motion</h2>
+  <p>
+    With a good balance of bow force, speed, and position, the string settles into a regular
+    pattern, first described by Hermann von Helmholtz in the 1860s. At any moment the string is two
+    straight lines with one sharp bend between them, the <em>Helmholtz corner</em>. The corner
+    races around the string, back and forth between nut and bridge, once per vibration. Turn on
+    "Trail" to see its path: the corner traces out two curved arcs, so the string seems to fill a
+    lens shape, which is what your eye sees on a real bowed string.
+  </p>
+  <p>
+    The bow only notices the corner when it passes underneath. While the corner makes the long trip
+    to the nut and back, the string under the bow moves steadily with the bow hair (sticking).
+    When the corner passes the bow on its way to the bridge, it releases the string, which slips
+    back the other way until the corner returns from the bridge and the bow catches it again. If the
+    bow is a fraction \(\beta\) of the string's length from the bridge, the string sticks for a
+    fraction \(1 - \beta\) of each vibration and slips for \(\beta\). The first chart above shows
+    this: a long, flat stretch at the bow's speed, then a short, fast swing in the other direction,
+    once per vibration.
+  </p>
+  <p>
+    A few consequences:
+  </p>
+  <ul>
+    <li>
+      <strong>The bow doesn't set the pitch.</strong> The corner takes the same time \(2L/c\) to go
+      around no matter how the string is bowed, so the frequency is the string's own.
+    </li>
+    <li>
+      <strong>Faster bowing and bowing nearer the bridge are louder.</strong> The string has to
+      keep up with the bow for the whole sticking phase, so the size of the vibration is
+      proportional to \(v_{\text{bow}}/\beta\).
+    </li>
+    <li>
+      <strong>The string drives the bridge with a sawtooth.</strong> The force of the string on the
+      bridge rises steadily and then drops suddenly once per vibration. A sawtooth contains every
+      harmonic, which is why a bowed string sounds bright and rich. In ideal
+      Helmholtz motion, the harmonics with a node at the bow are missing (bowing at exactly
+      \(\beta = 1/8\) would remove the 8th, 16th, 24th, &hellip;). Real motion isn't quite
+      ideal, and in this simulation those harmonics don't disappear.
+    </li>
+  </ul>
+
+  <h2>The bridge and the sound</h2>
+  <p>
+    The string doesn't make much sound by itself, because it's too thin to push much air. Instead,
+    it rocks the bridge, which shakes the violin's body, and the body makes the sound. Here the
+    bridge is a single mass \(m_b = 1\) g on a spring and a damper. The string pulls it sideways,
+    the spring pulls it back toward its rest position, and the damper resists its motion:
+    \[
+      m_b \ddot{y}_b = \frac{T}{h}\bigl(y_{N-1} - y_b\bigr) - k\,y_b - c\,\dot{y}_b,
+    \]
+    where \(y_b\) is the bridge's displacement, \(k\) is the stiffness, and \(c\) is the
+    damping. On its own, the bridge would ring at its resonance frequency
+    \(f_b = \frac{1}{2\pi}\sqrt{k/m_b}\), dying away more slowly the larger its quality factor
+    \(Q = \sqrt{k\,m_b}/c\) is. The default bridge resonates near 2.8&nbsp;kHz, roughly where a
+    real violin has a broad peak in its response called the "bridge hill".
+  </p>
+  <p>
+    The default bridge is stiff, so it moves only a few micrometers, far too little to see in the
+    animation. The third chart shows its motion. Each slip gives the bridge a sudden kick, which
+    sets it ringing at its resonance. "Listen" plays two seconds of this displacement, starting
+    from rest with the current settings. "Play continuously" plays it without stopping, from a
+    second copy of the string that runs in real time. Changing a setting while it plays changes
+    the bowing of that string without restarting it, as a player would mid-stroke. In both, the
+    volume follows the size of the bridge's motion. A very soft bridge can move a hundred times
+    more than the default one, more than can be played without distortion, so motion beyond about
+    four times the default is turned down to fit. The bridge responds strongly to harmonics near its
+    resonance and weakly to those far above it, so the stiffness and damping change the tone
+    color. Move the resonance and listen to the difference.
+  </p>
+  <p>
+    The oscilloscope below the charts shows this output signal over one natural period of the
+    string, \(2L/c\), lined up on each vibration's peak so that the trace holds still. (With a
+    moving bridge the actual period is a little different, so the trace doesn't quite join up
+    at its ends.) Next to it is the output's
+    spectrum: how strong each frequency is, measured over the last few dozen vibrations. A
+    periodic signal contains only the frequency it repeats at, the <em>fundamental</em>
+    \(f_0\), and whole-number multiples of it, the <em>harmonics</em> \(2f_0, 3f_0, \ldots\),
+    which appear as the numbered peaks. Move the bridge resonance (the dashed line) and watch the
+    harmonics near it get louder. Or click "Pluck instead": the string is plucked at 0.3 of its
+    length from the bridge, which is a node of the 10th harmonic, so the 10th harmonic is missing.
+  </p>
+  <p>
+    Turn the stiffness down far enough and the bridge moves visibly with the end of the string
+    (watch the spring in the animation). The end of the string is then no longer fixed, so waves
+    reflect from it late and weakened, and that can break up Helmholtz motion that a stiff bridge
+    would allow. A real violin's body has many resonances, not one, so it sounds richer
+    than this model, but the chain is the same: bow to string to bridge to body.
+  </p>
+
+  <h2>Too little force, too much force</h2>
+  <p>
+    The violinist's problem is to keep the string in Helmholtz motion. Each cell in the map below
+    is a bowing (a bow force and a distance from the bridge, at the current bow speed and bridge),
+    colored by what the string settles into when bowed that way from rest. Click or drag on the map
+    to try a bowing. The green bands under the bowing sliders show the same thing one setting at a
+    time.
+  </p>
+
+  <div id="bs-map-view" class="bs-view">
+    <canvas id="bs-map" class="bs-map" aria-label="Map of the motion produced by each bow force and position"></canvas>
+    <button class="bs-full bs-alone" type="button" data-full="bs-map-view" aria-label="Full screen" title="Full screen">⛶</button>
+  </div>
+  <div class="bs-legend">
+    <span><span class="bs-swatch" style="background:#1baf7a"></span>Clean Helmholtz motion (one slip per vibration)</span>
+    <span><span class="bs-swatch" style="background:#a9bfe8"></span>Not clean (extra slips, or wobbling during the slip)</span>
+    <span><span class="bs-swatch" style="background:#f3b08f"></span>Raucous (sticks too long)</span>
+    <span><svg width="22" height="10" aria-hidden="true"><line x1="0" y1="5" x2="22" y2="5" stroke="#222" stroke-width="1.5" stroke-dasharray="4 3"/></svg>Schelleng's maximum force</span>
+  </div>
+  <p id="bs-map-progress" class="bs-hint"></p>
+
+  <ul>
+    <li>
+      <strong>Too much force.</strong> The bow grips so hard that when the corner arrives, it can't
+      pull the string free. The corner gets held up, the motion turns irregular, and the result is a
+      harsh, crunching ("raucous") sound. The physicist John Schelleng worked out that the largest
+      force that still allows Helmholtz motion is
+      \[
+        N_{\max} = \frac{2 Z_0\, v_{\text{bow}}}{\beta\,(\mu_s - \mu_d)},
+      \]
+      where \(Z_0 = \sqrt{T\mu}\) is the string's characteristic impedance. This is the dashed line
+      in the map.
+    </li>
+    <li>
+      <strong>Too little force.</strong> The bow can't hold the string against the ripples that
+      travel along it, so the string slips twice or more per vibration. This gives a thin, airy
+      "surface" sound, often with the octave or higher harmonics louder than they should be. The
+      smallest force that works depends on the string's losses, and it grows like
+      \(v_{\text{bow}}/\beta^2\).
+    </li>
+  </ul>
+  <p>
+    Because the minimum grows faster than the maximum as the bow moves toward the bridge, the
+    window between them gets narrower. Close to the bridge you need more force, and you have to
+    control it more precisely. Far from the bridge (sul tasto), a light bow does fine. A faster
+    bow moves the whole window up, so it needs more force to match. Try the
+    "Bow speed" slider and watch the map change.
+  </p>
+  <p>
+    This model is much simpler than a real violin. The bow touches one point instead of a ribbon of
+    hair, the friction depends only on the sliding speed (real rosin softens as it heats up during
+    each slip), and the string has no stiffness or twisting motion. Its losses are also larger than a
+    real string's, which makes the playable window here narrower than on a real instrument. The
+    basic picture, though, of a sticking-and-slipping string carrying one traveling corner and
+    playable between two force limits, is the one that physicists have confirmed by experiment.
+  </p>
+
+  <h2>Further reading</h2>
+  <ul>
+    <li>J. C. Schelleng, "The bowed string and the player," <em>Journal of the Acoustical Society
+      of America</em> 53, 26&ndash;41 (1973).</li>
+    <li>M. E. McIntyre, R. T. Schumacher, and J. Woodhouse, "On the oscillations of musical
+      instruments," <em>Journal of the Acoustical Society of America</em> 74, 1325&ndash;1345
+      (1983).</li>
+    <li>J. Woodhouse and P. M. Galluzzo, "The bowed string as we know it today," <em>Acta Acustica
+      united with Acustica</em> 90, 579&ndash;589 (2004).</li>
+  </ul>
+</div>
+
+<script src="/assets/ts/out/bowed_string.js" type="module"></script>
