@@ -217,11 +217,41 @@ excerpt: "A tuner and live spectrum analyzer: see the frequencies in the sound f
   <details class="ft-info">
     <summary>About this graph</summary>
     <p>
-      The tuner names the loudest note and shows how many cents sharp or flat it is. The needle is
-      in the green zone when the note is within 5 cents of equal temperament. If the loudest peak
-      is a harmonic, the tuner shows the note it's a harmonic of.
+      The tuner names the two loudest notes, lower note on the left, and shows how many cents sharp
+      or flat each one is from equal temperament. A needle is in the green zone when its note is
+      within 5 cents. A note's loudness includes its harmonics, so a low note whose fundamental is
+      weak still counts as loud. Below the notes is the interval between them, with how far it is
+      from the equal-tempered interval and from the pure one (a whole-number ratio, like 3:2 for a
+      perfect fifth), which is what you hear as beat-free when tuning strings to each other.
     </p>
   </details>
+  <fieldset class="ft-settings">
+    <legend>Tuner display</legend>
+    <div class="ft-grid">
+      <div class="ft-field">
+        <span><label for="ft-tuner-notes" data-help="Show only the loudest note, or the two loudest notes and the interval between them, for example to tune two strings to each other.">Notes shown</label></span>
+        <select id="ft-tuner-notes">
+          <option value="1">One (the loudest)</option>
+          <option value="2" selected>Two (the two loudest)</option>
+        </select>
+      </div>
+      <div class="ft-field">
+        <span><label for="ft-interval-ref" data-help="What the meter below the two notes compares their interval with. Pure intervals are whole-number ratios, like 3:2 for a perfect fifth, and sound beat-free; string players tune open strings this way. Equal-tempered intervals are what a piano is tuned to: every semitone is exactly 100 cents. Both differences are always shown as numbers.">Interval meter compares with</label></span>
+        <select id="ft-interval-ref">
+          <option value="just" selected>Pure intervals (just intonation)</option>
+          <option value="equal">Equal temperament</option>
+        </select>
+      </div>
+      <div class="ft-field">
+        <span><label for="ft-tuner-smoothing" data-help="How slowly the tuner's needles follow a note's pitch. Higher values give steadier needles that respond more slowly. This only affects the tuner's display, not which notes are detected or the other graphs.">Display smoothing</label><output id="ft-tuner-smoothing-out"></output></span>
+        <input id="ft-tuner-smoothing" type="range" min="0" max="0.95" step="0.05" value="0.75">
+      </div>
+      <div class="ft-field">
+        <span><label for="ft-tuner-hold" data-help="How long the tuner keeps showing a note at full brightness after it stops. After that, the note stays on the tuner but is dimmed until another note replaces it.">Keep showing notes for</label><output id="ft-tuner-hold-out"></output></span>
+        <input id="ft-tuner-hold" type="range" min="0" max="5" step="0.5" value="1.5">
+      </div>
+    </div>
+  </fieldset>
 
   <h2 class="ft-graph-title">Spectrum</h2>
   <div class="ft-panel">

@@ -26,8 +26,7 @@ const WEAK_HARMONIC    = 0.003; // Quietest harmonic (relative to the loudest pe
 const WEAK_FUNDAMENTAL = 0.003; // Quietest fundamental (relative to the loudest peak) that's restored below the threshold (−50 dB, since laptop microphones pick up little below about 150 Hz)
 const N_HARMONICS     = 10;   // Highest harmonic of a note that's marked when it's below the threshold
 const IN_TUNE_CENTS   = 5;    // The tuner's green zone is ± this many cents
-const TUNER_EASE      = 0.25; // How quickly the tuner follows a note that is still sounding
-const TUNER_HOLD      = 1.5;  // Seconds the tuner keeps showing the last note after it stops
+const INTERVAL_RANGE  = 30;   // The interval meter runs from −30 to +30 cents
 const HISTORY_SECONDS = 10;   // Time span of the note history
 const HISTORY_MIN_SPAN = 18;  // Fewest semitones shown in the note history
 const HISTORY_MIN_NOTE_SECONDS = 0.15; // Shortest note that widens the note history's range
@@ -80,6 +79,10 @@ const settings = {
   showFits      : true,
   showWaveform  : false,
   noiseStrength : 1,    // Multiple of the calibrated background noise that's removed
+  tunerNotes    : 2,    // How many of the loudest notes the tuner shows
+  intervalRef   : "just" as "just" | "equal", // What the tuner's interval meter compares with
+  tunerSmoothing: 0.75, // How slowly the tuner's dials follow a note (only the display)
+  tunerHold     : 1.5,  // Seconds the tuner keeps showing a note at full brightness after it stops
 };
 
 // The range of the frequency axis is chosen in notes when the axis is in notes, and in Hz otherwise.
@@ -178,6 +181,12 @@ function readSettings(): void {
   settings.showWaveform  = $<HTMLInputElement>("ft-show-waveform").checked;
   settings.noiseStrength = Number($<HTMLInputElement>("ft-noise-strength").value);
   $<HTMLOutputElement>("ft-noise-strength-out").value = `${settings.noiseStrength.toFixed(2)}×`;
+  settings.tunerNotes     = Number($<HTMLSelectElement>("ft-tuner-notes").value);
+  settings.intervalRef    = $<HTMLSelectElement>("ft-interval-ref").value as "just" | "equal";
+  settings.tunerSmoothing = Number($<HTMLInputElement>("ft-tuner-smoothing").value);
+  settings.tunerHold      = Number($<HTMLInputElement>("ft-tuner-hold").value);
+  $<HTMLOutputElement>("ft-tuner-smoothing-out").value = settings.tunerSmoothing.toFixed(2);
+  $<HTMLOutputElement>("ft-tuner-hold-out").value = `${settings.tunerHold.toFixed(1)} s`;
 
   const a4 = Number($<HTMLInputElement>("ft-a4").value);
   if (a4 >= 300 && a4 <= 600) settings.a4 = a4;
@@ -357,7 +366,6 @@ interface Peak {
 
 let peaks: Peak[] = [];
 let peakFloor = 0; // Peaks whose highest bin is below this are ignored
-let mainPeak: Peak | null = null;  // The fundamental of the strongest sound
 
 // Fits a Gaussian through bins k − 1, k, and k + 1, which is a parabola through the logarithms of
 // their magnitudes, and returns its peak.
@@ -462,8 +470,9 @@ function harmonicNumber(f: number, f0: number): number {
 
 // ⋘──────── Tuner and history state ────────⋙
 
-let tunerMidi: number | null = null; // Smoothed pitch shown on the tuner
-let lastHeard = -Infinity;           // Time when the tuner last had a note (s)
+// The notes shown on the tuner, lowest first: each one's smoothed pitch, and when it was last heard.
+interface TunerSlot { midi: number; lastHeard: number; }
+let tunerSlots: TunerSlot[] = [];
 let clock     = 0;                   // Time of the latest analyzed frame (s); stops while frozen
 let frozen    = false;
 
@@ -500,7 +509,6 @@ function analyze(): void {
   peaks = findPeaks();
   let strongest: Peak | null = null;
   for (const p of peaks) if (!strongest || p.mag > strongest.mag) strongest = p;
-  mainPeak  = strongest ? strongest.fundamental ?? strongest : null;
 
   // Noise can poke a peak just above the cutoff for a frame or two, so a note is only recorded,
   // and only shown on the tuner, once it has lasted NOTE_CONFIRM_SECONDS. Its first moments are
@@ -527,14 +535,41 @@ function analyze(): void {
   history.push(frame);
   while (history.length && history[0].t < clock - HISTORY_SECONDS) history.shift();
 
-  if (mainPeak && noteRuns.get(Math.round(mainPeak.midi))?.confirmed) {
-    if (tunerMidi !== null && Math.abs(mainPeak.midi - tunerMidi) < 0.5) {
-      tunerMidi += (mainPeak.midi - tunerMidi) * TUNER_EASE;
-    } else {
-      tunerMidi = mainPeak.midi;
-    }
-    lastHeard = clock;
+  updateTuner();
+}
+
+// Points the tuner's slots at the loudest notes that have lasted long enough to count, by the
+// loudness of each note together with its harmonics (so that a low note with a weak fundamental
+// isn't passed over). A slot follows its note while it's sounding, eased by the display smoothing,
+// and jumps to a new note when its own has stopped. The slots are kept in order of pitch.
+function updateTuner(): void {
+  const count = settings.tunerNotes;
+  if (tunerSlots.length > count) tunerSlots = tunerSlots.sort((a, b) => b.lastHeard - a.lastHeard).slice(0, count);
+
+  const loudness = new Map<Peak, number>();
+  for (const p of notePeaks()) if (noteRuns.get(Math.round(p.midi))?.confirmed) loudness.set(p, p.mag);
+  for (const p of peaks) {
+    if (p.fundamental && loudness.has(p.fundamental)) loudness.set(p.fundamental, loudness.get(p.fundamental)! + p.mag);
   }
+  const targets = [...loudness.keys()].sort((a, b) => loudness.get(b)! - loudness.get(a)!).slice(0, count);
+
+  const ease = 1 - settings.tunerSmoothing;
+  const used = new Set<TunerSlot>();
+  for (const note of targets) {
+    let slot = tunerSlots.find(s => !used.has(s) && Math.abs(s.midi - note.midi) < 0.5);
+    if (slot) {
+      slot.midi += (note.midi - slot.midi) * ease;
+    } else if (tunerSlots.length < count) {
+      tunerSlots.push(slot = { midi: note.midi, lastHeard: clock });
+    } else {
+      // The slot whose note was heard least recently switches to this note.
+      slot = tunerSlots.filter(s => !used.has(s)).sort((a, b) => a.lastHeard - b.lastHeard)[0];
+      slot.midi = note.midi;
+    }
+    slot.lastHeard = clock;
+    used.add(slot);
+  }
+  tunerSlots.sort((a, b) => a.midi - b.midi);
 }
 
 // The peaks that are labeled as notes.
@@ -905,7 +940,8 @@ function canvasHeight(canvas: HTMLCanvasElement, height: number): number {
   return Math.max(height / 2, Math.floor(window.innerHeight - FULL_PAD));
 }
 
-const TUNER_H = 160; // Height of the tuner dial (px)
+const TUNER_H    = 160; // Height of a tuner dial (px)
+const INTERVAL_H = 76;  // Height of the interval readout below two dials (px)
 
 function fitCanvas(canvas: HTMLCanvasElement, normalHeight: number): { ctx: CanvasRenderingContext2D; w: number; h: number } {
   const height = canvasHeight(canvas, normalHeight);
@@ -933,33 +969,53 @@ function placeholder(ctx: CanvasRenderingContext2D, w: number, h: number, text: 
 // ⋘──────── Tuner ────────⋙
 
 function drawTuner(): void {
-  const { ctx, w: canvasW, h } = fitCanvas(tunerCanvas, TUNER_H);
-  // The dial is laid out for a TUNER_H-tall canvas. In full screen it's scaled up to fill the
+  const two = settings.tunerNotes === 2;
+  const layoutH = TUNER_H + (two ? INTERVAL_H : 0);
+  const { ctx, w: canvasW, h } = fitCanvas(tunerCanvas, layoutH);
+  // The tuner is laid out for a layoutH-tall canvas. In full screen it's scaled up to fill the
   // larger one (as far as the width allows) and centered.
-  const scale = Math.max(1, Math.min(h / TUNER_H, canvasW / 320));
-  ctx.translate(0, (h - TUNER_H * scale) / 2);
+  const scale = Math.max(1, Math.min(h / layoutH, canvasW / (two ? 520 : 320)));
+  ctx.translate(0, (h - layoutH * scale) / 2);
   ctx.scale(scale, scale);
   const w = canvasW / scale;
-  const recent = tunerMidi !== null && clock - lastHeard < TUNER_HOLD;
-  ctx.globalAlpha = recent ? 1 : 0.35;
 
+  if (!two) {
+    drawDial(ctx, tunerSlots[0], 0, w, "Play a note");
+    return;
+  }
+  const [low, high] = tunerSlots;
+  drawDial(ctx, low, 0, w / 2, "Play a note");
+  drawDial(ctx, high, w / 2, w / 2, low ? "Play a second note" : "");
+  ctx.strokeStyle = GRID;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(w / 2, 12);
+  ctx.lineTo(w / 2, TUNER_H - 12);
+  ctx.moveTo(20, TUNER_H + 0.5);
+  ctx.lineTo(w - 20, TUNER_H + 0.5);
+  ctx.stroke();
+  drawInterval(ctx, low, high, w);
+}
+
+const isRecent = (slot: TunerSlot) => clock - slot.lastHeard < settings.tunerHold;
+
+// One note's name, frequency, and a meter from −50 to +50 cents, in the column [x0, x0 + width].
+// Notes that stopped more than the hold time ago are dimmed.
+function drawDial(ctx: CanvasRenderingContext2D, slot: TunerSlot | undefined, x0: number, width: number, emptyText: string): void {
+  const cx = x0 + width / 2;
+  ctx.globalAlpha = slot && isRecent(slot) ? 1 : 0.35;
   ctx.textAlign = "center";
   ctx.textBaseline = "alphabetic";
   ctx.fillStyle = TEXT;
   ctx.font = "bold 44px system-ui, sans-serif";
-  ctx.fillText(tunerMidi === null ? "–" : noteName(tunerMidi), w / 2, 52);
+  ctx.fillText(slot ? noteName(slot.midi) : "–", cx, 52);
 
-  const cents = tunerMidi === null ? 0 : centsOff(tunerMidi);
+  const cents = slot ? centsOff(slot.midi) : 0;
   ctx.font = "14px system-ui, sans-serif";
   ctx.fillStyle = MUTED;
-  if (tunerMidi !== null) {
-    ctx.fillText(`${freqFromMidi(tunerMidi).toFixed(1)} Hz   ·   ${formatCents(cents)}`, w / 2, 76);
-  } else {
-    ctx.fillText("Play a note", w / 2, 76);
-  }
+  ctx.fillText(slot ? `${freqFromMidi(slot.midi).toFixed(1)} Hz   ·   ${formatCents(cents)}` : emptyText, cx, 76);
 
-  // Meter from −50 to +50 cents.
-  const L = 20, R = w - 20, y = 112, xOf = (c: number) => L + (c + 50) / 100 * (R - L);
+  const L = x0 + 20, R = x0 + width - 20, y = 112, xOf = (c: number) => L + (c + 50) / 100 * (R - L);
   ctx.fillStyle = "rgba(60, 200, 90, 0.25)";
   ctx.fillRect(xOf(-IN_TUNE_CENTS), y - 16, xOf(IN_TUNE_CENTS) - xOf(-IN_TUNE_CENTS), 32);
   ctx.strokeStyle = MUTED;
@@ -972,20 +1028,106 @@ function drawTuner(): void {
     ctx.moveTo(xOf(c), y - len);
     ctx.lineTo(xOf(c), y + len);
     ctx.stroke();
-    if (c % 25 === 0 || c % 50 === 0) ctx.fillText(c === 0 ? "0" : formatCents(c), xOf(c), y + 32);
+    if (c % 50 === 0 || (c % 25 === 0 && R - L > 200)) ctx.fillText(c === 0 ? "0" : formatCents(c), xOf(c), y + 32);
   }
-  if (tunerMidi !== null) {
-    const x = xOf(cents);
-    ctx.strokeStyle = centsColor(cents);
-    ctx.lineWidth = 4;
-    ctx.lineCap = "round";
-    ctx.beginPath();
-    ctx.moveTo(x, y - 18);
-    ctx.lineTo(x, y + 18);
-    ctx.stroke();
-    ctx.lineCap = "butt";
-  }
+  if (slot) drawNeedle(ctx, xOf(cents), y, 18, centsColor(cents));
   ctx.globalAlpha = 1;
+}
+
+function drawNeedle(ctx: CanvasRenderingContext2D, x: number, y: number, half: number, color: string): void {
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 4;
+  ctx.lineCap = "round";
+  ctx.beginPath();
+  ctx.moveTo(x, y - half);
+  ctx.lineTo(x, y + half);
+  ctx.stroke();
+  ctx.lineCap = "butt";
+}
+
+// The interval between the two notes: its name and size, how far it is from the equal-tempered
+// and the pure (just) interval, and a meter of how far it is from the one chosen in the settings.
+function drawInterval(ctx: CanvasRenderingContext2D, low: TunerSlot | undefined, high: TunerSlot | undefined, w: number): void {
+  const top = TUNER_H;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "alphabetic";
+  if (!low || !high) {
+    ctx.globalAlpha = 0.35;
+    ctx.fillStyle = MUTED;
+    ctx.font = "14px system-ui, sans-serif";
+    ctx.fillText("The interval between two notes is shown here", w / 2, top + INTERVAL_H / 2 + 5);
+    ctx.globalAlpha = 1;
+    return;
+  }
+  const interval = describeInterval(100 * (high.midi - low.midi));
+  ctx.globalAlpha = isRecent(low) && isRecent(high) ? 1 : 0.35;
+  ctx.fillStyle = TEXT;
+  ctx.font = "bold 15px system-ui, sans-serif";
+  ctx.fillText(`${interval.name}   ·   ${Math.round(interval.cents)}¢`, w / 2, top + 20);
+  ctx.fillStyle = MUTED;
+  ctx.font = "13px system-ui, sans-serif";
+  ctx.fillText(`${formatCents(interval.fromEqual)} from equal-tempered   ·   ${formatCents(interval.fromJust)} from pure (${interval.ratio})`, w / 2, top + 40);
+
+  // Meter of the difference from the chosen reference.
+  const off = settings.intervalRef === "just" ? interval.fromJust : interval.fromEqual;
+  const half = Math.min(170, w / 2 - 30), L = w / 2 - half, R = w / 2 + half, y = top + 60;
+  const xOf = (c: number) => L + (Math.max(-INTERVAL_RANGE, Math.min(INTERVAL_RANGE, c)) + INTERVAL_RANGE) / (2 * INTERVAL_RANGE) * (R - L);
+  ctx.fillStyle = "rgba(60, 200, 90, 0.25)";
+  ctx.fillRect(xOf(-IN_TUNE_CENTS), y - 7, xOf(IN_TUNE_CENTS) - xOf(-IN_TUNE_CENTS), 14);
+  ctx.strokeStyle = MUTED;
+  ctx.lineWidth = 1;
+  for (let c = -INTERVAL_RANGE; c <= INTERVAL_RANGE; c += 10) {
+    const len = c === 0 || Math.abs(c) === INTERVAL_RANGE ? 7 : 4;
+    ctx.beginPath();
+    ctx.moveTo(xOf(c), y - len);
+    ctx.lineTo(xOf(c), y + len);
+    ctx.stroke();
+  }
+  ctx.font = "11px system-ui, sans-serif";
+  ctx.textAlign = "right";
+  ctx.fillStyle = MUTED;
+  ctx.fillText(settings.intervalRef === "just" ? "vs. pure" : "vs. equal", L - 8, y + 4);
+  drawNeedle(ctx, xOf(off), y, 8, centsColor(off));
+  ctx.globalAlpha = 1;
+}
+
+// Names of the intervals within an octave, and the whole-number ratios of their pure (just)
+// versions.
+const INTERVALS: [string, number, number][] = [
+  ["Unison", 1, 1], ["Minor second", 16, 15], ["Major second", 9, 8], ["Minor third", 6, 5],
+  ["Major third", 5, 4], ["Perfect fourth", 4, 3], ["Tritone", 45, 32], ["Perfect fifth", 3, 2],
+  ["Minor sixth", 8, 5], ["Major sixth", 5, 3], ["Minor seventh", 9, 5], ["Major seventh", 15, 8],
+];
+// Names of the intervals between an octave and two octaves.
+const COMPOUND_INTERVALS = [
+  "Octave", "Minor ninth", "Major ninth", "Minor tenth", "Major tenth", "Perfect eleventh",
+  "Augmented eleventh", "Perfect twelfth", "Minor thirteenth", "Major thirteenth",
+  "Minor fourteenth", "Major fourteenth",
+];
+
+// The nearest named interval to an interval of the given size (in cents), with how far the size
+// is from its equal-tempered and pure versions.
+function describeInterval(cents: number): { name: string; cents: number; fromEqual: number; fromJust: number; ratio: string } {
+  const semitones = Math.max(0, Math.round(cents / 100));
+  const octaves = Math.floor(semitones / 12), within = semitones % 12;
+  const [simpleName, num, den] = INTERVALS[within];
+  const name =
+    octaves === 0 ? simpleName :
+    octaves === 1 ? COMPOUND_INTERVALS[within] :
+    within === 0  ? `${octaves} octaves` :
+                    `${simpleName} + ${octaves} octaves`;
+  let top = num * 2 ** octaves, bottom = den;
+  const gcd = (a: number, b: number): number => b ? gcd(b, a % b) : a;
+  const g = gcd(top, bottom);
+  top /= g;
+  bottom /= g;
+  return {
+    name,
+    cents,
+    fromEqual: cents - 100 * semitones,
+    fromJust : cents - 1200 * Math.log2(top / bottom),
+    ratio    : `${top}:${bottom}`,
+  };
 }
 
 // ⋘──────── Spectrum ────────⋙
