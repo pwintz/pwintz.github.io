@@ -158,9 +158,10 @@ excerpt: "A tuner and live spectrum analyzer: see the frequencies in the sound f
     sketch I wrote to tune my violin and look at its harmonics.
   </p>
   <p>
-    Choose an input and press <strong>Start</strong>. The microphone is processed entirely in your
-    browser and isn't recorded or sent anywhere. If you don't want to use a microphone, try the
-    test tone.
+    Choose an input. For the microphone, press <strong>Enable microphone</strong> the first time
+    to let the page use it. The microphone is processed entirely in your browser and isn't
+    recorded or sent anywhere. If you don't want to use a microphone, choose the test tone and
+    press <strong>Play</strong>.
   </p>
 
   <div class="ft-controls">
@@ -171,7 +172,7 @@ excerpt: "A tuner and live spectrum analyzer: see the frequencies in the sound f
         <option value="file">Audio file</option>
       </select>
     </label>
-    <button id="ft-start" class="ft-primary" type="button">▶ Start</button>
+    <button id="ft-start" class="ft-primary" type="button" hidden>🎤 Enable microphone</button>
     <button id="ft-freeze" type="button" aria-pressed="false">❚❚ Freeze</button>
     <span class="ft-noise">
       <button id="ft-noise" type="button" data-help="Background noise, like the hum of a fan or traffic, can make large peaks in the spectrum, especially at low frequencies. Press this while it's quiet: the tuner listens for 4 seconds and from then on removes that noise from the spectrum (shown as a shaded blue area). The calibration is saved for your next visit. Calibrate again if the noise changes, or if you're somewhere else.">Calibrate background noise</button>
@@ -180,6 +181,7 @@ excerpt: "A tuner and live spectrum analyzer: see the frequencies in the sound f
     </span>
 
     <div id="ft-tone-controls" class="ft-source-controls" hidden>
+      <button id="ft-tone-play" class="ft-primary" type="button">▶ Play</button>
       <label class="ft-pitch">Pitch
         <input id="ft-tone-pitch" type="range" min="36" max="96" step="0.01" value="69">
         <output id="ft-tone-pitch-out"></output>
@@ -210,48 +212,44 @@ excerpt: "A tuner and live spectrum analyzer: see the frequencies in the sound f
   </div>
   <p id="ft-status" class="ft-status" role="status" hidden></p>
 
+  <!-- The tuner is hidden until it's ready. (Its elements stay in the page, since the script uses
+       them; remove `hidden` to show it.) -->
+  <div id="ft-tuner-section" hidden>
   <h2 class="ft-graph-title">Tuner</h2>
   <div class="ft-panel">
-    <canvas id="ft-tuner" aria-label="Tuner showing the strongest note and how many cents sharp or flat it is"></canvas>
+    <canvas id="ft-tuner" aria-label="The recent notes, each with its pitch over the last few seconds and how many cents sharp or flat it is"></canvas>
   </div>
   <details class="ft-info">
     <summary>About this graph</summary>
     <p>
-      The tuner names the two loudest notes, lower note on the left, and shows how many cents sharp
-      or flat each one is from equal temperament. A needle is in the green zone when its note is
-      within 5 cents. A note's loudness includes its harmonics, so a low note whose fundamental is
-      weak still counts as loud. Below the notes is the interval between them, with how far it is
-      from the equal-tempered interval and from the pure one (a whole-number ratio, like 3:2 for a
-      perfect fifth), which is what you hear as beat-free when tuning strings to each other.
+      The notes you've played in the last few seconds, on a pitch axis that's zoomed in so that
+      each semitone gets a tall row: a line in the middle of a row is in tune with equal
+      temperament, above it is sharp, and below it is flat. The green bands are ±5 cents. The axis
+      follows the notes you're playing, letting go of a note gradually after it stops; notes within an octave of each other share one continuous
+      axis, and when notes are farther apart, the pitches between them are left out.
+    </p>
+    <p>
+      On the right, each sounding note has a tall bar that magnifies how sharp or flat it is, level
+      with its line. A bar's position from left to right follows the note's pitch within the
+      octave, from C at the left to B at the right, so notes near C appear at both ends. A bar
+      follows its note, sliding to the next note when one nearby takes its place, and disappears
+      when its note stops. Quieter notes are dimmer.
     </p>
   </details>
   <fieldset class="ft-settings">
     <legend>Tuner display</legend>
     <div class="ft-grid">
       <div class="ft-field">
-        <span><label for="ft-tuner-notes" data-help="Show only the loudest note, or the two loudest notes and the interval between them, for example to tune two strings to each other.">Notes shown</label></span>
-        <select id="ft-tuner-notes">
-          <option value="1">One (the loudest)</option>
-          <option value="2" selected>Two (the two loudest)</option>
-        </select>
+        <span><label for="ft-tuner-seconds" data-help="How many seconds of each note's pitch are shown.">Tuner history</label><output id="ft-tuner-seconds-out"></output></span>
+        <input id="ft-tuner-seconds" type="range" min="1" max="10" step="1" value="3">
       </div>
       <div class="ft-field">
-        <span><label for="ft-interval-ref" data-help="What the meter below the two notes compares their interval with. Pure intervals are whole-number ratios, like 3:2 for a perfect fifth, and sound beat-free; string players tune open strings this way. Equal-tempered intervals are what a piano is tuned to: every semitone is exactly 100 cents. Both differences are always shown as numbers.">Interval meter compares with</label></span>
-        <select id="ft-interval-ref">
-          <option value="just" selected>Pure intervals (just intonation)</option>
-          <option value="equal">Equal temperament</option>
-        </select>
-      </div>
-      <div class="ft-field">
-        <span><label for="ft-tuner-smoothing" data-help="How slowly the tuner's needles follow a note's pitch. Higher values give steadier needles that respond more slowly. This only affects the tuner's display, not which notes are detected or the other graphs.">Display smoothing</label><output id="ft-tuner-smoothing-out"></output></span>
+        <span><label for="ft-tuner-smoothing" data-help="How slowly the bars on the right follow a note's pitch. Higher values give steadier bars that respond more slowly. This only affects those bars, not the pitch lines, which notes are detected, or the other graphs.">Display smoothing</label><output id="ft-tuner-smoothing-out"></output></span>
         <input id="ft-tuner-smoothing" type="range" min="0" max="0.95" step="0.05" value="0.75">
-      </div>
-      <div class="ft-field">
-        <span><label for="ft-tuner-hold" data-help="How long the tuner keeps showing a note at full brightness after it stops. After that, the note stays on the tuner but is dimmed until another note replaces it.">Keep showing notes for</label><output id="ft-tuner-hold-out"></output></span>
-        <input id="ft-tuner-hold" type="range" min="0" max="5" step="0.5" value="1.5">
       </div>
     </div>
   </fieldset>
+  </div>
 
   <h2 class="ft-graph-title">Spectrum</h2>
   <div class="ft-panel">
@@ -421,8 +419,7 @@ excerpt: "A tuner and live spectrum analyzer: see the frequencies in the sound f
     (The catch is that a note played together with its octave is also hidden; uncheck "Detect and
     ignore harmonics" to see every peak.) Low notes often have a fundamental much quieter than
     their harmonics, so a peak below the threshold is still counted as a note when at least two of
-    the stronger peaks are its harmonics. The tuner at the top shows the fundamental of the loudest
-    sound.
+    the stronger peaks are its harmonics.
   </p>
   <p>
     Steady background noise, from a fan, a refrigerator, or traffic, mostly sits at low

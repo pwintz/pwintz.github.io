@@ -26,7 +26,6 @@ const WEAK_HARMONIC    = 0.003; // Quietest harmonic (relative to the loudest pe
 const WEAK_FUNDAMENTAL = 0.003; // Quietest fundamental (relative to the loudest peak) that's restored below the threshold (−50 dB, since laptop microphones pick up little below about 150 Hz)
 const N_HARMONICS     = 10;   // Highest harmonic of a note that's marked when it's below the threshold
 const IN_TUNE_CENTS   = 5;    // The tuner's green zone is ± this many cents
-const INTERVAL_RANGE  = 30;   // The interval meter runs from −30 to +30 cents
 const HISTORY_SECONDS = 10;   // Time span of the note history
 const HISTORY_MIN_SPAN = 18;  // Fewest semitones shown in the note history
 const HISTORY_MIN_NOTE_SECONDS = 0.15; // Shortest note that widens the note history's range
@@ -45,7 +44,8 @@ const GRID  = "rgba(255, 255, 255, 0.08)";
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
 
 const sourceSelect   = $<HTMLSelectElement>("ft-source");
-const startButton    = $<HTMLButtonElement>("ft-start");
+const startButton    = $<HTMLButtonElement>("ft-start");     // Enables the microphone
+const tonePlayButton = $<HTMLButtonElement>("ft-tone-play");
 const freezeButton   = $<HTMLButtonElement>("ft-freeze");
 const statusLine     = $<HTMLParagraphElement>("ft-status");
 const toneControls   = $<HTMLDivElement>("ft-tone-controls");
@@ -59,6 +59,7 @@ const fileInput      = $<HTMLInputElement>("ft-file");
 const audioElement   = $<HTMLAudioElement>("ft-audio");
 
 const tunerCanvas     = $<HTMLCanvasElement>("ft-tuner");
+const tunerSection    = $<HTMLDivElement>("ft-tuner-section"); // Hidden while the tuner isn't finished
 const spectrumCanvas  = $<HTMLCanvasElement>("ft-spectrum");
 const historyCanvas   = $<HTMLCanvasElement>("ft-history");
 
@@ -79,10 +80,8 @@ const settings = {
   showFits      : true,
   showWaveform  : false,
   noiseStrength : 1,    // Multiple of the calibrated background noise that's removed
-  tunerNotes    : 2,    // How many of the loudest notes the tuner shows
-  intervalRef   : "just" as "just" | "equal", // What the tuner's interval meter compares with
-  tunerSmoothing: 0.75, // How slowly the tuner's dials follow a note (only the display)
-  tunerHold     : 1.5,  // Seconds the tuner keeps showing a note at full brightness after it stops
+  tunerSeconds  : 3,    // Length of the tuner's history (s)
+  tunerSmoothing: 0.75, // How slowly the tuner's bars follow a note (only the display)
 };
 
 // The range of the frequency axis is chosen in notes when the axis is in notes, and in Hz otherwise.
@@ -181,12 +180,10 @@ function readSettings(): void {
   settings.showWaveform  = $<HTMLInputElement>("ft-show-waveform").checked;
   settings.noiseStrength = Number($<HTMLInputElement>("ft-noise-strength").value);
   $<HTMLOutputElement>("ft-noise-strength-out").value = `${settings.noiseStrength.toFixed(2)}×`;
-  settings.tunerNotes     = Number($<HTMLSelectElement>("ft-tuner-notes").value);
-  settings.intervalRef    = $<HTMLSelectElement>("ft-interval-ref").value as "just" | "equal";
+  settings.tunerSeconds   = Number($<HTMLInputElement>("ft-tuner-seconds").value);
   settings.tunerSmoothing = Number($<HTMLInputElement>("ft-tuner-smoothing").value);
-  settings.tunerHold      = Number($<HTMLInputElement>("ft-tuner-hold").value);
+  $<HTMLOutputElement>("ft-tuner-seconds-out").value = `${settings.tunerSeconds} s`;
   $<HTMLOutputElement>("ft-tuner-smoothing-out").value = settings.tunerSmoothing.toFixed(2);
-  $<HTMLOutputElement>("ft-tuner-hold-out").value = `${settings.tunerHold.toFixed(1)} s`;
 
   const a4 = Number($<HTMLInputElement>("ft-a4").value);
   if (a4 >= 300 && a4 <= 600) settings.a4 = a4;
@@ -470,14 +467,11 @@ function harmonicNumber(f: number, f0: number): number {
 
 // ⋘──────── Tuner and history state ────────⋙
 
-// The notes shown on the tuner, lowest first: each one's smoothed pitch, and when it was last heard.
-interface TunerSlot { midi: number; lastHeard: number; }
-let tunerSlots: TunerSlot[] = [];
 let clock     = 0;                   // Time of the latest analyzed frame (s); stops while frozen
 let frozen    = false;
 
 interface HistoryNote { midi: number; level: number; }
-interface HistoryFrame { t: number; notes: HistoryNote[]; }
+interface HistoryFrame { t: number; notes: HistoryNote[]; hiddenAbove?: boolean; hiddenBelow?: boolean; }
 const history: HistoryFrame[] = [];
 
 // Each note (by its nearest semitone) heard recently: when it started, when it was last heard,
@@ -528,6 +522,7 @@ function analyze(): void {
     if (!run.confirmed && clock - run.start >= NOTE_CONFIRM_SECONDS) {
       run.confirmed = true;
       run.pending.forEach(({ frame, note }) => frame.notes.push(note));
+      if (run.pending.length) historyDirtyFrom = Math.min(historyDirtyFrom, run.pending[0].frame.t);
       run.pending = [];
     }
   }
@@ -535,41 +530,21 @@ function analyze(): void {
   history.push(frame);
   while (history.length && history[0].t < clock - HISTORY_SECONDS) history.shift();
 
-  updateTuner();
+  updateTunerBars();
 }
 
-// Points the tuner's slots at the loudest notes that have lasted long enough to count, by the
-// loudness of each note together with its harmonics (so that a low note with a weak fundamental
-// isn't passed over). A slot follows its note while it's sounding, eased by the display smoothing,
-// and jumps to a new note when its own has stopped. The slots are kept in order of pitch.
-function updateTuner(): void {
-  const count = settings.tunerNotes;
-  if (tunerSlots.length > count) tunerSlots = tunerSlots.sort((a, b) => b.lastHeard - a.lastHeard).slice(0, count);
-
-  const loudness = new Map<Peak, number>();
-  for (const p of notePeaks()) if (noteRuns.get(Math.round(p.midi))?.confirmed) loudness.set(p, p.mag);
-  for (const p of peaks) {
-    if (p.fundamental && loudness.has(p.fundamental)) loudness.set(p.fundamental, loudness.get(p.fundamental)! + p.mag);
-  }
-  const targets = [...loudness.keys()].sort((a, b) => loudness.get(b)! - loudness.get(a)!).slice(0, count);
-
-  const ease = 1 - settings.tunerSmoothing;
-  const used = new Set<TunerSlot>();
-  for (const note of targets) {
-    let slot = tunerSlots.find(s => !used.has(s) && Math.abs(s.midi - note.midi) < 0.5);
-    if (slot) {
-      slot.midi += (note.midi - slot.midi) * ease;
-    } else if (tunerSlots.length < count) {
-      tunerSlots.push(slot = { midi: note.midi, lastHeard: clock });
-    } else {
-      // The slot whose note was heard least recently switches to this note.
-      slot = tunerSlots.filter(s => !used.has(s)).sort((a, b) => a.lastHeard - b.lastHeard)[0];
-      slot.midi = note.midi;
+// The notes heard within the tuner's history, from highest to lowest pitch.
+function tunerLanes(): { row: number; last: number }[] {
+  const since = clock - settings.tunerSeconds;
+  const lanes = new Map<number, { row: number; last: number; level: number }>();
+  for (let i = history.length - 1; i >= 0 && history[i].t >= since; i--) {
+    for (const n of history[i].notes) {
+      const row = Math.round(n.midi), lane = lanes.get(row);
+      if (!lane) lanes.set(row, { row, last: history[i].t, level: n.level });
+      else lane.level = Math.max(lane.level, n.level);
     }
-    slot.lastHeard = clock;
-    used.add(slot);
   }
-  tunerSlots.sort((a, b) => a.midi - b.midi);
+  return [...lanes.values()].sort((a, b) => b.row - a.row);
 }
 
 // The peaks that are labeled as notes.
@@ -605,7 +580,18 @@ function setStatus(message: string, kind: "error" | "info" = "error"): void {
 function stop(): void {
   stopSource?.();
   stopSource = null;
-  startButton.textContent = "▶ Start";
+  updateSourceButtons();
+}
+
+// The microphone's button is only needed until the microphone is listening, which usually means
+// asking for permission to use it. The test tone has its own play/stop button, and an audio file
+// has the audio player's controls (and freezes the graphs when it's paused), so the Freeze button
+// is only for the microphone.
+function updateSourceButtons(): void {
+  const source = sourceSelect.value, running = !!stopSource;
+  startButton.hidden = source !== "mic" || running;
+  freezeButton.hidden = source !== "mic";
+  tonePlayButton.textContent = running && source === "tone" ? "■ Stop" : "▶ Play";
 }
 
 async function startMicrophone(): Promise<void> {
@@ -625,7 +611,7 @@ async function startMicrophone(): Promise<void> {
       node.disconnect();
       stream.getTracks().forEach(track => track.stop());
     };
-    startButton.textContent = "■ Stop";
+    updateSourceButtons();
     setStatus("");
     resumeWhenAllowed(ctx);
   } catch (err) {
@@ -709,7 +695,7 @@ function startTone(): void {
     out.disconnect();
     toneAudible.removeEventListener("change", audibleChanged);
   };
-  startButton.textContent = "■ Stop";
+  updateSourceButtons();
 }
 
 function updateTonePitch(): void {
@@ -738,20 +724,24 @@ function showSourceControls(): void {
   const source = sourceSelect.value;
   toneControls.hidden = source !== "tone";
   fileControls.hidden = source !== "file";
-  startButton.hidden  = source === "file";
+  updateSourceButtons();
 }
 
 sourceSelect.addEventListener("change", () => {
   stop();
   setStatus("");
+  // Only an audio file that's paused stays frozen (the Freeze button is only shown for the
+  // microphone).
+  setFrozen(sourceSelect.value === "file" && !!audioElement.src && audioElement.paused);
   showSourceControls();
   if (sourceSelect.value === "file" && audioElement.src) connectFile();
+  if (sourceSelect.value === "mic") void autoStartMicrophone(); // No button needed if it's allowed already
 });
 
-startButton.addEventListener("click", () => {
-  if (stopSource) { stop(); return; }
-  if (sourceSelect.value === "mic") void startMicrophone();
-  else if (sourceSelect.value === "tone") startTone();
+startButton.addEventListener("click", () => void startMicrophone());
+tonePlayButton.addEventListener("click", () => {
+  if (stopSource) stop();
+  else startTone();
 });
 
 fileInput.addEventListener("change", () => {
@@ -841,7 +831,7 @@ function calibrateNoise(): void {
     setStatus("Start the input first, then calibrate the background noise while it's quiet.", "info");
     return;
   }
-  if (frozen) freezeButton.click();
+  if (frozen) setFrozen(false);
   noiseFrames    = [];
   noiseLastFrame = 0;
   noiseEnd       = performance.now() / 1000 + NOISE_SECONDS;
@@ -917,11 +907,20 @@ function loadCalibration(): void {
 noiseButton.addEventListener("click", calibrateNoise);
 clearNoiseButton.addEventListener("click", clearNoise);
 
-freezeButton.addEventListener("click", () => {
-  frozen = !frozen;
+function setFrozen(value: boolean): void {
+  frozen = value;
   freezeButton.textContent = frozen ? "▶ Resume" : "❚❚ Freeze";
   freezeButton.setAttribute("aria-pressed", String(frozen));
-});
+}
+
+freezeButton.addEventListener("click", () => setFrozen(!frozen));
+
+// Pausing an audio file freezes everything, and playing it again resumes.
+for (const event of ["pause", "play"]) {
+  audioElement.addEventListener(event, () => {
+    if (sourceSelect.value === "file") setFrozen(event === "pause");
+  });
+}
 
 document.querySelectorAll<HTMLElement>(".ft-settings input, .ft-settings select, #ft-tone-pitch").forEach(el =>
   el.addEventListener("input", readSettings));
@@ -940,8 +939,10 @@ function canvasHeight(canvas: HTMLCanvasElement, height: number): number {
   return Math.max(height / 2, Math.floor(window.innerHeight - FULL_PAD));
 }
 
-const TUNER_H    = 160; // Height of a tuner dial (px)
-const INTERVAL_H = 76;  // Height of the interval readout below two dials (px)
+const TUNER_ROW_H   = 22;  // Height of each semitone of the tuner's staff, when it's not crowded (px)
+const TUNER_STAFF_H = 260; // Height of the tuner's staff, its pitch axis (px)
+const TUNER_PAD     = 84;  // Space above and below the staff, where the tuner bars can extend (px)
+const TUNER_AXIS_H  = 20;  // Height of the tuner's time axis (px)
 
 function fitCanvas(canvas: HTMLCanvasElement, normalHeight: number): { ctx: CanvasRenderingContext2D; w: number; h: number } {
   const height = canvasHeight(canvas, normalHeight);
@@ -968,166 +969,309 @@ function placeholder(ctx: CanvasRenderingContext2D, w: number, h: number, text: 
 
 // ⋘──────── Tuner ────────⋙
 
+// The recent notes on a staff (a vertical pitch axis), zoomed in so that each semitone is about
+// TUNER_ROW_H tall. The staff is a window onto the pitches that moves and splits to show the
+// notes: notes within TUNER_MERGE semitones of each other share a section, and the pitches
+// between sections are left out. On the right, each sounding note has a tall tuner bar that
+// magnifies how sharp or flat it is.
+const TUNER_MERGE = 12;   // Notes at most this many semitones (an octave) apart share a section
+const TUNER_GAP_H = 20;   // Height of the band marking the pitches left out between sections (px)
+const TUNER_SHIFT_TIME = 0.15; // Time constant of the window's movement (s): any shift, large or small, takes about three of these
+const TUNER_MEMORY = 0.8; // Time constant (s) of how a note's say in where the window is fades after it's heard
+const TUNER_SECTION_WEIGHT = 0.5; // Least say a note needs to get a section of its own
+const TUNER_BAR_H = 140;  // Height of a tuner bar, which spans −50 to +50 cents (px)
+
+// The sections of the staff shown, highest first: the lowest and highest semitone of each.
+// These ease toward the sections needed, so they're usually not whole numbers.
+let tunerView: { lo: number; hi: number }[] = [];
+
+// ⋘──────── Tuner bars ────────⋙
+// Each sounding note has a bar, level with the line of its nearest semitone. A bar's position from
+// left to right follows the note's pitch within the octave, from C at the left to B at the right,
+// so that the bars of notes close together don't overlap; the bar area is an octave and a semitone
+// wide, so that notes near C are drawn at both ends. A bar follows its note: when the note moves
+// to another semitone, or stops and a note nearby takes its place, the bar slides to it. A bar
+// disappears as soon as its note stops. Quieter notes' bars are dimmer.
+const TUNER_SLOTS  = 13;   // Width of the bar area, in semitones
+const TUNER_SLOT_W = 28;   // Widest that a semitone of the bar area is drawn (px)
+const TUNER_BAR_LINK  = 2;    // A bar can move to a note at most this many semitones away
+const TUNER_BAR_SHOW  = 0.06; // A bar is hidden once its note hasn't been heard for this long (s)
+const TUNER_BAR_KEEP  = 0.2;  // …and forgotten after this long, unless a note nearby takes it over (s)
+const TUNER_BAR_SLIDE = 0.06; // Time constant of a bar sliding to a new semitone (s)
+
+// Each bar's semitone, the semitone where it's drawn (sliding toward its semitone), its cents
+// (eased by the display smoothing), how loud its note is compared to the loudest (from 0 to 1),
+// and when its note was last heard.
+interface TunerBar { row: number; shownRow: number; cents: number; level: number; last: number; }
+let tunerBars: TunerBar[] = [];
+let tunerBarsTime = 0; // When the bars were last updated (s)
+
+// How visible something is, from how loud its note is compared to the loudest (from 0 to 1).
+const loudnessAlpha = (level: number) => 0.2 + 0.8 * Math.sqrt(level);
+
+function updateTunerBars(): void {
+  const dt = Math.min(0.1, Math.max(0, clock - tunerBarsTime));
+  tunerBarsTime = clock;
+  const slide = 1 - Math.exp(-dt / TUNER_BAR_SLIDE), ease = 1 - settings.tunerSmoothing;
+
+  // The notes detected now (not only those recorded in the history, which waits until a note has
+  // lasted a moment), but only near a note that has lasted long enough to count.
+  const peaksNow = notePeaks();
+  const loudest = Math.max(EPS, ...peaksNow.map(p => p.mag));
+  const notes = peaksNow
+    .filter(p => [-1, 0, 1].some(d => noteRuns.get(Math.round(p.midi) + d)?.confirmed))
+    .map(p => ({ midi: p.midi, level: p.mag / loudest }));
+
+  // Each note continues the nearest bar within TUNER_BAR_LINK semitones (closest pairs first).
+  const pairs: { bar: TunerBar; note: typeof notes[number]; distance: number }[] = [];
+  for (const bar of tunerBars) {
+    for (const note of notes) {
+      const distance = Math.abs(bar.row + bar.cents / 100 - note.midi);
+      if (distance <= TUNER_BAR_LINK) pairs.push({ bar, note, distance });
+    }
+  }
+  pairs.sort((a, b) => a.distance - b.distance);
+  const usedBars = new Set<TunerBar>(), usedNotes = new Set<typeof notes[number]>();
+  for (const { bar, note } of pairs) {
+    if (usedBars.has(bar) || usedNotes.has(note)) continue;
+    usedBars.add(bar);
+    usedNotes.add(note);
+    const row = Math.round(note.midi), cents = centsOff(note.midi);
+    bar.cents += 100 * (bar.row - row); // Measured from the new semitone, so the needle doesn't jump
+    bar.row = row;
+    bar.cents += (cents - bar.cents) * ease;
+    bar.level = note.level;
+    bar.last = clock;
+  }
+  for (const note of notes) {
+    if (usedNotes.has(note)) continue;
+    const row = Math.round(note.midi);
+    tunerBars.push({ row, shownRow: row, cents: centsOff(note.midi), level: note.level, last: clock });
+  }
+  tunerBars = tunerBars.filter(bar => clock - bar.last <= TUNER_BAR_KEEP);
+  for (const bar of tunerBars) {
+    bar.shownRow = Math.abs(bar.row - bar.shownRow) < 0.01 ? bar.row : bar.shownRow + (bar.row - bar.shownRow) * slide;
+  }
+}
+
+// ⋘──────── Tuner window ────────⋙
+
+// Each note heard recently (by its nearest semitone), with its say in where the window is: 1
+// while it's sounding, fading over about TUNER_MEMORY seconds after it stops.
+function recentRows(): { row: number; weight: number }[] {
+  const last = new Map<number, number>();
+  for (let i = history.length - 1; i >= 0 && clock - history[i].t < 5 * TUNER_MEMORY; i--) {
+    for (const n of history[i].notes) {
+      const row = Math.round(n.midi);
+      if (!last.has(row)) last.set(row, history[i].t);
+    }
+  }
+  return [...last]
+    .map(([row, t]) => ({ row, weight: Math.exp(-(clock - t) / TUNER_MEMORY) }))
+    .filter(r => r.weight > 0.02)
+    .sort((a, b) => b.row - a.row);
+}
+
+// Moves the window toward the recent notes. `available` is the height of the staff (px). The
+// window shows as many semitones as fit at TUNER_ROW_H per semitone, shared between its sections,
+// so that it fills the staff. Each section slides to center the range its notes need, where each
+// note needs the semitone on either side of it, scaled toward the section's (weighted) center by
+// its say. So as a note's say fades after it stops, the window gradually lets go of it. Only notes
+// with enough say get a section of their own; others only adjust the section they're near.
+// Every shift takes about the same time, so larger shifts move faster.
+let tunerViewTime = 0; // When the window was last moved (s)
+
+function updateTunerView(rows: { row: number; weight: number }[], available: number): void {
+  const dt = Math.min(0.1, Math.max(0, clock - tunerViewTime));
+  tunerViewTime = clock;
+  const groups: { row: number; weight: number }[][] = [];
+  for (const r of rows.filter(r => r.weight >= TUNER_SECTION_WEIGHT)) {
+    const last = groups[groups.length - 1];
+    if (last && last[last.length - 1].row - r.row <= TUNER_MERGE) last.push(r);
+    else groups.push([r]);
+  }
+  if (!groups.length) return; // When nothing has been heard lately, the window stays where it was.
+  for (const r of rows.filter(r => r.weight < TUNER_SECTION_WEIGHT)) {
+    const group = groups.find(g => r.row <= g[0].row + TUNER_MERGE && r.row >= g[g.length - 1].row - TUNER_MERGE);
+    group?.push(r);
+  }
+  const required = groups.map(g => {
+    const total = g.reduce((sum, r) => sum + r.weight, 0);
+    const center = g.reduce((sum, r) => sum + r.weight * r.row, 0) / total;
+    return {
+      lo: Math.min(...g.map(r => center + r.weight * (r.row - 1 - center))),
+      hi: Math.max(...g.map(r => center + r.weight * (r.row + 1 - center))),
+    };
+  });
+
+  const rate = 1 - Math.exp(-dt / TUNER_SHIFT_TIME); // The fraction of the remaining distance moved
+  const capacity = (available - (required.length - 1) * TUNER_GAP_H) / TUNER_ROW_H;
+  const spare = Math.max(0, capacity - required.reduce((sum, r) => sum + r.hi - r.lo + 1, 0)) / required.length;
+  const ease = (now: number, target: number) => Math.abs(target - now) < 0.01 ? target : now + (target - now) * rate;
+
+  // Each section starts from the sections now shown that overlap it, so sections that merge start
+  // from their combined range, and a section that splits passes its range to both. A section with
+  // nothing to start from (a note far from the others) appears at once, except that when the
+  // number of sections hasn't changed, each section slides from where it was.
+  tunerView = required.map((req, i) => {
+    const size = req.hi - req.lo + spare; // From lo to hi, in semitones
+    let overlapping = tunerView.filter(v => v.lo <= req.hi + 0.5 && v.hi >= req.lo - 0.5);
+    if (!overlapping.length && tunerView.length === required.length) overlapping = [tunerView[i]];
+    if (!overlapping.length) return { lo: req.lo - spare / 2, hi: req.hi + spare / 2 };
+    const lo = Math.min(...overlapping.map(v => v.lo)), hi = Math.max(...overlapping.map(v => v.hi));
+    const targetLo = (req.lo + req.hi - size) / 2; // Centered on the range needed
+    return { lo: ease(lo, targetLo), hi: ease(hi, targetLo + size) };
+  });
+}
+
+// ⋘──────── Drawing the tuner ────────⋙
+
 function drawTuner(): void {
-  const two = settings.tunerNotes === 2;
-  const layoutH = TUNER_H + (two ? INTERVAL_H : 0);
-  const { ctx, w: canvasW, h } = fitCanvas(tunerCanvas, layoutH);
-  // The tuner is laid out for a layoutH-tall canvas. In full screen it's scaled up to fill the
-  // larger one (as far as the width allows) and centered.
-  const scale = Math.max(1, Math.min(h / layoutH, canvasW / (two ? 520 : 320)));
-  ctx.translate(0, (h - layoutH * scale) / 2);
-  ctx.scale(scale, scale);
-  const w = canvasW / scale;
+  const { ctx, w, h } = fitCanvas(tunerCanvas, 2 * TUNER_PAD + TUNER_STAFF_H + TUNER_AXIS_H);
+  const staffTop = TUNER_PAD, staffBottom = h - TUNER_AXIS_H - TUNER_PAD;
+  if (!frozen) updateTunerView(recentRows(), staffBottom - staffTop);
+  const span = tunerView.reduce((sum, sec) => sum + sec.hi - sec.lo + 1, 0);
+  const available = staffBottom - staffTop - (tunerView.length - 1) * TUNER_GAP_H;
+  const rowH = available / span; // The sections fill the staff's height
+  const sectionTops: number[] = [];
+  let y = staffTop;
+  for (const sec of tunerView) {
+    sectionTops.push(y);
+    y += (sec.hi - sec.lo + 1) * rowH + TUNER_GAP_H;
+  }
+  const yIn = (i: number, midi: number) => sectionTops[i] + (tunerView[i].hi + 0.5 - midi) * rowH;
 
-  if (!two) {
-    drawDial(ctx, tunerSlots[0], 0, w, "Play a note");
+  // Room on the right for the tuner bars, so the staff's width doesn't change as notes come and
+  // go. The bar area narrows on small screens.
+  const slotW = Math.max(18, Math.min(TUNER_SLOT_W, (w - 220) / TUNER_SLOTS));
+  const L = 24, R = w - 28 - TUNER_SLOTS * slotW, barsLeft = R + 12;
+  const xOf = (t: number) => R - (clock - t) / settings.tunerSeconds * (R - L);
+
+  ctx.font = "11px system-ui, sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "alphabetic";
+  ctx.fillStyle = MUTED;
+  for (let s = 0; s <= settings.tunerSeconds; s++) ctx.fillText(s ? `−${s} s` : "now", xOf(clock - s), h - 6);
+
+  if (!tunerLanes().length || !tunerView.length) {
+    placeholder(ctx, w, h - TUNER_AXIS_H, "Play a note");
     return;
   }
-  const [low, high] = tunerSlots;
-  drawDial(ctx, low, 0, w / 2, "Play a note");
-  drawDial(ctx, high, w / 2, w / 2, low ? "Play a second note" : "");
-  ctx.strokeStyle = GRID;
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(w / 2, 12);
-  ctx.lineTo(w / 2, TUNER_H - 12);
-  ctx.moveTo(20, TUNER_H + 0.5);
-  ctx.lineTo(w - 20, TUNER_H + 0.5);
-  ctx.stroke();
-  drawInterval(ctx, low, high, w);
-}
+  const since = clock - settings.tunerSeconds;
 
-const isRecent = (slot: TunerSlot) => clock - slot.lastHeard < settings.tunerHold;
-
-// One note's name, frequency, and a meter from −50 to +50 cents, in the column [x0, x0 + width].
-// Notes that stopped more than the hold time ago are dimmed.
-function drawDial(ctx: CanvasRenderingContext2D, slot: TunerSlot | undefined, x0: number, width: number, emptyText: string): void {
-  const cx = x0 + width / 2;
-  ctx.globalAlpha = slot && isRecent(slot) ? 1 : 0.35;
-  ctx.textAlign = "center";
-  ctx.textBaseline = "alphabetic";
-  ctx.fillStyle = TEXT;
-  ctx.font = "bold 44px system-ui, sans-serif";
-  ctx.fillText(slot ? noteName(slot.midi) : "–", cx, 52);
-
-  const cents = slot ? centsOff(slot.midi) : 0;
-  ctx.font = "14px system-ui, sans-serif";
-  ctx.fillStyle = MUTED;
-  ctx.fillText(slot ? `${freqFromMidi(slot.midi).toFixed(1)} Hz   ·   ${formatCents(cents)}` : emptyText, cx, 76);
-
-  const L = x0 + 20, R = x0 + width - 20, y = 112, xOf = (c: number) => L + (c + 50) / 100 * (R - L);
-  ctx.fillStyle = "rgba(60, 200, 90, 0.25)";
-  ctx.fillRect(xOf(-IN_TUNE_CENTS), y - 16, xOf(IN_TUNE_CENTS) - xOf(-IN_TUNE_CENTS), 32);
-  ctx.strokeStyle = MUTED;
-  ctx.lineWidth = 1;
-  ctx.font = "11px system-ui, sans-serif";
-  ctx.fillStyle = MUTED;
-  for (let c = -50; c <= 50; c += 10) {
-    const len = c % 50 === 0 ? 14 : 7;
+  tunerView.forEach((sec, i) => {
+    const top = sectionTops[i], height = (sec.hi - sec.lo + 1) * rowH;
+    const yOf = (midi: number) => yIn(i, midi);
+    ctx.save();
     ctx.beginPath();
-    ctx.moveTo(xOf(c), y - len);
-    ctx.lineTo(xOf(c), y + len);
-    ctx.stroke();
-    if (c % 50 === 0 || (c % 25 === 0 && R - L > 200)) ctx.fillText(c === 0 ? "0" : formatCents(c), xOf(c), y + 32);
-  }
-  if (slot) drawNeedle(ctx, xOf(cents), y, 18, centsColor(cents));
-  ctx.globalAlpha = 1;
-}
+    ctx.rect(0, top, R, height);
+    ctx.clip();
 
-function drawNeedle(ctx: CanvasRenderingContext2D, x: number, y: number, half: number, color: string): void {
-  ctx.strokeStyle = color;
-  ctx.lineWidth = 4;
-  ctx.lineCap = "round";
-  ctx.beginPath();
-  ctx.moveTo(x, y - half);
-  ctx.lineTo(x, y + half);
-  ctx.stroke();
-  ctx.lineCap = "butt";
-}
+    // Each semitone's row: the in-tune band and line, the line between rows, and the note's name.
+    for (let row = Math.ceil(sec.lo - 0.5); row <= Math.floor(sec.hi + 0.5); row++) {
+      ctx.fillStyle = "rgba(60, 200, 90, 0.15)";
+      ctx.fillRect(L, yOf(row + IN_TUNE_CENTS / 100), R - L, 2 * IN_TUNE_CENTS / 100 * rowH);
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.22)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(L, yOf(row));
+      ctx.lineTo(R, yOf(row));
+      ctx.stroke();
+      ctx.strokeStyle = GRID;
+      ctx.beginPath();
+      ctx.moveTo(L, yOf(row + 0.5));
+      ctx.lineTo(R, yOf(row + 0.5));
+      ctx.stroke();
+      ctx.fillStyle = MUTED;
+      ctx.font = "10px system-ui, sans-serif";
+      ctx.textAlign = "left";
+      ctx.textBaseline = "bottom";
+      ctx.fillText(noteName(row), L + 3, yOf(row) - 2);
+    }
 
-// The interval between the two notes: its name and size, how far it is from the equal-tempered
-// and the pure (just) interval, and a meter of how far it is from the one chosen in the settings.
-function drawInterval(ctx: CanvasRenderingContext2D, low: TunerSlot | undefined, high: TunerSlot | undefined, w: number): void {
-  const top = TUNER_H;
-  ctx.textAlign = "center";
-  ctx.textBaseline = "alphabetic";
-  if (!low || !high) {
-    ctx.globalAlpha = 0.35;
-    ctx.fillStyle = MUTED;
-    ctx.font = "14px system-ui, sans-serif";
-    ctx.fillText("The interval between two notes is shown here", w / 2, top + INTERVAL_H / 2 + 5);
+    // The pitches over time, dimmer for quieter notes.
+    ctx.beginPath();
+    ctx.rect(L, top, R - L, height);
+    ctx.clip();
+    const prevT = new Map<number, number>();
+    for (const frame of history) {
+      if (frame.t < since) continue;
+      for (const n of frame.notes) {
+        if (n.midi < sec.lo - 0.5 || n.midi >= sec.hi + 0.5) continue;
+        const row = Math.round(n.midi), last = prevT.get(row) ?? -Infinity;
+        const x1 = xOf(frame.t), x0 = frame.t - last > 0.1 ? x1 - 2 : xOf(last);
+        ctx.globalAlpha = loudnessAlpha(n.level);
+        ctx.fillStyle = centsColor(centsOff(n.midi));
+        ctx.fillRect(x0, yOf(n.midi) - 1.5, x1 - x0 + 0.5, 3);
+        prevT.set(row, frame.t);
+      }
+    }
     ctx.globalAlpha = 1;
-    return;
-  }
-  const interval = describeInterval(100 * (high.midi - low.midi));
-  ctx.globalAlpha = isRecent(low) && isRecent(high) ? 1 : 0.35;
-  ctx.fillStyle = TEXT;
-  ctx.font = "bold 15px system-ui, sans-serif";
-  ctx.fillText(`${interval.name}   ·   ${Math.round(interval.cents)}¢`, w / 2, top + 20);
-  ctx.fillStyle = MUTED;
-  ctx.font = "13px system-ui, sans-serif";
-  ctx.fillText(`${formatCents(interval.fromEqual)} from equal-tempered   ·   ${formatCents(interval.fromJust)} from pure (${interval.ratio})`, w / 2, top + 40);
+    ctx.restore();
 
-  // Meter of the difference from the chosen reference.
-  const off = settings.intervalRef === "just" ? interval.fromJust : interval.fromEqual;
-  const half = Math.min(170, w / 2 - 30), L = w / 2 - half, R = w / 2 + half, y = top + 60;
-  const xOf = (c: number) => L + (Math.max(-INTERVAL_RANGE, Math.min(INTERVAL_RANGE, c)) + INTERVAL_RANGE) / (2 * INTERVAL_RANGE) * (R - L);
-  ctx.fillStyle = "rgba(60, 200, 90, 0.25)";
-  ctx.fillRect(xOf(-IN_TUNE_CENTS), y - 7, xOf(IN_TUNE_CENTS) - xOf(-IN_TUNE_CENTS), 14);
-  ctx.strokeStyle = MUTED;
-  ctx.lineWidth = 1;
-  for (let c = -INTERVAL_RANGE; c <= INTERVAL_RANGE; c += 10) {
-    const len = c === 0 || Math.abs(c) === INTERVAL_RANGE ? 7 : 4;
-    ctx.beginPath();
-    ctx.moveTo(xOf(c), y - len);
-    ctx.lineTo(xOf(c), y + len);
-    ctx.stroke();
+    // The band marking the pitches left out before the next section.
+    const next = tunerView[i + 1];
+    if (next) {
+      const gapTop = top + height, mid = gapTop + TUNER_GAP_H / 2;
+      const omitted = Math.max(0, Math.round(sec.lo - 1 - next.hi));
+      ctx.strokeStyle = GRID;
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.moveTo(L, gapTop + 3);
+      ctx.lineTo(R, gapTop + 3);
+      ctx.moveTo(L, gapTop + TUNER_GAP_H - 3);
+      ctx.lineTo(R, gapTop + TUNER_GAP_H - 3);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      const text = `${omitted} semitone${omitted === 1 ? "" : "s"} omitted`;
+      ctx.font = "10px system-ui, sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      const tw = ctx.measureText(text).width;
+      ctx.fillStyle = BG;
+      ctx.fillRect((L + R) / 2 - tw / 2 - 6, mid - 7, tw + 12, 14);
+      ctx.fillStyle = MUTED;
+      ctx.fillText(text, (L + R) / 2, mid);
+    }
+  });
+
+  // Each sounding note's tuner bar, level with its line, with its cents above and its name below.
+  // The bars can extend into the space above and below the staff.
+  for (const bar of tunerBars) {
+    if (clock - bar.last > TUNER_BAR_SHOW) continue; // Its note has stopped
+    const i = tunerView.findIndex(v => bar.shownRow >= v.lo - 0.5 && bar.shownRow <= v.hi + 0.5);
+    if (i < 0) continue;
+    ctx.globalAlpha = loudnessAlpha(bar.level);
+    const mid = yIn(i, bar.shownRow), half = TUNER_BAR_H / 2, barW = 8, cents = bar.cents;
+    const yCents = (c: number) => mid - Math.max(-50, Math.min(50, c)) / 50 * half;
+    // Where the note's pitch is within the octave, from 0 (C) to 12 (the next C), drawn at both
+    // ends of the bar area when it's near C.
+    const pitchClass = (((bar.shownRow + cents / 100) % 12) + 12) % 12;
+    for (const pos of [pitchClass - 12, pitchClass, pitchClass + 12]) {
+      if (pos < -0.5 || pos > TUNER_SLOTS - 0.5) continue;
+      const x = barsLeft + (pos + 0.5) * slotW;
+      ctx.fillStyle = "#333840";
+      ctx.fillRect(x - barW / 2, mid - half, barW, 2 * half);
+      ctx.fillStyle = "rgba(60, 200, 90, 0.45)";
+      ctx.fillRect(x - barW / 2, yCents(IN_TUNE_CENTS), barW, yCents(-IN_TUNE_CENTS) - yCents(IN_TUNE_CENTS));
+      ctx.fillStyle = MUTED;
+      ctx.fillRect(x - barW / 2 - 3, mid - 0.5, barW + 6, 1);
+      ctx.fillStyle = centsColor(cents);
+      ctx.fillRect(x - barW / 2 - 4, yCents(cents) - 2, barW + 8, 4);
+
+      ctx.textAlign = "center";
+      ctx.fillStyle = TEXT;
+      ctx.font = "bold 11px system-ui, sans-serif";
+      ctx.textBaseline = "bottom";
+      ctx.fillText(formatCents(cents), x, mid - half - 3);
+      ctx.fillStyle = `hsl(${pitchHue(bar.row)}, 85%, 70%)`;
+      ctx.font = "bold 13px system-ui, sans-serif";
+      ctx.textBaseline = "top";
+      ctx.fillText(noteName(bar.row), x, mid + half + 3);
+    }
   }
-  ctx.font = "11px system-ui, sans-serif";
-  ctx.textAlign = "right";
-  ctx.fillStyle = MUTED;
-  ctx.fillText(settings.intervalRef === "just" ? "vs. pure" : "vs. equal", L - 8, y + 4);
-  drawNeedle(ctx, xOf(off), y, 8, centsColor(off));
   ctx.globalAlpha = 1;
-}
-
-// Names of the intervals within an octave, and the whole-number ratios of their pure (just)
-// versions.
-const INTERVALS: [string, number, number][] = [
-  ["Unison", 1, 1], ["Minor second", 16, 15], ["Major second", 9, 8], ["Minor third", 6, 5],
-  ["Major third", 5, 4], ["Perfect fourth", 4, 3], ["Tritone", 45, 32], ["Perfect fifth", 3, 2],
-  ["Minor sixth", 8, 5], ["Major sixth", 5, 3], ["Minor seventh", 9, 5], ["Major seventh", 15, 8],
-];
-// Names of the intervals between an octave and two octaves.
-const COMPOUND_INTERVALS = [
-  "Octave", "Minor ninth", "Major ninth", "Minor tenth", "Major tenth", "Perfect eleventh",
-  "Augmented eleventh", "Perfect twelfth", "Minor thirteenth", "Major thirteenth",
-  "Minor fourteenth", "Major fourteenth",
-];
-
-// The nearest named interval to an interval of the given size (in cents), with how far the size
-// is from its equal-tempered and pure versions.
-function describeInterval(cents: number): { name: string; cents: number; fromEqual: number; fromJust: number; ratio: string } {
-  const semitones = Math.max(0, Math.round(cents / 100));
-  const octaves = Math.floor(semitones / 12), within = semitones % 12;
-  const [simpleName, num, den] = INTERVALS[within];
-  const name =
-    octaves === 0 ? simpleName :
-    octaves === 1 ? COMPOUND_INTERVALS[within] :
-    within === 0  ? `${octaves} octaves` :
-                    `${simpleName} + ${octaves} octaves`;
-  let top = num * 2 ** octaves, bottom = den;
-  const gcd = (a: number, b: number): number => b ? gcd(b, a % b) : a;
-  const g = gcd(top, bottom);
-  top /= g;
-  bottom /= g;
-  return {
-    name,
-    cents,
-    fromEqual: cents - 100 * semitones,
-    fromJust : cents - 1200 * Math.log2(top / bottom),
-    ratio    : `${top}:${bottom}`,
-  };
 }
 
 // ⋘──────── Spectrum ────────⋙
@@ -1529,8 +1673,8 @@ function drawHistory(): void {
   }
   [lo, hi] = fitHistorySpan(lo, hi, rangeLo, rangeHi);
   if (!frozen) {
-    historyLo += (lo - historyLo) * 0.08;
-    historyHi += (hi - historyHi) * 0.08;
+    historyLo = Math.abs(lo - historyLo) < 0.01 ? lo : historyLo + (lo - historyLo) * 0.08;
+    historyHi = Math.abs(hi - historyHi) < 0.01 ? hi : historyHi + (hi - historyHi) * 0.08;
   }
   // The highest and lowest rows that are drawn; notes beyond them are hidden.
   const shownLo = Math.max(rangeLo, historyLo - 0.5), shownHi = Math.min(rangeHi, historyHi + 0.5);
@@ -1569,37 +1713,20 @@ function drawHistory(): void {
     return;
   }
 
-  // Each note as a bar in its row, with a line inside it offset by how sharp or flat it was.
+  drawNotesLayer(L, R, top, bottom, rowH, yOf, shownLo, shownHi);
   ctx.save();
   ctx.beginPath();
   ctx.rect(L, top, R - L, bottom - top);
   ctx.clip();
-  let hiddenAbove = false, hiddenBelow = false;
-  for (let i = 1; i < history.length; i++) {
-    const frame = history[i], prev = history[i - 1];
-    const x1 = xOf(frame.t), x0 = frame.t - prev.t > 0.25 ? x1 - 2 : xOf(prev.t);
-    let above = false, below = false;
-    for (const n of frame.notes) {
-      const row = Math.round(n.midi), cents = centsOff(n.midi);
-      if (row > shownHi) { above = true; continue; }
-      if (row < shownLo) { below = true; continue; }
-      ctx.globalAlpha = 0.15 + 0.35 * n.level;
-      ctx.fillStyle = `hsl(${pitchHue(n.midi)}, 70%, 55%)`;
-      ctx.fillRect(x0, yOf(row) - rowH / 2, x1 - x0 + 0.5, rowH);
-      ctx.globalAlpha = 0.35 + 0.65 * n.level;
-      ctx.fillStyle = centsColor(cents);
-      ctx.fillRect(x0, yOf(n.midi) - 1.5, x1 - x0 + 0.5, 3);
-    }
-    // Marks the top or bottom edge when notes beyond it are hidden.
-    ctx.globalAlpha = 1;
-    ctx.fillStyle = HIDDEN_COLOR;
-    if (above) ctx.fillRect(x0, top, x1 - x0 + 0.5, 3);
-    if (below) ctx.fillRect(x0, bottom - 3, x1 - x0 + 0.5, 3);
-    hiddenAbove ||= above;
-    hiddenBelow ||= below;
-  }
+  // The layer's right edge is at time layerClock, which can trail the clock by up to a pixel.
+  ctx.drawImage(notesLayer, L - (clock - layerClock) * (R - L) / HISTORY_SECONDS, top,
+    notesLayer.width / dpr(), notesLayer.height / dpr());
   ctx.restore();
-  ctx.globalAlpha = 1;
+  let hiddenAbove = false, hiddenBelow = false;
+  for (const frame of history) {
+    hiddenAbove ||= !!frame.hiddenAbove;
+    hiddenBelow ||= !!frame.hiddenBelow;
+  }
 
   // Labels on the left, clear of the panel's buttons on the right.
   ctx.font = "11px system-ui, sans-serif";
@@ -1616,6 +1743,84 @@ function drawHistory(): void {
     ctx.fillStyle = HIDDEN_COLOR;
     ctx.fillText(text, L + 6, y);
   }
+}
+
+// The notes in the history are drawn on an offscreen layer, since drawing every note of the last
+// ten seconds in every frame is slow. Each frame, the layer is scrolled left by whole pixels and
+// only the newest moments are drawn, plus any earlier ones that changed (a note's first moments
+// are added once it has lasted long enough to count). The layer is redrawn in full only when the
+// rows or the size change. Its right edge is at the time layerClock, plus a small margin for the
+// fraction of a pixel that the clock is ahead of it.
+const notesLayer = document.createElement("canvas");
+const LAYER_MARGIN = 4; // px
+let layerKey   = "";
+let layerClock = 0;
+let layerDrawnTo  = -Infinity; // Time of the newest frame drawn on the layer
+let historyDirtyFrom = Infinity; // Time of the earliest frame changed since it was drawn
+
+function drawNotesLayer(L: number, R: number, top: number, bottom: number, rowH: number,
+                        yOf: (midi: number) => number, shownLo: number, shownHi: number): void {
+  const width = R - L + LAYER_MARGIN, height = bottom - top, scale = dpr();
+  const pxPerSecond = (R - L) / HISTORY_SECONDS;
+  const lctx = notesLayer.getContext("2d")!;
+  const key = [width, height, scale, historyLo, historyHi, shownLo, shownHi].join();
+  let from: number;
+  if (key !== layerKey) {
+    layerKey = key;
+    notesLayer.width  = Math.round(width * scale);
+    notesLayer.height = Math.round(height * scale);
+    layerClock = clock;
+    from = -Infinity;
+  } else {
+    // Scroll by whole device pixels, so that the layer never gets blurred by resampling.
+    const shift = Math.floor((clock - layerClock) * pxPerSecond * scale);
+    if (shift > 0) {
+      lctx.setTransform(1, 0, 0, 1, 0, 0);
+      lctx.globalCompositeOperation = "copy";
+      lctx.drawImage(notesLayer, -shift, 0);
+      lctx.globalCompositeOperation = "source-over";
+      layerClock += shift / (pxPerSecond * scale);
+    }
+    from = Math.min(layerDrawnTo, historyDirtyFrom);
+  }
+  historyDirtyFrom = Infinity;
+  if (!history.length) return;
+  // Nothing new to draw (as while frozen). Redrawing the newest moment anyway would make the
+  // edges of its translucent bars flicker.
+  if (from === layerDrawnTo && history[history.length - 1].t === layerDrawnTo) return;
+
+  lctx.setTransform(scale, 0, 0, scale, 0, 0);
+  const xOf = (t: number) => R - L - (layerClock - t) * pxPerSecond;
+  // Redraw from the first frame at or after `from`, clearing from where its bar starts.
+  let i0 = history.findIndex(f => f.t >= from);
+  if (i0 < 0) return;
+  i0 = Math.max(1, i0);
+  lctx.clearRect(xOf(history[i0 - 1].t), 0, width, height);
+  for (let i = i0; i < history.length; i++) {
+    const frame = history[i], prev = history[i - 1];
+    const x1 = xOf(frame.t), x0 = frame.t - prev.t > 0.25 ? x1 - 2 : xOf(prev.t);
+    let above = false, below = false;
+    for (const n of frame.notes) {
+      const row = Math.round(n.midi), cents = centsOff(n.midi);
+      if (row > shownHi) { above = true; continue; }
+      if (row < shownLo) { below = true; continue; }
+      lctx.globalAlpha = 0.15 + 0.35 * n.level;
+      lctx.fillStyle = `hsl(${pitchHue(n.midi)}, 70%, 55%)`;
+      lctx.fillRect(x0, yOf(row) - rowH / 2 - top, x1 - x0 + 0.5, rowH);
+      lctx.globalAlpha = 0.35 + 0.65 * n.level;
+      lctx.fillStyle = centsColor(cents);
+      lctx.fillRect(x0, yOf(n.midi) - 1.5 - top, x1 - x0 + 0.5, 3);
+    }
+    // Marks the top or bottom edge when notes beyond it are hidden.
+    lctx.globalAlpha = 1;
+    lctx.fillStyle = HIDDEN_COLOR;
+    if (above) lctx.fillRect(x0, 0, x1 - x0 + 0.5, 3);
+    if (below) lctx.fillRect(x0, height - 3, x1 - x0 + 0.5, 3);
+    frame.hiddenAbove = above;
+    frame.hiddenBelow = below;
+  }
+  lctx.globalAlpha = 1;
+  layerDrawnTo = history[history.length - 1].t;
 }
 
 // Widens [lo, hi] to at least HISTORY_MIN_SPAN semitones (or the whole note range, if that's
@@ -1798,7 +2003,7 @@ savedControls.forEach(el => {
 
 function frame(): void {
   if (!frozen) analyze();
-  drawTuner();
+  if (!tunerSection.hidden) drawTuner();
   drawSpectrum();
   drawHistory();
   requestAnimationFrame(frame);
