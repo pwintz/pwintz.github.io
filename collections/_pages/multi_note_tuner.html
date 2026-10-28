@@ -1,0 +1,416 @@
+---
+layout: single
+permalink: /tools/multi_note_tuner/
+title: Multi-note Music Tuner
+excerpt: "A tuner and live spectrum analyzer: see the frequencies in the sound from your microphone, which notes they are, and how many cents sharp or flat each one is."
+---
+
+<style>
+  .ft button,
+  .ft select {
+    font: inherit;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+  }
+  .ft button:hover { background: rgba(128, 128, 128, 0.1); }
+  .ft select { width: auto; padding: 0.25rem 0.4rem; }
+  /* The theme adds bottom margins to inputs and labels, which pushes them off-center in a row. */
+  .ft input,
+  .ft label,
+  .ft select { margin: 0; }
+  .ft [hidden] { display: none !important; }
+  .ft canvas { display: block; width: 100%; border-radius: 8px; }
+  .ft h2 { margin-top: 2rem; }
+  .ft .ft-primary { background: #1a73e8; border-color: #1a73e8; color: #fff; min-width: 6.5rem; }
+  .ft .ft-primary:hover { background: #1765cc; }
+
+  .ft-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem 1rem;
+    padding: 0.5rem 0;
+    font-size: 0.9em;
+  }
+  .ft-controls label { display: inline-flex; align-items: center; gap: 0.35rem; }
+  .ft-controls input[type="checkbox"] { width: auto; }
+  .ft-source-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem 1rem;
+    flex-basis: 100%;
+  }
+  .ft-pitch { flex: 1 1 18rem; }
+  .ft-pitch input { flex: 1; min-width: 8rem; }
+  .ft-pitch output { min-width: 10em; font-variant-numeric: tabular-nums; }
+  .ft audio { width: 100%; max-width: 28rem; }
+  .ft-status { margin: 0.25rem 0; font-size: 0.9em; color: #c5221f; }
+  .ft-status.ft-status-info { color: inherit; }
+  .ft-noise { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; }
+  .ft-noise-note {
+    padding: 0.15rem 0.5rem;
+    border: 1px solid #f0c36d;
+    border-radius: 4px;
+    background: #fef7e0;
+    color: #7a5200;
+    font-size: 0.85em;
+  }
+
+  .ft-chart { cursor: crosshair; }
+
+  /* A pinned panel stays at the top of the window while scrolling, below any pinned above it. */
+  .ft-panel { position: relative; padding: 0.3rem 0; background: #fff; }
+  .ft-panel.ft-pinned { position: sticky; z-index: 5; }
+  .ft .ft-pin,
+  .ft .ft-full {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.35rem;
+    padding: 0.25rem;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: #8a919c;
+    line-height: 0;
+    opacity: 0.6;
+  }
+  .ft .ft-pin:hover,
+  .ft .ft-full:hover { background: rgba(255, 255, 255, 0.1); opacity: 1; }
+  .ft .ft-full { right: 2.2rem; }
+  .ft .ft-full svg { width: 18px; height: 18px; }
+  /* In full screen, a panel fills the screen on the charts' dark background, without its pin. */
+  .ft .ft-panel:fullscreen { padding: 12px; background: #121417; overflow: auto; }
+  .ft .ft-panel:fullscreen .ft-pin { display: none; }
+  .ft .ft-panel:fullscreen .ft-full { right: 0.35rem; }
+  .ft .ft-pin svg { width: 18px; height: 18px; transform: rotate(45deg); transition: transform 150ms; }
+  .ft .ft-pinned .ft-pin { color: #6ea8fe; opacity: 1; }
+  .ft .ft-pinned .ft-pin svg { transform: none; }
+  .ft h2.ft-graph-title { margin: 1.5rem 0 0.3rem; padding: 0; border: none; font-size: 1.15em; }
+  .ft-info { margin: 0.2rem 0 0.75rem; font-size: 0.85em; }
+  .ft-info summary { width: fit-content; color: #6b6b6b; cursor: pointer; }
+  .ft-info summary:hover { color: inherit; }
+  .ft-info p { margin: 0.4rem 0 0; }
+
+  .ft-settings {
+    margin: 1rem 0;
+    padding: 0.6rem 1rem 0.8rem;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 8px;
+    font-size: 0.9em;
+  }
+  .ft-settings legend { padding: 0 0.3rem; font-weight: bold; }
+  .ft-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 0.6rem 1.5rem;
+  }
+  .ft-field { display: flex; flex-direction: column; gap: 0.2rem; }
+  /* A setting's title row: its name and ? button on the left, and its value (if any) on the right. */
+  .ft-field > span { display: flex; align-items: center; gap: 0.3rem; }
+  .ft-field > span output { margin-left: auto; }
+  .ft-field label { margin: 0; }
+  .ft-field output { opacity: 0.8; font-variant-numeric: tabular-nums; text-align: right; }
+  .ft-field input[type="number"] { width: 6rem; padding: 0.2rem 0.4rem; }
+  .ft-field input:invalid,
+  .ft-field select:invalid { border-color: #c5221f; box-shadow: 0 0 0 1px #c5221f; }
+  .ft-check { display: flex; align-items: center; gap: 0.4rem; }
+  .ft-check input { width: auto; }
+  .ft-field > .ft-range { gap: 0.4rem; }
+  .ft-field > .ft-range > select { width: 4rem; }
+
+  .ft .ft-help {
+    width: 1.25rem;
+    height: 1.25rem;
+    padding: 0;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: bold;
+    line-height: 1;
+    color: #6b6b6b;
+    flex: none;
+  }
+  .ft .ft-help[aria-expanded="true"] { background: #1a73e8; border-color: #1a73e8; color: #fff; }
+  .ft-help-popup {
+    position: absolute;
+    z-index: 30;
+    max-width: min(22rem, calc(100vw - 16px));
+    padding: 0.6rem 0.8rem;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+    font-size: 0.85em;
+    line-height: 1.45;
+  }
+</style>
+
+<div class="ft">
+  <p>
+    This page listens to sound, splits it into the frequencies it's made of with a fast Fourier
+    transform (FFT), and names the note at each strong frequency along with how many
+    <em>cents</em> (hundredths of a semitone) sharp or flat it is. Unlike most tuners, it can follow
+    several notes at once, so you can check a double stop or a chord. It began as a Processing
+    sketch I wrote to tune my violin and look at its harmonics.
+  </p>
+  <p>
+    Choose an input and press <strong>Start</strong>. The microphone is processed entirely in your
+    browser and isn't recorded or sent anywhere. If you don't want to use a microphone, try the
+    test tone.
+  </p>
+
+  <div class="ft-controls">
+    <label>Input
+      <select id="ft-source">
+        <option value="mic" selected>Microphone</option>
+        <option value="tone">Test tone</option>
+        <option value="file">Audio file</option>
+      </select>
+    </label>
+    <button id="ft-start" class="ft-primary" type="button">▶ Start</button>
+    <button id="ft-freeze" type="button" aria-pressed="false">❚❚ Freeze</button>
+    <span class="ft-noise">
+      <button id="ft-noise" type="button" data-help="Background noise, like the hum of a fan or traffic, can make large peaks in the spectrum, especially at low frequencies. Press this while it's quiet: the tuner listens for 4 seconds and from then on removes that noise from the spectrum (shown as a shaded blue area). The calibration is saved for your next visit. Calibrate again if the noise changes, or if you're somewhere else.">Calibrate background noise</button>
+      <button id="ft-noise-clear" type="button" hidden>Stop removing noise</button>
+      <span id="ft-noise-note" class="ft-noise-note" hidden></span>
+    </span>
+
+    <div id="ft-tone-controls" class="ft-source-controls" hidden>
+      <label class="ft-pitch">Pitch
+        <input id="ft-tone-pitch" type="range" min="36" max="96" step="0.01" value="69">
+        <output id="ft-tone-pitch-out"></output>
+      </label>
+      <label>Timbre
+        <select id="ft-tone-timbre">
+          <option value="sine">Pure (sine wave)</option>
+          <option value="bright" selected>Bright (all harmonics)</option>
+          <option value="hollow">Hollow (odd harmonics)</option>
+          <option value="missing">Weak fundamental</option>
+        </select>
+      </label>
+      <label>Notes
+        <select id="ft-tone-chord">
+          <option value="single" selected>One note</option>
+          <option value="fifth">Perfect fifth</option>
+          <option value="triad">Major triad</option>
+          <option value="minor7">Minor seventh chord</option>
+        </select>
+      </label>
+      <label><input id="ft-tone-audible" type="checkbox" checked> Play through speakers</label>
+    </div>
+
+    <div id="ft-file-controls" class="ft-source-controls" hidden>
+      <input id="ft-file" type="file" accept="audio/*" aria-label="Audio file">
+      <audio id="ft-audio" controls hidden></audio>
+    </div>
+  </div>
+  <p id="ft-status" class="ft-status" role="status" hidden></p>
+
+  <h2 class="ft-graph-title">Tuner</h2>
+  <div class="ft-panel">
+    <canvas id="ft-tuner" aria-label="Tuner showing the strongest note and how many cents sharp or flat it is"></canvas>
+  </div>
+  <details class="ft-info">
+    <summary>About this graph</summary>
+    <p>
+      The tuner names the loudest note and shows how many cents sharp or flat it is. The needle is
+      in the green zone when the note is within 5 cents of equal temperament. If the loudest peak
+      is a harmonic, the tuner shows the note it's a harmonic of.
+    </p>
+  </details>
+
+  <h2 class="ft-graph-title">Spectrum</h2>
+  <div class="ft-panel">
+    <canvas id="ft-spectrum" class="ft-chart" aria-label="Spectrum of the sound, with the notes at each peak"></canvas>
+  </div>
+  <details class="ft-info">
+    <summary>About this graph</summary>
+    <p>
+      Each peak is a frequency in the sound. The white curve on each peak is the Gaussian fitted to
+      it, which locates the peak more precisely than the FFT alone (see "How it works" below).
+      Below each note is a small tuner: the mark is in the green zone when the note is within
+      5 cents of equal temperament. Peaks marked ×2, ×3, … are harmonics of a lower note, so they
+      aren't named as separate notes. Hover over the chart to read off a frequency.
+    </p>
+  </details>
+  <fieldset class="ft-settings">
+    <legend>Spectrum display</legend>
+    <div class="ft-grid">
+      <div class="ft-field">
+        <span><label for="ft-axis" data-help="Notes spaces the axis evenly by pitch, so every octave is the same width, as on a piano. Hz spaces it evenly by frequency, which crowds the low notes together but shows a note's harmonics as evenly spaced peaks.">Frequency axis</label></span>
+        <select id="ft-axis">
+          <option value="note" selected>Notes (each semitone the same width)</option>
+          <option value="linear">Hz (linear)</option>
+        </select>
+      </div>
+      <div class="ft-field">
+        <span><label id="ft-range-label" for="ft-note-min-name"data-help="The lowest and highest pitches shown. Narrow the range to zoom in, or choose the same note for both to look closely at a single note. This changes only what's shown, not which notes are detected.">Note range</label></span>
+        <span id="ft-range-notes" class="ft-range">
+          <select id="ft-note-min-name" aria-label="Lowest note shown"></select>
+          <select id="ft-note-min-octave" aria-label="Octave of the lowest note shown"></select>
+          to
+          <select id="ft-note-max-name" aria-label="Highest note shown"></select>
+          <select id="ft-note-max-octave" aria-label="Octave of the highest note shown"></select>
+        </span>
+        <span id="ft-range-hz" class="ft-range" hidden>
+          <input id="ft-fmin" type="number" min="10" max="20000" step="10" value="50" aria-label="Lowest frequency shown">
+          to
+          <input id="ft-fmax" type="number" min="10" max="20000" step="10" value="4000" aria-label="Highest frequency shown">
+        </span>
+      </div>
+      <div class="ft-field">
+        <span><label for="ft-scale" data-help="Linear shows how strong each frequency is on an ordinary scale that grows and shrinks to fit the loudest sound, so the strong peaks stand out. Decibels is a logarithmic scale, where 0 dB is a sine wave at full volume, so quiet details like background noise are visible too.">Magnitude axis</label></span>
+        <select id="ft-scale">
+          <option value="linear" selected>Linear (autoscaled)</option>
+          <option value="db">Decibels</option>
+        </select>
+      </div>
+      <div class="ft-field">
+        <div class="ft-check">
+          <input id="ft-show-fits" type="checkbox" checked>
+          <label for="ft-show-fits" data-help="Draws the Gaussian curve fitted to each peak. The top of each curve is the peak's estimated frequency and strength, which is found much more precisely than the spacing between the FFT's frequencies.">Show fitted Gaussians</label>
+        </div>
+        <div class="ft-check">
+          <input id="ft-show-waveform" type="checkbox">
+          <label for="ft-show-waveform" data-help="Draws the audio signal being analyzed, as a wave across the top of the spectrum.">Show waveform</label>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+
+  <h2 class="ft-graph-title">Note history</h2>
+  <div class="ft-panel">
+    <canvas id="ft-history" aria-label="History of the notes heard over the last ten seconds"></canvas>
+  </div>
+  <details class="ft-info">
+    <summary>About this graph</summary>
+    <p>
+      The notes heard over the last ten seconds, like a piano roll. The line inside each bar shows
+      the exact pitch, so it sits in the middle of its row when in tune, above the middle when
+      sharp, and below it when flat, and is colored from green (in tune) to red (a quarter tone
+      off). Vibrato shows up as a wavy line. Only notes within the spectrum's note range are
+      shown; amber marks along the top or bottom edge show when higher or lower notes were heard.
+    </p>
+  </details>
+
+  <fieldset class="ft-settings">
+    <legend>Analysis settings</legend>
+    <div class="ft-grid">
+      <div class="ft-field">
+        <span><label for="ft-window" data-help="Before the FFT, the audio is faded in and out by this window, which keeps each tone from smearing out across the spectrum. With Gauss, the tuner measures frequencies most precisely. Choose None (rectangular) to see the smearing that a window prevents.">Window function</label></span>
+        <select id="ft-window">
+          <option value="gauss" selected>Gauss</option>
+          <option value="hann">Hann</option>
+          <option value="hamming">Hamming</option>
+          <option value="blackman">Blackman</option>
+          <option value="bartlett">Bartlett</option>
+          <option value="bartletthann">Bartlett–Hann</option>
+          <option value="cosine">Cosine</option>
+          <option value="lanczos">Lanczos</option>
+          <option value="triangular">Triangular</option>
+          <option value="rectangular">None (rectangular)</option>
+        </select>
+      </div>
+      <div class="ft-field">
+        <span><label for="ft-size" data-help="How many audio samples are analyzed at once. Larger sizes tell apart frequencies that are closer together, which helps with low notes, but they respond more slowly when the sound changes.">FFT size</label></span>
+        <select id="ft-size">
+          <option value="2048">2048 samples</option>
+          <option value="4096">4096 samples</option>
+          <option value="8192" selected>8192 samples</option>
+          <option value="16384">16384 samples</option>
+          <option value="32768">32768 samples</option>
+        </select>
+        <output id="ft-size-out" for="ft-size"></output>
+      </div>
+      <div class="ft-field">
+        <span><label for="ft-smoothing" data-help="Averages each new spectrum with the ones before it. Higher values give steadier readings but respond more slowly.">Smoothing</label><output id="ft-smoothing-out"></output></span>
+        <input id="ft-smoothing" type="range" min="0" max="0.95" step="0.05" value="0.5">
+      </div>
+      <div class="ft-field">
+        <span><label for="ft-threshold" data-help="Peaks that are much weaker than the loudest peak are ignored. It's shown in the same units as the spectrum's magnitude axis: as a fraction of the loudest peak's height (0.30 is 30%), or in decibels below it. Raise it if background noise is being named as notes, or lower it to catch the quieter notes of a chord.">Peak threshold (relative to loudest)</label><output id="ft-threshold-out"></output></span>
+        <input id="ft-threshold" type="range" min="2" max="90" step="1" value="30">
+      </div>
+      <div class="ft-field">
+        <span><label for="ft-min-level" data-help="Peaks quieter than this are always ignored, so that background noise in silence isn't named as notes. It's shown in the same units as the spectrum's magnitude axis, where a sine wave at full volume is 1 (or 0 dB). Lower it if quiet playing isn't picked up.">Quietest peak</label><output id="ft-min-level-out"></output></span>
+        <input id="ft-min-level" type="range" min="-110" max="-20" step="5" value="-70">
+      </div>
+      <div class="ft-field">
+        <span><label for="ft-noise-strength" data-help="After calibrating the background noise, this multiple of it is removed from the spectrum. Raise it if some of the noise still shows through, or lower it if quiet notes at the same pitches as the noise are lost.">Noise removal strength</label><output id="ft-noise-strength-out"></output></span>
+        <input id="ft-noise-strength" type="range" min="0.5" max="4" step="0.25" value="1">
+      </div>
+      <div class="ft-field">
+        <span><label for="ft-a4" data-help="The pitch of A4 that note names and cents are measured from. 440 Hz is the usual standard. Some orchestras tune to 442 Hz, and Baroque ensembles often use 415 Hz.">Reference pitch A4 (Hz)</label></span>
+        <input id="ft-a4" type="number" min="300" max="600" step="0.5" value="440">
+      </div>
+      <div class="ft-field">
+        <div class="ft-check">
+          <input id="ft-ignore-harmonics" type="checkbox" checked>
+          <label for="ft-ignore-harmonics" data-help="Most instruments sound frequencies at whole-number multiples of each note's pitch, called harmonics. When this is on, peaks at harmonics of a lower note are marked ×2, ×3, … instead of being named as notes. Turn it off when playing a note together with its octave, which would otherwise be treated as a harmonic and not named.">Detect and ignore harmonics</label>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+  <div id="ft-help-popup" class="ft-help-popup" role="note" hidden></div>
+
+  <h2>How it works</h2>
+  <p>
+    Every frame, the most recent \(N\) audio samples (8192 by default, about a sixth of a second)
+    are multiplied by a <em>window function</em> that fades them in and out, and then transformed
+    with an FFT. The FFT measures the strength of the sound at evenly spaced frequencies, or
+    <em>bins</em>, \(f_s / N\) apart, where \(f_s\) is the sample rate. At 48&nbsp;kHz that's about
+    5.9&nbsp;Hz, which near A3 (220&nbsp;Hz) is almost half a semitone: far too coarse for tuning
+    on its own.
+  </p>
+  <p>
+    The trick that makes the tuner precise comes from M.&nbsp;Gasior and J.&nbsp;L.&nbsp;Gonzalez,
+    <a href="https://mgasior.web.cern.ch/mgasior/pap/FFT_resol_note.pdf">"Improving FFT Frequency
+    Measurement Resolution by Parabolic and Gaussian Spectrum Interpolation"</a>. With a Gaussian
+    window, the peak that a pure tone makes in the spectrum has the shape of a Gaussian, so the
+    logarithm of its magnitude is a parabola. If bin \(k\) is a local maximum and
+    \(\alpha, \beta, \gamma\) are the logarithms of the magnitudes in bins \(k-1\), \(k\), and
+    \(k+1\), the parabola through those three points peaks at
+    \[
+      f = \left(k + \delta\right) \frac{f_s}{N},
+      \qquad
+      \delta = \frac{1}{2} \cdot \frac{\alpha - \gamma}{\alpha - 2\beta + \gamma},
+    \]
+    which finds the tone's frequency to a small fraction of a bin. This is what the white curves on
+    the spectrum show. Other windows give peaks that are only approximately Gaussian, so the
+    estimate is less exact; try "None (rectangular)" to see the wide skirts that a window is meant
+    to prevent.
+  </p>
+  <p>
+    Most instruments don't make pure tones. A violin's G string, for example, vibrates at
+    196&nbsp;Hz and at every whole-number multiple of it, 392&nbsp;Hz, 588&nbsp;Hz, and so on.
+    These <em>harmonics</em> would otherwise be named as notes of their own, so any peak within
+    35&nbsp;cents of a whole-number multiple of a lower peak is treated as its harmonic instead.
+    (The catch is that a note played together with its octave is also hidden; uncheck "Detect and
+    ignore harmonics" to see every peak.) Low notes often have a fundamental much quieter than
+    their harmonics, so a peak below the threshold is still counted as a note when at least two of
+    the stronger peaks are its harmonics. The tuner at the top shows the fundamental of the loudest
+    sound.
+  </p>
+  <p>
+    Steady background noise, from a fan, a refrigerator, or traffic, mostly sits at low
+    frequencies, where it can make the biggest peak in the spectrum. <strong>Calibrate background
+    noise</strong> records the spectrum over four seconds of quiet. Noise rises and falls at
+    random, so each bin's noise level is taken as the level it stays below 95% of the time. A
+    fan's hum also drifts slightly in pitch, so each bin's level is then raised to the highest
+    level within two bins on either side. From then on, that level (times the noise removal
+    strength) is subtracted from each bin of every new spectrum, which is called <em>spectral
+    subtraction</em>. It removes only noise that stays about the same, and it also takes a little
+    off quiet notes at the frequencies where the noise was loud.
+  </p>
+  <p>
+    The note names use twelve-tone equal temperament with A4 at the reference pitch, so a note is
+    \(12 \log_2(f / f_{\text{A4}})\) semitones above A4. Intervals tuned by ear are often not
+    equal-tempered: a pure major third is 14&nbsp;cents flatter than an equal-tempered one, so in
+    a well-tuned chord the third may read as flat.
+  </p>
+</div>
+
+<script src="/assets/ts/out/multi_note_tuner.js" type="module"></script>
