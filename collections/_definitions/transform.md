@@ -1,12 +1,11 @@
 ---
-published: false
 title: Transform
 term: transform
 applies_to: functions
 levels:
   high-school:
     text: |-
-      A _transform_ turns a function into another function, often to make a problem easier.
+      A _transform_ turns a function into another function, often to reveal hidden information or make a problem easier.
   undergraduate:
     text: |-
       A _transform_ is an operator, usually an integral operator, that converts a function of one variable into a function of another variable.

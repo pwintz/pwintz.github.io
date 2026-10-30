@@ -7,7 +7,7 @@ synonyms: [set of subgradients]
 levels:
   undergraduate:
     context: convex functions
-    text: |-
+    text: |- # TODO: Move subgradient into a separate definition.
       For a convex function $f$, a [vector](/definitions/vector) $g$ is a _subgradient_ at $x$ if $f(y) \geq f(x) + g \cdot (y - x)$ for all $y$, so the plane through $(x, f(x))$ with slope $g$ lies below the graph of $f$. The _subdifferential_ $\partial f(x)$ is the set of all subgradients at $x$.
 properties:
   - >-

@@ -1,5 +1,4 @@
 ---
-published: false
 title: Transcendental number
 term: transcendental number
 applies_to: numbers

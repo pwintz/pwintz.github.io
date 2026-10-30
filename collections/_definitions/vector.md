@@ -1,5 +1,4 @@
 ---
-published: false
 title: Vector
 term: vector
 applies_to: vector spaces
@@ -9,7 +8,8 @@ levels:
       A _vector_ is an arrow with a length and a direction.
   high-school:
     text: |-
-      A _vector_ is a quantity with a magnitude and a direction, drawn as an arrow. In coordinates, it is written as a list of numbers.
+      A _vector_ is a quantity with a magnitude and a direction. 
+      Graphically, a vector is drawn as an arrow. In coordinates, it is written as a list of numbers.
     caveat: >-
       In general vector spaces, such as spaces of functions or polynomials, there may be no meaningful notion of "magnitude" or "direction" until one is chosen.
   undergraduate:

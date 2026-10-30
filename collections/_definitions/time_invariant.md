@@ -10,7 +10,7 @@ levels:
       A system is _time-invariant_ if it behaves the same way no matter when you start it: a recipe that works on Monday works just as well on Friday.
   high-school:
     text: |-
-      A system is _time-invariant_ if it behaves the same way no matter when you start it.
+      A dynamical system is _time-invariant_ if it behaves the same way no matter when you start it.
   undergraduate:
     text: |-
       A system is _time-invariant_ if its equations do not depend explicitly on time, as in $\dot{x} = f(x, u)$ rather than $\dot{x} = f(t, x, u)$.

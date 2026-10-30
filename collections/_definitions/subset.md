@@ -1,5 +1,4 @@
 ---
-published: false
 title: Subset
 term: subset
 applies_to: pairs of sets
@@ -7,7 +6,7 @@ synonyms: [$\subseteq$]
 levels:
   elementary:
     text: |-
-      A set $A$ is a _subset_ of a set $B$ if everything in $A$ is also in $B$, the way the set of dogs is a subset of the set of animals.
+      A set $A$ is a _subset_ of a set $B$ if everything in $A$ is also in $B$. For example, the set of golden retrivers is a subset of the set of dogs, and dogs are a subset of all animals.
   high-school:
     text: |-
       $A$ is a _subset_ of $B$, written $A \subseteq B$, if every element of $A$ is also an element of $B$.

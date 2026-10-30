@@ -1,5 +1,4 @@
 ---
-published: false
 title: Whole numbers
 term: whole numbers
 applies_to: numbers
