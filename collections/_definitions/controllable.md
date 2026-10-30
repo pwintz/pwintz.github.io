@@ -14,8 +14,12 @@ levels:
     text: |-
       A system $\dot{x} = f(x, u)$ (or $x_{k+1} = f(x_k, u_k)$) is _controllable_ if, for every initial state, some input steers the state to the origin in finite time.
 properties:
-  - >-
-    For $\dot{x} = A x + B u$ with $n$ states, controllability holds exactly when $\operatorname{rank} \begin{bmatrix} B & A B & \cdots & A^{n-1} B \end{bmatrix} = n$ (the Kalman [rank](/definitions/matrix-rank) condition).
+  - |-
+    For $\dot{x} = A x + B u$ with $n$ states, controllability holds exactly when
+
+    $$\operatorname{rank} \begin{bmatrix} B & A B & \cdots & A^{n-1} B \end{bmatrix} = n$$
+
+    (the Kalman [rank](/definitions/matrix-rank) condition).
   - >-
     Every controllable linear system is [stabilizable](/definitions/stabilizable).
 ---

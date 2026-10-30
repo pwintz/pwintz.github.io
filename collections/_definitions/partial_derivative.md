@@ -14,6 +14,10 @@ levels:
 properties:
   - >-
     Having all partial derivatives at a point does not make a function [differentiable](/definitions/differentiable) there, or even [continuous](/definitions/continuous).
-  - >-
-    If the second partial derivatives are [continuous](/definitions/continuous), the order of differentiation does not matter: $\frac{\partial^2 f}{\partial x \partial y} = \frac{\partial^2 f}{\partial y \partial x}$ (Schwarz's theorem).
+  - |-
+    If the second partial derivatives are [continuous](/definitions/continuous), the order of differentiation does not matter:
+
+    $$\frac{\partial^2 f}{\partial x \partial y} = \frac{\partial^2 f}{\partial y \partial x}$$
+
+    (Schwarz's theorem).
 ---

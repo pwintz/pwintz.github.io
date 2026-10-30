@@ -25,7 +25,9 @@ see_also:
 ---
 ## How the two meanings are related
 
-The total derivative along a path is the linear map applied to the velocity of the path: $\frac{\mathrm{d}}{\mathrm{d}t} f(t, x(t)) = Df(t, x(t))~(1, \dot{x}(t))$.
+The total derivative along a path is the linear map applied to the velocity of the path:
+
+$$\frac{\mathrm{d}}{\mathrm{d}t} f(t, x(t)) = Df(t, x(t))~(1, \dot{x}(t)).$$
 
 ## Notes
 

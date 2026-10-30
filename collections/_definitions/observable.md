@@ -14,8 +14,10 @@ levels:
     text: |-
       A system is _observable_ if its initial state is uniquely determined by its input and output over some finite time interval.
 properties:
-  - >-
-    For $\dot{x} = A x + B u$, $y = C x$ with $n$ states, observability holds exactly when $$\operatorname{rank} \begin{bmatrix} C \\ C A \\ \vdots \\ C A^{n-1} \end{bmatrix} = n.$$
+  - |-
+    For $\dot{x} = A x + B u$, $y = C x$ with $n$ states, observability holds exactly when
+
+    $$\operatorname{rank} \begin{bmatrix} C \\ C A \\ \vdots \\ C A^{n-1} \end{bmatrix} = n.$$
   - >-
     Observability is dual to controllability: $(A, C)$ is observable if and only if $(A^{\top}, C^{\top})$ is [controllable](/definitions/controllable).
 ---

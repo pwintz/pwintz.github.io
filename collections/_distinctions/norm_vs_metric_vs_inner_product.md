@@ -40,5 +40,7 @@ see_also:
 ---
 ## Notes
 
-- A norm comes from an inner product exactly when it satisfies the parallelogram law, $\lVert x + y \rVert^2 + \lVert x - y \rVert^2 = 2 \lVert x \rVert^2 + 2 \lVert y \rVert^2$.
+- A norm comes from an inner product exactly when it satisfies the parallelogram law,
+
+  $$\lVert x + y \rVert^2 + \lVert x - y \rVert^2 = 2 \lVert x \rVert^2 + 2 \lVert y \rVert^2.$$
 - A metric comes from a norm only if it is translation invariant ($d(x + z, y + z) = d(x, y)$) and scales ($d(c x, c y) = \lvert c \rvert d(x, y)$).

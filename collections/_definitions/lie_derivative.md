@@ -12,7 +12,11 @@ levels:
   graduate:
     context: differential geometry
     text: |-
-      The _Lie derivative_ of $V$ along $F$ is $L_F V(x) = \frac{\mathrm{d}}{\mathrm{d}t} V(\phi_t(x)) \big\rvert_{t = 0}$, where $\phi_t$ is the flow of $F$. Lie derivatives are also defined for [vector](/definitions/vector) fields and differential forms.
+      The _Lie derivative_ of $V$ along $F$ is
+
+      $$L_F V(x) = \frac{\mathrm{d}}{\mathrm{d}t} V(\phi_t(x)) \big\rvert_{t = 0},$$
+
+      where $\phi_t$ is the flow of $F$. Lie derivatives are also defined for [vector](/definitions/vector) fields and differential forms.
 properties:
   - >-
     If $L_F V(x) \leq 0$ for all $x$, then $V$ never increases along solutions of $\dot{x} = F(x)$. This is how [Lyapunov functions](/definitions/lyapunov-function) are checked, without solving the system.

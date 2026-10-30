@@ -9,7 +9,9 @@ levels:
       The _directional derivative_ of a function of several variables is its rate of change as you move in a particular direction, like the slope of a hill in the direction you are walking.
   undergraduate:
     text: |-
-      The _directional derivative_ of $f$ at $x$ in the direction $v$ is the rate of change of $f$ in that direction: $D_v f(x) = \lim_{t \to 0} \frac{f(x + t v) - f(x)}{t}$.
+      The _directional derivative_ of $f$ at $x$ in the direction $v$ is the rate of change of $f$ in that direction:
+
+      $$D_v f(x) = \lim_{t \to 0} \frac{f(x + t v) - f(x)}{t}.$$
 properties:
   - >-
     If $f$ is [differentiable](/definitions/differentiable), then $D_v f(x) = \nabla f(x) \cdot v$.

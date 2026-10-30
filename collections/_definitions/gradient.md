@@ -7,7 +7,9 @@ synonyms: [$\nabla f$]
 levels:
   undergraduate:
     text: |-
-      The _gradient_ of $f : \reals^n \to \reals$ is the [vector](/definitions/vector) of [partial derivatives](/definitions/partial-derivative) $\nabla f(x) = \left( \frac{\partial f}{\partial x_1}(x), \dots, \frac{\partial f}{\partial x_n}(x) \right)$.
+      The _gradient_ of $f : \reals^n \to \reals$ is the [vector](/definitions/vector) of [partial derivatives](/definitions/partial-derivative)
+
+      $$\nabla f(x) = \left( \frac{\partial f}{\partial x_1}(x), \dots, \frac{\partial f}{\partial x_n}(x) \right).$$
   graduate:
     context: Riemannian manifolds
     text: |-

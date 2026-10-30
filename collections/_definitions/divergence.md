@@ -10,7 +10,11 @@ levels:
       The _divergence_ of a flow measures how much it spreads out from each point (positive) or gathers in toward it (negative).
   undergraduate:
     text: |-
-      The _divergence_ of a [vector](/definitions/vector) field $F : \reals^n \to \reals^n$ is the scalar function $\nabla \cdot F = \frac{\partial F_1}{\partial x_1} + \dots + \frac{\partial F_n}{\partial x_n}$. It measures how much $F$ spreads out from a point.
+      The _divergence_ of a [vector](/definitions/vector) field $F : \reals^n \to \reals^n$ is the scalar function
+
+      $$\nabla \cdot F = \frac{\partial F_1}{\partial x_1} + \dots + \frac{\partial F_n}{\partial x_n}.$$
+
+      It measures how much $F$ spreads out from a point.
 properties:
   - >-
     The divergence is the trace of the [Jacobian](/definitions/jacobian) [matrix](/definitions/matrix) of $F$.

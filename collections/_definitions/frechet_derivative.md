@@ -7,7 +7,11 @@ levels:
   undergraduate:
     context: functions on $\reals^n$
     text: |-
-      The _Fréchet derivative_ of $f : \reals^n \to \reals^m$ at $x$ is the [linear map](/definitions/linear-map) $Df(x)$ with $\lim_{h \to 0} \frac{\lVert f(x + h) - f(x) - Df(x) h \rVert}{\lVert h \rVert} = 0$, if it exists. This is the usual derivative of multivariable calculus.
+      The _Fréchet derivative_ of $f : \reals^n \to \reals^m$ at $x$ is the [linear map](/definitions/linear-map) $Df(x)$ with
+
+      $$\lim_{h \to 0} \frac{\lVert f(x + h) - f(x) - Df(x) h \rVert}{\lVert h \rVert} = 0,$$
+
+      if it exists. This is the usual derivative of multivariable calculus.
   graduate:
     context: normed spaces
     text: |-

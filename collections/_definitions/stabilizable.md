@@ -11,8 +11,12 @@ levels:
     text: |-
       A system $\dot{x} = f(x, u)$ is _stabilizable_ (at the origin) if there is a [feedback](/definitions/feedback) law $u = k(x)$ that makes the origin of $\dot{x} = f(x, k(x))$ [asymptotically stable](/definitions/asymptotically-stable). For $\dot{x} = A x + B u$, this means there is a [matrix](/definitions/matrix) $K$ such that $A + B K$ is Hurwitz.
 properties:
-  - >-
-    A linear system is stabilizable if and only if every uncontrollable mode is [asymptotically stable](/definitions/asymptotically-stable): $\operatorname{rank} \begin{bmatrix} \lambda I - A & B \end{bmatrix} = n$ for every [eigenvalue](/definitions/eigenvalue) $\lambda$ of $A$ with $\operatorname{Re} \lambda \geq 0$ (the PBH test).
+  - |-
+    A linear system is stabilizable if and only if every uncontrollable mode is [asymptotically stable](/definitions/asymptotically-stable):
+
+    $$\operatorname{rank} \begin{bmatrix} \lambda I - A & B \end{bmatrix} = n$$
+
+    for every [eigenvalue](/definitions/eigenvalue) $\lambda$ of $A$ with $\operatorname{Re} \lambda \geq 0$ (the PBH test).
   - >-
     For a [controllable](/definitions/controllable) linear system, the closed-loop [eigenvalues](/definitions/eigenvalue) can be placed anywhere by [state feedback](/definitions/state-feedback) ([pole](/definitions/pole) placement).
   - >-
