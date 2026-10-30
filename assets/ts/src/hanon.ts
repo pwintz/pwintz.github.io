@@ -8,8 +8,8 @@
 // E♭ F G A♭ B♭ C D in E♭ major, so every pattern stays within the new key's scale.
 
 import VexFlow, {
-  Accidental, Barline, Beam, Formatter, Fraction, FretHandFinger, Modifier,
-  Renderer, Stave, StaveConnector, StaveNote, SVGContext, Voice,
+  Accidental, Articulation as VexArticulation, Barline, Beam, Curve, Dot, Formatter, Fraction, FretHandFinger,
+  Modifier, Renderer, Stave, StaveConnector, StaveNote, Stem, SVGContext, Tuplet, Voice,
 } from "vexflow/bravura";
 export { HANON_EXERCISES };
 import { HANON_EXERCISES, HanonExercise } from "./data/hanon_data";
@@ -241,6 +241,89 @@ export function makeTransposer(key: Key): Transposer {
 }
 
 // ╭────────────────────────────────────────╮
+// │        Rhythm and articulation         │
+// ╰────────────────────────────────────────╯
+// Hanon wrote every exercise in even sixteenths, four to a beat. A rhythm rewrites each beat's four
+// notes, keeping 2/4 time (so a dotted pair is a dotted sixteenth and a thirty-second, and a triplet
+// is three sixteenths in the time of an eighth). An articulation marks each measure's eight notes.
+
+// How one note of a beat is written, and how long it lasts (in sixteenths).
+interface BeatNote {
+  duration : "8" | "16" | "32";
+  dots     : number;
+  triplet  : boolean;   // One of three triplet sixteenths
+  length   : number;
+}
+
+const SIXTEENTH: BeatNote         = { duration: "16", dots: 0, triplet: false, length: 1 };
+const DOTTED_SIXTEENTH: BeatNote  = { duration: "16", dots: 1, triplet: false, length: 1.5 };
+const THIRTY_SECOND: BeatNote     = { duration: "32", dots: 0, triplet: false, length: 0.5 };
+const TRIPLET_SIXTEENTH: BeatNote = { duration: "16", dots: 0, triplet: true,  length: 2 / 3 };
+const EIGHTH: BeatNote            = { duration: "8",  dots: 0, triplet: false, length: 2 };
+
+export const RHYTHMS = {
+  "even"         : { menu: "Even sixteenths (as written)",       beat: [SIXTEENTH, SIXTEENTH, SIXTEENTH, SIXTEENTH] },
+  "long-short"   : { menu: "Dotted (long–short)",                beat: [DOTTED_SIXTEENTH, THIRTY_SECOND, DOTTED_SIXTEENTH, THIRTY_SECOND] },
+  "short-long"   : { menu: "Reverse dotted (short–long)",        beat: [THIRTY_SECOND, DOTTED_SIXTEENTH, THIRTY_SECOND, DOTTED_SIXTEENTH] },
+  "triplet-long" : { menu: "Triplet + eighth (three quick, one long)", beat: [TRIPLET_SIXTEENTH, TRIPLET_SIXTEENTH, TRIPLET_SIXTEENTH, EIGHTH] },
+  "long-triplet" : { menu: "Eighth + triplet (one long, three quick)", beat: [EIGHTH, TRIPLET_SIXTEENTH, TRIPLET_SIXTEENTH, TRIPLET_SIXTEENTH] },
+} satisfies Record<string, { menu: string; beat: BeatNote[] }>;
+
+type Rhythm = keyof typeof RHYTHMS;
+
+// Marks for each of a measure's eight notes: "." staccato, "(" and ")" the first and last notes
+// under a slur, "-" a note inside a slur, " " unmarked. `byRhythm` adapts an articulation to a
+// rhythm whose groups don't fit it (a slur over two notes would split a triplet).
+interface ArticulationInfo {
+  menu      : string;
+  marks     : string;
+  byRhythm? : Partial<Record<Rhythm, { menu: string; marks: string }>>;
+}
+
+export const ARTICULATIONS = {
+  "legato"          : { menu: "Legato (as written)",       marks: "        " },
+  "staccato"        : { menu: "Staccato",                  marks: "........" },
+  "staccato-legato" : { menu: "Four staccato, four legato", marks: "....(--)" },
+  "legato-staccato" : { menu: "Four legato, four staccato", marks: "(--)...." },
+  "slurred-staccato": { menu: "Two slurred, two staccato",  marks: "()..().." , byRhythm: {
+    "triplet-long" : { menu: "Triplet slurred, eighth staccato", marks: "(-).(-)." },
+    "long-triplet" : { menu: "Eighth staccato, triplet slurred", marks: ".(-).(-)" },
+  } },
+} satisfies Record<string, ArticulationInfo>;
+
+type Articulation = keyof typeof ARTICULATIONS;
+
+// An articulation's name and marks in the given rhythm.
+function articulationIn(articulation: Articulation, rhythm: Rhythm): { menu: string; marks: string } {
+  const info: ArticulationInfo = ARTICULATIONS[articulation];
+  return info.byRhythm?.[rhythm] ?? info;
+}
+
+// A note or chord as written and played in the chosen rhythm and articulation.
+interface StyledEvent extends WrittenEvent {
+  beatNote : BeatNote | null;   // null for the final half note, which keeps its written value
+  length   : number;            // In sixteenths
+  staccato : boolean;
+  slur     : "start" | "end" | null;
+}
+
+function styleMeasures(measures: WrittenEvent[][], rhythm: Rhythm, articulation: Articulation): StyledEvent[][] {
+  const beat  = RHYTHMS[rhythm].beat;
+  const marks = articulationIn(articulation, rhythm).marks;
+  return measures.map((measure) => measure.map((event, index) => {
+    if (event.duration !== "16") return { ...event, beatNote: null, length: 8, staccato: false, slur: null };
+    const mark = marks[index];
+    return {
+      ...event,
+      beatNote : beat[index % 4],
+      length   : beat[index % 4].length,
+      staccato : mark === ".",
+      slur     : mark === "(" ? "start" : mark === ")" ? "end" : null,
+    };
+  }));
+}
+
+// ╭────────────────────────────────────────╮
 // │               Engraving                │
 // ╰────────────────────────────────────────╯
 
@@ -249,6 +332,8 @@ type Clef = "treble" | "bass";
 interface RenderOptions {
   exercise      : HanonExercise;
   key           : Key;
+  rhythm        : Rhythm;
+  articulation  : Articulation;
   showFingering : boolean;
   zoom          : number;    // 1 = full size
   abbreviate    : boolean;   // Show only the key measures, with ellipses for the rest
@@ -314,13 +399,17 @@ const STAFF_HEIGHT   = 40;   // Top line to bottom line
 const STAVE_TOP_GAP  = 40;   // VexFlow draws a stave's top line 40px below the stave's y
 const FINGERING_PX   = 13;   // Room for a fingering number
 const STEM_ROOM_PX   = 16;   // Room for stems and beams that poke out of the staff
+const TUPLET_PX      = 16;   // Room for triplet numbers, on the hand's outer side
+const MARKS_PX       = 10;   // Room for staccato dots and slurs, which can go on either side
 const STAFF_GAP_MIN  = 30;   // Minimum space between the two staves of a line
 const LINE_GAP_PX    = 16;   // Extra space between lines
 
 // How far notes (and their fingerings) reach above and below a staff, beyond its outer lines.
 function staffExtent(
-  measures: WrittenEvent[][], clef: Clef, transposer: Transposer, isRightHand: boolean, showFingering: boolean,
+  measures: StyledEvent[][], clef: Clef, transposer: Transposer, isRightHand: boolean, showFingering: boolean,
 ): { above: number; below: number } {
+  const tuplets = measures.flat().some((event) => event.beatNote?.triplet);
+  const marks   = measures.flat().some((event) => event.staccato || event.slur) ? MARKS_PX : 0;
   const { bottom, top } = STAFF_LINES[clef];
   let above = 0;
   let below = 0;
@@ -333,19 +422,57 @@ function staffExtent(
       below = Math.max(below, Math.max(0, bottom - step) * STEP_PX + (fingers && !up ? FINGERING_PX : 0));
     });
   }
-  return { above: above + STEM_ROOM_PX, below: below + STEM_ROOM_PX };
+  const tupletRoom = tuplets ? TUPLET_PX : 0;
+  return {
+    above: above + STEM_ROOM_PX + marks + (isRightHand ? tupletRoom : 0),
+    below: below + STEM_ROOM_PX + marks + (isRightHand ? 0 : tupletRoom),
+  };
 }
 
+// A tuplet whose number stays on its hand's outer side (above the right hand, below the left), so
+// the two hands' numbers don't collide between the staves. VexFlow's own placement can leave the
+// number far from the notes or on top of a staccato dot, so this places it just beyond each note's
+// outer edge: its stem tip (or beam), or else its notehead plus the fingerings, staccato dots, and
+// slurs on that side. (The music font's glyph boxes are too tall to measure the drawing instead.)
+class OuterTuplet extends Tuplet {
+  constructor(notes: StaveNote[], private readonly outer: number, private readonly slurred: boolean[]) {
+    super(notes, { notesOccupied: 2 });
+  }
+
+  getYPosition(): number {
+    this.setTupletLocation(this.outer);   // Beaming sets it to the stem side
+    const top  = this.outer === Tuplet.LOCATION_TOP;
+    const side = top ? Modifier.Position.ABOVE : Modifier.Position.BELOW;
+    const edges = (this.notes as StaveNote[]).map((note, index) => {
+      const stemOutward = (note.getStemDirection() === Stem.UP) === top;
+      if (stemOutward) return note.getStemExtents().topY;
+      const marks = [...note.getModifiersByType(FretHandFinger.CATEGORY), ...note.getModifiersByType(VexArticulation.CATEGORY)]
+        .filter((modifier) => modifier.getPosition() === side).length;
+      const reach = 7 + 14 * marks + (this.slurred[index] ? 20 : 0);   // Beyond the notehead's center
+      return top ? Math.min(...note.getYs()) - reach : Math.max(...note.getYs()) + reach;
+    });
+    // Never inside the staff.
+    const stave = this.notes[0].checkStave();
+    return top
+      ? Math.min(...edges, stave.getYForLine(0) - 4) - 8
+      : Math.max(...edges, stave.getYForLine(4) + 4) + 8;
+  }
+}
+
+// The notes of one measure, and the tuplets grouping its triplets. (Tuplets change their notes'
+// lengths, so they must exist before the notes go into a voice.)
 function makeNotes(
-  measure: WrittenEvent[], clef: Clef, transposer: Transposer, isRightHand: boolean, showFingering: boolean,
+  measure: StyledEvent[], clef: Clef, transposer: Transposer, isRightHand: boolean, showFingering: boolean,
   descending: boolean,
-): StaveNote[] {
-  return measure.map((event) => {
+): { notes: StaveNote[]; tuplets: OuterTuplet[] } {
+  const notes = measure.map((event) => {
     const note = new StaveNote({
       keys     : event.steps.map((step) => transposer.vexKey(step, descending)),
-      duration : event.duration,
+      duration : event.beatNote?.duration ?? event.duration,
+      dots     : event.beatNote?.dots ?? 0,
       clef,
     });
+    if (event.beatNote?.dots) Dot.buildAndAttach([note], { all: true });
     if (showFingering) {
       event.fingers.forEach((finger, index) => {
         if (!finger) return;
@@ -356,6 +483,43 @@ function makeNotes(
     }
     return note;
   });
+
+  // Each run of three triplet sixteenths fits in the time of an eighth.
+  let inSlur = false;
+  const slurred = measure.map((event) => {
+    if (event.slur === "start") inSlur = true;
+    const under = inSlur;
+    if (event.slur === "end") inSlur = false;
+    return under;
+  });
+  const tuplets: OuterTuplet[] = [];
+  for (let start = 0; start < notes.length; start++) {
+    if (!measure[start].beatNote?.triplet) continue;
+    const outer = isRightHand ? Tuplet.LOCATION_TOP : Tuplet.LOCATION_BOTTOM;
+    tuplets.push(new OuterTuplet(notes.slice(start, start + 3), outer, slurred.slice(start, start + 3)));
+    start += 2;
+  }
+  return { notes, tuplets };
+}
+
+// Staccato dots and slurs go on the notehead side, away from the stems, so they're added once
+// beaming has set the stem directions.
+function addArticulation(notes: StaveNote[], measure: StyledEvent[]): Curve[] {
+  const slurs: Curve[] = [];
+  let slurStart: StaveNote | null = null;
+  notes.forEach((note, index) => {
+    const event = measure[index];
+    if (event.staccato) {
+      const below = note.getStemDirection() === Stem.UP;
+      note.addModifier(new VexArticulation("a.").setPosition(below ? Modifier.Position.BELOW : Modifier.Position.ABOVE));
+    }
+    if (event.slur === "start") slurStart = note;
+    if (event.slur === "end" && slurStart) {
+      slurs.push(new Curve(slurStart, note, {}));
+      slurStart = null;
+    }
+  });
+  return slurs;
 }
 
 // Which measures to show. Abbreviated shows the first two (the pattern and how it moves), the two
@@ -386,10 +550,10 @@ interface RenderResult {
 
 // Draws the exercise into `container`, wrapping measures onto lines that fit its width.
 function renderExercise(container: HTMLElement, options: RenderOptions): RenderResult {
-  const { exercise, key, showFingering, zoom, abbreviate } = options;
+  const { exercise, key, rhythm, articulation, showFingering, zoom, abbreviate } = options;
   const transposer = makeTransposer(key);
-  const rightHand  = toMeasures(parseHand(exercise.rightHand));
-  const leftHand   = toMeasures(parseHand(exercise.leftHand));
+  const rightHand  = styleMeasures(toMeasures(parseHand(exercise.rightHand)), rhythm, articulation);
+  const leftHand   = styleMeasures(toMeasures(parseHand(exercise.leftHand)), rhythm, articulation);
   const keySpec    = keySignatureSpec(key);
   const total      = rightHand.length;
 
@@ -568,8 +732,8 @@ function renderExercise(container: HTMLElement, options: RenderOptions): RenderR
       // ⋘──────── Notes ────────⋙
       // Measures from the turn on are the descending half (which matters for melodic minor).
       const descending = index >= exercise.turn;
-      const upperNotes = makeNotes(rightHand[index], upperClef, transposer, true, showFingering, descending);
-      const lowerNotes = makeNotes(leftHand[index], lowerClef, transposer, false, showFingering, descending);
+      const { notes: upperNotes, tuplets: upperTuplets } = makeNotes(rightHand[index], upperClef, transposer, true, showFingering, descending);
+      const { notes: lowerNotes, tuplets: lowerTuplets } = makeNotes(leftHand[index], lowerClef, transposer, false, showFingering, descending);
       const upperVoice = new Voice({ numBeats: 2, beatValue: 4 }).addTickables(upperNotes);
       const lowerVoice = new Voice({ numBeats: 2, beatValue: 4 }).addTickables(lowerNotes);
 
@@ -577,12 +741,14 @@ function renderExercise(container: HTMLElement, options: RenderOptions): RenderR
       Accidental.applyAccidentals([upperVoice], keySpec);
       Accidental.applyAccidentals([lowerVoice], keySpec);
 
-      // Beam sixteenths in groups of four (one beat).
+      // Beam each beat's four notes together.
       const groups = [new Fraction(1, 4)];
       const beams  = [
         ...Beam.generateBeams(upperNotes, { groups }),
         ...Beam.generateBeams(lowerNotes, { groups }),
       ];
+      const upperSlurs = addArticulation(upperNotes, rightHand[index]);
+      const lowerSlurs = addArticulation(lowerNotes, leftHand[index]);
 
       // Format both voices together so the hands line up vertically. The end padding leaves about
       // as much space after the last note as VexFlow leaves before the first; double bars and
@@ -598,6 +764,7 @@ function renderExercise(container: HTMLElement, options: RenderOptions): RenderR
       upperVoice.draw(context, upper);
       lowerVoice.draw(context, lower);
       beams.forEach((beam) => beam.setContext(context).draw());
+      [...upperSlurs, ...lowerSlurs, ...upperTuplets, ...lowerTuplets].forEach((element) => element.setContext(context).draw());
       upperNotes.forEach((note, event) => {
         const elements = [note, lowerNotes[event]].map((n) => n?.getSVGElement()).filter((e) => e !== undefined);
         noteElements.set(`${index}:${event}`, elements);
@@ -624,10 +791,14 @@ function renderExercise(container: HTMLElement, options: RenderOptions): RenderR
 // ╰────────────────────────────────────────╯
 // A small piano-like synthesizer built on the Web Audio API, so playback needs no sample files.
 
-// What playback sounds: the notes, the notes with a metronome, or only the metronome.
-type Sound = "piano" | "piano-metronome" | "metronome";
+// What playback sounds: the notes, the notes with a metronome, only the metronome, or nothing (the
+// score still highlights and scrolls along).
+type Sound = "piano" | "piano-metronome" | "metronome" | "none";
 
-interface PlayedNote  { midi: number; start: number; duration: number }   // Times in sixteenths
+// Staccato notes sound for this fraction of their written length.
+const STACCATO_LENGTH = 0.4;
+
+interface PlayedNote  { midi: number; start: number; duration: number }   // Times in sixteenths (fractional for dotted and triplet rhythms)
 interface PlayedEvent { start: number; measure: number; event: number }   // For highlighting
 
 // MIDI note number of a VexFlow key like "eb/4" (middle C = 60).
@@ -639,25 +810,27 @@ export function midiOf(vexKey: string): number {
 }
 
 // Every note of the whole exercise (playback ignores Abbreviate), and when each event starts.
-export function buildPerformance(exercise: HanonExercise, key: Key): { notes: PlayedNote[]; events: PlayedEvent[]; length: number } {
+export function buildPerformance(
+  exercise: HanonExercise, key: Key, rhythm: Rhythm, articulation: Articulation,
+): { notes: PlayedNote[]; events: PlayedEvent[]; length: number } {
   const transposer = makeTransposer(key);
   const notes: PlayedNote[] = [];
   const events: PlayedEvent[] = [];
   let length = 0;
   for (const hand of [exercise.rightHand, exercise.leftHand]) {
-    let time = 0;
-    toMeasures(parseHand(hand)).forEach((measure, measureIndex) => {
+    styleMeasures(toMeasures(parseHand(hand)), rhythm, articulation).forEach((measure, measureIndex) => {
       const descending = measureIndex >= exercise.turn;
-      measure.forEach((written, event) => {
-        const duration = written.duration === "2" ? 8 : 1;
-        for (const step of written.steps) {
+      let time = measureIndex * 8;   // Counting from each measure's start keeps triplets from drifting
+      measure.forEach((styled, event) => {
+        const duration = styled.staccato ? styled.length * STACCATO_LENGTH : styled.length;
+        for (const step of styled.steps) {
           notes.push({ midi: midiOf(transposer.vexKey(step, descending)), start: time, duration });
         }
         if (hand === exercise.rightHand) events.push({ start: time, measure: measureIndex, event });
-        time += duration;
+        time += styled.length;
       });
+      length = Math.max(length, time);
     });
-    length = Math.max(length, time);
   }
   return { notes, events, length };
 }
@@ -690,14 +863,14 @@ class Player {
 
     this.secondsPerSixteenth = 60 / bpm / 4;
     this.startedAt = context.currentTime + 0.1 - from * this.secondsPerSixteenth;
-    if (sound !== "metronome") {
+    if (sound === "piano" || sound === "piano-metronome") {
       for (const note of performance.notes) {
         if (note.start < from) continue;
         this.scheduleNote(note.midi, this.startedAt + note.start * this.secondsPerSixteenth,
           note.duration * this.secondsPerSixteenth, note.start % 4 === 0);
       }
     }
-    if (sound !== "piano") {
+    if (sound === "piano-metronome" || sound === "metronome") {
       // A click on every quarter-note beat, accented on the first beat of each 2/4 measure.
       for (let beat = Math.ceil(from / 4) * 4; beat < performance.length; beat += 4) {
         this.scheduleClick(this.startedAt + beat * this.secondsPerSixteenth, beat % 8 === 0);
@@ -830,6 +1003,8 @@ async function initPage(): Promise<void> {
   const spellingGroup  = $<HTMLSpanElement>("hanon-spelling");
   const spellingField  = $<HTMLDivElement>("hanon-spelling-field");
   const modeSelect     = $<HTMLSelectElement>("hanon-mode");
+  const rhythmSelect   = $<HTMLSelectElement>("hanon-rhythm");
+  const articulationSelect = $<HTMLSelectElement>("hanon-articulation");
   const fingeringBox   = $<HTMLInputElement>("hanon-fingering");
   const abbreviateBox  = $<HTMLInputElement>("hanon-abbreviate");
   const zoomSlider     = $<HTMLInputElement>("hanon-zoom");
@@ -877,6 +1052,8 @@ async function initPage(): Promise<void> {
     }
     groups.get(mode.group)!.append(new Option(mode.menu, id));
   }
+  for (const [id, rhythm] of Object.entries(RHYTHMS)) rhythmSelect.add(new Option(rhythm.menu, id));
+  for (const [id, articulation] of Object.entries(ARTICULATIONS)) articulationSelect.add(new Option(articulation.menu, id));
 
   // ⋘──────── Spelling of enharmonic roots (C♯ / D♭) ────────⋙
   // The spelling the user picked with the toggle, kept across mode changes while it has a key
@@ -923,6 +1100,8 @@ async function initPage(): Promise<void> {
   };
   choose(exerciseSelect, params.get("exercise"));
   choose(modeSelect, params.get("mode"));
+  choose(rhythmSelect, params.get("rhythm"));
+  choose(articulationSelect, params.get("articulation"));
   const urlKey = params.get("key");
   const urlRoot = ROOT_CHOICES.find((spellings) => urlKey && spellings.includes(urlKey));
   if (urlRoot) {
@@ -1037,7 +1216,8 @@ async function initPage(): Promise<void> {
     const options = currentOptions();
     setPlayingState(true);
     const sound = soundSelect.value as Sound;
-    void player.play(buildPerformance(options.exercise, options.key), Number(tempoSlider.value), from, sound, (event) => {
+    const music = buildPerformance(options.exercise, options.key, options.rhythm, options.articulation);
+    void player.play(music,Number(tempoSlider.value), from, sound, (event) => {
       highlight(event);
       if (event === null) setPlayingState(false);
     }).then(startFollowing);
@@ -1077,6 +1257,8 @@ async function initPage(): Promise<void> {
     return {
       exercise      : HANON_EXERCISES.find((exercise) => String(exercise.number) === exerciseSelect.value)!,
       key           : { tonic: currentTonic(), mode: modeSelect.value as Mode },
+      rhythm        : rhythmSelect.value as Rhythm,
+      articulation  : articulationSelect.value as Articulation,
       showFingering : fingeringBox.checked,
       zoom          : Number(zoomSlider.value) / 100,
       abbreviate    : abbreviateBox.checked,
@@ -1086,6 +1268,10 @@ async function initPage(): Promise<void> {
   function update(): void {
     const options = currentOptions();
     renderSpelling();
+    // Articulation names can depend on the rhythm (e.g. "Triplet slurred, eighth staccato").
+    for (const option of articulationSelect.options) {
+      option.text = articulationIn(option.value as Articulation, options.rhythm).menu;
+    }
     const titleText = `No. ${options.exercise.number} in ${keyLabel(options.key)}`;
     // "Hanon" is shown only in print, where the page heading is hidden.
     const printPrefix = document.createElement("span");
@@ -1110,6 +1296,8 @@ async function initPage(): Promise<void> {
 
     // Keep the URL in sync so the current view can be bookmarked or shared.
     const next = new URLSearchParams({ exercise: exerciseSelect.value, key: options.key.tonic, mode: modeSelect.value });
+    if (options.rhythm !== "even") next.set("rhythm", options.rhythm);
+    if (options.articulation !== "legato") next.set("articulation", options.articulation);
     if (!fingeringBox.checked) next.set("fingering", "off");
     if (abbreviateBox.checked) next.set("abbreviate", "on");
     history.replaceState(null, "", `${location.pathname}?${next}`);
@@ -1129,6 +1317,13 @@ async function initPage(): Promise<void> {
     control.addEventListener("change", () => {
       stopPlayback();
       update();
+    });
+  }
+  // A new rhythm or articulation keeps the same measures, so playback continues from the same place.
+  for (const control of [rhythmSelect, articulationSelect]) {
+    control.addEventListener("change", () => {
+      update();
+      if (player.playing) startPlayback(player.position());
     });
   }
   for (const control of [fingeringBox, abbreviateBox]) {

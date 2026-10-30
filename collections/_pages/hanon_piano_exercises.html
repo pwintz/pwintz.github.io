@@ -2,7 +2,7 @@
 layout: single
 permalink: /tools/hanon/
 title: Hanon Piano Exercises
-excerpt: "Hanon's piano exercises 1–20 in any key and mode, with fingering, playback, and printing."
+excerpt: "Hanon's piano exercises 1–20 in any key, mode, and practice rhythm, with fingering, playback, and printing."
 draft: true
 ---
 
@@ -210,7 +210,19 @@ draft: true
     <div id="hanon-info-mode" class="hanon-panel-info" hidden></div>
   </div>
 
-  <!-- Row 3: how the music is shown (collapsible) -->
+  <!-- Row 3: practice variations of the rhythm and articulation -->
+  <div class="hanon-panel">
+    <div class="hanon-row">
+      <label>Rhythm
+        <select id="hanon-rhythm"></select>
+      </label>
+      <label>Articulation
+        <select id="hanon-articulation"></select>
+      </label>
+    </div>
+  </div>
+
+  <!-- Row 4: how the music is shown (collapsible) -->
   <details id="hanon-view-options" class="hanon-view-options">
     <summary>View options</summary>
     <div class="hanon-row">
@@ -261,6 +273,7 @@ draft: true
       <option value="piano">Piano</option>
       <option value="piano-metronome">Piano + metronome</option>
       <option value="metronome">Metronome only</option>
+      <option value="none">None</option>
     </select>
   </label>
 </div>
