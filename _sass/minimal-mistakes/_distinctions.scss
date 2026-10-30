@@ -1,0 +1,401 @@
+/* ==========================================================================
+   Dictionary of Fine Distinctions
+========================================================================== */
+
+@use "sass:color";
+@use "globals" as *;
+
+.distinctions {
+  .distinction__meta {
+    color: $muted-text-color;
+    font-size: $type-size-6;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .distinction__summary {
+    font-size: $type-size-4;
+  }
+
+  .distinction__relation {
+    text-align: center;
+    font-size: $type-size-4;
+    margin-bottom: 1em;
+  }
+
+  .distinction__back {
+    margin-top: 2em;
+    font-size: $type-size-6;
+  }
+
+  /* Definitions */
+
+  .distinction__term-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25em 0.75em;
+    margin: 2em 0 0.25em;
+
+    h3 {
+      margin: 0;
+    }
+  }
+
+  .definition-level-selector[hidden] {
+    display: none;
+  }
+
+  .definition-levels {
+    margin-bottom: 1.5em;
+  }
+
+  .definition-level {
+    margin-bottom: 0.75em;
+    padding: 0.5em 0.75em;
+    border-left: 3px solid $border-color;
+
+    p {
+      margin: 0 0 0.5em;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .definition-level__label {
+    font-size: $type-size-6;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: $muted-text-color;
+  }
+
+  .definition-level__context {
+    font-weight: normal;
+    text-transform: none;
+    letter-spacing: normal;
+  }
+
+  .definition-level__caveat {
+    margin-top: 0.5em;
+    font-size: $type-size-5;
+    color: $muted-text-color;
+  }
+
+  .definition-levels__note {
+    margin: 0 0 0.25em;
+    font-size: $type-size-6;
+    font-style: italic;
+    color: $muted-text-color;
+  }
+
+  /* Properties */
+
+  .definition-properties {
+    margin-bottom: 1.5em;
+
+    li {
+      margin-bottom: 0.25em;
+    }
+  }
+
+  details.definition-properties {
+    margin: -0.75em 0 1.5em 0.75em;
+    font-size: $type-size-5;
+
+    summary {
+      cursor: pointer;
+      font-size: $type-size-6;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: $muted-text-color;
+    }
+
+    ul {
+      margin-top: 0.5em;
+    }
+  }
+
+  /* Level switcher */
+
+  .level-switcher {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25em;
+    margin-bottom: 1em;
+    font-size: $type-size-6;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .level-switcher__label {
+    margin-right: 0.25em;
+    font-weight: bold;
+  }
+
+  .level-switcher__button {
+    padding: 0.3em 0.75em;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+
+    &[aria-pressed="true"] {
+      background: $primary-color;
+      border-color: $primary-color;
+      color: #fff;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  /* Example grid */
+
+  .distinction__examples {
+    overflow-x: auto;
+
+    table {
+      display: table;
+      font-size: $type-size-6;
+    }
+
+    // The example and explanation columns.
+    td:first-child {
+      min-width: 10em;
+    }
+
+    td:last-child {
+      min-width: 12em;
+    }
+  }
+
+  .distinction__check {
+    text-align: center;
+  }
+
+  .distinction__check--yes {
+    color: color.adjust($success-color, $lightness: -10%);
+    font-weight: bold;
+  }
+
+  .distinction__check--no {
+    color: $danger-color;
+    font-weight: bold;
+  }
+
+  .distinction__check--na {
+    color: $muted-text-color;
+  }
+
+  // A term's value for a worked example.
+  .distinction__value {
+    min-width: 6em;
+  }
+
+  .distinction__examples-hidden {
+    font-size: $type-size-6;
+    font-style: italic;
+    color: $muted-text-color;
+  }
+
+  .distinction__examples[hidden],
+  .definition-examples[hidden],
+  [data-example-level][hidden] {
+    display: none;
+  }
+
+  /* Examples on a definition's page */
+
+  .example-list {
+    margin-bottom: 1em;
+  }
+
+  .definition-examples {
+    ul {
+      list-style: none;
+    }
+
+  }
+
+  .example-list__item {
+    margin-bottom: 0.5em;
+
+    .level-badge {
+      margin-left: 0.5em;
+    }
+  }
+
+  .example-list__intro {
+    font-size: $type-size-6;
+    font-style: italic;
+    color: $muted-text-color;
+  }
+
+  .example-list__why {
+    font-size: $type-size-6;
+    color: $muted-text-color;
+  }
+
+  /* Filters on the index pages */
+
+  .dictionary-filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 0.75em;
+    margin: 1em 0 1.5em;
+    padding: 0.75em 1em;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    font-size: $type-size-6;
+
+    &[hidden] {
+      display: none;
+    }
+
+    input,
+    select,
+    button {
+      margin: 0;
+      padding: 0.35em 0.5em;
+      border: 1px solid $border-color;
+      border-radius: $border-radius;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+  }
+
+  .dictionary-filters__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25em;
+    margin: 0;
+
+    span {
+      font-weight: bold;
+    }
+  }
+
+  .dictionary-filters__search {
+    flex: 1 1 14em;
+
+    input {
+      width: 100%;
+    }
+  }
+
+  .dictionary-filters__count {
+    flex-basis: 100%;
+    margin: 0;
+    color: $muted-text-color;
+  }
+
+  .dictionary-group[hidden],
+  [data-filter-item][hidden] {
+    display: none;
+  }
+
+  .dictionary-empty {
+    font-style: italic;
+    color: $muted-text-color;
+  }
+
+  /* Definitions index */
+
+  .dictionary-entries {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  .dictionary-entry {
+    margin-bottom: 1.25em;
+
+    p {
+      margin: 0.25em 0;
+    }
+  }
+
+  .dictionary-entry__title {
+    font-weight: bold;
+  }
+
+  .dictionary-entry__meta {
+    margin-left: 0.5em;
+    font-size: $type-size-6;
+    color: $muted-text-color;
+  }
+
+  .dictionary-entry__levels {
+    margin-left: 0.5em;
+  }
+
+  .level-badge {
+    display: inline-block;
+    margin-right: 0.25em;
+    padding: 0 0.4em;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    font-size: $type-size-7;
+    color: $muted-text-color;
+  }
+
+  button.level-badge {
+    background: transparent;
+    font-family: inherit;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      border-color: $primary-color;
+      color: $primary-color;
+    }
+
+    &[aria-pressed="true"] {
+      border-color: $primary-color;
+      background: $primary-color;
+      color: #fff;
+    }
+  }
+
+  .dictionary-entry__text {
+    font-size: $type-size-5;
+  }
+
+  .dictionary-entry__related {
+    font-size: $type-size-6;
+    color: $muted-text-color;
+  }
+
+  /* Index page */
+
+  .distinction-list li {
+    margin-bottom: 0.5em;
+  }
+
+  .distinction-list__kind {
+    margin-left: 0.5em;
+    font-size: $type-size-6;
+    color: $muted-text-color;
+  }
+
+  .distinction-list__summary {
+    font-size: $type-size-6;
+  }
+}

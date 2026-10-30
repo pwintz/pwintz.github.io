@@ -1,0 +1,24 @@
+{% comment %}
+  Render the levels of a definition (elementary, high school, undergraduate, graduate).
+
+  Parameters:
+    definition: A document from the "definitions" collection.
+    switchable: If true, assets/ts/src/definition_levels.ts shows only the level selected
+                by the level switcher. Without JavaScript, all levels are shown.
+{% endcomment %}
+<div class="definition-levels"{% if include.switchable %} data-switchable{% endif %}>
+  {% for level in site.data.definition_levels %}
+    {% assign entry = include.definition.levels[level.id] %}
+    {% if entry %}
+      <div class="definition-level" data-level="{{ level.id }}">
+        <div class="definition-level__label">
+          {{ level.name }}{% if entry.context %} <span class="definition-level__context">({{ entry.context }})</span>{% endif %}
+        </div>
+        <div class="definition-level__text">{{ entry.text | markdownify }}</div>
+        {% if entry.caveat %}
+          <div class="definition-level__caveat"><strong>Caveat.</strong> {{ entry.caveat | markdownify | remove: '<p>' | remove: '</p>' }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>

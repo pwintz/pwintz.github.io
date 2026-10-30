@@ -1,0 +1,10 @@
+# Levels of definitions in the Dictionary of Fine Distinctions, ordered from least to most advanced.
+# Definitions at different levels of the same term must agree wherever they both apply.
+- id: elementary
+  name: Elementary
+- id: high-school
+  name: High school
+- id: undergraduate
+  name: Undergraduate
+- id: graduate
+  name: Graduate

@@ -1,0 +1,27 @@
+# Subject areas for grouping the Dictionary of Fine Distinctions, in display order.
+- id: numbers
+  name: Numbers
+- id: sets
+  name: Sets and Logic
+- id: analysis
+  name: Analysis
+- id: topology
+  name: Topology
+- id: linear-algebra
+  name: Linear Algebra
+- id: set-valued-analysis
+  name: Set-valued Analysis
+- id: dynamics
+  name: Dynamical Systems
+- id: control
+  name: Control Theory
+- id: statistics
+  name: Statistics
+- id: language
+  name: Mathematical Language
+- id: geometry
+  name: Geometry
+- id: differential-equations
+  name: Differential Equations
+- id: computing
+  name: Computing

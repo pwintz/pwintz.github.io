@@ -1,0 +1,139 @@
+---
+layout: single
+---
+{% comment %}
+  Layout for a page in the Dictionary of Fine Distinctions.
+
+  Front matter:
+    kind:      An id from _data/distinction_kinds.yml.
+    areas:     A list of ids from _data/distinction_areas.yml (the subjects), most relevant first.
+    summary:   One or two sentences stating the distinction.
+    relation:  (Optional) How the terms are related, e.g., "uniformly continuous ⊂ continuous".
+    terms:     Slugs (file names) of documents in the "definitions" collection.
+    examples:  List of objects with "example" (the slug of a document in the "examples" collection) and,
+               optionally, "why" (why the example matters for this distinction).
+               Each row shows the example's value for each term, or ✓ / ✗ / – (is, is not, not addressed).
+    examples_note: (Optional) Explains how to read the example grid.
+    see_also:  Slugs (file names) of other distinctions.
+{% endcomment %}
+{% assign kind = site.data.distinction_kinds | where: "id", page.kind | first %}
+{% comment %}
+  The lowest level that any of the terms has. Lower levels are disabled in the level switcher,
+  since no term has a definition at them.
+{% endcomment %}
+{% assign min_level = nil %}
+{% for level in site.data.definition_levels %}
+  {% unless min_level %}
+    {% for slug in page.terms %}
+      {% assign definition = site.definitions | where: "slug", slug | first %}
+      {% if definition.levels[level.id] %}{% assign min_level = level.id %}{% break %}{% endif %}
+    {% endfor %}
+  {% endunless %}
+{% endfor %}
+{% assign min_level = min_level | default: site.data.definition_levels.first.id %}
+
+<div class="distinctions">
+  <p class="distinction__meta">
+    {% for id in page.areas %}{% assign area = site.data.distinction_areas | where: "id", id | first %}{% if area %}<a href="{{ '/distinctions/' | relative_url }}?subject={{ area.id }}" title="More distinctions in {{ area.name }}">{{ area.name }}</a>{% unless forloop.last %}, {% endunless %}{% endif %}{% endfor %}{% if page.areas and kind %} · {% endif %}{% if kind %}<a href="{{ '/distinctions/' | relative_url }}?kind={{ kind.id }}" title="{{ kind.description }}">{{ kind.name }}</a>{% endif %}
+  </p>
+
+  {% if page.summary %}
+    <div class="distinction__summary">{{ page.summary | markdownify }}</div>
+  {% endif %}
+
+  {% if page.relation %}
+    <div class="distinction__relation">{{ page.relation | markdownify }}</div>
+  {% endif %}
+
+  {% if page.terms %}
+    <h2 id="definitions">Definitions</h2>
+
+    {% comment %} Hidden until assets/ts/src/definition_levels.ts activates it. {% endcomment %}
+    <div class="level-switcher" data-min-level="{{ min_level }}" hidden>
+      <span class="level-switcher__label">Level:</span>
+      {% assign below_min = true %}
+      {% for level in site.data.definition_levels %}
+        {% if level.id == min_level %}{% assign below_min = false %}{% endif %}
+        <button type="button" class="level-switcher__button" data-level="{{ level.id }}"{% if below_min %} disabled title="None of these terms has a {{ level.name | downcase }}-level definition."{% endif %}>{{ level.name }}</button>
+      {% endfor %}
+    </div>
+
+    {% for slug in page.terms %}
+      {% assign definition = site.definitions | where: "slug", slug | first %}
+      {% if definition %}
+        <div class="distinction__term">
+          <div class="distinction__term-header">
+            <h3><a href="{{ definition.url | relative_url }}">{{ definition.term | default: definition.title }}</a></h3>
+            {% comment %} Shows this definition at another level. Hidden until assets/ts/src/definition_levels.ts activates it. {% endcomment %}
+            <span class="definition-level-selector" role="group" aria-label="Level of this definition" hidden>
+              {% for level in site.data.definition_levels %}
+                {% if definition.levels[level.id] %}<button type="button" class="level-badge" data-show-level="{{ level.id }}" title="Show the {{ level.name | downcase }} definition">{{ level.name }}</button>{% endif %}
+              {% endfor %}
+            </span>
+          </div>
+          {% include definition-levels.html definition=definition switchable=true %}
+          {% assign term_related = site.distinctions | where_exp: "d", "d.terms contains slug" %}
+          {% include definition-examples.html definition=definition related=term_related collapsible=true %}
+          {% include definition-properties.html definition=definition collapsible=true %}
+        </div>
+      {% else %}
+        <p class="notice--danger">Missing definition: <code>{{ slug }}</code></p>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+  {% if page.examples %}
+    <h2 id="examples">Examples</h2>
+    {% if page.examples_note %}
+      <div class="distinction__examples-note">{{ page.examples_note | markdownify }}</div>
+    {% endif %}
+    {% comment %} assets/ts/src/definition_levels.ts hides rows above the selected level and explains why here. {% endcomment %}
+    <p class="distinction__examples-hidden" hidden></p>
+    <div class="distinction__examples">
+      <table>
+        <thead>
+          <tr>
+            <th>Example</th>
+            {% for slug in page.terms %}
+              {% assign definition = site.definitions | where: "slug", slug | first %}
+              <th class="distinction__check">{{ definition.term | default: slug }}</th>
+            {% endfor %}
+            <th>Why</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for ref in page.examples %}
+            {% assign example = site.examples | where: "slug", ref.example | first %}
+            {% if example %}
+              <tr data-example-level="{{ example.level }}">
+                <td><a href="{{ example.url | relative_url }}">{{ example.title | markdownify | remove: '<p>' | remove: '</p>' }}</a></td>
+                {% for slug in page.terms %}{% include example-verdict.html example=example term=slug %}{% endfor %}
+                <td>{{ ref.why | default: example.description | markdownify | remove: '<p>' | remove: '</p>' }}</td>
+              </tr>
+            {% else %}
+              <tr><td colspan="{{ page.terms.size | plus: 2 }}" class="notice--danger">Missing example: <code>{{ ref.example }}</code></td></tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+
+  {{ content }}
+
+  {% if page.see_also %}
+    <h2 id="see-also">See also</h2>
+    <ul>
+      {% for slug in page.see_also %}
+        {% assign other = site.distinctions | where: "slug", slug | first %}
+        {% if other %}<li><a href="{{ other.url | relative_url }}">{{ other.title }}</a></li>{% endif %}
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <p class="distinction__back"><a href="{{ '/distinctions/' | relative_url }}">All distinctions</a> · <a href="{{ '/definitions/' | relative_url }}">All definitions</a></p>
+</div>
+
+{% if page.terms %}
+<script src="{{ '/assets/ts/out/definition_levels.js' | relative_url }}" type="module"></script>
+{% endif %}

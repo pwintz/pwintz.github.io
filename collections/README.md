@@ -71,7 +71,8 @@ I think the following make sense to sort the topics into priority levels, based 
 - [Types of differentiability](/collections/_distinctions/types_of_differentiability.md)
 - [Types of extremal](/collections/_distinctions/types_of_extremal.md)
 - [Types of limits](/collections/_distinctions/types_of_limits.md)
-- [Types of measurement_functions](/collections/_distinctions/types_of_measurement_functions.md)
+- [Norm vs. metric vs. inner product](/collections/_distinctions/norm_vs_metric_vs_inner_product.md)
+- [Dot product vs. inner product vs. bilinear form](/collections/_distinctions/dot_product_vs_inner_product_vs_bilinear_form.md)
 - [Types of metric_spaces](/collections/_distinctions/types_of_metric_spaces.md)
 - [Types of PDEs_boundary_conditions](/collections/_distinctions/types_of_PDEs_boundary_conditions.md)
 - [Types of PDEs_eigenvalue_classification](/collections/_distinctions/types_of_PDEs_eigenvalue_classification.md)
@@ -86,7 +87,8 @@ I think the following make sense to sort the topics into priority levels, based 
 - [Types of collections](/collections/_distinctions/types_of_collections.md)
 - [Types of difference](/collections/_distinctions/types_of_difference.md)
 - [Types of error](/collections/_distinctions/types_of_error.md)
-- [Types of integers](/collections/_distinctions/types_of_integers.md)
+- [Natural numbers](/collections/_distinctions/natural_numbers.md)
+- [Cardinal vs. ordinal vs. nominal numbers](/collections/_distinctions/cardinal_vs_ordinal_vs_nominal_numbers.md)
 - [Types of finite](/collections/_distinctions/types_of_finite.md)
 - [Types of infinity](/collections/_distinctions/types_of_infinity.md)
 - [Types of function transforms](/collections/_distinctions/types_of_function_transforms.md)
@@ -109,22 +111,128 @@ I think the following make sense to sort the topics into priority levels, based 
 
 
 
-### Distinctions - WIP
+### Structure
 
-This collection is a WIP.
+The dictionary has three collections:
 
+- `_definitions`: One file per term, e.g., `continuous.md`. Rendered at `/definitions/<name>` with `_layouts/definition.html`.
+- `_distinctions`: One file per group of easily confused terms. Rendered at `/distinctions/<name>` with `_layouts/distinction.html`.
+- `_examples`: One file per example, e.g., `square_on_reals.md`. Rendered at `/examples/<name>` with `_layouts/example.html`. An example can be used by several distinctions, and is listed under every definition it addresses. An example does not need to be used by any distinction.
 
-### Definitions - WIP
+There are three index pages, all filterable by search text, subject, and level (and, for distinctions, kind) using `assets/ts/src/dictionary_filters.ts`.
+The level filter sets a maximum: it shows the items available at that level or a simpler one.
 
-This collection is a WIP and might be abandoned.
+- `/distinctions/` (`collections/_pages/distinctions.html`) lists distinctions by subject. Its level filter shows a distinction only if every compared term has a definition at that level or a simpler one, and links from the filtered list open each distinction at that level (via `?level=`).
+- `/definitions/` (`collections/_pages/definitions.html`) lists definitions A–Z. A definition's subjects are the subjects of the distinctions that use it. Choosing a level shows the definitions that have that level or a lower one, each at the most advanced of those levels. Hovering over (or tapping) a level badge next to a term shows the term's definition at that level.
+- `/examples/` (`collections/_pages/examples.html`) lists examples by level. An example's subjects are the subjects of the distinctions that use it.
 
-Types things in definitions:
+Filters are stored in the URL, so filtered lists can be linked to, e.g., `/definitions/?subject=topology&level=undergraduate`.
 
-- Relation.
-- Space.
-- Operation.
-- Property.
-- Element (of a space). 
+Stub pages have `status: stub` and `published: false`, so they are not rendered.
+To publish a page, remove `published: false` and set `status: draft` or `status: complete`.
+Every file in these collections needs front matter. Otherwise, Jekyll copies it to the site as a raw `.md` file.
+
+#### Definitions
+
+Each definition has up to four levels (listed in `_data/definition_levels.yml`): `elementary`, `high-school`, `undergraduate`, and `graduate`.
+Levels are optional, and each has a `text`, an optional `context` (e.g., "metric spaces"), and an optional `caveat` explaining where a simpler definition breaks down.
+
+**Rule:** Levels of one definition must agree wherever they both apply. A higher level may be more rigorous or more general, but must not contradict a lower level. Rival definitions (e.g., whether the natural numbers include 0) go in separate files.
+
+**Name the term:** Each level's `text` is a complete sentence that names the term being defined, in italics. Write "An _expression_ is a combination of ...," not "A combination of ...." Use `_term_` for italics, or `*term*` when the term contains math (e.g., `*class-$\mathcal{K}$*`).
+
+**Link other terms:** In each level's `text`, `caveat`, each property, and the notes, link the first mention of another defined term to its page, e.g., `[metric space](/definitions/metric-space)`. The URL is the file name, lowercased, with underscores replaced by hyphens. Do not link a term when it is used in an everyday sense (e.g., "a group of objects") or inside a longer term (e.g., "ball" inside "open ball").
+
+**Definition vs. properties vs. examples:** A level's `text` contains only the definition, plus remarks that clarify how to read it (e.g., "the choice of $\delta$ may depend on $x$"). Analogies that explain the idea ("like the slope of a hill in the direction you walk") and notation (as in $\dot{x} = f(x)$) are fine, but particular instances of the term ("For example, $\sqrt{2}$ is algebraic ...", "such as a bowling ball") belong in the `_examples` collection, with the level of the definition they illustrate.
+Facts about the term go in the `properties` list instead: theorems, consequences, and equivalent characterizations ("Equivalently, ...").
+For example, "real symmetric matrices have real eigenvalues" is a property of symmetric matrices, not part of their definition.
+The Markdown body is for notes: terminology, conflicting usages, and conventions.
+
+On a definition's page, examples and then properties are listed in their own sections after the definition. On distinction pages, they appear in collapsed "Examples" and "Properties" lists under each definition, and examples above the selected level are hidden.
+
+```yaml
+---
+title: Continuous function
+term: continuous
+applies_to: function
+synonyms: []
+levels:
+  elementary:
+    text: A function is continuous if you can draw its graph without lifting your pencil.
+    caveat: This only works when the domain is one unbroken interval...
+  undergraduate:
+    context: metric spaces
+    text: >
+      A function $f : X \to Y$ is continuous if ...
+properties:
+  - >-
+    Sums, products, and compositions of continuous functions are continuous.
+---
+Markdown body: notes on terminology and conventions.
+```
+
+#### Distinctions
+
+```yaml
+---
+title: Continuous vs. uniformly continuous
+kind: hierarchy        # An id from _data/distinction_kinds.yml.
+areas: [analysis]      # Ids from _data/distinction_areas.yml (subjects), most relevant first. A page may have several.
+status: draft          # stub | draft | complete
+summary: >
+  One or two sentences stating the distinction.
+relation: uniformly continuous ⊂ continuous
+terms:                 # File names (without .md) in _definitions.
+  - continuous
+  - uniformly_continuous
+examples_note: >-      # (Optional) How to read the example grid, e.g., "Each cell is the ___ of the function in that row."
+examples:              # File names (without .md) in _examples, rendered as a grid with one column per term.
+  - example: square_on_reals
+    why: The graph gets steeper without bound.   # (Optional) Why the example matters for this distinction.
+see_also:              # File names (without .md) in _distinctions.
+  - types_of_continuous
+---
+Markdown body: notes, common misuses, fine print.
+```
+
+**Titles:** When a siblings or family page compares more than two terms and the group has a good name, title it "Types of ..." (e.g., "Types of stability," "Types of boundary conditions"); otherwise, list the terms ("Array vs. matrix vs. linear map"). Hierarchy pages list their terms, since the order shows the chain of inclusions.
+
+**Order terms from easiest to most difficult,** both in the title and in `terms` (which sets the order of the definitions and of the columns of the example grid). The most difficult term goes last: "Dot product vs. inner product vs. bilinear form," not "Bilinear form vs. inner product vs. dot product." A term's lowest level is a guide; between terms at the same level, put the more abstract or more specialized one later.
+
+**Synonyms pages are only for exact synonyms.** Use `kind: synonyms` only when the words mean exactly the same thing, such as "function" and "map." Words for related but different concepts belong on a siblings or family page.
+
+**Conflicting definitions get their own page.** A page with `kind: conflicting` lists only the rival meanings of one term (such as "range" or "total derivative"), each in its own definition file, plus closely related terms that help disambiguate. Do not mix conflicting meanings into a siblings, family, or hierarchy page: leave the ambiguous term out of that page's `terms` and link to the conflicting page from a note.
+
+On a distinction page, a level switcher (`assets/ts/src/definition_levels.ts`) shows one level of each definition and hides examples above that level. Each definition's header also has buttons for the levels it has: hovering over one previews that level, and clicking it shows that definition (and its examples) at that level until the page-wide level changes. Levels at which none of the terms has a definition are disabled. If a definition has no version at the selected level, the nearest lower level is shown, or, failing that, its lowest level. The reader's choice is remembered across pages. Without JavaScript, all levels are shown.
+
+#### Examples
+
+```yaml
+---
+title: '$f(x) = x^2$ on $\reals$'   # The example itself, in Markdown (usually with math).
+level: high-school                  # The lowest level at which the example is appropriate.
+description: >-                     # (Optional) Context needed to understand the example on its own.
+  The squaring function, as a function $f : \reals \to \reals$.
+is: [continuous]                    # Terms the example is an instance of (✓).
+is_not: [uniformly_continuous]      # Terms the example is not an instance of (✗).
+values:                             # (Optional) For worked examples: the term's value for this example.
+  image: '$[0, \infty)$'
+why:                                # (Optional) Why the verdict or value holds, by term.
+  image: Squares of real numbers are exactly the nonnegative numbers.
+---
+Markdown body: a longer discussion (proofs, figures, variations).
+```
+
+In a distinction's grid, each cell shows the example's value for the term if it has one, and otherwise ✓ (`is`), ✗ (`is_not`), or – (not addressed).
+Use `values` when the distinction is about which object is the ___ of a given thing (e.g., its domain, its rank, its mean), and `is`/`is_not` when it is about whether a thing is a ___.
+
+**Non-examples:** List a term in an example's `is_not` only when the example may be mistaken for an instance of the term (the perimeter of a rectangle is not its area; the $2$ in $x^2$ is not a coefficient), and say why in `why`. Non-examples are listed beneath the examples of each definition.
+
+**Each example must stand on its own.** Its `title` and `description` must make sense on its own page and in a definition's list of examples, without the distinction that uses it. Write "A gust of wind hitting a quadcopter drone," not "A gust of wind" under a note saying that every row is about a drone.
+
+**Levels:** On a distinction page, examples above the level selected in the level switcher are hidden, with a note saying how many are hidden. Choose the level from the example itself and its verdicts: $\mathbb{Q}$ is a high-school example even in a table with graduate terms, but the Cantor function is not elementary.
+
+**Math in YAML:** Use single quotes or block scalars (`>`) for values containing backslashes, and quote values containing `: `. Write `f^{\prime}` instead of `f'` (smart quotes would change the apostrophe), and `\lvert x \rvert` instead of `|x|`.
 
 ## LaTeX Macros
 

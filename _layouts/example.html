@@ -1,0 +1,74 @@
+---
+layout: single
+---
+{% comment %}
+  Layout for an example in the Dictionary of Fine Distinctions.
+
+  Front matter:
+    title:       The example, in Markdown (usually with math), e.g., '$f(x) = x^2$ on $\reals$'.
+    level:       The lowest level (from _data/definition_levels.yml) at which the example is appropriate.
+                 On distinction pages, examples above the selected level are hidden.
+    description: (Optional) Context needed to understand the example on its own.
+    is:          Slugs of definitions that the example is an instance of.
+    is_not:      Slugs of definitions that the example is not an instance of.
+    values:      (Optional) For worked examples, a map from definition slugs to the term's value for this example,
+                 e.g., "image: '$[0, \infty)$'".
+    why:         (Optional) A map from definition slugs to the reason for the verdict or value.
+  The Markdown body is for a longer discussion.
+{% endcomment %}
+{% assign level = site.data.definition_levels | where: "id", page.level | first %}
+<div class="distinctions">
+  <p class="distinction__meta">
+    Example{% if level %} · <a href="{{ '/examples/' | relative_url }}?level={{ level.id }}" title="Examples up to this level">{{ level.name }}</a>{% endif %}
+  </p>
+
+  {% if page.description %}
+    <div class="distinction__summary">{{ page.description | markdownify }}</div>
+  {% endif %}
+
+  {% capture terms %}{% for pair in page.values %}{{ pair[0] }} {% endfor %}{{ page.is | join: " " }} {{ page.is_not | join: " " }}{% endcapture %}
+  {% assign terms = terms | split: " " | uniq %}
+  {% if terms.size > 0 %}
+    <h2 id="terms">Terms</h2>
+    <div class="distinction__examples">
+      <table>
+        <thead>
+          <tr><th>Term</th><th class="distinction__check">This example</th><th>Why</th></tr>
+        </thead>
+        <tbody>
+          {% for slug in terms %}
+            {% assign definition = site.definitions | where: "slug", slug | first %}
+            <tr>
+              <td>{% if definition %}<a href="{{ definition.url | relative_url }}">{{ definition.term | default: definition.title }}</a>{% else %}<code>{{ slug }}</code>{% endif %}</td>
+              {% include example-verdict.html example=page term=slug %}
+              <td>{{ page.why[slug] | markdownify | remove: '<p>' | remove: '</p>' }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+
+  {% assign notes = content | strip %}
+  {% if notes != "" %}
+    <h2 id="discussion">Discussion</h2>
+    {{ content }}
+  {% endif %}
+
+  {% assign used_in = "" | split: "" %}
+  {% for d in site.distinctions %}
+    {% assign ids = d.examples | map: "example" %}
+    {% if ids contains page.slug %}{% assign used_in = used_in | push: d %}{% endif %}
+  {% endfor %}
+  {% if used_in.size > 0 %}
+    <h2 id="distinctions">Distinctions using this example</h2>
+    <ul>
+      {% for d in used_in %}
+        {% assign ref = d.examples | where: "example", page.slug | first %}
+        <li><a href="{{ d.url | relative_url }}">{{ d.title }}</a>{% if ref.why %}: {{ ref.why | markdownify | remove: '<p>' | remove: '</p>' }}{% endif %}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <p class="distinction__back"><a href="{{ '/examples/' | relative_url }}">All examples</a> · <a href="{{ '/distinctions/' | relative_url }}">All distinctions</a> · <a href="{{ '/definitions/' | relative_url }}">All definitions</a></p>
+</div>

@@ -1,0 +1,18 @@
+{% comment %}
+  One table cell saying how an example relates to a term: the term's value for the example
+  (from the example's "values"), ✓ (listed in "is"), ✗ (listed in "is_not"), or – (not addressed).
+
+  Parameters:
+    example: A document from the "examples" collection.
+    term:    The slug of a definition.
+{% endcomment %}
+{%- assign value = include.example.values[include.term] -%}
+{%- if value -%}
+  <td class="distinction__value">{{ value | markdownify | remove: '<p>' | remove: '</p>' }}</td>
+{%- elsif include.example.is contains include.term -%}
+  <td class="distinction__check distinction__check--yes" title="Yes">✓</td>
+{%- elsif include.example.is_not contains include.term -%}
+  <td class="distinction__check distinction__check--no" title="No">✗</td>
+{%- else -%}
+  <td class="distinction__check distinction__check--na" title="Not addressed">–</td>
+{%- endif -%}

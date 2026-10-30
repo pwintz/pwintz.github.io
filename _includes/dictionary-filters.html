@@ -1,0 +1,46 @@
+{% comment %}
+  Filter controls for the Dictionary of Fine Distinctions index pages.
+  Used with assets/ts/src/dictionary_filters.ts, which hides list items marked with data-filter-item
+  that do not match. The controls are hidden until the script activates them.
+
+  Parameters:
+    placeholder: Placeholder text for the search box.
+    kind:        If true, include a filter for the kind of distinction.
+{% endcomment %}
+<form class="dictionary-filters" role="search" hidden>
+  <label class="dictionary-filters__field dictionary-filters__search">
+    <span>Search</span>
+    <input type="search" name="q" placeholder="{{ include.placeholder | default: 'Search' }}" autocomplete="off">
+  </label>
+  <label class="dictionary-filters__field">
+    <span>Subject</span>
+    <select name="subject">
+      <option value="">All subjects</option>
+      {% for area in site.data.distinction_areas %}
+        <option value="{{ area.id }}">{{ area.name }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  {% if include.kind %}
+    <label class="dictionary-filters__field">
+      <span>Kind</span>
+      <select name="kind">
+        <option value="">All kinds</option>
+        {% for kind in site.data.distinction_kinds %}
+          <option value="{{ kind.id }}">{{ kind.name }}</option>
+        {% endfor %}
+      </select>
+    </label>
+  {% endif %}
+  <label class="dictionary-filters__field">
+    <span>Up to level</span>
+    <select name="level">
+      <option value="">All levels</option>
+      {% for level in site.data.definition_levels %}
+        <option value="{{ level.id }}">{{ level.name }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <button type="reset" class="dictionary-filters__reset">Clear</button>
+  <p class="dictionary-filters__count" aria-live="polite"></p>
+</form>

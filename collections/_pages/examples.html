@@ -1,0 +1,60 @@
+---
+published: false
+layout: single
+permalink: /examples/
+title: Examples
+excerpt: "Examples and non-examples of mathematical terms, from elementary to graduate level."
+---
+<div class="distinctions">
+<p>
+  Examples used in the <a href="{{ '/distinctions/' | relative_url }}">Dictionary of Fine Distinctions</a>.
+  Each example is marked with the lowest level at which it is appropriate. Choosing a level shows the examples up to that level.
+</p>
+
+{% include dictionary-filters.html placeholder="Search examples, e.g., sphere" %}
+
+<div class="dictionary-list" data-filter-list>
+{% for level in site.data.definition_levels %}
+  {% assign at_level = site.examples | where: "level", level.id | sort: "slug" %}
+  {% if at_level.size > 0 %}
+    <section class="dictionary-group" data-filter-group>
+      <h2 id="level-{{ level.id }}">{{ level.name }}</h2>
+      <ul class="dictionary-entries">
+        {% for example in at_level %}
+          {% assign used_in = "" | split: "" %}
+          {% for d in site.distinctions %}
+            {% assign ids = d.examples | map: "example" %}
+            {% if ids contains example.slug %}{% assign used_in = used_in | push: d %}{% endif %}
+          {% endfor %}
+          {% capture subjects %}{% for d in used_in %}{{ d.areas | join: " " }} {% endfor %}{% endcapture %}
+          {% assign subjects = subjects | split: " " | uniq | join: " " %}
+          {% capture slugs %}{% for pair in example.values %}{{ pair[0] }} {% endfor %}{{ example.is | join: " " }} {{ example.is_not | join: " " }}{% endcapture %}
+          {% assign slugs = slugs | split: " " | uniq %}
+          {% capture term_names %}{% for slug in slugs %}{% assign def = site.definitions | where: "slug", slug | first %}{{ def.term }}; {% endfor %}{% endcapture %}
+          {% comment %} An example matches a level filter if its level is at or below the chosen level. {% endcomment %}
+          {% assign reached = false %}
+          {% capture levels %}{% for l in site.data.definition_levels %}{% if l.id == level.id %}{% assign reached = true %}{% endif %}{% if reached %}{{ l.id }} {% endif %}{% endfor %}{% endcapture %}
+          {% capture search %}{{ example.title }} {{ example.description }} {{ term_names }}{% endcapture %}
+          <li class="dictionary-entry" data-filter-item
+              data-search="{{ search | strip_html | strip_newlines | escape }}"
+              data-subjects="{{ subjects }}"
+              data-levels="{{ levels | strip }}">
+            <div class="dictionary-entry__header">
+              <a class="dictionary-entry__title" href="{{ example.url | relative_url }}">{{ example.title | markdownify | remove: '<p>' | remove: '</p>' }}</a>
+            </div>
+            {% if example.description %}<div class="dictionary-entry__text">{{ example.description | markdownify }}</div>{% endif %}
+            <div class="dictionary-entry__related">
+              Terms: {{ term_names | strip | remove_last: ";" }}
+              {% if used_in.size > 0 %}<br>Distinctions: {% for d in used_in %}<a href="{{ d.url | relative_url }}">{{ d.title }}</a>{% unless forloop.last %}; {% endunless %}{% endfor %}{% endif %}
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+{% endfor %}
+</div>
+<p class="dictionary-empty" hidden>No examples match these filters.</p>
+</div>
+
+<script src="{{ '/assets/ts/out/dictionary_filters.js' | relative_url }}" type="module"></script>

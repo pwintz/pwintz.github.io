@@ -1,0 +1,75 @@
+{% comment %}
+  The examples of a definition (from the "examples" collection), ordered by level.
+
+  Parameters:
+    definition:  A document from the "definitions" collection.
+    related:     The distinctions that compare this term. If an example has no "why" for the term,
+                 the "why" from a distinction that uses the example is shown instead.
+    collapsible: If true (on distinction pages), render two collapsed lists: "Examples" (worked examples, with
+                 their values, and examples) and "Non-examples" (things that may be mistaken for examples).
+                 Each item has data-example-level, so that assets/ts/src/definition_levels.ts can hide examples
+                 above the selected level.
+                 Otherwise, render separate lists of worked examples, examples, and non-examples, with level badges.
+{% endcomment %}
+{% assign term = include.definition.slug %}
+{% assign worked = site.examples | where_exp: "e", "e.values contains term" %}
+{% assign positive = site.examples | where_exp: "e", "e.is contains term" %}
+{% assign negative = site.examples | where_exp: "e", "e.is_not contains term" %}
+{% assign total = worked.size | plus: positive.size | plus: negative.size %}
+
+{% if total > 0 %}
+  {% if include.collapsible %}
+    {% assign example_count = worked.size | plus: positive.size %}
+    {% if example_count > 0 %}
+      <details class="definition-properties definition-examples">
+        <summary>Examples</summary>
+        <ul>
+          {% for level in site.data.definition_levels %}
+            {% assign at_level = worked | where: "level", level.id %}
+            {% for example in at_level %}
+              {% include definition-example-item.html example=example term=term related=include.related group=1 level=level compact=true %}
+            {% endfor %}
+            {% assign at_level = positive | where: "level", level.id %}
+            {% for example in at_level %}
+              {% include definition-example-item.html example=example term=term related=include.related group=2 level=level compact=true %}
+            {% endfor %}
+          {% endfor %}
+        </ul>
+      </details>
+    {% endif %}
+    {% if negative.size > 0 %}
+      <details class="definition-properties definition-examples">
+        <summary>Non-examples</summary>
+        <ul>
+          {% for level in site.data.definition_levels %}
+            {% assign at_level = negative | where: "level", level.id %}
+            {% for example in at_level %}
+              {% include definition-example-item.html example=example term=term related=include.related group=3 level=level compact=true %}
+            {% endfor %}
+          {% endfor %}
+        </ul>
+      </details>
+    {% endif %}
+  {% else %}
+    <h2 id="examples">Examples</h2>
+    {% for group in (1..3) %}
+      {% case group %}
+        {% when 1 %}{% assign list = worked %}{% assign heading = "Worked examples" %}
+        {% when 2 %}{% assign list = positive %}{% assign heading = "Examples" %}
+        {% when 3 %}{% assign list = negative %}{% assign heading = "Non-examples" %}
+      {% endcase %}
+      {% if list.size > 0 %}
+        <h3>{{ heading }}</h3>
+        {% if group == 3 %}<p class="example-list__intro">Things that may be mistaken for examples.</p>{% endif %}
+        <ul class="example-list">
+          {% for level in site.data.definition_levels %}
+            {% assign at_level = list | where: "level", level.id %}
+            {% for example in at_level %}
+              {% include definition-example-item.html example=example term=term related=include.related group=group level=level %}
+            {% endfor %}
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endif %}

@@ -1,0 +1,41 @@
+---
+layout: single
+---
+{% comment %}
+  Layout for a definition in the Dictionary of Fine Distinctions.
+  All levels are shown, from elementary to graduate.
+{% endcomment %}
+<div class="distinctions">
+  <p class="distinction__meta">
+    Definition{% if page.applies_to %} · applies to {{ page.applies_to }}{% endif %}
+    {% if page.synonyms %} · also called {{ page.synonyms | join: ", " }}{% endif %}
+  </p>
+
+  {% include definition-levels.html definition=page %}
+
+  {% assign related = site.distinctions | where_exp: "d", "d.terms contains page.slug" %}
+
+  {% include definition-examples.html definition=page related=related %}
+
+  {% if page.properties %}
+    <h2 id="properties">Properties</h2>
+    {% include definition-properties.html definition=page %}
+  {% endif %}
+
+  {% assign notes = content | strip %}
+  {% if notes != "" %}
+    <h2 id="notes">Notes</h2>
+    {{ content }}
+  {% endif %}
+
+  {% if related.size > 0 %}
+    <h2>Distinctions involving this term</h2>
+    <ul>
+      {% for d in related %}
+        <li><a href="{{ d.url | relative_url }}">{{ d.title }}</a>{% if d.summary %}: {{ d.summary | markdownify | remove: '<p>' | remove: '</p>' }}{% endif %}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <p class="distinction__back"><a href="{{ '/definitions/' | relative_url }}">All definitions</a> · <a href="{{ '/distinctions/' | relative_url }}">All distinctions</a> · <a href="{{ '/examples/' | relative_url }}">All examples</a></p>
+</div>

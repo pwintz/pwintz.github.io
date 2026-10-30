@@ -1,0 +1,24 @@
+{% comment %}
+  One example in a definition's list of examples (see definition-examples.html).
+
+  Parameters:
+    example: A document from the "examples" collection.
+    term:    The slug of the definition.
+    related: Distinctions to take a "why" from, if the example has none for the term.
+    group:   1 for a worked example (show the term's value), 2 for an example, 3 for a non-example.
+    level:   The example's level (an entry of _data/definition_levels.yml).
+    compact: If true, omit the level badge.
+{% endcomment %}
+{% assign example = include.example %}
+{% assign why = example.why[include.term] %}
+{% unless why %}
+  {% for d in include.related %}
+    {% assign ref = d.examples | where: "example", example.slug | first %}
+    {% if ref.why %}{% assign why = ref.why %}{% break %}{% endif %}
+  {% endfor %}
+{% endunless %}
+<li class="example-list__item" data-example-level="{{ example.level }}">
+  <a href="{{ example.url | relative_url }}">{{ example.title | markdownify | remove: '<p>' | remove: '</p>' }}</a>{% if include.group == 1 %}: {{ example.values[include.term] | markdownify | remove: '<p>' | remove: '</p>' }}{% endif %}
+  {% unless include.compact %}<span class="level-badge" title="Level of this example">{{ include.level.name }}</span>{% endunless %}
+  {% if why %}<div class="example-list__why">{{ why | markdownify | remove: '<p>' | remove: '</p>' }}</div>{% endif %}
+</li>

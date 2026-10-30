@@ -1,0 +1,17 @@
+# Kinds of distinctions in the Dictionary of Fine Distinctions.
+# The "kind" of a distinction page describes how its terms are related.
+- id: hierarchy
+  name: Hierarchy
+  description: Each term is a special case of the next.
+- id: siblings
+  name: Siblings
+  description: Separate concepts that are easily confused.
+- id: conflicting
+  name: Conflicting definitions
+  description: One term with rival definitions.
+- id: synonyms
+  name: Synonyms
+  description: Different words for exactly the same concept.
+- id: family
+  name: Family
+  description: A loose group of related terms.

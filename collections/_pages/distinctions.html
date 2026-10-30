@@ -1,0 +1,71 @@
+---
+published: false
+layout: single
+permalink: /distinctions/
+title: Dictionary of Fine (Mathematical) Distinctions
+excerpt: "The differences between mathematical terms that are easily confused."
+toc: true
+---
+<div class="distinctions">
+<p>
+  In mathematics, many terms are similar but not interchangeable.
+
+  This dictionary groups easily confused terms, defines each one, and explains the distinction with examples to illustrate the difference.
+
+  This work was inspired by the <em>Dictionary of Fine Distinctions: Nuances, Niceties, and Subtle Shades of Meaning</em> by Eli Burnstein.
+</p>
+
+<p>
+  See also the lists of <a href="{{ '/definitions/' | relative_url }}">all definitions</a> and <a href="{{ '/examples/' | relative_url }}">all examples</a>.
+</p>
+
+{% include dictionary-filters.html placeholder="Search distinctions, e.g., continuous" kind=true %}
+
+<div class="dictionary-list" data-filter-list>
+<h2 id="by-area">Distinctions by subject</h2>
+{% assign distinctions = site.distinctions | sort: "title" %}
+{% for area in site.data.distinction_areas %}
+  {% assign in_area = distinctions | where_exp: "d", "d.areas contains area.id" %}
+  {% if in_area.size > 0 %}
+    <section class="dictionary-group" data-filter-group>
+      <h3 id="area-{{ area.id }}">{{ area.name }}</h3>
+      <ul class="distinction-list">
+        {% for d in in_area %}
+          {% assign kind = site.data.distinction_kinds | where: "id", d.kind | first %}
+          {% capture term_names %}{% for slug in d.terms %}{% assign def = site.definitions | where: "slug", slug | first %}{{ def.term }} {% endfor %}{% endcapture %}
+          {% comment %}
+            A distinction is available at a level if every term has a definition at that level or a lower one,
+            since the level switcher falls back to a term's nearest lower level.
+            page_min is the largest, over the terms, of each term's lowest level.
+          {% endcomment %}
+          {% assign page_min = 0 %}
+          {% for slug in d.terms %}
+            {% assign def = site.definitions | where: "slug", slug | first %}
+            {% assign term_min = 99 %}
+            {% for level in site.data.definition_levels %}
+              {% if def.levels[level.id] %}{% assign term_min = forloop.index0 %}{% break %}{% endif %}
+            {% endfor %}
+            {% if term_min > page_min %}{% assign page_min = term_min %}{% endif %}
+          {% endfor %}
+          {% capture levels %}{% for level in site.data.definition_levels %}{% if forloop.index0 >= page_min %}{{ level.id }} {% endif %}{% endfor %}{% endcapture %}
+          {% capture search %}{{ d.title }} {{ d.summary }} {{ term_names }}{% endcapture %}
+          <li data-filter-item
+              data-search="{{ search | strip_html | strip_newlines | escape }}"
+              data-subjects="{{ d.areas | join: ' ' }}"
+              data-filter-key="{{ d.url }}"
+              data-kind="{{ d.kind }}"
+              data-levels="{{ levels | strip }}">
+            <a href="{{ d.url | relative_url }}">{{ d.title }}</a>
+            {% if kind %}<span class="distinction-list__kind">{{ kind.name }}</span>{% endif %}
+            {% if d.summary %}<div class="distinction-list__summary">{{ d.summary | markdownify | remove: '<p>' | remove: '</p>' }}</div>{% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+{% endfor %}
+</div>
+<p class="dictionary-empty" hidden>No distinctions match these filters.</p>
+</div>
+
+<script src="{{ '/assets/ts/out/dictionary_filters.js' | relative_url }}" type="module"></script>

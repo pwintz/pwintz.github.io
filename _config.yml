@@ -317,6 +317,16 @@ collections:
   uc_uaw_ase_2022-2025_contract:
     output: true
     permalink: /uaw/ase-2022-2025-contract/:name
+  # Dictionary of Fine Distinctions. Stub pages are marked "published: false".
+  distinctions:
+    output: true
+    permalink: /distinctions/:name
+  definitions:
+    output: true
+    permalink: /definitions/:name
+  examples:
+    output: true
+    permalink: /examples/:name
 
 
 # HTML Compression
@@ -363,4 +373,20 @@ defaults:
     values:
       # Use the layout given in _layouts/uaw-contract-article.html.
       layout: uaw-contract-article
+  # ⋘──────── Defaults for the Dictionary of Fine Distinctions ────────⋙
+  - scope:
+      path: ""
+      type: distinctions
+    values:
+      layout: distinction
+  - scope:
+      path: ""
+      type: definitions
+    values:
+      layout: definition
+  - scope:
+      path: ""
+      type: examples
+    values:
+      layout: example
       

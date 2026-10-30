@@ -1,0 +1,73 @@
+---
+published: false
+layout: single
+permalink: /definitions/
+title: Definitions
+excerpt: "Definitions of mathematical terms at several levels, from elementary to graduate."
+---
+<div class="distinctions">
+<p>
+  Each term in the <a href="{{ '/distinctions/' | relative_url }}">Dictionary of Fine Distinctions</a> is defined at one or more levels, from elementary to graduate.
+  See also the list of <a href="{{ '/examples/' | relative_url }}">all examples</a>.
+  Choose a level below to see the terms defined at or below that level, each at the most advanced of those levels.
+  Hover over (or tap) a level next to a term to see the term's definition at that level.
+</p>
+
+{% include dictionary-filters.html placeholder="Search terms, e.g., continuous" %}
+
+<div class="dictionary-list" data-filter-list>
+{% assign definitions = site.definitions | sort_natural: "term" %}
+{% assign current_letter = "" %}
+{% for def in definitions %}
+  {% assign letter = def.term | slice: 0 | upcase %}
+  {% if letter != current_letter %}
+    {% unless forloop.first %}</ul></section>{% endunless %}
+    <section class="dictionary-group" data-filter-group>
+      <h2 id="letter-{{ letter | slugify }}">{{ letter }}</h2>
+      <ul class="dictionary-entries">
+    {% assign current_letter = letter %}
+  {% endif %}
+
+  {% assign related = site.distinctions | where_exp: "d", "d.terms contains def.slug" %}
+  {% capture subjects %}{% for d in related %}{{ d.areas | join: " " }} {% endfor %}{% endcapture %}
+  {% assign subjects = subjects | split: " " | uniq | join: " " %}
+  {% comment %} A definition matches a level filter if it has a definition at that level or a lower one. {% endcomment %}
+  {% assign reached = false %}
+  {% capture levels %}{% for level in site.data.definition_levels %}{% if def.levels[level.id] %}{% assign reached = true %}{% endif %}{% if reached %}{{ level.id }} {% endif %}{% endfor %}{% endcapture %}
+  {% capture search %}{{ def.term }} {{ def.title }} {{ def.synonyms | join: " " }} {{ def.applies_to }}{% endcapture %}
+
+  <li class="dictionary-entry" data-filter-item
+      data-search="{{ search | strip_html | escape }}"
+      data-subjects="{{ subjects }}"
+      data-levels="{{ levels | strip }}">
+    <div class="dictionary-entry__header">
+      <a class="dictionary-entry__title" href="{{ def.url | relative_url }}">{{ def.term }}</a>
+      {% if def.applies_to %}<span class="dictionary-entry__meta">{{ def.applies_to }}</span>{% endif %}
+      <span class="dictionary-entry__levels">
+        {% for level in site.data.definition_levels %}
+          {% if def.levels[level.id] %}<button type="button" class="level-badge" data-show-level="{{ level.id }}" title="Show the {{ level.name | downcase }} definition">{{ level.name }}</button>{% endif %}
+        {% endfor %}
+      </span>
+    </div>
+    {% assign shown = false %}
+    {% for level in site.data.definition_levels %}
+      {% assign entry = def.levels[level.id] %}
+      {% if entry %}
+        <div class="dictionary-entry__text" data-level="{{ level.id }}"{% if shown %} hidden{% endif %}>{{ entry.text | markdownify }}</div>
+        {% assign shown = true %}
+      {% endif %}
+    {% endfor %}
+    {% if related.size > 0 %}
+      <div class="dictionary-entry__related">
+        Distinctions:
+        {% for d in related %}<a href="{{ d.url | relative_url }}">{{ d.title }}</a>{% unless forloop.last %}; {% endunless %}{% endfor %}
+      </div>
+    {% endif %}
+  </li>
+  {% if forloop.last %}</ul></section>{% endif %}
+{% endfor %}
+</div>
+<p class="dictionary-empty" hidden>No definitions match these filters.</p>
+</div>
+
+<script src="{{ '/assets/ts/out/dictionary_filters.js' | relative_url }}" type="module"></script>

@@ -1,0 +1,25 @@
+{% comment %}
+  Render the properties of a definition: facts about the term that are not part of its definition.
+
+  Parameters:
+    definition:  A document from the "definitions" collection.
+    collapsible: If true, render the list inside a collapsed <details> element.
+{% endcomment %}
+{% if include.definition.properties %}
+  {% if include.collapsible %}
+    <details class="definition-properties">
+      <summary>Properties</summary>
+  {% else %}
+    <div class="definition-properties">
+  {% endif %}
+      <ul>
+        {% for property in include.definition.properties %}
+          <li>{{ property | markdownify | remove: '<p>' | remove: '</p>' }}</li>
+        {% endfor %}
+      </ul>
+  {% if include.collapsible %}
+    </details>
+  {% else %}
+    </div>
+  {% endif %}
+{% endif %}
