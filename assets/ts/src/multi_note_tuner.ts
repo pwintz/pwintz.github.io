@@ -9,19 +9,19 @@
 // Peaks that line up with a whole-number multiple of a lower peak are treated as its harmonics,
 // and the rest are named as notes and shown with how many cents sharp or flat they are.
 
-export {}; // Makes this file a module, so its names don't collide with other pages' scripts.
+import { FFT, WINDOWS, fitPeak } from "./audio/fft";
+import { NOTE_NAMES, freqToMidi, midiToFreq, centsOff, noteName, formatCents } from "./audio/notes";
+import { AudioInput } from "./audio/input";
+import { BG, PANEL, TEXT, MUTED, GRID, dpr, fitCanvas, placeholder, setupPanels, setupHelp, setupSavedControls, float32ToBase64, base64ToFloat32 } from "./audio/ui";
 
 // ⋘──────── Constants ────────⋙
 
-const NOTE_NAMES      = ["C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B"];
 const BLACK_KEYS      = new Set([1, 3, 6, 8, 10]);
 const EPS             = 1e-12;
-const GAUSS_ALPHA     = 0.25; // Width of the Gauss window, as a fraction of half its length (Minim's default)
 const DETECT_MIN_HZ   = 25;   // Peaks are searched for between these frequencies
 const DETECT_MAX_HZ   = 10000;
 const MAX_PEAKS       = 16;   // The strongest peaks kept in each frame
 const HARMONIC_CENTS  = 35;   // How close a peak must be to n × a lower peak to count as its harmonic
-const MAX_PEAK_GAIN    = 1.6;  // Most that interpolation can put a peak above its highest bin (the rectangular window's worst case)
 const WEAK_HARMONIC    = 0.003; // Quietest harmonic (relative to the loudest peak) that's marked below the threshold
 const WEAK_FUNDAMENTAL = 0.003; // Quietest fundamental (relative to the loudest peak) that's restored below the threshold (−50 dB, since laptop microphones pick up little below about 150 Hz)
 const N_HARMONICS     = 10;   // Highest harmonic of a note that's marked when it's below the threshold
@@ -33,30 +33,15 @@ const HISTORY_GAP_SECONDS      = 0.1;  // Longest gap in a note that still count
 const NOTE_CONFIRM_SECONDS     = 0.06; // How long a note must last before it's recorded or shown on the tuner
 const HIDDEN_COLOR = "#ffc400"; // Marks where notes outside the note history's range are hidden
 
-const BG    = "#121417";
-const PANEL = "#1b1e23";
-const TEXT  = "#d8dce2";
-const MUTED = "#8a919c";
-const GRID  = "rgba(255, 255, 255, 0.08)";
-
 // ⋘──────── DOM ────────⋙
 
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
 
-const sourceSelect   = $<HTMLSelectElement>("ft-source");
-const startButton    = $<HTMLButtonElement>("ft-start");     // Enables the microphone
-const tonePlayButton = $<HTMLButtonElement>("ft-tone-play");
-const freezeButton   = $<HTMLButtonElement>("ft-freeze");
-const statusLine     = $<HTMLParagraphElement>("ft-status");
-const toneControls   = $<HTMLDivElement>("ft-tone-controls");
 const tonePitch      = $<HTMLInputElement>("ft-tone-pitch");
 const tonePitchOut   = $<HTMLOutputElement>("ft-tone-pitch-out");
 const toneTimbre     = $<HTMLSelectElement>("ft-tone-timbre");
 const toneChord      = $<HTMLSelectElement>("ft-tone-chord");
 const toneAudible    = $<HTMLInputElement>("ft-tone-audible");
-const fileControls   = $<HTMLDivElement>("ft-file-controls");
-const fileInput      = $<HTMLInputElement>("ft-file");
-const audioElement   = $<HTMLAudioElement>("ft-audio");
 
 const tunerCanvas     = $<HTMLCanvasElement>("ft-tuner");
 const tunerSection    = $<HTMLDivElement>("ft-tuner-section"); // Hidden while the tuner isn't finished
@@ -217,95 +202,14 @@ function formatThreshold(): string {
 // Pitches are MIDI note numbers: 69 is A4, and each semitone is 1, so the fractional part is the
 // distance from the nearest note in hundredths of a semitone (cents).
 
-const midiFromFreq = (f: number) => 69 + 12 * Math.log2(f / settings.a4);
-const freqFromMidi = (m: number) => settings.a4 * 2 ** ((m - 69) / 12);
-const centsOff     = (midi: number) => 100 * (midi - Math.round(midi));
-
-function noteName(midi: number): string {
-  const m = Math.round(midi);
-  return NOTE_NAMES[((m % 12) + 12) % 12] + (Math.floor(m / 12) - 1);
-}
-
-function formatCents(cents: number): string {
-  const c = Math.round(cents);
-  return c === 0 ? "±0¢" : `${c > 0 ? "+" : "−"}${Math.abs(c)}¢`;
-}
+const midiFromFreq = (f: number) => freqToMidi(f, settings.a4);
+const freqFromMidi = (m: number) => midiToFreq(m, settings.a4);
 
 // The color of a pitch, running through the rainbow from low to high (as in the original sketch).
 const pitchHue = (midi: number) => (((midi - 21) / 130) * 360 - 18 + 360) % 360;
 
 // Green when in tune, through yellow, to red at a quarter tone off.
 const centsColor = (cents: number) => `hsl(${120 * (1 - Math.min(1, Math.abs(cents) / 50))}, 80%, 55%)`;
-
-// ⋘──────── FFT ────────⋙
-
-type WindowFunction = (n: number, N: number) => number;
-const WINDOWS: Record<string, WindowFunction> = {
-  rectangular  : () => 1,
-  bartlett     : (n, N) => 1 - Math.abs(2 * n / (N - 1) - 1),
-  bartletthann : (n, N) => 0.62 - 0.48 * Math.abs(n / (N - 1) - 0.5) - 0.38 * Math.cos(2 * Math.PI * n / (N - 1)),
-  blackman     : (n, N) => 0.42 - 0.5 * Math.cos(2 * Math.PI * n / (N - 1)) + 0.08 * Math.cos(4 * Math.PI * n / (N - 1)),
-  cosine       : (n, N) => Math.sin(Math.PI * n / (N - 1)),
-  gauss        : (n, N) => Math.exp(-0.5 * ((n - (N - 1) / 2) / (GAUSS_ALPHA * (N - 1) / 2)) ** 2),
-  hamming      : (n, N) => 0.54 - 0.46 * Math.cos(2 * Math.PI * n / (N - 1)),
-  hann         : (n, N) => 0.5 - 0.5 * Math.cos(2 * Math.PI * n / (N - 1)),
-  lanczos      : (n, N) => {
-    const x = 2 * n / (N - 1) - 1;
-    return x === 0 ? 1 : Math.sin(Math.PI * x) / (Math.PI * x);
-  },
-  triangular   : (n, N) => 1 - Math.abs((n - (N - 1) / 2) / (N / 2)),
-};
-
-// In-place radix-2 FFT of a power-of-two length.
-class FFT {
-  readonly size: number;
-  private readonly reversed: Uint32Array;
-  private readonly cos: Float64Array;
-  private readonly sin: Float64Array;
-
-  constructor(size: number) {
-    this.size = size;
-    const bits = Math.log2(size);
-    this.reversed = new Uint32Array(size);
-    for (let i = 0; i < size; i++) {
-      let r = 0;
-      for (let b = 0; b < bits; b++) r |= ((i >> b) & 1) << (bits - 1 - b);
-      this.reversed[i] = r;
-    }
-    this.cos = new Float64Array(size / 2);
-    this.sin = new Float64Array(size / 2);
-    for (let k = 0; k < size / 2; k++) {
-      this.cos[k] = Math.cos(2 * Math.PI * k / size);
-      this.sin[k] = Math.sin(2 * Math.PI * k / size);
-    }
-  }
-
-  transform(re: Float64Array, im: Float64Array): void {
-    const n = this.size;
-    for (let i = 0; i < n; i++) {
-      const j = this.reversed[i];
-      if (j > i) {
-        [re[i], re[j]] = [re[j], re[i]];
-        [im[i], im[j]] = [im[j], im[i]];
-      }
-    }
-    for (let len = 2; len <= n; len <<= 1) {
-      const half = len >> 1, step = n / len;
-      for (let i = 0; i < n; i += len) {
-        for (let j = 0; j < half; j++) {
-          const wr = this.cos[j * step], wi = -this.sin[j * step];
-          const a = i + j, b = a + half;
-          const tr = re[b] * wr - im[b] * wi;
-          const ti = re[b] * wi + im[b] * wr;
-          re[b] = re[a] - tr;
-          im[b] = im[a] - ti;
-          re[a] += tr;
-          im[a] += ti;
-        }
-      }
-    }
-  }
-}
 
 // ⋘──────── Analysis state ────────⋙
 
@@ -367,21 +271,14 @@ let peakFloor = 0; // Peaks whose highest bin is below this are ignored
 // Fits a Gaussian through bins k − 1, k, and k + 1, which is a parabola through the logarithms of
 // their magnitudes, and returns its peak.
 function interpolatePeak(k: number): Peak | null {
-  const la = Math.log(spectrum[k - 1] + EPS);
-  const lb = Math.log(spectrum[k] + EPS);
-  const lc = Math.log(spectrum[k + 1] + EPS);
-  const denom = la - 2 * lb + lc;
-  if (!(denom < 0)) return null;
-  const delta = 0.5 * (la - lc) / denom; // Offset of the peak from bin k, in bins (between −½ and ½)
-  const freq  = (k + delta) * binHz;
+  const fit = fitPeak(spectrum, k);
+  if (!fit) return null;
+  const freq = (k + fit.delta) * binHz;
   return {
     freq,
-    // When a neighboring bin is nearly zero (as after removing background noise), the parabola
-    // through the logarithms is very lopsided and overshoots, so the peak is capped at the most
-    // that any of the windows can put it above its highest bin.
-    mag        : Math.min(Math.exp(lb - 0.25 * (la - lc) * delta), MAX_PEAK_GAIN * spectrum[k]),
+    mag        : fit.mag,
     bin        : spectrum[k],
-    curv       : denom / (2 * binHz * binHz),
+    curv       : fit.curv / (binHz * binHz),
     midi       : midiFromFreq(freq),
     fundamental: null,
     harmonic   : 1,
@@ -468,7 +365,6 @@ function harmonicNumber(f: number, f0: number): number {
 // ⋘──────── Tuner and history state ────────⋙
 
 let clock     = 0;                   // Time of the latest analyzed frame (s); stops while frozen
-let frozen    = false;
 
 interface HistoryNote { midi: number; level: number; }
 interface HistoryFrame { t: number; notes: HistoryNote[]; hiddenAbove?: boolean; hiddenBelow?: boolean; }
@@ -552,98 +448,20 @@ const notePeaks = () => settings.hideHarmonics ? peaks.filter(p => !p.fundamenta
 
 // ⋘──────── Audio sources ────────⋙
 
-let audioCtx: AudioContext | null = null;
 let analyser: AnalyserNode | null = null;
-let stopSource: (() => void) | null = null;
-let mediaNode: MediaElementAudioSourceNode | null = null;
 
-function ensureContext(): AudioContext {
-  if (!audioCtx) {
-    audioCtx = new AudioContext();
-    analyser = audioCtx.createAnalyser();
+const input = new AudioInput("ft", {
+  onContext(ctx, node) {
+    analyser = ctx.createAnalyser();
+    node.connect(analyser);
     // Some browsers only process nodes that lead to the output, so the analyser feeds a silent gain.
-    const sink = audioCtx.createGain();
+    const sink = ctx.createGain();
     sink.gain.value = 0;
-    analyser.connect(sink).connect(audioCtx.destination);
+    analyser.connect(sink).connect(ctx.destination);
     configureAnalysis();
-  }
-  void audioCtx.resume();
-  return audioCtx;
-}
-
-function setStatus(message: string, kind: "error" | "info" = "error"): void {
-  statusLine.textContent = message;
-  statusLine.hidden = !message;
-  statusLine.classList.toggle("ft-status-info", kind === "info");
-}
-
-function stop(): void {
-  stopSource?.();
-  stopSource = null;
-  updateSourceButtons();
-}
-
-// The microphone's button is only needed until the microphone is listening, which usually means
-// asking for permission to use it. The test tone has its own play/stop button, and an audio file
-// has the audio player's controls (and freezes the graphs when it's paused), so the Freeze button
-// is only for the microphone.
-function updateSourceButtons(): void {
-  const source = sourceSelect.value, running = !!stopSource;
-  startButton.hidden = source !== "mic" || running;
-  freezeButton.hidden = source !== "mic";
-  tonePlayButton.textContent = running && source === "tone" ? "■ Stop" : "▶ Play";
-}
-
-async function startMicrophone(): Promise<void> {
-  const ctx = ensureContext();
-  if (!navigator.mediaDevices?.getUserMedia) {
-    setStatus("This browser doesn't allow microphone access on this page.");
-    return;
-  }
-  try {
-    // Echo cancellation and noise suppression are designed for speech and would distort the spectrum.
-    const stream = await navigator.mediaDevices.getUserMedia({
-      audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false },
-    });
-    const node = ctx.createMediaStreamSource(stream);
-    node.connect(analyser!);
-    stopSource = () => {
-      node.disconnect();
-      stream.getTracks().forEach(track => track.stop());
-    };
-    updateSourceButtons();
-    setStatus("");
-    resumeWhenAllowed(ctx);
-  } catch (err) {
-    setStatus(`Couldn't open the microphone (${(err as Error).message}).`);
-  }
-}
-
-// Starts listening right away for visitors who have already allowed this page to use the
-// microphone (and who were using the microphone last time).
-async function autoStartMicrophone(): Promise<void> {
-  if (sourceSelect.value !== "mic") return;
-  try {
-    const permission = await navigator.permissions.query({ name: "microphone" as PermissionName });
-    if (permission.state === "granted" && !stopSource) await startMicrophone();
-  } catch { /* The browser can't report whether the microphone is allowed */ }
-}
-
-// Browsers may keep audio paused until the visitor interacts with the page, which happens when
-// the microphone starts without a click. Listening then begins on the first click or key press.
-function resumeWhenAllowed(ctx: AudioContext): void {
-  setTimeout(() => {
-    if (ctx.state === "running") return;
-    setStatus("Click anywhere on the page to start listening.", "info");
-    const resume = () => {
-      void ctx.resume().then(() => setStatus(""));
-      document.removeEventListener("pointerdown", resume);
-      document.removeEventListener("keydown", resume);
-    };
-    document.addEventListener("pointerdown", resume);
-    document.addEventListener("keydown", resume);
-  }, 500);
-}
+  },
+  startTone,
+});
 
 // Harmonic amplitudes (starting with the fundamental) of the test tone's timbres.
 const TIMBRES: Record<string, number[]> = {
@@ -662,8 +480,7 @@ const CHORDS: Record<string, number[]> = {
 
 let toneOscillators: OscillatorNode[] = [];
 
-function startTone(): void {
-  const ctx = ensureContext();
+function startTone(ctx: AudioContext, node: AudioNode): () => void {
   const amps  = TIMBRES[toneTimbre.value];
   const real  = new Float32Array(amps.length + 1);
   const imag  = new Float32Array([0, ...amps]);
@@ -674,7 +491,7 @@ function startTone(): void {
   bus.gain.value = 0.25 / chord.length;
   const out = ctx.createGain();
   out.gain.value = toneAudible.checked ? 1 : 0;
-  bus.connect(analyser!);
+  bus.connect(node);
   bus.connect(out).connect(ctx.destination);
 
   toneOscillators = chord.map(interval => {
@@ -688,85 +505,27 @@ function startTone(): void {
   const audibleChanged = () => out.gain.setTargetAtTime(toneAudible.checked ? 1 : 0, ctx.currentTime, 0.02);
   toneAudible.addEventListener("change", audibleChanged);
 
-  stopSource = () => {
+  return () => {
     toneOscillators.forEach(osc => osc.stop());
     toneOscillators = [];
     bus.disconnect();
     out.disconnect();
     toneAudible.removeEventListener("change", audibleChanged);
   };
-  updateSourceButtons();
 }
 
 function updateTonePitch(): void {
   const midi = Number(tonePitch.value);
   tonePitchOut.value = `${noteName(midi)} ${formatCents(centsOff(midi))} (${freqFromMidi(midi).toFixed(1)} Hz)`;
   const chord = CHORDS[toneChord.value];
-  if (!audioCtx) return;
+  const ctx = input.ctx;
+  if (!ctx) return;
   toneOscillators.forEach((osc, i) =>
-    osc.frequency.setTargetAtTime(freqFromMidi(midi + chord[i]), audioCtx!.currentTime, 0.02));
+    osc.frequency.setTargetAtTime(freqFromMidi(midi + chord[i]), ctx.currentTime, 0.02));
 }
-
-function connectFile(): void {
-  const ctx = ensureContext();
-  if (!mediaNode) {
-    mediaNode = ctx.createMediaElementSource(audioElement);
-    mediaNode.connect(ctx.destination);
-  }
-  mediaNode.connect(analyser!);
-  stopSource = () => {
-    audioElement.pause();
-    mediaNode!.disconnect(analyser!);
-  };
-}
-
-function showSourceControls(): void {
-  const source = sourceSelect.value;
-  toneControls.hidden = source !== "tone";
-  fileControls.hidden = source !== "file";
-  updateSourceButtons();
-}
-
-sourceSelect.addEventListener("change", () => {
-  stop();
-  setStatus("");
-  // Only an audio file that's paused stays frozen (the Freeze button is only shown for the
-  // microphone).
-  setFrozen(sourceSelect.value === "file" && !!audioElement.src && audioElement.paused);
-  showSourceControls();
-  if (sourceSelect.value === "file" && audioElement.src) connectFile();
-  if (sourceSelect.value === "mic") void autoStartMicrophone(); // No button needed if it's allowed already
-});
-
-startButton.addEventListener("click", () => void startMicrophone());
-tonePlayButton.addEventListener("click", () => {
-  if (stopSource) stop();
-  else startTone();
-});
-
-fileInput.addEventListener("change", () => {
-  const file = fileInput.files?.[0];
-  if (!file) return;
-  if (audioElement.src) URL.revokeObjectURL(audioElement.src);
-  audioElement.src = URL.createObjectURL(file);
-  audioElement.hidden = false;
-  if (!stopSource) connectFile();
-  void audioElement.play();
-});
-audioElement.addEventListener("play", () => {
-  void audioCtx?.resume();
-  if (!stopSource) connectFile();
-});
 
 // Restarts the test tone when its timbre or chord changes.
-for (const el of [toneTimbre, toneChord]) {
-  el.addEventListener("change", () => {
-    if (stopSource && sourceSelect.value === "tone") {
-      stop();
-      startTone();
-    }
-  });
-}
+for (const el of [toneTimbre, toneChord]) el.addEventListener("change", () => input.restartTone());
 
 // ⋘──────── Background noise ────────⋙
 // Steady background noise, like the hum of a fan or traffic, can make the largest peaks in the
@@ -808,8 +567,8 @@ let noiseEnd       = 0;                         // When calibrating stops (s)
 function applyCalibration(): void {
   const c = calibration;
   const matches = !!c && c.fftSize === settings.fftSize && c.window === settings.window && c.sampleRate === sampleRate;
-  if (c && !matches && noise) setStatus(CALIBRATION_MISMATCH, "info");
-  else if (matches && statusLine.textContent === CALIBRATION_MISMATCH) setStatus("", "info");
+  if (c && !matches && noise) input.setStatus(CALIBRATION_MISMATCH, "info");
+  else if (matches && input.status === CALIBRATION_MISMATCH) input.setStatus("", "info");
   noise = matches ? c!.level : null;
   updateNoiseControls();
 }
@@ -827,16 +586,16 @@ function updateNoiseControls(): void {
 }
 
 function calibrateNoise(): void {
-  if (!stopSource || audioCtx?.state !== "running") {
-    setStatus("Start the input first, then calibrate the background noise while it's quiet.", "info");
+  if (!input.running || input.ctx?.state !== "running") {
+    input.setStatus("Start the input first, then calibrate the background noise while it's quiet.", "info");
     return;
   }
-  if (frozen) setFrozen(false);
+  if (input.frozen) input.setFrozen(false);
   noiseFrames    = [];
   noiseLastFrame = 0;
   noiseEnd       = performance.now() / 1000 + NOISE_SECONDS;
   updateNoiseControls();
-  setStatus(`Calibrating the background noise. Keep quiet for ${NOISE_SECONDS} seconds.`, "info");
+  input.setStatus(`Calibrating the background noise. Keep quiet for ${NOISE_SECONDS} seconds.`, "info");
 }
 
 // Called with each new spectrum's magnitudes (before any noise is removed) while calibrating.
@@ -867,7 +626,7 @@ function finishNoise(): void {
   calibration = { fftSize: settings.fftSize, window: settings.window, sampleRate, level, savedAt: Date.now(), previous: false };
   saveCalibration();
   applyCalibration();
-  setStatus("Background noise calibrated. It's now removed from the spectrum.", "info");
+  input.setStatus("Background noise calibrated. It's now removed from the spectrum.", "info");
 }
 
 function clearNoise(): void {
@@ -877,15 +636,12 @@ function clearNoise(): void {
     localStorage.removeItem(NOISE_STORAGE_KEY);
   } catch { /* Nothing saved */ }
   applyCalibration();
-  setStatus("", "info");
+  input.setStatus("", "info");
 }
 
 function saveCalibration(): void {
   const c = calibration!;
-  const bytes = new Uint8Array(c.level.buffer);
-  let binary = "";
-  for (let i = 0; i < bytes.length; i += 0x8000) binary += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
-  const saved = { fftSize: c.fftSize, window: c.window, sampleRate: c.sampleRate, savedAt: c.savedAt, level: btoa(binary) };
+  const saved = { fftSize: c.fftSize, window: c.window, sampleRate: c.sampleRate, savedAt: c.savedAt, level: float32ToBase64(c.level) };
   try {
     localStorage.setItem(NOISE_STORAGE_KEY, JSON.stringify(saved));
   } catch { /* Not saved, for example if storage is full or unavailable */ }
@@ -895,11 +651,9 @@ function loadCalibration(): void {
   try {
     const saved = JSON.parse(localStorage.getItem(NOISE_STORAGE_KEY) ?? "null");
     if (!saved) return;
-    const binary = atob(saved.level);
-    const bytes = Uint8Array.from(binary, ch => ch.charCodeAt(0));
     calibration = {
       fftSize: saved.fftSize, window: saved.window, sampleRate: saved.sampleRate, savedAt: saved.savedAt,
-      level: new Float32Array(bytes.buffer), previous: true,
+      level: base64ToFloat32(saved.level), previous: true,
     };
   } catch { /* Nothing usable saved */ }
 }
@@ -907,65 +661,15 @@ function loadCalibration(): void {
 noiseButton.addEventListener("click", calibrateNoise);
 clearNoiseButton.addEventListener("click", clearNoise);
 
-function setFrozen(value: boolean): void {
-  frozen = value;
-  freezeButton.textContent = frozen ? "▶ Resume" : "❚❚ Freeze";
-  freezeButton.setAttribute("aria-pressed", String(frozen));
-}
-
-freezeButton.addEventListener("click", () => setFrozen(!frozen));
-
-// Pausing an audio file freezes everything, and playing it again resumes.
-for (const event of ["pause", "play"]) {
-  audioElement.addEventListener(event, () => {
-    if (sourceSelect.value === "file") setFrozen(event === "pause");
-  });
-}
-
 document.querySelectorAll<HTMLElement>(".ft-settings input, .ft-settings select, #ft-tone-pitch").forEach(el =>
   el.addEventListener("input", readSettings));
 
-// ⋘──────── Canvas helpers ────────⋙
-
-const dpr = () => window.devicePixelRatio || 1;
-
-// Matches the canvas's resolution to its displayed width and returns a context in CSS pixels.
-// In full screen, a canvas fills the screen's height. Otherwise it's `height` tall.
-const FULL_PAD = 24; // Padding of a panel in full screen (px)
-
-function canvasHeight(canvas: HTMLCanvasElement, height: number): number {
-  const full = document.fullscreenElement;
-  if (!full || !full.contains(canvas)) return height;
-  return Math.max(height / 2, Math.floor(window.innerHeight - FULL_PAD));
-}
+// ⋘──────── Canvas sizes ────────⋙
 
 const TUNER_ROW_H   = 22;  // Height of each semitone of the tuner's staff, when it's not crowded (px)
 const TUNER_STAFF_H = 260; // Height of the tuner's staff, its pitch axis (px)
 const TUNER_PAD     = 84;  // Space above and below the staff, where the tuner bars can extend (px)
 const TUNER_AXIS_H  = 20;  // Height of the tuner's time axis (px)
-
-function fitCanvas(canvas: HTMLCanvasElement, normalHeight: number): { ctx: CanvasRenderingContext2D; w: number; h: number } {
-  const height = canvasHeight(canvas, normalHeight);
-  const w = canvas.clientWidth;
-  if (canvas.width !== Math.round(w * dpr()) || canvas.height !== Math.round(height * dpr())) {
-    canvas.width  = Math.round(w * dpr());
-    canvas.height = Math.round(height * dpr());
-    canvas.style.height = `${height}px`;
-  }
-  const ctx = canvas.getContext("2d")!;
-  ctx.setTransform(dpr(), 0, 0, dpr(), 0, 0);
-  ctx.fillStyle = BG;
-  ctx.fillRect(0, 0, w, height);
-  return { ctx, w, h: height };
-}
-
-function placeholder(ctx: CanvasRenderingContext2D, w: number, h: number, text: string): void {
-  ctx.fillStyle = MUTED;
-  ctx.font = "14px system-ui, sans-serif";
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillText(text, w / 2, h / 2);
-}
 
 // ⋘──────── Tuner ────────⋙
 
@@ -1129,7 +833,7 @@ function updateTunerView(rows: { row: number; weight: number }[], available: num
 function drawTuner(): void {
   const { ctx, w, h } = fitCanvas(tunerCanvas, 2 * TUNER_PAD + TUNER_STAFF_H + TUNER_AXIS_H);
   const staffTop = TUNER_PAD, staffBottom = h - TUNER_AXIS_H - TUNER_PAD;
-  if (!frozen) updateTunerView(recentRows(), staffBottom - staffTop);
+  if (!input.frozen) updateTunerView(recentRows(), staffBottom - staffTop);
   const span = tunerView.reduce((sum, sec) => sum + sec.hi - sec.lo + 1, 0);
   const available = staffBottom - staffTop - (tunerView.length - 1) * TUNER_GAP_H;
   const rowH = available / span; // The sections fill the staff's height
@@ -1406,7 +1110,7 @@ function drawSpectrum(): void {
       ys.push(yOf(spectrum[k]));
     }
   }
-  if (!frozen) {
+  if (!input.frozen) {
     const target = Math.max(visibleMax * 1.15, 4 * 10 ** (settings.minDb / 20));
     yMax = target > yMax ? target : yMax + (target - yMax) * 0.03;
   }
@@ -1672,7 +1376,7 @@ function drawHistory(): void {
     hi = historyHi;
   }
   [lo, hi] = fitHistorySpan(lo, hi, rangeLo, rangeHi);
-  if (!frozen) {
+  if (!input.frozen) {
     historyLo = Math.abs(lo - historyLo) < 0.01 ? lo : historyLo + (lo - historyLo) * 0.08;
     historyHi = Math.abs(hi - historyHi) < 0.01 ? hi : historyHi + (hi - historyHi) * 0.08;
   }
@@ -1837,172 +1541,20 @@ function fitHistorySpan(lo: number, hi: number, min: number, max: number): [numb
   return [Math.max(lo, min), hi];
 }
 
-// ⋘──────── Pinning and full screen ────────⋙
-// Each panel has a pin button that keeps it at the top of the window while scrolling, stacked
-// below any pinned panels above it, and (in browsers that allow it) a button that shows it full
-// screen.
+// ⋘──────── Pinning, help, and saved settings ────────⋙
+// Each panel can be pinned to the top of the window or shown full screen; each setting with a
+// `data-help` explanation gets a "?" button; and the controls and pinned panels are saved in the
+// browser.
 
-const PIN_ICON = `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16 9V4h1c.55 0 1-.45 1-1s-.45-1-1-1H7c-.55 0-1 .45-1 1s.45 1 1 1h1v5c0 1.66-1.34 3-3 3v2h5.97v7l1 1 1-1v-7H19v-2c-1.66 0-3-1.34-3-3z"/></svg>`;
-const FULL_ICON = `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>`;
-const EXIT_FULL_ICON = `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>`;
-const panels = [...document.querySelectorAll<HTMLElement>(".ft-panel")];
-
-function stackPinned(): void {
-  let top = 0;
-  for (const panel of panels) {
-    if (!panel.classList.contains("ft-pinned")) {
-      panel.style.top = "";
-      continue;
-    }
-    panel.style.top = `${top}px`;
-    top += panel.offsetHeight;
-  }
-}
-
-function setPinned(panel: HTMLElement, pinned: boolean): void {
-  panel.classList.toggle("ft-pinned", pinned);
-  panel.querySelector(".ft-pin")!.setAttribute("aria-pressed", String(pinned));
-  stackPinned();
-}
-
-for (const panel of panels) {
-  const button = document.createElement("button");
-  button.type = "button";
-  button.className = "ft-pin";
-  button.innerHTML = PIN_ICON;
-  button.setAttribute("aria-label", "Pin to the top of the window");
-  button.setAttribute("aria-pressed", "false");
-  button.addEventListener("click", () => {
-    setPinned(panel, !panel.classList.contains("ft-pinned"));
-    saveControls();
-  });
-  panel.append(button);
-
-  const full = document.createElement("button");
-  full.type = "button";
-  full.className = "ft-full";
-  full.innerHTML = FULL_ICON;
-  full.setAttribute("aria-label", "Full screen");
-  full.hidden = !document.fullscreenEnabled;
-  full.addEventListener("click", () => {
-    if (document.fullscreenElement) void document.exitFullscreen();
-    else void panel.requestFullscreen();
-  });
-  panel.append(full);
-}
-// The panels' heights change as the canvases are first drawn and when the window is resized.
-const panelResizes = new ResizeObserver(stackPinned);
-panels.forEach(panel => panelResizes.observe(panel));
-document.addEventListener("fullscreenchange", () => {
-  for (const panel of panels) {
-    const button = panel.querySelector<HTMLButtonElement>(".ft-full")!;
-    const isFull = document.fullscreenElement === panel;
-    button.innerHTML = isFull ? EXIT_FULL_ICON : FULL_ICON;
-    button.setAttribute("aria-label", isFull ? "Exit full screen" : "Full screen");
-  }
-  stackPinned();
-});
-
-// ⋘──────── Setting explanations ────────⋙
-// Each setting's label with a `data-help` explanation gets a "?" button after it that shows the
-// explanation in a popup below the button.
-
-const helpPopup = $<HTMLDivElement>("ft-help-popup");
-let openHelp: HTMLButtonElement | null = null;
-
-function closeHelp(): void {
-  helpPopup.hidden = true;
-  openHelp?.setAttribute("aria-expanded", "false");
-  openHelp = null;
-}
-
-function showHelp(button: HTMLButtonElement, text: string): void {
-  closeHelp();
-  openHelp = button;
-  button.setAttribute("aria-expanded", "true");
-  helpPopup.textContent = text;
-  helpPopup.hidden = false;
-  // Below the button, kept within the window.
-  const r = button.getBoundingClientRect();
-  const left = Math.min(r.left, document.documentElement.clientWidth - helpPopup.offsetWidth - 8);
-  helpPopup.style.left = `${Math.max(8, left) + window.scrollX}px`;
-  helpPopup.style.top  = `${r.bottom + 6 + window.scrollY}px`;
-}
-
-document.body.append(helpPopup); // Positioned relative to the page
-for (const label of document.querySelectorAll<HTMLElement>(".ft [data-help]")) {
-  const button = document.createElement("button");
-  button.type = "button";
-  button.className = "ft-help";
-  button.textContent = "?";
-  button.setAttribute("aria-label", `About ${label.textContent}`);
-  button.setAttribute("aria-expanded", "false");
-  button.setAttribute("aria-controls", helpPopup.id);
-  button.addEventListener("click", e => {
-    e.stopPropagation();
-    if (openHelp === button) closeHelp();
-    else showHelp(button, label.dataset.help!);
-  });
-  label.after(button);
-}
-document.addEventListener("click", e => { if (!helpPopup.contains(e.target as Node)) closeHelp(); });
-document.addEventListener("keydown", e => {
-  if (e.key !== "Escape" || !openHelp) return;
-  const button = openHelp;
-  closeHelp();
-  button.focus();
-});
-
-// ⋘──────── Saved settings ────────⋙
-// The controls and pinned panels are saved in the browser, so they're the same when a visitor
-// returns. Storage can be unavailable (for example, in some private windows), in which case the
-// page works as usual without saving.
-
-const STORAGE_KEY = "multi_note_tuner";
-const savedControls = [...document.querySelectorAll<HTMLInputElement | HTMLSelectElement>(
-  ".ft-settings input, .ft-settings select, #ft-source, #ft-tone-controls input, #ft-tone-controls select")];
-
-interface SavedState { controls: Record<string, string | boolean>; pinned: number[]; }
-
-function saveControls(): void {
-  const state: SavedState = { controls: {}, pinned: [] };
-  for (const el of savedControls) {
-    state.controls[el.id] = el instanceof HTMLInputElement && el.type === "checkbox" ? el.checked : el.value;
-  }
-  panels.forEach((panel, i) => { if (panel.classList.contains("ft-pinned")) state.pinned.push(i); });
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  } catch { /* Not saved */ }
-}
-
-function restoreControls(): void {
-  let state: Partial<SavedState>;
-  try {
-    state = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "{}");
-  } catch {
-    return;
-  }
-  for (const el of savedControls) {
-    const value = state.controls?.[el.id];
-    if (value === undefined) continue;
-    if (el instanceof HTMLInputElement && el.type === "checkbox") {
-      el.checked = value === true;
-    } else if (!(el instanceof HTMLSelectElement) || [...el.options].some(o => o.value === value)) {
-      el.value = String(value);
-    }
-  }
-  for (const i of state.pinned ?? []) if (panels[i]) setPinned(panels[i], true);
-}
-
-savedControls.forEach(el => {
-  el.addEventListener("input", saveControls);
-  el.addEventListener("change", saveControls);
-});
+const panels = setupPanels("ft", () => saved.save());
+setupHelp("ft");
+const saved = setupSavedControls("multi_note_tuner",
+  ".ft-settings input, .ft-settings select, #ft-source, #ft-tone-controls input, #ft-tone-controls select", panels);
 
 // ⋘──────── Main loop ────────⋙
 
 function frame(): void {
-  if (!frozen) analyze();
+  if (!input.frozen) analyze();
   if (!tunerSection.hidden) drawTuner();
   drawSpectrum();
   drawHistory();
@@ -2010,11 +1562,11 @@ function frame(): void {
 }
 
 fillRangeEnds();
-restoreControls();
+saved.restore();
 loadCalibration();
 settings.axis = axisSelect.value as "note" | "linear";
 showRangeUnits(settings.axis);
-showSourceControls();
+input.showSourceControls();
 readSettings();
 requestAnimationFrame(frame);
-void autoStartMicrophone();
+void input.autoStartMicrophone();

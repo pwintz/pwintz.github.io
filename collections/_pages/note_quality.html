@@ -1,0 +1,617 @@
+---
+layout: single
+permalink: /tools/note_quality/
+title: Note Quality Analyzer
+excerpt: "Play or sing one note at a time and see how steady its pitch and volume are, how warm or thin its tone is, and how cleanly it starts and ends."
+---
+
+<style>
+  .nq button,
+  .nq select {
+    font: inherit;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+  }
+  .nq button:hover { background: rgba(128, 128, 128, 0.1); }
+  .nq select { width: auto; padding: 0.25rem 0.4rem; }
+  /* The theme adds bottom margins to inputs and labels, which pushes them off-center in a row. */
+  .nq input,
+  .nq label,
+  .nq select { margin: 0; }
+  .nq [hidden] { display: none !important; }
+  .nq canvas { display: block; width: 100%; border-radius: 8px; }
+  .nq h2 { margin-top: 2rem; }
+  .nq .nq-primary { background: #1a73e8; border-color: #1a73e8; color: #fff; min-width: 6.5rem; }
+  .nq .nq-primary:hover { background: #1765cc; }
+
+  .nq-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem 1rem;
+    padding: 0.5rem 0;
+    font-size: 0.9em;
+  }
+  .nq-controls label { display: inline-flex; align-items: center; gap: 0.35rem; }
+  .nq-controls input[type="checkbox"] { width: auto; }
+  .nq-source-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem 1rem;
+    flex-basis: 100%;
+  }
+  .nq-pitch { flex: 1 1 18rem; }
+  .nq-pitch input { flex: 1; min-width: 8rem; }
+  .nq-pitch output { min-width: 10em; font-variant-numeric: tabular-nums; }
+  .nq-tone-slider input { width: 7rem; }
+  .nq-tone-slider output { min-width: 3.5em; font-variant-numeric: tabular-nums; }
+  .nq audio { width: 100%; max-width: 28rem; }
+  .nq-status { margin: 0.25rem 0; font-size: 0.9em; color: #c5221f; }
+  .nq-status.nq-status-info { color: inherit; }
+  .nq-noise { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; }
+  .nq-noise-status { margin: 0.5rem 0 0; font-size: 0.9em; }
+  .nq-settings summary .nq-noise-note { margin-left: 0.7rem; font-weight: normal; }
+  .nq-noise-note {
+    padding: 0.15rem 0.5rem;
+    border: 1px solid #f0c36d;
+    border-radius: 4px;
+    background: #fef7e0;
+    color: #7a5200;
+    font-size: 0.85em;
+  }
+
+  /* A pinned panel stays at the top of the window while scrolling, below any pinned above it. */
+  .nq-panel { position: relative; padding: 0.3rem 0; background: #fff; }
+  .nq-panel.nq-pinned { position: sticky; z-index: 5; }
+  .nq .nq-pin,
+  .nq .nq-full {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.35rem;
+    padding: 0.25rem;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: #8a919c;
+    line-height: 0;
+    opacity: 0.6;
+  }
+  .nq .nq-pin:hover,
+  .nq .nq-full:hover { background: rgba(255, 255, 255, 0.1); opacity: 1; }
+  .nq .nq-full { right: 2.2rem; }
+  .nq .nq-full svg { width: 18px; height: 18px; }
+  /* In full screen, a panel fills the screen on the charts' dark background, without its pin. */
+  .nq .nq-panel:fullscreen { padding: 12px; background: #121417; overflow: auto; }
+  .nq .nq-panel:fullscreen .nq-pin { display: none; }
+  .nq .nq-panel:fullscreen .nq-full { right: 0.35rem; }
+  .nq .nq-pin svg { width: 18px; height: 18px; transform: rotate(45deg); transition: transform 150ms; }
+  .nq .nq-pinned .nq-pin { color: #6ea8fe; opacity: 1; }
+  .nq .nq-pinned .nq-pin svg { transform: none; }
+  .nq h2.nq-graph-title { margin: 1.5rem 0 0.3rem; padding: 0; border: none; font-size: 1.15em; }
+  .nq-info { margin: 0.2rem 0 0.75rem; font-size: 0.85em; }
+  .nq-info summary { width: fit-content; color: #6b6b6b; cursor: pointer; }
+  .nq-info summary:hover { color: inherit; }
+  .nq-info p { margin: 0.4rem 0 0; }
+
+  /* The report on a note: one card for each aspect. */
+  .nq-report-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.4rem 1rem;
+    margin: 0.3rem 0 0.6rem;
+    font-size: 0.9em;
+  }
+  .nq-report-head strong { font-size: 1.15em; }
+  .nq-report-head button { padding: 0.15rem 0.6rem; font-size: 0.9em; }
+  .nq-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    gap: 0.8rem;
+  }
+  .nq-card {
+    padding: 0.7rem 0.9rem 0.8rem;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-left-width: 4px;
+    border-radius: 8px;
+    font-size: 0.85em;
+  }
+  .nq-card h3 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin: 0 0 0.35rem;
+    font-size: 1em;
+  }
+  .nq-verdict { font-weight: bold; }
+  .nq-numbers {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.1rem 0.8rem;
+    margin: 0 0 0.4rem;
+  }
+  .nq-numbers dt,
+  .nq-numbers dd { margin: 0; font-size: 1em; line-height: 1.4; }
+  .nq-numbers dt { font-weight: normal; opacity: 0.75; }
+  .nq-numbers dd { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+  .nq-card p { font-size: 1em; line-height: 1.4; }
+  .nq-card .nq-verdict { margin: 0 0 0.4rem; font-size: 1.1em; }
+  .nq-detail { margin: 0; opacity: 0.85; }
+  .nq-grade {
+    padding: 0.05rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.8em;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+  .nq-grade-good { background: #e6f4ea; color: #137333; }
+  .nq-grade-okay { background: #fef7e0; color: #7a5200; }
+  .nq-grade-work { background: #fce8e6; color: #a50e0e; }
+  .nq-grade-info { background: #e8f0fe; color: #1a4fa0; }
+  .nq-card.nq-grade-good { border-left-color: #34a853; background: none; color: inherit; }
+  .nq-card.nq-grade-okay { border-left-color: #f9ab00; background: none; color: inherit; }
+  .nq-card.nq-grade-work { border-left-color: #d93025; background: none; color: inherit; }
+  .nq-card.nq-grade-info { border-left-color: #4285f4; background: none; color: inherit; }
+  .nq-card.nq-empty { border-left-color: rgba(128, 128, 128, 0.35); opacity: 0.6; }
+
+  .nq-table-wrap { overflow-x: auto; }
+  .nq-recent { width: 100%; font-size: 0.8em; border-collapse: collapse; }
+  .nq-recent th,
+  .nq-recent td { padding: 0.3rem 0.5rem; text-align: left; white-space: nowrap; }
+  .nq-recent tbody tr { cursor: pointer; }
+  .nq-recent tbody tr:hover { background: rgba(128, 128, 128, 0.1); }
+  .nq-recent tbody tr[aria-selected="true"] { background: rgba(26, 115, 232, 0.12); }
+  .nq-dot { display: inline-block; width: 0.6em; height: 0.6em; margin-right: 0.35em; border-radius: 50%; }
+  .nq-dot.nq-grade-good { background: #34a853; }
+  .nq-dot.nq-grade-okay { background: #f9ab00; }
+  .nq-dot.nq-grade-work { background: #d93025; }
+  .nq-dot.nq-grade-info { background: #4285f4; }
+
+  /* Settings sections, each collapsible, in a panel that can be pinned. */
+  .nq-settings {
+    margin: 0.4rem 0;
+    padding: 0.6rem 2.6rem 0.6rem 1rem;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 8px;
+    font-size: 0.9em;
+  }
+  .nq-settings summary { width: fit-content; font-weight: bold; cursor: pointer; }
+  .nq-settings[open] summary { margin-bottom: 0.6rem; }
+  .nq .nq-settings-panel .nq-pin { top: 0.75rem; right: 0.6rem; }
+  .nq-controls-panel { padding-right: 2.2rem; }
+  .nq-settings.nq-input-box { flex-basis: 100%; margin: 0; padding-right: 1rem; }
+  .nq-input-box > .nq-source-controls { flex-basis: auto; }
+  .nq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 0.6rem 1.5rem;
+  }
+  .nq-field { display: flex; flex-direction: column; gap: 0.2rem; }
+  /* A setting's title row: its name and ? button on the left, and its value (if any) on the right. */
+  .nq-field > span { display: flex; align-items: center; gap: 0.3rem; }
+  .nq-field > span output { margin-left: auto; }
+  .nq-field label { margin: 0; }
+  .nq-field output { opacity: 0.8; font-variant-numeric: tabular-nums; text-align: right; }
+  .nq-field input[type="number"] { width: 6rem; padding: 0.2rem 0.4rem; }
+
+  .nq .nq-help {
+    width: 1.25rem;
+    height: 1.25rem;
+    padding: 0;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: bold;
+    line-height: 1;
+    color: #6b6b6b;
+    flex: none;
+  }
+  .nq .nq-help[aria-expanded="true"] { background: #1a73e8; border-color: #1a73e8; color: #fff; }
+  .nq-help-popup {
+    position: absolute;
+    z-index: 30;
+    max-width: min(22rem, calc(100vw - 16px));
+    padding: 0.6rem 0.8rem;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+    font-size: 0.85em;
+    line-height: 1.45;
+  }
+</style>
+
+<div class="nq">
+  <p>
+    This page listens to one note at a time and describes how well it was played: how steady its
+    pitch and volume are, whether its tone is warm or thin, and how cleanly it starts and ends.
+    It finds each note on its own, so just play or sing a note, stop, and read the report. It's a
+    companion to the <a href="/tools/multi_note_tuner/">multi-note tuner</a>, which shows which
+    notes are sounding rather than how they sound.
+  </p>
+  <p>
+    Choose an input and your instrument. For the microphone, press <strong>Enable microphone</strong>
+    the first time to let the page use it. The microphone is processed entirely in your browser
+    and isn't recorded or sent anywhere. To try the page without a microphone, choose the test tone,
+    which plays repeating notes in several styles.
+  </p>
+
+  <div class="nq-panel nq-controls-panel" data-fullscreen="false">
+  <div class="nq-controls">
+    <label>Input
+      <select id="nq-source">
+        <option value="mic" selected>Microphone</option>
+        <option value="tone">Test tone</option>
+        <option value="file">Audio file</option>
+      </select>
+    </label>
+    <label><span data-help="The attack, release, and tone color are described in terms of this instrument: a voice's onset can be breathy or glottal, a bow's start can be scratchy, and a wind player's start can be airy or scooped.">Instrument</span>
+      <select id="nq-instrument">
+        <option value="voice" selected>Voice</option>
+        <option value="strings">Bowed strings</option>
+        <option value="winds">Wind or brass</option>
+      </select>
+    </label>
+    <details id="nq-mic-controls" class="nq-settings nq-input-box" open>
+      <summary>Microphone<span id="nq-noise-summary-note" class="nq-noise-note" hidden></span></summary>
+      <div class="nq-source-controls">
+        <button id="nq-start" class="nq-primary" type="button" hidden>🎤 Enable microphone</button>
+        <button id="nq-freeze" type="button" aria-pressed="false">❚❚ Freeze</button>
+        <span class="nq-noise">
+          <button id="nq-noise" type="button" data-help="Press this while it's quiet: the page listens to the background noise for 4 seconds. From then on, a sound must rise the detection level above that noise to count as a note, and that noise is removed when measuring the noise in each note's tone. Without a calibration, the page keeps estimating the noise between notes, which works less well in a changing or noisy room. The calibration is saved for your next visit. Calibrate again if the noise changes, or if you're somewhere else.">Calibrate background noise</button>
+          <button id="nq-noise-clear" type="button" hidden>Stop using calibration</button>
+          <span id="nq-noise-note" class="nq-noise-note" hidden></span>
+        </span>
+      </div>
+      <p id="nq-noise-status" class="nq-noise-status" role="status" hidden></p>
+    </details>
+
+    <details id="nq-tone-controls" class="nq-settings nq-input-box" open hidden>
+      <summary>Test tone</summary>
+      <div class="nq-source-controls">
+      <button id="nq-tone-play" class="nq-primary" type="button">▶ Play</button>
+      <label class="nq-pitch">Pitch
+        <input id="nq-tone-pitch" type="range" min="40" max="84" step="0.01" value="57">
+        <output id="nq-tone-pitch-out"></output>
+      </label>
+      <label>Timbre
+        <select id="nq-tone-timbre">
+          <option value="sine">Pure (sine wave)</option>
+          <option value="warm">Warm (strong low harmonics)</option>
+          <option value="bright" selected>Bright (all harmonics)</option>
+          <option value="thin">Thin (weak fundamental)</option>
+        </select>
+      </label>
+      <label>Style
+        <select id="nq-tone-style">
+          <option value="clean" selected>Clean</option>
+          <option value="hard">Hard start, cut off</option>
+          <option value="scoop">Scooped start, sagging end</option>
+          <option value="unsteady">Unsteady</option>
+          <option value="breathy">Breathy</option>
+          <option value="rough">Rough (subharmonics)</option>
+        </select>
+      </label>
+      <label>Notes
+        <select id="nq-tone-notes">
+          <option value="repeat" selected>Repeated, with gaps</option>
+          <option value="hold">One continuous note</option>
+        </select>
+      </label>
+      <label class="nq-tone-slider">Level
+        <input id="nq-tone-level" type="range" min="-50" max="0" step="1" value="-15">
+        <output id="nq-tone-level-out"></output>
+      </label>
+      <label class="nq-tone-slider">Vibrato width
+        <input id="nq-tone-vibrato-width" type="range" min="0" max="100" step="1" value="0">
+        <output id="nq-tone-vibrato-width-out"></output>
+      </label>
+      <label id="nq-tone-vibrato-rate-label" class="nq-tone-slider">Vibrato rate
+        <input id="nq-tone-vibrato-rate" type="range" min="2" max="10" step="0.1" value="5.5">
+        <output id="nq-tone-vibrato-rate-out"></output>
+      </label>
+      <label><input id="nq-tone-audible" type="checkbox" checked> Play through speakers</label>
+      </div>
+    </details>
+
+    <div id="nq-file-controls" class="nq-source-controls" hidden>
+      <input id="nq-file" type="file" accept="audio/*" aria-label="Audio file">
+      <audio id="nq-audio" controls hidden></audio>
+    </div>
+  </div>
+  <p id="nq-status" class="nq-status" role="status" hidden></p>
+  </div>
+
+  <div class="nq-panel nq-settings-panel" data-fullscreen="false">
+    <details id="nq-settings-analysis" class="nq-settings">
+      <summary>Analysis</summary>
+      <div class="nq-grid">
+        <div class="nq-field">
+          <span><label for="nq-onset" data-help="How far above the background noise the sound must rise to count as a note. Raise it in a noisy room, or if noises are being reported as notes; lower it if quiet notes are missed.">Note detection level</label><output id="nq-onset-out"></output></span>
+          <input id="nq-onset" type="range" min="6" max="40" step="1" value="15">
+        </div>
+        <div class="nq-field">
+          <span><label for="nq-a4" data-help="The pitch of A4 that note names and cents are measured from. 440 Hz is the usual standard. Some orchestras tune to 442 Hz, and Baroque ensembles often use 415 Hz.">Reference pitch A4 (Hz)</label></span>
+          <input id="nq-a4" type="number" min="300" max="600" step="0.5" value="440">
+        </div>
+      </div>
+    </details>
+  </div>
+  <div class="nq-panel nq-settings-panel" data-fullscreen="false">
+    <details id="nq-settings-display" class="nq-settings">
+      <summary>Display</summary>
+      <div class="nq-grid">
+        <div class="nq-field">
+          <span><label for="nq-memory" data-help="How quickly older sounds fade from the distributions beside the graphs (and from the vibrato's recent spectrum). Each moment's weight falls by about two-thirds in this time. Shorter times follow what you're doing now; longer ones show a steadier summary of the last several seconds.">Distribution memory</label><output id="nq-memory-out"></output></span>
+          <input id="nq-memory" type="range" min="0.1" max="3" step="0.1" value="0.5">
+        </div>
+      </div>
+    </details>
+  </div>
+  <div class="nq-panel nq-settings-panel" data-fullscreen="false">
+    <details id="nq-settings-advanced" class="nq-settings">
+      <summary>Advanced settings</summary>
+      <div class="nq-grid">
+        <div class="nq-field">
+          <span><label for="nq-min-length" data-help="Notes shorter than this are ignored, so that short sounds like a cough or a click don't replace the report.">Shortest note</label><output id="nq-min-length-out"></output></span>
+          <input id="nq-min-length" type="range" min="0.1" max="1.5" step="0.05" value="0.25">
+        </div>
+        <div class="nq-field">
+          <span><label for="nq-pitch-range" data-help="How far above and below the note being played the pitch graph reaches. A wider range makes small changes of pitch look smaller.">Pitch graph range</label><output id="nq-pitch-range-out"></output></span>
+          <input id="nq-pitch-range" type="range" min="50" max="400" step="25" value="200">
+        </div>
+        <div class="nq-field">
+          <span><label for="nq-level-range" data-help="How many decibels the volume graph shows, below the loudest recent sound. A wider range makes small changes of volume look smaller, and shows more of each note's attack and release.">Volume graph range</label><output id="nq-level-range-out"></output></span>
+          <input id="nq-level-range" type="range" min="12" max="72" step="6" value="36">
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <h2 class="nq-graph-title">Pitch</h2>
+  <div class="nq-panel">
+    <canvas id="nq-pitch" aria-label="The pitch of the last few seconds, with each note's attack, sustain, and release shaded"></canvas>
+  </div>
+  <details class="nq-info">
+    <summary>About this graph</summary>
+    <p>
+      The pitch over the last few seconds, zoomed in to two semitones (or the range in the
+      advanced settings) above and below the note you're playing, with a green line at each in-tune note: a flat line on a green line is a perfectly
+      steady, in-tune note. The view follows your pitch as it moves, but not your vibrato. The
+      line is dimmer where the pitch is less clear. Once a note ends, its attack is shaded amber,
+      its steady middle green, and its release blue. A note that's still sounding is shaded gray.
+    </p>
+    <p>
+      On the right is the distribution of the recent pitches, in which each moment counts less
+      the longer ago it was (how quickly is set by <em>Distribution memory</em> in the display
+      settings). The green bands are
+      ±5 cents around each note, and the line marks the most common pitch. Its width has a fixed
+      scale: it reaches across only when the pitch has stayed within a few cents, so a pitch that
+      wanders draws a lower, wider curve, and the curve fades away once the sound stops. Its color shows how
+      steady the pitch is, whatever its tuning: the <em>wobble</em> below it is how much the pitch
+      moves within each note (the RMS, in cents, of its movement over the last second or so, after
+      removing slow drifts and the vibrato), and it's green up to 5 cents, amber up to 12, and
+      red beyond. With vibrato, the distribution has two peaks, at the top and bottom of the
+      swing, where the pitch spends the most time.
+    </p>
+  </details>
+
+  <h2 class="nq-graph-title">Volume</h2>
+  <div class="nq-panel">
+    <canvas id="nq-volume" aria-label="The volume of the last few seconds"></canvas>
+  </div>
+  <details class="nq-info">
+    <summary>About this graph</summary>
+    <p>
+      The volume over the last few seconds, lightly smoothed and zoomed in to the loudest 36&nbsp;dB
+      (or the range in the advanced settings)
+      so that small changes within a note are visible, with the current level at the top. The
+      dashed line is the level of the background noise (from the calibration, if there is one),
+      and the dotted line is the level a sound must reach to count as a note.
+    </p>
+    <p>
+      On the right is the distribution of the recent levels in the steady parts of notes (not
+      their attacks and releases), weighted toward the most recent, with its spread below. Its
+      color shows how even the volume is: green up to 1&nbsp;dB, amber up to 2.5, and red beyond.
+    </p>
+  </details>
+
+  <h2 class="nq-graph-title">Vibrato</h2>
+  <div class="nq-panel">
+    <canvas id="nq-vibrato" aria-label="How strongly the pitch oscillates at each rate over the last few seconds, and the recent spectrum of its oscillation"></canvas>
+  </div>
+  <details class="nq-info">
+    <summary>About this graph</summary>
+    <p>
+      Vibrato is an oscillation of the pitch, so this graph takes a second Fourier transform: of
+      the pitch line itself, rather than of the sound. Each moment shows how strongly the pitch
+      was oscillating at each rate (from 1 to 12 times a second) over the second around it, with
+      brighter colors for wider swings; slides and slow drifts are removed first. A steady
+      vibrato makes a bright horizontal band at its rate, and the dashed lines mark the rates
+      typical of vibrato (4.5 to 7&nbsp;Hz). Since each moment needs a second of pitch, the
+      graph runs half a second behind. On the right is the recent spectrum, with its peak's rate
+      and extent (how many cents the pitch swings above and below its center). Its color shows
+      how even the vibrato is: green if it's even, amber if it's somewhat uneven, and red if it's
+      very uneven. It's even when the peak accounts for most of the pitch's movement, as it does
+      for a steady, regular swing. A rate outside the typical range is named (slow or fast) but
+      doesn't change the color.
+    </p>
+  </details>
+
+  <h2 class="nq-graph-title">Attacks</h2>
+  <div class="nq-panel">
+    <canvas id="nq-attacks" aria-label="The volume, pitch, and clarity at the start of the recent notes, overlaid"></canvas>
+  </div>
+  <details class="nq-info">
+    <summary>About this graph</summary>
+    <p>
+      The starts of the last several notes, overlaid so you can compare them. Each is lined up at
+      0&nbsp;ms, where its volume comes within 20&nbsp;dB of the note's steady level (the
+      dotted line). The note you're playing is drawn in amber as it happens, the report's note in
+      white, and the other notes in blue, fainter the older they are. The top strip is the volume relative to the steady level: a clean attack
+      rises quickly to the green line and stays there; one that shoots above it is accented or
+      hard, and one that creeps up is slow to speak. The middle strip is the pitch relative to the
+      note: it should land in the green band (±15 cents) right away, rather than scooping up into
+      it or settling slowly. It's dashed where the pitch was found in a noisy sound (with a clarity
+      below 60%), as often happens in a note's first moments. The box in the corner of each strip grades that part of
+      the attack (its volume, pitch, or noise), with the numbers it's based on: for the note
+      you're playing once it has lasted almost a second (with a dashed outline, since it may still
+      change), or else for the report's note. Click a box to go to the report. A note that began by
+      changing pitch from the previous one without a break is lined up at the change, and its
+      boxes describe the change instead: where the pitch came from, how long it took to reach the
+      new note (and whether it went past it), and how much the volume and clarity dipped on the
+      way. Its range widens (up to ±200 cents) to fit a large slide, and narrows
+      again when the recent notes stay closer to their pitch. The bottom strip is the clarity: a dip at the start means breath,
+      bow scratch, or air before the tone.
+    </p>
+  </details>
+
+  <h2 class="nq-graph-title">Releases</h2>
+  <div class="nq-panel">
+    <canvas id="nq-releases" aria-label="The volume, pitch, and clarity at the end of the recent notes, overlaid"></canvas>
+  </div>
+  <details class="nq-info">
+    <summary>About this graph</summary>
+    <p>
+      The ends of the last several notes, overlaid and lined up at 0&nbsp;ms, where each starts to
+      fade (its volume falls 3&nbsp;dB below its steady level, the dashed line). The note you're
+      playing appears in amber as soon as it starts to fade. The top strip shows
+      how each note fades: a steep drop is a cutoff, and a gentle slope is a taper. The middle
+      strip shows whether the pitch stays on the note as it fades, or sags or rises. The bottom
+      strip shows noise as the note ends, as a dip in clarity.
+    </p>
+  </details>
+
+  <h2 class="nq-graph-title">Overtones</h2>
+  <div class="nq-panel">
+    <canvas id="nq-overtones" aria-label="The strength of each harmonic of the note, and how warm or thin its tone is"></canvas>
+  </div>
+  <details class="nq-info">
+    <summary>About this graph</summary>
+    <p>
+      The strength of each harmonic, in decibels below the strongest one: H1 is the fundamental
+      (the note's pitch), H2 is twice its frequency, and so on. While a note sounds, the bars follow
+      it live; afterward, they show the report's note. The dashed line is the overall slope of the
+      harmonics: a steeper drop gives a darker, warmer tone, and a flatter one a brighter tone.
+      The scale at the top places the tone between thin and warm. The gray bars on the right are
+      the noise between the harmonics, such as breath, air, or bow noise, in three frequency
+      bands, relative to the harmonics' total power.
+    </p>
+  </details>
+
+  <h2 class="nq-graph-title">Report</h2>
+  <div class="nq-report-head">
+    <strong id="nq-report-title">No notes yet</strong>
+    <span id="nq-report-meta"></span>
+    <button id="nq-latest" type="button" hidden>Show the latest note</button>
+  </div>
+  <div class="nq-cards">
+    <section class="nq-card nq-empty" id="nq-card-pitch">
+      <h3>Pitch steadiness <span class="nq-grade"></span></h3>
+      <p class="nq-verdict"></p><dl class="nq-numbers"></dl><p class="nq-detail"></p>
+    </section>
+    <section class="nq-card nq-empty" id="nq-card-volume">
+      <h3>Volume steadiness <span class="nq-grade"></span></h3>
+      <p class="nq-verdict"></p><dl class="nq-numbers"></dl><p class="nq-detail"></p>
+    </section>
+    <section class="nq-card nq-empty" id="nq-card-tone">
+      <h3>Tone color <span class="nq-grade"></span></h3>
+      <p class="nq-verdict"></p><dl class="nq-numbers"></dl><p class="nq-detail"></p>
+    </section>
+    <section class="nq-card nq-empty" id="nq-card-noise">
+      <h3>Noise <span class="nq-grade"></span></h3>
+      <p class="nq-verdict"></p><dl class="nq-numbers"></dl><p class="nq-detail"></p>
+    </section>
+    <section class="nq-card nq-empty" id="nq-card-attack">
+      <h3>Attack <span class="nq-grade"></span></h3>
+      <p class="nq-verdict"></p><dl class="nq-numbers"></dl><p class="nq-detail"></p>
+    </section>
+    <section class="nq-card nq-empty" id="nq-card-release">
+      <h3>Release <span class="nq-grade"></span></h3>
+      <p class="nq-verdict"></p><dl class="nq-numbers"></dl><p class="nq-detail"></p>
+    </section>
+  </div>
+
+  <h2 class="nq-graph-title">Recent notes</h2>
+  <div class="nq-table-wrap">
+    <table class="nq-recent">
+      <thead>
+        <tr><th>Note</th><th>Length</th><th>Pitch</th><th>Volume</th><th>Tone</th><th>Noise</th><th>Attack</th><th>Release</th></tr>
+      </thead>
+      <tbody id="nq-recent"></tbody>
+    </table>
+  </div>
+  <p id="nq-recent-empty" class="nq-info">The notes you play will be listed here. Click one to see its report.</p>
+
+  <div id="nq-help-popup" class="nq-help-popup" role="note" hidden></div>
+
+  <h2>How it works</h2>
+  <p>
+    The sound is measured every 5 milliseconds. Each step measures the volume, as the RMS level of
+    the last 10&nbsp;ms in decibels, and the pitch, using the McLeod pitch method
+    (P.&nbsp;McLeod and G.&nbsp;Wyvill, "A Smarter Way to Find Pitch"). That method compares about
+    40&nbsp;ms of sound with itself, delayed by \(\tau\) samples, using the normalized square
+    difference
+    \[
+      n(\tau) = \frac{2 \sum_j x_j x_{j+\tau}}{\sum_j \left(x_j^2 + x_{j+\tau}^2\right)},
+    \]
+    which is 1 when the sound repeats exactly every \(\tau\) samples. The note's period is the
+    first peak of \(n(\tau)\) that's almost as high as the highest one. The height of that peak,
+    the <em>clarity</em>, shows how periodic the sound is: near 1 for a clear tone, and lower when
+    breath, bow noise, or air is mixed in.
+  </p>
+  <p>
+    A note starts when the volume rises more than the detection level above the background noise.
+    That's the median level heard while calibrating, or without a calibration, a level that the
+    page keeps estimating between notes. It ends when the volume stays low for 80&nbsp;ms,
+    or when the pitch moves by more than 80 cents without a break, which starts the next note.
+    Each note is then split into its <em>attack</em>, until it reaches full volume and a steady
+    pitch; its <em>sustain</em>, the steady middle; and its <em>release</em>, from when it starts
+    to fade until it's gone.
+  </p>
+  <p>
+    <strong>Pitch and volume steadiness</strong> are measured over the sustain. A straight line is
+    fitted through the pitch (in cents), and its slope is the <em>drift</em>. Vibrato is found as
+    the strongest regular wave between 3 and 9&nbsp;Hz in what's left. It's reported on its own
+    and isn't counted as unsteadiness. The <em>wobble</em> is the RMS of what's left after
+    averaging over one vibrato cycle (or over 30&nbsp;ms, without vibrato), so it measures how
+    much the vibrato's center wanders. The volume is measured the same way, in decibels.
+  </p>
+  <p>
+    <strong>Tone color</strong> comes from the strength of each harmonic. Every 20&nbsp;ms, a
+    larger FFT (about 170&nbsp;ms of sound, with a Gaussian window) is taken, and each harmonic's
+    peak is located with the Gaussian interpolation described on the
+    <a href="/tools/multi_note_tuner/">tuner's page</a>. The harmonics' power is averaged over the
+    sustain. The warmth combines two scores: how low the harmonics' center of mass is, and how
+    strong the fundamental is compared with the strongest harmonic. This is a rule of thumb, not a
+    standard measure; what sounds warm depends on the instrument and the listener.
+  </p>
+  <p>
+    <strong>Noise</strong> is measured with the same FFT. The bins in each harmonic's peak (widened
+    when the pitch moves, as with vibrato) count as tone, and the bins between the peaks count as
+    noise, after subtracting the background noise: the average spectrum heard while calibrating,
+    or without a calibration, the spectrum that the page measures between notes. The noise
+    is reported relative to the harmonics' power, in three bands: breath and air noise is mostly
+    above 1&nbsp;kHz. The power halfway between harmonics, above the noise around it, is reported
+    as <em>subharmonics</em>: they appear when a vibration only repeats every second period, as
+    with a crunching bow or a creaky or rough voice. Eventually,
+    you'll be able to load a recording of a tone you want to imitate and compare your harmonics
+    with its harmonics directly.
+  </p>
+  <p>
+    <strong>The attack</strong> is described by its rise time, from 20&nbsp;dB below the sustain's
+    level to within 3&nbsp;dB of it; by how far it overshoots that level; by how far the starting
+    pitch is from the note and how long the pitch takes to settle within 15 cents; and by how
+    long noise is heard before the tone becomes clear. <strong>The release</strong> is described by
+    how long the note takes to fade by 30&nbsp;dB, by how far its pitch moves as it fades, and by
+    whether its clarity drops (noise) as it ends. The thresholds that turn these numbers into
+    descriptions are rough first guesses.
+  </p>
+</div>
+
+<script src="/assets/ts/out/note_quality.js" type="module"></script>
