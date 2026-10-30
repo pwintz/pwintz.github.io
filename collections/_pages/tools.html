@@ -2,10 +2,63 @@
 layout: single
 permalink: /tools/
 title: Tools
-excerpt: Small web tools I've made for music practice, writing, and productivity.
+excerpt: Small web tools I've made for music practice, math, physics, writing, and productivity.
 ---
 
 <style>
+  /* ── Toolbar: search, sort, and category chips (shown by tools_index.ts) ── */
+  .tools-toolbar { margin: 1.5rem 0 0; }
+  .tools-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1rem;
+    align-items: center;
+  }
+  .tools-search {
+    flex: 1 1 14rem;
+    min-width: 0;
+    padding: 0.45rem 0.7rem;
+    border: 1px solid rgba(128, 128, 128, 0.45);
+    border-radius: 6px;
+    font: inherit;
+    font-size: 0.9em;
+    color: inherit;
+    background: transparent;
+  }
+  .tools-sort-label { display: flex; align-items: center; gap: 0.4rem; font-size: 0.85em; }
+  .tools-sort {
+    width: auto;
+    margin: 0;
+    padding: 0.35rem 0.5rem;
+    border: 1px solid rgba(128, 128, 128, 0.45);
+    border-radius: 6px;
+    font: inherit;
+    color: inherit;
+    background: transparent;
+  }
+  .tools-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.8rem 0 0; }
+  .tools-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.7rem;
+    border: 1px solid rgba(128, 128, 128, 0.45);
+    border-radius: 999px;
+    font: inherit;
+    font-size: 0.8em;
+    color: inherit;
+    background: transparent;
+    cursor: pointer;
+    transition: border-color 150ms, background-color 150ms;
+  }
+  .tools-chip:hover { background: rgba(128, 128, 128, 0.12); }
+  .tools-chip[aria-pressed="true"] { border-color: #6f777d; background: rgba(128, 128, 128, 0.22); font-weight: bold; }
+  .tools-chip-count, .tools-group-count { font-size: 0.85em; font-weight: normal; opacity: 0.65; }
+  .tools-summary { margin: 0.6rem 0 0; font-size: 0.8em; opacity: 0.7; }
+
+  /* ── Cards ── */
+  .tools-group-heading { display: flex; align-items: baseline; gap: 0.5rem; margin: 2rem 0 0; font-size: 1.2em; }
+  .tools-group-heading .tools-group-count { font-size: 0.7em; }
   .tools-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
@@ -14,9 +67,11 @@ excerpt: Small web tools I've made for music practice, writing, and productivity
     padding: 0;
     list-style: none;
   }
+  .tools-group-heading + .tools-list { margin-top: 0.8rem; }
   .tools-list li { margin: 0; }
   .tools-card {
-    display: block;
+    display: flex;
+    flex-direction: column;
     height: 100%;
     padding: 0.9rem 1rem;
     border: 1px solid rgba(128, 128, 128, 0.35);
@@ -31,18 +86,69 @@ excerpt: Small web tools I've made for music practice, writing, and productivity
   .tools-card:focus-visible { border-color: #6f777d; background: rgba(128, 128, 128, 0.12); }
   .tools-card h2 { margin: 0 0 0.35rem; font-size: 1.05em; border: none; }
   .tools-card p { margin: 0; font-size: 0.85em; opacity: 0.85; }
+  .tools-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.3rem;
+    margin-top: auto;
+    padding-top: 0.7rem;
+    font-size: 0.7em;
+  }
+  .tools-tag { padding: 0.05rem 0.5rem; border-radius: 999px; background: rgba(128, 128, 128, 0.16); }
+  .tools-card-meta time { margin-left: auto; opacity: 0.65; }
+
+  .tools-empty { margin: 1.5rem 0 0; }
+  .tools-clear {
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    text-decoration: underline;
+    background: none;
+    cursor: pointer;
+  }
 </style>
 
+<!-- Hidden until tools_index.ts sets it up, so the page without JavaScript is just the card grid. -->
+<div id="tools-toolbar" class="tools-toolbar" hidden>
+  <div class="tools-controls">
+    <input id="tools-search" class="tools-search" type="search" placeholder="Search tools…" aria-label="Search tools">
+    <label class="tools-sort-label">Sort by
+      <select id="tools-sort" class="tools-sort">
+        <option value="category">Category</option>
+        <option value="title">Name</option>
+        <option value="newest">Newest</option>
+      </select>
+    </label>
+  </div>
+  <div id="tools-chips" class="tools-chips" role="group" aria-label="Filter by category"></div>
+  <p id="tools-summary" class="tools-summary" aria-live="polite"></p>
+</div>
+
 <!-- Lists every page whose URL is under /tools/, so new tools appear here automatically. Each
-     tool's description is the `excerpt` in its front matter. -->
+     tool's description is the `excerpt` in its front matter, its categories are `tool_categories`
+     (the first is its main category, used for grouping), and `date_added` orders "Newest". -->
 {% assign tools = site.pages | where_exp: "item", "item.url contains '/tools/'" | where_exp: "item", "item.url != page.url" | sort: "title" %}
-<ul class="tools-list">
-  {% for tool in tools %}
-  <li>
-    <a class="tools-card" href="{{ tool.url | relative_url }}">
-      <h2>{{ tool.title }}</h2>
-      {% if tool.excerpt %}<p>{{ tool.excerpt | strip_html }}</p>{% endif %}
-    </a>
-  </li>
-  {% endfor %}
-</ul>
+<div id="tools-results">
+  <ul class="tools-list">
+    {% for tool in tools %}
+    <li data-title="{{ tool.title | escape }}"
+        data-categories="{{ tool.tool_categories | join: '|' | escape }}"
+        data-date="{% if tool.date_added %}{{ tool.date_added | date: '%Y-%m-%d' }}{% endif %}">
+      <a class="tools-card" href="{{ tool.url | relative_url }}">
+        <h2>{{ tool.title }}</h2>
+        {% if tool.excerpt %}<p>{{ tool.excerpt | strip_html }}</p>{% endif %}
+        {% if tool.tool_categories or tool.date_added %}
+        <span class="tools-card-meta">
+          {% for category in tool.tool_categories %}<span class="tools-tag">{{ category }}</span>{% endfor %}
+          {% if tool.date_added %}<time datetime="{{ tool.date_added | date: '%Y-%m-%d' }}">{{ tool.date_added | date: '%b %Y' }}</time>{% endif %}
+        </span>
+        {% endif %}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<script src="/assets/ts/out/tools_index.js" type="module"></script>
