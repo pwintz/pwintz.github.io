@@ -34,6 +34,9 @@ const DECAY_MIN = 0.05, DECAY_MAX = 10;          // ... and the string-damping s
 const MU_STATIC_MIN = 0.2, MU_STATIC_MAX = 1.5;   // ... and the friction sliders
 const MU_DYNAMIC_MIN = 0.05, MU_DYNAMIC_MAX = 1;
 const MU_GAP = 0.05;      // Sliding friction is kept at least this much below static friction
+const FINGER_MIN = 0.5, FINGER_MAX = 24;  // Range of the finger slider (semitones above the open string)
+const FINGER_GAP = 0.02;  // The bow stays at least this fraction of the length on the bridge's side of the finger
+const FINGER_W = 22;      // Width of the finger drawn in the animation (px)
 const HISTORY_PERIODS = 3;                // Length of the charts, in vibrations
 const TRAIL_SNAPSHOTS = 24;               // String shapes kept for the trail, over one vibration
 const PLUCK_AT     = 0.3;                 // Where the string is plucked, as a fraction from the bridge
@@ -82,6 +85,20 @@ function niceStep(unitsPerPx: number, minPx: number): number {
   return 10 * pow;
 }
 
+// The spacing of a value axis's gridlines: a round step at least minPx apart, but made finer when
+// needed, so that at least two labeled values fit in [lo, hi] however short the chart is.
+function axisStep(lo: number, hi: number, px: number, minPx: number): number {
+  let step = niceStep((hi - lo) / px, minPx);
+  const ticks = () => Math.floor(hi / step + 1e-9) - Math.ceil(lo / step - 1e-9) + 1;
+  while (Number.isFinite(step) && step > 0 && ticks() < 2) {
+    // The next smaller round step: 5 → 2 → 1 → 0.5 …
+    const pow = Math.pow(10, Math.floor(Math.log10(step) + 1e-9));
+    const m = Math.round(step / pow);
+    step = m === 5 ? 2 * pow : m === 2 ? pow : 0.5 * pow;
+  }
+  return step;
+}
+
 // ⋘──────── DOM ────────⋙
 
 function $<T extends HTMLElement>(id: string): T {
@@ -93,6 +110,7 @@ function $<T extends HTMLElement>(id: string): T {
 const playButton    = $<HTMLButtonElement>("bs-play");
 const rateSelect    = $<HTMLSelectElement>("bs-rate");
 const restartButton = $<HTMLButtonElement>("bs-restart");
+const skipButton    = $<HTMLButtonElement>("bs-skip");
 const pluckButton   = $<HTMLButtonElement>("bs-pluck");
 const listenButton  = $<HTMLButtonElement>("bs-listen");
 const liveButton    = $<HTMLButtonElement>("bs-live");
@@ -124,6 +142,11 @@ const lengthOut     = $<HTMLOutputElement>("bs-length-out");
 const pitchOut      = $<HTMLOutputElement>("bs-pitch-out");
 const bowingPanel   = $<HTMLFieldSetElement>("bs-bowing");
 const pluckedNote   = $<HTMLParagraphElement>("bs-plucked-note");
+const fingerToggle  = $<HTMLInputElement>("bs-finger-on");
+const fingerSnap    = $<HTMLInputElement>("bs-finger-snap");
+const fingerInput   = $<HTMLInputElement>("bs-finger");
+const fingerOut     = $<HTMLOutputElement>("bs-finger-out");
+const mapUnavailable = $<HTMLElement>("bs-map-unavailable");
 const showTrail     = $<HTMLInputElement>("bs-show-trail");
 const showCorner    = $<HTMLInputElement>("bs-show-corner");
 const showVelocity  = $<HTMLInputElement>("bs-show-velocity");
@@ -148,6 +171,13 @@ const playbackRow   = animationView.querySelector<HTMLElement>(".bs-playback")!;
 
 const { name: _defaultName, ...defaultString } = STRINGS[DEFAULT_STRING];
 const spec: StringSpec = { ...defaultString };
+
+// The finger, which stops the string fingerSemitones above its open pitch while fingerOn is set.
+// spec.finger holds the resulting position.
+let fingerOn = false;
+let fingerSemitones = 5;
+const semitonesToFraction = (semitones: number) => 1 - Math.pow(2, -semitones / 12);
+const fractionToSemitones = (fraction: number) => -12 * Math.log2(1 - fraction);
 const bow: BowSettings = { ...PRESETS.helmholtz };
 const bridge: BridgeSettings = { ...DEFAULT_BRIDGE };
 let sim = new BowedString(spec, bow, bridge);
@@ -202,14 +232,38 @@ function resetHistory(): void {
   statusDirty = true;
 }
 
-// Bows the string from rest. Unless `fromRest` is set, the string is first run until its motion
-// settles, which takes dozens of vibrations, so that the view matches the status line and the map.
+// When the period changes (with the string or the finger), keeps the recent history, resized to
+// HISTORY_PERIODS of the new period.
+function resizeHistory(): void {
+  const steps = Math.round(sim.period / sim.dt);
+  if (steps === stepsPerPeriod) return;
+  const length = HISTORY_PERIODS * steps;
+  const keep = Math.min(historyCount, length);
+  const resize = <T extends Float64Array | Uint8Array>(old: T, fresh: T): T => {
+    for (let k = 0; k < keep; k++) fresh[k] = old[(historyHead - keep + k + historyLength) % historyLength];
+    return fresh;
+  };
+  bowVelocity  = resize(bowVelocity, new Float64Array(length));
+  friction     = resize(friction, new Float64Array(length));
+  bridgeMotion = resize(bridgeMotion, new Float64Array(length));
+  wasStuck     = resize(wasStuck, new Uint8Array(length));
+  stepsPerPeriod = steps;
+  historyLength = length;
+  historyCount = keep;
+  historyHead = keep % length;
+  periodMarks = [];
+  statusDirty = true;
+}
+
 // Shows the bowing settings only while the string is being bowed.
 function syncMode(): void {
   bowingPanel.hidden = !sim.bowing;
   pluckedNote.hidden = sim.bowing;
 }
 
+// Bows the string from rest. Unless `fromRest` is set, the string is first run until its motion
+// settles, which takes dozens of vibrations, so that the view starts out matching the status line
+// and the map. (This happens only when the page loads; settings changes never restart the string.)
 function startBowing(fromRest = false): void {
   sim.reset();
   sim.bowing = true;
@@ -219,6 +273,15 @@ function startBowing(fromRest = false): void {
   else advance(SETTLE_PERIODS * stepsPerPeriod);
 }
 
+// Puts the bow on a plucked string without stopping it, in the animation and in the live sound.
+function resumeBowing(): void {
+  if (sim.bowing) return;
+  sim.startBowing();
+  syncMode();
+  statusDirty = true;
+  postLive({ type: "bowOn" });
+}
+
 function pluck(): void {
   sim.pluck(PLUCK_AT, PLUCK_HEIGHT);
   syncMode();
@@ -226,24 +289,21 @@ function pluck(): void {
   yScale = 0;
 }
 
-// Called whenever the string's tension, density, or length changes. The time step depends on all
-// three, so the string starts over.
+// Called whenever the string's tension, density, length, or damping changes. The string carries on
+// from its current motion with its new properties.
 function stringChanged(): void {
-  const bowing = sim.bowing;
-  sim = new BowedString(spec, bow, bridge);
+  sim.retune(spec);
   sendLiveSettings();
-  outputHead = outputCount = 0;
-  yScale = 0;
+  resizeHistory();
   syncStringInputs();
-  if (bowing) startBowing();
-  else pluck();
+  statusDirty = true;
   requestMap();
   requestBands();
 }
 
 function setStringPreset(index: number): void {
   // A preset sets the string's tension, density, and length, but keeps its damping.
-  const { name: _name, decayTime: _decayTime, ...preset } = STRINGS[index];
+  const { name: _name, decayTime: _decayTime, finger: _finger, ...preset } = STRINGS[index];
   Object.assign(spec, preset);
   stringChanged();
 }
@@ -251,7 +311,7 @@ function setStringPreset(index: number): void {
 // ⋘──────── Simulation ────────⋙
 
 function advance(steps: number): void {
-  const snapEvery = stepsPerPeriod / TRAIL_SNAPSHOTS;
+  const snapEvery = Math.max(1, Math.round(stepsPerPeriod / TRAIL_SNAPSHOTS));
   for (let s = 0; s < steps; s++) {
     const wasSticking = sim.sticking;
     sim.step();
@@ -363,7 +423,7 @@ const S_PAD_X = 28, S_PAD_T = 26, S_PAD_B = 34;
 // pick the starting scale before the string has moved.
 function expectedAmplitude(): number {
   if (!sim.bowing) return PLUCK_HEIGHT;
-  return bow.speed * sim.period / (8 * bow.position);
+  return bow.speed * sim.period / (8 * sim.bowFraction);
 }
 
 // Zooms out at once when the string would leave the view, and back in slowly when it's small.
@@ -376,10 +436,12 @@ function updateScale(plotH: number): void {
   else if (amp * yScale < 0.25 * plotH) yScale = Math.min(yScale * 1.02, 0.4 * plotH / amp);
 }
 
-// Indices of the sharp bends in the string: local peaks of curvature at least half the largest.
+// Indices of the sharp bends in the string: local peaks of curvature at least half the largest. The
+// bend where the string leaves the finger, and the string on the nut's side of it, don't count.
 function corners(): number[] {
   const { y, n } = sim;
-  const bend = (i: number) => Math.abs(y[i + 1] - 2 * y[i] + y[i - 1]);
+  const f = sim.fingerIndex;
+  const bend = (i: number) => f > 0 && i <= f + 1 ? 0 : Math.abs(y[i + 1] - 2 * y[i] + y[i - 1]);
   let max = 0;
   for (let i = 1; i < n; i++) max = Math.max(max, bend(i));
   if (max === 0) return [];
@@ -406,6 +468,10 @@ function drawArrows(ctx: CanvasRenderingContext2D, values: Float64Array, color: 
   }
   ctx.stroke();
 }
+
+// Where the finger was last drawn, for dragging it, or null without a finger: its center line, the
+// tops of its base and tip, and the extent of the string.
+let fingerShape: { x: number; tip: number; base: number; left: number; width: number } | null = null;
 
 function drawString(): void {
   const ctx = context(stringCanvas);
@@ -462,8 +528,8 @@ function drawString(): void {
   ctx.textAlign = "left";
   const exaggeration = yScale / (plotW / spec.length);
   // Shortened on narrow screens to leave room for the pin button.
-  let caption = `${pitchName(fundamental(spec))} · vertical scale exaggerated ×${Math.round(exaggeration)}`;
-  if (ctx.measureText(caption).width > W - 100) caption = `${pitchName(fundamental(spec), false)} · vertical ×${Math.round(exaggeration)}`;
+  let caption = `${pitchName(1 / sim.period)} · vertical scale exaggerated ×${Math.round(exaggeration)}`;
+  if (ctx.measureText(caption).width > W - 100) caption = `${pitchName(1 / sim.period, false)} · vertical ×${Math.round(exaggeration)}`;
   ctx.fillText(caption, 8, 17);
 
   // The bow, seen end-on, with stripes that move at the bow's (slowed) speed. While the string
@@ -498,10 +564,12 @@ function drawString(): void {
   if (showTrail.checked) {
     ctx.strokeStyle = "rgba(58, 90, 140, 0.16)";
     ctx.lineWidth = 1;
+    // From the finger, since the string on the nut's side of it doesn't move.
+    const from = sim.fingerIndex;
     for (const shape of trail) {
       ctx.beginPath();
-      for (let i = 0; i <= sim.n; i++) {
-        if (i === 0) ctx.moveTo(xOf(i), yOfShape(shape, i));
+      for (let i = from; i <= sim.n; i++) {
+        if (i === from) ctx.moveTo(xOf(i), yOfShape(shape, i));
         else ctx.lineTo(xOf(i), yOfShape(shape, i));
       }
       ctx.stroke();
@@ -512,19 +580,52 @@ function drawString(): void {
   if (showVelocity.checked) drawArrows(ctx, sim.v, VELOCITY, xOf, yOf, arrowLen);
   if (showForce.checked) drawArrows(ctx, sim.force, FORCE, xOf, yOf, arrowLen);
 
-  ctx.strokeStyle = STRING;
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  for (let i = 0; i <= sim.n; i++) {
-    if (i === 0) ctx.moveTo(xOf(i), yOf(i));
-    else ctx.lineTo(xOf(i), yOf(i));
-  }
-  ctx.stroke();
-  ctx.fillStyle = STRING;
-  for (let i = 1; i < sim.n; i++) {
+  // The string. With a finger, the part on the nut's side of it doesn't vibrate, so it's faded.
+  const f = sim.fingerIndex;
+  const drawPart = (from: number, to: number, faded: boolean) => {
+    ctx.globalAlpha = faded ? 0.2 : 1;
+    ctx.strokeStyle = STRING;
+    ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.arc(xOf(i), yOf(i), 1.6, 0, 2 * Math.PI);
+    for (let i = from; i <= to; i++) {
+      if (i === from) ctx.moveTo(xOf(i), yOf(i));
+      else ctx.lineTo(xOf(i), yOf(i));
+    }
+    ctx.stroke();
+    ctx.fillStyle = STRING;
+    for (let i = Math.max(1, from); i <= Math.min(sim.n - 1, to) && !faded; i++) {
+      ctx.beginPath();
+      ctx.arc(xOf(i), yOf(i), 1.6, 0, 2 * Math.PI);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  };
+  if (f > 0) drawPart(0, f, true);
+  drawPart(f, sim.n, false);
+
+  // The finger, seen from above like the rest of the view and drawn plainly, as a diagram. A
+  // violinist's fingers reach over the fingerboard from the E string's side, which is the top of
+  // this view (with the nut on the left), and press the string down with the fingertip.
+  fingerShape = null;
+  if (f > 0) {
+    const x = xOf(f), r = FINGER_W / 2;
+    const base = 0, tip = yOf(f) + 0.6 * r;
+    ctx.beginPath();
+    ctx.moveTo(x - r, base);
+    ctx.lineTo(x - r, tip - r);
+    ctx.arc(x, tip - r, r, Math.PI, 0, true);
+    ctx.lineTo(x + r, base);
+    ctx.fillStyle = "rgba(107, 107, 107, 0.28)";
     ctx.fill();
+    ctx.strokeStyle = MUTED;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    // The fingertip's contact with the string.
+    ctx.fillStyle = MUTED;
+    ctx.beginPath();
+    ctx.arc(x, yOf(f), 3, 0, 2 * Math.PI);
+    ctx.fill();
+    fingerShape = { x, tip, base, left: S_PAD_X, width: plotW };
   }
 
   if (showCorner.checked) {
@@ -607,7 +708,7 @@ function drawChart(ctx: CanvasRenderingContext2D, top: number, height: number, t
   ctx.fillText(title, C_PAD_L, top - 8);
 
   // Value axis.
-  const step = niceStep((ymax - ymin) / height, 28);
+  const step = axisStep(ymin, ymax, height, 28);
   ctx.textAlign = "right";
   ctx.textBaseline = "middle";
   for (let v = Math.ceil(ymin / step) * step; v <= ymax; v += step) {
@@ -768,7 +869,7 @@ function drawScope(): void {
   const xOf = (k: number) => O_PAD_L + (k / (length - 1)) * plotW;
 
   // Value and time grids.
-  const vStep = niceStep((hi - lo) / plotH, 30);
+  const vStep = axisStep(lo, hi, plotH, 30);
   ctx.textAlign = "right";
   ctx.textBaseline = "middle";
   for (let v = Math.ceil(lo / vStep) * vStep; v <= hi; v += vStep) {
@@ -857,9 +958,9 @@ function drawSpectrum(): void {
   }
   const df = 1 / (FFT_SIZE * sim.dt); // Width of each bin (Hz)
 
-  // The fundamental: the strongest peak near the open string's pitch, refined by fitting a
+  // The fundamental: the strongest peak near the string's natural pitch, refined by fitting a
   // parabola through it and its neighbors.
-  const nominal = fundamental(spec);
+  const nominal = 1 / sim.period;
   let kPeak = Math.round(0.85 * nominal / df);
   for (let k = kPeak; k <= Math.round(1.15 * nominal / df); k++) if (db[k] > db[kPeak]) kPeak = k;
   const [a, b, c] = [db[kPeak - 1], db[kPeak], db[kPeak + 1]];
@@ -974,7 +1075,7 @@ function updateStatus(): void {
     const slips = b.slips - a.slips;
     const held = (b.stuck - a.stuck) / stepsPerPeriod;
     text += ` In the last vibration, it slipped ${slips} time${slips === 1 ? "" : "s"} and the bow held it for `
-      + `${Math.round(100 * held)}% of the time (Helmholtz motion: ${Math.round(100 * (1 - bow.position))}%).`;
+      + `${Math.round(100 * held)}% of the time (Helmholtz motion: ${Math.round(100 * (1 - sim.bowFraction))}%).`;
   } else {
     text += " Watch for a few vibrations as it gets going.";
   }
@@ -987,6 +1088,10 @@ function updateStatus(): void {
 
 const M_PAD_L = 62, M_PAD_R = 16, M_PAD_T = 12, M_PAD_B = 42;
 const MOTION_CODES: Motion[] = ["helmholtz", "multiple", "raucous"];
+const UNAVAILABLE = MOTION_CODES.length; // A cell whose bow position is past the finger
+
+// Whether a bow this far from the bridge would be on the nut's side of the finger.
+const bowPastFinger = (s: StringSpec, position: number) => s.finger > 0 && position > 1 - s.finger - FINGER_GAP;
 const mapCache = new Map<string, Int8Array>();
 let mapCells: Int8Array = new Int8Array(MAP_COLS * MAP_ROWS).fill(-1);
 let mapGeneration = 0;
@@ -1003,7 +1108,7 @@ const positionToX = (p: number) => M_PAD_L + logFrac(p, POSITION_MIN, POSITION_M
 const forceToY    = (f: number) => M_PAD_T + (1 - logFrac(f, FORCE_MIN, FORCE_MAX)) * mapPlotH();
 
 const bridgeKey = () => `${bridge.stiffness}:${bridge.damping}`;
-const stringKey = () => `${spec.tension}:${spec.density}:${spec.length}:${spec.decayTime}`;
+const stringKey = () => `${spec.tension}:${spec.density}:${spec.length}:${spec.decayTime}:${spec.finger}`;
 const frictionKey = () => `${bow.muStatic}:${bow.muDynamic}`;
 
 function requestMap(): void {
@@ -1030,8 +1135,9 @@ function computeMap(): void {
     const deadline = performance.now() + 12;
     while (next < cells.length && performance.now() < deadline) {
       const col = next % MAP_COLS, row = Math.floor(next / MAP_COLS);
-      const motion = settledMotion(thisSpec, { ...thisBow, force: cellForce(row), position: cellPosition(col) }, thisBridge);
-      cells[next++] = MOTION_CODES.indexOf(motion);
+      const position = cellPosition(col);
+      cells[next++] = bowPastFinger(thisSpec, position) ? UNAVAILABLE
+        : MOTION_CODES.indexOf(settledMotion(thisSpec, { ...thisBow, force: cellForce(row), position }, thisBridge));
     }
     if (next < cells.length) {
       mapProgress.textContent = `Computing the map for this string at ${fmt(speed * 100, 0)} cm/s: ${Math.round(100 * next / cells.length)}%`;
@@ -1045,6 +1151,7 @@ function computeMap(): void {
 }
 
 function drawMap(): void {
+  mapUnavailable.hidden = !mapCells.includes(UNAVAILABLE);
   const ctx = context(mapCanvas);
   ctx.clearRect(0, 0, mapW, mapH);
   ctx.fillStyle = "#fff";
@@ -1055,7 +1162,8 @@ function drawMap(): void {
   for (let row = 0; row < MAP_ROWS; row++) {
     for (let col = 0; col < MAP_COLS; col++) {
       const code = mapCells[row * MAP_COLS + col];
-      ctx.fillStyle = code < 0 ? "rgba(0, 0, 0, 0.04)" : MOTION_COLORS[MOTION_CODES[code]];
+      ctx.fillStyle = code < 0 ? "rgba(0, 0, 0, 0.04)" : code === UNAVAILABLE ? "rgba(0, 0, 0, 0.14)"
+        : MOTION_COLORS[MOTION_CODES[code]];
       // Overlap neighbors slightly so that no seams show between cells.
       ctx.fillRect(M_PAD_L + col * cellW, M_PAD_T + (MAP_ROWS - 1 - row) * cellH, cellW + 0.5, cellH + 0.5);
     }
@@ -1125,6 +1233,9 @@ function setFromMap(event: PointerEvent): void {
   const fy = 1 - (event.clientY - rect.top - M_PAD_T) / mapPlotH();
   bow.position = Math.round(logLerp(Math.min(1, Math.max(0, fx)), POSITION_MIN, POSITION_MAX) * 1000) / 1000;
   bow.force = logLerp(Math.min(1, Math.max(0, fy)), FORCE_MIN, FORCE_MAX);
+  resumeBowing();
+  // Clicking past the finger puts the bow as close to it as allowed.
+  separateFingerAndBow("finger");
   syncInputs();
   settingsChanged();
 }
@@ -1193,7 +1304,7 @@ function computeBands(): void {
       const f = (job.results.length + 0.5) / BAND_SAMPLES;
       // Sliding friction above static friction isn't allowed, so those values are never green.
       const settings = { ...job.settings, ...job.band.sample(f) };
-      job.results.push(settings.muDynamic <= settings.muStatic - MU_GAP
+      job.results.push(settings.muDynamic <= settings.muStatic - MU_GAP && !bowPastFinger(thisSpec, settings.position)
         && settledMotion(thisSpec, settings, thisBridge) === "helmholtz");
       if (job.results.length === BAND_SAMPLES) {
         bandCache.set(job.key, job.results);
@@ -1244,7 +1355,6 @@ const WORKLET_URL = new URL("./bowed_string_audio.js", import.meta.url);
 let liveNode: AudioWorkletNode | null = null;
 let liveGain: GainNode | null = null;
 let liveOn = false;
-let liveBowing = true; // Whether the live string is being bowed (rather than plucked)
 
 function postLive(message: LiveMessage): void {
   liveNode?.port.postMessage(message);
@@ -1289,10 +1399,10 @@ async function setLive(on: boolean): Promise<void> {
     liveNode.connect(liveGain).connect(audioCtx.destination);
   }
   if (!liveOn) return; // Turned off while the module was loading
-  // Continuous sound is always bowed, even after a pluck, and the animation follows.
+  // Continuous sound starts out bowed from rest, even after a pluck, and the animation's string
+  // starts being bowed too (without stopping).
   sendLiveSettings();
-  if (!sim.bowing) startBowing();
-  liveBowing = true;
+  resumeBowing();
   postLive({ type: "bow" });
   postLive({ type: "resume" });
   await audioCtx.resume();
@@ -1313,6 +1423,9 @@ function syncInputs(): void {
   muDynamicInput.value = String(bow.muDynamic);
   stiffnessInput.value = toLogSlider(bridge.stiffness, STIFFNESS_MIN, STIFFNESS_MAX);
   dampingInput.value   = toLogSlider(bridge.damping, DAMPING_MIN, DAMPING_MAX);
+  fingerToggle.checked = fingerOn;
+  fingerInput.value    = String(fingerSemitones);
+  fingerInput.disabled = fingerSnap.disabled = !fingerOn;
   updateOutputs();
 }
 
@@ -1321,6 +1434,11 @@ function updateOutputs(): void {
   speedOut.textContent    = `${fmt(bow.speed * 100, 0)} cm/s`;
   muStaticOut.textContent  = `μₛ = ${fmt(bow.muStatic, 2)}`;
   muDynamicOut.textContent = `μ_d = ${fmt(bow.muDynamic, 2)}`;
+  pitchOut.textContent = pitchName(1 / sim.period);
+  const semitones = Number.isInteger(fingerSemitones) ? String(fingerSemitones) : fmt(fingerSemitones, 1);
+  fingerOut.textContent = fingerOn
+    ? `+${semitones} semitone${fingerSemitones === 1 ? "" : "s"} · ${fmt(spec.finger * spec.length * 1000, 0)} mm from the nut`
+    : "open string";
   positionOut.textContent = `β = ${fmt(bow.position, 3)} (${fmt(bow.position * spec.length * 1000, 0)} mm)`;
   const omega = Math.sqrt(bridge.stiffness / BRIDGE_MASS); // Bridge resonance (rad/s)
   const resonance = omega / (2 * Math.PI);
@@ -1332,12 +1450,9 @@ function updateOutputs(): void {
 function settingsChanged(): void {
   updateOutputs();
   sendLiveSettings();
-  // Changing a setting after plucking goes back to bowing, in the sound as in the animation.
-  if (!liveBowing) {
-    postLive({ type: "bow" });
-    liveBowing = true;
-  }
-  startBowing();
+  // The string carries on from its current motion, so it takes a while to settle (see "Skip ahead").
+  resizeHistory();
+  statusDirty = true;
   requestMap();
   requestBands();
 }
@@ -1385,7 +1500,6 @@ function syncStringInputs(): void {
   tensionOut.textContent = `${fmt(spec.tension, 0)} N`;
   densityOut.textContent = `${fmt(spec.density * 1000, 2)} g/m`;
   lengthOut.textContent  = `${fmt(spec.length * 1000, 0)} mm`;
-  pitchOut.textContent   = pitchName(fundamental(spec));
   const preset = matchingPreset();
   stringSelect.value = preset >= 0 ? String(preset) : "custom";
   updateOutputs();
@@ -1419,8 +1533,84 @@ speedInput.addEventListener("input", () => {
 });
 positionInput.addEventListener("input", () => {
   bow.position = Number(positionInput.value);
+  separateFingerAndBow("bow");
+  syncInputs();
   settingsChanged();
 });
+
+// ⋘──────── Finger ────────⋙
+
+// Keeps the bow at least FINGER_GAP of the string's length on the bridge's side of the finger.
+// Moving one past the other pushes the other along.
+function separateFingerAndBow(moved: "finger" | "bow"): void {
+  if (!fingerOn) return;
+  const limit = 1 - semitonesToFraction(fingerSemitones) - FINGER_GAP; // Farthest the bow can be from the bridge
+  if (bow.position <= limit) return;
+  if (moved === "finger") {
+    bow.position = Math.max(POSITION_MIN, Math.floor(limit * 200) / 200);
+  } else {
+    const semitones = fractionToSemitones(1 - bow.position - FINGER_GAP);
+    fingerSemitones = Math.max(FINGER_MIN, fingerSnap.checked ? Math.floor(semitones) : semitones);
+  }
+  applyFinger();
+}
+
+// Updates the string, in the animation and in its settings, for the finger's settings.
+function applyFinger(): void {
+  spec.finger = fingerOn ? semitonesToFraction(fingerSemitones) : 0;
+  sim.spec.finger = spec.finger;
+}
+
+function fingerChanged(): void {
+  if (fingerSnap.checked) fingerSemitones = Math.max(1, Math.round(fingerSemitones));
+  applyFinger();
+  separateFingerAndBow("finger");
+  syncInputs();
+  settingsChanged();
+}
+
+fingerToggle.addEventListener("change", () => {
+  fingerOn = fingerToggle.checked;
+  fingerChanged();
+});
+fingerSnap.addEventListener("change", fingerChanged);
+fingerInput.addEventListener("input", () => {
+  fingerSemitones = Number(fingerInput.value);
+  fingerChanged();
+});
+
+// The finger can be dragged along the string.
+let draggingFinger = false;
+const overFinger = (e: PointerEvent) => {
+  if (!fingerShape) return false;
+  const rect = stringCanvas.getBoundingClientRect();
+  const x = e.clientX - rect.left, y = e.clientY - rect.top;
+  return Math.abs(x - fingerShape.x) <= FINGER_W / 2 + 6 && y >= fingerShape.base - 6 && y <= fingerShape.tip + 6;
+};
+stringCanvas.addEventListener("pointerdown", e => {
+  if (!overFinger(e)) return;
+  draggingFinger = true;
+  stringCanvas.setPointerCapture(e.pointerId);
+  stringCanvas.style.cursor = "grabbing";
+});
+stringCanvas.addEventListener("pointermove", e => {
+  if (!draggingFinger || !fingerShape) {
+    stringCanvas.style.cursor = overFinger(e) ? "grab" : "";
+    return;
+  }
+  const rect = stringCanvas.getBoundingClientRect();
+  const fraction = (e.clientX - rect.left - fingerShape.left) / fingerShape.width;
+  const semitones = fractionToSemitones(Math.min(semitonesToFraction(FINGER_MAX), Math.max(semitonesToFraction(FINGER_MIN), fraction)));
+  if (Math.abs(semitones - fingerSemitones) < (fingerSnap.checked ? 0.5 : 0.01)) return;
+  fingerSemitones = semitones;
+  fingerChanged();
+});
+const dropFinger = () => {
+  draggingFinger = false;
+  stringCanvas.style.cursor = "";
+};
+stringCanvas.addEventListener("pointerup", dropFinger);
+stringCanvas.addEventListener("pointercancel", dropFinger);
 // Sliding friction stays below static friction: lowering one past the other pushes it along.
 muStaticInput.addEventListener("input", () => {
   bow.muStatic = Number(muStaticInput.value);
@@ -1448,16 +1638,19 @@ bridgeReset.addEventListener("click", () => {
 });
 
 for (const button of document.querySelectorAll<HTMLButtonElement>("[data-preset]")) {
-  // The examples are tuned for the violin's A string, with its default damping, and the default
-  // bridge.
+  // The examples are tuned for the violin's open A string, with its default damping, and the
+  // default bridge.
   button.addEventListener("click", () => {
     Object.assign(bow, PRESETS[button.dataset.preset!]);
     Object.assign(bridge, DEFAULT_BRIDGE);
+    fingerOn = false;
+    applyFinger();
     syncInputs();
     if (matchingPreset() !== DEFAULT_STRING || spec.decayTime !== DEFAULT_DECAY_TIME) {
       spec.decayTime = DEFAULT_DECAY_TIME;
       setStringPreset(DEFAULT_STRING);
     }
+    resumeBowing();
     settingsChanged();
     setPlaying(true);
   });
@@ -1472,14 +1665,17 @@ playButton.addEventListener("click", () => setPlaying(!playing));
 restartButton.addEventListener("click", () => {
   startBowing(true);
   postLive({ type: "bow" });
-  liveBowing = true;
   setPlaying(true);
 });
 pluckButton.addEventListener("click", () => {
   pluck();
   postLive({ type: "pluck", at: PLUCK_AT, height: PLUCK_HEIGHT });
-  liveBowing = false;
   setPlaying(true);
+});
+// Runs the string forward, from where it is, to see what a change settles into.
+skipButton.addEventListener("click", () => {
+  advance(SETTLE_PERIODS * stepsPerPeriod);
+  statusDirty = true;
 });
 listenButton.addEventListener("click", listen);
 liveButton.addEventListener("click", () => { void setLive(!liveOn); });

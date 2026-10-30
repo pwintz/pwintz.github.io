@@ -50,7 +50,8 @@ date_added: 2026-10-27
 
   /* The animation (with its playback controls) and the charts can stay at the top of the window
      while scrolling. When both are pinned, the charts stack below the animation. */
-  .bs-pinned { position: sticky; z-index: 5; background: #fff; }
+  /* Specific enough to win over the views' own position (such as .bs-sound's). */
+  .bowed .bs-pinned { position: sticky; z-index: 5; background: #fff; }
   #bs-animation.bs-pinned { top: 0; }
   #bs-charts-view.bs-pinned { top: var(--bs-charts-top, 0); }
   #bs-sound-view.bs-pinned { top: var(--bs-sound-top, 0); }
@@ -132,6 +133,8 @@ date_added: 2026-10-27
     vertical-align: -0.05em;
   }
   .bs-map { cursor: crosshair; touch-action: none; }
+  /* The finger is dragged sideways, so only vertical touch gestures scroll the page. */
+  #bs-string { touch-action: pan-y; }
   /* The oscilloscope and spectrum, side by side when there's room. */
   .bs-sound { position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 0 0.6rem; }
   .bowed [hidden] { display: none !important; }
@@ -163,6 +166,7 @@ date_added: 2026-10-27
       </select>
     </label>
     <button id="bs-restart" type="button">Start from rest</button>
+    <button id="bs-skip" type="button" title="Run the string forward 60 vibrations from where it is">⏩ Skip ahead</button>
     <button id="bs-pluck" type="button">Pluck instead</button>
     <button id="bs-listen" type="button">🔊 Listen</button>
     <button id="bs-live" type="button" aria-pressed="false">🎻 Play continuously</button>
@@ -244,8 +248,8 @@ date_added: 2026-10-27
     </div>
   </fieldset>
   <p id="bs-plucked-note" class="bs-settings bs-hint" hidden>
-    The string has been plucked, so the bow is lifted and its settings are hidden. Click "Start
-    from rest" or "Play continuously" to bow it again.
+    The string has been plucked, so the bow is lifted and its settings are hidden. To bow it
+    again, click a bowing on the map below or "Start from rest", or turn on "Play continuously".
   </p>
 
   <fieldset class="bs-settings">
@@ -277,6 +281,20 @@ date_added: 2026-10-27
       The damping is given as the time \(\tau\) for a free vibration to die down to \(1/e\) of
       its size from these losses alone. A note dies away faster than that, because the simulation
       also loses energy at short wavelengths (which rounds off sharp corners) and into the bridge.
+    </p>
+    <div class="bs-row">
+      <span class="bs-row-label">Finger</span>
+      <label><input id="bs-finger-on" type="checkbox"> Stop the string</label>
+      <label><input id="bs-finger-snap" type="checkbox" checked> Snap to semitones</label>
+    </div>
+    <div class="bs-sliders bs-after-row">
+      <label class="bs-slider">
+        <span>Finger position <output id="bs-finger-out"></output></span>
+        <input id="bs-finger" type="range" min="0.5" max="24" step="0.01">
+      </label>
+    </div>
+    <p class="bs-hint">
+      You can also drag the finger along the string in the animation.
     </p>
   </fieldset>
 
@@ -325,6 +343,21 @@ date_added: 2026-10-27
     different densities: the G string is more than six times heavier per meter than the E string.
   </p>
   <p>
+    A violinist plays other notes by pressing the string against the fingerboard. Turn on
+    "Stop the string" to do the same here: the finger holds the string still at one point, so only
+    the part between it and the bridge vibrates, and the part on the nut's side goes quiet. Since
+    \(f_0 = c/2L\), shortening the vibrating length raises the pitch in proportion. Halving it
+    plays the octave, and a note \(k\) semitones up needs the finger a fraction
+    \(1 - 2^{-k/12}\) of the way from the nut, which is why the notes get closer together higher
+    up the fingerboard. With a finger, the "distance from the bridge" that matters for Helmholtz
+    motion is the bow's fraction of the <em>vibrating</em> length, so moving the finger up the
+    string has the same effect on the bowing as moving the bow away from the bridge. The finger
+    can only hold the string at one of the joints between its 120 segments, which are evenly
+    spaced while the notes aren't, so a stopped note can be off the note it's meant to be: by at
+    most 5 cents for the first seven semitones, but by up to about 18 cents higher up. The pitch
+    shown in the String settings is the one it actually plays.
+  </p>
+  <p>
     The bow acts on the one mass under it. The rosin gives it two kinds of friction:
   </p>
   <ul>
@@ -350,8 +383,11 @@ date_added: 2026-10-27
     when it stops.
   </p>
   <p>
-    When you change a setting, the view skips ahead to the motion the string settles into, which
-    takes dozens of vibrations. To watch it get started instead, click "Start from rest". The
+    When you change a setting, the string carries on from its current motion with the new setting,
+    the way a real string would, and it can take dozens of vibrations to settle into its new
+    motion. The status line tells you what it will settle into. To get there sooner, click "Skip
+    ahead", which runs the string forward 60 vibrations from where it is. To watch the string get
+    started from nothing, click "Start from rest". The
     vertical scale is exaggerated a great deal. A real string swings by a millimeter or
     two at most, less than 1% of its length.
   </p>
@@ -463,6 +499,7 @@ date_added: 2026-10-27
     <span><span class="bs-swatch" style="background:#1baf7a"></span>Clean Helmholtz motion (one slip per vibration)</span>
     <span><span class="bs-swatch" style="background:#a9bfe8"></span>Not clean (extra slips, or wobbling during the slip)</span>
     <span><span class="bs-swatch" style="background:#f3b08f"></span>Raucous (sticks too long)</span>
+    <span id="bs-map-unavailable" hidden><span class="bs-swatch" style="background:rgba(0,0,0,0.14)"></span>Bow would be past the finger</span>
     <span><svg width="22" height="10" aria-hidden="true"><line x1="0" y1="5" x2="22" y2="5" stroke="#222" stroke-width="1.5" stroke-dasharray="4 3"/></svg>Schelleng's maximum force</span>
   </div>
   <p id="bs-map-progress" class="bs-hint"></p>

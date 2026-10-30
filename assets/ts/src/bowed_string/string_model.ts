@@ -24,6 +24,8 @@ export interface StringSpec {
   length    : number; // Vibrating length, from nut to bridge (m)
   decayTime : number; // Time for a free vibration's amplitude to fall to 1/e, from the string's own
                       // losses (air drag and internal friction, lumped together) (s)
+  finger    : number; // Where a finger stops the string, as a fraction of its length from the nut
+                      // (0 for the open string)
 }
 
 export interface StringPreset extends StringSpec { name: string; }
@@ -36,7 +38,7 @@ export const fundamental = (spec: StringSpec) => waveSpeed(spec) / (2 * spec.len
 const VIOLIN_LENGTH = 0.328;
 export const DEFAULT_DECAY_TIME = 1.2;
 const violinString = (name: string, frequency: number, tension: number): StringPreset => ({
-  name, tension, length: VIOLIN_LENGTH, decayTime: DEFAULT_DECAY_TIME,
+  name, tension, length: VIOLIN_LENGTH, decayTime: DEFAULT_DECAY_TIME, finger: 0,
   density: tension / Math.pow(2 * VIOLIN_LENGTH * frequency, 2),
 });
 export const STRINGS: StringPreset[] = [
@@ -65,6 +67,7 @@ export const BRIDGE_MASS = 1e-3; // Effective moving mass of the bridge (kg)
 const SLIP_SCALE = 0.1;  // Slip speed at which friction is halfway between the two (m/s)
 const SMOOTHING  = 0.015; // Strength of the extra loss at short wavelengths (per step)
 const MIN_SLIP_STEPS = 3; // Shortest slip that counts as one
+const FINGER_DAMPING_TIME = 0.003; // Time for the finger's flesh to damp the string on the nut's side of it (s)
 
 // Friction coefficient while the string slips past the bow at relative speed |dv|: μₛ when barely
 // slipping, falling toward μ_d as the slip gets faster.
@@ -75,10 +78,10 @@ export function slipFriction(bow: BowSettings, dv: number): number {
 export class BowedString {
   readonly n: number;          // Number of segments
   readonly spec: StringSpec;
-  readonly h: number;          // Segment length (m)
-  readonly c: number;          // Wave speed (m/s)
-  readonly mass: number;       // Mass at each joint (kg)
-  readonly dt: number;         // Time step (s)
+  h: number;                   // Segment length (m)
+  c: number;                   // Wave speed (m/s)
+  mass: number;                // Mass at each joint (kg)
+  dt: number;                  // Time step (s)
 
   y: Float64Array;             // Displacement of each mass (m); y[0] is the nut, y[n] the bridge
   v: Float64Array;             // Velocity of each mass (m/s)
@@ -109,13 +112,45 @@ export class BowedString {
     this.bridge = bridge;
   }
 
-  // The open string's natural period, 2L / c. A moving bridge makes the real one slightly different.
-  get period(): number { return 1 / fundamental(this.spec); }
+  // Changes the string's tension, density, length, damping, or finger while it vibrates. Its shape
+  // and velocity stay as they are, and it carries on from them with the new properties.
+  retune(spec: StringSpec): void {
+    Object.assign(this.spec, spec);
+    this.h    = spec.length / this.n;
+    this.c    = waveSpeed(spec);
+    this.mass = spec.density * this.h;
+    this.dt   = this.h / this.c;
+  }
+
+  // Puts the bow on the string as it is, without stopping its vibration.
+  startBowing(): void {
+    if (this.bowing) return;
+    this.bowing = true;
+    this.sticking = false;
+  }
 
   // Index of the mass under the bow, counted from the nut.
   get bowIndex(): number {
     return Math.min(this.n - 1, Math.max(1, Math.round(this.n * (1 - this.bow.position))));
   }
+
+  // Index of the mass held still by the finger, or 0 (the nut) without one. A finger can only stop
+  // the string at a mass, and it stays at least two masses on the nut's side of the bow.
+  get fingerIndex(): number {
+    if (this.spec.finger <= 0) return 0;
+    return Math.max(0, Math.min(Math.round(this.n * this.spec.finger), this.bowIndex - 2));
+  }
+
+  // Length of the part of the string that vibrates, from the finger (or nut) to the bridge (m).
+  get vibratingLength(): number { return this.spec.length * (1 - this.fingerIndex / this.n); }
+
+  // The natural period, 2L / c for the vibrating length L, which is a whole number of steps. A
+  // moving bridge makes the real one slightly different.
+  get period(): number { return 2 * this.vibratingLength / this.c; }
+
+  // The bow's distance from the bridge, as a fraction of the vibrating length. This, not the
+  // fraction of the whole string, is what sets the details of Helmholtz motion.
+  get bowFraction(): number { return (this.n - this.bowIndex) / (this.n - this.fingerIndex); }
 
   // The force of the string on the bridge, which is what drives the violin body (N).
   get bridgeForce(): number {
@@ -136,13 +171,14 @@ export class BowedString {
     this.slipRun = 0;
   }
 
-  // Pull the string aside at fraction `at` of its length from the bridge and let go.
+  // Pull the string aside at fraction `at` of its vibrating length from the bridge and let go.
   pluck(at: number, height: number): void {
     this.reset();
     this.bowing = false;
-    const k = Math.round(this.n * (1 - at));
-    for (let i = 0; i <= this.n; i++) {
-      this.y[i] = i <= k ? height * i / k : height * (this.n - i) / (this.n - k);
+    const f = this.fingerIndex, n = this.n;
+    const k = Math.round(n - at * (n - f));
+    for (let i = f; i <= n; i++) {
+      this.y[i] = i <= k ? height * (i - f) / (k - f) : height * (n - i) / (n - k);
     }
   }
 
@@ -154,6 +190,17 @@ export class BowedString {
 
     for (let i = 1; i < n; i++) force[i] = k * (y[i + 1] - 2 * y[i] + y[i - 1]);
     for (let i = 1; i < n; i++) v[i] = damping * (v[i] + force[i] / this.mass * dt);
+
+    // The finger holds its mass still, pressing the string to the fingerboard, so the string on the
+    // nut's side of it is cut off from the rest. It's applied before the smoothing below, so that
+    // nothing leaks past it, and again after the bow. The fingertip's flesh also quickly damps
+    // whatever vibration is left on the nut's side when the finger comes down.
+    const f = this.fingerIndex;
+    if (f > 0) {
+      v[f] = force[f] = 0;
+      const nutSide = Math.exp(-dt / FINGER_DAMPING_TIME);
+      for (let i = 1; i < f; i++) v[i] *= nutSide;
+    }
 
     // Short wavelengths lose energy faster than long ones, which rounds sharp corners.
     let prev = v[0];
@@ -184,6 +231,8 @@ export class BowedString {
     } else {
       this.friction = 0;
     }
+
+    if (f > 0) y[f] = v[f] = 0;
 
     for (let i = 1; i <= n; i++) y[i] += v[i] * dt;
     this.t += dt;
@@ -222,7 +271,7 @@ export class BowedString {
 // In clean Helmholtz motion, each period has exactly one slip, the string swings backward once
 // during it and doesn't come forward until the bow catches it, and the string sticks to the bow for
 // the fraction 1 − β of each period (β being the bow's distance from the bridge as a fraction of
-// the length). With too much force, it stays stuck too long, and the motion becomes irregular
+// the vibrating length). With too much force, it stays stuck too long, and the motion becomes irregular
 // ("raucous"). Anything else, such as extra slips or a string that wobbles back and forth during
 // the slip, isn't clean.
 
@@ -265,14 +314,18 @@ export function settledMotion(spec: StringSpec, bow: BowSettings, bridge: Bridge
     if (slips !== 1 || reversals !== 1) clean = false;
   }
   const stuckFraction = (s.stuckSteps - stuck0) / (measure * steps);
-  if (clean && Math.abs(stuckFraction - (1 - bow.position)) <= STUCK_TOLERANCE) return "helmholtz";
-  if (fewSlips || stuckFraction > 1 - 0.7 * bow.position) return "raucous";
+  const beta = s.bowFraction;
+  if (clean && Math.abs(stuckFraction - (1 - beta)) <= STUCK_TOLERANCE) return "helmholtz";
+  if (fewSlips || stuckFraction > 1 - 0.7 * beta) return "raucous";
   return "multiple";
 }
 
 // Schelleng's estimate of the largest bow force that allows Helmholtz motion (N). Z₀ = √(Tμ) = T/c
 // is the string's characteristic impedance.
+// The bow position is a fraction of the whole string, so with a finger, it's converted to a
+// fraction of the vibrating length.
 export function schellengMaxForce(spec: StringSpec, bow: BowSettings, position = bow.position): number {
   const impedance = Math.sqrt(spec.tension * spec.density);
-  return 2 * impedance * bow.speed / (position * (bow.muStatic - bow.muDynamic));
+  const beta = position / (1 - spec.finger);
+  return 2 * impedance * bow.speed / (beta * (bow.muStatic - bow.muDynamic));
 }
