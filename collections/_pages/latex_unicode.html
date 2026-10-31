@@ -1,0 +1,244 @@
+---
+layout: single
+permalink: /tools/unicodeit/
+title: LaTeX to Unicode Converter (UnicodeIt)
+excerpt: "Turn LaTeX math like \\alpha^2 \\leq x_{12} into plain Unicode text (α² ≤ x₁₂) for emails, chats, and code comments."
+tool_categories: [Writing, Math]
+date_added: 2026-10-30
+---
+
+<style>
+  .latex-unicode textarea,
+  .latex-unicode input,
+  .latex-unicode button {
+    font: inherit;
+    color: inherit;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 6px;
+  }
+  .latex-unicode textarea,
+  .lu-output {
+    width: 100%;
+    min-height: 6rem;
+    margin: 0;
+    padding: 0.6rem 0.7rem;
+    box-sizing: border-box;
+    font-family: monospace;
+    font-size: 1rem;
+    resize: vertical;
+    background: transparent;
+  }
+  .latex-unicode label { display: block; margin: 1rem 0 0.3rem; font-weight: bold; }
+  .lu-output-row { position: relative; }
+  /* The output is a div rather than a textarea so that unconverted parts can be highlighted. */
+  /* A white field with a strong border, so it reads as the result to copy rather than a disabled field. */
+  .lu-output {
+    padding-right: 3rem;
+    border: 2px solid #2f7f93;
+    border-radius: 6px;
+    background: #fff;
+    font-size: 1.15rem;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    /* Monospaced so display style lines up, then math fonts (Windows, macOS, Linux) for marks
+       like the arrow of \vec that monospaced fonts often lack. */
+    font-family: monospace, "Cambria Math", "STIX Two Math", "Noto Sans Math", "DejaVu Sans";
+  }
+  .latex-unicode mark {
+    padding: 0 0.1em;
+    border-radius: 3px;
+    background: #fce8b2;
+    box-shadow: inset 0 -2px 0 #e37400;
+    cursor: help;
+  }
+  .lu-message { margin: 0.4rem 0 0; padding-left: 1.2rem; font-size: 0.85em; color: #8a4b00; }
+  .lu-message li { margin: 0.2rem 0; }
+  .lu-credits { margin-top: 2.5rem; font-size: 0.75em; opacity: 0.75; }
+  /* "?" button that shows the details of a reason. */
+  .latex-unicode .lu-why {
+    width: 1.3em;
+    height: 1.3em;
+    padding: 0;
+    border-radius: 50%;
+    font-size: 0.85em;
+    line-height: 1;
+    color: inherit;
+    background: transparent;
+    cursor: pointer;
+  }
+  .latex-unicode .lu-why[aria-expanded="true"] { background: #8a4b00; border-color: #8a4b00; color: #fff; }
+  .lu-why-details { margin: 0.2rem 0 0.4rem; color: #555; }
+
+  /* The input's clear button sits in its top-right corner, like the output's copy button. */
+  .lu-input-row { position: relative; }
+  .lu-input-row textarea { padding-right: 3rem; }
+  /* While the input is empty, the output shows the example converted, as a hint. */
+  .lu-output.lu-output-hint { color: #8a8f94; border-color: rgba(128, 128, 128, 0.4); }
+  .lu-message code { color: inherit; }
+
+  /* Inline/display toggle, styled as a segmented control beside the "Unicode" label. */
+  .lu-output-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; }
+  .lu-options { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 0.4rem 1rem; }
+  .latex-unicode .lu-option { display: inline-flex; align-items: center; gap: 0.3rem; margin: 1rem 0 0.3rem; font-size: 0.85em; font-weight: normal; cursor: pointer; }
+  .latex-unicode .lu-option input { margin: 0; }
+  /* The theme gives forms a grey box; this one is just the two buttons. */
+  .latex-unicode .lu-style { display: inline-flex; margin: 1rem 0 0.3rem; padding: 0; border: 1px solid rgba(128, 128, 128, 0.4); border-radius: 6px; background: none; overflow: hidden; }
+  .latex-unicode .lu-style label { margin: 0; padding: 0.2rem 0.7rem; font-size: 0.85em; font-weight: normal; cursor: pointer; }
+  .lu-style label:has(input:checked) { background: #2f7f93; color: #fff; }
+  .lu-style label:has(input:focus-visible) { outline: 2px solid #2f7f93; outline-offset: 2px; }
+  .lu-style input { position: absolute; opacity: 0; pointer-events: none; }
+
+  /* The theme's display: inline-flex would otherwise show hidden buttons. */
+  .latex-unicode .lu-icon-button[hidden] { display: none; }
+  /* Copy button: sits in the output's top-right corner; success/failure swap the icon and color. */
+  .latex-unicode .lu-icon-button {
+    position: absolute;
+    top: 0.4rem;
+    right: 0.4rem;
+    width: 2.2em;
+    height: 2.2em;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: #fff;
+    transition: background-color 150ms, border-color 150ms, color 150ms;
+  }
+  .lu-icon-button svg {
+    width: 1.1em;
+    height: 1.1em;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  #lu-copy .lu-icon-check,
+  #lu-copy .lu-icon-fail,
+  #lu-copy.lu-copied .lu-icon-copy,
+  #lu-copy.lu-copy-failed .lu-icon-copy { display: none; }
+  #lu-copy.lu-copied .lu-icon-check,
+  #lu-copy.lu-copy-failed .lu-icon-fail { display: block; }
+  #lu-copy.lu-copied      { background: #188038; border-color: #188038; color: #fff; animation: lu-pop 250ms ease-out; }
+  #lu-copy.lu-copy-failed { background: #c5221f; border-color: #c5221f; color: #fff; animation: lu-pop 250ms ease-out; }
+  @keyframes lu-pop {
+    50% { transform: scale(1.15); }
+  }
+
+  /* ── Symbol reference ── */
+  .lu-symbol-details { margin-top: 2rem; }
+  .lu-symbol-details summary { font-size: 1.2em; font-weight: bold; cursor: pointer; }
+  .latex-unicode input[type="search"] {
+    width: 100%;
+    margin: 0;
+    padding: 0.45rem 0.7rem;
+    box-sizing: border-box;
+    background: transparent;
+  }
+  .lu-symbol-status { margin: 0.5rem 0; font-size: 0.8em; opacity: 0.7; }
+  .lu-symbols {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    gap: 0.4rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .lu-symbols li { margin: 0; }
+  .latex-unicode .lu-symbol {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.3rem 0.5rem;
+    text-align: left;
+    cursor: pointer;
+    background: transparent;
+    transition: background-color 150ms;
+  }
+  .lu-symbol:hover { background: rgba(128, 128, 128, 0.12); }
+  .lu-symbol-char { flex: none; width: 1.5em; font-size: 1.25em; text-align: center; }
+  .latex-unicode .lu-symbol code {
+    padding: 0;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.75em;
+    background: none;
+  }
+</style>
+
+<div class="latex-unicode">
+  <p>
+    Type or paste LaTeX to get the same text written with Unicode characters, so it can be pasted
+    where LaTeX isn't rendered. Greek letters, operators, arrows, blackboard bold
+    (<code>\mathbb{R}</code>), sub- and superscripts (<code>x_{12}^2</code>), and accents
+    (<code>\hat{x}</code>) are supported, and spacing follows LaTeX's math mode. Inline style
+    keeps everything on one line, so <code>\frac{a + b}{c}</code> becomes (a + b)/c, while display
+    style stacks fractions, draws matrices with tall brackets, and puts the limits of sums above and
+    below. Parts that can't be converted, such as <code>x^#</code> (Unicode has no superscript #),
+    are <mark>highlighted</mark> in the result, with the reason below it.
+    Conversion is done by <a href="https://github.com/pwintz/unicodeit">my fork</a> of
+    <a href="https://github.com/svenkreiss/unicodeit">UnicodeIt</a>.
+  </p>
+
+  <label for="lu-input">LaTeX</label>
+  <!-- The example (shown as a placeholder, and converted in the output while the input is empty)
+       shows off fractions, roots, sums, matrices, \left/\right, \top, primes, \text,
+       spacing, and one part that can't be converted (Unicode has no superscript π). -->
+  <div class="lu-input-row">
+    <textarea id="lu-input" rows="8" spellcheck="false" autocomplete="off" placeholder="\left\langle x, A^\top y \right\rangle \leq \|x\| \, \|y\|
+f&#x27;(t) = \frac{\alpha + \beta}{2} \sqrt{1 + t} - \sum_{i=1}^{n} \frac{1}{t_i}
+A = \begin{bmatrix} 1 &amp; -2 \\ \check{z} &amp; 4 \end{bmatrix} \text{ for } z \in \mathbb{C}, \quad e^{i\pi} + 1 = 0"></textarea>
+    <button id="lu-clear" class="lu-icon-button" type="button" aria-label="Clear LaTeX" title="Clear" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"/></svg>
+    </button>
+  </div>
+
+  <div class="lu-output-header">
+    <label id="lu-output-label">Unicode</label>
+    <div class="lu-options">
+      <label class="lu-option" title="Write fractions like \frac{1}{2} as ½ when Unicode has a character for them">
+        <input id="lu-vulgar" type="checkbox"> ½ fractions
+      </label>
+      <form id="lu-style" class="lu-style" aria-label="Output style">
+        <label><input type="radio" name="style" value="inline" checked> Inline</label>
+        <label><input type="radio" name="style" value="display"> Display</label>
+      </form>
+    </div>
+  </div>
+  <div class="lu-output-row">
+    <!-- Parts that couldn't be converted are wrapped in <mark> by latex_unicode.ts. -->
+    <div id="lu-output" class="lu-output" role="textbox" aria-readonly="true" aria-multiline="true" aria-labelledby="lu-output-label"></div>
+    <button id="lu-copy" class="lu-icon-button" type="button" aria-label="Copy result" title="Copy result">
+      <!-- Only one icon is visible at a time; see the .lu-copied and .lu-copy-failed styles. -->
+      <svg class="lu-icon-copy" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>
+      <svg class="lu-icon-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+      <svg class="lu-icon-fail" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"/></svg>
+    </button>
+  </div>
+  <!-- One item per part that couldn't be converted, with the reason. -->
+  <ul id="lu-message" class="lu-message" role="status" hidden></ul>
+
+  <!-- Collapsed by default so the list doesn't crowd the converter. -->
+  <details class="lu-symbol-details">
+    <summary>Symbols</summary>
+    <p>Search by command name or paste a symbol to find its command. Click a symbol to insert it.</p>
+    <input id="lu-search" type="search" placeholder="Search symbols, e.g. arrow or ≤" aria-label="Search symbols" autocomplete="off">
+    <p id="lu-symbol-status" class="lu-symbol-status" aria-live="polite"></p>
+    <ul id="lu-symbols" class="lu-symbols"></ul>
+  </details>
+</div>
+
+<p class="lu-credits">
+  Based on <a href="https://github.com/svenkreiss/unicodeit">UnicodeIt</a>, copyright 2020 Sven Kreiss,
+  Kyle Cranmer, and contributors, under the
+  <a href="https://github.com/svenkreiss/unicodeit/blob/main/LICENSE">MIT License</a>. Some symbols
+  come from Günter Milde's <code>unimathsymbols.txt</code>, under the
+  <a href="https://www.latex-project.org/lppl/">LaTeX Project Public License</a>. The changes in
+  <a href="https://github.com/pwintz/unicodeit">my fork</a> are under the same MIT License.
+</p>
+
+<script src="/assets/ts/out/latex_unicode.js" type="module"></script>
