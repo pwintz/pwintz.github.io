@@ -14,6 +14,21 @@ layout: default
   /* Allow the tables to be broken across multiple pages. */
   table { page-break-inside:auto }
   tr    { page-break-inside:avoid; page-break-after:auto }
+  /* Each CV item (a job, course, honor, etc.) is its own "dateditems" table, so keep it on one page. */
+  table.dateditems { page-break-inside: avoid; break-inside: avoid; }
+  /* Keep section headings with the content after them. Chrome does not reliably honor "break-after: avoid",
+     so an invisible block after each heading reserves room for the first item. If there is not enough room
+     at the bottom of a page, the heading moves to the next page. The negative margin cancels the
+     reserved space so the layout is unchanged otherwise. */
+  @media print {
+    h2, h3 { break-after: avoid; page-break-after: avoid; break-inside: avoid; }
+    h2::after, h3::after {
+      content: "";
+      display: block;
+      height: 6em;
+      margin-bottom: -6em;
+    }
+  }
 </style>
 
 <div id="main" role="main">
@@ -79,6 +94,19 @@ layout: default
             <i class="fas fa-home"></i>&nbsp;<a style="margin-right: 10px;" href="https://paulwintz.com">paulwintz.com</a>
           </div>
         </div>
+        <!-- 
+        Sections are shown in the order given by the "order" list in the front matter.
+        If "order" is not given, the default order below is used.
+        -->
+        {% if page.order %}
+          {% assign cv_order = page.order %}
+        {% else %}
+          {% assign cv_order = "biography,research-interests,education,employment,teaching,honors,publications,conference-presentations,poster-presentations,software,service,skills,other-activities" | split: "," %}
+        {% endif %}
+
+        {% for cv_section in cv_order %}
+        {% case cv_section %}
+        {% when "biography" %}
         <!-- # Biography -->
         <p>
           <div class="avoid-page-breaks">
@@ -86,13 +114,15 @@ layout: default
             {{ page.biography }}
           </div>
         </p>
-        
+
+        {% when "research-interests" %}
         <!-- # Research Interests -->
         <div class="avoid-page-breaks">
           <h2>Research Interests</h2>
           {{ page.research-interests | join: " ⦁ " }}
         </div>
 
+        {% when "education" %}
         <!-- # Education - List of Schools -->
         <h2>Education</h2>
         {% for school in page.schools %}
@@ -104,7 +134,7 @@ layout: default
                   <span class="schoolname">{{ school.name }}</span> —&nbsp;<span class="schoolgpa">{{ school.gpa }}&nbsp;GPA</span>
                 </td>
                 <td class="date">
-                  {{ school.start-date | date: "%B %Y" | replace: " ", "&nbsp;"}}-{{ school.end-date | date: "%B %Y" | default:"Present" | replace: " ", "&nbsp;"}}
+                  {% include cv_dates.html dates=school.dates %}
                 </td>
               </tr>
               <tr>
@@ -116,10 +146,17 @@ layout: default
                             {{ item.name }}</span>
                         </td>
                       <td class="resumedate"><span class="resumedate">
-                          {{ item.date | date: "%B %Y" | default:" "| replace: " ", "&nbsp;"}}
+                          {% include cv_dates.html dates=item.date %}
                         </span></td>
                       </tr>
                     </table>
+                    {% if item.thesis %}
+                      {% assign thesis = site.publications | where: "slug", item.thesis | first %}
+                      <div class="schoolthesis" style="padding-left: 1em;">
+                        {{ item.thesis-label | default: "Thesis" }}: <a href="{{ thesis.url }}">{{ thesis.title | strip }}</a>.
+                        {% if thesis.advisor %}Advisor: {{ thesis.advisor }}.{% endif %}
+                      </div>
+                    {% endif %}
                   {% endfor %}
                   
                   {% if school.honors %} 
@@ -137,30 +174,27 @@ layout: default
           <!-- </div> -->
         {% endfor %}
 
-        
+        {% when "employment" %}
         <!-- # Employment - List of Jobs -->
         <h2>Employment</h2>
-        <table class="dateditems">
-          {% for employer in page.employers %}
-            <tr>
-              <td class="item">
-                <span class="employername">{{ employer.name }}</span>
-              </td>
-            </tr>
-            {% for job in employer.jobs %}
+        <!-- Each job is its own table so that it is not split across pages when printed. The employer name is put in the table of its first job. -->
+        {% for employer in page.employers %}
+          {% for job in employer.jobs %}
+            <table class="dateditems">
+              {% if forloop.first %}
+                <tr>
+                  <td class="item">
+                    <span class="employername">{{ employer.name }}</span>
+                  </td>
+                </tr>
+              {% endif %}
               <!-- # Job Row -->
-              <!-- We use "page-break-after:avoid" to prevent put the job title row and job description row on the same page. -->
-              <tr style="page-break-after:avoid"> 
+              <tr>
                 <td class="item" style="padding-left: 1em;">
                   {{ job.title }}
                 </td>
                 <td class="date">
-                  {% if job.dates %}
-                    <!-- The odd replacement we do here is to ensure non-breaking spaces before years starting with "2", e.g., " Summer 2023" -->
-                    {{ job.dates | replace: " 2", "&nbsp;2"}}
-                  {% else %}
-                    {{ job.start-date | date: "%B %Y" | replace: " ", "&nbsp;"}}-{{ job.end-date | date: "%B %Y" | default:"Present" | replace: " ", "&nbsp;"}}
-                  {% endif %}
+                  {% include cv_dates.html dates=job.dates start=job.start-date end=job.end-date %}
                 </td>
               </tr>
               {% if job.highlights %} 
@@ -174,45 +208,68 @@ layout: default
                   </td>
                 </tr>
               {% endif %}
-            {% endfor %}
+            </table>
           {% endfor %}
-        </table>
+        {% endfor %}
 
+        {% when "teaching" %}
         {% if page.teaching-experiences %} 
           <h2>Teaching Experiences</h2>
-          {% for teaching-experience in page.teaching-experiences %}
+          {% for course in page.teaching-experiences %}
             <table class="dateditems">
-              <!-- # Teaching Role Row -->
+              <!-- # Course Row -->
               <tr style="page-break-after:avoid">
-                <td class="item">
-                  <b>{{ teaching-experience.role }}</b>
-                </td>
-                <td class="date">
-                  {{ teaching-experience.date }}
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2">
-                  {{ teaching-experience.type }}: {{ teaching-experience.name }}
-                  {% if teaching-experience.course-code %} 
-
-                    {% if teaching-experience.catalog-link %} 
-                      (<a href="{{ teaching-experience.catalog-link }}">{{ teaching-experience.course-code }}</a>)
+                <td class="item" colspan="2">
+                  <b>{{ course.name }}</b>
+                  {% if course.course-code %}
+                    {% if course.catalog-link %}
+                      (<a href="{{ course.catalog-link }}">{{ course.course-code }}</a>)
                     {% else %}
-                      ({{ teaching-experience.course-code }})
+                      ({{ course.course-code }})
                     {% endif %}
                   {% endif %}
+                  — <i>{{ course.location }}</i>
                 </td>
               </tr>
-              <tr>
-                <td colspan="2">
-                  <i>{{ teaching-experience.location }}</i>
-                </td>
-              </tr>
+              <!-- # Role Rows -->
+              {% for role in course.roles %}
+                <tr>
+                  <td class="item" style="padding-left: 1em;">
+                    {{ role.role }}
+                  </td>
+                  <td class="date">
+                    {% include cv_dates.html dates=role.dates %}
+                  </td>
+                </tr>
+              {% endfor %}
+              {% if course.highlights %}
+                <tr>
+                  <td colspan="2">
+                    <ul style="margin-top: 0px; margin-bottom: 0px">
+                      {% for highlight in course.highlights %}
+                        <!-- A highlight is either text or has "text" with a list of sub-bullet "items". -->
+                        {% if highlight.text %}
+                          <li>
+                            {{ highlight.text }}
+                            <ul style="margin-top: 0px; margin-bottom: 0px">
+                              {% for item in highlight.items %}
+                                <li>{{ item }}</li>
+                              {% endfor %}
+                            </ul>
+                          </li>
+                        {% else %}
+                          <li>{{ highlight }}</li>
+                        {% endif %}
+                      {% endfor %}
+                    </ul>
+                  </td>
+                </tr>
+              {% endif %}
             </table>
           {% endfor %}
         {% endif %}
 
+        {% when "honors" %}
         <h2>Honors</h2>
         {% for honor in page.honors %}
           <table class="dateditems">
@@ -221,7 +278,7 @@ layout: default
                 <b>{{ honor.honor }}</b>
               </td>
               <td class="date">
-                {{ honor.date }}
+                {% include cv_dates.html dates=honor.date %}
               </td>
             </tr>
             <tr>
@@ -231,7 +288,8 @@ layout: default
             </tr>
           </table>
         {% endfor %}
-        
+
+        {% when "publications" %}
         <!-- 
         ╭───────────────────────────────────────────╮
         │             Publications List             │
@@ -239,10 +297,10 @@ layout: default
         -->
         {% if page.include-publications %} 
           <h2>Publications</h2>
-          {% include publication_list.html %}
+          {% include publication_list.html heading-tag="h3" %}
         {% endif %}
 
-
+        {% when "conference-presentations" %}
         <!-- 
         ╭───────────────────────────────────────────╮
         │       Conference Presentations List       │
@@ -257,19 +315,19 @@ layout: default
                   "{{ conf.title }}"
                 </td>
                 <td class="date">
-                  {{ conf.date }}
+                  {% include cv_dates.html dates=conf.date %}
                 </td>
               </tr>
               <tr>
                 <td colspan="2">
-                  <i>{{ conf.venue }}.</i>
+                  <i>{{ conf.venue }}</i>{% if conf.location %}, {{ conf.location }}{% endif %}.
                 </td>
               </tr>
             </table>
           {% endfor %}
         {% endif %}
 
-
+        {% when "poster-presentations" %}
         <!-- 
         ╭───────────────────────────────────────────╮
         │         Poster Presentations List         │
@@ -284,18 +342,36 @@ layout: default
                   "{{ poster.title }}"
                 </td>
                 <td class="date">
-                  {{ poster.date }}
+                  {% include cv_dates.html dates=poster.date %}
                 </td>
               </tr>
               <tr>
                 <td colspan="2">
-                  <i>{{ poster.venue }}.</i>
+                  <i>{{ poster.venue }}</i>{% if poster.location %}, {{ poster.location }}{% endif %}.
                 </td>
               </tr>
             </table>
           {% endfor %}
         {% endif %}
-        
+
+        {% when "software" %}
+        <!-- 
+        ╭───────────────────────────────────────────╮
+        │               Software List               │
+        ╰───────────────────────────────────────────╯
+        -->
+        {% if page.software %}
+          <h2>Software</h2>
+          <ul>
+            {% for software in page.software %}
+              <li>
+                {% if software.link %}<a href="{{ software.link }}"><b>{{ software.name }}</b></a>{% else %}<b>{{ software.name }}</b>{% endif %}{% if software.description %}: {{ software.description }}{% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        {% when "service" %}
         {% if page.service-work %} 
           <h2>Service Work</h2>
           {% for service in page.service-work %}
@@ -305,7 +381,7 @@ layout: default
                   <span class="degreename">{{ service.title }}</span>
                 </td>
                 <td class="date">
-                  {{ service.date }}
+                  {% include cv_dates.html dates=service.date %}
                 </td>
               </tr>
               <tr>
@@ -317,12 +393,15 @@ layout: default
           {% endfor %}
         {% endif %}
 
+        {% when "skills" %}
         <div class="avoid-page-breaks">
           <h2>Skills</h2>
-          {{ page.skills | join: " ⦁ " }}
+          {% for skill_group in page.skills %}
+            <div><b>{{ skill_group.group }}:</b> {{ skill_group.items | join: " ⦁ " }}</div>
+          {% endfor %}
         </div>
 
-
+        {% when "other-activities" %}
          <!-- 
          ╭──────────────────────────────────────────╮
          │             Other Activities             │
@@ -334,48 +413,39 @@ layout: default
             <table class="dateditems">
               <tr style="page-break-after:avoid">
                 <td class="item activityname">
-                  <!-- <span class=""> -->
-                    {{ activity.name }}
-                  <!-- </span> -->
+                  {{ activity.name }}
                 </td>
                 <td class="date">
-                  {% if activity.dates %}
-                    {{ activity.dates }} 
-                  {% elsif activity.start-date %}
-                    {{ activity.start-date | date: "%B %Y" }}-{{ activity.end-date | date: "%B %Y" | default:"Present"}}
-                  {% endif %}
+                  {% include cv_dates.html dates=activity.dates start=activity.start-date end=activity.end-date %}
                 </td>
               </tr>
-              <tr colspan="2">
-                  <table class="dateditems">
-                  {% for job in activity.jobs %}
-                    <tr>
-                      <td class="item">
-                          {{ job.title }}
-                      </td>
-                      <td class="date">
-                        {% if job.dates %}
-                          {{ job.dates }} 
-                        {% elsif job.start-date %}
-                          {{ job.start-date | date: "%B %Y" }}-{{ job.end-date | date: "%B %Y" | default:"Present"}}
-                        {% endif %}
-                      </td>
-                    </tr>
-                  </table>
-                  {% endfor %}
-                  <tr>
-                    <ul>
+              {% for job in activity.jobs %}
+                <tr>
+                  <td class="item" style="padding-left: 1em;">
+                    {{ job.title }}
+                  </td>
+                  <td class="date">
+                    {% include cv_dates.html dates=job.dates start=job.start-date end=job.end-date %}
+                  </td>
+                </tr>
+              {% endfor %}
+              {% if activity.highlights %}
+                <tr>
+                  <td colspan="2">
+                    <ul style="margin-top: 0px; margin-bottom: 0px">
                       {% for highlight in activity.highlights %}
                         <li>{{ highlight }}</li>
                       {% endfor %}
                     </ul>
-                  </tr>
-                </div>
-              </tr>
+                  </td>
+                </tr>
+              {% endif %}
             </table>
-            <!-- </div> -->
           {% endfor %}
         {% endif %}
+
+        {% endcase %}
+        {% endfor %}
 
       </section>
     </div>

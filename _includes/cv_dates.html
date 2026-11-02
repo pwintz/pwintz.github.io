@@ -1,0 +1,16 @@
+<!--
+Date or date range for a CV entry, such as "Fall 2018–Fall 2025".
+Hyphens are replaced by en dashes, and the spaces before years are made non-breaking.
+Parameters:
+  dates: Date text. Used as-is if given.
+  start: Start date, used if "dates" is not given.
+  end:   End date (default "Present"), used with "start".
+-->
+{%- if include.dates -%}
+  {%- assign cv_dates = include.dates -%}
+{%- elsif include.start -%}
+  {%- capture cv_dates -%}{{ include.start }}–{{ include.end | default: "Present" }}{%- endcapture -%}
+{%- else -%}
+  {%- assign cv_dates = "" -%}
+{%- endif -%}
+{{- cv_dates | replace: "-", "–" | replace: " 1", "&nbsp;1" | replace: " 2", "&nbsp;2" -}}
