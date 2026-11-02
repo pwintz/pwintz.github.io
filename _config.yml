@@ -131,6 +131,10 @@ author:
       icon: &google-scholar-icon "fab fa-fw fa-google-scholar"
       url: &google-scholar "https://scholar.google.com/citations?user=AqFMHkEAAAAJ"
 
+    - label: "ORCID"
+      icon: &orcid-icon "fab fa-fw fa-orcid"
+      url: &orcid "https://orcid.org/0000-0003-0070-6663"
+
     - label: "LinkedIn"
       icon: &linkedin-icon "fab fa-fw fa-linkedin"
       url: &linkedin "https://www.linkedin.com/in/paul-wintz-10621049/"
@@ -160,6 +164,10 @@ footer:
     - label: "Google Scholar"
       icon: *google-scholar-icon
       url: *google-scholar
+
+    - label: "ORCID"
+      icon: *orcid-icon
+      url: *orcid
       
     - label: "LinkedIn"
       icon: *linkedin-icon
