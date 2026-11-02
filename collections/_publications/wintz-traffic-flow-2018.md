@@ -11,5 +11,6 @@ teaser-image: false
 has-pdf: true
 has-slides: false
 has-bibtex: false
+omit-from-publications-list: true
 ---
 

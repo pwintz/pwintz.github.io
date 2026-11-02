@@ -1,13 +1,48 @@
+<!--
+List of publications, grouped by type and sorted newest-first by year and month.
+Each group is numbered with a prefix (J, C, T) counting down from the newest, so that existing numbers do not change when a new publication is added.
+Parameters:
+  heading-tag: HTML tag for the group headings (default "h2").
+-->
+{% assign heading_tag = include.heading-tag | default: "h2" %}
 
-{% assign publications = site.publications | sort: "year" | reverse %}
-{% for publication in publications %}
-
-  <!--  ⋘─── Skip publications marked with omit-from-publications-list ───⋙ -->
+<!--  ⋘─── Build sort keys of the form "YYYY-1MM|id", skipping omitted publications ───⋙ -->
+{% assign sort_keys = "" | split: "" %}
+{% for publication in site.publications %}
   {% if publication.omit-from-publications-list %}
-      {% continue %}
+    {% continue %}
   {% endif %}
-  
-  {% include publication_list_item.html  publication=publication %}
-
+  {% assign month_key = publication.month | default: 0 | plus: 100 %}
+  {% capture sort_key %}{{ publication.year }}-{{ month_key }}|{{ publication.id }}{% endcapture %}
+  {% assign sort_keys = sort_keys | push: sort_key %}
 {% endfor %}
- 
+{% assign sort_keys = sort_keys | sort | reverse %}
+
+<!-- Each group is "type:Heading:Prefix". -->
+{% assign groups = "journal:Journal Articles:J,conference:Conference Papers:C,thesis:Theses:T,other:Other:O" | split: "," %}
+{% for group in groups %}
+  {% assign group_parts = group | split: ":" %}
+  {% assign group_type = group_parts[0] %}
+
+  {% assign group_publications = "" | split: "" %}
+  {% for sort_key in sort_keys %}
+    {% assign publication_id = sort_key | split: "|" | last %}
+    {% assign publication = site.publications | where: "id", publication_id | first %}
+    {% assign publication_type = publication.type | default: "other" %}
+    {% if publication_type == group_type %}
+      {% assign group_publications = group_publications | push: publication %}
+    {% endif %}
+  {% endfor %}
+
+  {% if group_publications.size == 0 %}
+    {% continue %}
+  {% endif %}
+
+  <{{ heading_tag }} class="pubgroup">{{ group_parts[1] }}</{{ heading_tag }}>
+  {% assign number = group_publications.size %}
+  {% for publication in group_publications %}
+    {% capture label %}{{ group_parts[2] }}{{ number }}{% endcapture %}
+    {% include publication_list_item.html publication=publication label=label %}
+    {% assign number = number | minus: 1 %}
+  {% endfor %}
+{% endfor %}

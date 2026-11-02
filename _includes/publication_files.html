@@ -26,11 +26,16 @@ List of links and and downloads in the footer of a publication.
   {% if include.has-bibtex %}
     <a href="/downloads/{{ include.slug }}.bib"
       ><i class="far fa-file-alt"></i>
-      BibTex
+      BibTeX
+    </a>&nbsp;&nbsp; 
+  {% endif %}
+  {% if include.escholarship %}
+    <a href="{{ include.escholarship }}">
+      <i class="fas fa-external-link-alt"></i> eScholarship
     </a>&nbsp;&nbsp; 
   {% endif %}
   {% if include.doi %}
-    <a href=" https://doi.org/{{ include.doi }}">
+    <a href="https://doi.org/{{ include.doi }}">
       <i class="fas fa-external-link-alt"></i> DOI
     </a>&nbsp;&nbsp; 
   {% endif %}

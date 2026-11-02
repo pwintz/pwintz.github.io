@@ -2,9 +2,12 @@
 layout: publication
 title: > 
     Conical Transition Graphs for Analysis of Asymptotic Stability in Hybrid Dynamical Systems
-authors: Paul K. Wintz and  Ricardo G. Sanfelice
-publication: 8th IFAC Conference on Analysis and Design of Hybrid Systems
+authors: Paul K. Wintz and Ricardo G. Sanfelice
+type: conference
+publication: "IFAC-PapersOnLine (8th IFAC Conference on Analysis and Design of Hybrid Systems, ADHS)"
+details: vol. 58, no. 11, pp. 159–164
 year: 2024
+month: 7
 abstract: >
     A method is proposed for analyzing asymptotic stability in the conical approximation of a hybrid system.
     Specifically, this paper introduces the <i>conical transition graph</i> (CTG) to simplify the analysis of asymptotic stability in conical approximations by converting solutions to a hybrid system into walks through a discrete graph.

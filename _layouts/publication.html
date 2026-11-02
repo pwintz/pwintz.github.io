@@ -2,10 +2,13 @@
 layout: single
 ---
 
-<div class="publication-authors">{{ page.authors }}</div>
-<span class="pubpublication">{{ page.publication }}</span>, <span class="pubyear">{{ page.year}}</span>
+<div class="publication-authors">{% include publication_authors.html authors=page.authors %}</div>
+<span class="pubpublication">{{ page.publication }}</span>{% if page.details %}, <span class="pubdetails">{{ page.details }}</span>{% endif %}, <span class="pubyear">{{ page.year }}</span>
+{% if page.note %}
+  <div class="pubnote">{{ page.note }}</div>
+{% endif %}
 
-{% if pub.teaser-image %}
+{% if page.teaser-image %}
 <div class="publication-teaser">
   <img
     src="/assets/images/publication-pages/{{ page.teaser-image }}.jpg"
@@ -36,13 +39,14 @@ layout: single
   </div>
 {% endif %}
 
-{% if page.has-pdf or page.has-slides or page.has-bibtex %}
+{% if page.has-pdf or page.has-slides or page.has-bibtex or page.doi or page.escholarship %}
   <h2 id="downloads">Downloads</h2>
   {% include publication_files.html 
     slug=page.slug
     has-pdf=page.has-pdf
     has-slides=page.has-slides
     has-bibtex=page.has-bibtex
-    doi=page.doi %}
+    doi=page.doi
+    escholarship=page.escholarship %}
 {% endif %}
 

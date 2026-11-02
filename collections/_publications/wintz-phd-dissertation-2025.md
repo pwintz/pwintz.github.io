@@ -3,7 +3,9 @@ layout: publication
 title: > 
     Safety and Asymptotic Stability while Exploiting Uncertified Controllers via Uniting Feedback
 authors: Paul K. Wintz
-publication: UCSC PhD Dissertation
+type: thesis
+advisor: Ricardo G. Sanfelice
+publication: Ph.D. dissertation, University of California, Santa Cruz
 year: 2025
 month: 12
 abstract: >
@@ -13,8 +15,8 @@ abstract: >
     
 has-pdf: true
 has-slides: true
-has-bibtex: false
+has-bibtex: true
 youtube-link: https://www.youtube.com/embed/hHBdyeskRK4
-doi: 
+escholarship: https://escholarship.org/uc/item/96m4c3vx
 ---
 

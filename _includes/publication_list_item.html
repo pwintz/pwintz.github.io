@@ -1,5 +1,4 @@
-
-{% assign publication = include %}
+{% assign publication = include.publication %}
 
 <div class="pubitem avoid-page-breaks">
   {% if publication.teaser-image %}
@@ -12,9 +11,15 @@
       </a>
     </div>
   {% endif %}
-  <div class="pubtitle"><a href="{{publication.url}}">{{ publication.title }}</a></div>
-  <div class="pubauthors">{{ publication.authors }}</div>
-  <span class="pubpublication">{{ publication.publication }}</span>, <span class="pubyear">{{ publication.year}}</span>.&nbsp;
+  <div class="pubtitle">
+    {% if include.label %}<span class="publabel">[{{ include.label }}]</span>{% endif %}
+    <a href="{{publication.url}}">{{ publication.title }}</a>
+  </div>
+  <div class="pubauthors">{% include publication_authors.html authors=publication.authors %}</div>
+  <span class="pubpublication">{{ publication.publication }}</span>{% if publication.details %}, <span class="pubdetails">{{ publication.details }}</span>{% endif %}, <span class="pubyear">{{ publication.year }}</span>.&nbsp;
+  {% if publication.note %}
+    <div class="pubnote">{{ publication.note }}</div>
+  {% endif %}
   {% if publication.awards %}
     <div class="pubawards">
       <ul>
@@ -25,12 +30,13 @@
     </div>
   {% endif %}
   <div class="publinks">
-    {% include publication_files.html 
+    {% include publication_files.html
       slug=publication.slug
       has-pdf=publication.has-pdf
       youtube-link=publication.youtube-link
       has-slides=publication.has-slides
       has-bibtex=publication.has-bibtex
-      doi=publication.doi %}
+      doi=publication.doi
+      escholarship=publication.escholarship %}
     </div>
 </div>
