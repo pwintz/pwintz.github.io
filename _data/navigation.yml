@@ -9,6 +9,23 @@ main:
       url: /cv
     - title: "Publications"
       url: /publications/
+
+# Links in the menu that the hamburger button at the end of the masthead opens.
+more:
+    - title: Tools
+      url: /tools/
+    - title: Dictionary of Fine Distinctions
+      url: /distinctions/
+    - title: Writing Tips
+      url: /writing-tips/
+    - title: LaTeX Macros
+      url: /latex-macros/
+    - title: UAW 4811 Resources
+      url: /uaw
+    - title: Photography
+      url: /photography/
+    - title: Art
+      url: /art/
     # - title: "LaTeX Macros"
     #   url: /latex-macros/
     # - title: "Writing Tips"

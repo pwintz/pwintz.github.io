@@ -121,6 +121,24 @@ $(function() {
     midClick: true // allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source.
   });
 
+  // Open and close the menu of other pages (the hamburger button after the main links). While it is
+  // open, the button's :before backdrop covers the page, so a click outside the menu closes it.
+  var $siteMenuToggle = $(".site-menu__toggle");
+  var $siteMenuLinks = $(".site-menu__links");
+  function setSiteMenuOpen(open) {
+    $siteMenuLinks.toggleClass("hidden", !open);
+    $siteMenuToggle.toggleClass("close", open).attr("aria-expanded", String(open));
+  }
+  $siteMenuToggle.on("click", function() {
+    setSiteMenuOpen($siteMenuLinks.hasClass("hidden"));
+  });
+  $(document).on("keydown", function(e) {
+    if (e.key === "Escape" && !$siteMenuLinks.hasClass("hidden")) {
+      setSiteMenuOpen(false);
+      $siteMenuToggle.trigger("focus");
+    }
+  });
+
   // Add anchors for headings
   $('.page__content').find('h1, h2, h3, h4, h5, h6').each(function() {
     var id = $(this).attr('id');

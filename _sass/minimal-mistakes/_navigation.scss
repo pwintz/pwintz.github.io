@@ -208,7 +208,8 @@
     transition: none;
   }
 
-  &__toggle {
+  &__toggle,
+  .site-menu__toggle {
     -ms-flex-item-align: center;
     align-self: center;
     height: $nav-toggle-height;
@@ -261,7 +262,28 @@
     }
   }
 
-  .hidden-links {
+  // .site-menu__links is the menu that the hamburger button after the main links opens. It holds
+  // .hidden-links (the main links that don't fit), then links to other pages.
+  .site-menu__links .hidden-links {
+    position: static;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+
+    &:before,
+    &:after {
+      content: none;
+    }
+
+    &:not(:empty) {
+      border-bottom: 1px solid $border-color;
+    }
+  }
+
+  .hidden-links,
+  .site-menu__links {
     position: absolute;
     top: 100%;
     right: 0;

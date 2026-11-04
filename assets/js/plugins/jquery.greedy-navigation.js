@@ -14,6 +14,7 @@ $(function() {
   var $logoImg = $('nav.greedy-nav .site-logo img');
   var $title = $("nav.greedy-nav .site-title");
   var $search = $('nav.greedy-nav button.search__toggle');
+  var $siteMenu = $('nav.greedy-nav button.site-menu__toggle');
 
   var numOfItems, totalSpace, closingTime, breakWidths;
 
@@ -71,7 +72,8 @@ $(function() {
                    - /* logo */ ($logo.length !== 0 ? $logo.outerWidth(true) : 0)
                    - /* title */ $title.outerWidth(true)
                    - /* search */ ($search.length !== 0 ? $search.outerWidth(true) : 0)
-                   - /* toggle */ (numOfVisibleItems !== breakWidths.length ? $btn.outerWidth(true) : 0);
+                   - /* site menu */ ($siteMenu.length !== 0 ? $siteMenu.outerWidth(true) : 0)
+                   - /* toggle */ ($btn.length !== 0 && numOfVisibleItems !== breakWidths.length ? $btn.outerWidth(true) : 0);
     requiredSpace = breakWidths[numOfVisibleItems - 1];
 
     // There is not enought space
@@ -80,7 +82,7 @@ $(function() {
       numOfVisibleItems -= 1;
       check();
       // There is more than enough space. If only one element is hidden, add the toggle width to the available space
-    } else if (availableSpace + (numOfVisibleItems === breakWidths.length - 1?$btn.outerWidth(true):0) > breakWidths[numOfVisibleItems]) {
+    } else if (availableSpace + ($btn.length !== 0 && numOfVisibleItems === breakWidths.length - 1?$btn.outerWidth(true):0) > breakWidths[numOfVisibleItems]) {
       $hlinks.children().first().appendTo($vlinks);
       numOfVisibleItems += 1;
       check();
@@ -103,7 +105,9 @@ $(function() {
     clearTimeout(timer);
   });
 
-  $hlinks.on('mouseleave', function() {
+  // The masthead has no toggle of its own: the hidden links are at the top of the site menu, which
+  // opens and closes them (see _main.js).
+  if ($btn.length !== 0) $hlinks.on('mouseleave', function() {
     // Mouse has left, start the timer
     timer = setTimeout(function() {
       $hlinks.addClass('hidden');

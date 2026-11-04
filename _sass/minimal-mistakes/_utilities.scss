@@ -387,7 +387,8 @@ body:hover .visually-hidden button {
   }
 }
 
-.greedy-nav__toggle {
+.greedy-nav__toggle,
+.site-menu__toggle {
   &:before {
     @supports (pointer-events: none) {
       content: '';
@@ -414,7 +415,8 @@ body:hover .visually-hidden button {
   }
 }
 
-.greedy-nav__toggle:hover {
+.greedy-nav__toggle:hover,
+.site-menu__toggle:hover {
   .navicon,
   .navicon:before,
   .navicon:after {
