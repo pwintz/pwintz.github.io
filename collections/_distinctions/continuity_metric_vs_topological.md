@@ -15,10 +15,12 @@ terms:
 examples:
   - example: square_on_reals
     why: >-
-      In metric spaces, the definitions agree.
+      $x \mapsto x^2$ is continuous and sequentially continuous.
+      The two definitions agree for functions between metric spaces.
   - example: the_identity_map_from_reals_with_the_co_countable
     why: >-
-      In the co-countable topology, only eventually constant sequences converge, so every map out of it is sequentially continuous. But singletons are open in the discrete topology and not in the co-countable topology.
+      This identity map is sequentially continuous because only eventually constant sequences converge in the co-countable topology.
+      It is not continuous, because every singleton is open in the discrete topology, but its preimage is not open in the co-countable topology.
 see_also:
   - types_of_continuous
   - continuous_vs_open
@@ -26,5 +28,6 @@ see_also:
 ## Notes
 
 - Use the level switcher above to compare the metric (undergraduate) and topological (graduate) definitions of "continuous."
-- The open-set definition, applied to a metric space with the topology from its metric, is equivalent to the ε-δ definition. So the graduate definition generalizes the undergraduate one without changing it.
+- The open-set definition, applied to a metric space with the topology from its metric, is equivalent to the ε-δ definition.
+  So the graduate definition generalizes the undergraduate one without changing it.
 - Sequential continuity is equivalent to continuity for functions on first-countable spaces, which include all metric spaces.

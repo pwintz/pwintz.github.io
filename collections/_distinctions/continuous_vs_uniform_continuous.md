@@ -14,25 +14,30 @@ terms:
 examples:
   - example: square_on_reals
     why: >-
-      The graph gets steeper as $\lvert x \rvert$ grows, so the $\delta$ needed for a fixed $\varepsilon$ shrinks toward $0$.
+      $x \mapsto x^2$ is continuous.
+      It is not uniformly continuous, because its graph gets steeper as $\lvert x \rvert$ grows, so the $\delta$ needed for a fixed $\varepsilon$ shrinks toward $0$.
   - example: x_to_e_x_on_reals
     why: >-
-      The graph gets steeper without bound as $x$ increases.
+      $x \mapsto e^x$ is continuous.
+      It is not uniformly continuous, because its graph gets steeper without bound as $x$ increases.
   - example: x_to_tan_x_on_minus_pi_2_pi_2
     why: >-
-      The graph gets steeper without bound near the ends of the interval.
+      $\tan$ is continuous on $(-\pi/2, \pi/2)$.
+      It is not uniformly continuous there, because its graph gets steeper without bound near the ends of the interval.
   - example: x_to_sin_1_x_on_0_infinity
     why: >-
-      The function oscillates faster and faster as $x \to 0$.
+      $x \mapsto \sin(1/x)$ is continuous on $(0, \infty)$.
+      It is not uniformly continuous, because it oscillates between $-1$ and $1$ faster and faster as $x \to 0$.
   - example: x_to_sin_x_on_reals
     why: >-
-      Since $\lvert \sin(x) - \sin(y) \rvert \leq \lvert x - y \rvert$, the choice $\delta = \varepsilon$ works everywhere.
+      $\sin$ is uniformly continuous, and so continuous, because $\lvert \sin(x) - \sin(y) \rvert \leq \lvert x - y \rvert$, so the choice $\delta = \varepsilon$ works everywhere.
   - example: x_to_sqrt_x_on_0_infinity
     why: >-
-      Since $\lvert \sqrt{x} - \sqrt{y} \rvert \leq \sqrt{\lvert x - y \rvert}$, the choice $\delta = \varepsilon^2$ works everywhere.
+      $x \mapsto \sqrt{x}$ is uniformly continuous, and so continuous, because $\lvert \sqrt{x} - \sqrt{y} \rvert \leq \sqrt{\lvert x - y \rvert}$, so the choice $\delta = \varepsilon^2$ works everywhere.
   - example: x_to_x_squared_on_0_1
     why: >-
-      Every continuous function on a compact set is uniformly continuous.
+      $x \mapsto x^2$ on $[0, 1]$ is continuous.
+      It is uniformly continuous because every continuous function on a compact set is uniformly continuous.
 see_also:
   - types_of_continuous
   - continuity_uniform_vs_absolute

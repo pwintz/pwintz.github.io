@@ -7,7 +7,8 @@ levels:
   undergraduate:
     context: metric spaces
     text: |-
-      A function $f : X \to Y$ is _Hölder continuous_ with exponent $\alpha \in (0, 1]$ if there exists $C \geq 0$ such that $d(f(x), f(y)) \leq C d(x, y)^{\alpha}$ for all $x, y \in X$.
+      Consider a function $f : X \to Y$ between metric spaces, and a number $\alpha \in (0, 1]$.
+      The function $f$ is _Hölder continuous_ with exponent $\alpha$ if there exists $C \geq 0$ such that $d(f(x), f(y)) \leq C d(x, y)^{\alpha}$ for all $x, y \in X$.
 properties:
   - >-
     With $\alpha = 1$, Hölder continuity is Lipschitz continuity.

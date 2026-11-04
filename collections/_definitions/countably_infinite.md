@@ -7,10 +7,11 @@ synonyms: [denumerable]
 levels:
   high-school:
     text: |-
-      A set is _countably infinite_ if its elements can be listed in an infinite [sequence](/definitions/sequence) $a_1, a_2, a_3, \dots$ that eventually reaches every element.
+      Consider an infinite set, and try to list its elements in an infinite [sequence](/definitions/sequence) $a_1, a_2, a_3, \dots$ The set is _countably infinite_ if this can be done so that the list eventually reaches every element.
   undergraduate:
     text: |-
-      A set is _countably infinite_ if it is in bijection with $\mathbb{N}$, so its elements can be listed as $a_1, a_2, a_3, \dots$ without missing any.
+      Consider a set $S$.
+      The set $S$ is _countably infinite_ if it is in bijection with $\mathbb{N}$, so its elements can be listed as $a_1, a_2, a_3, \dots$ without missing any.
 properties:
   - >-
     $\mathbb{N}$, $\mathbb{Z}$, and $\mathbb{Q}$ are countably infinite, but $\reals$ is not.

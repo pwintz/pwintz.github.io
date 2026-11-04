@@ -14,6 +14,8 @@ levels:
   undergraduate:
     context: logic
     text: |-
-      A _proposition_ is a declarative sentence with a definite truth value. A formula with no free variables, once its symbols are interpreted, expresses a proposition.
+      A _proposition_ is a declarative sentence with a definite truth value.
+      A formula with no free variables, once its symbols are interpreted, expresses a proposition.
 ---
-In mathematical writing, "Proposition" also labels a proven result, usually less important than a theorem. That usage is unrelated.
+In mathematical writing, "Proposition" also labels a proven result, usually less important than a theorem.
+That usage is unrelated.

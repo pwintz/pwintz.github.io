@@ -7,13 +7,17 @@ synonyms: [equilibrium point, rest point, stationary point]
 levels:
   elementary:
     text: |-
-      An _equilibrium_ is a state in which a system stays put.
+      Think of a system that changes over time, like a ball rolling around in a bowl.
+      An _equilibrium_ is a state in which the system stays put.
   high-school:
     text: |-
-      An _equilibrium_ is a state where a system stays put: if it starts there, it never moves.
+      Consider a system whose state changes over time.
+      An _equilibrium_ is a state where the system stays put: if it starts there, it never moves.
   undergraduate:
     text: |-
-      An _equilibrium_ of $\dot{x} = f(x)$ is a state $x^{\ast}$ with $f(x^{\ast}) = 0$. An equilibrium of $x_{k+1} = f(x_k)$ is a state $x^{\ast}$ with $f(x^{\ast}) = x^{\ast}$.
+      Consider a system $\dot{x} = f(x)$ or $x_{k+1} = f(x_k)$.
+      An _equilibrium_ of $\dot{x} = f(x)$ is a state $x^{\ast}$ with $f(x^{\ast}) = 0$.
+      An equilibrium of $x_{k+1} = f(x_k)$ is a state $x^{\ast}$ with $f(x^{\ast}) = x^{\ast}$.
 properties:
   - >-
     An equilibrium of $x_{k+1} = f(x_k)$ is a [fixed point](/definitions/fixed-point) of $f$, but an equilibrium of $\dot{x} = f(x)$ is a zero of $f$, not a fixed point of $f$.

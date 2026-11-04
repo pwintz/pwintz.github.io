@@ -14,6 +14,8 @@ levels:
   graduate:
     context: set theory
     text: |-
-      The _natural numbers_ are the smallest set that contains $0 = \emptyset$ and contains $n \cup \lbrace n \rbrace$ whenever it contains $n$ (the von Neumann construction). Each natural number is the set of all smaller natural numbers.
+      The _natural numbers_ are the smallest set that contains $0 = \emptyset$ and contains $n \cup \lbrace n \rbrace$ whenever it contains $n$ (the von Neumann construction).
+      Each natural number is the set of all smaller natural numbers.
 ---
-This convention is common in set theory, logic, and computer science, and is the one used by the ISO 80000-2 standard. Compare [natural numbers starting at 1](/definitions/natural-numbers-from-one).
+This convention is common in set theory, logic, and computer science, and is the one used by the ISO 80000-2 standard.
+Compare [natural numbers starting at 1](/definitions/natural-numbers-from-one).

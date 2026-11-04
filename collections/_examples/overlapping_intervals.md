@@ -5,5 +5,6 @@ level: high-school
 is_not: [interval_partition]
 why:
   interval_partition: >-
-    They overlap. The pieces of a partition meet only at their cut points.
+    They overlap.
+    The pieces of a partition meet only at their cut points.
 ---

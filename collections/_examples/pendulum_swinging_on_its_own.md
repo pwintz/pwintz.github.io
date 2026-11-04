@@ -6,5 +6,6 @@ is: [unforced]
 is_not: [hybrid_system]
 why:
   hybrid_system: >-
-    Its state only flows. It never jumps.
+    Its state only flows.
+    It never jumps.
 ---

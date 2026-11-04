@@ -6,10 +6,13 @@ applies_to: matrices
 levels:
   high-school:
     text: |-
-      The _rank_ of a [matrix](/definitions/matrix) is the number of independent rows (rows that are not combinations of the others). This always equals the number of independent columns.
+      Consider a [matrix](/definitions/matrix) and its rows, some of which may be combinations of the others.
+      The _rank_ of the matrix is the number of independent rows (rows that are not combinations of the others).
+      For every matrix, this equals the number of independent columns.
   undergraduate:
     text: |-
-      The _rank_ of a [matrix](/definitions/matrix) is the dimension of its column space: the maximum number of linearly independent columns.
+      Consider a [matrix](/definitions/matrix) and its column space, the span of its columns.
+      The _rank_ of the matrix is the dimension of its column space: the maximum number of linearly independent columns.
 properties:
   - >-
     The rank also equals the maximum number of linearly independent rows (row rank equals column rank).

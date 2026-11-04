@@ -7,8 +7,11 @@ synonyms: [inverse image]
 levels:
   high-school:
     text: |-
-      The _preimage_ of a set $B$ under a function $f$ is the set of all inputs $x$ whose output $f(x)$ is in $B$.
+      Consider a function $f$ and a set $B$ of possible outputs.
+      The _preimage_ of $B$ under $f$ is the set of all inputs $x$ whose output $f(x)$ is in $B$.
   undergraduate:
     text: |-
-      For $f : X \to Y$ and $B \subseteq Y$, the _preimage_ of $B$ is $f^{-1}(B) = \lbrace x \in X : f(x) \in B \rbrace$. It is defined for every function, even one with no inverse function.
+      Consider a function $f : X \to Y$ and a set $B \subseteq Y$.
+      The _preimage_ of $B$ is $f^{-1}(B) = \lbrace x \in X : f(x) \in B \rbrace$.
+      It is defined for every function, even one with no inverse function.
 ---

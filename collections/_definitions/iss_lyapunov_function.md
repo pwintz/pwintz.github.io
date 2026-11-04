@@ -6,7 +6,8 @@ applies_to: systems with inputs
 levels:
   graduate:
     text: |-
-      An _ISS-Lyapunov function_ for $\dot{x} = f(x, d)$ is a [continuously differentiable](/definitions/continuously-differentiable) function $V$ with
+      Consider a system $\dot{x} = f(x, d)$ with state $x$ and input $d$.
+      An _ISS-Lyapunov function_ for the system is a [continuously differentiable](/definitions/continuously-differentiable) function $V$ with
 
       $$\alpha_1(\lvert x \rvert) \leq V(x) \leq \alpha_2(\lvert x \rvert)$$
 

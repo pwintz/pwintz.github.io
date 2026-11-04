@@ -7,10 +7,12 @@ synonyms: [$\nabla \cdot F$, "$\\operatorname{div} F$"]
 levels:
   high-school:
     text: |-
-      The _divergence_ of a flow measures how much it spreads out from each point (positive) or gathers in toward it (negative).
+      Consider a flow, like air moving in a room.
+      The _divergence_ of the flow measures how much it spreads out from each point (positive) or gathers in toward it (negative).
   undergraduate:
     text: |-
-      The _divergence_ of a [vector](/definitions/vector) field $F : \reals^n \to \reals^n$ is the scalar function
+      Consider a [vector](/definitions/vector) field $F = (F_1, \dots, F_n) : \reals^n \to \reals^n$.
+      The _divergence_ of $F$ is the scalar function
 
       $$\nabla \cdot F = \frac{\partial F_1}{\partial x_1} + \dots + \frac{\partial F_n}{\partial x_n}.$$
 

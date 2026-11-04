@@ -7,5 +7,6 @@ levels:
   graduate:
     context: topological spaces
     text: |-
-      A ([Hausdorff](/definitions/hausdorff-space)) space is _locally compact_ if every point has a [compact](/definitions/compact) neighborhood.
+      Consider a ([Hausdorff](/definitions/hausdorff-space)) topological space.
+      The space is _locally compact_ if every point has a [compact](/definitions/compact) neighborhood.
 ---

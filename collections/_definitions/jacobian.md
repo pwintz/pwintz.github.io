@@ -1,5 +1,4 @@
 ---
-published: false
 title: Jacobian matrix
 term: Jacobian
 applies_to: vector-valued functions
@@ -19,4 +18,4 @@ properties:
   - >-
     Chain rule: the Jacobian of $g \circ f$ at $x$ is the product of the Jacobian of $g$ at $f(x)$ and the Jacobian of $f$ at $x$.
 ---
-"Jacobian" sometimes means the determinant of the Jacobian [matrix](/definitions/matrix) (when $m = n$), as in the change-of-variables formula.
+"Jacobian" sometimes means the [Jacobian determinant](/definitions/jacobian-determinant) (when $m = n$), as in the change-of-variables formula. See [Jacobian: matrix vs. determinant](/distinctions/meanings-of-jacobian).

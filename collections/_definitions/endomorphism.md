@@ -7,5 +7,6 @@ levels:
   undergraduate:
     context: abstract algebra
     text: |-
-      An _endomorphism_ is a structure-preserving map from an object to itself.
+      Consider an algebraic object, such as a group or a vector space.
+      An _endomorphism_ of the object is a map from the object to itself that preserves its structure.
 ---

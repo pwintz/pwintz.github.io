@@ -7,10 +7,12 @@ synonyms: ["$\\hat{f}$", "$\\mathcal{F}f$"]
 levels:
   high-school:
     text: |-
-      The _Fourier transform_ breaks a signal into sine waves of different frequencies, and finds how much of each frequency it contains.
+      Consider a signal, such as a sound.
+      The _Fourier transform_ of the signal breaks it into sine waves of different frequencies, and finds how much of each frequency it contains.
   undergraduate:
     text: |-
-      The _Fourier transform_ of an integrable function $f : \reals \to \mathbb{C}$ is
+      Consider an integrable function $f : \reals \to \mathbb{C}$.
+      The _Fourier transform_ of $f$ is
 
       $$\hat{f}(\omega) = \int_{-\infty}^{\infty} f(t) e^{-i \omega t} \mathrm{d}t.$$
 ---

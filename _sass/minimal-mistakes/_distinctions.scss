@@ -399,3 +399,14 @@
     font-size: $type-size-6;
   }
 }
+
+/* Links to dictionary pages that are not published (added by _plugins/dictionary_broken_links.rb) */
+
+a.dictionary-broken-link {
+  color: #a11d1d;
+  text-decoration-style: dashed;
+
+  &:hover {
+    color: #7a1414;
+  }
+}

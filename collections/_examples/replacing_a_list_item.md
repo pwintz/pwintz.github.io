@@ -5,5 +5,6 @@ level: elementary
 is_not: [insert]
 why:
   insert: >-
-    Replacing changes an item. Inserting adds a new one.
+    Replacing changes an item.
+    Inserting adds a new one.
 ---

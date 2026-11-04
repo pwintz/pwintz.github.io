@@ -7,10 +7,12 @@ synonyms: ["$\\frac{\\partial f}{\\partial x_i}$"]
 levels:
   high-school:
     text: |-
-      The _partial derivative_ of $f(x, y)$ with respect to $x$ is the derivative of $f$ found by treating $y$ as a constant.
+      Consider a function $f(x, y)$ of two variables.
+      The _partial derivative_ of $f$ with respect to $x$ is the derivative of $f$ found by treating $y$ as a constant.
   undergraduate:
     text: |-
-      The _partial derivative_ $\frac{\partial f}{\partial x_i}$ of a function of several variables is its derivative with respect to $x_i$ while the other variables are held fixed.
+      Consider a function $f$ of several variables $x_1, \dots, x_n$.
+      The _partial derivative_ $\frac{\partial f}{\partial x_i}$ is the derivative of $f$ with respect to $x_i$ while the other variables are held fixed.
 properties:
   - >-
     Having all partial derivatives at a point does not make a function [differentiable](/definitions/differentiable) there, or even [continuous](/definitions/continuous).

@@ -4,5 +4,5 @@ title: 'A circle of radius $3$'
 level: elementary
 is: [circle]
 values:
-  diameter: '$6$'
+  diameter: '$2 \cdot 3 = 6$'
 ---

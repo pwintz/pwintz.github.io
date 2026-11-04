@@ -1,12 +1,11 @@
 ---
-published: false
 title: Array vs. matrix vs. linear map
 kind: siblings
 areas: [linear-algebra, computing]
 status: draft
 summary: >
   An array is a grid of data. A matrix is a grid of numbers with matrix arithmetic.
-  A linear map is a function between vector spaces, which a matrix represents only after bases are chosen.
+  A linear map is a function between vector spaces. A matrix represents a linear map as an array of scalars with respect to a given [vector basis](/definitions/vector-basis).
 terms:
   - array
   - matrix

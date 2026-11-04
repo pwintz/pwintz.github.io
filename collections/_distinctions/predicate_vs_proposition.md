@@ -5,8 +5,10 @@ kind: siblings
 areas: [sets]
 status: draft
 summary: >
-  A proposition is true or false. A predicate becomes a proposition once its variables are given values.
-  A propositional formula becomes a proposition once its propositional variables are given truth values. A relation is the set of tuples that make a predicate true.
+  A proposition is true or false.
+  A predicate becomes a proposition once its variables are given values.
+  A propositional formula becomes a proposition once its propositional variables are given truth values.
+  A relation is the set of tuples that make a predicate true.
 terms:
   - proposition
   - predicate
@@ -15,16 +17,20 @@ terms:
 examples:
   - example: 7_is_prime
     why: >-
-      It is true.
+      "$7$ is prime" is a proposition because it is true.
+      It is not a predicate or a propositional formula, because it has no variables.
   - example: x_gt_3
     why: >-
-      Its truth depends on $x$.
+      "$x > 3$" is a predicate because its truth depends on $x$.
+      It is not a proposition, because it is not true or false until $x$ is given, and it is not a relation, which is a set of pairs.
   - example: p_land_neg_q
     why: >-
-      Its truth depends on the truth values of $p$ and $q$.
+      $p \land \neg q$ is a propositional formula because its truth depends on the truth values of $p$ and $q$.
+      It is not a proposition, because it is not true or false by itself, and it is not a predicate, because $p$ and $q$ stand for propositions, not objects.
   - example: set_x_y_in_reals_squared_x_lt_y
     why: >-
-      It is the set of pairs for which the predicate "$x < y$" is true.
+      $\lbrace (x, y) \in \reals^2 : x < y \rbrace$ is a relation: the set of pairs for which the predicate "$x < y$" is true.
+      It is not a predicate or a proposition, because it is a set, not a statement.
 see_also:
   - relation_vs_operator
   - equal_signs

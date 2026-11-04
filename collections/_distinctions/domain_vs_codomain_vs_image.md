@@ -17,10 +17,13 @@ examples_note: >-
 examples:
   - example: square_on_reals
     why: >-
-      Squares of real numbers are exactly the nonnegative numbers, so the image is smaller than the codomain. The preimage of $\lbrace 4 \rbrace$ exists even though $f$ has no inverse.
+      The domain and codomain of $f$ are both $\reals$.
+      Squares of real numbers are exactly the nonnegative numbers, so the image is $[0, \infty)$, which is smaller than the codomain.
+      The preimage of $\lbrace 4 \rbrace$ is $\lbrace -2, 2 \rbrace$, even though $f$ has no inverse.
   - example: square_onto_nonnegatives
     why: >-
-      The same rule with a smaller codomain. Now the image equals the codomain, so $f$ is surjective.
+      This is the same rule as $x \mapsto x^2$ on $\reals$, but with the smaller codomain $[0, \infty)$.
+      Now the image equals the codomain, so $f$ is surjective.
 see_also:
   - meanings_of_range
   - function_vs_graph
@@ -29,4 +32,5 @@ see_also:
 ## Notes
 
 - The notation $f^{-1}(B)$ for a preimage does not mean $f$ has an inverse.
-- "Range" is not listed here because it has conflicting meanings: usually the image, but sometimes the codomain. See [the meanings of "range"](/distinctions/meanings-of-range).
+- "Range" is not listed here because it has conflicting meanings: usually the image, but sometimes the codomain.
+  See [the meanings of "range"](/distinctions/meanings-of-range).

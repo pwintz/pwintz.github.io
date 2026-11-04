@@ -39,7 +39,8 @@
     "build": "npm run build:ts && npm run build:js",
     "build:ts": "esbuild assets/ts/src/*.tsx assets/ts/src/*.ts --bundle --outdir=assets/ts/out --format=esm",
     "watch": "esbuild assets/ts/src/*.tsx assets/ts/src/*.ts --bundle --outdir=assets/ts/out --format=esm --watch",
-    "link:unicodeit": "npm install --no-save --install-links=false ../unicodeit"
+    "link:unicodeit": "npm install --no-save --install-links=false ../unicodeit",
+    "serve": "bash scripts/serve-local.sh"
   },
   "dependencies": {
     "@types/wicg-file-system-access": "^2023.10.7",

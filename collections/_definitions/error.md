@@ -6,9 +6,12 @@ applies_to: approximations and measurements
 levels:
   elementary:
     text: |-
-      The _error_ of an estimate or measurement is how far it is from the true value.
+      Think of an estimate or a measurement of some quantity, like the length of a table.
+      The _error_ of the estimate is how far it is from the true value.
   high-school:
     text: |-
-      The _error_ of an approximate or measured value $\hat{x}$ is how far it is from the true value $x$. The _absolute error_ is $\lvert \hat{x} - x \rvert$, and the _relative error_ is $\lvert \hat{x} - x \rvert / \lvert x \rvert$.
+      Consider an approximate or measured value $\hat{x}$ of a true value $x$.
+      The _error_ of $\hat{x}$ is how far it is from $x$.
+      The _absolute error_ is $\lvert \hat{x} - x \rvert$, and the _relative error_ is $\lvert \hat{x} - x \rvert / \lvert x \rvert$.
 ---
 Sign conventions vary: some authors define the error as $\hat{x} - x$, and others as $x - \hat{x}$.

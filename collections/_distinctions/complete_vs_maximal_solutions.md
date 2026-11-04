@@ -5,7 +5,8 @@ kind: hierarchy
 areas: [dynamics]
 status: draft
 summary: >
-  A maximal solution cannot be extended, and a complete solution goes on forever. A maximal solution can stop early by escaping to infinity or by getting stuck where it can neither flow nor jump.
+  A maximal solution cannot be extended, and a complete solution goes on forever.
+  A maximal solution can stop early by escaping to infinity or by getting stuck where it can neither flow nor jump.
   A Zeno solution is complete but jumps infinitely often in finite time.
 relation: complete ⊂ maximal, and every Zeno solution is complete.
 terms:
@@ -15,19 +16,24 @@ terms:
 examples:
   - example: a_solution_of_the_bouncing_ball_with_a
     why: >-
-      The time between bounces shrinks geometrically, so infinitely many bounces happen in finite time.
+      The bouncing ball's solution is complete and maximal because it has infinitely many bounces.
+      It is Zeno because the time between bounces shrinks geometrically, so the infinitely many bounces happen in finite time.
   - example: a_solution_of_the_timer_dot_tau_eq_1_on_c_eq_0_1
     why: >-
-      It flows for one unit of time between jumps, forever.
+      The timer's solution is complete and maximal because it flows for one unit of time between jumps, without end.
+      It is not Zeno, because its flow time grows without bound.
   - example: the_solution_from_x_eq_0_of_xdot_eq_1_on_c_eq_0_1
     why: >-
-      At $x = 1$, it can neither flow (it would leave $C$) nor jump ($D$ is empty), so it stops.
+      This solution is maximal because at $x = 1$ it can neither flow (it would leave $C$) nor jump ($D$ is empty), so it cannot be extended.
+      It is not complete, because it stops at time $1$.
   - example: the_solution_from_x_eq_1_of_xdot_eq_x_squared_on
     why: >-
-      It is $x(t) = \frac{1}{1 - t}$, which escapes to infinity at $t = 1$.
+      This solution is $x(t) = \frac{1}{1 - t}$, which is maximal because it escapes to infinity at $t = 1$ and so cannot be extended.
+      It is not complete, because it exists only for $t < 1$.
   - example: a_solution_of_the_timer_dot_tau_eq_1_on_c_eq_0_1_2
     why: >-
-      It can be extended.
+      The restricted solution is not maximal, because it can be extended past $t = \frac{1}{2}$.
+      It is not complete, because it stops at $t = \frac{1}{2}$.
 see_also:
   - hybrid_vs_switched_systems
   - types_of_ode_solutions

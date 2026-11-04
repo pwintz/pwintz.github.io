@@ -6,5 +6,6 @@ is: [tracking]
 is_not: [stabilization]
 why:
   stabilization: >-
-    The target keeps changing. Stabilization makes a system settle at one resting state.
+    The target keeps changing.
+    Stabilization makes a system settle at one resting state.
 ---

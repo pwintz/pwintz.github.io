@@ -7,10 +7,12 @@ synonyms: [state observer]
 levels:
   high-school:
     text: |-
-      An _observer_ is a calculation that estimates quantities you cannot measure directly from ones you can.
+      Consider a system with some quantities that you can measure and others that you cannot.
+      An _observer_ is a calculation that estimates the quantities you cannot measure directly from the ones you can.
   undergraduate:
     text: |-
-      An _observer_ is a dynamical system that takes the input $u$ and output $y$ of a plant and produces a state estimate $\hat{x}(t)$ with $\hat{x}(t) - x(t) \to 0$.
+      Consider a plant with input $u$, output $y$, and an unknown state $x(t)$.
+      An _observer_ is a dynamical system that takes $u$ and $y$ and produces a state estimate $\hat{x}(t)$ with $\hat{x}(t) - x(t) \to 0$.
 properties:
   - >-
     A Luenberger observer whose error converges to zero (that is, with $A - L C$ Hurwitz) exists exactly when $(A, C)$ is [detectable](/definitions/detectable).

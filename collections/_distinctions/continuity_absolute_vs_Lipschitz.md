@@ -14,13 +14,16 @@ terms:
 examples:
   - example: x_to_sqrt_x_on_0_1
     why: >-
-      Its slope is unbounded near $0$.
+      $x \mapsto \sqrt{x}$ is absolutely continuous because it is the integral of its derivative $\frac{1}{2 \sqrt{t}}$, which is integrable on $[0, 1]$.
+      It is not Lipschitz continuous, because its slope is unbounded near $0$.
   - example: x_to_x_on_minus_1_1
     why: >-
-      Every slope between two points on its graph is between $-1$ and $1$.
+      $x \mapsto \lvert x \rvert$ is Lipschitz continuous because every slope between two points on its graph is between $-1$ and $1$.
+      So it is also absolutely continuous.
   - example: x_to_x_squared_on_0_1
     why: >-
-      Its slope is at most $2$ on $[0, 1]$.
+      $x \mapsto x^2$ on $[0, 1]$ is Lipschitz continuous because its slope is at most $2$ on $[0, 1]$.
+      So it is also absolutely continuous.
 see_also:
   - types_of_continuous
   - continuity_uniform_vs_absolute

@@ -6,5 +6,6 @@ is: [gradient]
 is_not: [directional_derivative]
 why:
   directional_derivative: >-
-    The gradient is a vector. A directional derivative is a number, $\nabla f \cdot v$, for a given direction $v$.
+    The gradient is a vector.
+    A directional derivative is a number, $\nabla f \cdot v$, for a given direction $v$.
 ---

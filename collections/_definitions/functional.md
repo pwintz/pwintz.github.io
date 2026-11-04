@@ -10,5 +10,6 @@ levels:
   undergraduate:
     context: functional analysis
     text: |-
-      A _functional_ is a map from a [vector](/definitions/vector) space (often a space of functions) to its scalars.
+      Consider a [vector](/definitions/vector) space, often a space of functions, and its scalars.
+      A _functional_ is a map from the vector space to its scalars.
 ---

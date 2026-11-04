@@ -6,12 +6,15 @@ applies_to: sequences and series
 levels:
   elementary:
     text: |-
-      A list of numbers that goes on forever is _divergent_ if its numbers do not settle down toward any one number.
+      Think of a list of numbers that goes on forever.
+      The list is _divergent_ if its numbers do not settle down toward any one number.
   high-school:
     text: |-
-      A [sequence](/definitions/sequence) (or series) is _divergent_ if it does not converge. It might grow without bound or oscillate.
+      Consider a [sequence](/definitions/sequence) (or series) of numbers.
+      It is _divergent_ if it does not converge.
+      It might grow without bound or oscillate.
 properties:
   - >-
-    A divergent [sequence](/definitions/sequence) can be [bounded](/definitions/bounded), such as $1, -1, 1, -1, \dots$ An unbounded sequence always diverges.
+    A divergent [sequence](/definitions/sequence) can be [bounded](/definitions/bounded), such as $1, -1, 1, -1, \dots$ Every unbounded sequence diverges.
 ---
 "Diverges to infinity" is a special case of diverging.

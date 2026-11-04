@@ -7,5 +7,6 @@ levels:
   graduate:
     context: topology
     text: |-
-      A topological space is _metrizable_ if its topology is the one defined by some [metric](/definitions/metric).
+      Consider a topological space $X$.
+      The space $X$ is _metrizable_ if its topology is the one defined by some [metric](/definitions/metric) on $X$.
 ---

@@ -1,14 +1,16 @@
 ---
-published: false
 title: Directional derivative
 term: directional derivative
 applies_to: functions
 levels:
   high-school:
     text: |-
-      The _directional derivative_ of a function of several variables is its rate of change as you move in a particular direction, like the slope of a hill in the direction you are walking.
+      Consider a function of several variables, like the height of a hill at each point of a map.
+      The _directional derivative_ of the function is its vertical rate of change as you move horizontally in a particular direction. 
+    #  like the slope of the hill in the direction you are walking.
   undergraduate:
     text: |-
+      Consider a function $f$, a point $x$, and a direction $v$.
       The _directional derivative_ of $f$ at $x$ in the direction $v$ is the rate of change of $f$ in that direction:
 
       $$D_v f(x) = \lim_{t \to 0} \frac{f(x + t v) - f(x)}{t}.$$

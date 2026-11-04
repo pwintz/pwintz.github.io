@@ -7,11 +7,14 @@ synonyms: [expectation, "$\\mathbb{E}[X]$", population mean]
 levels:
   high-school:
     text: |-
-      The _expected value_ of a random quantity is its long-run average: the average of its possible values, weighted by how likely each one is.
+      Consider a random quantity with several possible values, each with a probability.
+      The _expected value_ of the quantity is its long-run average: the average of its possible values, weighted by how likely each one is.
   undergraduate:
     context: probability
     text: |-
-      The _expected value_ of a random variable $X$ is $\mathbb{E}[X] = \sum_x x P(X = x)$ (discrete) or $\int x f(x) \mathrm{d}x$ (with density $f$). It is a [weighted average](/definitions/weighted-average) of the possible values, weighted by their probabilities.
+      Consider a random variable $X$, either discrete or with a density $f$.
+      The _expected value_ of $X$ is $\mathbb{E}[X] = \sum_x x P(X = x)$ (discrete) or $\int x f(x) \mathrm{d}x$ (with density $f$).
+      It is a [weighted average](/definitions/weighted-average) of the possible values, weighted by their probabilities.
 properties:
   - >-
     By the law of large numbers, the mean of many independent samples approaches the expected value.

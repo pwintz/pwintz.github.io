@@ -6,11 +6,14 @@ applies_to: functions
 levels:
   elementary:
     text: |-
-      The _graph_ of a function is the picture you get by plotting each input together with its output as a point on a grid.
+      Think of a function as a machine that turns each input into an output, and a grid for plotting points.
+      The _graph_ of the function is the picture you get by plotting each input together with its output as a point on the grid.
   high-school:
     text: |-
-      The _graph_ of a function $f$ is the set of points $(x, f(x))$ in the plane, or a drawing of that set on coordinate axes.
+      Consider a function $f$, and the points $(x, f(x))$ in the plane.
+      The _graph_ of $f$ is the set of those points, or a drawing of that set on coordinate axes.
   undergraduate:
     text: |-
-      The _graph_ of $f : X \to Y$ is the set $\lbrace (x, f(x)) : x \in X \rbrace \subseteq X \times Y$.
+      Consider a function $f : X \to Y$.
+      The _graph_ of $f$ is the set $\lbrace (x, f(x)) : x \in X \rbrace \subseteq X \times Y$.
 ---

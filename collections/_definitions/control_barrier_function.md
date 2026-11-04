@@ -7,7 +7,8 @@ synonyms: [CBF]
 levels:
   graduate:
     text: |-
-      A _control barrier function_ for $\dot{x} = f(x) + g(x) u$ and the set $C = \lbrace x : h(x) \geq 0 \rbrace$ is a [continuously differentiable](/definitions/continuously-differentiable) function $h$ such that, for every $x$, some admissible input $u$ satisfies $\nabla h(x) \cdot (f(x) + g(x) u) \geq -\alpha(h(x))$, for some extended class-$\mathcal{K}$ function $\alpha$.
+      Consider a control system $\dot{x} = f(x) + g(x) u$ and a set $C = \lbrace x : h(x) \geq 0 \rbrace$ that should remain safe.
+      A _control barrier function_ for the system and $C$ is a [continuously differentiable](/definitions/continuously-differentiable) function $h$ such that, for every $x$, some admissible input $u$ satisfies $\nabla h(x) \cdot (f(x) + g(x) u) \geq -\alpha(h(x))$, for some extended class-$\mathcal{K}$ function $\alpha$.
 properties:
   - >-
     Any locally Lipschitz [feedback](/definitions/feedback) law whose input satisfies this inequality at every $x$ renders $C$ [forward invariant](/definitions/forward-invariant).

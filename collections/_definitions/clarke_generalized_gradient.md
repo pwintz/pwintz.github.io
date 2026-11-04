@@ -7,14 +7,16 @@ synonyms: [Clarke subdifferential, $\partial f(x)$]
 levels:
   graduate:
     text: |-
-      For a locally Lipschitz function $f : \reals^n \to \reals$, the _Clarke generalized gradient_ at $x$ is
+      Consider a locally Lipschitz function $f : \reals^n \to \reals$, and let $\Omega$ be any set of [measure zero](/definitions/measure-zero) that contains the points where $f$ is not [differentiable](/definitions/differentiable).
+      The _Clarke generalized gradient_ of $f$ at $x$ is
 
       $$\partial f(x) = \overline{\operatorname{co}} \lbrace \lim_{k \to \infty} \nabla f(x_k) : x_k \to x, x_k \notin \Omega \rbrace:$$
 
-      the convex hull of all limits of [gradients](/definitions/gradient) at nearby points, where $\Omega$ is any set of [measure zero](/definitions/measure-zero) that contains the points where $f$ is not [differentiable](/definitions/differentiable).
+      the convex hull of all limits of [gradients](/definitions/gradient) at nearby points.
 properties:
   - >-
-    If $f$ is [continuously differentiable](/definitions/continuously-differentiable), $\partial f(x) = \lbrace \nabla f(x) \rbrace$. If $f$ is convex, $\partial f(x)$ is the [subdifferential](/definitions/subdifferential).
+    If $f$ is [continuously differentiable](/definitions/continuously-differentiable), $\partial f(x) = \lbrace \nabla f(x) \rbrace$.
+    If $f$ is convex, $\partial f(x)$ is the [subdifferential](/definitions/subdifferential).
   - >-
     For $f(x) = \lvert x \rvert$, $\partial f(0) = [-1, 1]$.
   - >-

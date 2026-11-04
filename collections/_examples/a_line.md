@@ -3,5 +3,5 @@ published: false
 title: 'A line'
 level: elementary
 values:
-  dimension_vector_space: '$1$'
+  dimension_vector_space: '$\dim(\text{line}) = 1$'
 ---

@@ -7,8 +7,11 @@ synonyms: [$\Delta x$, increment]
 levels:
   elementary:
     text: |-
-      The _change_ in a quantity is how much it went up or down: its final value minus its starting value.
+      Think of a quantity that goes up or down, like the temperature during a day.
+      The _change_ in the quantity is how much it went up or down: its final value minus its starting value.
   high-school:
     text: |-
-      The _change_ in a quantity $x$ is $\Delta x = x_{\text{final}} - x_{\text{initial}}$, the final value minus the initial value. It is negative when the quantity decreases.
+      Consider a quantity $x$ with an initial value and a final value.
+      The _change_ in $x$ is $\Delta x = x_{\text{final}} - x_{\text{initial}}$, the final value minus the initial value.
+      It is negative when the quantity decreases.
 ---

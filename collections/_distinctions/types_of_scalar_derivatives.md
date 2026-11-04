@@ -1,12 +1,10 @@
 ---
-published: false
 title: Types of multivariable derivatives
 kind: siblings
 areas: [analysis]
 status: draft
 summary: >
-  All of these package the partial derivatives of a function differently: as a vector (gradient), a matrix (Jacobian), a linear map (differential),
-  or a single number in a chosen direction (directional derivative) or along a vector field (Lie derivative).
+  All of these package the partial derivatives of a function differently: as a vector (gradient), a matrix (Jacobian), a linear map (differential), or a single number in a chosen direction (directional derivative) or along a vector field (Lie derivative).
 terms:
   - directional_derivative
   - jacobian
@@ -18,7 +16,8 @@ examples_note: >-
 examples:
   - example: x_squared_plus_3y
     why: >-
-      The gradient is a vector, the Jacobian is a $1 \times 2$ matrix (its transpose), and the differential is a linear map. The directional derivative needs a direction, and the Lie derivative uses a direction that varies from point to point.
+      The gradient of $f$ is a vector, its Jacobian is the $1 \times 2$ matrix with the same entries, and its differential is the linear map given by that matrix.
+      The directional derivative needs a direction $v$, and the Lie derivative uses a direction $F(x, y)$ that varies from point to point.
 see_also:
   - types_of_vector_derivatives
   - vector_vs_covector
@@ -28,5 +27,9 @@ see_also:
 ---
 ## Notes
 
-- The gradient is a vector and the differential is a covector. They have the same components in the standard basis of $\reals^n$, but they transform differently under changes of coordinates. See [vector vs. covector](/distinctions/vector-vs-covector).
-- In control theory, the Lie derivative of a Lyapunov function $V$ along $\dot{x} = F(x)$ is often written $\dot{V}(x)$.
+- At each point, the gradient is a vector and the differential is a covector.
+  The differential needs no extra structure, but the gradient depends on an inner product: $\nabla f(x)$ is the vector with $\langle \nabla f(x), v \rangle = \mathrm{d}f_x(v)$ for every $v$.
+  With the dot product, they have the same components in the standard basis of $\reals^n$ (or any orthonormal basis), but not in other coordinates.
+  In polar coordinates, for example, $\mathrm{d}f$ has components $(\partial_r f, \partial_\theta f)$, while $\nabla f$ has components $(\partial_r f, \frac{1}{r^2} \partial_\theta f)$ in the coordinate basis $(\partial_r, \partial_\theta)$.
+  See [vector vs. covector](/distinctions/vector-vs-covector).
+<!-- - In control theory, the Lie derivative of a Lyapunov function $V$ along $\dot{x} = F(x)$ is often written $\dot{V}(x)$. -->

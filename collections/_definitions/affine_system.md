@@ -7,10 +7,12 @@ applies_to: dynamical systems
 levels:
   high-school:
     text: |-
-      A system is _affine_ if it is linear plus a constant offset, the way $y = m x + b$ is a line with a shift, rather than $y = m x$.
+      Consider a system that responds to its input.
+      The system is _affine_ if it is linear plus a constant offset, the way $y = m x + b$ is a line with a shift, rather than $y = m x$.
   undergraduate:
     text: |-
-      A system is _affine_ if it is linear plus a constant (or time-dependent) offset, as in $\dot{x} = A x + B u + c$.
+      Consider a system $\dot{x} = f(t, x, u)$.
+      The system is _affine_ if it is linear plus a constant (or time-dependent) offset, as in $\dot{x} = A x + B u + c$.
 properties:
   - >-
     If $A x^{\ast} + B u^{\ast} + c = 0$, then in the shifted coordinates $x - x^{\ast}$ and $u - u^{\ast}$, the affine system $\dot{x} = A x + B u + c$ is linear.

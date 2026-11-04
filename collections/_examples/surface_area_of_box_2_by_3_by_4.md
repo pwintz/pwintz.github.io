@@ -6,5 +6,6 @@ is: [area]
 is_not: [volume]
 why:
   volume: >-
-    Surface area measures the outside of the box. Volume measures the space inside.
+    Surface area measures the outside of the box.
+    Volume measures the space inside.
 ---

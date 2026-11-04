@@ -5,8 +5,9 @@ kind: conflicting
 areas: [analysis]
 status: draft
 summary: >
-  "Total derivative" has two meanings. It can mean the derivative of $f(t, x(t))$ with respect to $t$ along a path,
-  including the change that comes through $x(t)$. It can also mean the linear map $Df(x)$ of multivariable calculus, also called the differential.
+  "Total derivative" has two meanings.
+  It can mean the derivative of $f(t, x(t))$ with respect to $t$ along a path, including the change that comes through $x(t)$.
+  It can also mean the linear map $Df(x)$ of multivariable calculus, also called the differential.
 terms:
   - total_derivative
   - total_derivative_linear_map
@@ -15,10 +16,12 @@ examples_note: >-
 examples:
   - example: t_x_squared_on_path
     why: >-
-      By the chain rule, it equals $\frac{\partial f}{\partial t} + \frac{\partial f}{\partial x} \dot{x}$, a number at each time $t$.
+      Along the path $x(t) = e^t$, the total derivative of $f$ is a number at each time $t$.
+      By the chain rule, it equals $\frac{\partial f}{\partial t} + \frac{\partial f}{\partial x} \dot{x}$.
   - example: t_x_squared
     why: >-
-      The derivative $Df(t, x)$ of $f$ as a function of two variables, a linear map at each point.
+      The total derivative of $f$ as a function of two variables is the linear map $Df(t, x)$ at each point.
+      It takes a small change $(\Delta t, \Delta x)$ to the approximate change in $f$.
 see_also:
   - types_of_derivatives
   - types_of_scalar_derivatives
@@ -31,5 +34,7 @@ $$\frac{\mathrm{d}}{\mathrm{d}t} f(t, x(t)) = Df(t, x(t))~(1, \dot{x}(t)).$$
 
 ## Notes
 
-- Writing $\frac{\mathrm{d}f}{\mathrm{d}t}$ for a function $f(t, x)$ is ambiguous unless it is clear whether $x$ depends on $t$. Writing $\frac{\mathrm{d}}{\mathrm{d}t} f(t, x(t))$ removes the ambiguity.
-- In fluid mechanics, the total derivative along the motion of a fluid particle is called the _material derivative_. In Lyapunov analysis, $\dot{V}$ is the total derivative of $V(x(t))$ along solutions.
+- Writing $\frac{\mathrm{d}f}{\mathrm{d}t}$ for a function $f(t, x)$ is ambiguous unless it is clear whether $x$ depends on $t$.
+  Writing $\frac{\mathrm{d}}{\mathrm{d}t} f(t, x(t))$ removes the ambiguity.
+- In fluid mechanics, the total derivative along the motion of a fluid particle is called the _material derivative_.
+  In Lyapunov analysis, $\dot{V}$ is the total derivative of $V(x(t))$ along solutions.

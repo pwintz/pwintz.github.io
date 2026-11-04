@@ -5,5 +5,6 @@ level: high-school
 is_not: [root_of_function]
 why:
   root_of_function: >-
-    $f(0) = -4$. A root is an input where the output is $0$, not where the input is $0$.
+    $f(0) = -4$.
+    A root is an input where the output is $0$, not where the input is $0$.
 ---

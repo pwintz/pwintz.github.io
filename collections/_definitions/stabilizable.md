@@ -6,10 +6,13 @@ applies_to: control systems
 levels:
   high-school:
     text: |-
-      A system is _stabilizable_ if some [feedback](/definitions/feedback) controller can make it settle at an [equilibrium](/definitions/equilibrium).
+      Consider a system that might not settle down on its own, and a [feedback](/definitions/feedback) controller added to it.
+      The system is _stabilizable_ if some such controller can make it settle at an [equilibrium](/definitions/equilibrium).
   undergraduate:
     text: |-
-      A system $\dot{x} = f(x, u)$ is _stabilizable_ (at the origin) if there is a [feedback](/definitions/feedback) law $u = k(x)$ that makes the origin of $\dot{x} = f(x, k(x))$ [asymptotically stable](/definitions/asymptotically-stable). For $\dot{x} = A x + B u$, this means there is a [matrix](/definitions/matrix) $K$ such that $A + B K$ is Hurwitz.
+      Consider a system $\dot{x} = f(x, u)$ and [feedback](/definitions/feedback) laws $u = k(x)$.
+      The system is _stabilizable_ (at the origin) if some such feedback law makes the origin of $\dot{x} = f(x, k(x))$ [asymptotically stable](/definitions/asymptotically-stable).
+      For $\dot{x} = A x + B u$, this means there is a [matrix](/definitions/matrix) $K$ such that $A + B K$ is Hurwitz.
 properties:
   - |-
     A linear system is stabilizable if and only if every uncontrollable mode is [asymptotically stable](/definitions/asymptotically-stable):

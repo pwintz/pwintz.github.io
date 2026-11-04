@@ -6,7 +6,8 @@ areas: [numbers]
 status: draft
 summary: >
   A fraction is a way of writing a number as one quantity divided by another.
-  A ratio compares quantities. A rational number is a number that some fraction of integers represents.
+  A ratio compares quantities.
+  A rational number is a number that some fraction of integers represents.
 terms:
   - fraction
   - ratio
@@ -14,24 +15,30 @@ terms:
 examples:
   - example: one_half_and_two_quarters
     why: >-
-      Two different fractions that represent the same rational number.
+      $\frac{1}{2}$ and $\frac{2}{4}$ are two different fractions.
+      They represent the same rational number.
   - example: sqrt_2_over_2
     why: >-
-      A fraction does not need an integer numerator and denominator, so it need not represent a rational number.
+      $\frac{\sqrt{2}}{2}$ is a fraction because it is written as a numerator over a denominator.
+      It is not a rational number, because $\sqrt{2}$ is irrational.
   - example: 3_2_boys_to_girls
     why: >-
-      The ratio of boys to girls is $3 : 2$, but the fraction of the class that is boys is $\frac{3}{5}$, not $\frac{3}{2}$.
+      $3 : 2$ is a ratio comparing the number of boys with the number of girls.
+      It is not a fraction of the class: the fraction of the class that is boys is $\frac{3}{5}$, not $\frac{3}{2}$.
   - example: ratio_2_3_5
     why: >-
-      A ratio can compare more than two quantities.
+      $2 : 3 : 5$ is a ratio because it compares three quantities.
+      It is not a fraction or a rational number, because a fraction or a rational number compares only two.
   - example: pi
     why: >-
-      It is the ratio of a circle's circumference to its diameter, but it is not a ratio of two integers.
+      $\pi$ is the ratio of a circle's circumference to its diameter.
+      It is not a rational number, because it is not a ratio of two integers.
 see_also:
   - types_of_real_numbers
   - natural_numbers
 ---
 ## Notes
 
-- A ratio $a : b$ with $a$ parts of one kind and $b$ parts of another corresponds to the fractions $\frac{a}{a + b}$ and $\frac{b}{a + b}$ of the whole. Confusing $\frac{a}{b}$ with $\frac{a}{a + b}$ is a common mistake.
+- A ratio $a : b$ with $a$ parts of one kind and $b$ parts of another corresponds to the fractions $\frac{a}{a + b}$ and $\frac{b}{a + b}$ of the whole.
+  Confusing $\frac{a}{b}$ with $\frac{a}{a + b}$ is a common mistake.
 - "Rational" comes from "ratio": a rational number is a ratio of two integers.

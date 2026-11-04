@@ -7,9 +7,11 @@ synonyms: [size (in MATLAB)]
 levels:
   high-school:
     text: |-
-      The _shape_ of an [array](/definitions/array) is the list of its lengths in each direction.
+      Consider an [array](/definitions/array) of numbers, which has some length in each direction.
+      The _shape_ of the array is the list of those lengths.
   undergraduate:
     context: programming
     text: |-
-      The _shape_ of an [array](/definitions/array) is the tuple of its lengths along each axis.
+      Consider an [array](/definitions/array) with one or more axes.
+      The _shape_ of the array is the tuple of its lengths along each axis.
 ---

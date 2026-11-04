@@ -7,10 +7,12 @@ synonyms: [$\Delta f$, $\nabla^2 f$]
 levels:
   high-school:
     text: |-
-      The _Laplacian_ of a function measures how much its value at a point differs from the average of its values at nearby points.
+      Consider a function of several variables, like the temperature at each point of a metal plate.
+      The _Laplacian_ of the function measures how much its value at a point differs from the average of its values at nearby points.
   undergraduate:
     text: |-
-      The _Laplacian_ of $f : \reals^n \to \reals$ is
+      Consider a twice-differentiable function $f : \reals^n \to \reals$.
+      The _Laplacian_ of $f$ is
 
       $$\Delta f = \nabla \cdot \nabla f = \frac{\partial^2 f}{\partial x_1^2} + \dots + \frac{\partial^2 f}{\partial x_n^2},$$
 

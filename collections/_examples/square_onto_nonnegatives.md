@@ -7,7 +7,7 @@ is_not: [injective]
 values:
   domain: '$\reals$'
   codomain: '$[0, \infty)$'
-  image: '$[0, \infty)$'
+  image: '$f(\reals) = [0, \infty)$'
   preimage: '$f^{-1}(\lbrace 4 \rbrace) = \lbrace -2, 2 \rbrace$'
 why:
   surjective: >-

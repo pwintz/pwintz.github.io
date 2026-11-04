@@ -6,5 +6,6 @@ applies_to: functions
 levels:
   undergraduate:
     text: |-
-      A function $f$ is an _open map_ if the image $f(U)$ of every open set $U$ is open.
+      Consider a function $f$ between topological spaces, and the image $f(U)$ of each open set $U$.
+      The function $f$ is an _open map_ if every such image is open.
 ---

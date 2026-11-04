@@ -1,6 +1,6 @@
 ---
 published: false
-title: '$1$'
+title: '$1$, for multiplication of numbers'
 level: high-school
 is: [identity_element]
 is_not: [zero_number]

@@ -7,5 +7,6 @@ levels:
   graduate:
     context: topology
     text: |-
-      A _topological sphere_ is any space homeomorphic to the standard [sphere](/definitions/sphere) $S^n$.
+      Consider a topological space $X$.
+      The space $X$ is a _topological sphere_ if it is homeomorphic to the standard [sphere](/definitions/sphere) $S^n$.
 ---

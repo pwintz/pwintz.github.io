@@ -7,7 +7,8 @@ levels:
   graduate:
     context: set-valued analysis (Rockafellar and Wets)
     text: |-
-      A set-valued map $F : X \rightrightarrows Y$ is _outer semicontinuous_ at $x$ if $\limsup_{y \to x} F(y) \subseteq F(x)$: whenever $y_n \to x$, $z_n \in F(y_n)$, and $z_n \to z$, then $z \in F(x)$.
+      Consider a set-valued map $F : X \rightrightarrows Y$ and a point $x$.
+      The map $F$ is _outer semicontinuous_ at $x$ if $\limsup_{y \to x} F(y) \subseteq F(x)$: whenever $y_n \to x$, $z_n \in F(y_n)$, and $z_n \to z$, then $z \in F(x)$.
 properties:
   - >-
     $F$ is outer semicontinuous everywhere if and only if its graph is closed.

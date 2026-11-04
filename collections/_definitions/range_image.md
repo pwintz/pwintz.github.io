@@ -6,13 +6,16 @@ applies_to: functions
 levels:
   elementary:
     text: |-
-      The _range_ of a function is the set of all of the outputs that it actually gives.
+      Think of a function as a machine that turns inputs into outputs.
+      The _range_ of the function is the set of all of the outputs that it actually gives.
   high-school:
     text: |-
-      In the most common convention, the _range_ of a function is the set of all of its outputs, which is the same as its image.
+      Consider a function and all of the inputs in its domain.
+      In the most common convention, the _range_ of the function is the set of all of its outputs, which is the same as its image.
   undergraduate:
     text: |-
-      In the most common convention, the _range_ of $f : X \to Y$ is its image $f(X) = \lbrace f(x) : x \in X \rbrace$.
+      Consider a function $f : X \to Y$.
+      In the most common convention, the _range_ of $f$ is its image $f(X) = \lbrace f(x) : x \in X \rbrace$.
 properties:
   - >-
     The range (in this sense) of a [matrix](/definitions/matrix) $A$ is its column space, the set of all [vectors](/definitions/vector) $A x$.

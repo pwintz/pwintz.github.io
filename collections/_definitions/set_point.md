@@ -7,8 +7,10 @@ synonyms: [setpoint, reference value]
 levels:
   elementary:
     text: |-
-      A _set point_ is the target value that a controller tries to reach and hold.
+      Think of a controller, like a thermostat, that tries to keep something at a target.
+      A _set point_ is the target value that the controller tries to reach and hold.
   high-school:
     text: |-
-      A _set point_ is the desired value of a controlled quantity, given to a controller as a target.
+      Consider a controller that adjusts a quantity, such as temperature or speed.
+      A _set point_ is the desired value of the controlled quantity, given to the controller as a target.
 ---

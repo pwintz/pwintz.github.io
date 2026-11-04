@@ -7,8 +7,10 @@ synonyms: [GAS]
 levels:
   high-school:
     text: |-
-      An [equilibrium](/definitions/equilibrium) is _globally asymptotically stable_ if solutions that start close to it stay close, and every solution, no matter where it starts, eventually approaches it.
+      Consider a system with an [equilibrium](/definitions/equilibrium).
+      The equilibrium is _globally asymptotically stable_ if solutions that start close to it stay close, and every solution, no matter where it starts, eventually approaches it.
   undergraduate:
     text: |-
-      An [equilibrium](/definitions/equilibrium) is _globally asymptotically stable_ if it is stable and every solution, from any initial state, converges to it.
+      Consider a system with an [equilibrium](/definitions/equilibrium).
+      The equilibrium is _globally asymptotically stable_ if it is stable and every solution, from any initial state, converges to it.
 ---

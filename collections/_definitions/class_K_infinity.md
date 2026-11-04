@@ -7,5 +7,6 @@ levels:
   graduate:
     context: nonlinear control
     text: |-
-      A function $\alpha$ is of *class-$$\mathcal{K}_\infty$$* if it is a class-$\mathcal{K}$ function defined on all of $[0, \infty)$ with $\alpha(r) \to \infty$ as $r \to \infty$.
+      Consider a class-$\mathcal{K}$ function $\alpha$ defined on all of $[0, \infty)$.
+      The function $\alpha$ is of *class-$$\mathcal{K}_\infty$$* if $\alpha(r) \to \infty$ as $r \to \infty$.
 ---

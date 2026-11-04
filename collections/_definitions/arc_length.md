@@ -7,13 +7,17 @@ synonyms: [length (of a curve)]
 levels:
   elementary:
     text: |-
-      The _arc length_ of a curve is how long it would be if it were straightened out, like measuring a curved path with a piece of string.
+      Think of a curved path, like a winding road.
+      The _arc length_ of the curve is how long it would be if it were straightened out, like measuring the path with a piece of string.
   high-school:
     text: |-
-      The _arc length_ of a curve is its length, as if it were straightened out. The arc length of the unit [circle](/definitions/circle) is $2 \pi$.
+      Consider a curve in the plane or in space.
+      The _arc length_ of the curve is its length, as if it were straightened out.
+      The arc length of the unit [circle](/definitions/circle) is $2 \pi$.
   undergraduate:
     text: |-
-      The _arc length_ of a parametrized curve $\gamma : [a, b] \to \reals^n$ is
+      Consider a parametrized curve $\gamma : [a, b] \to \reals^n$ whose derivative is continuous.
+      The _arc length_ of $\gamma$ is
 
       $$L = \int_a^b \lVert \gamma^{\prime}(t) \rVert \mathrm{d}t.$$
 ---

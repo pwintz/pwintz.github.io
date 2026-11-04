@@ -7,5 +7,6 @@ synonyms: [$\equiv$]
 levels:
   high-school:
     text: |-
-      An _identity_ is an equation that is true for every value of its variables.
+      Consider an equation with variables in it.
+      The equation is an _identity_ if it is true for every value of its variables.
 ---

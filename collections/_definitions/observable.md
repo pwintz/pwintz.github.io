@@ -6,13 +6,16 @@ applies_to: control systems
 levels:
   elementary:
     text: |-
-      A system is _observable_ if you can figure out everything about it just by watching what you can measure.
+      Think of a system that you can only partly see, like a machine with only a few dials.
+      The system is _observable_ if you can figure out everything about it just by watching what you can measure.
   high-school:
     text: |-
-      A system is _observable_ if you can figure out its starting state by watching its output (and knowing its input) for a while.
+      Consider a system whose starting state is unknown, but whose input and output you can see.
+      The system is _observable_ if you can figure out its starting state by watching its output (and knowing its input) for a while.
   undergraduate:
     text: |-
-      A system is _observable_ if its initial state is uniquely determined by its input and output over some finite time interval.
+      Consider a system with state, input, and output.
+      The system is _observable_ if its initial state is uniquely determined by its input and output over some finite time interval.
 properties:
   - |-
     For $\dot{x} = A x + B u$, $y = C x$ with $n$ states, observability holds exactly when

@@ -6,9 +6,11 @@ applies_to: physical quantities
 levels:
   elementary:
     text: |-
-      The _dimension_ of a measurement is the kind of thing being measured, no matter which unit is used.
+      Think of measuring something, like the length of a table, in some unit, like inches or centimeters.
+      The _dimension_ of the measurement is the kind of thing being measured, no matter which unit is used.
   high-school:
     context: physics
     text: |-
-      The _dimension_ of a physical quantity is the kind of quantity it is, expressed in terms of basic kinds such as length ($\mathsf{L}$), mass ($\mathsf{M}$), and time ($\mathsf{T}$).
+      Consider a physical quantity, such as a speed or a force, and the basic kinds of quantities: length ($\mathsf{L}$), mass ($\mathsf{M}$), and time ($\mathsf{T}$).
+      The _dimension_ of the quantity is the kind of quantity it is, expressed in terms of those basic kinds.
 ---

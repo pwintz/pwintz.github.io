@@ -7,10 +7,12 @@ synonyms: [domain of attraction]
 levels:
   high-school:
     text: |-
-      The _region of attraction_ of a stable [equilibrium](/definitions/equilibrium) is the set of starting states from which the system eventually settles there.
+      Consider a system with a stable [equilibrium](/definitions/equilibrium).
+      The _region of attraction_ of the equilibrium is the set of starting states from which the system eventually settles there.
   undergraduate:
     text: |-
-      The _region of attraction_ of an [asymptotically stable](/definitions/asymptotically-stable) [equilibrium](/definitions/equilibrium) $x^{\ast}$ is the set of all initial states whose solutions converge to $x^{\ast}$.
+      Consider a system with an [asymptotically stable](/definitions/asymptotically-stable) [equilibrium](/definitions/equilibrium) $x^{\ast}$.
+      The _region of attraction_ of $x^{\ast}$ is the set of all initial states whose solutions converge to $x^{\ast}$.
 properties:
   - >-
     The region of attraction is an open, invariant set.

@@ -10,5 +10,6 @@ levels:
   graduate:
     context: nonlinear control
     text: |-
-      A system is _strictly passive_ if $u^{\top} y \geq \dot{V} + \psi(x)$ for some [positive definite](/definitions/positive-definite-function) function $\psi$ of the state.
+      Consider a system with input $u$, output $y$, state $x$, and a storage function $V$.
+      The system is _strictly passive_ if $u^{\top} y \geq \dot{V} + \psi(x)$ for some [positive definite](/definitions/positive-definite-function) function $\psi$ of the state.
 ---

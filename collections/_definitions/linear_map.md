@@ -1,5 +1,4 @@
 ---
-published: false
 title: Linear map
 term: linear map
 applies_to: functions between vector spaces
@@ -7,10 +6,10 @@ synonyms: [linear transformation, linear operator (for maps from a space to itse
 levels:
   high-school:
     text: |-
-      A _linear map_ from $\reals$ to $\reals$ is a function of the form $f(x) = m x$, whose graph is a line through the origin.
+      Consider a function $f$ from $\reals$ to $\reals$. The function $f$ is a _linear map_ if it has the form $f(x) = m x$ for some number $m$. The graph of a linear map is a straight line that passes through the origin.
     caveat: >-
       In high school algebra, $f(x) = m x + b$ is called a "linear function," but it is a linear map only when $b = 0$. With $b \neq 0$, it is called affine.
   undergraduate:
     text: |-
-      A _linear map_ is a function $T : V \to W$ between [vector](/definitions/vector) spaces with $T(u + v) = T(u) + T(v)$ and $T(c v) = c T(v)$ for all vectors $u, v$ and scalars $c$.
+      Consider [vector](/definitions/vector) spaces $V$ and $W$, and a function $T : V \to W$. The function $T$ is called a _linear map_ if $T(u + v) = T(u) + T(v)$ and $T(c v) = c T(v)$ for all vectors $u, v$ and scalars $c$.
 ---

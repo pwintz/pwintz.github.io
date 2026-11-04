@@ -5,20 +5,23 @@ kind: synonyms
 areas: [sets]
 status: draft
 summary: >
-  "Function" and "map" (or "mapping") mean exactly the same thing. "Map" is more common when the function preserves some structure or acts on geometric objects,
-  but any statement about functions holds for maps, and vice versa.
+  "Function" and "map" (or "mapping") mean exactly the same thing.
+  "Map" is more common when the function preserves some structure or acts on geometric objects, but any statement about functions holds for maps, and vice versa.
 terms:
   - function
   - map
 examples:
   - example: square_on_reals
     why: >-
-      Any function is a map. "Function" is more common here, because the inputs and outputs are numbers.
+      $f(x) = x^2$ is a function and a map, as is every function.
+      "Function" is the more common word here, because the inputs and outputs are numbers.
   - example: a_linear_map_t_reals_squared_to_reals_squared
     why: >-
+      $T$ is a function and a map.
       "Linear map" is more common than "linear function," partly because "linear function" also means $x \mapsto m x + b$ in school algebra.
   - example: a_continuous_map_from_a_sphere_to_the_plane
     why: >-
+      A continuous map from a sphere to the plane is a function and a map.
       "Map" is the usual word in topology and geometry, where the inputs and outputs are points of spaces.
 see_also:
   - types_of_maps
@@ -26,5 +29,6 @@ see_also:
 ---
 ## Notes
 
-- Some authors reserve "function" for maps whose outputs are numbers (real or complex), and use "map" for everything else. This is a convention of style, not a different definition.
+- Some authors reserve "function" for maps whose outputs are numbers (real or complex), and use "map" for everything else.
+  This is a convention of style, not a different definition.
 - In category theory, "morphism" generalizes "map" to arrows that need not be functions at all.

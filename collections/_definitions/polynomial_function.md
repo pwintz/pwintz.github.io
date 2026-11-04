@@ -1,0 +1,21 @@
+---
+published: false
+title: Polynomial function
+term: polynomial function
+applies_to: functions
+levels:
+  high-school:
+    text: |-
+      A _polynomial function_ is a [function](/definitions/function) whose output is given by a [polynomial](/definitions/polynomial) in its input.
+  undergraduate:
+    text: |-
+      Consider a field $F$ and a function $f : F \to F$.
+      The function $f$ is a _polynomial function_ if $f(x) = a_0 + a_1 x + \dots + a_n x^n$ for all $x \in F$, for some $a_0, \dots, a_n \in F$.
+      Two polynomial functions are equal when they give the same output for every input.
+properties:
+  - |-
+    Over an infinite field, such as $\reals$ or $\mathbb{C}$, different polynomials give different functions, so polynomials and polynomial functions are usually identified.
+  - |-
+    Over a finite field, different polynomials can give the same function.
+    Over $\lbrace 0, 1 \rbrace$ with arithmetic modulo $2$, the polynomial $x^2 + x$ gives the zero function.
+---

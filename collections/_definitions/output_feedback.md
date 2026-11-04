@@ -6,11 +6,14 @@ applies_to: control laws
 levels:
   high-school:
     text: |-
-      _Output feedback_ is control that uses only some measurements of a system (its output), not its whole state.
+      Consider a system whose whole condition (its state) cannot be measured, but some of it (its output) can.
+      _Output feedback_ is control that uses only the output, not the whole state.
   undergraduate:
     text: |-
-      _Output feedback_ is a control law that uses only the measured output $y$, either directly, as in $u = k(y)$, or through a dynamic controller.
+      Consider a system with state $x$ and measured output $y$.
+      _Output feedback_ is a control law that uses only $y$, either directly, as in $u = k(y)$, or through a dynamic controller.
 properties:
   - >-
-    Static output feedback cannot always stabilize a [controllable](/definitions/controllable) and [observable](/definitions/observable) system. Dynamic output feedback can, for example by combining an [observer](/definitions/observer) with [state feedback](/definitions/state-feedback) (the separation principle).
+    Some [controllable](/definitions/controllable) and [observable](/definitions/observable) systems cannot be stabilized by static output feedback.
+    Dynamic output feedback can, for example by combining an [observer](/definitions/observer) with [state feedback](/definitions/state-feedback) (the separation principle).
 ---

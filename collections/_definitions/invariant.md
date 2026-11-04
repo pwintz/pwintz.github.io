@@ -1,5 +1,4 @@
 ---
-published: false
 title: Invariant
 term: invariant
 applies_to: "quantities, properties, and sets"

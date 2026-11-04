@@ -1,5 +1,4 @@
 ---
-published: false
 title: Gradient
 term: gradient
 applies_to: scalar-valued functions
@@ -7,12 +6,14 @@ synonyms: [$\nabla f$]
 levels:
   undergraduate:
     text: |-
-      The _gradient_ of $f : \reals^n \to \reals$ is the [vector](/definitions/vector) of [partial derivatives](/definitions/partial-derivative)
+      Consider a differentiable function $f : \reals^n \to \reals$.
+      The _gradient_ of $f$ is the [vector](/definitions/vector) of [partial derivatives](/definitions/partial-derivative)
 
       $$\nabla f(x) = \left( \frac{\partial f}{\partial x_1}(x), \dots, \frac{\partial f}{\partial x_n}(x) \right).$$
   graduate:
     context: Riemannian manifolds
     text: |-
+      Consider a smooth function $f$ on a Riemannian manifold, with inner product $\langle \cdot, \cdot \rangle$ on each tangent space.
       The _gradient_ of $f$ at $x$ is the [vector](/definitions/vector) $\nabla f(x)$ such that $\langle \nabla f(x), v \rangle = \mathrm{d}f_x(v)$ for every tangent vector $v$.
 properties:
   - >-

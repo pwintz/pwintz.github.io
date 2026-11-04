@@ -5,8 +5,8 @@ kind: siblings
 areas: [computing, linear-algebra]
 status: draft
 summary: >
-  The number of axes of an array is how many indices pick out an entry. The shape lists the length along each axis,
-  and the number of elements is the product of those lengths.
+  The number of axes of an array is how many indices pick out an entry.
+  The shape lists the length along each axis, and the number of elements is the product of those lengths.
 terms:
   - array_size
   - array_shape
@@ -16,10 +16,12 @@ examples_note: >-
 examples:
   - example: ones_3_by_4
     why: >-
-      It takes two indices (row and column) to pick out one of its $3 \times 4 = 12$ entries.
+      The array has two axes, because it takes two indices (row and column) to pick out an entry.
+      Its shape is $(3, 4)$, so it has $3 \cdot 4 = 12$ entries.
   - example: vector_123_array
     why: >-
-      It takes one index to pick out one of its $3$ entries.
+      The array has shape $3 \times 1$, so it has $3 \cdot 1 = 3$ entries.
+      It has one axis, because one index picks out an entry.
 see_also:
   - meanings_of_rank
   - meanings_of_size_of_array

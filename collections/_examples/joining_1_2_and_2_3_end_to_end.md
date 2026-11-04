@@ -1,6 +1,6 @@
 ---
 published: false
-title: '$(1, 2)$ and $(2, 3)$ give $(1, 2, 2, 3)$'
+title: 'Joining $(1, 2)$ and $(2, 3)$ end to end produces $(1, 2, 2, 3)$'
 level: elementary
 is: [concatenate]
 is_not: [set_union]

@@ -12,4 +12,5 @@ levels:
     text: |-
       An _operator_ is a map from a [vector](/definitions/vector) space to a vector space, usually linear and often between spaces of functions.
 ---
-In elementary arithmetic, "operator" means the symbol for an operation, such as $+$ or $\times$. That is a different meaning.
+In elementary arithmetic, "operator" means the symbol for an operation, such as $+$ or $\times$.
+That is a different meaning.

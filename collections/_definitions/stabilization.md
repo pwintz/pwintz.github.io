@@ -6,8 +6,10 @@ applies_to: control problems
 levels:
   high-school:
     text: |-
-      _Stabilization_ is designing a controller that makes a system settle at a desired resting state and stay near it.
+      Consider a system that does not stay at a desired resting state by itself, like a broom balanced on your hand.
+      _Stabilization_ is designing a controller that makes the system settle at that resting state and stay near it.
   undergraduate:
     text: |-
-      _Stabilization_ is the control problem of finding a [feedback](/definitions/feedback) law that makes an [equilibrium](/definitions/equilibrium) (or a set) of the closed-loop system [asymptotically stable](/definitions/asymptotically-stable).
+      Consider a control system with an [equilibrium](/definitions/equilibrium) (or a set) that is to be made stable.
+      _Stabilization_ is the control problem of finding a [feedback](/definitions/feedback) law that makes the equilibrium of the closed-loop system [asymptotically stable](/definitions/asymptotically-stable).
 ---

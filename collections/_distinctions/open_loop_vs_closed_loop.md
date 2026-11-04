@@ -15,19 +15,24 @@ terms:
 examples:
   - example: a_toaster_that_runs_for_a_fixed_time
     why: >-
-      It never checks how brown the toast is.
+      A toaster that runs for a fixed time is open-loop control because it does not measure how brown the toast is.
+      So it is not closed-loop or feedback control.
   - example: a_thermostat
     why: >-
-      It measures the temperature and switches the heater accordingly.
+      A thermostat is closed-loop feedback control because it measures the temperature and switches the heater accordingly.
+      It is not open-loop or feedforward control, because it reacts only to the measured temperature, not to a measured disturbance.
   - example: a_precomputed_optimal_input_u_t_applied_without
     why: >-
-      Any disturbance or model error goes uncorrected.
+      A precomputed input is open-loop control because it uses no measurements.
+      It is not feedback control, so any disturbance or model error goes uncorrected.
   - example: raising_heater_power_when_an_outdoor_thermometer
     why: >-
-      It acts on a measured disturbance before the room temperature drops.
+      Raising heater power on a cold-snap report is feedforward control because it acts on a measured disturbance before the room temperature drops.
+      It is not feedback control, because it does not use the room temperature.
   - example: cruise_control_that_uses_both_the_speed_error_and
     why: >-
-      Feedback corrects errors, and feedforward anticipates the hills.
+      This cruise control is closed-loop feedback control because it corrects the measured speed error.
+      It is also feedforward control because it uses the map to anticipate the hills.
 see_also:
   - state_vs_output_feedback
   - static_vs_dynamic_feedback
@@ -35,5 +40,6 @@ see_also:
 ---
 ## Notes
 
-- In loop analysis, the "open-loop transfer function" $L(s)$ is the loop broken at one point. It describes a closed-loop design, not open-loop control.
+- In loop analysis, the "open-loop transfer function" $L(s)$ is the loop broken at one point.
+  It describes a closed-loop design, not open-loop control.
 - Pure feedforward control is a form of open-loop control, so some authors use the terms interchangeably.

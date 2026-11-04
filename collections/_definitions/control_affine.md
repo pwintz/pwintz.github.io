@@ -7,5 +7,6 @@ synonyms: [input-affine, affine in the control]
 levels:
   undergraduate:
     text: |-
-      A system is _control-affine_ if it depends affinely on the input, but possibly nonlinearly on the state: $\dot{x} = f(x) + g(x) u$.
+      Consider a system $\dot{x} = f(x, u)$ with state $x$ and input $u$.
+      The system is _control-affine_ if it depends affinely on the input, but possibly nonlinearly on the state: $\dot{x} = f(x) + g(x) u$.
 ---

@@ -7,10 +7,12 @@ synonyms: [$\liminf$]
 levels:
   high-school:
     text: |-
-      The _limit inferior_ of a [sequence](/definitions/sequence) is the smallest value that its terms keep coming back close to forever.
+      Consider a [sequence](/definitions/sequence) of numbers.
+      The _limit inferior_ of the sequence is the smallest value that its terms keep coming back close to forever.
   undergraduate:
     text: |-
-      The _limit inferior_ of a [sequence](/definitions/sequence) $(a_n)$ is
+      Consider a [sequence](/definitions/sequence) $(a_n)$ of real numbers.
+      The _limit inferior_ of $(a_n)$ is
 
       $$\liminf_{n \to \infty} a_n = \lim_{n \to \infty} \inf_{k \geq n} a_k,$$
 

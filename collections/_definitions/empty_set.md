@@ -7,6 +7,7 @@ synonyms: [$\emptyset$, $\lbrace \rbrace$]
 levels:
   elementary:
     text: |-
+      Think of a set as a box that holds things.
       The _empty set_ is the set with nothing in it.
   high-school:
     text: |-

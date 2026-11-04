@@ -15,13 +15,16 @@ examples_note: >-
 examples:
   - example: h_x_eq_2_minus_x_squared_for_xdot_eq_minus_x
     why: >-
-      It is zero on the boundary of $[-\sqrt{2}, \sqrt{2}]$, and $\nabla h(x) \cdot f(x) = 2 x^2 \geq -h(x)$, so this set is forward invariant.
+      $h(x) = 2 - x^2$ is a barrier function in control theory because it is zero on the boundary of $[-\sqrt{2}, \sqrt{2}]$, and $\nabla h(x) \cdot f(x) = 2 x^2 \geq -h(x)$, so this set is forward invariant.
+      It is not a barrier function in optimization, because it stays bounded near the boundary.
   - example: minus_log_2_minus_x_squared_on_minus_sqrt_2_sqrt_2
     why: >-
-      It tends to infinity at the boundary of the feasible set $\lbrace x : x^2 - 2 < 0 \rbrace$.
+      $-\log(2 - x^2)$ is a barrier function in optimization because it tends to infinity at the boundary of the feasible set $\lbrace x : x^2 - 2 < 0 \rbrace$.
+      It is not a barrier function in control theory, because it involves no system, and it is not zero on the boundary.
 see_also:
   - types_of_barrier_functions
 ---
 ## Notes
 
-- Older _reciprocal_ barrier functions in control theory, such as $1 / h(x)$, tend to infinity at the boundary of the safe set. They resemble barrier functions in optimization, and they have largely been replaced by the zeroing barrier functions above.
+- Older _reciprocal_ barrier functions in control theory, such as $1 / h(x)$, tend to infinity at the boundary of the safe set.
+  They resemble barrier functions in optimization, and they have largely been replaced by the zeroing barrier functions above.

@@ -14,13 +14,16 @@ terms:
 examples:
   - example: the_cantor_function_on_0_1
     why: >-
-      It rises from $0$ to $1$, but its derivative is $0$ almost everywhere, so it is not the integral of its derivative.
+      The Cantor function is uniformly continuous because it is continuous on the compact interval $[0, 1]$.
+      It is not absolutely continuous: it rises from $0$ to $1$, but its derivative is $0$ almost everywhere, so it is not the integral of its derivative.
   - example: f_x_eq_x_sin_1_x_for_x_neq_0_f_0_eq_0_on_0_1
     why: >-
-      Its total variation is infinite, but every absolutely continuous function has finite total variation. ([source](https://en.wikipedia.org/wiki/Absolute_continuity#Examples))
+      This $f$ is uniformly continuous because it is continuous on the compact interval $[0, 1]$.
+      It is not absolutely continuous, because its total variation is infinite, and every absolutely continuous function has finite total variation. ([source](https://en.wikipedia.org/wiki/Absolute_continuity#Examples))
   - example: x_to_sqrt_x_on_0_1
     why: >-
-      It equals $\int_0^x \frac{1}{2 \sqrt{t}} \mathrm{d}t$, and $t \mapsto \frac{1}{2 \sqrt{t}}$ is integrable on $[0, 1]$.
+      $x \mapsto \sqrt{x}$ is absolutely continuous because it equals $\int_0^x \frac{1}{2 \sqrt{t}} \mathrm{d}t$, and $t \mapsto \frac{1}{2 \sqrt{t}}$ is integrable on $[0, 1]$.
+      So it is also uniformly continuous.
 see_also:
   - types_of_continuous
   - continuous_vs_uniform_continuous

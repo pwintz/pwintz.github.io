@@ -7,5 +7,6 @@ levels:
   graduate:
     context: nonlinear control
     text: |-
-      A function $\alpha : [0, a) \to [0, \infty)$ is of *class-$\mathcal{K}$* if it is [continuous](/definitions/continuous) and strictly increasing with $\alpha(0) = 0$.
+      Consider a function $\alpha : [0, a) \to [0, \infty)$.
+      The function $\alpha$ is of *class-$\mathcal{K}$* if it is [continuous](/definitions/continuous) and strictly increasing with $\alpha(0) = 0$.
 ---

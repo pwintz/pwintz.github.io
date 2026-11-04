@@ -10,5 +10,7 @@ levels:
   undergraduate:
     context: logic
     text: |-
-      An _expression_ is a well-formed string of symbols that denotes a mathematical object (in logic, a _term_). An expression has a value, not a truth value.
+      Consider a formal language of mathematical symbols.
+      An _expression_ is a well-formed string of symbols that denotes a mathematical object (in logic, a _term_).
+      An expression has a value, not a truth value.
 ---

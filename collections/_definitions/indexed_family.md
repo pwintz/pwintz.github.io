@@ -6,5 +6,8 @@ applies_to: collections
 levels:
   undergraduate:
     text: |-
-      An _indexed family_ is a function $i \mapsto x_i$ from an index set $I$ to a set, written $$(x_i)_{i \in I}$$. Unlike a set, an indexed family can repeat elements. A [sequence](/definitions/sequence) is an indexed family with $I = \mathbb{N}$.
+      Consider an index set $I$ and a set of values.
+      An _indexed family_ is a function $i \mapsto x_i$ from $I$ to the set, written $$(x_i)_{i \in I}$$.
+      Unlike a set, an indexed family can repeat elements.
+      A [sequence](/definitions/sequence) is an indexed family with $I = \mathbb{N}$.
 ---

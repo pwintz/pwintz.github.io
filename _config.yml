@@ -387,14 +387,20 @@ defaults:
       type: distinctions
     values:
       layout: distinction
+      # Each page uses other dictionary entries, which `jekyll serve --incremental` does not track, so always rebuild it.
+      regenerate: true
   - scope:
       path: ""
       type: definitions
     values:
       layout: definition
+      # Each page uses other dictionary entries, which `jekyll serve --incremental` does not track, so always rebuild it.
+      regenerate: true
   - scope:
       path: ""
       type: examples
     values:
       layout: example
+      # Each page uses other dictionary entries, which `jekyll serve --incremental` does not track, so always rebuild it.
+      regenerate: true
       

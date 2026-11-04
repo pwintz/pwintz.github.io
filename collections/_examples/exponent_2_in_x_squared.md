@@ -5,5 +5,6 @@ level: elementary
 is_not: [coefficient]
 why:
   coefficient: >-
-    It is an exponent. The coefficient of $x^2$ is $1$.
+    It is an exponent.
+    The coefficient of $x^2$ is $1$.
 ---

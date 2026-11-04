@@ -6,10 +6,12 @@ applies_to: equilibria
 levels:
   high-school:
     text: |-
-      An [equilibrium](/definitions/equilibrium) is _exponentially stable_ if solutions that start near it approach it at least as fast as a decaying exponential, like $e^{-t}$.
+      Consider a system with an [equilibrium](/definitions/equilibrium), and the solutions that start near it.
+      The equilibrium is _exponentially stable_ if those solutions approach it at least as fast as a decaying exponential, like $e^{-t}$.
   undergraduate:
     text: |-
-      An [equilibrium](/definitions/equilibrium) $x^{\ast}$ is (locally) _exponentially stable_ if there are $k, \lambda, \delta > 0$ such that
+      Consider a system with an [equilibrium](/definitions/equilibrium) $x^{\ast}$.
+      The equilibrium is (locally) _exponentially stable_ if there are $k, \lambda, \delta > 0$ such that
 
       $$\lVert x(t) - x^{\ast} \rVert \leq k \lVert x(0) - x^{\ast} \rVert e^{-\lambda t}$$
 

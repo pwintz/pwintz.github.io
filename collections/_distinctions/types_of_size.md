@@ -5,7 +5,8 @@ kind: family
 areas: [geometry, analysis]
 status: draft
 summary: >
-  "Size" is informal. Each technical term measures a different aspect of a set, and the same set can be large in one sense and small in another.
+  "Size" is informal.
+  Each technical term measures a different aspect of a set, and the same set can be large in one sense and small in another.
 terms:
   - arc_length
   - area

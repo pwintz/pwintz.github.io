@@ -8,7 +8,8 @@ levels:
   graduate:
     context: topology
     text: |-
-      A topological space is _Hausdorff_ if any two distinct points have disjoint neighborhoods.
+      Consider a topological space $X$, and two distinct points in it.
+      The space $X$ is _Hausdorff_ if any two distinct points have disjoint neighborhoods.
 properties:
   - >-
     In a Hausdorff space, limits of [sequences](/definitions/sequence) are unique.

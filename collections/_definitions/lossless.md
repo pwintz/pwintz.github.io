@@ -6,9 +6,11 @@ applies_to: input-output systems
 levels:
   high-school:
     text: |-
-      A system is _lossless_ if it stores all of the energy put into it and loses none.
+      Consider a system that receives energy from outside, like a spring being stretched.
+      The system is _lossless_ if it stores all of the energy put into it and loses none.
   graduate:
     context: nonlinear control
     text: |-
-      A [passive](/definitions/passive) system is _lossless_ if $u^{\top} y = \dot{V}$: all supplied energy is stored, and none is dissipated.
+      Consider a [passive](/definitions/passive) system with input $u$, output $y$, and storage function $V$.
+      The system is _lossless_ if $u^{\top} y = \dot{V}$: all supplied energy is stored, and none is dissipated.
 ---

@@ -6,10 +6,12 @@ applies_to: dynamical systems
 levels:
   high-school:
     text: |-
-      A _limit cycle_ is an isolated repeating loop of a system: nearby solutions spiral toward it or away from it.
+      Consider a system whose solutions can repeat in loops.
+      A _limit cycle_ is an isolated repeating loop of the system: nearby solutions spiral toward it or away from it.
   undergraduate:
     text: |-
-      A _limit cycle_ is an isolated [periodic](/definitions/periodic) orbit: a closed trajectory with no other periodic orbits nearby, so that nearby solutions spiral toward it or away from it.
+      Consider a dynamical system in the plane or in space.
+      A _limit cycle_ of the system is an isolated [periodic](/definitions/periodic) orbit: a closed trajectory with no other periodic orbits nearby, so that nearby solutions spiral toward it or away from it.
 properties:
   - >-
     A limit cycle is stable if nearby solutions approach it and unstable if they move away from it.

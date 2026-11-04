@@ -25,5 +25,5 @@ properties:
   - >-
     With equal weights, the weighted average is the ordinary mean.
   - >-
-    A weighted average always lies between the smallest and largest of the values $x_i$.
+    A weighted average lies between the smallest and largest of the values $x_i$.
 ---

@@ -16,22 +16,26 @@ terms:
 examples:
   - example: euclidean_norm_on_reals_squared
     why: >-
-      It comes from the dot product, which is an inner product.
+      $x \mapsto \sqrt{x_1^2 + x_2^2}$ is a norm: the Euclidean norm, which comes from the dot product.
   - example: x_to_x_1_plus_x_2_on_reals_squared
     why: >-
-      It fails the parallelogram law, so it does not come from any inner product.
+      $x \mapsto \lvert x_1 \rvert + \lvert x_2 \rvert$ is a norm.
+      It does not come from an inner product, because it fails the parallelogram law: with $x = (1, 0)$ and $y = (0, 1)$, $\lVert x + y \rVert^2 + \lVert x - y \rVert^2 = 8$, but $2 \lVert x \rVert^2 + 2 \lVert y \rVert^2 = 4$.
   - example: euclidean_distance_on_reals_squared
     why: >-
-      It comes from the Euclidean norm.
+      The Euclidean distance is a metric, and it comes from the Euclidean norm, as $d(x, y) = \lVert x - y \rVert$.
   - example: d_x_y_eq_1_for_x_neq_y_and_d_x_x_eq_0
     why: >-
-      The discrete metric does not scale, so it does not come from a norm.
+      The discrete metric is a metric.
+      It does not come from a norm, because it does not scale: $d(2x, 0) = 1 = d(x, 0)$ for every $x \neq 0$.
   - example: great_circle_distance_on_the_surface_of_the_earth
     why: >-
-      The sphere is not a vector space, so it has no norm.
+      Great-circle distance is a metric on the sphere.
+      It does not come from a norm, because the sphere is not a vector space.
   - example: x_y_to_x_1_y_1_plus_x_2_y_2_on_reals_squared
     why: >-
-      The dot product on $\reals^2$. It gives the Euclidean norm.
+      $(x, y) \mapsto x_1 y_1 + x_2 y_2$ is an inner product: the dot product on $\reals^2$.
+      It gives the Euclidean norm, as $\lVert x \rVert = \sqrt{x \cdot x}$.
 see_also:
   - dot_product_vs_inner_product_vs_bilinear_form
   - types_of_metric_spaces

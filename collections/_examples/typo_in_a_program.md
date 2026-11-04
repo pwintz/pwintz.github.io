@@ -6,5 +6,6 @@ is: [bug]
 is_not: [error]
 why:
   error: >-
-    In numerical work, an error is a difference from the true value. A mistake in a program is a bug.
+    In numerical work, an error is a difference from the true value.
+    A mistake in a program is a bug.
 ---

@@ -8,5 +8,6 @@ levels:
   graduate:
     context: control systems
     text: |-
-      A set $S$ is _controlled invariant_ for $\dot{x} = f(x, u)$ if, from every point of $S$, some admissible input keeps the solution in $S$ for all future time.
+      Consider a control system $\dot{x} = f(x, u)$ and a set $S$ of states.
+      The set $S$ is _controlled invariant_ if, from every point of $S$, some admissible input keeps the solution in $S$ for all future time.
 ---

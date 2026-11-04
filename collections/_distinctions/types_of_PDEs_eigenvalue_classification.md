@@ -14,16 +14,17 @@ terms:
 examples:
   - example: laplace_equation_u_xx_plus_u_yy_eq_0
     why: >-
-      $A = C = 1$ and $B = 0$, so $B^2 - AC = -1$.
+      The Laplace equation is elliptic because $A = C = 1$ and $B = 0$, so $B^2 - AC = -1 < 0$.
   - example: heat_equation_u_t_eq_u_xx
     why: >-
-      In the variables $(t, x)$, the only second-order term is $u_{xx}$, so $B^2 - AC = 0$.
+      The heat equation is parabolic because, in the variables $(t, x)$, its only second-order term is $u_{xx}$, so $B^2 - AC = 0$.
   - example: wave_equation_u_tt_eq_u_xx
     why: >-
-      $u_{tt} - u_{xx} = 0$ has $A = 1$ and $C = -1$, so $B^2 - AC = 1$.
+      The wave equation is hyperbolic because $u_{tt} - u_{xx} = 0$ has $A = 1$ and $C = -1$, so $B^2 - AC = 1 > 0$.
   - example: tricomi_equation_y_u_xx_plus_u_yy_eq_0
     why: >-
-      $B^2 - AC = -y$, so it is elliptic for $y > 0$, parabolic on $y = 0$, and hyperbolic for $y < 0$. The type can change from region to region.
+      The Tricomi equation has $B^2 - AC = -y$, so it is elliptic for $y > 0$, parabolic on $y = 0$, and hyperbolic for $y < 0$.
+      So the type of an equation can change from region to region.
 see_also:
   - types_of_PDEs_boundary_conditions
   - types_of_PDEs_numeircal_well-posedness

@@ -6,28 +6,31 @@ areas: [numbers]
 status: draft
 summary: >
   When the natural numbers start at $0$, they are exactly the whole numbers $0, 1, 2, 3, \dots$, so the two names are synonyms.
-  "Whole numbers" is the usual name in schools, and "natural numbers" (or "nonnegative integers") is the usual name in mathematics.
+  "Whole numbers" is the usual name in primary schools, and "natural numbers" (or "nonnegative integers") is the usual name in mathematics.
 terms:
   - whole_numbers
   - natural_numbers_from_zero
 examples:
   - example: zero
     why: >-
-      Both names include $0$. (Natural numbers that start at $1$ do not.)
+      $0$ is a whole number and a natural number (when the natural numbers start at $0$).
+      It is not a natural number when the natural numbers start at $1$.
   - example: seven
     why: >-
-      Every positive integer is both.
+      $7$ is a whole number and a natural number, as is every positive integer.
   - example: minus_three
     why: >-
-      Negative numbers are integers, but neither natural nor whole numbers.
+      $-3$ is not a whole number or a natural number, because it is negative.
   - example: two_point_five
     why: >-
-      Numbers with a fractional part are neither.
+      $2.5$ is not a whole number or a natural number, because it has a fractional part.
 see_also:
   - natural_numbers
   - types_of_real_numbers
 ---
 ## Notes
 
-- The two names are synonyms only when the natural numbers start at $0$. Many authors start them at $1$; see [natural numbers: starting at 0 or at 1](/distinctions/natural-numbers).
-- "Whole numbers" also has rival meanings: some authors use it for all integers, or for the positive integers. In technical writing, "nonnegative integers" or $$\mathbb{Z}_{\geq 0}$$ is unambiguous.
+- The two names are synonyms only when the natural numbers start at $0$.
+  Many authors start them at $1$; see [natural numbers: starting at 0 or at 1](/distinctions/natural-numbers).
+- "Whole numbers" also has rival meanings: some authors use it for all integers, or for the positive integers.
+  In technical writing, "nonnegative integers" or $$\mathbb{Z}_{\geq 0}$$ is unambiguous.

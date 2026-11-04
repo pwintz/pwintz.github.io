@@ -2,7 +2,7 @@
 published: false
 title: '$\mathbb{N}$'
 level: high-school
-is: [infinite_set, countably_infinite]
+is: [infinite_set, countably_infinite, countable]
 is_not: [finite_set, bounded, compact, uncountable]
 why:
   infinite_set: >-

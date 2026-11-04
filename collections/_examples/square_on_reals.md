@@ -9,9 +9,9 @@ is_not: [Lipschitz_continuous, uniformly_continuous, class_K, operator, function
 values:
   domain: '$\reals$'
   codomain: '$\reals$'
-  image: '$[0, \infty)$'
+  image: '$f(\reals) = [0, \infty)$'
   preimage: '$f^{-1}(\lbrace 4 \rbrace) = \lbrace -2, 2 \rbrace$ and $f^{-1}(\lbrace -1 \rbrace) = \emptyset$'
-  range_image: '$[0, \infty)$'
+  range_image: '$f(\reals) = [0, \infty)$'
   range_codomain: '$\reals$'
 why:
   domain: >-
@@ -21,7 +21,8 @@ why:
   image: >-
     Squares of real numbers are exactly the nonnegative numbers.
   preimage: >-
-    The preimage $f^{-1}(\lbrace 4 \rbrace)$ exists even though $f$ has no inverse. No real number squares to $-1$, so $f^{-1}(\lbrace -1 \rbrace)$ is empty.
+    The preimage $f^{-1}(\lbrace 4 \rbrace)$ exists even though $f$ has no inverse.
+    No real number squares to $-1$, so $f^{-1}(\lbrace -1 \rbrace)$ is empty.
   uniformly_continuous: >-
     It gets steeper and steeper, so no single closeness of inputs works everywhere.
 ---

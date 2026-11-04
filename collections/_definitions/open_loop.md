@@ -7,11 +7,14 @@ synonyms: [feedforward control (in some texts)]
 levels:
   elementary:
     text: |-
-      _Open-loop_ control acts without checking the result.
+      Think of a machine that is trying to reach a goal, like a toaster making toast.
+      In _open-loop_ control, the machine acts without checking the result.
   high-school:
     text: |-
-      _Open-loop_ control chooses the input without measuring the result.
+      Consider a controller that chooses the input to a system.
+      In _open-loop_ control, the controller chooses the input without measuring the result.
   undergraduate:
     text: |-
-      In _open-loop_ control, the input $u(t)$ is computed in advance, or from the reference alone, and does not depend on measurements of the system's output.
+      Consider a system whose input $u(t)$ is chosen by a controller.
+      In _open-loop_ control, the input is computed in advance, or from the reference alone, and does not depend on measurements of the system's output.
 ---

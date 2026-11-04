@@ -7,10 +7,12 @@ synonyms: ["$\\mathcal{L}f$", $F(s)$]
 levels:
   high-school:
     text: |-
-      The _Laplace transform_ turns a function of time into a function of a (complex) frequency, which turns linear differential equations into algebraic equations.
+      Consider a function of time, such as a signal that starts at time $0$.
+      The _Laplace transform_ turns the function into a function of a (complex) frequency, which turns linear differential equations into algebraic equations.
   undergraduate:
     text: |-
-      The _Laplace transform_ of a function $f$ defined on $[0, \infty)$ is
+      Consider a function $f$ defined on $[0, \infty)$.
+      The _Laplace transform_ of $f$ is
 
       $$F(s) = \int_0^{\infty} f(t) e^{-s t} \mathrm{d}t,$$
 

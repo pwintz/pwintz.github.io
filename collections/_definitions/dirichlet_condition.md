@@ -6,8 +6,10 @@ applies_to: boundary value problems
 levels:
   high-school:
     text: |-
-      A _Dirichlet_ [boundary](/definitions/boundary) condition specifies the value of the solution on the boundary.
+      Consider a differential equation on a region, whose solution must also satisfy a condition on the [boundary](/definitions/boundary) of the region.
+      A _Dirichlet_ boundary condition specifies the value of the solution on the boundary.
   undergraduate:
     text: |-
-      A _Dirichlet_ [boundary](/definitions/boundary) condition has the form $u = g$ on the boundary $\partial \Omega$.
+      Consider a partial differential equation for $u$ on a region $\Omega$ with [boundary](/definitions/boundary) $\partial \Omega$.
+      A _Dirichlet_ boundary condition has the form $u = g$ on $\partial \Omega$.
 ---

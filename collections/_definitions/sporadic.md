@@ -6,9 +6,11 @@ applies_to: events
 levels:
   elementary:
     text: |-
-      Something is _sporadic_ if it happens now and then, at irregular times.
+      Think of something that happens from time to time, like rain in the desert.
+      It is _sporadic_ if it happens now and then, at irregular times.
   undergraduate:
     context: real-time systems
     text: |-
-      _Sporadic_ events (or tasks) can occur at any time, but consecutive occurrences are separated by at least a known minimum inter-arrival time.
+      Consider a stream of events (or tasks) in a real-time system, arriving one after another.
+      The events are _sporadic_ if they can occur at any time, but consecutive occurrences are separated by at least a known minimum inter-arrival time.
 ---

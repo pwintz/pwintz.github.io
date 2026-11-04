@@ -5,5 +5,6 @@ level: elementary
 is_not: [set_point]
 why:
   set_point: >-
-    The set point is the target. The measured temperature is what the controller compares with it.
+    The set point is the target.
+    The measured temperature is what the controller compares with it.
 ---

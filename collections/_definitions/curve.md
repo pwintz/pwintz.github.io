@@ -14,4 +14,5 @@ levels:
     text: |-
       A _curve_ is a [continuous](/definitions/continuous) map $\gamma : I \to \reals^n$ from an interval $I$ (a parametrized curve), or the image of such a map.
 ---
-"Curve" is used for both the map $\gamma$ and its image. The same image can be traced by many different parametrizations.
+"Curve" is used for both the map $\gamma$ and its image.
+The same image can be traced by many different parametrizations.

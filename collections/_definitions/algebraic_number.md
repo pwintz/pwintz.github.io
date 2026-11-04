@@ -6,8 +6,10 @@ applies_to: numbers
 levels:
   high-school:
     text: |-
-      An _algebraic number_ is a number that solves a polynomial equation with [integer](/definitions/integer) [coefficients](/definitions/coefficient).
+      Consider a number $a$.
+      The number $a$ is an _algebraic number_ if it solves a polynomial equation whose [coefficients](/definitions/coefficient) are all [integers](/definitions/integer).
   undergraduate:
     text: |-
-      An _algebraic number_ is a (real or complex) number that is a root of a nonzero polynomial with [integer](/definitions/integer) [coefficients](/definitions/coefficient).
+      Consider a real or complex number $a$.
+      The number $a$ is an _algebraic number_ if it is a root of a nonzero polynomial with [integer](/definitions/integer) [coefficients](/definitions/coefficient).
 ---
