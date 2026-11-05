@@ -1,13 +1,12 @@
 ---
-published: false
 title: Natural numbers (starting at 0)
 term: natural numbers (from 0)
 applies_to: numbers
-synonyms: [nonnegative integers]
+synonyms: ["nonnegative integers", "$\\mathbb{N}$", "$\\mathbb{N}_0$", "$\\mathbb{Z}_{\\geq 0}$"]
 levels:
   elementary:
     text: |-
-      The _natural numbers_ are the numbers $0, 1, 2, 3, \dots$ that answer "how many?"
+      The _natural numbers_ are the numbers $0, 1, 2, 3, \dots$ that can be used to answer questions about "how many?" objects there are.
   undergraduate:
     text: |-
       The _natural numbers_ are the set $\lbrace 0, 1, 2, 3, \dots \rbrace$ of nonnegative [integers](/definitions/integer), often written $\mathbb{N}$, $$\mathbb{N}_0$$, or $$\mathbb{Z}_{\geq 0}$$.

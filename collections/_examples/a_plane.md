@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'A flat surface (a plane)'
 level: elementary
 values:

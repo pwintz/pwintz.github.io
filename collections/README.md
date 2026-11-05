@@ -287,6 +287,15 @@ Markdown body: a longer discussion (proofs, figures, variations).
 In a distinction's grid, each cell shows the example's value for the term if it has one, and otherwise ✓ (`is`), ✗ (`is_not`), or – (not addressed).
 Use `values` when the distinction is about which object is the ___ of a given thing (e.g., its domain, its rank, its mean), and `is`/`is_not` when it is about whether a thing is a ___.
 
+**Examples that are terms:** Some examples are terms in their own right, such as "A Kalman filter."
+Give such an example a `definition` (the file name of the definition, without `.md`).
+The example's page then says "Definition: Kalman filter," and wherever the example is listed, a "(definition)" link follows its title.
+The link is built from the file name, so it is shown as broken until the definition exists and is published.
+
+**Explanations (`why`) in examples:** Each `why` must stand on its own, because it can appear away from the example's title (e.g., in a definition's list of non-examples).
+Open with a sentence that names the example and gives the verdict or value, not "It," "They," or "This": "A battery is not passive, because it supplies energy on its own," not "It supplies energy on its own."
+Later sentences may use pronouns.
+
 **Non-examples:** List a term in an example's `is_not` only when the example may be mistaken for an instance of the term (the perimeter of a rectangle is not its area; the $2$ in $x^2$ is not a coefficient), and say why in `why`.
 Non-examples are listed beneath the examples of each definition.
 

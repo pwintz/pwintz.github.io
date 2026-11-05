@@ -9,5 +9,5 @@ values:
   ordinary_derivative: 'None, since $f$ has two variables'
 why:
   differential: >-
-    It combines both partial derivatives into the linear approximation $Df(t, x)$.
+    The differential of $f(t, x) = t x^2$ combines both partial derivatives into the linear approximation $Df(t, x)$.
 ---

@@ -9,6 +9,9 @@ layout: single
     level:       The lowest level (from _data/definition_levels.yml) at which the example is appropriate.
                  On distinction pages, examples above the selected level are hidden.
     description: (Optional) Context needed to understand the example on its own.
+    definition:  (Optional) The slug of the definition of what the example is, for examples that are terms
+                 in their own right (e.g., "kalman_filter" for "A Kalman filter").
+                 Linked from the example's page and wherever the example is listed.
     is:          Slugs of definitions that the example is an instance of.
     is_not:      Slugs of definitions that the example is not an instance of.
     values:      (Optional) For worked examples, a map from definition slugs to the term's value for this example,
@@ -21,6 +24,8 @@ layout: single
   <p class="distinction__meta">
     Example{% if level %} · <a href="{{ '/examples/' | relative_url }}?level={{ level.id }}" title="Examples up to this level">{{ level.name }}</a>{% endif %}
   </p>
+
+  {% include example-definition-link.html example=page full=true %}
 
   {% if page.description %}
     <div class="distinction__summary">{{ page.description | markdownify }}</div>

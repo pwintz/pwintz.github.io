@@ -106,7 +106,7 @@ layout: single
             {% assign example = site.examples | where: "slug", ref.example | first %}
             {% if example %}
               <tr data-example-level="{{ example.level }}">
-                <td><a href="{{ example.url | relative_url }}">{{ example.title | markdownify | remove: '<p>' | remove: '</p>' }}</a></td>
+                <td><a href="{{ example.url | relative_url }}">{{ example.title | markdownify | remove: '<p>' | remove: '</p>' }}</a>{% include example-definition-link.html example=example %}</td>
                 {% for slug in page.terms %}{% include example-verdict.html example=example term=slug %}{% endfor %}
                 <td>{{ ref.why | default: example.description | markdownify | remove: '<p>' | remove: '</p>' }}</td>
               </tr>

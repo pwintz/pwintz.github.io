@@ -5,5 +5,5 @@ level: elementary
 is_not: [equal, equivalent]
 why:
   equivalent: >-
-    They are different numbers, so they are not equivalent fractions.
+    $\frac{1}{2}$ and $\frac{2}{3}$ are not equivalent fractions, because they are different numbers.
 ---

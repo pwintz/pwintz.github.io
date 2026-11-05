@@ -1,6 +1,5 @@
 ---
-published: false
-title: 'A timer interrupt every $1$ ms'
+title: 'A clock that chimes every hour'
 level: elementary
 is: [periodic, sporadic]
 is_not: [aperiodic]

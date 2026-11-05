@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'A robot arm following a moving conveyor belt'
 level: elementary
 is: [tracking]

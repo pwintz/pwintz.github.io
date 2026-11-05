@@ -5,5 +5,5 @@ level: elementary
 is: [controllable]
 why:
   controllable: >-
-    It can be driven to any spot in the lot.
+    A car in an empty parking lot is controllable, because it can be driven to any spot in the lot.
 ---

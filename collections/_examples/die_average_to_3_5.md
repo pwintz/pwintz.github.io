@@ -5,5 +5,5 @@ level: undergraduate
 is: [convergence_in_probability, convergence_in_distribution]
 why:
   convergence_in_probability: >-
-    This is the weak law of large numbers.
+    The average of $n$ fair die rolls converges in probability to $3.5$, by the weak law of large numbers.
 ---

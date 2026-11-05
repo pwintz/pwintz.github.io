@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'A heated rod with insulated ends'
 level: high-school
 is: [neumann_condition]

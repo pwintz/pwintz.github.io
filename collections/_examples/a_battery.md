@@ -5,5 +5,5 @@ level: high-school
 is_not: [passive]
 why:
   passive: >-
-    It supplies energy on its own.
+    A battery is not passive, because it supplies energy on its own.
 ---

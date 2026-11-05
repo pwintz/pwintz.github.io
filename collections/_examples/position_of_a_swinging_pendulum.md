@@ -5,6 +5,6 @@ level: high-school
 is_not: [invariant]
 why:
   invariant: >-
-    It changes as the pendulum swings.
-    Without friction, its energy does not.
+    The position of a swinging pendulum is not invariant, because it changes as the pendulum swings.
+    Without friction, the pendulum's energy does not change.
 ---

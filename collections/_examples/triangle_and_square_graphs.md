@@ -5,5 +5,5 @@ level: high-school
 is_not: [isomorphic]
 why:
   isomorphic: >-
-    They have different numbers of vertices, so no renaming can match them.
+    A triangle and a square are not isomorphic graphs, because they have different numbers of vertices, so no renaming can match them.
 ---

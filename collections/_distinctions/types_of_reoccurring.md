@@ -14,10 +14,10 @@ terms:
   - aperiodic
   - recurrent
 examples:
-  - example: a_timer_interrupt_every_1_ms
+  - example: a_clock_that_chimes_every_hour
     why: >-
-      The timer interrupts are periodic, because they occur every $1$ ms.
-      They are also sporadic, with minimum separation $1$ ms, so they are not aperiodic.
+      The chimes of a clock that chimes every hour are periodic, because they occur every hour.
+      They are also sporadic, with minimum separation of one hour, so they are not aperiodic.
   - example: network_packets_that_arrive_at_least_10_ms_apart
     why: >-
       The packets are sporadic because their arrival times are irregular but at least $10$ ms apart.

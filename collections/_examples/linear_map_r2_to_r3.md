@@ -6,5 +6,5 @@ is: [linear_map]
 is_not: [endomorphism, automorphism]
 why:
   endomorphism: >-
-    Its domain and codomain are different spaces.
+    A linear map $\reals^2 \to \reals^3$ is not an endomorphism, because its domain and codomain are different spaces.
 ---

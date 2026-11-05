@@ -5,6 +5,6 @@ level: high-school
 is_not: [identity_element]
 why:
   identity_element: >-
-    It changes every number to $0$.
-    The identity for multiplication is $1$.
+    Multiplying by $0$ is not multiplying by the identity element, because it changes every number to $0$.
+    The identity element for multiplication is $1$.
 ---

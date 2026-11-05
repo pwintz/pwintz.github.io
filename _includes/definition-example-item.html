@@ -18,7 +18,7 @@
   {% endfor %}
 {% endunless %}
 <li class="example-list__item" data-example-level="{{ example.level }}">
-  <a href="{{ example.url | relative_url }}">{{ example.title | markdownify | remove: '<p>' | remove: '</p>' }}</a>{% if include.group == 1 %}: {{ example.values[include.term] | markdownify | remove: '<p>' | remove: '</p>' }}{% endif %}
+  <a href="{{ example.url | relative_url }}">{{ example.title | markdownify | remove: '<p>' | remove: '</p>' }}</a>{% unless example.definition == include.term %}{% include example-definition-link.html example=example %}{% endunless %}{% if include.group == 1 %}: {{ example.values[include.term] | markdownify | remove: '<p>' | remove: '</p>' }}{% endif %}
   {% unless include.compact %}<span class="level-badge" title="Level of this example">{{ include.level.name }}</span>{% endunless %}
   {% if why %}<div class="example-list__why">{{ why | markdownify | remove: '<p>' | remove: '</p>' }}</div>{% endif %}
 </li>

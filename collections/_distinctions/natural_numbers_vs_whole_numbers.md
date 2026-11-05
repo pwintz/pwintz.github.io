@@ -1,15 +1,16 @@
 ---
-published: false
-title: Whole numbers vs. natural numbers (from 0)
+title: Whole numbers vs. natural numbers
 kind: synonyms
 areas: [numbers]
 status: draft
 summary: >
-  When the natural numbers start at $0$, they are exactly the whole numbers $0, 1, 2, 3, \dots$, so the two names are synonyms.
+  "Whole numbers" and "natural numbers" are used synonymously by some others to indicate all nonnegative integers, $0, 1, 2, 3, \dots$.
   "Whole numbers" is the usual name in primary schools, and "natural numbers" (or "nonnegative integers") is the usual name in mathematics.
+  "Natural numbers" is, however, used by some authors to indicate the non-negative integers, $1, 2, 3, \dots$ and "whole numbers" is used to indicate all integers, "$\dots, -2, -1, 0, 1, 2, \dots$.
 terms:
   - whole_numbers
   - natural_numbers_from_zero
+  - natural_numbers_from_one
 examples:
   - example: zero
     why: >-

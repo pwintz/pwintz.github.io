@@ -6,7 +6,7 @@ is: [countably_infinite, infinite_set, countable]
 is_not: [dense_set, finite_set, uncountable]
 why:
   countably_infinite: >-
-    They can be listed as $0, 1, -1, 2, -2, \dots$
+    The integers are countably infinite, because they can be listed as $0, 1, -1, 2, -2, \dots$
   dense_set: >-
-    There is no integer between $1$ and $2$.
+    The integers are not dense in $\reals$, because there is no integer between $1$ and $2$.
 ---

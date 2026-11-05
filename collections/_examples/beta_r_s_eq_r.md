@@ -5,5 +5,5 @@ level: graduate
 is_not: [class_KL]
 why:
   class_KL: >-
-    It does not decrease to $0$ as $s \to \infty$.
+    $\beta(r, s) = r$ is not a class-$\mathcal{KL}$ function, because it does not decrease to $0$ as $s \to \infty$.
 ---

@@ -5,5 +5,5 @@ level: high-school
 is: [proposition]
 why:
   proposition: >-
-    It is false, but it is still a proposition.
+    "$2 + 2 = 5$" is false, but it is still a proposition.
 ---

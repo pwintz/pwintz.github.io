@@ -22,6 +22,26 @@ examples:
     why: >-
       A Kalman filter is a filter, and so an estimator, because it estimates the current state from noisy measurements.
       It is an observer with a time-varying gain chosen to minimize the mean-square error, and it is not a predictor, because it estimates the present.
+  - example: an_extended_kalman_filter
+    why: >-
+      An extended Kalman filter is a filter, and so an estimator, because it estimates the current state of a nonlinear system from noisy measurements, by applying the Kalman filter to a linearization of the system.
+      Its error is not guaranteed to converge, so it is not an observer in general, and it is not a predictor, because it estimates the present.
+  - example: an_unscented_kalman_filter
+    why: >-
+      An unscented Kalman filter is a filter, and so an estimator, because it estimates the current state of a nonlinear system from noisy measurements, by passing sample points through the system's model.
+      Its error is not guaranteed to converge, so it is not an observer in general, and it is not a predictor, because it estimates the present.
+  - example: a_particle_filter
+    why: >-
+      A particle filter is a filter, and so an estimator, because it estimates the current state from noisy measurements, by approximating the state's distribution with weighted samples.
+      It is not a predictor, because it estimates the present.
+  - example: a_moving_horizon_estimator
+    why: >-
+      A moving horizon estimator is a filter, and so an estimator, because it estimates the current state by optimizing over the measurements in a window that ends now.
+      It is not a predictor, because it estimates the present.
+  - example: a_high_gain_observer
+    why: >-
+      A high-gain observer is an observer, and so an estimator, because its estimation error becomes small after a short transient.
+      It is designed for deterministic systems, not noisy measurements, which it amplifies, and it is not a predictor, because it estimates the present.
   - example: a_weather_forecast_for_tomorrow
     why: >-
       A weather forecast is a predictor, and so an estimator, because it estimates a future state.

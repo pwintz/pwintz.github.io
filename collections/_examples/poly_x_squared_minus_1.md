@@ -6,8 +6,8 @@ is: [polynomial, expression]
 is_not: [polynomial_equation, polynomial_function]
 why:
   polynomial_equation: >-
-    It has no equals sign.
+    $x^2 - 1$ is not a polynomial equation, because it has no equals sign.
   polynomial_function: >-
-    It is an expression.
+    $x^2 - 1$ is not a polynomial function, because it is an expression.
     It defines a function only once we say what $x$ ranges over.
 ---

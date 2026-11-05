@@ -9,5 +9,6 @@ why:
   lu_decomposition: >-
     Subtracting $2$ times row $1$ from row $2$ gives $U$, and $L$ records the multiplier $2$.
   jordan_chevalley_decomposition: >-
-    Its eigenvalues are distinct, so it is diagonalizable.
+    The matrix $$A = \begin{bmatrix} 2 & 1 \\ 4 & 3 \end{bmatrix}$$ has distinct eigenvalues, so it is diagonalizable.
+    Thus its Jordan–Chevalley decomposition has $D = A$ and $N = 0$.
 ---

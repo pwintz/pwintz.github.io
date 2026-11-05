@@ -6,5 +6,6 @@ is: [differentiable, continuously_differentiable, smooth, analytic]
 is_not: [polynomial_function]
 why:
   polynomial_function: >-
+    $\sin x$ is not a polynomial function.
     It has infinitely many roots, but a nonzero polynomial has only finitely many.
 ---

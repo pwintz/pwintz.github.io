@@ -7,5 +7,5 @@ is: [norm]
 is_not: [covector]
 why:
   covector: >-
-    It is not linear: the length of $-v$ is the length of $v$, not its negative.
+    The Euclidean norm on $\reals^2$ is not a covector, because it is not linear: the length of $-v$ is the length of $v$, not its negative.
 ---

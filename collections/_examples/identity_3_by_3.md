@@ -9,5 +9,5 @@ values:
   matrix_rank: '$\operatorname{rank} I = 3$'
 why:
   matrix_rank: >-
-    Its columns are linearly independent.
+    The $3 \times 3$ identity matrix has rank $3$, because its columns are linearly independent.
 ---

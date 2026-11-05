@@ -6,6 +6,5 @@ is: [leading_entry]
 is_not: [pivot]
 why:
   pivot: >-
-    Its position, $(1, 2)$, is not a pivot position.
-    The matrix is not in echelon form.
+    The leading $2$ in row $1$ is not a pivot, because the matrix is not in echelon form, and the $2$'s position, $(1, 2)$, is not a pivot position.
 ---

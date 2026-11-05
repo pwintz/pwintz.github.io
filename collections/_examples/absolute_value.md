@@ -1,6 +1,5 @@
 ---
-published: false
-title: 'Taking the absolute value of a number'
+title: 'The absolute value of a number'
 level: high-school
 is: [idempotent]
 ---

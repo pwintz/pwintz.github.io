@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'A toaster that runs for a fixed time'
 level: elementary
 is: [open_loop]

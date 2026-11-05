@@ -6,6 +6,6 @@ is: [unforced]
 is_not: [hybrid_system]
 why:
   hybrid_system: >-
-    Its state only flows.
+    A pendulum swinging on its own is not a hybrid system, because its state only flows.
     It never jumps.
 ---

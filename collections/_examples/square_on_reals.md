@@ -24,5 +24,5 @@ why:
     The preimage $f^{-1}(\lbrace 4 \rbrace)$ exists even though $f$ has no inverse.
     No real number squares to $-1$, so $f^{-1}(\lbrace -1 \rbrace)$ is empty.
   uniformly_continuous: >-
-    It gets steeper and steeper, so no single closeness of inputs works everywhere.
+    $f(x) = x^2$ is not uniformly continuous on $\reals$, because its graph gets steeper and steeper, so no single closeness of inputs works everywhere.
 ---

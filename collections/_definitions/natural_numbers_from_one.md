@@ -1,9 +1,8 @@
 ---
-published: false
 title: Natural numbers (starting at 1)
 term: natural numbers (from 1)
 applies_to: numbers
-synonyms: [positive integers, counting numbers]
+synonyms: [positive integers, counting numbers, "$\\mathbb{N}$", "$\\mathbb{N}_+$", "$\\mathbb{Z}_{> 0}$"]
 levels:
   elementary:
     text: |-

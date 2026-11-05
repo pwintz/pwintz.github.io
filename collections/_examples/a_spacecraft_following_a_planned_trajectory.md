@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'A spacecraft following a planned trajectory'
 level: elementary
 is: [tracking]

@@ -6,5 +6,5 @@ is: [irrational_number, algebraic_number, real_number]
 is_not: [integer, rational_number, transcendental_number]
 why:
   algebraic_number: >-
-    It solves $x^2 = 2$, or equivalently, it is a root of $x^2 - 2$.
+    $\sqrt{2}$ is an algebraic number, because it solves $x^2 = 2$, or equivalently, it is a root of $x^2 - 2$.
 ---

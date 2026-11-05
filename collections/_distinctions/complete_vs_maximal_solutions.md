@@ -20,8 +20,9 @@ examples:
       It is Zeno because the time between bounces shrinks geometrically, so the infinitely many bounces happen in finite time.
   - example: a_solution_of_the_timer_dot_tau_eq_1_on_c_eq_0_1
     why: >-
-      The timer's solution is complete and maximal because it flows for one unit of time between jumps, without end.
-      It is not Zeno, because its flow time grows without bound.
+      A maximal solution of the timer is complete, because the timer can always continue: it flows from $0$ to $1$, jumps back to $0$, and repeats, so a solution that stops can be extended.
+      It is maximal by choice, since a solution of the timer that stops early is not maximal (see the restricted solution below).
+      It is not Zeno, because it flows for one unit of time between jumps, so its flow time grows without bound.
   - example: the_solution_from_x_eq_0_of_xdot_eq_1_on_c_eq_0_1
     why: >-
       This solution is maximal because at $x = 1$ it can neither flow (it would leave $C$) nor jump ($D$ is empty), so it cannot be extended.

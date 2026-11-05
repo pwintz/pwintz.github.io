@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'A line'
 level: elementary
 values:

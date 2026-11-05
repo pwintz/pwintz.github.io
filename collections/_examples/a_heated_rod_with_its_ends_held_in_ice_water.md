@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'A heated rod with its ends held in ice water'
 level: high-school
 is: [dirichlet_condition]

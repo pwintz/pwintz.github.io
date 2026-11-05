@@ -5,5 +5,5 @@ level: high-school
 is_not: [metric]
 why:
   metric: >-
-    It can be negative, and $d(x, y) \neq d(y, x)$.
+    $d(x, y) = x - y$ is not a metric, because it can be negative, and $d(x, y) \neq d(y, x)$.
 ---

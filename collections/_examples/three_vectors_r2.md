@@ -5,5 +5,6 @@ level: high-school
 is_not: [vector_basis]
 why:
   vector_basis: >-
+    The vectors $(1, 0)$, $(0, 1)$, and $(1, 1)$ are not a basis of $\reals^2$.
     They span $\reals^2$, but they are not independent: $(1, 1) = (1, 0) + (0, 1)$, so $(1, 1)$ can be built in more than one way.
 ---

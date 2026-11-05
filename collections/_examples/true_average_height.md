@@ -5,5 +5,5 @@ level: high-school
 is_not: [estimator]
 why:
   estimator: >-
-    It is the quantity being estimated, not a rule for estimating it from data.
+    The true average height of everyone is not an estimator, because it is the quantity being estimated, not a rule for estimating it from data.
 ---
