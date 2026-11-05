@@ -1,6 +1,6 @@
 ---
 published: false
-title: 'The open disk $\lbrace (x, y) : x^2 + y^2 < 1 \rbrace$, as the interior of the circle $\lbrace (x, y) : x^2 + y^2 = 1 \rbrace$'
+title: 'The open disk $\setdef{(x, y) \suchthat x^2 + y^2 < 1}$, as the interior of the circle $\setdef{(x, y) \suchthat x^2 + y^2 = 1}$'
 level: high-school
 is_not: [interior]
 why:

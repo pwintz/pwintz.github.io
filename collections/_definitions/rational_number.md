@@ -1,5 +1,4 @@
 ---
-published: false
 title: Rational number
 term: rational number
 applies_to: numbers

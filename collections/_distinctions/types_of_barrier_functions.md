@@ -12,7 +12,7 @@ terms:
   - barrier_function
   - control_barrier_function
 examples_note: >-
-  In the first two rows, the initial set is $X_0 = [-1, 1]$ and the unsafe set is $X_u = \lbrace x : \lvert x \rvert \geq 2 \rbrace$.
+  In the first two rows, the initial set is $X_0 = [-1, 1]$ and the unsafe set is $X_u = \setdef{x \suchthat \lvert x \rvert \geq 2}$.
 examples:
   - example: b_x_eq_x_squared_minus_2_for_xdot_eq_minus_x
     why: >-

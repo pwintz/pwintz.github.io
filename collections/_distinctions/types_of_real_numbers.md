@@ -3,7 +3,6 @@ published: false
 title: Rational vs. irrational vs. algebraic vs. transcendental numbers
 kind: hierarchy
 areas: [numbers]
-status: draft
 summary: >
   Every real number is either rational or irrational.
   Separately, every number is either algebraic or transcendental.

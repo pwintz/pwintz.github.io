@@ -14,4 +14,4 @@ properties:
   - >-
     When $f$ is polynomial and the sets are semialgebraic, barrier certificates can be found with sum-of-squares programming (Prajna and Jadbabaie).
 ---
-Many variations weaken the derivative condition, for example requiring it only near the zero level set $\lbrace x : B(x) = 0 \rbrace$.
+Many variations weaken the derivative condition, for example requiring it only near the zero level set $\setdef{x \suchthat B(x) = 0}$.

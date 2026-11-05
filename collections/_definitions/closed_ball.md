@@ -12,7 +12,7 @@ levels:
     context: metric spaces
     text: |-
       Consider a metric space with metric $d$, a center $c$, and a radius $r$.
-      The _closed ball_ of radius $r$ around $c$ is $\overline{B}(c, r) = \lbrace x : d(x, c) \leq r \rbrace$, the points at distance at most $r$ from $c$.
+      The _closed ball_ of radius $r$ around $c$ is $\overline{B}(c, r) = \setdef{x \suchthat d(x, c) \leq r}$, the points at distance at most $r$ from $c$.
 properties:
   - >-
     The closed ball $\overline{B}(c, r)$ is the [union](/definitions/set-union) of the [open ball](/definitions/open-ball) $B(c, r)$ and the [sphere](/definitions/sphere) $S(c, r)$, and it is a closed set.

@@ -44,7 +44,7 @@ layout: single
           {% for slug in terms %}
             {% assign definition = site.definitions | where: "slug", slug | first %}
             <tr>
-              <td>{% if definition %}<a href="{{ definition.url | relative_url }}">{{ definition.term | default: definition.title }}</a>{% else %}<code>{{ slug }}</code>{% endif %}</td>
+              <td>{% if definition %}<a href="{{ definition.url | relative_url }}">{{ definition.term | default: definition.title }}</a>{% else %}{{ slug | replace: "_", " " }}{% endif %}</td>
               {% include example-verdict.html example=page term=slug %}
               <td>{{ page.why[slug] | markdownify | remove: '<p>' | remove: '</p>' }}</td>
             </tr>

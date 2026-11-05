@@ -15,7 +15,7 @@ levels:
   undergraduate:
     text: |-
       Consider a function $f : X \to Y$.
-      In the most common convention, the _range_ of $f$ is its image $f(X) = \lbrace f(x) : x \in X \rbrace$.
+      In the most common convention, the _range_ of $f$ is its image $f(X) = \setdef{f(x) \suchthat x \in X}$.
 properties:
   - >-
     The range (in this sense) of a [matrix](/definitions/matrix) $A$ is its column space, the set of all [vectors](/definitions/vector) $A x$.

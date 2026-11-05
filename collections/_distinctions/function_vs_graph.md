@@ -19,7 +19,7 @@ examples:
       It is not a graph or a curve, because it is a rule, not a set of points.
   - example: set_x_x_squared_x_in_reals
     why: >-
-      $\lbrace (x, x^2) : x \in \reals \rbrace$ is the graph of the function $x \mapsto x^2$, and it is a curve (the parabola).
+      $\setdef{(x, x^2) \suchthat x \in \reals}$ is the graph of the function $x \mapsto x^2$, and it is a curve (the parabola).
       It is not a function itself, because it is a set of points, not a rule.
   - example: the_unit_circle_x_squared_plus_y_squared_eq_1
     why: >-

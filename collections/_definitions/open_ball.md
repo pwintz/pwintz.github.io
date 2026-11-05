@@ -12,6 +12,6 @@ levels:
     context: metric spaces
     text: |-
       Consider a metric space with metric $d$, a center $c$, and a radius $r$.
-      The _open ball_ of radius $r$ around $c$ is $B(c, r) = \lbrace x : d(x, c) < r \rbrace$, the points at distance strictly less than $r$ from $c$.
+      The _open ball_ of radius $r$ around $c$ is $B(c, r) = \setdef{x \suchthat d(x, c) < r}$, the points at distance strictly less than $r$ from $c$.
       It does not include the [sphere](/definitions/sphere) $S(c, r)$.
 ---

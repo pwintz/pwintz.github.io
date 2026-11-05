@@ -11,5 +11,5 @@ levels:
   undergraduate:
     text: |-
       Consider [subsets](/definitions/subset) $A$ and $B$ of a [vector](/definitions/vector) space.
-      Their _Minkowski sum_ is $A + B = \lbrace a + b : a \in A, b \in B \rbrace$.
+      Their _Minkowski sum_ is $A + B = \setdef{a + b \suchthat a \in A, b \in B}$.
 ---

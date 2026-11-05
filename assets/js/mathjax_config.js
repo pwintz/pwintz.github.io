@@ -17,6 +17,11 @@ MathJax = {
             nats: "{\\mathbb{N}}",
             trans: "{^\\top}",
             invs: "{^{-1}}",
+            // Set-builder notation, as in /latex-macros/set-builder-notation: "\setdef{x \suchthat x > 0}".
+            // The braces and the bar grow to the height of the contents.
+            // \suchthat works only inside \setdef (\middle needs an enclosing \left ... \right).
+            setdef: ["\\left\\{#1\\right\\}", 1],
+            suchthat: "\\mathrel{}\\middle|\\mathrel{}",
             // reals: "{\\mathbb{R}}",
         }
     }

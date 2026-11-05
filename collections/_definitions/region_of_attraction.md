@@ -17,6 +17,6 @@ properties:
   - >-
     The region of attraction is an open, invariant set.
   - >-
-    If $V$ is a [Lyapunov function](/definitions/lyapunov-function) and $\dot{V} < 0$ on a [bounded](/definitions/bounded) sublevel set $\lbrace x : V(x) \leq c \rbrace$ (except at $x^{\ast}$), then that sublevel set is a [forward invariant](/definitions/forward-invariant) [subset](/definitions/subset) of the region of attraction, which is how regions of attraction are usually estimated.
+    If $V$ is a [Lyapunov function](/definitions/lyapunov-function) and $\dot{V} < 0$ on a [bounded](/definitions/bounded) sublevel set $\setdef{x \suchthat V(x) \leq c}$ (except at $x^{\ast}$), then that sublevel set is a [forward invariant](/definitions/forward-invariant) [subset](/definitions/subset) of the region of attraction, which is how regions of attraction are usually estimated.
 ---
 Some authors call any such estimate a "region of attraction," rather than the whole set.

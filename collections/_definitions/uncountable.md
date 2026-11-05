@@ -11,7 +11,7 @@ levels:
   undergraduate:
     text: |-
       Consider an infinite set $S$.
-      The set $S$ is _uncountable_ if it is not [countably infinite](/definitions/countably-infinite): no list $a_1, a_2, a_3, \dots$ contains all of its elements.
+      The set $S$ is _uncountable_ if $S$ is not [countably infinite](/definitions/countably-infinite): no list $a_1, a_2, a_3, \dots$ contains all of its elements.
 properties:
   - >-
     $\reals$ is uncountable (Cantor's diagonal argument), and so is every interval with more than one point.

@@ -8,7 +8,7 @@ levels:
   high-school:
     text: |-
       Consider a function of several variables, like the temperature at each point of a metal plate.
-      The _Laplacian_ of the function measures how much its value at a point differs from the average of its values at nearby points.
+      The _Laplacian_ of the function measures how much its value at a point differs from the average of the values at nearby points.
   undergraduate:
     text: |-
       Consider a twice-differentiable function $f : \reals^n \to \reals$.

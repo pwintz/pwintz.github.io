@@ -1,6 +1,6 @@
 ---
 published: false
-title: 'The set $S = \lbrace 1/n : n \geq 1 \rbrace$'
+title: 'The set $S = \setdef{1/n \suchthat n \geq 1}$'
 level: high-school
 is: [set]
 values:

@@ -16,7 +16,7 @@ levels:
     context: metric spaces
     text: |-
       Consider a set $A$ in a metric space with metric $d$.
-      The _diameter_ of $A$ is $\operatorname{diam}(A) = \sup \lbrace d(x, y) : x, y \in A \rbrace$, the largest distance between two points of $A$.
+      The _diameter_ of $A$ is $\operatorname{diam}(A) = \sup \setdef{d(x, y) \suchthat x, y \in A}$, the largest distance between two points of $A$.
 properties:
   - >-
     The diameter of a [circle](/definitions/circle) or [sphere](/definitions/sphere) is twice its radius.

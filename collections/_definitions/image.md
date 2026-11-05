@@ -15,6 +15,6 @@ levels:
   undergraduate:
     text: |-
       Consider a function $f : X \to Y$ and a set $A \subseteq X$.
-      The _image_ of $A$ is $f(A) = \lbrace f(x) : x \in A \rbrace$.
+      The _image_ of $A$ is $f(A) = \setdef{f(x) \suchthat x \in A}$.
       The image of $f$ is $f(X)$.
 ---

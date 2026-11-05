@@ -17,5 +17,5 @@ levels:
         Consider two sets $A$ and $B$.
         The _set difference_ of sets $A$ and $B$ is 
         
-        $$A \setminus B = \lbrace x : x \in A \text{ and } x \notin B \rbrace.$$
+        $$A \setminus B = \setdef{x \suchthat x \in A \text{ and } x \notin B}.$$
 ---

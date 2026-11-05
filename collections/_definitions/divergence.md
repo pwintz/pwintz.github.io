@@ -1,5 +1,4 @@
 ---
-published: false
 title: Divergence
 term: divergence
 applies_to: vector fields

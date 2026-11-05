@@ -17,7 +17,7 @@ levels:
       Consider two sets $A$ and $B$.
       The _union_ of sets $A$ and $B$ is 
       
-      $$A \cup B = \lbrace x : x \in A \text{ or } x \in B \rbrace.$$
+      $$A \cup B = \setdef{x \suchthat x \in A \text{ or } x \in B}.$$
 
       More generally, the union of a family of sets $$(A_i)_{i \in I}$$ is the set of all $x$ with $x \in A_i$ for some $i \in I$.
 ---

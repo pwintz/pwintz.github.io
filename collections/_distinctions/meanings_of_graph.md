@@ -17,7 +17,7 @@ examples_note: >-
 examples:
   - example: set_x_x_squared_x_in_reals
     why: >-
-      $\lbrace (x, x^2) : x \in \reals \rbrace$ is the graph of the function $x \mapsto x^2$.
+      $\setdef{(x, x^2) \suchthat x \in \reals}$ is the graph of the function $x \mapsto x^2$.
       It is not a chart, because it is a set of points, not a picture, and it is not a network, because it has no vertices or edges.
   - example: a_drawing_of_y_eq_x_squared_on_coordinate_axes
     why: >-

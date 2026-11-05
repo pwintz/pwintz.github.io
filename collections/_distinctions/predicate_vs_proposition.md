@@ -29,7 +29,7 @@ examples:
       It is not a proposition, because it is not true or false by itself, and it is not a predicate, because $p$ and $q$ stand for propositions, not objects.
   - example: set_x_y_in_reals_squared_x_lt_y
     why: >-
-      $\lbrace (x, y) \in \reals^2 : x < y \rbrace$ is a relation: the set of pairs for which the predicate "$x < y$" is true.
+      $\setdef{(x, y) \in \reals^2 \suchthat x < y}$ is a relation: the set of pairs for which the predicate "$x < y$" is true.
       It is not a predicate or a proposition, because it is a set, not a statement.
 see_also:
   - relation_vs_operator

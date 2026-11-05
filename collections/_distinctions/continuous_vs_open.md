@@ -17,7 +17,7 @@ examples:
     why: >-
       $\sin$ is continuous.
       It is not an open map, because $\sin((-\pi, \pi)) = [-1, 1]$ is not open.
-      It is not a closed map, because the closed set $\lbrace 2 \pi n + 1/n : n \geq 2 \rbrace$ maps to $\lbrace \sin(1/n) : n \geq 2 \rbrace$, which does not contain its limit $0$.
+      It is not a closed map, because the closed set $\setdef{2 \pi n + 1/n \suchthat n \geq 2}$ maps to $\setdef{\sin(1/n) \suchthat n \geq 2}$, which does not contain its limit $0$.
   - example: x_y_to_x_from_reals_squared_to_reals
     why: >-
       The projection $(x, y) \mapsto x$ is continuous, and it is an open map because it maps every open disk to an open interval.

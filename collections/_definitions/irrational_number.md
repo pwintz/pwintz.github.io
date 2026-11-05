@@ -1,5 +1,4 @@
 ---
-published: false
 title: Irrational number
 term: irrational number
 applies_to: numbers

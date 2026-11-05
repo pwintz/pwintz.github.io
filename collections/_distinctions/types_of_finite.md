@@ -51,4 +51,4 @@ The function $f(x) = 1/x$ on $(0, 1]$ has a finite value at every point, but it 
 
 "Constrained" is not a technical term on its own.
 In optimization, a constrained variable is required to satisfy given conditions, such as $g(x) \leq 0$.
-A constraint set can be unbounded, such as $\lbrace x : x \geq 0 \rbrace$.
+A constraint set can be unbounded, such as $\setdef{x \suchthat x \geq 0}$.

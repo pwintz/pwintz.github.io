@@ -12,7 +12,7 @@ levels:
     context: topological spaces
     text: |-
       Consider a topological space $X$, and the ways to split it into two open sets.
-      The space $X$ is _connected_ if it cannot be split into two disjoint, nonempty open sets: there are no open sets $U$ and $V$ with $U \cup V = X$, $U \cap V = \emptyset$, $U \neq \emptyset$, and $V \neq \emptyset$.
+      The space $X$ is _connected_ if $X$ cannot be split into two disjoint, nonempty open sets: there are no open sets $U$ and $V$ with $U \cup V = X$, $U \cap V = \emptyset$, $U \neq \emptyset$, and $V \neq \emptyset$.
 properties:
   - |-
     The connected subsets of $\reals$ are exactly the intervals.

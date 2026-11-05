@@ -10,7 +10,7 @@ levels:
       Consider a locally Lipschitz function $f : \reals^n \to \reals$, and let $\Omega$ be any set of [measure zero](/definitions/measure-zero) that contains the points where $f$ is not [differentiable](/definitions/differentiable).
       The _Clarke generalized gradient_ of $f$ at $x$ is
 
-      $$\partial f(x) = \overline{\operatorname{co}} \lbrace \lim_{k \to \infty} \nabla f(x_k) : x_k \to x, x_k \notin \Omega \rbrace:$$
+      $$\partial f(x) = \overline{\operatorname{co}} \setdef{\lim_{k \to \infty} \nabla f(x_k) \suchthat x_k \to x, x_k \notin \Omega}:$$
 
       the convex hull of all limits of [gradients](/definitions/gradient) at nearby points.
 properties:

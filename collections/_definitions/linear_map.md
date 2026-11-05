@@ -6,7 +6,7 @@ synonyms: [linear transformation, linear operator (for maps from a space to itse
 levels:
   high-school:
     text: |-
-      Consider a function $f$ from $\reals$ to $\reals$. The function $f$ is a _linear map_ if it has the form $f(x) = m x$ for some number $m$. The graph of a linear map is a straight line that passes through the origin.
+      Consider a function $f$ from $\reals$ to $\reals$. The function $f$ is a _linear map_ if $f$ has the form $f(x) = m x$ for some number $m$. The graph of a linear map is a straight line that passes through the origin.
     caveat: >-
       In high school algebra, $f(x) = m x + b$ is called a "linear function," but it is a linear map only when $b = 0$. With $b \neq 0$, it is called affine.
   undergraduate:

@@ -1,6 +1,6 @@
 ---
 published: false
-title: 'The ring $\lbrace (x, y) : 1 \leq x^2 + y^2 \leq 4 \rbrace$ (an annulus)'
+title: 'The ring $\setdef{(x, y) \suchthat 1 \leq x^2 + y^2 \leq 4}$ (an annulus)'
 level: high-school
 is: [connected, path_connected]
 is_not: [simply_connected]

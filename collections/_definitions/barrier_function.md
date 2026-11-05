@@ -7,7 +7,7 @@ synonyms: [zeroing barrier function]
 levels:
   graduate:
     text: |-
-      Consider a system $\dot{x} = f(x)$ and a set $C = \lbrace x : h(x) \geq 0 \rbrace$ that should remain safe.
+      Consider a system $\dot{x} = f(x)$ and a set $C = \setdef{x \suchthat h(x) \geq 0}$ that should remain safe.
       A (zeroing) _barrier function_ for the system and $C$ is a [continuously differentiable](/definitions/continuously-differentiable) function $h$ such that $\nabla h(x) \cdot f(x) \geq -\alpha(h(x))$ for all $x$, for some extended class-$\mathcal{K}$ function $\alpha$ ([continuous](/definitions/continuous) and strictly increasing, with $\alpha(0) = 0$).
 properties:
   - >-

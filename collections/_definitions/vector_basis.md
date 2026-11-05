@@ -1,5 +1,4 @@
 ---
-published: false
 title: Basis of a vector space
 term: basis
 applies_to: vector spaces

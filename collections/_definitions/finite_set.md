@@ -11,6 +11,6 @@ levels:
   undergraduate:
     text: |-
       Consider a set $S$.
-      The set $S$ is _finite_ if it is empty or in bijection with $\lbrace 1, 2, \dots, n \rbrace$ for some $n \in \mathbb{N}$.
+      The set $S$ is _finite_ if $S$ is empty or in bijection with $\lbrace 1, 2, \dots, n \rbrace$ for some $n \in \mathbb{N}$.
 ---
 For a number, "finite" means "a [real number](/definitions/real-number), not $\pm \infty$," which is unrelated.

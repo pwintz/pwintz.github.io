@@ -7,7 +7,7 @@ synonyms: [CBF]
 levels:
   graduate:
     text: |-
-      Consider a control system $\dot{x} = f(x) + g(x) u$ and a set $C = \lbrace x : h(x) \geq 0 \rbrace$ that should remain safe.
+      Consider a control system $\dot{x} = f(x) + g(x) u$ and a set $C = \setdef{x \suchthat h(x) \geq 0}$ that should remain safe.
       A _control barrier function_ for the system and $C$ is a [continuously differentiable](/definitions/continuously-differentiable) function $h$ such that, for every $x$, some admissible input $u$ satisfies $\nabla h(x) \cdot (f(x) + g(x) u) \geq -\alpha(h(x))$, for some extended class-$\mathcal{K}$ function $\alpha$.
 properties:
   - >-

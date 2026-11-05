@@ -16,19 +16,19 @@ terms:
 examples:
   - example: set_v_v_1_eq_0_for_the_unit_circle_at_1_0
     why: >-
-      $\lbrace v : v_1 = 0 \rbrace$ is the tangent space of the unit circle at $(1, 0)$.
+      $\setdef{v \suchthat v_1 = 0}$ is the tangent space of the unit circle at $(1, 0)$.
       The circle is smooth there, so the contingent cone and the Clarke tangent cone agree with the tangent space.
   - example: set_v_v_1_leq_0_for_the_closed_unit_disk_at_1_0
     why: >-
-      $\lbrace v : v_1 \leq 0 \rbrace$ is the contingent cone and the Clarke tangent cone of the disk at $(1, 0)$, which agree because the disk is convex.
+      $\setdef{v \suchthat v_1 \leq 0}$ is the contingent cone and the Clarke tangent cone of the disk at $(1, 0)$, which agree because the disk is convex.
       It is not a tangent space, because it is not a vector space: $(1, 0)$ points out of the disk.
   - example: set_v_v_2_geq_minus_v_1_for_s_eq_set_x_y_y_geq
     why: >-
-      $\lbrace v : v_2 \geq -\lvert v_1 \rvert \rbrace$ is the contingent cone of $S$ at the origin, because $S$ is a cone, so its contingent cone there is $S$ itself.
+      $\setdef{v \suchthat v_2 \geq -\lvert v_1 \rvert}$ is the contingent cone of $S$ at the origin, because $S$ is a cone, so its contingent cone there is $S$ itself.
       It is not the Clarke tangent cone, because $S$ is not convex, and it is not a tangent space.
   - example: set_v_v_2_geq_v_1_for_s_eq_set_x_y_y_geq_minus_x
     why: >-
-      $\lbrace v : v_2 \geq \lvert v_1 \rvert \rbrace$ is the Clarke tangent cone of $S$ at the origin, because only these directions point into $S$ from every nearby boundary point.
+      $\setdef{v \suchthat v_2 \geq \lvert v_1 \rvert}$ is the Clarke tangent cone of $S$ at the origin, because only these directions point into $S$ from every nearby boundary point.
       It is not the contingent cone, which is larger, and it is not a tangent space.
 see_also:
   - types_of_continuous_set-valued

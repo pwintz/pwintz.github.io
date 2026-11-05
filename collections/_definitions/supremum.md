@@ -22,5 +22,5 @@ properties:
   - |-
     If the supremum of $S$ belongs to $S$, it is the [maximum](/definitions/maximum) of $S$.
   - |-
-    The supremum of $S$ is the negative of the [infimum](/definitions/infimum) of $\lbrace -x : x \in S \rbrace$.
+    The supremum of $S$ is the negative of the [infimum](/definitions/infimum) of $\setdef{-x \suchthat x \in S}$.
 ---

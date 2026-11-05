@@ -35,7 +35,7 @@ see_also:
 ---
 ## Notes
 
-- A Lyapunov function gives barrier functions for free: if $\dot{V} \leq 0$, each sublevel set $\lbrace x : V(x) \leq c \rbrace$ is forward invariant.
+- A Lyapunov function gives barrier functions for free: if $\dot{V} \leq 0$, each sublevel set $\setdef{x \suchthat V(x) \leq c}$ is forward invariant.
   The converse fails, because a barrier function says nothing about convergence.
 - Stability is a property of an equilibrium (or set) and its neighborhood.
   Safety is a property of where solutions go from a given initial set.

@@ -1,6 +1,6 @@
 ---
 published: false
-title: '$\lbrace (x, y) \in \reals^2 : x < y \rbrace$'
+title: '$\setdef{(x, y) \in \reals^2 \suchthat x < y}$'
 level: high-school
 is: [relation]
 is_not: [predicate, proposition]

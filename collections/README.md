@@ -168,6 +168,10 @@ Levels are optional, and each has a `text`, an optional `context` (e.g., "metric
 A higher level may be more rigorous or more general, but must not contradict a lower level.
 Rival definitions (e.g., whether the natural numbers include 0) go in separate files.
 
+**Name objects instead of using pronouns:** When a definition names an object, refer to it by name, not by "it," "its," or "they."
+Write "A square matrix $A$ is called _symmetric_ if $A$ is equal to its transpose," not "A square matrix is called _symmetric_ if it is equal to its transpose."
+A pronoun is fine only when its antecedent is the nearest noun and cannot be mistaken (e.g., "its transpose" right after "$A$").
+
 **Name the term:** Each level's `text` is a complete sentence that names the term being defined, in italics.
 Write "An _expression_ is a combination of ...," not "A combination of ...."
 Use `_term_` for italics, or `*term*` when the term contains math (e.g., `*class-$\mathcal{K}$*`).

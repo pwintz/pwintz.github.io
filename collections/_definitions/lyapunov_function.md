@@ -24,7 +24,7 @@ properties:
   - >-
     Converse Lyapunov theorems: every [asymptotically stable](/definitions/asymptotically-stable) [equilibrium](/definitions/equilibrium) of a system with a locally Lipschitz $f$ has a Lyapunov function with $\dot{V}$ negative definite.
   - >-
-    Each sublevel set $\lbrace x : V(x) \leq c \rbrace$ of a Lyapunov function (within the region where $\dot{V} \leq 0$) is [forward invariant](/definitions/forward-invariant).
+    Each sublevel set $\setdef{x \suchthat V(x) \leq c}$ of a Lyapunov function (within the region where $\dot{V} \leq 0$) is [forward invariant](/definitions/forward-invariant).
 ---
 Conventions vary on whether $\dot{V}$ must be negative semidefinite or negative definite.
 Some authors call the latter a _strict_ Lyapunov function.

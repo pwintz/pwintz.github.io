@@ -50,4 +50,4 @@ see_also:
 - A set is unbounded if it does not fit in any ball: for every $M > 0$, it has two points farther than $M$ apart.
   This requires a notion of distance, whereas being infinite does not.
 - "Infinitely many" and "arbitrarily large" are different.
-  The set $\lbrace 1/n : n \in \mathbb{N} \rbrace$ has infinitely many elements, none larger than $1$.
+  The set $\setdef{1/n \suchthat n \in \mathbb{N}}$ has infinitely many elements, none larger than $1$.

@@ -17,7 +17,7 @@ levels:
       Consider two sets $A$ and $B$.
       The _intersection_ of sets $A$ and $B$ is 
       
-      $$A \cap B = \lbrace x : x \in A \text{ and } x \in B \rbrace.$$
+      $$A \cap B = \setdef{x \suchthat x \in A \text{ and } x \in B}.$$
       
 ---
 

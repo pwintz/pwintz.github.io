@@ -28,11 +28,11 @@ examples:
       It is not a sphere, which would be only the surface.
   - example: set_x_y_x_squared_plus_y_squared_lt_1
     why: >-
-      $\lbrace (x, y) : x^2 + y^2 < 1 \rbrace$ is the open unit disk, an open ball (and so a ball) in $\reals^2$.
+      $\setdef{(x, y) \suchthat x^2 + y^2 < 1}$ is the open unit disk, an open ball (and so a ball) in $\reals^2$.
       It is not a closed ball, because it leaves out the circle, and it is not a circle, because it includes the inside.
   - example: set_x_y_x_squared_plus_y_squared_eq_1
     why: >-
-      $\lbrace (x, y) : x^2 + y^2 = 1 \rbrace$ is the unit circle, which is also the unit sphere in $\reals^2$, and so a topological circle and sphere.
+      $\setdef{(x, y) \suchthat x^2 + y^2 = 1}$ is the unit circle, which is also the unit sphere in $\reals^2$, and so a topological circle and sphere.
       It is not a ball, because it does not include the inside.
   - example: the_boundary_of_a_square
     why: >-

@@ -1,5 +1,4 @@
 ---
-published: false
 title: Chart
 term: chart
 applies_to: visualizations

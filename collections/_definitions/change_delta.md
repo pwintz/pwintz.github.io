@@ -1,5 +1,4 @@
 ---
-published: false
 title: Change (Δ)
 term: change
 applies_to: quantities over time

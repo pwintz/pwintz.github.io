@@ -1,5 +1,4 @@
 ---
-published: false
 title: Curl
 term: curl
 applies_to: vector fields on $\reals^3$

@@ -1,9 +1,7 @@
 ---
-published: false
 title: Types of derivatives in vector calculus
 kind: siblings
 areas: [analysis]
-status: draft
 summary: >
   The Jacobian of a vector field contains all of its first partial derivatives.
   The divergence (a scalar) and curl (a vector) summarize parts of it.
@@ -23,7 +21,7 @@ examples:
   - example: paraboloid_xyz
     why: >-
       The Laplacian of $f$ is the sum of its second partial derivatives, $2 + 2 + 0 = 4$, and its Jacobian is the row of its first partial derivatives.
-      $f$ has no divergence or curl, because those apply to vector fields, not to scalar functions such as $f$.
+      Divergence or curl are undefined for $f$ because those apply to vector fields, not to scalar functions such as $f$.
 see_also:
   - types_of_scalar_derivatives
 ---

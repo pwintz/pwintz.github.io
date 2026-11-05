@@ -31,7 +31,13 @@ excerpt: "Examples and non-examples of mathematical terms, from elementary to gr
           {% assign subjects = subjects | split: " " | uniq | join: " " %}
           {% capture slugs %}{% for pair in example.values %}{{ pair[0] }} {% endfor %}{{ example.is | join: " " }} {{ example.is_not | join: " " }}{% endcapture %}
           {% assign slugs = slugs | split: " " | uniq %}
-          {% capture term_names %}{% for slug in slugs %}{% assign def = site.definitions | where: "slug", slug | first %}{{ def.term }}; {% endfor %}{% endcapture %}
+          {% comment %} Only terms whose definitions are built (published, or in a preview with --unpublished). {% endcomment %}
+          {% assign term_list = "" | split: "" %}
+          {% for slug in slugs %}
+            {% assign def = site.definitions | where: "slug", slug | first %}
+            {% if def %}{% assign term_list = term_list | push: def.term %}{% endif %}
+          {% endfor %}
+          {% assign term_names = term_list | join: "; " %}
           {% comment %} An example matches a level filter if its level is at or below the chosen level. {% endcomment %}
           {% assign reached = false %}
           {% capture levels %}{% for l in site.data.definition_levels %}{% if l.id == level.id %}{% assign reached = true %}{% endif %}{% if reached %}{{ l.id }} {% endif %}{% endfor %}{% endcapture %}
@@ -45,8 +51,8 @@ excerpt: "Examples and non-examples of mathematical terms, from elementary to gr
             </div>
             {% if example.description %}<div class="dictionary-entry__text">{{ example.description | markdownify }}</div>{% endif %}
             <div class="dictionary-entry__related">
-              Terms: {{ term_names | strip | remove_last: ";" }}
-              {% if used_in.size > 0 %}<br>Distinctions: {% for d in used_in %}<a href="{{ d.url | relative_url }}">{{ d.title }}</a>{% unless forloop.last %}; {% endunless %}{% endfor %}{% endif %}
+              {% if term_list.size > 0 %}Terms: {{ term_names }}{% endif %}
+              {% if used_in.size > 0 %}{% if term_list.size > 0 %}<br>{% endif %}Distinctions: {% for d in used_in %}<a href="{{ d.url | relative_url }}">{{ d.title }}</a>{% unless forloop.last %}; {% endunless %}{% endfor %}{% endif %}
             </div>
           </li>
         {% endfor %}

@@ -18,5 +18,5 @@ properties:
   - >-
     $T_S(x)$ is a closed cone, but it need not be convex.
   - >-
-    If $S$ is convex, then $T_S(x)$ is the closure of $\lbrace t (y - x) : y \in S, t \geq 0 \rbrace$.
+    If $S$ is convex, then $T_S(x)$ is the closure of $\setdef{t (y - x) \suchthat y \in S, t \geq 0}$.
 ---
