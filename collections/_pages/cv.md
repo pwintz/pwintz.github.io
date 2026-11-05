@@ -307,7 +307,7 @@ service-work:
     date: September 2026
 
   - title: Letters of Recommendation Written for Students
-    location: University of California, Santa Cruz (four students) and Hartnell College (three students)
+    location: University of California, Santa Cruz (five students) and Hartnell College (three students)
 
   - title: Informal Teaching Mentor for a First-time Lecturer
     location: Applied Mathematics Department, University of California, Santa Cruz
