@@ -1,5 +1,4 @@
 ---
-published: false
 title: QR decomposition
 term: QR decomposition
 applies_to: matrices

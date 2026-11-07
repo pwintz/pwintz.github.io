@@ -17,7 +17,7 @@ properties:
   - >-
     A real symmetric matrix has real [eigenvalues](/definitions/eigenvalue) and an orthonormal basis of eigenvectors (the spectral theorem), so $A = Q \Lambda Q^{\top}$ with $Q$ orthogonal and $\Lambda$ diagonal.
   - |-
-    Every square [matrix](/definitions/matrix) is the sum of a symmetric matrix and a [skew-symmetric matrix](/definitions/skew-symmetric-matrix):
+    Every square [matrix](/definitions/matrix) is the sum of a symmetric matrix and a [skew-symmetric matrix](/definitions/skew-symmetric-matrix), called its [Toeplitz decomposition](/definitions/toeplitz-decomposition):
 
     $$A = \frac{1}{2}(A + A^{\top}) + \frac{1}{2}(A - A^{\top}).$$
 ---

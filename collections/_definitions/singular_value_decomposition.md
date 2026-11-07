@@ -1,5 +1,4 @@
 ---
-published: false
 title: Singular value decomposition
 term: singular value decomposition
 applies_to: matrices

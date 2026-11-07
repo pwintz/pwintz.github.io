@@ -8,5 +8,5 @@ levels:
       A _transcendental number_ is a number that does not solve any polynomial equation with [integer](/definitions/integer) [coefficients](/definitions/coefficient).
   undergraduate:
     text: |-
-      A _transcendental number_ is a (real or complex) number that is not algebraic.
+      A _transcendental number_ is a (real or complex) number that is not [algebraic](/definitions/algebraic_number).
 ---

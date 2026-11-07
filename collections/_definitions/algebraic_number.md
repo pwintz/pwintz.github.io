@@ -1,13 +1,11 @@
 ---
-published: false
 title: Algebraic number
 term: algebraic number
 applies_to: numbers
 levels:
   high-school:
     text: |-
-      Consider a number $a$.
-      The number $a$ is an _algebraic number_ if $a$ solves a polynomial equation whose [coefficients](/definitions/coefficient) are all [integers](/definitions/integer).
+      A number $a$ is an _algebraic number_ if $a$ is a solution to a polynomial equation whose [coefficients](/definitions/coefficient) are all [integers](/definitions/integer).
   undergraduate:
     text: |-
       Consider a real or complex number $a$.
