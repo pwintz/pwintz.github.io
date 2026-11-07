@@ -454,7 +454,8 @@ function render(target: HTMLCanvasElement, yaw: number, pitch: number, small: bo
   // its right or the strip below it, whichever fits a larger square. The side views have no box.
   let region = { x: 0, y: 0, w, h };
   const overlay = small ? null : document.querySelector<HTMLElement>('.span-overlay');
-  if (overlay && overlay.offsetWidth > 0) {
+  // Only an overlay inside the plot takes up room there; on small screens it sits above the plot.
+  if (overlay && overlay.offsetWidth > 0 && overlay.closest('.span-stage')) {
     const o = overlay.getBoundingClientRect();
     const right = { x: o.right - rect.left, y: 0, w: rect.right - o.right, h };
     const below = { x: 0, y: o.bottom - rect.top, w, h: rect.bottom - o.bottom };
@@ -1064,6 +1065,9 @@ let dragging:
   | null = null;
 
 /** The dashed term cᵢvᵢ within reach of the canvas point (x, y), if any. */
+/** The fewest on-screen pixels that count as one unit of a coefficient when dragging. */
+const MIN_DRAG_LENGTH = 40;
+
 function dashAt(x: number, y: number): number | null {
   // A term with coefficient 0 has no length, so it can only be grabbed at its point; give it
   // priority there over longer arrows that pass through the same point.
@@ -1084,9 +1088,12 @@ function dashAt(x: number, y: number): number | null {
 }
 
 /** The 2D vector whose tip is within reach of (x, y), if any. */
+// A finger is less precise than a mouse, so touches get a larger target around each vector tip.
+let touchInput = false;
+
 function tipAt(x: number, y: number): number | null {
   if (state.dim !== 2) return null;
-  let best: number | null = null, bestD = 18;
+  let best: number | null = null, bestD = touchInput ? 30 : 18;
   activeVectors().forEach((v, i) => {
     const [px, py] = project(v);
     const d = Math.hypot(px - x, py - y);
@@ -1101,6 +1108,7 @@ function pointerPos(e: PointerEvent): [number, number] {
 }
 
 canvas.addEventListener('pointerdown', e => {
+  touchInput = e.pointerType === 'touch';
   const [x, y] = pointerPos(e);
   cancelAnimationFrame(spinFrame);
   spinFrame = 0;
@@ -1137,9 +1145,13 @@ canvas.addEventListener('pointermove', e => {
     const i = dragging.i;
     const [ox, oy] = project([0, 0, 0]);
     const [vx, vy] = project(activeVectors()[i]);
-    const sx = vx - ox, sy = vy - oy, len2 = sx * sx + sy * sy;
-    if (len2 > 1) {
-      const c = dragging.c + ((x - dragging.x) * sx + (y - dragging.y) * sy) / len2;
+    const sx = vx - ox, sy = vy - oy;
+    // A vector that is short on screen would make each pixel change cᵢ by a lot (on a phone, a
+    // finger's sweep could add dozens), so treat it as at least MIN_DRAG_LENGTH pixels long.
+    const len = Math.hypot(sx, sy);
+    if (len > 0.5) {
+      const along = ((x - dragging.x) * sx + (y - dragging.y) * sy) / len;
+      const c = dragging.c + along / Math.max(len, MIN_DRAG_LENGTH);
       state.coeffs[i] = Math.round(c * 20) / 20;
       syncCoeffInputs();
     }
@@ -1209,6 +1221,9 @@ const endDrag = (e: PointerEvent) => {
 };
 canvas.addEventListener('pointerup', endDrag);
 canvas.addEventListener('pointercancel', endDrag);
+// While something on the plot is being dragged, keep the browser from also scrolling the page.
+// (touch-action: none covers most browsers; this also covers ones that ignore it.)
+canvas.addEventListener('touchmove', e => { if (dragging) e.preventDefault(); }, { passive: false });
 
 // ── URL state ──────────────────────────────────────────────────────
 // The URL stores the dimension, one parameter per vector, and the addition order when it isn't the
@@ -1259,7 +1274,21 @@ function loadUrl() {
 // ── Pinning ────────────────────────────────────────────────────────
 // The settings, the plot, and the side views each have the same pin button as the other tools
 // (see common/panels.ts). Which ones are pinned is saved in this browser.
-const PIN_KEY = 'vector_span_pinned_panels';
+const PIN_KEY = 'vector_span_pinned_panels_v2'; // v2: the coefficient panel was added.
+// ── Coefficients on small screens ──────────────────────────────────
+// On a wide screen the coefficient box floats over the plot. On a small one it would cover most of
+// the plot, so it moves into its own panel above the plot, which can be pinned like the others.
+const SMALL_SCREEN = window.matchMedia('(max-width: 700px)');
+function placeCoefficients() {
+  const overlay = document.querySelector<HTMLElement>('.span-overlay')!;
+  const panel = $('span-coeff-panel');
+  const home = SMALL_SCREEN.matches ? $('span-coeff-slot') : document.querySelector<HTMLElement>('.span-stage')!;
+  if (overlay.parentElement !== home) home.appendChild(overlay);
+  panel.hidden = !SMALL_SCREEN.matches;
+  draw();
+}
+SMALL_SCREEN.addEventListener('change', placeCoefficients);
+
 const panels = setupPanels('vs', () =>
   saveJSON(PIN_KEY, panels.list.map((panel, i) => (panels.isPinned(panel) ? i : -1)).filter(i => i >= 0)));
 const savedPins = loadJSON<number[]>(PIN_KEY);
@@ -1317,4 +1346,5 @@ const resizer = new ResizeObserver(() => draw());
 resizer.observe(canvas);
 // The plot is centered beside the coefficient box, so refit when the box changes size.
 resizer.observe(document.querySelector('.span-overlay')!);
+placeCoefficients();
 SIDE_VIEWS.forEach(v => resizer.observe(v.canvas));

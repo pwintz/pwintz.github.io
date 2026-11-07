@@ -7,3 +7,17 @@ search: false
 
 @use "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @use "minimal-mistakes"; // main partials
+
+/* Full-width pages: front matter `full_width: true` (for tools that need room, not reading text).
+   The theme caps #main at $max-width and reserves a right-hand column beside .page; both are
+   lifted, and the layout leaves out the left profile sidebar. */
+.full-width {
+  #main { max-width: none; }
+
+  .page,
+  .page__related {
+    float: none;
+    width: 100%;
+    padding-right: 0;
+  }
+}

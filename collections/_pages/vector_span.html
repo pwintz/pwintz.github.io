@@ -4,6 +4,7 @@ permalink: /tools/vector_span/
 title: Vector Span, Linear Independence, Column Space, and Null Space
 excerpt: "Explore the span of vectors in 2D and 3D by dragging the vectors and coefficients of a linear combination. Step-by-step calculations show how the span relates to the column space, and how linear independence relates to the null space."
 tool_categories: [Linear Algebra, Math]
+full_width: true
 date_added: 2026-11-06
 ---
 
@@ -260,6 +261,14 @@ date_added: 2026-11-06
   .span-vec-body:has(.span-handle:focus-visible) { background: rgba(128, 128, 128, 0.1); box-shadow: 0 0 0 1px rgba(128, 128, 128, 0.35); }
   .span-vec-body:hover .span-handle { color: #3c4043; }
   .span-coeff { border-radius: 4px; }
+  /* The coefficient panel, used on small screens instead of the overlay on the plot. */
+  .span-coeff-panel { position: relative; padding: 0.3rem 2.2rem 0.3rem 0; margin-bottom: 0.4rem; background: #fff; }
+  .span-coeff-panel[hidden] { display: none; }
+  .span-coeff-panel.vs-pinned { position: sticky; z-index: 9; border-bottom: 1px solid rgba(128, 128, 128, 0.35); }
+  .span-coeff-panel .span-overlay { position: static; max-height: none; background: #fff; }
+  .span-coeff-panel.vs-pinned .span-overlay { max-height: 35vh; }
+  /* The panel spans the page, so the sum can wrap instead of setting the width. */
+  .span-coeff-panel .span-sum-terms { white-space: normal; }
   .span-coeffs .span-coeff:hover, .span-coeffs .span-coeff:focus-within { background: rgba(128, 128, 128, 0.12); }
   .span-vec.span-dragging { position: relative; z-index: 1; }
   .span-vec.span-dragging .span-vec-body { cursor: grabbing; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22); border-radius: 6px; }
@@ -321,6 +330,11 @@ date_added: 2026-11-06
       </div>
     </div>
     <div id="span-vectors"></div>
+  </div>
+
+  <!-- On small screens the coefficient box moves here from the plot (see placeCoefficients). -->
+  <div class="span-coeff-panel vs-panel" id="span-coeff-panel" data-fullscreen="false" hidden>
+    <div id="span-coeff-slot"></div>
   </div>
 
   <div class="span-plot vs-panel" data-fullscreen="false">
