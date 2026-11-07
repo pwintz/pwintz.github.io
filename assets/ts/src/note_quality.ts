@@ -15,6 +15,7 @@ import { WARMTH_LABELS, NOISE_BANDS, type TimbreProfile } from "./note_quality/t
 import { linearFit, median } from "./note_quality/stats";
 import type { Hop, HopLog, Segmenter } from "./note_quality/segmenter";
 import { ModulationAnalyzer, modulationPeak, STEP_HOPS, type ModulationSpectrum } from "./note_quality/vibrato";
+import { loadJSON, saveJSON, removeSaved } from "./common/storage";
 
 // ⋘──────── Constants ────────⋙
 
@@ -199,9 +200,7 @@ function updateCountdown(): void {
 function clearNoise(): void {
   analyzer?.cancelCalibration();
   calibration = null;
-  try {
-    localStorage.removeItem(NOISE_STORAGE_KEY);
-  } catch { /* Nothing saved */ }
+  removeSaved(NOISE_STORAGE_KEY);
   applyCalibration();
   setNoiseStatus("");
 }
@@ -209,14 +208,12 @@ function clearNoise(): void {
 function saveCalibration(): void {
   const c = calibration!;
   const saved = { sampleRate: c.sampleRate, fftSize: c.fftSize, level: c.level, savedAt: c.savedAt, spectrum: float32ToBase64(c.spectrum) };
-  try {
-    localStorage.setItem(NOISE_STORAGE_KEY, JSON.stringify(saved));
-  } catch { /* Not saved, for example if storage is full or unavailable */ }
+  saveJSON(NOISE_STORAGE_KEY, saved);
 }
 
 function loadCalibration(): void {
   try {
-    const saved = JSON.parse(localStorage.getItem(NOISE_STORAGE_KEY) ?? "null");
+    const saved = loadJSON<any>(NOISE_STORAGE_KEY);
     if (!saved) return;
     calibration = {
       sampleRate: saved.sampleRate, fftSize: saved.fftSize, level: saved.level, savedAt: saved.savedAt,
@@ -1652,14 +1649,10 @@ function drawOvertones(): void {
 
 const SECTIONS_KEY = "note_quality_sections";
 const sections = [...document.querySelectorAll<HTMLDetailsElement>("details.nq-settings")];
-try {
-  const open: Record<string, boolean> = JSON.parse(localStorage.getItem(SECTIONS_KEY) ?? "{}");
-  for (const section of sections) if (typeof open[section.id] === "boolean") section.open = open[section.id];
-} catch { /* Nothing saved */ }
+const open = loadJSON<Record<string, unknown>>(SECTIONS_KEY) ?? {};
+for (const section of sections) if (typeof open[section.id] === "boolean") section.open = open[section.id] as boolean;
 sections.forEach(section => section.addEventListener("toggle", () => {
-  try {
-    localStorage.setItem(SECTIONS_KEY, JSON.stringify(Object.fromEntries(sections.map(s => [s.id, s.open]))));
-  } catch { /* Not saved */ }
+  saveJSON(SECTIONS_KEY, Object.fromEntries(sections.map(s => [s.id, s.open])));
 }));
 
 setupPanels("nq", () => saved.save());

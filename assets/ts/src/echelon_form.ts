@@ -43,6 +43,7 @@ import { Fraction, formatFraction, parseEntry } from "./matrix/fraction";
 import {
   Analysis, CONDITIONS, Cell, Form, REF_CONDITIONS, ambiguityNote, analyze, joinAnd, systemInfo,
 } from "./matrix/echelon";
+import { loadString, saveString } from "./common/storage";
 
 // ⋘──────── Types and constants ────────⋙
 
@@ -1164,13 +1165,9 @@ function initPage(): void {
   // Remember whether each set of instructions is collapsed (only in this browser).
   for (const details of document.querySelectorAll<HTMLDetailsElement>(".mx-instructions")) {
     const key = `echelon-form-${details.id}-open`;
-    try {
-      const saved = localStorage.getItem(key);
-      if (saved !== null) details.open = saved === "1";
-    } catch { /* Storage may be unavailable, e.g., in a private window */ }
-    details.addEventListener("toggle", () => {
-      try { localStorage.setItem(key, details.open ? "1" : "0"); } catch { /* As above */ }
-    });
+    const saved = loadString(key);
+    if (saved !== null) details.open = saved === "1";
+    details.addEventListener("toggle", () => saveString(key, details.open ? "1" : "0"));
   }
 
   // The matrix sticks to the top of the window while scrolling (see the page's CSS). A sentinel

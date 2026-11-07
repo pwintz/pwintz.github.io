@@ -4,6 +4,9 @@
 // Shared by the audio tools. Class names start with the page's prefix (for example, "ft-panel"),
 // so that each page's styles stay separate.
 
+import { loadJSON, saveJSON } from "../common/storage";
+import type { Panels } from "../common/panels";
+
 // ⋘──────── Chart colors ────────⋙
 
 export const BG    = "#121417";
@@ -50,139 +53,13 @@ export function placeholder(ctx: CanvasRenderingContext2D, w: number, h: number,
 }
 
 // ⋘──────── Pinning and full screen ────────⋙
-// Each panel (an element with the class "<prefix>-panel") has a pin button that keeps it at the
-// top of the window while scrolling, stacked below any pinned panels above it, and (in browsers
-// that allow it, and unless the panel has data-fullscreen="false") a button that shows it full
-// screen.
-
-const PIN_ICON = `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16 9V4h1c.55 0 1-.45 1-1s-.45-1-1-1H7c-.55 0-1 .45-1 1s.45 1 1 1h1v5c0 1.66-1.34 3-3 3v2h5.97v7l1 1 1-1v-7H19v-2c-1.66 0-3-1.34-3-3z"/></svg>`;
-const FULL_ICON = `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>`;
-const EXIT_FULL_ICON = `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>`;
-
-export interface Panels {
-  list: HTMLElement[];
-  isPinned(panel: HTMLElement): boolean;
-  setPinned(panel: HTMLElement, pinned: boolean): void;
-}
-
-// `onPinChange` is called when the visitor pins or unpins a panel.
-export function setupPanels(prefix: string, onPinChange: () => void): Panels {
-  const pinnedClass = `${prefix}-pinned`;
-  const list = [...document.querySelectorAll<HTMLElement>(`.${prefix}-panel`)];
-
-  function stackPinned(): void {
-    let top = 0;
-    for (const panel of list) {
-      if (!panel.classList.contains(pinnedClass)) {
-        panel.style.top = "";
-        continue;
-      }
-      panel.style.top = `${top}px`;
-      top += panel.offsetHeight;
-    }
-  }
-
-  function setPinned(panel: HTMLElement, pinned: boolean): void {
-    panel.classList.toggle(pinnedClass, pinned);
-    panel.querySelector(`.${prefix}-pin`)!.setAttribute("aria-pressed", String(pinned));
-    stackPinned();
-  }
-
-  for (const panel of list) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = `${prefix}-pin`;
-    button.innerHTML = PIN_ICON;
-    button.setAttribute("aria-label", "Pin to the top of the window");
-    button.setAttribute("aria-pressed", "false");
-    button.addEventListener("click", () => {
-      setPinned(panel, !panel.classList.contains(pinnedClass));
-      onPinChange();
-    });
-    panel.append(button);
-    if (panel.dataset.fullscreen === "false") continue;
-
-    const full = document.createElement("button");
-    full.type = "button";
-    full.className = `${prefix}-full`;
-    full.innerHTML = FULL_ICON;
-    full.setAttribute("aria-label", "Full screen");
-    full.hidden = !document.fullscreenEnabled;
-    full.addEventListener("click", () => {
-      if (document.fullscreenElement) void document.exitFullscreen();
-      else void panel.requestFullscreen();
-    });
-    panel.append(full);
-  }
-  // The panels' heights change as the canvases are first drawn and when the window is resized.
-  const panelResizes = new ResizeObserver(stackPinned);
-  list.forEach(panel => panelResizes.observe(panel));
-  document.addEventListener("fullscreenchange", () => {
-    for (const panel of list) {
-      const button = panel.querySelector<HTMLButtonElement>(`.${prefix}-full`);
-      if (!button) continue;
-      const isFull = document.fullscreenElement === panel;
-      button.innerHTML = isFull ? EXIT_FULL_ICON : FULL_ICON;
-      button.setAttribute("aria-label", isFull ? "Exit full screen" : "Full screen");
-    }
-    stackPinned();
-  });
-
-  return { list, isPinned: panel => panel.classList.contains(pinnedClass), setPinned };
-}
+// Moved to common/panels.ts so that non-audio tools can use it too.
+export { setupPanels } from "../common/panels";
+export type { Panels } from "../common/panels";
 
 // ⋘──────── Setting explanations ────────⋙
-// Each label with a `data-help` explanation (inside the element with the class `prefix`) gets a
-// "?" button after it that shows the explanation in a popup (the element "<prefix>-help-popup")
-// below the button.
-
-export function setupHelp(prefix: string): void {
-  const helpPopup = document.getElementById(`${prefix}-help-popup`) as HTMLDivElement;
-  let openHelp: HTMLButtonElement | null = null;
-
-  function closeHelp(): void {
-    helpPopup.hidden = true;
-    openHelp?.setAttribute("aria-expanded", "false");
-    openHelp = null;
-  }
-
-  function showHelp(button: HTMLButtonElement, text: string): void {
-    closeHelp();
-    openHelp = button;
-    button.setAttribute("aria-expanded", "true");
-    helpPopup.textContent = text;
-    helpPopup.hidden = false;
-    // Below the button, kept within the window.
-    const r = button.getBoundingClientRect();
-    const left = Math.min(r.left, document.documentElement.clientWidth - helpPopup.offsetWidth - 8);
-    helpPopup.style.left = `${Math.max(8, left) + window.scrollX}px`;
-    helpPopup.style.top  = `${r.bottom + 6 + window.scrollY}px`;
-  }
-
-  document.body.append(helpPopup); // Positioned relative to the page
-  for (const label of document.querySelectorAll<HTMLElement>(`.${prefix} [data-help]`)) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = `${prefix}-help`;
-    button.textContent = "?";
-    button.setAttribute("aria-label", `About ${label.textContent}`);
-    button.setAttribute("aria-expanded", "false");
-    button.setAttribute("aria-controls", helpPopup.id);
-    button.addEventListener("click", e => {
-      e.stopPropagation();
-      if (openHelp === button) closeHelp();
-      else showHelp(button, label.dataset.help!);
-    });
-    label.after(button);
-  }
-  document.addEventListener("click", e => { if (!helpPopup.contains(e.target as Node)) closeHelp(); });
-  document.addEventListener("keydown", e => {
-    if (e.key !== "Escape" || !openHelp) return;
-    const button = openHelp;
-    closeHelp();
-    button.focus();
-  });
-}
+// Moved to common/help.ts so that non-audio tools can use it too.
+export { setupHelp } from "../common/help";
 
 // ⋘──────── Saving arrays ────────⋙
 // Arrays of numbers (like a noise calibration's spectrum) are saved in the browser as base64 text,
@@ -219,18 +96,11 @@ export function setupSavedControls(storageKey: string, selector: string, panels:
       state.controls[el.id] = el instanceof HTMLInputElement && el.type === "checkbox" ? el.checked : el.value;
     }
     panels?.list.forEach((panel, i) => { if (panels.isPinned(panel)) state.pinned.push(i); });
-    try {
-      localStorage.setItem(storageKey, JSON.stringify(state));
-    } catch { /* Not saved */ }
+    saveJSON(storageKey, state);
   }
 
   function restore(): void {
-    let state: Partial<SavedState>;
-    try {
-      state = JSON.parse(localStorage.getItem(storageKey) ?? "{}");
-    } catch {
-      return;
-    }
+    const state = loadJSON<Partial<SavedState>>(storageKey) ?? {};
     for (const el of controls) {
       const value = state.controls?.[el.id];
       if (value === undefined) continue;

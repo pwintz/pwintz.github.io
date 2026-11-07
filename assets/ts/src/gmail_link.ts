@@ -12,6 +12,9 @@
 // The index → email mapping is stored only in this browser's localStorage,
 // so no email addresses are published in the site's source.
 
+import { loadJSON, saveJSON } from "./common/storage";
+import { enableDragReorder } from "./common/drag_reorder";
+
 // ⋘──────── Types and constants ────────⋙
 
 export interface ConversionResult {
@@ -151,12 +154,8 @@ export function convertUrl(input: string, accounts: string[]): ConversionResult 
 
 // Reads the saved account list; storage can be unavailable (private mode, blocked cookies).
 function loadAccounts(): string[] {
-  try {
-    const parsed: unknown = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
-    return Array.isArray(parsed) ? parsed.map(String) : [];
-  } catch {
-    return [];
-  }
+  const parsed = loadJSON(STORAGE_KEY);
+  return Array.isArray(parsed) ? parsed.map(String) : [];
 }
 
 // Blank entries at the end aren't stored. Blanks in the middle are kept, since they hold the
@@ -166,11 +165,8 @@ function saveAccounts(accounts: string[]): void {
   while (stored.length > 0 && stored[stored.length - 1].trim() === "") {
     stored.pop();
   }
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
-  } catch {
-    // Storage unavailable: the list still works for this visit, it just won't persist.
-  }
+  // If storage is unavailable, the list still works for this visit, it just won't persist.
+  saveJSON(STORAGE_KEY, stored);
 }
 
 // ╭────────────────────────────────────────╮
@@ -239,95 +235,21 @@ function initPage(): void {
     });
   }
 
-  // Lets a row be reordered by dragging its handle. Pointer events cover mouse, pen, and touch.
+  // Lets a row be reordered by dragging its handle (see common/drag_reorder.ts).
   // The whole <li> moves in the DOM, but relabelRows() rewrites every "u/N" label by position,
   // so the numbers stay where they are and only the email entries appear to move.
   function enableDrag(row: HTMLLIElement, handle: HTMLButtonElement): void {
-    handle.addEventListener("pointerdown", (event) => {
-      if (event.button !== 0) return;
-      event.preventDefault();
-      row.classList.add("gl-dragging");
-      // Listen on window rather than using pointer capture: moving the row in the DOM releases
-      // capture, which would drop the rest of the drag.
-
-      // Only the body (the email box, with its handle) is transformed, never the <li>, so <li> boxes
-      // always give the untransformed slot positions.
-      const body     = row.querySelector<HTMLElement>(".gl-account-body")!;
-      const startY   = event.clientY;
-      const startTop = row.getBoundingClientRect().top;
-      const bodyOf   = (other: Element) => other.querySelector<HTMLElement>(".gl-account-body")!;
-
-      // Keeps the dragged body under the pointer, wherever its row currently sits in the list.
-      const follow = (clientY: number) => {
-        const shift = row.getBoundingClientRect().top - startTop;
-        body.style.transform = `translateY(${clientY - startY - shift}px)`;
-      };
-
-      // Moves the dragged row before `before` (null = to the end), sliding the other entries to
-      // their new slots: record where they were, move the row, then animate from old to new.
-      const moveRow = (before: Element | null) => {
-        const others  = [...accountList.children].filter((other) => other !== row);
-        const oldTops = new Map(others.map((other) => [other, other.getBoundingClientRect().top]));
-        accountList.insertBefore(row, before);
-        relabelRows();
-        for (const other of others) {
-          const delta = oldTops.get(other)! - other.getBoundingClientRect().top;
-          if (delta === 0) continue;
-          bodyOf(other).animate(
-            [{ transform: `translateY(${delta}px)` }, { transform: "translateY(0)" }],
-            { duration: 150, easing: "ease-out" },
-          );
-        }
-      };
-
-      const middle = (other: Element) => {
-        const box = other.getBoundingClientRect();
-        return box.top + box.height / 2;
-      };
-
-      // Swap with a neighbor once the dragged entry's edge crosses that neighbor's midpoint.
-      // Loop so a fast drag can pass several rows in one move.
-      const onMove = (moveEvent: PointerEvent) => {
-        follow(moveEvent.clientY);
-        for (;;) {
-          const dragged = body.getBoundingClientRect();
-          const next    = row.nextElementSibling;
-          const prev    = row.previousElementSibling;
-          if (next && dragged.bottom > middle(next)) {
-            moveRow(next.nextElementSibling);
-          } else if (prev && dragged.top < middle(prev)) {
-            moveRow(prev);
-          } else {
-            break;
-          }
-          follow(moveEvent.clientY);
-        }
-      };
-
-      const onEnd = () => {
-        window.removeEventListener("pointermove", onMove);
-        window.removeEventListener("pointerup", onEnd);
-        window.removeEventListener("pointercancel", onEnd);
-
-        // Each row remembers its original index; read the new order from the DOM.
-        const order   = [...accountList.children].map((other) => Number((other as HTMLElement).dataset.index));
-        const changed = order.some((original, position) => original !== position);
-
-        // Settle the dragged entry into its slot, then save (which redraws the list).
-        const settle = body.animate(
-          [{ transform: body.style.transform || "translateY(0)" }, { transform: "translateY(0)" }],
-          { duration: 120, easing: "ease-out" },
-        );
-        body.style.transform = "";
-        settle.onfinish = () => {
-          row.classList.remove("gl-dragging");
-          if (changed) setAccounts(order.map((original) => accounts[original]));
-        };
-      };
-
-      window.addEventListener("pointermove", onMove);
-      window.addEventListener("pointerup", onEnd);
-      window.addEventListener("pointercancel", onEnd);
+    enableDragReorder({
+      list: accountList,
+      item: row,
+      handle,
+      bodyOf: (other) => other.querySelector<HTMLElement>(".gl-account-body")!,
+      draggingClass: "gl-dragging",
+      onMove: relabelRows,
+      // Saving redraws the list.
+      onEnd: (order, changed) => {
+        if (changed) setAccounts(order.map((original) => accounts[original]));
+      },
     });
   }
 

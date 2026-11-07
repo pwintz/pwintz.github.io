@@ -14,6 +14,7 @@ import VexFlow, {
 export { HANON_EXERCISES };
 import { HANON_EXERCISES, HanonExercise } from "./data/hanon_data";
 import { HANON_TEXT } from "./data/hanon_text";
+import { loadString as loadSetting, saveString as saveSetting } from "./common/storage";
 
 // ╭────────────────────────────────────────╮
 // │                  Keys                  │
@@ -978,22 +979,6 @@ const ZOOM_STORAGE_KEY  = "hanon-zoom";
 const TEMPO_STORAGE_KEY = "hanon-tempo";
 const VIEW_STORAGE_KEY  = "hanon-view-options-open";
 const SOUND_STORAGE_KEY = "hanon-sound";
-
-function loadSetting(key: string): string | null {
-  try {
-    return localStorage.getItem(key);
-  } catch {
-    return null;   // Storage unavailable: use the default
-  }
-}
-
-function saveSetting(key: string, value: string): void {
-  try {
-    localStorage.setItem(key, value);
-  } catch {
-    // Storage unavailable: the setting just won't be remembered.
-  }
-}
 
 async function initPage(): Promise<void> {
   const $ = <T extends HTMLElement>(id: string): T => document.getElementById(id) as T;

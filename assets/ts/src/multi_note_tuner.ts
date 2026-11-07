@@ -13,6 +13,7 @@ import { FFT, WINDOWS, fitPeak } from "./audio/fft";
 import { NOTE_NAMES, freqToMidi, midiToFreq, centsOff, noteName, formatCents } from "./audio/notes";
 import { AudioInput } from "./audio/input";
 import { BG, PANEL, TEXT, MUTED, GRID, dpr, fitCanvas, placeholder, setupPanels, setupHelp, setupSavedControls, float32ToBase64, base64ToFloat32 } from "./audio/ui";
+import { loadJSON, saveJSON, removeSaved } from "./common/storage";
 
 // ⋘──────── Constants ────────⋙
 
@@ -632,9 +633,7 @@ function finishNoise(): void {
 function clearNoise(): void {
   calibration = null;
   noiseFrames = null;
-  try {
-    localStorage.removeItem(NOISE_STORAGE_KEY);
-  } catch { /* Nothing saved */ }
+  removeSaved(NOISE_STORAGE_KEY);
   applyCalibration();
   input.setStatus("", "info");
 }
@@ -642,14 +641,12 @@ function clearNoise(): void {
 function saveCalibration(): void {
   const c = calibration!;
   const saved = { fftSize: c.fftSize, window: c.window, sampleRate: c.sampleRate, savedAt: c.savedAt, level: float32ToBase64(c.level) };
-  try {
-    localStorage.setItem(NOISE_STORAGE_KEY, JSON.stringify(saved));
-  } catch { /* Not saved, for example if storage is full or unavailable */ }
+  saveJSON(NOISE_STORAGE_KEY, saved);
 }
 
 function loadCalibration(): void {
   try {
-    const saved = JSON.parse(localStorage.getItem(NOISE_STORAGE_KEY) ?? "null");
+    const saved = loadJSON<any>(NOISE_STORAGE_KEY);
     if (!saved) return;
     calibration = {
       fftSize: saved.fftSize, window: saved.window, sampleRate: saved.sampleRate, savedAt: saved.savedAt,

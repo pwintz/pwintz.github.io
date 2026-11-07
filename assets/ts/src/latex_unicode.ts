@@ -8,6 +8,7 @@
 import { distance } from "fastest-levenshtein";
 import { replace, ReplaceOptions } from "unicodeit/ts_src/replace";
 import { replacements, combiningmarks, subsuperscripts } from "unicodeit/ts_src/data";
+import { loadString as load, saveString as save } from "./common/storage";
 
 // ⋘──────── Types and constants ────────⋙
 
@@ -203,10 +204,6 @@ function initPage(): void {
   const symbolStatus = $<HTMLParagraphElement>("lu-symbol-status");
 
   // ⋘──────── Conversion ────────⋙
-
-  // localStorage can be unavailable (private windows, blocked storage); the page works without it.
-  const load = (key: string): string | null => { try { return localStorage.getItem(key); } catch { return null; } };
-  const save = (key: string, value: string): void => { try { localStorage.setItem(key, value); } catch { /* not saved */ } };
 
   // Pieces whose details are open, so they stay open while typing.
   const openDetails = new Set<string>();
