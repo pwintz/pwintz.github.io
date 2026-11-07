@@ -1,0 +1,452 @@
+---
+published: false
+layout: single
+permalink: /tools/rotation_representations/
+title: 3D Rotation Representations
+classes: wide
+excerpt: "Rotate an object in 3D and watch the same rotation written as Euler angles, an axis and angle, a unit quaternion, and a rotation matrix in SO(3). Edit any one and the others follow. Spin it to see angular velocity and how each representation changes."
+tool_categories: [Math, Physics, Linear Algebra]
+date_added: 2026-10-23
+---
+
+<style>
+  .rot button,
+  .rot select {
+    font: inherit;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+  }
+  .rot button:hover { background: rgba(128, 128, 128, 0.1); }
+  .rot select { width: auto; padding: 0.25rem 0.4rem; }
+  /* The theme adds bottom margins to inputs and labels, which pushes them off-center in a row. */
+  .rot input,
+  .rot label,
+  .rot select { margin: 0; }
+  .rot [hidden] { display: none !important; }
+  .rot .rot-primary { background: #1a73e8; border-color: #1a73e8; color: #fff; }
+  .rot .rot-primary:hover { background: #1765cc; }
+
+  /* The view on the left and the representations on the right. The view stays in sight while
+     scrolling through the representations, and the canvas is never taller than the window. */
+  .rot-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1rem;
+    align-items: start;
+    margin-top: 0.8rem;
+  }
+  .rot-view { position: sticky; top: 0.5rem; }
+  .rot-reps { display: flex; flex-direction: column; gap: 0.8rem; min-width: 0; }
+  .rot canvas { max-width: calc(100vh - 2rem); margin: 0 auto; }
+  /* On narrow screens everything is stacked, and only the canvas stays at the top of the window
+     (smaller, so the panels can be seen below it). */
+  @media (max-width: 48em) {
+    .rot-layout { grid-template-columns: minmax(0, 1fr); }
+    .rot-view { display: contents; }
+    .rot-canvas-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      padding: 0.4rem 0;
+      background: #fff;
+      box-shadow: 0 6px 6px -6px rgba(0, 0, 0, 0.25);
+    }
+    .rot canvas { max-width: min(100%, 42vh); }
+  }
+
+  .rot canvas {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 8px;
+    background: #fbfbfc;
+    touch-action: none;
+    cursor: grab;
+  }
+  .rot canvas.rot-dragging { cursor: grabbing; }
+  .rot-hint { margin: 0.3rem 0 0; font-size: 0.75em; color: #5f6368; }
+
+  .rot-toolbar { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; font-size: 0.85em; }
+  .rot-options { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 1rem; margin-top: 0.5rem; font-size: 0.8em; }
+  .rot .rot-checkbox { display: inline-flex; align-items: center; gap: 0.35rem; cursor: pointer; }
+  .rot .rot-checkbox input { display: inline-block; width: auto; margin: 0; }
+
+  /* Pill-shaped radio buttons. */
+  .rot-pills { display: inline-flex; flex-wrap: wrap; gap: 0.3rem; }
+  .rot-pill { position: relative; cursor: pointer; }
+  .rot-pill input { position: absolute; opacity: 0; pointer-events: none; }
+  .rot-pill span {
+    display: inline-block;
+    padding: 0.15rem 0.6rem;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 999px;
+  }
+  .rot-pill input:checked + span { background: #1a73e8; border-color: #1a73e8; color: #fff; }
+  .rot-pill input:focus-visible + span { outline: 2px solid #1a73e8; outline-offset: 2px; }
+
+  /* One panel per representation. */
+  .rot-panel {
+    padding: 0.7rem 0.9rem 0.8rem;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 8px;
+    font-size: 0.85em;
+    transition: box-shadow 300ms;
+  }
+  .rot-panel.rot-source { box-shadow: inset 3px 0 0 #1a73e8; }
+  .rot .rot-panel h2 {
+    margin: 0 0 0.5rem;
+    padding: 0;
+    border: none;
+    font-size: 1em;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.2rem 0.6rem;
+  }
+  .rot-panel h2 small { font-weight: normal; color: #5f6368; font-size: 0.85em; }
+  .rot-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.8rem; margin: 0.35rem 0; }
+  .rot-note { margin: 0.4rem 0 0; color: #5f6368; font-size: 0.9em; }
+  .rot-formula { margin: 0.4rem 0 0; font-family: "Cambria Math", "STIX Two Math", Georgia, serif; font-size: 1.05em; }
+  .rot-warning {
+    margin: 0.5rem 0 0;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    background: #fef7e0;
+    box-shadow: inset 3px 0 0 #f9ab00;
+  }
+  .rot-error { margin: 0.4rem 0 0; color: #c5221f; min-height: 0; }
+  .rot-error:empty { display: none; }
+
+  /* A slider with its value beside it. */
+  .rot-slider { display: grid; grid-template-columns: 7.2rem 1fr 4.8rem; align-items: center; gap: 0.6rem; margin: 0.3rem 0; }
+  .rot-slider input[type="range"] { width: 100%; padding: 0; }
+  .rot input.rot-num {
+    width: 100%;
+    padding: 0.15rem 0.3rem;
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 4px;
+  }
+  .rot-vector { display: inline-flex; align-items: baseline; gap: 0.2rem; white-space: nowrap; }
+  .rot .rot-vector input.rot-num { width: 4.4rem; }
+  .rot-swatch { display: inline-block; width: 0.7em; height: 0.7em; border-radius: 2px; margin-right: 0.3em; vertical-align: baseline; }
+
+  /* Quaternion: one input and one bar per component. */
+  .rot-quat { display: grid; grid-template-columns: 1.4rem 4.8rem 1fr; align-items: center; gap: 0.3rem 0.6rem; }
+  .rot-quat-label { font-style: italic; text-align: right; }
+  .rot-bar { position: relative; height: 0.7rem; border-radius: 3px; background: rgba(128, 128, 128, 0.12); }
+  .rot-bar::before { content: ""; position: absolute; left: 50%; top: -2px; bottom: -2px; width: 1px; background: rgba(128, 128, 128, 0.6); }
+  .rot-bar-fill { position: absolute; top: 0; bottom: 0; border-radius: 3px; background: #9334e6; }
+
+  /* Rotation matrix, with brackets and each column colored like the body axis it is. */
+  .rot-matrix-wrap { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+  .rot-matrix {
+    display: grid;
+    grid-template-columns: repeat(3, 4.8rem);
+    gap: 0.3rem 0.4rem;
+    padding: 0.3rem 0.5rem;
+    border-left: 2px solid currentColor;
+    border-right: 2px solid currentColor;
+    border-radius: 6px;
+  }
+  .rot-matrix-head { text-align: center; font-size: 0.85em; font-weight: bold; }
+  .rot-matrix input.rot-num { border-width: 1px 1px 1px 3px; }
+  .rot-checks { display: grid; grid-template-columns: auto auto; gap: 0.1rem 0.6rem; font-variant-numeric: tabular-nums; }
+  .rot-checks .rot-ok { color: #188038; }
+  .rot-checks .rot-bad { color: #c5221f; }
+
+  /* Angular velocity: small read-only matrices and the rates of change. */
+  .rot .rot-panel h3 { margin: 0.8rem 0 0.3rem; font-size: 0.95em; }
+  .rot-rates { display: flex; flex-direction: column; gap: 0.5rem; }
+  .rot-rate { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.5rem; font-variant-numeric: tabular-nums; }
+  .rot-rate-name { min-width: 4.5rem; font-family: "Cambria Math", "STIX Two Math", Georgia, serif; }
+  .rot-mini {
+    display: inline-grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 0 0.7rem;
+    padding: 0.1rem 0.4rem;
+    border-left: 1.5px solid currentColor;
+    border-right: 1.5px solid currentColor;
+    border-radius: 5px;
+    text-align: right;
+    font-size: 0.95em;
+  }
+  .rot-omega-color { color: #a0522d; font-weight: bold; }
+  .rot-omega-grid { display: grid; grid-template-columns: auto auto; justify-content: start; align-items: center; gap: 0.3rem 0.5rem; margin: 0.4rem 0 0; }
+  .rot-omega-grid > span:nth-child(odd) { text-align: right; }
+  /* A dot over a letter, for time derivatives (the combining dot is missing from some fonts). */
+  .rot-dot { position: relative; display: inline-block; }
+  .rot-dot::after { content: "˙"; position: absolute; left: 0; right: 0; top: -0.45em; text-align: center; font-style: normal; }
+  .rot-big { color: #c5221f; font-weight: bold; }
+
+  .rot-explain h2 { margin-top: 2rem; }
+  /* Wide equations scroll by themselves on narrow screens instead of widening the page. */
+  .rot-explain mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
+</style>
+
+<p>
+  A rotation of 3D space can be written down in several ways. Each panel below shows the same
+  rotation in a different representation. Drag the airplane or edit any panel and the others follow.
+</p>
+
+<div class="rot">
+  <div class="rot-layout">
+
+    <div class="rot-view">
+      <div class="rot-canvas-wrap">
+        <canvas id="rot-canvas" aria-label="An airplane rotated in 3D, with its body axes and the axis of rotation"></canvas>
+      </div>
+      <div class="rot-view-controls">
+        <p class="rot-hint">Drag to rotate the airplane. Hold Shift (or choose “view” below) to turn the camera instead. While it spins, drag and let go to fling it.</p>
+
+        <div class="rot-toolbar">
+          <button id="rot-reset" type="button">Reset</button>
+          <button id="rot-random" type="button">Random rotation</button>
+          <button id="rot-animate-axis" type="button" title="Rotate from the identity about the rotation's axis">Play axis–angle</button>
+          <button id="rot-animate-euler" type="button" title="Do the three Euler-angle rotations one at a time">Play Euler steps</button>
+        </div>
+
+        <div class="rot-options">
+          <span class="rot-pills" role="radiogroup" aria-label="What dragging rotates">
+            Drag rotates:
+            <label class="rot-pill"><input type="radio" name="rot-drag" value="body" checked><span>airplane</span></label>
+            <label class="rot-pill"><input type="radio" name="rot-drag" value="view"><span>view</span></label>
+          </span>
+        </div>
+        <div class="rot-options">
+          <label class="rot-checkbox"><input id="rot-show-world" type="checkbox" checked><span>Fixed axes</span></label>
+          <label class="rot-checkbox"><input id="rot-show-body" type="checkbox" checked><span>Body axes</span></label>
+          <label class="rot-checkbox"><input id="rot-show-axis" type="checkbox" checked><span>Rotation axis</span></label>
+          <label class="rot-checkbox"><input id="rot-show-gimbal" type="checkbox"><span>Euler gimbals</span></label>
+          <label class="rot-checkbox"><input id="rot-show-ghost" type="checkbox"><span>Starting position</span></label>
+          <label class="rot-checkbox"><input id="rot-show-omega" type="checkbox" checked><span>Angular velocity</span></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="rot-reps">
+
+      <!-- Euler angles -->
+      <section id="rot-panel-euler" class="rot-panel">
+        <h2>Euler angles <small>three rotations about coordinate axes</small></h2>
+        <div class="rot-row">
+          <label for="rot-seq">Sequence</label>
+          <select id="rot-seq">
+            <optgroup label="Tait–Bryan">
+              <option value="ZYX" selected>z-y-x (yaw, pitch, roll)</option>
+              <option value="ZXY">z-x-y</option>
+              <option value="YXZ">y-x-z</option>
+              <option value="YZX">y-z-x</option>
+              <option value="XYZ">x-y-z</option>
+              <option value="XZY">x-z-y</option>
+            </optgroup>
+            <optgroup label="Proper Euler">
+              <option value="ZXZ">z-x-z</option>
+              <option value="ZYZ">z-y-z</option>
+              <option value="YXY">y-x-y</option>
+              <option value="YZY">y-z-y</option>
+              <option value="XYX">x-y-x</option>
+              <option value="XZX">x-z-x</option>
+            </optgroup>
+          </select>
+          <span class="rot-pills" role="radiogroup" aria-label="Intrinsic or extrinsic">
+            <label class="rot-pill" title="Each rotation is about an axis of the already-rotated body"><input type="radio" name="rot-frame" value="intrinsic" checked><span>intrinsic</span></label>
+            <label class="rot-pill" title="Each rotation is about a fixed axis"><input type="radio" name="rot-frame" value="extrinsic"><span>extrinsic</span></label>
+          </span>
+        </div>
+        <div id="rot-euler-sliders"></div>
+        <p id="rot-euler-formula" class="rot-formula"></p>
+        <p id="rot-euler-explain" class="rot-note"></p>
+        <p id="rot-gimbal-warning" class="rot-warning" hidden></p>
+      </section>
+
+      <!-- Axis–angle -->
+      <section id="rot-panel-axis" class="rot-panel">
+        <h2>Axis and angle <small>one rotation about one axis</small></h2>
+        <div class="rot-row">
+          <span>Axis <i>n</i> =</span>
+          <span class="rot-vector">(<input id="rot-axis-x" class="rot-num" type="text" inputmode="decimal" aria-label="Axis x component">,
+            <input id="rot-axis-y" class="rot-num" type="text" inputmode="decimal" aria-label="Axis y component">,
+            <input id="rot-axis-z" class="rot-num" type="text" inputmode="decimal" aria-label="Axis z component">)</span>
+        </div>
+        <div class="rot-slider">
+          <label for="rot-angle-range">Angle <i>θ</i></label>
+          <input id="rot-angle-range" type="range" min="0" max="360" step="0.1">
+          <input id="rot-angle" class="rot-num" type="text" inputmode="decimal" aria-label="Angle in degrees">
+        </div>
+        <p id="rot-rotvec" class="rot-note"></p>
+      </section>
+
+      <!-- Quaternion -->
+      <section id="rot-panel-quat" class="rot-panel">
+        <h2>Unit quaternion <small><i>q</i> = <i>w</i> + <i>x</i>𝐢 + <i>y</i>𝐣 + <i>z</i>𝐤</small></h2>
+        <div id="rot-quat" class="rot-quat"></div>
+        <p id="rot-quat-formula" class="rot-formula"></p>
+        <div class="rot-row">
+          <button id="rot-negate" type="button" title="Replace q with −q, which is the same rotation">Negate <i>q</i></button>
+          <span class="rot-note" style="margin:0">−<i>q</i> is the same rotation as <i>q</i>.</span>
+        </div>
+        <p id="rot-quat-error" class="rot-error" role="alert"></p>
+      </section>
+
+      <!-- Rotation matrix -->
+      <section id="rot-panel-matrix" class="rot-panel">
+        <h2>Rotation matrix <small><i>R</i> ∈ SO(3)</small></h2>
+        <div class="rot-matrix-wrap">
+          <div id="rot-matrix" class="rot-matrix"></div>
+          <div id="rot-checks" class="rot-checks"></div>
+        </div>
+        <p class="rot-note">
+          Column <i>j</i> of <i>R</i> is where the rotation sends the <i>j</i>-th coordinate axis,
+          which is the airplane's matching body axis. An entered matrix is replaced by the
+          nearest rotation matrix.
+        </p>
+        <p id="rot-matrix-error" class="rot-error" role="alert"></p>
+      </section>
+
+      <!-- Angular velocity -->
+      <section id="rot-panel-omega" class="rot-panel">
+        <h2>Angular velocity <small>how fast the rotation is changing</small></h2>
+        <div class="rot-row">
+          <button id="rot-spin" class="rot-primary" type="button">▶ Spin</button>
+          <span class="rot-pills" role="radiogroup" aria-label="How the airplane moves">
+            <label class="rot-pill" title="ω stays the same: a steady turn about one axis"><input type="radio" name="rot-motion" value="steady" checked><span>steady <i>ω</i></span></label>
+            <label class="rot-pill" title="No torque: the angular momentum stays the same, and ω moves"><input type="radio" name="rot-motion" value="free"><span>free (no torque)</span></label>
+          </span>
+        </div>
+        <div class="rot-row">
+          <span>Show the motion ahead</span>
+          <span class="rot-pills" role="radiogroup" aria-label="Seconds of motion to preview">
+            <label class="rot-pill"><input type="radio" name="rot-ahead" value="0" checked><span>off</span></label>
+            <label class="rot-pill"><input type="radio" name="rot-ahead" value="0.5"><span>0.5 s</span></label>
+            <label class="rot-pill"><input type="radio" name="rot-ahead" value="1"><span>1 s</span></label>
+            <label class="rot-pill"><input type="radio" name="rot-ahead" value="2"><span>2 s</span></label>
+          </span>
+        </div>
+        <p class="rot-note">
+          Faint copies show where the airplane will be over the next few seconds, without moving it:
+          while it's paused, they flow out of it at the speed it would move, fading as they go.
+          Dotted curves show the paths of the nose, wingtips, and fin. Each velocity arrow
+          <i>v</i> = ω × <i>r</i> is tangent to its path.
+        </p>
+        <div class="rot-omega-grid">
+          <span title="In fixed coordinates"><span class="rot-omega-color">ω</span> =</span>
+          <span class="rot-vector">(<input id="rot-omega-x" class="rot-num" type="text" inputmode="decimal" aria-label="ω x component">,
+            <input id="rot-omega-y" class="rot-num" type="text" inputmode="decimal" aria-label="ω y component">,
+            <input id="rot-omega-z" class="rot-num" type="text" inputmode="decimal" aria-label="ω z component">)</span>
+          <span title="In body coordinates"><span class="rot-omega-color">ω</span><sub>b</sub> = <i>R</i>ᵀω =</span>
+          <span class="rot-vector">(<input id="rot-omegab-x" class="rot-num" type="text" inputmode="decimal" aria-label="Body ω x component">,
+            <input id="rot-omegab-y" class="rot-num" type="text" inputmode="decimal" aria-label="Body ω y component">,
+            <input id="rot-omegab-z" class="rot-num" type="text" inputmode="decimal" aria-label="Body ω z component">)</span>
+        </div>
+        <p class="rot-note">In rad/s: ω in the fixed coordinates, ω<sub>b</sub> in the airplane's body coordinates.</p>
+        <div class="rot-row">
+          <span>Spin about</span>
+          <button type="button" data-spin-axis="0" style="color:#d93025"><i>Re</i>₁</button>
+          <button type="button" data-spin-axis="1" style="color:#188038"><i>Re</i>₂</button>
+          <button type="button" data-spin-axis="2" style="color:#1a73e8"><i>Re</i>₃</button>
+          <span id="rot-spin-speed" class="rot-note" style="margin:0"></span>
+        </div>
+        <p id="rot-omega-note" class="rot-note"></p>
+
+        <h3>Rates of change</h3>
+        <div id="rot-rates" class="rot-rates"></div>
+        <p id="rot-rates-warning" class="rot-warning" hidden></p>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<div class="rot-explain">
+  <h2>How the representations are related</h2>
+  <p>
+    A <em>rotation matrix</em> is a \(3 \times 3\) matrix \(R\) with \(R^\top R = I\) and
+    \(\det R = 1\). These matrices form the group \(\mathrm{SO}(3)\), and a vector \(v\) is
+    rotated to \(Rv\). The columns of \(R\) are the rotated coordinate axes \(Re_1, Re_2, Re_3\).
+  </p>
+  <p>
+    Every rotation turns space by some <em>angle</em> \(\theta\) about some unit <em>axis</em> \(n\)
+    (Euler's rotation theorem). <em>Rodrigues' formula</em> gives the matrix:
+    \[ R = I + \sin\theta\,[n]_\times + (1 - \cos\theta)\,[n]_\times^2,
+       \qquad [n]_\times = \begin{bmatrix} 0 & -n_z & n_y \\ n_z & 0 & -n_x \\ -n_y & n_x & 0 \end{bmatrix}. \]
+    The pair \((n, \theta)\) is the same rotation as \((-n, -\theta)\) and as \((n, \theta + 2\pi)\).
+  </p>
+  <p>
+    The <em>unit quaternion</em> for the axis \(n\) and angle \(\theta\) is
+    \( q = \cos\tfrac{\theta}{2} + \sin\tfrac{\theta}{2}\,(n_x \mathbf{i} + n_y \mathbf{j} + n_z \mathbf{k}) \).
+    It rotates a vector \(v\), written as the quaternion \(v_x \mathbf{i} + v_y \mathbf{j} + v_z \mathbf{k}\),
+    to \(q v q^{-1}\). Because of the half angles, \(q\) and \(-q\) give the same rotation: the unit
+    quaternions (a 3-sphere) cover \(\mathrm{SO}(3)\) twice. Composing rotations is multiplying
+    quaternions, and with \(q = w + x\mathbf{i} + y\mathbf{j} + z\mathbf{k}\),
+    \[ R = \begin{bmatrix}
+         1 - 2(y^2 + z^2) & 2(xy - wz) & 2(xz + wy) \\
+         2(xy + wz) & 1 - 2(x^2 + z^2) & 2(yz - wx) \\
+         2(xz - wy) & 2(yz + wx) & 1 - 2(x^2 + y^2)
+       \end{bmatrix}. \]
+  </p>
+  <p>
+    <em>Euler angles</em> write a rotation as three rotations about coordinate axes,
+    \(R = R_{1}(\alpha)\, R_{2}(\beta)\, R_{3}(\gamma)\), where, for example,
+    \[ R_x(\gamma) = \begin{bmatrix} 1 & 0 & 0 \\ 0 & \cos\gamma & -\sin\gamma \\ 0 & \sin\gamma & \cos\gamma \end{bmatrix}. \]
+    Read from left to right, the product rotates about the axes of the body as it turns
+    (<em>intrinsic</em> rotations: z, then the new y′, then the newer x″). Read from right to left,
+    the same product rotates about the fixed axes (<em>extrinsic</em> rotations: x, then y, then z).
+    So intrinsic z-y-x and extrinsic x-y-z are the same rotation, with the angles listed in reverse.
+  </p>
+  <p>
+    Unlike the other representations, Euler angles have <em>gimbal lock</em>: when the middle
+    angle is \(\pm 90^\circ\) (Tait–Bryan) or \(0^\circ\) or \(180^\circ\) (proper Euler), the first
+    and third rotations are about the same axis. Then only their sum (or difference) matters, and
+    a small change of the airplane's orientation can need a large change of the angles. Turn on
+    “Euler gimbals” and set the middle angle near the lock to see the outer and inner rings line up.
+  </p>
+</div>
+
+<div class="rot-explain">
+  <h2>Angular velocity</h2>
+  <p>
+    When the rotation \(R(t)\) changes with time, differentiating \(R R^\top = I\) shows that
+    \(\dot R R^\top\) is skew-symmetric, so
+    \[ \dot R = [\omega]_\times R = R\,[\omega_b]_\times, \qquad \omega_b = R^\top \omega, \]
+    for a vector \(\omega\), the <em>angular velocity</em>. Its direction is the axis the body is
+    turning about at that instant and its length is the rate of turning (in rad/s). The vector
+    \(\omega\) is in fixed coordinates and \(\omega_b\) is the same vector in the body's
+    coordinates. A point attached to the body at \(r\) moves with velocity
+    \(v = \omega \times r\) (the thin arrows at the nose, wingtips, and fin). Note that
+    \(\omega\) is generally <em>not</em> the axis \(n\) of the rotation from the starting position:
+    \(n\) describes where the body is, and \(\omega\) how it is moving.
+  </p>
+  <p>
+    For the other representations,
+    \[ \dot q = \tfrac12\, \omega\, q = \tfrac12\, q\, \omega_b, \]
+    with \(\omega\) written as the quaternion \(\omega_x \mathbf{i} + \omega_y \mathbf{j} + \omega_z \mathbf{k}\),
+    and for intrinsic z-y-x Euler angles,
+    \[ \omega = \dot\alpha\, e_z + \dot\beta\, R_z(\alpha)\, e_y + \dot\gamma\, R_z(\alpha) R_y(\beta)\, e_x
+        = J \begin{bmatrix} \dot\alpha \\ \dot\beta \\ \dot\gamma \end{bmatrix}. \]
+    The columns of \(J\) are the axes of the three gimbal rings, and \(\det J = -\cos\beta\).
+    At gimbal lock \(J\) is singular, so an angular velocity outside its column space needs
+    infinite Euler-angle rates. Quaternions and rotation matrices have no such trouble: their
+    rates are always proportional to \(\omega\).
+  </p>
+  <p>
+    With no torque on it, a rigid body keeps its angular momentum
+    \(L = R\, \mathbb{I}\, \omega_b\) fixed in space, where \(\mathbb{I}\) is its inertia matrix.
+    Its angular velocity obeys <em>Euler's equations</em>
+    \(\mathbb{I}\, \dot\omega_b = (\mathbb{I}\, \omega_b) \times \omega_b\), so \(\omega\)
+    stays put only when it is along a principal axis. Here the airplane's principal moments are
+    \(\mathbb{I} = \operatorname{diag}(1, 1.6, 2.4)\) about its body axes. A spin about the axis
+    with the smallest or largest moment (\(Re_1\) or \(Re_3\)) is stable, but a spin about the
+    middle axis (\(Re_2\), along the wings) is not, and the airplane flips over and over:
+    the <em>tennis racket theorem</em>, or Dzhanibekov effect. Choose “free (no torque)” and
+    spin about \(Re_2\) to see it.
+  </p>
+</div>
+
+<script src="/assets/ts/out/rotation_representations.js" type="module"></script>

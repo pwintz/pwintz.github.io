@@ -1,0 +1,345 @@
+---
+published: false
+layout: single
+permalink: /tools/barrier_sos/
+title: Barrier Certificate SOS Formulator
+excerpt: "Formulate a sum-of-squares program for a barrier certificate of a hybrid system H = (C, F, D, G), as LaTeX or SOSTOOLS and YALMIP code."
+tool_categories: [Math, Control]
+date_added: 2026-10-19
+classes: wide
+---
+{% raw %}
+<style>
+  .bsos { --bs-border: rgba(128, 128, 128, 0.35); --bs-fill: rgba(128, 128, 128, 0.06); }
+  .bsos input[type=text], .bsos input[type=number], .bsos textarea, .bsos select, .bsos button {
+    font: inherit;
+    font-size: 0.85em;
+    padding: 0.35rem 0.55rem;
+    border: 1px solid rgba(128, 128, 128, 0.45);
+    border-radius: 6px;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  .bsos textarea, .bsos input[type=text] { font-family: Menlo, Consolas, monospace; width: 100%; }
+  .bsos input[type=number] { width: 6rem; }
+  .bsos textarea { resize: vertical; min-height: 2.6em; }
+  .bsos button { cursor: pointer; background: var(--bs-fill); }
+  .bsos button:hover { border-color: #6f777d; }
+  .bsos label { margin: 0; font-size: 0.85em; font-weight: bold; }
+  .bsos small { display: block; margin-top: 0.2rem; font-size: 0.75em; opacity: 0.8; }
+  .bsos fieldset { margin: 0 0 1rem; padding: 0.75rem 1rem 1rem; border: 1px solid var(--bs-border); border-radius: 8px; background: var(--bs-fill); }
+  .bsos legend { padding: 0 0.4rem; font-weight: bold; }
+  .bs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 0.75rem 1rem; }
+  .bs-field { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
+  .bs-wide { grid-column: 1 / -1; }
+  .bs-map-label { font-size: 0.85em; font-weight: bold; }
+  .bs-map-row { display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 0.5rem; }
+  .bsos .bs-map-row label { font-family: Menlo, Consolas, monospace; font-weight: normal; white-space: nowrap; }
+  .bs-map-row .bs-field-error, .bs-map-row .bs-preview { grid-column: 2; }
+  .bs-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; }
+  .bs-row label { font-weight: normal; }
+  #bs-form[data-has-w="false"] .bs-needs-w,
+  #bs-form[data-has-v="false"] .bs-needs-v,
+  #bs-form[data-task="synthesize"] .bs-only-verify,
+  #bs-form[data-task="verify"] .bs-only-synthesize { display: none; }
+  .bsos .bs-remove { float: right; margin-left: 0.75rem; padding: 0.1rem 0.5rem; font-size: 0.75em; font-weight: normal; }
+  .bs-card legend { width: auto; }
+  .bs-empty { margin: 0 0 1rem; font-size: 0.85em; opacity: 0.8; }
+  .bs-preset-description { margin: 0.5rem 0 0; font-size: 0.85em; }
+
+  .bs-errors, .bs-warnings { margin: 0 0 1rem; padding: 0.6rem 1rem 0.6rem 2rem; border-radius: 6px; font-size: 0.85em; }
+  .bs-errors { border: 1px solid rgba(197, 34, 31, 0.5); background: rgba(197, 34, 31, 0.07); }
+  .bs-warnings { border: 1px solid rgba(204, 140, 0, 0.5); background: rgba(204, 140, 0, 0.08); }
+  .bs-summary { font-size: 0.9em; }
+
+  .bs-tabbar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin: 0 0 0.75rem; }
+  .bs-tabs { display: flex; flex-wrap: wrap; gap: 0.25rem; }
+  .bsos .bs-tabs button[aria-selected="true"] { background: #1a73e8; border-color: #1a73e8; color: #fff; }
+  .bs-tabbar .bs-spacer { flex: 1; }
+  .bs-pane pre { margin: 0; max-height: 40rem; overflow: auto; font-size: 0.75em; }
+  .bs-defs { display: grid; grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr)); gap: 0 1.5rem; }
+  .bs-defs > div, .bs-defs li { min-width: 0; overflow-x: auto; overflow-y: hidden; }
+  .bs-defs h4 { margin: 0.5rem 0 0.25rem; }
+  .bs-defs ul { margin: 0; }
+  .bs-note { font-size: 0.85em; opacity: 0.75; }
+  .bs-conditions li { margin-bottom: 1rem; }
+  .bs-display, .bs-mults { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
+  .bs-mults { font-size: 0.9em; }
+  .bsos mjx-container[display="true"] { margin: 0.4em 0 !important; }
+
+  .bs-theory table { font-size: 0.85em; }
+  .bs-caption { font-size: 0.85em; opacity: 0.85; }
+
+  /* Inline errors and previews below inputs */
+  .bsos .bs-invalid { border-color: #c5221f; background: rgba(197, 34, 31, 0.05); }
+  .bs-field-error { font-size: 0.8em; color: #c5221f; }
+  .bs-preview { overflow-x: auto; overflow-y: hidden; max-width: 100%; font-size: 0.85em; }
+  .bs-preview mjx-container[display="true"] { margin: 0.2em 0 !important; text-align: left !important; }
+
+  /* Size summary */
+  .bs-size { display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 0 1.5rem; }
+  .bs-size h4 { margin: 0.25rem 0; }
+  .bs-size table { font-size: 0.8em; margin: 0 0 0.5rem; }
+  .bs-size th { font-weight: normal; text-align: left; }
+
+  /* Automaton */
+  .bs-automaton { overflow-x: auto; margin: 0 0 1.5rem; }
+  .bs-automaton-stage { position: relative; }
+  .bs-automaton-edges { position: absolute; left: 0; top: 0; overflow: visible; }
+  .bs-automaton-edges g path { fill: none; stroke: currentColor; stroke-width: 1.5; }
+  .bs-node, .bs-edge-label { position: absolute; white-space: nowrap; }
+  .bs-node {
+    padding: 0.4rem 0.9rem 0.5rem;
+    border: 2px solid #1a73e8;
+    border-radius: 1.2rem;
+    background: rgba(26, 115, 232, 0.06);
+    font-size: 0.8em;
+    text-align: center;
+  }
+  .bs-node-unsafe { border-color: #c5221f; background: rgba(197, 34, 31, 0.06); }
+  .bs-node-title { font-weight: bold; margin-bottom: 0.1rem; }
+  .bs-node-set { border-top: 1px solid rgba(128, 128, 128, 0.45); margin-top: 0.3rem; padding-top: 0.2rem; }
+  .bs-node-note { font-size: 0.85em; color: #c5221f; }
+  .bs-edge-label { font-size: 0.75em; padding: 0 0.2rem; background: rgba(255, 255, 255, 0.85); border-radius: 4px; }
+  .bs-theory summary { cursor: pointer; font-weight: bold; }
+  .bs-syntax code { white-space: nowrap; }
+</style>
+
+<div class="bsos">
+
+<p>
+  This page sets up a sum-of-squares (SOS) program whose feasibility proves that no solution of a
+  hybrid system that starts in an initial set reaches an unsafe set. It follows
+  Prajna and Jadbabaie, “Safety Verification of Hybrid Systems Using Barrier Certificates”
+  (HSCC 2004, LNCS 2993), recast in the hybrid inclusion
+  framework of Goebel, Sanfelice, and Teel, <i>Hybrid Dynamical Systems</i> (Princeton, 2012).
+  Describe the system below to get the program as rendered math, LaTeX source, and MATLAB code for
+  <a href="https://github.com/oxfordcontrol/SOSTOOLS">SOSTOOLS</a> or
+  <a href="https://yalmip.github.io">YALMIP</a>. Nothing is solved on this page.
+</p>
+
+<details class="bs-theory">
+  <summary>Background: barrier certificates for hybrid inclusions</summary>
+
+  <h3>Model</h3>
+  <p>
+    A hybrid system \(\mathcal{H} = (C, F, D, G)\) has flows \(\dot x \in F(x)\) while \(x \in C\)
+    and jumps \(x^+ \in G(x)\) while \(x \in D\). The state is \(x = (z, q)\), where
+    \(z \in \mathbb{R}^n\) is continuous and \(q\) is a logic variable (mode) in a finite set. (With
+    one mode, \(x = z\).) The data are polynomial:
+  </p>
+  <ul>
+    <li>In mode \(q\), flows satisfy \(\dot z = f_q(z, w)\) with a disturbance \(w \in W_q\), while \(z \in C_q\). So \(F(z, q) = \{(f_q(z, w), 0) : w \in W_q\}\).</li>
+    <li>Each <em>jump</em> \(j\) goes from mode \(q_j\) to mode \(q_j'\) with \(z^+ = g_j(z, v)\), \(v \in V_j\), while \(z \in D_j\). Several jumps with the same \(D_j\) give a set-valued \(G\).</li>
+    <li>Solutions start in \(X_0\) and must avoid \(X_u\), where \(X_{0,q}\) and \(X_{u,q}\) are the parts in mode \(q\).</li>
+  </ul>
+  <p>Every set is a finite union of basic semialgebraic sets \(\{z : g_i(z) \ge 0,\ h_k(z) = 0\}\).</p>
+
+  <h3>Sufficient conditions</h3>
+  <p>
+    Suppose that, for some \(\varepsilon > 0\), continuously differentiable \(B_q\), continuous
+    \(\lambda_q\), and \(\sigma_j \ge 0\), the following hold for every mode \(q\) and jump \(j\):
+  </p>
+  \[
+  \begin{aligned}
+    B_q(z) &\le 0 && \forall z \in X_{0,q}, \\
+    B_q(z) &\ge \varepsilon && \forall z \in X_{u,q}, \\
+    \langle \nabla B_q(z), f_q(z, w) \rangle &\le \lambda_q(z) B_q(z) && \forall (z, w) \in C_q \times W_q, \\
+    B_{q_j'}(g_j(z, v)) &\le \sigma_j(z, v)\, B_{q_j}(z) && \forall (z, v) \in D_j \times V_j.
+  \end{aligned}
+  \]
+  <p>
+    Then no solution of \(\mathcal{H}\) starting in \(X_0\) reaches \(X_u\). On each interval of
+    flow, \(b(t) = B_q(z(t))\) is absolutely continuous with \(\dot b \le \lambda_q b\), so by
+    Grönwall’s inequality \(b\) cannot become positive. At a jump from a point with \(B \le 0\), the
+    last condition and \(\sigma_j \ge 0\) give \(B \le 0\) after the jump. By induction over the
+    hybrid time domain, \(B \le 0\) along the whole solution, while \(B \ge \varepsilon\) on
+    \(X_u\).
+  </p>
+  <ul>
+    <li>
+      The term \(\lambda_q B_q\) plays the role of Prajna and Jadbabaie’s multiplier \(-\lambda_{B_l}\)
+      in (16), which relaxes “\(\langle \nabla B, f \rangle \le 0\) where \(B = 0\)”. That condition
+      alone is <em>not</em> sufficient. For example, \(\dot z = 1\), \(B(z) = z^3\),
+      \(X_0 = \{z \le -1\}\), and \(X_u = \{z \ge 1\}\) satisfy it, but every solution reaches
+      \(X_u\). The Grönwall form above is sound for any polynomial \(\lambda_q\), of either sign,
+      and it is what their SOS conditions (16) actually impose.
+    </li>
+    <li>
+      In this framework, maximal solutions may end when they can neither flow nor jump, so the
+      conclusion concerns solutions while they stay in \(C \cup D\). A bounded \(C_q\) plays the role
+      of the region \(\mathcal{X}\) in Prajna and Jadbabaie’s Theorem 1.
+    </li>
+    <li>
+      A time-invariant uncertain parameter \(p\) can be a state with \(\dot p = 0\), with its range
+      in \(C\) and \(X_0\), and with no change at jumps. Then \(B\) may depend on \(p\).
+    </li>
+    <li>
+      With an integral constraint \(\int_0^T \phi(z, w)\,dt \ge 0\) (such as an IQC), the flow
+      condition becomes \(\langle \nabla B_q, f_q \rangle + \tau \phi \le 0\) on \(C_q \times W_q\)
+      for some \(\tau \ge 0\), and jumps need \(B_{q_j'} \circ g_j \le B_{q_j}\) (\(\lambda = 0\),
+      \(\sigma = 1\); their Theorem 3).
+    </li>
+  </ul>
+
+  <h3>SOS relaxation</h3>
+  <p>
+    Each condition “\(p \ge 0\) on \(\{g_i \ge 0,\ h_k = 0\}\)” is replaced by
+    \(p - \sum_i s_i g_i - \sum_k \mu_k h_k \in \Sigma\), where \(\Sigma\) is the set of SOS
+    polynomials, \(s_i \in \Sigma\), and \(\mu_k\) are arbitrary polynomials (their Proposition 3).
+    For a union of pieces, there is one SOS constraint per piece. The unknowns enter linearly, so
+    the program is a semidefinite program, if either
+  </p>
+  <ul>
+    <li><strong>Synthesize</strong>: \(B_q\) is unknown, and \(\lambda_q\) and \(\sigma_j\) are fixed. With \(\lambda_q = 0\), this is their convex Proposition 2.</li>
+    <li><strong>Verify</strong>: \(B_q\) is given, and \(\lambda_q\) and \(\sigma_j\) are unknown.</li>
+  </ul>
+  <p>
+    Alternating between the two, while enlarging the disturbance sets, is their Algorithm 1. Each
+    SOS constraint has the smallest even degree that fits its fixed terms, and the multipliers are
+    sized to match. “Extra multiplier degree” adds 2 to all of them.
+  </p>
+  <p>
+    <strong>Numerical tip.</strong> With \(\lambda_q = 0\), \(\langle \nabla B_q, f_q \rangle = 0\) at
+    every equilibrium in \(C_q\), so the flow SOS polynomial has a zero there and its Gram matrix
+    can’t be positive definite. Solvers often report inaccurate results then. Excluding
+    equilibria from \(C_q\) (as their Example 2 does) or using \(\lambda_q \ne 0\) avoids this.
+    Always check the solver’s status and accuracy.
+  </p>
+
+  <h3>Notation in Prajna and Jadbabaie</h3>
+  <table>
+    <thead><tr><th>Prajna &amp; Jadbabaie (2004)</th><th>This page</th></tr></thead>
+    <tbody>
+      <tr><td>Location \(l \in L\)</td><td>Mode \(q\) (a logic variable in the state)</td></tr>
+      <tr><td>Invariant \(I(l)\)</td><td>Flow set \(C_q\)</td></tr>
+      <tr><td>\(f_l(x, d)\), \(d \in D(l)\)</td><td>\(f_q(z, w)\), \(w \in W_q\)</td></tr>
+      <tr><td>\(\mathrm{Guard}(l, l')\)</td><td>Jump set \(D_j\) of a jump from \(q\) to \(q'\)</td></tr>
+      <tr><td>\(\mathrm{Reset}(l, l')(x)\)</td><td>\(\{g_j(z, v) : v \in V_j\}\)</td></tr>
+      <tr><td>\(\mathrm{Init}(l)\), \(\mathrm{Unsafe}(l)\)</td><td>\(X_{0,q}\), \(X_{u,q}\)</td></tr>
+      <tr><td>\(\lambda_{B_l}\) in (16)</td><td>\(-\lambda_q\)</td></tr>
+      <tr><td>\(\sigma_{l,l'}\)</td><td>\(\sigma_j\)</td></tr>
+    </tbody>
+  </table>
+</details>
+
+<details class="bs-syntax">
+  <summary><strong>Input syntax</strong></summary>
+  <ul>
+    <li>Polynomials use <code>+ - * / ^</code> (or <code>**</code>) and parentheses, like <code>2*x1^2 - (x2 + p)/3</code>. Multiplication needs <code>*</code>. You can only divide by constants.</li>
+    <li>Variables are separated by spaces or commas, or give a number, like <code>3</code> for <code>x1 x2 x3</code>. Parameters are <code>name = value</code> lines and may use earlier parameters.</li>
+    <li>Sets have one constraint per line, using <code>&lt;=</code>, <code>&gt;=</code>, or <code>=</code>. Chains like <code>0 &lt;= x1 &lt;= 1</code> give two constraints, and <code>&lt;</code> is treated as <code>&lt;=</code>. A line saying <code>or</code> starts another piece of a union. <code>empty</code> is the empty set.</li>
+    <li>Flow and jump maps have one box per state variable. A blank jump-map box means that variable doesn’t change.</li>
+    <li>Comments start with <code>#</code> or <code>%</code>.</li>
+  </ul>
+</details>
+
+<form id="bs-form" data-task="synthesize" autocomplete="off">
+  <h2>System</h2>
+  <fieldset>
+    <legend>Example</legend>
+    <div class="bs-row">
+      <select id="bs-preset" aria-label="Example system">
+        <option value="" disabled>Choose an example…</option>
+      </select>
+      <button type="button" id="bs-load">Load (replaces the form)</button>
+    </div>
+    <p id="bs-preset-description" class="bs-preset-description"></p>
+  </fieldset>
+
+  <fieldset>
+    <legend>Variables and parameters</legend>
+    <div class="bs-grid">
+      <div class="bs-field">
+        <label for="bs-state-vars">State variables</label>
+        <input type="text" id="bs-state-vars" data-global="stateVars" placeholder="x1 x2">
+        <small>Names, or a number n for x1, …, xn.</small>
+      </div>
+      <div class="bs-field">
+        <label for="bs-flow-dist">Flow disturbance variables</label>
+        <input type="text" id="bs-flow-dist" data-global="flowDistVars" placeholder="None">
+        <small>Names, or a number n for w1, …, wn.</small>
+      </div>
+      <div class="bs-field">
+        <label for="bs-jump-dist">Jump disturbance variables</label>
+        <input type="text" id="bs-jump-dist" data-global="jumpDistVars" placeholder="None">
+        <small>Names, or a number n for v1, …, vn.</small>
+      </div>
+      <div class="bs-field">
+        <label for="bs-params">Parameters</label>
+        <textarea id="bs-params" data-global="params" rows="3" placeholder="gamma = 9.81"></textarea>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Problem</legend>
+    <div class="bs-row" role="radiogroup" aria-label="Task">
+      <label><input type="radio" name="bs-task" value="synthesize"> Synthesize B (fixed λ and σ)</label>
+      <label><input type="radio" name="bs-task" value="verify"> Verify a given B (unknown λ and σ)</label>
+    </div>
+    <div class="bs-grid" style="margin-top: 0.75rem;">
+      <div class="bs-field">
+        <label for="bs-epsilon">Margin ε</label>
+        <input type="text" id="bs-epsilon" data-global="epsilon" placeholder="0.1">
+        <small>B ≥ ε on the unsafe set.</small>
+      </div>
+      <div class="bs-field">
+        <label for="bs-extra-degree">Extra multiplier degree</label>
+        <input type="number" id="bs-extra-degree" data-global="extraDegree" min="0" step="1">
+        <small>Adds 2 to the degree of every SOS constraint.</small>
+      </div>
+      <div class="bs-field">
+        <label for="bs-iqc">Integral constraint φ(z, w) (optional)</label>
+        <input type="text" id="bs-iqc" data-global="iqc" placeholder="None">
+        <small>∫ φ dt ≥ 0 along solutions. Forces λ = 0 and σ = 1.</small>
+      </div>
+    </div>
+  </fieldset>
+
+  <h3>Modes (flows)</h3>
+  <div id="bs-modes"></div>
+  <p><button type="button" id="bs-add-mode">Add mode</button></p>
+
+  <h3>Jumps</h3>
+  <div id="bs-jumps"></div>
+  <p><button type="button" id="bs-add-jump">Add jump</button></p>
+</form>
+
+<h2>Hybrid automaton</h2>
+<p class="bs-caption">
+  Each box is a mode with its flow map and flow set. Arrows are jumps, labeled with the jump set
+  and the state components that change. An arrow labeled \(X_{0,q}\) marks mode \(q\) when it has
+  initial states, and red boxes contain unsafe states.
+</p>
+<div id="bs-automaton" class="bs-automaton"></div>
+
+<h2>SOS program</h2>
+<div id="bs-messages" role="status" aria-live="polite"></div>
+<div id="bs-output">
+  <div id="bs-size" class="bs-size"></div>
+  <p class="bs-caption">
+    SDP sizes assume the standard Gram-matrix form, with every monomial up to half the degree in
+    each Gram basis. SOSTOOLS and YALMIP may remove some monomials, so these are upper bounds.
+  </p>
+  <div class="bs-tabbar">
+    <div class="bs-tabs" role="tablist" aria-label="Output format">
+      <button type="button" role="tab" data-tab="program" aria-controls="bs-pane-program">Math</button>
+      <button type="button" role="tab" data-tab="latex" aria-controls="bs-pane-latex">LaTeX</button>
+      <button type="button" role="tab" data-tab="sostools" aria-controls="bs-pane-sostools">SOSTOOLS</button>
+      <button type="button" role="tab" data-tab="yalmip" aria-controls="bs-pane-yalmip">YALMIP</button>
+    </div>
+    <span class="bs-spacer"></span>
+    <button type="button" id="bs-copy">Copy</button>
+    <button type="button" id="bs-download">Download</button>
+  </div>
+  <div id="bs-pane-program" class="bs-pane" role="tabpanel"></div>
+  <div id="bs-pane-latex" class="bs-pane" role="tabpanel" hidden><pre><code id="bs-code-latex"></code></pre></div>
+  <div id="bs-pane-sostools" class="bs-pane" role="tabpanel" hidden><pre><code id="bs-code-sostools"></code></pre></div>
+  <div id="bs-pane-yalmip" class="bs-pane" role="tabpanel" hidden><pre><code id="bs-code-yalmip"></code></pre></div>
+</div>
+
+</div>
+{% endraw %}
+
+<script src="/assets/ts/out/barrier_sos.js" type="module"></script>

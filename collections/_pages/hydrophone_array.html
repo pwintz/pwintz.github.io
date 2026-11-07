@@ -1,0 +1,309 @@
+---
+published: false
+layout: single
+permalink: /tools/hydrophone_array/
+title: Whale Calls on a Hydrophone Array
+excerpt: "Watch and listen as a calling whale swims past a row of underwater microphones, and see how the travel time of sound delays each recording and the Doppler effect shifts its pitch."
+tool_categories: [Physics, Audio]
+date_added: 2026-10-23
+---
+
+<style>
+  .whale button,
+  .whale select {
+    font: inherit;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+  }
+  .whale button:hover { background: rgba(128, 128, 128, 0.1); }
+  .whale select { width: auto; padding: 0.25rem 0.4rem; }
+  /* The theme adds bottom margins to inputs and labels, which pushes them off-center in a row. */
+  .whale input,
+  .whale label,
+  .whale select { margin: 0; }
+  .whale [hidden] { display: none !important; }
+  .whale canvas { display: block; width: 100%; }
+  .whale h2 { margin-top: 2rem; }
+  .whale .wh-primary { background: #1a73e8; border-color: #1a73e8; color: #fff; min-width: 6.5rem; }
+  .whale .wh-primary:hover { background: #1765cc; }
+
+  /* Playback controls stay at the top of the window while scrolling through the charts, except on
+     short screens, where they would cover too much. */
+  .wh-playback {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem 1rem;
+    padding: 0.5rem 0;
+    background: #fff;
+    font-size: 0.9em;
+  }
+  @media (min-height: 600px) {
+    .wh-playback { position: sticky; top: 0; z-index: 5; }
+  }
+  .wh-time { display: flex; align-items: center; gap: 0.5rem; flex: 1 1 10rem; }
+  .wh-time input { flex: 1; min-width: 6rem; }
+  .wh-time output { min-width: 4.2em; font-variant-numeric: tabular-nums; }
+  .wh-playback label { display: inline-flex; align-items: center; gap: 0.35rem; }
+  .wh-playback input[type="checkbox"] { width: auto; }
+  .wh-audio-note { flex-basis: 100%; margin: 0; font-size: 0.85em; opacity: 0.75; }
+
+  .wh-map { border-radius: 8px; overflow: hidden; margin: 0.5rem 0 0.75rem; }
+  /* The hydrophones can be dragged, so touches on the views drag instead of scrolling the page. */
+  .wh-map canvas { touch-action: none; }
+  .wh-chart { margin: 0.5rem 0; cursor: crosshair; }
+
+  .wh-scenario {
+    margin: 0 0 1rem;
+    padding: 0.6rem 1rem 0.8rem;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 8px;
+    font-size: 0.9em;
+  }
+  .wh-scenario legend { padding: 0 0.3rem; font-weight: bold; }
+  .wh-sliders {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+    gap: 0.6rem 1.5rem;
+  }
+  .wh-slider { display: flex; flex-direction: column; gap: 0.2rem; }
+  .wh-slider span { display: flex; justify-content: space-between; gap: 0.5rem; }
+  .wh-slider output { opacity: 0.8; font-variant-numeric: tabular-nums; text-align: right; }
+  .wh-presets { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.3rem; }
+  .whale .wh-presets button { padding: 0.15rem 0.5rem; font-size: 0.9em; }
+
+  .wh-readout { font-size: 0.8em; width: 100%; display: table; }
+  .wh-readout td, .wh-readout th { padding: 0.25rem 0.5rem; font-variant-numeric: tabular-nums; }
+  .wh-readout th { text-align: left; }
+  .wh-swatch {
+    display: inline-block;
+    width: 0.7em;
+    height: 0.7em;
+    margin-right: 0.35em;
+    border-radius: 50%;
+    vertical-align: baseline;
+  }
+
+  .wh-tooltip {
+    position: absolute;
+    z-index: 20;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    font-size: 0.75em;
+    pointer-events: none;
+  }
+  .wh-tooltip table { margin: 0; border: none; display: table; }
+  .wh-tooltip td, .wh-tooltip th { padding: 0.1rem 0.4rem; border: none; font-variant-numeric: tabular-nums; }
+  .wh-tooltip-title { font-weight: bold; margin-bottom: 0.2rem; }
+  .wh-hint { font-size: 0.85em; opacity: 0.8; }
+</style>
+
+<div class="whale">
+  <p>
+    A whale swims past a line of hydrophones (underwater microphones) while making a 500&nbsp;Hz
+    tone: by default, a 0.3&nbsp;s call every 1.5&nbsp;s (other patterns are under "Scenario"
+    below). Sound travels through seawater at
+    about 1500&nbsp;m/s, so each hydrophone hears each call a little after the whale makes it, and
+    the farther away a hydrophone is, the later it hears it. Because the whale is moving, the pitch
+    also changes: hydrophones that the whale is swimming toward hear the call slightly higher than
+    500&nbsp;Hz, and hydrophones that it is swimming away from hear it lower. This is the
+    <em>Doppler effect</em>.
+  </p>
+  <p>
+    To hear the delay between two hydrophones, choose one for the left speaker and another for the
+    right (headphones help), for example the hydrophones at the two ends of the array.
+  </p>
+
+  <div class="wh-playback">
+    <button id="wh-play" class="wh-primary" type="button">▶ Play</button>
+    <div class="wh-time">
+      <input id="wh-time" type="range" min="0" max="30" step="0.01" value="13.3" aria-label="Time">
+      <output id="wh-time-out">13.30 s</output>
+    </div>
+    <label><input id="wh-loop" type="checkbox"> Loop</label>
+    <label>Speed
+      <select id="wh-rate">
+        <option value="1" selected>1×</option>
+        <option value="0.5">½×</option>
+        <option value="0.25">¼×</option>
+        <option value="0.1">⅒×</option>
+      </select>
+    </label>
+    <label>Left speaker
+      <select id="wh-left"></select>
+    </label>
+    <label>Right speaker
+      <select id="wh-right"></select>
+    </label>
+    <p id="wh-audio-note" class="wh-audio-note" hidden>Sound plays only at 1× speed, since slowing
+      it down would change its pitch.</p>
+  </div>
+
+  <div class="wh-map"><canvas id="wh-map" aria-label="Map of the whale, its sound waves, and the hydrophones, seen from above"></canvas></div>
+  <p class="wh-hint">
+    <strong>Seen from above,</strong> at the whale's depth. Each shaded band is the sound of one call spreading outward. Its outer edge is the start of the
+    call, spreading from where the whale was when the call began, and its inner edge is the end of
+    the call, spreading from where the whale was when it stopped. Since the whale moves in between,
+    the band is squeezed thinner in front of the whale (higher pitch) and stretched thicker behind
+    it (lower pitch), and the bands from successive calls are closer together in front than
+    behind. The colored lines connect each hydrophone to where the whale was when it made the
+    sound that the hydrophone is hearing right now (dashed while that's silence between calls).
+    The outlined dark band is the highlighted call. <strong>Drag a hydrophone</strong> to move it;
+    a hollow marker means the hydrophone is deeper than the whale, so the bands in this view (at
+    the whale's depth) don't show what it hears.
+  </p>
+
+  <div class="wh-map"><canvas id="wh-side" aria-label="Side view of the vertical plane through the hydrophones, showing their depths"></canvas></div>
+  <p class="wh-hint">
+    <strong>Side view</strong> of the vertical plane through the hydrophones, showing their depths
+    (set under "Scenario"). Sound spreads from the whale in spheres, so the bands here are where
+    those spheres cut through this plane. A hydrophone hears a call exactly while a band covers it.
+    Deeper hydrophones are farther from the whale, so they hear each call later. Drag a hydrophone
+    here to change its depth. A hollow marker means it has been moved off this plane in the view
+    from above.
+  </p>
+
+  <table class="wh-readout">
+    <thead>
+      <tr>
+        <th>Hydrophone</th>
+        <th>Depth below whale</th>
+        <th>Distance to source</th>
+        <th>Delay</th>
+        <th>Highlighted call arrives</th>
+        <th>Pitch shift</th>
+        <th>Frequency heard now</th>
+      </tr>
+    </thead>
+    <tbody id="wh-readout-body"></tbody>
+  </table>
+
+  <fieldset class="wh-scenario">
+    <legend>Scenario</legend>
+    <div class="wh-sliders">
+      <label class="wh-slider">
+        <span>Sound pattern</span>
+        <select id="wh-pattern">
+          <option value="short" selected>Short calls (0.3 s every 1.5 s)</option>
+          <option value="long">Long calls (1 s every 3 s)</option>
+          <option value="pulses">Rapid pulses (0.05 s every 0.25 s)</option>
+          <option value="continuous">Continuous tone</option>
+        </select>
+      </label>
+      <label class="wh-slider">
+        <span>Whale speed <output id="wh-speed-out"></output></span>
+        <input id="wh-speed" type="range" min="0" max="1350" step="1" value="250">
+        <span class="wh-presets">
+          <button type="button" data-wh-speed="3">Realistic (3 m/s)</button>
+          <button type="button" data-wh-speed="250">Exaggerated (250 m/s)</button>
+          <button type="button" data-wh-speed="1350">90% of the speed of sound</button>
+        </span>
+      </label>
+      <label class="wh-slider">
+        <span>Distance from whale's path to array <output id="wh-distance-out"></output></span>
+        <input id="wh-distance" type="range" min="100" max="4000" step="50" value="1200">
+      </label>
+      <label class="wh-slider">
+        <span>Number of hydrophones <output id="wh-count-out"></output></span>
+        <input id="wh-count" type="range" min="1" max="8" step="1" value="5">
+      </label>
+      <label class="wh-slider">
+        <span>Hydrophone spacing <output id="wh-spacing-out"></output></span>
+        <input id="wh-spacing" type="range" min="50" max="1500" step="50" value="400">
+      </label>
+      <label class="wh-slider">
+        <span>Hydrophone depths</span>
+        <select id="wh-depths">
+          <option value="level" selected>All at the whale's depth</option>
+          <option value="slope">Sloping (deeper to the right)</option>
+          <option value="alternate">Alternating shallow and deep</option>
+          <option value="valley">Deepest in the middle</option>
+          <option value="scattered">Scattered</option>
+        </select>
+      </label>
+      <label class="wh-slider">
+        <span>Greatest depth below whale <output id="wh-depth-out"></output></span>
+        <input id="wh-depth" type="range" min="0" max="3000" step="50" value="600">
+      </label>
+      <div class="wh-slider">
+        <button id="wh-reset-phones" type="button" hidden>Put dragged hydrophones back</button>
+      </div>
+    </div>
+  </fieldset>
+
+  <h2>Received frequency</h2>
+  <p>
+    The frequency each hydrophone hears over time. The black bars on the dashed line are the calls
+    as the whale makes them, at 500&nbsp;Hz. The thick colored bars are the same calls as each
+    hydrophone receives them: later, because of the travel time, and higher or lower, because of
+    the Doppler effect. Fainter bars are quieter, since the sound spreads out as it travels. The
+    thin curves show what each hydrophone would hear if the whale called continuously: the pitch
+    is highest while the whale is far off and coming toward the hydrophone, crosses 500&nbsp;Hz
+    as it passes, and drops as it moves away.
+  </p>
+  <p>
+    The dashed lines follow one call from the whale to each hydrophone. Hover over any bar to see
+    which bars at the other hydrophones came from the same call, and
+    <strong>click it</strong> to follow that call instead. Click anywhere else to jump to that
+    time.
+    With the continuous tone, the bars merge into unbroken lines, and hovering picks out a single
+    instant of the tone instead of a whole call.
+  </p>
+  <canvas id="wh-freq" class="wh-chart" aria-label="Frequency received at each hydrophone over time"></canvas>
+
+  <h2>Travel time</h2>
+  <p>
+    How long ago the sound that each hydrophone is hearing was made. The differences between these
+    curves (the <em>time differences of arrival</em>) are what an array uses to work out where a
+    sound came from: when the whale is to the left, hydrophones on the left hear it first, and
+    the order reverses after it passes.
+  </p>
+  <canvas id="wh-delay" class="wh-chart" aria-label="Sound travel time to each hydrophone over time"></canvas>
+
+  <h2>How it's computed</h2>
+  <p>
+    The whale's position at time \(\tau\) is \(\mathbf{p}(\tau)\) and a hydrophone sits at
+    \(\mathbf{r}\). The sound that reaches the hydrophone at time \(t\) left the whale at the time
+    \(\tau\) for which
+    \[
+      t = \tau + \frac{\lVert \mathbf{r} - \mathbf{p}(\tau) \rVert}{c},
+    \]
+    where \(c \approx 1500\) m/s is the speed of sound in seawater. This is solved for \(\tau\) with
+    Newton's method, and the hydrophone's recording at time \(t\) is the whale's call at time
+    \(\tau\), made quieter by the distance traveled. The <em>delay</em> is \(t - \tau\).
+  </p>
+  <p>
+    The Doppler shift comes from how quickly \(\tau\) advances relative to \(t\). Differentiating
+    the equation above gives
+    \[
+      \frac{f_{\text{heard}}}{f_{\text{call}}} = \frac{d\tau}{dt} = \frac{1}{1 - v_{\text{toward}} / c},
+    \]
+    where \(v_{\text{toward}}\) is the component of the whale's velocity pointing toward the
+    hydrophone at the moment the sound left it. The audio you hear is computed the same way, sample
+    by sample, so the delay and pitch shift in it aren't added separately: they come directly from
+    the geometry.
+  </p>
+  <p>
+    Real whales swim at only about 2–8&nbsp;m/s, less than 1% of the speed of sound, so the real
+    Doppler shift is at most about 0.5%, or a tenth of a semitone: measurable in a recording, but
+    not something you could hear. The default speed here is greatly exaggerated so the effect is
+    easy to see and hear. Use the "Realistic" button to compare.
+  </p>
+  <p>
+    At speeds close to the speed of sound the effect becomes extreme. Approaching at 90% of the
+    speed of sound, the whale nearly keeps up with its own sound, so a whole call arrives squeezed
+    into a tenth of its length at ten times the pitch. Moving away at the same speed, the pitch only
+    drops by about half. At the speed of sound itself the waves in front would pile up into a
+    shock wave, which is why the speed stops at 90%.
+  </p>
+
+  <div id="wh-tooltip" class="wh-tooltip" hidden></div>
+</div>
+
+<script src="/assets/ts/out/hydrophone_array.js" type="module"></script>
