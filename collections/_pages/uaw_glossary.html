@@ -1,0 +1,153 @@
+---
+layout: single
+permalink: /tools/uaw_glossary/
+title: UCSC UAW 4811 Union Glossary
+excerpt: "Look up the jargon, acronyms, and abbreviations used by UC Santa Cruz grad workers in UAW 4811 and around the UC."
+tool_categories: [Labor]
+date_added: 2026-11-03
+---
+
+<style>
+  /* ── Toolbar: search and filters (shown by uaw_glossary.ts) ── */
+  .glossary-toolbar { margin: 1.5rem 0 0; }
+  .glossary-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1rem;
+    align-items: center;
+  }
+  .glossary-search {
+    flex: 1 1 100%;
+    min-width: 0;
+    padding: 0.45rem 0.7rem;
+    border: 1px solid rgba(128, 128, 128, 0.45);
+    border-radius: 6px;
+    font: inherit;
+    color: inherit;
+    background: transparent;
+  }
+  .glossary-controls label { display: flex; align-items: center; gap: 0.4rem; min-width: 0; max-width: 100%; margin: 0; font-size: 0.85em; }
+  .glossary-controls select {
+    width: auto;
+    min-width: 0;
+    max-width: 100%;
+    margin: 0;
+    padding: 0.35rem 0.5rem;
+    border: 1px solid rgba(128, 128, 128, 0.45);
+    border-radius: 6px;
+    font: inherit;
+    color: inherit;
+    background: transparent;
+  }
+  .glossary-summary { margin: 0.6rem 0 0; font-size: 0.8em; opacity: 0.7; }
+
+  /* ── Entries ── */
+  .glossary-group-heading { display: flex; align-items: baseline; gap: 0.5rem; margin: 2rem 0 0; font-size: 1.2em; }
+  .glossary-group-count { font-size: 0.7em; font-weight: normal; opacity: 0.65; }
+  .glossary-list { margin: 1.5rem 0 0; padding: 0; list-style: none; }
+  .glossary-group-heading + .glossary-list { margin-top: 0.8rem; }
+  .glossary-entry {
+    margin: 0 0 0.8rem;
+    padding: 0.8rem 1rem;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 8px;
+    background: rgba(128, 128, 128, 0.06);
+    scroll-margin-top: 4rem;
+  }
+  .glossary-entry:target { border-color: #6f777d; background: rgba(128, 128, 128, 0.14); }
+  .glossary-entry h2 { margin: 0 0 0.35rem; font-size: 1.05em; border: none; }
+  .glossary-abbreviation { font-weight: normal; opacity: 0.75; }
+  .glossary-anchor { margin-left: 0.3rem; font-weight: normal; text-decoration: none; opacity: 0; }
+  .glossary-entry:hover .glossary-anchor,
+  .glossary-anchor:focus-visible { opacity: 0.5; }
+  .glossary-meaning { margin: 0; font-size: 0.9em; white-space: pre-line; overflow-wrap: anywhere; }
+  .glossary-note { margin: 0.4rem 0 0; font-size: 0.85em; font-style: italic; opacity: 0.8; }
+  .glossary-links { display: flex; flex-wrap: wrap; gap: 0.3rem 0.9rem; margin: 0.5rem 0 0; font-size: 0.85em; }
+  .glossary-meta { display: flex; flex-wrap: wrap; gap: 0.3rem; margin: 0.6rem 0 0; font-size: 0.7em; }
+  .glossary-tag { padding: 0.05rem 0.5rem; border-radius: 999px; background: rgba(128, 128, 128, 0.16); }
+
+  .glossary-empty { margin: 1.5rem 0 0; }
+  .glossary-clear {
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    text-decoration: underline;
+    background: none;
+    cursor: pointer;
+  }
+</style>
+
+<p>
+  Terms you might hear as a grad worker at UC Santa Cruz, from union structure and contract bargaining to campus offices and payroll.
+  The ASE and GSR contracts are on the <a href="/uaw">UAW 4811 resources</a> page.
+</p>
+
+<!-- Hidden until uaw_glossary.ts sets it up, so the page without JavaScript is just the list of terms. -->
+<div id="glossary-toolbar" class="glossary-toolbar" hidden>
+  <div class="glossary-controls">
+    <input id="glossary-search" class="glossary-search" type="search" placeholder="Search terms, abbreviations, and meanings…" aria-label="Search the glossary">
+    <label>Category
+      <select id="glossary-category"><option value="">All categories</option></select>
+    </label>
+    <label>Show
+      <select id="glossary-rarity">
+        <option value="all">All terms</option>
+        <option value="uncommon">Common and uncommon</option>
+        <option value="common">Common only</option>
+      </select>
+    </label>
+    <label>Sort by
+      <select id="glossary-sort">
+        <option value="term">Term</option>
+        <option value="category">Category</option>
+      </select>
+    </label>
+  </div>
+  <p id="glossary-summary" class="glossary-summary" aria-live="polite"></p>
+</div>
+
+<!-- One entry per row of _data/union_glossary.csv. The links columns are stored raw in data-links,
+     since they mix Markdown links, "label: URL" lines, and bare URLs; uaw_glossary.ts turns them into
+     links. Each entry's id is its term's slug, so
+     /tools/uaw_glossary/#public-employment-relations-board links to one term. -->
+{% assign entries = site.data.union_glossary | sort_natural: "Term" %}
+{% assign used_ids = "|" %}
+<div id="glossary-results">
+  <ul class="glossary-list">
+    {% for row in entries %}
+    {% assign term = row["Term"] | strip %}
+    {% if term == "" %}{% continue %}{% endif %}
+    {% assign id = term | slugify %}
+    {% assign id_key = "|" | append: id | append: "|" %}
+    {% if used_ids contains id_key %}{% assign id = id | append: "-" | append: forloop.index %}{% endif %}
+    {% assign used_ids = used_ids | append: id | append: "|" %}
+    {% assign abbreviation = row["Abbreviations"] | strip %}
+    {% assign category = row["Category"] | strip %}
+    {% assign rarity = row["Rarity"] | strip %}
+    {% assign note = row["Usage Notes"] | strip %}
+    {% assign links = row["Title Link"] | append: "
+" | append: row["Markdown Links"] | append: "
+" | append: row["Links"] | strip %}
+    <li id="{{ id }}" class="glossary-entry"
+        data-term="{{ term | escape }}"
+        data-category="{{ category | escape }}"
+        data-rarity="{{ rarity | escape }}"
+        data-links="{{ links | escape }}">
+      <h2>
+        {{ term | escape }}{% if abbreviation != "" %} <span class="glossary-abbreviation">({{ abbreviation | escape }})</span>{% endif %}
+        <a class="glossary-anchor" href="#{{ id }}" aria-label="Link to this term">#</a>
+      </h2>
+      {% assign meaning = row["Meaning"] | strip %}
+      {% if meaning != "" %}<p class="glossary-meaning">{{ meaning | escape }}</p>{% endif %}
+      {% if note != "" %}<p class="glossary-note">{{ note | escape }}</p>{% endif %}
+      <div class="glossary-meta">
+        {% if category != "" %}<span class="glossary-tag">{{ category | escape }}</span>{% endif %}
+        {% if row["In Contract?"] contains "yes" %}<span class="glossary-tag">In the contract</span>{% endif %}
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<script src="/assets/ts/out/uaw_glossary.js" type="module"></script>
