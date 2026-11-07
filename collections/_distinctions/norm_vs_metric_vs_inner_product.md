@@ -5,6 +5,7 @@ kind: hierarchy
 areas: [linear-algebra, analysis]
 status: draft
 summary: >
+  These structures measure size, distance, and angle, and each one gives the next in a natural way.
   A norm measures the lengths of vectors, a metric measures distances between points, and an inner product measures both lengths and angles.
   An inner product gives a norm, and a norm gives a metric, but not the reverse.
 relation: >

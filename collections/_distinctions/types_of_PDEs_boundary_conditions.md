@@ -5,6 +5,7 @@ kind: siblings
 areas: [differential-equations]
 status: draft
 summary: >
+  A partial differential equation on a region needs conditions on the boundary of the region, and these come in several types.
   A Dirichlet condition fixes the value on the boundary.
   A Neumann condition fixes the flux (normal derivative).
   A Robin condition fixes a combination of the two.

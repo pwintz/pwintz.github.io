@@ -5,6 +5,7 @@ kind: siblings
 areas: [dynamics, control]
 status: draft
 summary: >
+  A differential equation can depend on things other than its state, such as time or an input.
   A time-invariant system has no explicit dependence on time.
   An unforced system has no input or forcing term.
   Neither property implies the other.

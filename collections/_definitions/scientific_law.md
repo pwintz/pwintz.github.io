@@ -1,5 +1,4 @@
 ---
-published: false
 title: Law (in science)
 term: law (in science)
 applies_to: scientific explanations

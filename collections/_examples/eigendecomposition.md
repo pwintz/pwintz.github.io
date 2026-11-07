@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'An eigendecomposition $A = P D P^{-1}$, with $D$ diagonal'
 definition: eigendecomposition
 level: undergraduate

@@ -5,6 +5,7 @@ kind: hierarchy
 areas: [analysis]
 status: draft
 summary: >
+  Lipschitz and Hölder continuity both bound how much a function's output can change in terms of how much its input changes.
   A Lipschitz function changes at most proportionally to the change in input.
   A Hölder function with exponent $\alpha$ changes at most proportionally to the change in input raised to the power $\alpha$, which allows steeper behavior, as in $\sqrt{x}$ near $0$.
 relation: Lipschitz continuous ⊂ Hölder continuous ⊂ uniformly continuous

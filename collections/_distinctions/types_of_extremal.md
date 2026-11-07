@@ -5,6 +5,7 @@ kind: family
 areas: [analysis]
 status: draft
 summary: >
+  Several terms describe the "smallest" element of a set or the "best" point for a function.
   A lower bound is below everything in the set.
   The infimum is the best lower bound, and it is a minimum only if it belongs to the set.
   A minimal element has nothing below it, which is weaker than being a minimum.

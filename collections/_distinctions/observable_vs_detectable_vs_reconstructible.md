@@ -5,6 +5,7 @@ kind: hierarchy
 areas: [control]
 status: draft
 summary: >
+  These properties describe how much the output of a system reveals about its state.
   An observable system's initial state can be determined from its output, and a reconstructible system's current state can be.
   A detectable system only needs its unobserved parts to decay on their own, so that an observer's error still converges.
 relation: >

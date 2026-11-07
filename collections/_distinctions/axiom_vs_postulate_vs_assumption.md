@@ -5,6 +5,7 @@ kind: family
 areas: [language]
 status: draft
 summary: >
+  Every mathematical argument starts from statements that are not proved, but those statements play different roles.
   An axiom is accepted without proof as a foundation of a whole theory, and "postulate" is an older synonym, used mainly in geometry.
   An assumption is a condition of one result, such as "$f$ is continuous" in a theorem about $f$.
 terms:

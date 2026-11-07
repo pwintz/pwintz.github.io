@@ -5,6 +5,7 @@ kind: family
 areas: [dynamics, control]
 status: draft
 summary: >
+  Some dynamical systems combine continuous change with discrete events, and they are modeled in several ways.
   A hybrid system has states that both flow and jump.
   A switched system is a special case whose continuous state never jumps; only the active mode changes.
   A hybrid automaton is a way of modeling a hybrid system as a graph of modes.

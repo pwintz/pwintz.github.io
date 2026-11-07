@@ -5,6 +5,7 @@ kind: hierarchy
 areas: [analysis]
 status: draft
 summary: >
+  Functions can be sorted by how many derivatives they have and how well behaved those derivatives are.
   Each condition is stronger than the previous one.
   A smooth function has derivatives of every order, but it can still differ from its Taylor series, which an analytic function cannot.
 relation: analytic ⊂ smooth ⊂ continuously differentiable ⊂ differentiable

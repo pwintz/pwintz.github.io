@@ -5,6 +5,7 @@ kind: siblings
 areas: [computing, linear-algebra]
 status: draft
 summary: >
+  An array has several sizes, which programming languages report with different names.
   The number of axes of an array is how many indices pick out an entry.
   The shape lists the length along each axis, and the number of elements is the product of those lengths.
 terms:

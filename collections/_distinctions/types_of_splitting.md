@@ -5,6 +5,7 @@ kind: family
 areas: [sets]
 status: draft
 summary: >
+  Several operations split something into pieces.
   Division splits a number.
   A partition splits a set into non-overlapping pieces, but a partition of an interval is a list of cut points whose pieces share endpoints.
   A refinement splits pieces further.

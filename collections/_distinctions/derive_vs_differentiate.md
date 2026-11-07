@@ -5,6 +5,7 @@ kind: siblings
 areas: [language]
 status: draft
 summary: >
+  "Derive" and "derivative" share a root, so the two verbs are easy to mix up in calculus.
   To differentiate a function is to compute its derivative.
   To derive a result is to obtain it by reasoning.
   Despite the similar words, "deriving" has nothing to do with derivatives.

@@ -1,5 +1,4 @@
 ---
-published: false
 title: Cholesky decomposition
 term: Cholesky decomposition
 applies_to: symmetric positive definite matrices

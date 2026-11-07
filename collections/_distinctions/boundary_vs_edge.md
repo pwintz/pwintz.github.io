@@ -5,6 +5,7 @@ kind: siblings
 areas: [geometry, topology]
 status: draft
 summary: >
+  "Boundary" and "edge" both describe where a shape ends, but they come from different parts of mathematics.
   The boundary of a set is everything that touches both the set and its outside.
   An edge is a segment of a polygon or polyhedron, or a connection in a graph.
 # The boundary of a solid cube is its six faces, not its twelve edges.

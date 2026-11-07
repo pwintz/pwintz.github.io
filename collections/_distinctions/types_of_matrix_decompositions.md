@@ -1,5 +1,4 @@
 ---
-published: false
 title: Types of matrix decompositions
 kind: siblings
 areas: [linear-algebra, computing]
@@ -55,20 +54,25 @@ see_also:
 ## What each decomposition is for
 
 - **LU:** solving $A x = b$ for many right-hand sides $b$.
-  It is Gaussian elimination, recorded.
+  LU is Gaussian elimination, recorded.
   
-- **PLU:** the same, for every square matrix, and with partial pivoting for numerical stability.
-  It is Gaussian elimination with row exchanges, recorded, and it is what numerical libraries compute.
+- **PLU:** the same as LU except it works for every square matrix due to permuting the rows of $A$. 
+<!-- artial pivoting for numerical stability. -->
+  PLU is Gaussian elimination with row exchanges, recorded.
 
 - **QR:** least-squares problems and the QR algorithm for eigenvalues.
-  It is the Gram–Schmidt process, recorded.
+  QR is the Gram–Schmidt process, recorded.
   
 - **SVD:** rank, low-rank approximation, and the geometry of a linear map.
 
 - **Cholesky:** solving $A x = b$ when $A$ is symmetric positive definite, as in least squares and optimization, at half the cost of LU, and sampling from a multivariate normal distribution.
+
 - **Eigendecomposition:** computing powers and exponentials of a diagonalizable matrix, and decoupling linear systems into independent modes.
+
 - **Schur:** computing eigenvalues stably; it exists for every matrix, unlike an eigendecomposition.
+
 - **Jordan normal form:** classifying matrices up to similarity, and computing $e^{A t}$ for matrices that are not diagonalizable, by hand.
+
 - **Jordan–Chevalley:** separating the diagonalizable part of a matrix from its nilpotent part, as in computing $e^{A t} = e^{D t} e^{N t}$.
 
 - **Toeplitz:** separating the symmetric part $H$ of a matrix $A$, which alone determines the quadratic form $x^{\top} A x = x^{\top} H x$, as in energy and stability arguments.

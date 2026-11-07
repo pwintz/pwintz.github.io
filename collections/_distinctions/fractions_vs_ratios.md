@@ -5,6 +5,7 @@ kind: siblings
 areas: [numbers]
 status: draft
 summary: >
+  Fractions, ratios, and rational numbers all involve dividing one quantity by another, so the words are often used interchangeably.
   A fraction is a way of writing a number as one quantity divided by another.
   A ratio compares quantities.
   A rational number is a number that some fraction of integers represents.

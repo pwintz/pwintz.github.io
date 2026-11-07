@@ -5,6 +5,7 @@ kind: family
 areas: [differential-equations, dynamics]
 status: draft
 summary: >
+  For a differential equation whose right-hand side is discontinuous, classical solutions may not exist, so weaker notions of solution are used.
   A classical solution satisfies the differential equation at every time, and a Carathéodory solution at almost every time.
   Filippov and Krasovskii solutions replace a discontinuous right-hand side by a set of nearby values, so that solutions exist even where the right-hand side jumps.
   Hermes solutions are limits of solutions with vanishing measurement errors, and they turn out to be the Krasovskii solutions.

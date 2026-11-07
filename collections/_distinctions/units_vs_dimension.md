@@ -5,6 +5,7 @@ kind: siblings
 areas: [language]
 status: draft
 summary: >
+  A physical quantity has both a kind (such as length) and a scale for measuring it.
   The physical dimension of a quantity is what kind of quantity it is (such as length).
   A unit is a particular reference amount of that kind (such as a meter).
 terms:

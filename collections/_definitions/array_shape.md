@@ -1,5 +1,4 @@
 ---
-published: false
 title: Shape of an array
 term: shape
 applies_to: arrays

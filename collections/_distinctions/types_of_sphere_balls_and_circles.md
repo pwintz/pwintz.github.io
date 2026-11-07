@@ -5,6 +5,7 @@ kind: family
 areas: [geometry, topology]
 status: draft
 summary: >
+  Round shapes have names that distinguish the surface from the solid and count the dimension.
   A sphere is hollow and a ball is solid.
   A circle is a sphere in the plane.
   A closed ball includes its bounding sphere, and an open ball does not.

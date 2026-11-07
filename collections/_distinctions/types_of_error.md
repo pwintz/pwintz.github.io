@@ -5,6 +5,7 @@ kind: siblings
 areas: [computing]
 status: draft
 summary: >
+  In computing, "error" and related words describe different ways that things go wrong.
   A numerical error is the gap between a computed value and the true value, and it is often unavoidable.
   An exception is a mechanism for signaling unusual conditions at runtime.
   A bug is a mistake in the program.

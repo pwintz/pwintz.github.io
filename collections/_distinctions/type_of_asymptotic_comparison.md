@@ -5,6 +5,7 @@ kind: family
 areas: [analysis, computing]
 status: draft
 summary: >
+  To compare how fast two functions grow, mathematicians and computer scientists use several notations.
   Big O is an upper bound up to a constant factor, and big Omega is a lower bound.
   Big Theta is both.
   Little o means "negligible in comparison," and asymptotic equivalence means "the ratio tends to $1$," which is stronger than big Theta.

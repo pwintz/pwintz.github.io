@@ -5,6 +5,7 @@ kind: siblings
 areas: [sets]
 status: draft
 summary: >
+  Symbols placed between two objects, such as $+$ and $<$, do different kinds of things.
   A binary relation takes two objects and says whether they are related (true or false).
   A binary operation takes two objects and produces a new object of the same type.
 terms:

@@ -5,6 +5,7 @@ kind: siblings
 areas: [language]
 status: draft
 summary: >
+  The parts of an algebraic expression have names that depend on how they are combined.
   Terms are added and factors are multiplied.
   A coefficient is the constant factor of a term.
 terms:

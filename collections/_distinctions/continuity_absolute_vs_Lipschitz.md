@@ -5,6 +5,7 @@ kind: hierarchy
 areas: [analysis]
 status: draft
 summary: >
+  Absolute continuity and Lipschitz continuity are both stronger than continuity, and both are used to justify integrating a derivative.
   An absolutely continuous function is the integral of its derivative, which may be unbounded.
   A Lipschitz continuous function has a bounded slope.
 relation: Lipschitz continuous ⊂ absolutely continuous

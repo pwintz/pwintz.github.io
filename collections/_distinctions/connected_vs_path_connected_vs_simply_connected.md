@@ -5,6 +5,7 @@ kind: hierarchy
 areas: [topology, analysis]
 status: draft
 summary: >
+  Topology has several ways to say that a space is "in one piece," and some also rule out holes.
   A connected space is in one piece.
   A path-connected space is in one piece that you can travel across along a path.
   A simply connected space is path-connected and has no holes that a loop can wrap around.

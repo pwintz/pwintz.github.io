@@ -5,6 +5,7 @@ kind: siblings
 areas: [dynamics, control]
 status: draft
 summary: >
+  Lyapunov functions and barrier functions both certify properties of a dynamical system without solving it, using a function that behaves well along solutions.
   A Lyapunov function proves stability or convergence: it is positive definite and does not increase along solutions.
   A barrier function proves that a set is forward invariant (safety): it need not be definite, and its derivative only needs the right sign near the boundary of the set.
 terms:

@@ -1,5 +1,4 @@
 ---
-published: false
 title: Jordan normal form
 term: Jordan normal form
 applies_to: square matrices

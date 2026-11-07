@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'Before an experiment: "Bean plants grow taller with more hours of light each day"'
 level: elementary
 is: [hypothesis_science]

@@ -5,6 +5,7 @@ kind: siblings
 areas: [sets]
 status: draft
 summary: >
+  Two sets can be combined into a new set in several ways.
   The union of two sets contains everything in either set, and the intersection contains everything in both.
   The set difference $A \setminus B$ contains what is in $A$ but not in $B$.
   Union and intersection do not depend on the order of $A$ and $B$, but set difference does.

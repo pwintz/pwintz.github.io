@@ -1,5 +1,4 @@
 ---
-published: false
 title: Singular value
 term: singular value
 applies_to: matrices

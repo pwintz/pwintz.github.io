@@ -5,6 +5,7 @@ kind: hierarchy
 areas: [analysis]
 status: draft
 summary: >
+  For a function of several variables (or on an infinite-dimensional space), "differentiable" can be made precise in several ways.
   A directional derivative is the rate of change in one direction.
   A function is Gâteaux differentiable if every directional derivative exists and they depend linearly on the direction, and Fréchet differentiable if, in addition, the linear approximation is uniformly good in all directions at once.
 relation: >

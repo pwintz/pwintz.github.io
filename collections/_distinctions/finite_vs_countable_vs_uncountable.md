@@ -5,6 +5,7 @@ kind: hierarchy
 areas: [sets, numbers]
 status: draft
 summary: >
+  Sets can be sorted by how many elements they have.
   A finite set can be counted completely.
   A countable set can be listed one element at a time, even if the list never ends.
   An uncountable set is too large to list at all.

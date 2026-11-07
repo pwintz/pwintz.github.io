@@ -5,6 +5,7 @@ kind: family
 areas: [control]
 status: draft
 summary: >
+  Passivity describes systems that store and dissipate energy but cannot produce it.
   A passive system cannot generate energy.
   The variants say where energy is dissipated: in proportion to the input, the output, or the state.
   A lossless system dissipates none.

@@ -5,6 +5,7 @@ kind: siblings
 areas: [analysis, control, differential-equations]
 status: draft
 summary: >
+  Integral transforms turn a function of time into a function of frequency, which is easier to analyze for linear systems.
   The Fourier transform decomposes a function on the whole real line into frequencies.
   The Laplace transform of a function on $[0, \infty)$ adds exponential decay, so it exists for growing functions and suits initial value problems.
   The Z-transform is the version for sequences.

@@ -5,6 +5,7 @@ kind: hierarchy
 areas: [analysis]
 status: draft
 summary: >
+  Lipschitz continuity and continuous differentiability both rule out functions that are too steep or too wild, but in different ways.
   A Lipschitz continuous function has a bounded slope but may have corners.
   A continuously differentiable function has no corners, but its slope may be unbounded on an unbounded domain.
 relation: On a compact interval $[a, b]$, continuously differentiable ⊂ Lipschitz continuous.

@@ -5,6 +5,7 @@ kind: siblings
 areas: [control]
 status: draft
 summary: >
+  Gain and phase margins measure how far a feedback loop is from becoming unstable.
   The gain margin is how much the loop gain can grow before instability.
   The phase margin is how much extra phase lag, such as from a time delay, the loop can tolerate.
   They are measured at different frequencies, and neither one alone guarantees robustness.

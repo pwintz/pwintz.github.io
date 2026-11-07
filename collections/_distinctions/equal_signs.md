@@ -5,6 +5,7 @@ kind: siblings
 areas: [language]
 status: draft
 summary: >
+  Mathematical writing combines symbols into pieces that play different grammatical roles.
   An expression has a value.
   An equation or inequality is a statement that can be true or false.
   An identity is an equation that is true for every value of its variables, and a formula is an equation that gives one quantity in terms of others.

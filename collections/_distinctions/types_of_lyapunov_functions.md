@@ -5,6 +5,7 @@ kind: siblings
 areas: [dynamics, control]
 status: draft
 summary: >
+  Lyapunov functions prove stability, and variants handle systems with control inputs or disturbances.
   A Lyapunov function decreases along the solutions of a system without inputs.
   A control Lyapunov function can be made to decrease by choosing the input.
   An ISS-Lyapunov function decreases whenever the state is large compared with a disturbance input.

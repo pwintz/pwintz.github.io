@@ -1,13 +1,14 @@
 ---
-published: false
 title: Eigenvalue vs. singular value
 kind: siblings
 areas: [linear-algebra]
 status: draft
 summary: >
-  An eigenvalue of a square matrix $A$ is a factor by which $A$ stretches some nonzero vector without turning it off its line.
-  A singular value of any matrix $A$ is a factor by which $A$ stretches some direction, allowing it to turn: the singular values are the square roots of the eigenvalues of $A^{\top} A$.
+  An eigenvalue of a square matrix $A$ is a factor $\lambda$ by which $A$ scales a particular nonzero vector $x$, called a eigenvalue: $Ax = \lambda x$.
+  A singular value of any matrix $A$ is a factor $\sigma$ by which $A$ stretches vectors along some direction, allowing it them turn.
   Singular values are real and nonnegative, but eigenvalues can be negative or complex.
+# Singular values are the square roots of the eigenvalues of $A^{\top} A$.D
+# An eigenvalue of a square matrix $A$ is a factor by which $A$ stretches some nonzero vector without turning it off its line.
 terms:
   - eigenvalue
   - singular_value

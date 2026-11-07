@@ -1,5 +1,4 @@
 ---
-published: false
 title: Axiom
 term: axiom
 applies_to: mathematical theories
@@ -15,5 +14,5 @@ levels:
 properties:
   - >-
     Axioms are not claimed to be true about the world; they define what the theory is about.
-    For example, the axioms of a group define what a group is.
+    For example, the group axioms define what a group _is_.
 ---

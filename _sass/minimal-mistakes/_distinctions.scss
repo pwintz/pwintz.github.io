@@ -178,6 +178,79 @@
     td:last-child {
       min-width: 12em;
     }
+
+    // Keep the example column in view while the table scrolls sideways.
+    // (A sticky header row would not work here, since the table scrolls inside this box, not the page.)
+    th:first-child,
+    td:first-child {
+      position: sticky;
+      left: 0;
+      z-index: 1;
+      background: $background-color;
+    }
+  }
+
+  // One section per example, with one row per term (examples_layout: by-example).
+  .distinction__examples--by-example {
+    overflow-x: visible;
+
+    table {
+      width: auto;
+      margin-top: 0.5em;
+    }
+
+    th[scope="row"] {
+      padding-right: 1.5em;
+      text-align: left;
+      font-weight: normal;
+      white-space: nowrap;
+    }
+
+    // The table rules above are for the wide layout.
+    th:first-child,
+    td:first-child {
+      position: static;
+      min-width: 0;
+      background: none;
+    }
+
+    td:last-child {
+      min-width: 0;
+    }
+  }
+
+  // Each example is a card, in one column.
+  .distinction__example {
+    margin-bottom: 1.5em;
+    padding: 0 1em 0.75em;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+
+    table {
+      margin-bottom: 0;
+    }
+  }
+
+  // The example's title stays at the top of the window while the rest of its card scrolls past.
+  .distinction__example-title {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    margin: 0 -1em;
+    padding: 0.5em 1em;
+    border-bottom: 1px solid $border-color;
+    border-radius: $border-radius $border-radius 0 0;
+    background: $background-color;
+    font-size: $type-size-5;
+  }
+
+  .distinction__example-why {
+    margin-top: 0.5em;
+    font-size: $type-size-6;
+
+    p {
+      margin: 0;
+    }
   }
 
   .distinction__check {

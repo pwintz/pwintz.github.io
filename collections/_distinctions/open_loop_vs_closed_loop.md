@@ -5,6 +5,7 @@ kind: siblings
 areas: [control]
 status: draft
 summary: >
+  A controller can decide its input with or without measuring what the system is doing.
   Open-loop control computes the input without measuring the output, and closed-loop (feedback) control uses the measured output to correct errors.
   Feedforward acts on a measured disturbance or a known reference before it affects the output, and is usually combined with feedback.
 terms:

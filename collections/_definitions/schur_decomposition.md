@@ -1,5 +1,4 @@
 ---
-published: false
 title: Schur decomposition
 term: Schur decomposition
 applies_to: square matrices

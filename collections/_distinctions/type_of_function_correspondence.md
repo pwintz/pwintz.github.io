@@ -5,6 +5,7 @@ kind: family
 areas: [sets]
 status: draft
 summary: >
+  A function can match its inputs to its outputs in several ways, and functions from a structure to itself have their own names.
   Injective, surjective, and bijective describe how a function matches inputs to outputs.
   Endomorphisms and automorphisms are structure-preserving maps from an object to itself.
 terms:

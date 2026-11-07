@@ -5,6 +5,7 @@ kind: siblings
 areas: [analysis]
 status: draft
 summary: >
+  The limit of a function at a point can be taken from both sides or from one side.
   The limit of $f$ at $a$ describes $f(x)$ as $x$ approaches $a$ from both sides.
   The left and right limits look at only one side each.
   The limit exists exactly when both one-sided limits exist and are equal.

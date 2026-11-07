@@ -5,6 +5,7 @@ kind: family
 areas: [dynamics, control]
 status: draft
 summary: >
+  In a dynamical system, several kinds of sets describe where solutions go or stay.
   A region (or basin) of attraction is where solutions converge to an equilibrium (or attractor).
   An invariant set traps solutions, but they need not converge.
   A reachable set is where solutions can go, and a viability kernel is where some solution can stay within the constraints forever.

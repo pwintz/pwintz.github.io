@@ -1,13 +1,12 @@
 ---
-published: false
 title: Viability kernel
 term: viability kernel
-applies_to: constraint sets
+applies_to: control system
 levels:
   graduate:
     text: |-
-      Consider a control system and a closed constraint set $K$ of states.
-      The _viability kernel_ of $K$ is the set of initial states in $K$ from which at least one solution (for some admissible input) stays in $K$ forever.
+      Consider a control system $\dot x = f(x, u)$ and a set of state constraints $K$.
+      The _viability kernel_ of $K$ is a subset of $V \subset K$ such that for every initial state $x_0 \in V$, there exists at least one choice of admissible inputs $u(t)$ such that a solution starting from $x_0$ and controlled by $u(t)$ stays in $K$ forever.
 properties:
   - >-
     The viability kernel is the largest [controlled invariant](/definitions/controlled-invariant) (or weakly [forward invariant](/definitions/forward-invariant)) [subset](/definitions/subset) of $K$.

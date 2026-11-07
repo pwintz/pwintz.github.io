@@ -5,6 +5,7 @@ kind: siblings
 areas: [topology]
 status: draft
 summary: >
+  A function between topological spaces can relate the open sets of its domain and codomain in two directions.
   Continuity is about preimages: preimages of open sets are open.
   Open and closed maps are about images: images of open (or closed) sets are open (or closed).
   None of the three properties implies another.

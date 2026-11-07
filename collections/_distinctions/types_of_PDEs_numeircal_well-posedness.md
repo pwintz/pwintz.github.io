@@ -5,6 +5,7 @@ kind: siblings
 areas: [differential-equations, computing]
 status: draft
 summary: >
+  Solving a partial differential equation numerically raises questions about both the equation and the method.
   Well-posedness is a property of the problem.
   Consistency, stability, and convergence are properties of a numerical scheme for solving it.
   Convergence is what we want, and for linear problems, the Lax equivalence theorem says it follows from consistency and stability.

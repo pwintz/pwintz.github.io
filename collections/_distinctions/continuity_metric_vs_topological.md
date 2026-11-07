@@ -5,6 +5,7 @@ kind: hierarchy
 areas: [topology, analysis]
 status: draft
 summary: >
+  Continuity can be defined with distances, with sequences, or with open sets.
   The ε-δ definition of continuity (for metric spaces) and the open-set definition (for topological spaces) agree on metric spaces.
   In metric spaces, continuity is also equivalent to sequential continuity, but in general topological spaces, sequential continuity is weaker.
 relation: >

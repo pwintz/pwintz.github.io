@@ -5,6 +5,7 @@ kind: siblings
 areas: [control]
 status: draft
 summary: >
+  A feedback controller may or may not have memory.
   A static feedback law computes the input from the current measurement alone.
   A dynamic feedback law has its own state, so the input can depend on the history of the measurements.
 terms:

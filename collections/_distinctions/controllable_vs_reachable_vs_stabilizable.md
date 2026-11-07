@@ -5,6 +5,7 @@ kind: hierarchy
 areas: [control]
 status: draft
 summary: >
+  These properties describe how much a control input can influence the state of a system.
   A controllable system can be steered from any state to the origin, and a reachable system can be steered from the origin to any state.
   A stabilizable system only needs feedback that makes it converge, so its uncontrollable parts must already be stable.
 relation: >

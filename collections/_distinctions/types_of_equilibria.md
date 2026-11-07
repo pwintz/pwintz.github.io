@@ -5,6 +5,7 @@ kind: siblings
 areas: [dynamics, control]
 status: draft
 summary: >
+  Several terms describe states that a system rests at or aims for.
   An equilibrium is a state where the system stays put.
   In discrete time it is a fixed point of the update map, but in continuous time it is a zero of the vector field.
   A steady state is what the system settles into, which need not be an equilibrium.

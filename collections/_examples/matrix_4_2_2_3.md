@@ -1,7 +1,7 @@
 ---
-published: false
-title: 'The symmetric positive definite matrix $$\begin{bmatrix} 4 & 2 \\ 2 & 3 \end{bmatrix}$$'
+title: 'The matrix $$\begin{bmatrix} 4 & 2 \\ 2 & 3 \end{bmatrix}$$'
 level: undergraduate
+is: [symmetric_matrix, positive_definite_matrix, positive_semidefinite_matrix]
 values:
   lu_decomposition: '$$L = \begin{bmatrix} 1 & 0 \\ 1/2 & 1 \end{bmatrix}$$, $$U = \begin{bmatrix} 4 & 2 \\ 0 & 2 \end{bmatrix}$$'
   plu_decomposition: '$P = I$, with $L$ and $U$ as in the LU decomposition'
@@ -14,6 +14,8 @@ values:
   jordan_chevalley_decomposition: '$D = A$, $N = 0$'
   toeplitz_decomposition: '$H = A$, $K = 0$'
 why:
+  positive_definite_matrix: >-
+    The matrix $$A = \begin{bmatrix} 4 & 2 \\ 2 & 3 \end{bmatrix}$$ is positive definite, because it is symmetric and $$x^{\top} A x = 4 x_1^2 + 4 x_1 x_2 + 3 x_2^2 = (2 x_1 + x_2)^2 + 2 x_2^2,$$ which is positive unless $x_2 = 0$ and $2 x_1 + x_2 = 0$, that is, unless $x = 0$.
   cholesky_decomposition: >-
     The matrix $$A = \begin{bmatrix} 4 & 2 \\ 2 & 3 \end{bmatrix}$$ is symmetric with positive eigenvalues $\frac{7 \pm \sqrt{17}}{2}$, so it has a Cholesky decomposition.
     Its factor $L$ is the LU factor $U$ with each row divided by the square root of its diagonal entry, transposed.

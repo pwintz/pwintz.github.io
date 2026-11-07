@@ -5,6 +5,7 @@ kind: siblings
 areas: [topology, analysis, geometry]
 status: draft
 summary: >
+  Given a set in a space, every point of the space falls into exactly one of three parts.
   The interior of a set is the part well inside it, the exterior is the part well outside it, and the boundary is where the two meet.
   Every point of the space is in exactly one of the three.
 relation: >

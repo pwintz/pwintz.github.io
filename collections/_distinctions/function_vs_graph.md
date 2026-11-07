@@ -5,6 +5,7 @@ kind: siblings
 areas: [sets]
 status: draft
 summary: >
+  A function can be described as a rule, drawn as a picture, or viewed as a set of points.
   A function assigns outputs to inputs.
   Its graph is the set of input-output pairs.
   A curve is a one-dimensional shape, which may or may not be the graph of a function.

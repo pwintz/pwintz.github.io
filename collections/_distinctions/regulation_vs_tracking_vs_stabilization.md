@@ -5,6 +5,7 @@ kind: siblings
 areas: [control]
 status: draft
 summary: >
+  A feedback controller is designed to meet a goal, and the goals have different names.
   Stabilization makes an equilibrium asymptotically stable.
   Regulation holds an output at a constant set point despite disturbances.
   Tracking makes an output follow a reference that changes over time.

@@ -5,6 +5,7 @@ kind: hierarchy
 areas: [linear-algebra, analysis, topology]
 status: draft
 summary: >
+  Spaces in analysis are sorted by how much structure they have for measuring distance and angle.
   Each kind of space adds structure to the previous one.
   Banach and Hilbert spaces add completeness: Cauchy sequences converge.
 relation: >

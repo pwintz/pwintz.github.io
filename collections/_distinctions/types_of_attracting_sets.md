@@ -5,6 +5,7 @@ kind: family
 areas: [dynamics]
 status: draft
 summary: >
+  In a dynamical system, several kinds of sets describe where solutions end up.
   An ω-limit set is where one particular solution ends up.
   An attractive set draws in all nearby solutions, and an attractor is a compact invariant set that does.
   A limit cycle is an isolated periodic orbit, which may attract or repel.

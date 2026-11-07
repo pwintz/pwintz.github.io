@@ -227,7 +227,7 @@ kind: hierarchy        # An id from _data/distinction_kinds.yml.
 areas: [analysis]      # Ids from _data/distinction_areas.yml (subjects), most relevant first. A page may have several.
 status: draft          # stub | draft | complete
 summary: >
-  One or two sentences stating the distinction.
+  A sentence giving context (what the terms have in common, or where they come up), then one or two sentences stating the distinction.
 relation: uniformly continuous ⊂ continuous
 terms:                 # File names (without .md) in _definitions.
   - continuous

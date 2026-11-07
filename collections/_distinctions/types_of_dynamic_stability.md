@@ -5,6 +5,7 @@ kind: family
 areas: [dynamics, control]
 status: draft
 summary: >
+  Stability describes how solutions behave near an equilibrium, and it comes in several strengths.
   Stability means "stays close," and attractivity means "eventually converges."
   Neither implies the other, and asymptotic stability requires both.
   Global, exponential, and finite-time stability strengthen asymptotic stability in different directions: where it holds, and how fast.

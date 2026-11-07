@@ -6,22 +6,17 @@
 // Each definition also has level buttons in its header, which show that definition (and its examples) at another level.
 // The reader's choice is remembered across pages. A ?level= parameter in the URL selects the level when the page opens.
 
+import { loadString, saveString } from "./common/storage";
+
 const STORAGE_KEY = "distinctions.definitionLevel";
 
+// If storage is unavailable (e.g., private browsing), the choice applies to this page only.
 function readStoredLevel(): string | null {
-  try {
-    return window.localStorage.getItem(STORAGE_KEY);
-  } catch {
-    return null;
-  }
+  return loadString(STORAGE_KEY);
 }
 
 function storeLevel(level: string): void {
-  try {
-    window.localStorage.setItem(STORAGE_KEY, level);
-  } catch {
-    // Storage is unavailable (e.g., private browsing). The choice applies to this page only.
-  }
+  saveString(STORAGE_KEY, level);
 }
 
 function init(): void {
@@ -114,10 +109,11 @@ function init(): void {
     if (selector) selector.hidden = false;
   }
 
-  // Hide rows of the examples table above the level, and say how many are hidden.
+  // Hide examples in the examples table (rows, or sections in the by-example layout) above the level,
+  // and say how many are hidden.
   function filterTable(level: string): void {
     const target = order.indexOf(level);
-    const rows = Array.from(document.querySelectorAll<HTMLElement>("tr[data-example-level]"));
+    const rows = Array.from(document.querySelectorAll<HTMLElement>(".distinction__examples [data-example-level]"));
     if (rows.length === 0) return;
     for (const row of rows) {
       row.hidden = order.indexOf(row.dataset.exampleLevel ?? "") > target;

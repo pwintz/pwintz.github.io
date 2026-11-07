@@ -5,6 +5,7 @@ kind: family
 areas: [control]
 status: draft
 summary: >
+  When the state of a system is not measured directly, it can be estimated in several ways.
   An estimator is any rule for estimating an unknown quantity.
   An observer is a dynamical system whose state estimate converges to the true state.
   A filter estimates the current state from noisy measurements, and a predictor estimates a future state.

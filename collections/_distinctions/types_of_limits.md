@@ -5,6 +5,7 @@ kind: family
 areas: [analysis]
 status: draft
 summary: >
+  A sequence of numbers can approach a value, or several values, in several senses.
   A sequence of real numbers might not have a limit, but every such sequence has a limit superior and a limit inferior (possibly infinite).
   A limit point belongs to a set, not a sequence.
 terms:

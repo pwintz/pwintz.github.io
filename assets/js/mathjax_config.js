@@ -22,6 +22,8 @@ MathJax = {
             // \suchthat works only inside \setdef (\middle needs an enclosing \left ... \right).
             setdef: ["\\left\\{#1\\right\\}", 1],
             suchthat: "\\mathrel{}\\middle|\\mathrel{}",
+            // Norm, as in "\norm{x}". The bars do not grow; use \left\lVert ... \right\rVert for tall contents.
+            norm: ["\\lVert #1 \\rVert", 1],
             // reals: "{\\mathbb{R}}",
         }
     }

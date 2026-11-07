@@ -5,6 +5,7 @@ kind: family
 areas: [set-valued-analysis]
 status: draft
 summary: >
+  A set-valued map assigns a set to each point, and there is more than one way to say that the set changes continuously.
   Outer and upper semicontinuity both say that $F(x)$ cannot suddenly shrink in the limit, but they are not the same: outer semicontinuity is a closed-graph condition, while upper semicontinuity also rules out values escaping to infinity.
   Inner and lower semicontinuity say that $F(x)$ cannot suddenly grow, and they agree in metric spaces.
 terms:

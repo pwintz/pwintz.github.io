@@ -1,5 +1,4 @@
 ---
-published: false
 title: Theory (in science)
 term: theory (in science)
 applies_to: scientific explanations
@@ -10,7 +9,9 @@ levels:
 properties:
   - >-
     A theory is not a hypothesis that is waiting to be proved.
-    Theories are the strongest explanations in science, though new evidence can lead to revising them.
+    Instead, it is an explanation for existing data and observations. 
+    Theories may be revised as new evidence is collected.
 ---
 In everyday speech, "theory" often means a guess ("I have a theory about who ate the cake"), which is closer to a scientific hypothesis.
+
 In mathematics, a "theory" is a body of results about one subject, such as group theory.

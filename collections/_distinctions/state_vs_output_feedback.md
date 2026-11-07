@@ -5,6 +5,7 @@ kind: siblings
 areas: [control]
 status: draft
 summary: >
+  A feedback controller computes its input from information about the system, which may be more or less complete.
   State feedback uses the full state, which is rarely measured directly.
   Output feedback uses only the measured output, and it may need an observer or other dynamics to do what state feedback can.
 terms:

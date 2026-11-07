@@ -5,6 +5,7 @@ kind: siblings
 areas: [analysis]
 status: draft
 summary: >
+  Functions of one and of several variables have different kinds of derivatives.
   An ordinary derivative is for a function of one variable.
   A partial derivative varies one of several variables while holding the others fixed.
   The differential packages all of the partial derivatives into a single linear map.

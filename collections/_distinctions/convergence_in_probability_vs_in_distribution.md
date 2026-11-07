@@ -5,6 +5,7 @@ kind: hierarchy
 areas: [statistics]
 status: draft
 summary: >
+  A sequence of random variables $X_n$ can approach a random variable $X$ in several senses.
   Convergence in probability says that the random values $X_n$ themselves get close to $X$.
   Convergence in distribution says only that their probabilities approach those of $X$, so the values themselves may never settle down.
 relation: >

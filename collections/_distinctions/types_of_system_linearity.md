@@ -5,6 +5,7 @@ kind: hierarchy
 areas: [control, dynamics]
 status: draft
 summary: >
+  Control systems are classified by how the state and input enter the dynamics.
   A linear system has no offset, and an affine system may have one.
   A control-affine system can be nonlinear in the state but enters the input linearly.
   A feedback linearizable system is nonlinear, but a change of coordinates and feedback make it exactly linear.

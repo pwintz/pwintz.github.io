@@ -5,6 +5,7 @@ kind: siblings
 areas: [linear-algebra]
 status: draft
 summary: >
+  Row reduction refers to special entries of a matrix by two names that are easy to confuse.
   Every nonzero row of every matrix has a leading entry: its first nonzero entry.
   Pivots belong to echelon forms: they are the leading entries after Gaussian elimination.
   In a matrix that is not in echelon form, a leading entry need not be in a pivot position.

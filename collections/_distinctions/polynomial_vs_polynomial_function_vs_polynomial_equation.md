@@ -5,6 +5,7 @@ kind: siblings
 areas: [numbers, language]
 status: draft
 summary: >
+  "Polynomial" is used for three related objects that are easy to conflate.
   A polynomial is an expression, such as $x^2 - 1$.
   A polynomial function assigns an output to each input using a polynomial.
   A polynomial equation, such as $x^2 - 1 = 0$, is a statement to be solved.

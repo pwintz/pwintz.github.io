@@ -5,6 +5,7 @@ kind: siblings
 areas: [analysis, sets]
 status: draft
 summary: >
+  Several properties describe a set or sequence that is "not too big," in different senses.
   A finite set has finitely many elements.
   A bounded set fits inside a ball, and may have infinitely many elements.
   A compact set is bounded and (in $\reals^n$) closed.

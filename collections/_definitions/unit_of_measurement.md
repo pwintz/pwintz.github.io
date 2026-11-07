@@ -1,13 +1,11 @@
 ---
-published: false
 title: Unit of measurement
 term: unit
 applies_to: physical quantities
 levels:
   elementary:
     text: |-
-      Think of measuring the length of a table, in inches or in centimeters.
-      A _unit_ is a standard amount used for measuring.
+      A _unit_ is a standard amount used for measuring, such as "1 second" which gives a standard way to measure time.
   high-school:
     context: physics
     text: |-

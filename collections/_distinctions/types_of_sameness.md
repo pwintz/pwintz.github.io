@@ -5,6 +5,7 @@ kind: family
 areas: [sets]
 status: draft
 summary: >
+  Mathematics has many ways to say that two objects are "the same."
   Equal objects are the same object.
   The other words describe objects that are different but "the same in some respect," and each one depends on what respect is meant.
 terms:

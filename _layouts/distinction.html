@@ -14,6 +14,10 @@ layout: single
                optionally, "why" (why the example matters for this distinction).
                Each row shows the example's value for each term, or ✓ / ✗ / – (is, is not, not addressed).
     examples_note: (Optional) Explains how to read the example grid.
+    examples_layout: (Optional) "table" (one row per example, one column per term) or "by-example"
+               (one section per example, one row per term, leaving out terms the example does not address).
+               By default, pages whose examples give values for four or more terms use "by-example",
+               since their tables are too wide; other pages use "table".
     see_also:  Slugs (file names) of other distinctions.
 {% endcomment %}
 {% assign kind = site.data.distinction_kinds | where: "id", page.kind | first %}
@@ -89,34 +93,77 @@ layout: single
     {% endif %}
     {% comment %} assets/ts/src/definition_levels.ts hides rows above the selected level and explains why here. {% endcomment %}
     <p class="distinction__examples-hidden" hidden></p>
-    <div class="distinction__examples">
-      <table>
-        <thead>
-          <tr>
-            <th>Example</th>
-            {% for slug in page.terms %}
-              {% assign definition = site.definitions | where: "slug", slug | first %}
-              <th class="distinction__check">{{ definition.term | default: slug }}</th>
-            {% endfor %}
-            <th>Why</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for ref in page.examples %}
-            {% assign example = site.examples | where: "slug", ref.example | first %}
-            {% if example %}
-              <tr data-example-level="{{ example.level }}">
-                <td><a href="{{ example.url | relative_url }}">{{ example.title | markdownify | remove: '<p>' | remove: '</p>' }}</a>{% include example-definition-link.html example=example %}</td>
-                {% for slug in page.terms %}{% include example-verdict.html example=example term=slug %}{% endfor %}
-                <td>{{ ref.why | default: example.description | markdownify | remove: '<p>' | remove: '</p>' }}</td>
-              </tr>
-            {% else %}
-              <tr><td colspan="{{ page.terms.size | plus: 2 }}" class="notice--danger">Missing example: <code>{{ ref.example }}</code></td></tr>
-            {% endif %}
+    {% assign examples_layout = page.examples_layout %}
+    {% unless examples_layout %}
+      {% assign examples_layout = "table" %}
+      {% if page.terms.size >= 4 %}
+        {% for ref in page.examples %}
+          {% assign example = site.examples | where: "slug", ref.example | first %}
+          {% for slug in page.terms %}
+            {% if example.values[slug] %}{% assign examples_layout = "by-example" %}{% break %}{% endif %}
           {% endfor %}
-        </tbody>
-      </table>
-    </div>
+          {% if examples_layout == "by-example" %}{% break %}{% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endunless %}
+    {% if examples_layout == "by-example" %}
+      <div class="distinction__examples distinction__examples--by-example">
+        {% for ref in page.examples %}
+          {% assign example = site.examples | where: "slug", ref.example | first %}
+          {% if example %}
+            <section class="distinction__example" data-example-level="{{ example.level }}">
+              <h3 class="distinction__example-title"><a href="{{ example.url | relative_url }}">{{ example.title | markdownify | remove: '<p>' | remove: '</p>' }}</a>{% include example-definition-link.html example=example %}</h3>
+              {% assign why = ref.why | default: example.description %}
+              {% if why %}<div class="distinction__example-why">{{ why | markdownify }}</div>{% endif %}
+              <table>
+                <tbody>
+                  {% for slug in page.terms %}
+                    {% if example.values[slug] or example.is contains slug or example.is_not contains slug %}
+                      {% assign definition = site.definitions | where: "slug", slug | first %}
+                      <tr>
+                        <th scope="row">{{ definition.term | default: slug }}</th>
+                        {% include example-verdict.html example=example term=slug %}
+                      </tr>
+                    {% endif %}
+                  {% endfor %}
+                </tbody>
+              </table>
+            </section>
+          {% else %}
+            <p class="notice--danger">Missing example: <code>{{ ref.example }}</code></p>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="distinction__examples">
+        <table>
+          <thead>
+            <tr>
+              <th>Example</th>
+              {% for slug in page.terms %}
+                {% assign definition = site.definitions | where: "slug", slug | first %}
+                <th class="distinction__check">{{ definition.term | default: slug }}</th>
+              {% endfor %}
+              <th>Why</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for ref in page.examples %}
+              {% assign example = site.examples | where: "slug", ref.example | first %}
+              {% if example %}
+                <tr data-example-level="{{ example.level }}">
+                  <td><a href="{{ example.url | relative_url }}">{{ example.title | markdownify | remove: '<p>' | remove: '</p>' }}</a>{% include example-definition-link.html example=example %}</td>
+                  {% for slug in page.terms %}{% include example-verdict.html example=example term=slug %}{% endfor %}
+                  <td>{{ ref.why | default: example.description | markdownify | remove: '<p>' | remove: '</p>' }}</td>
+                </tr>
+              {% else %}
+                <tr><td colspan="{{ page.terms.size | plus: 2 }}" class="notice--danger">Missing example: <code>{{ ref.example }}</code></td></tr>
+              {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
   {% endif %}
 
   {{ content }}

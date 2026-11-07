@@ -1,0 +1,21 @@
+---
+title: Positive definite matrix
+term: positive definite
+applies_to: symmetric matrices
+levels:
+  undergraduate:
+    text: |-
+      A [symmetric](/definitions/symmetric-matrix) $n \times n$ real [matrix](/definitions/matrix) $A$ is called _positive definite_ if $x^{\top} A x > 0$ for every nonzero vector $x \in \reals^n$.
+properties:
+  - >-
+    A symmetric matrix is positive definite if and only if all of its [eigenvalues](/definitions/eigenvalue) are positive.
+  - >-
+    A symmetric matrix is positive definite if and only if all of its leading principal minors (the determinants of its upper-left $k \times k$ submatrices) are positive (Sylvester's criterion).
+  - >-
+    A symmetric matrix is positive definite if and only if it has a [Cholesky decomposition](/definitions/cholesky-decomposition) $A = L L^{\top}$ with $L$ invertible.
+  - >-
+    A positive definite matrix $A$ defines an [inner product](/definitions/inner-product) $\langle x, y \rangle = x^{\top} A y$ on $\reals^n$.
+---
+Some authors do not require $A$ to be symmetric.
+Then $x^{\top} A x > 0$ depends only on the symmetric part $\frac{1}{2}(A + A^{\top})$, so, for example, a rotation by less than $90°$ counts as positive definite.
+For complex matrices, $A$ is required to be Hermitian, and $x^{\top}$ is replaced by the conjugate transpose $x^{\ast}$.

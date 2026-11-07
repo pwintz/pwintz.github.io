@@ -5,6 +5,7 @@ kind: siblings
 areas: [sets]
 status: draft
 summary: >
+  A function comes with several sets that describe its inputs and outputs.
   The domain is where inputs come from, and the codomain is where outputs are allowed to land.
   The image is the set of outputs that actually occur, and a preimage is the set of inputs that land in a given set.
 terms:

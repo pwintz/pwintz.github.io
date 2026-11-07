@@ -5,6 +5,7 @@ kind: hierarchy
 areas: [linear-algebra]
 status: draft
 summary: >
+  These are all ways of multiplying two vectors to get a number, from the most general to the most specific.
   The dot product is one particular inner product on $\reals^n$.
   An inner product is a bilinear form that is also symmetric and positive definite.
 relation: >

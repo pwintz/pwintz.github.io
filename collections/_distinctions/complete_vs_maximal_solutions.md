@@ -5,6 +5,7 @@ kind: hierarchy
 areas: [dynamics]
 status: draft
 summary: >
+  A solution of a hybrid system can flow and jump, and it can end in several ways or not at all.
   A maximal solution cannot be extended, and a complete solution goes on forever.
   A maximal solution can stop early by escaping to infinity or by getting stuck where it can neither flow nor jump.
   A Zeno solution is complete but jumps infinitely often in finite time.

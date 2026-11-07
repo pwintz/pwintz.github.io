@@ -1,13 +1,13 @@
 ---
-published: false
 title: Conjecture vs. hypothesis vs. law vs. theory
 kind: siblings
 areas: [language]
 status: draft
 summary: >
   A conjecture is a statement believed true but not yet proved, and it belongs to mathematics, where statements are settled by proof.
-  In science, where statements are tested by evidence, a hypothesis is a testable proposal, a law describes a pattern that observations follow, and a theory is a well-supported explanation of many observations.
-  In everyday speech, "theory" means a guess, but in science a theory is the strongest kind of explanation.
+  In science, where statements are tested by evidence, a hypothesis is a testable proposal, and a theory is a well-supported explanation of many observations.
+  A law describes a pattern that holds in every tested case, often as an equation such as $F = G m_1 m_2 / r^2$, without explaining why the pattern holds; explaining it is the job of a theory.
+  In everyday speech, "theory" means a guess, but in science a theory is an a principle or body of principles that explains observed data and phenomenon.
 terms:
   - conjecture
   - hypothesis_science
@@ -25,10 +25,11 @@ examples:
   - example: theory_of_evolution
     why: >-
       Evolution by natural selection is a theory, because it explains a broad range of observations (fossils, genetics, the distribution of species) and is supported by a large body of evidence.
-      It is not a hypothesis, and it is not a law, because it explains why species change rather than describing one pattern.
+      It is not a law because it explains why species change rather than describing one pattern.
+      It is not a hypothesis because it has be demonstrated via experiments.  
   - example: newtons_law_of_gravitation
     why: >-
-      Newton's law of gravitation is a law, because it is an equation that describes how strongly masses attract.
+      Newton's law of gravitation is a law because it is an equation that describes how strongly masses attract.
       It is not a theory, because it does not explain why masses attract; general relativity, a theory, does.
   - example: its_just_a_theory
     why: >-
@@ -43,4 +44,5 @@ see_also:
 - A conjecture is settled by proof and stays a conjecture no matter how much evidence supports it, while a hypothesis is supported or refuted by evidence and is never proved.
 
 - Scientific laws and theories are not ranked: a theory does not become a law with more evidence.
+
 - In mathematics, a "hypothesis" usually means an [assumption](/definitions/assumption) of a theorem, and a "theory" is a body of results, such as group theory.

@@ -5,6 +5,7 @@ kind: family
 areas: [dynamics, computing]
 status: draft
 summary: >
+  Several words describe events or functions that happen again and again.
   Periodic events happen at fixed intervals.
   In real-time systems, sporadic events have a minimum separation and aperiodic events have none.
   In dynamics, a recurrent point returns close to where it started, but not necessarily exactly or regularly.

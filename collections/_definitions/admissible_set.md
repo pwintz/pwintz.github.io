@@ -1,8 +1,7 @@
 ---
-published: false
-title: Admissible set
+title: Admissible set 
 term: admissible set
-applies_to: state constraints
+applies_to: control system
 synonyms: [constraint set]
 levels:
   graduate:

@@ -5,6 +5,7 @@ kind: siblings
 areas: [dynamics, control]
 status: draft
 summary: >
+  For a dynamical system with a set of states, there are several ways to say that solutions stay in the set or avoid danger.
   A forward invariant set traps every solution that starts in it.
   A controlled invariant set can be made to trap solutions by choosing inputs.
   An admissible set only satisfies the constraints now.

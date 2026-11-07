@@ -1,5 +1,4 @@
 ---
-published: false
 title: Hypothesis (in science)
 term: hypothesis (in science)
 applies_to: scientific explanations

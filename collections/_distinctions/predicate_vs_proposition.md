@@ -5,6 +5,7 @@ kind: siblings
 areas: [sets]
 status: draft
 summary: >
+  Logic distinguishes statements by whether, and how, they can be true or false.
   An expression names an object, such as a number, and is not true or false.
   A proposition is true or false.
   A predicate becomes a proposition once its variables are given values.

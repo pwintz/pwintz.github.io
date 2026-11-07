@@ -5,6 +5,7 @@ kind: siblings
 areas: [numbers]
 status: draft
 summary: >
+  The same numeral, such as "3," can play different roles in everyday language.
   A number can be used to count (cardinal), to give a position in an order (ordinal), or as a label (nominal).
   For finite sets, cardinals and ordinals look the same, but for infinite sets they differ.
 terms:

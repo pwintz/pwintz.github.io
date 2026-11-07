@@ -5,6 +5,7 @@ kind: family
 areas: [language]
 status: draft
 summary: >
+  Several terms describe something that stays the same, each in a different sense.
   A constant function has one value everywhere.
   An invariant quantity is unchanged by a particular transformation, but may differ from place to place.
   "Uniform" means the same bounds work everywhere.

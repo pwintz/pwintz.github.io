@@ -1,13 +1,13 @@
 ---
-published: false
 title: Types of infinity
 kind: family
 areas: [sets, analysis]
-status: draft
+
 summary: >
+  Infinity appears in several different senses: as the size of a set, as unboundedness, and as the limit of a divergent sequence.
   An infinite set has infinitely many elements, but it can be bounded.
   Infinite sets come in different sizes: countable and uncountable.
-  A divergent sequence does not converge, but it need not go to infinity.
+  A divergent sequence does not converge, but it doesn't necessarily go to infinity.
 terms:
   - infinity
   - infinite_set
@@ -39,7 +39,7 @@ examples:
   - example: infinity
     why: >-
       $\infty$ is infinity: a symbol (or an element of the extended reals) for something larger than every real number.
-      It is not an infinite set, because it is not a set.
+      It is not an infinite set, because it is not a set. It is not a number because we cannot regular arithmetic on it. 
 see_also:
   - finite_vs_countable_vs_uncountable
   - types_of_finite

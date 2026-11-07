@@ -5,6 +5,7 @@ kind: family
 areas: [analysis]
 status: draft
 summary: >
+  A set of real numbers can have a largest and smallest element, or only bounds that it approaches.
   The minimum and maximum of a set are its smallest and largest elements, if it has them.
   The infimum and supremum are the best lower and upper bounds, which exist for every nonempty bounded set of real numbers but need not be in the set.
   The limit inferior and limit superior of a sequence describe where its terms end up, ignoring any finite number of early terms.

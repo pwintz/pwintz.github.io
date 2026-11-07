@@ -5,6 +5,7 @@ kind: hierarchy
 areas: [analysis]
 status: draft
 summary: >
+  Uniform and absolute continuity both strengthen continuity on an interval, but they control different things.
   Uniform continuity controls how much $f$ changes over one short interval.
   Absolute continuity controls the total change of $f$ over many short intervals at once.
 relation: absolutely continuous ⊂ uniformly continuous

@@ -5,6 +5,7 @@ kind: hierarchy
 areas: [analysis]
 status: draft
 summary: >
+  Continuity says that small changes in input cause small changes in output, and uniform continuity asks for this at the same scale everywhere.
   A continuous function may need a smaller $\delta$ at some points than at others.
   A uniformly continuous function has one $\delta$ that works everywhere.
 relation: uniformly continuous ⊂ continuous

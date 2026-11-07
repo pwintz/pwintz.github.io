@@ -1,5 +1,4 @@
 ---
-published: false
 title: Eigendecomposition
 term: eigendecomposition
 applies_to: square matrices

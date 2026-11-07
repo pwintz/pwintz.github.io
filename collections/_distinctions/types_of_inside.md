@@ -5,6 +5,7 @@ kind: siblings
 areas: [sets]
 status: draft
 summary: >
+  There are several ways that one thing can be "in" a set.
   An element is one of the things in a set.
   A subset is a set whose elements all belong to another set.
   In mathematics, "in" means "element of," not "located inside of."

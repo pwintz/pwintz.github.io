@@ -5,6 +5,7 @@ kind: siblings
 areas: [language]
 status: draft
 summary: >
+  In mathematical writing, proved statements are labeled by their role.
   A theorem, a proposition, a lemma, and a corollary are all proved, and they differ only in importance and role: a theorem is a main result, a proposition is a lesser one, a lemma helps prove something else, and a corollary follows quickly from another result.
   A claim is a step inside a proof.
   A conjecture has not been proved.
