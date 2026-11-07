@@ -1,0 +1,386 @@
+---
+layout: single
+permalink: /tools/relativistic_flight/
+title: Racing Near the Speed of Light
+excerpt: "A time-trial race at close to the speed of light, where space contracts, clocks fall out of sync according to the Lorentz transformation, and the Doppler effect shifts the colors of everything you pass."
+tool_categories: [Physics]
+date_added: 2026-11-05
+---
+
+<style>
+  .rf button {
+    font: inherit;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+  }
+  .rf button:hover { background: rgba(128, 128, 128, 0.1); }
+  /* The theme adds bottom margins to inputs and labels, which pushes them off-center in a row. */
+  .rf input,
+  .rf label { margin: 0; }
+  .rf-game { background: #04060d; border-radius: 8px; overflow: hidden; }
+  .rf-game canvas { display: block; width: 100%; outline: none; touch-action: none; }
+  .rf-game:fullscreen { border-radius: 0; display: flex; flex-direction: column; }
+  .rf-options {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1.2rem;
+    margin: 0.6rem 0 0;
+    font-size: 0.9em;
+  }
+  .rf-options label { display: inline-flex; align-items: center; gap: 0.35rem; }
+  .rf-options input[type="checkbox"] { width: auto; }
+  .rf-options select { width: auto; margin: 0; padding: 0.2rem 0.3rem; font: inherit; }
+  .rf-options input[type="range"] { width: 9rem; }
+  .rf-options output { min-width: 6.5em; font-variant-numeric: tabular-nums; }
+  .rf-options .rf-buttons { margin-left: auto; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+  /* On-screen controls, shown only on touch screens. */
+  .rf-touch { display: none; }
+  @media (pointer: coarse) {
+    .rf-touch {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+  }
+  .rf-touch div { display: flex; gap: 0.5rem; }
+  .rf .rf-touch button {
+    min-width: 3.4rem;
+    min-height: 3.2rem;
+    border-color: rgba(223, 232, 255, 0.3);
+    background: rgba(223, 232, 255, 0.08);
+    color: #dfe8ff;
+    touch-action: none;
+  }
+  .rf .rf-touch button.rf-pressed { background: rgba(223, 232, 255, 0.3); }
+
+  .rf-keys { font-size: 0.9em; }
+  .rf-keys td { padding: 0.2rem 0.6rem; }
+  .rf kbd {
+    font-size: 0.85em;
+    padding: 0.05rem 0.35rem;
+    border: 1px solid rgba(128, 128, 128, 0.45);
+    border-radius: 4px;
+  }
+</style>
+
+<div class="rf">
+  <div id="rf-game" class="rf-game">
+    <canvas id="rf-canvas" tabindex="0" aria-label="Game: a race around a course of gates at relativistic speed"></canvas>
+    <div class="rf-touch">
+      <div>
+        <button type="button" data-control="left" aria-label="Turn left">⟲</button>
+        <button type="button" data-control="right" aria-label="Turn right">⟳</button>
+      </div>
+      <div>
+        <button type="button" data-control="brake">Brake</button>
+        <button type="button" data-control="thrust">Thrust</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="rf-options">
+    <label>System
+      <select id="rf-system">
+        <option value="real" selected>Solar system (to scale)</option>
+        <option value="fantasy">Fantasy (big planets, black hole)</option>
+      </select>
+    </label>
+    <label><input type="checkbox" id="rf-gravity" checked> Gravity (general relativity)</label>
+    <label><input type="checkbox" id="rf-lorentz" checked> Lorentz transformation</label>
+    <label>Doppler colors
+      <select id="rf-doppler">
+        <option value="vivid" selected>Vivid (single wavelength)</option>
+        <option value="blackbody">Realistic (glowing hot)</option>
+        <option value="off">Off</option>
+      </select>
+    </label>
+    <label><input type="checkbox" id="rf-orbits" checked> Orbits</label>
+    <label><input type="checkbox" id="rf-grid" checked> Rest-frame grid</label>
+    <label><input type="checkbox" id="rf-clocks" checked> Clocks</label>
+    <label><input type="checkbox" id="rf-ghost" checked> Ghost of best run</label>
+    <label>Zoom
+      <input type="range" id="rf-zoom" min="-4.5" max="1.7" step="0.05" value="0">
+      <output id="rf-zoom-out" for="rf-zoom">1.0×</output>
+    </label>
+    <label>Speed of light
+      <input type="range" id="rf-c" min="50" max="1000" step="25" value="300">
+      <output id="rf-c-out" for="rf-c">300 units/s</output>
+    </label>
+    <label>Engine power
+      <input type="range" id="rf-thrust" min="0.25" max="4" step="0.25" value="1">
+      <output id="rf-thrust-out" for="rf-thrust">1.00 c/s</output>
+    </label>
+    <span class="rf-buttons">
+      <button type="button" id="rf-restart">Restart</button>
+      <button type="button" id="rf-clear-best">Clear best</button>
+      <button type="button" id="rf-fullscreen">Full screen</button>
+    </span>
+  </div>
+
+  <h2>How to play</h2>
+  <p>
+    Fly two laps of the course, passing through every gate in order.
+    The next gate pulses, and an arrow at the edge of the screen points to it when it is out of view.
+    The map in the corner shows the course in the rest frame.
+    Your best run is saved in this browser and replays as a dashed ghost ship.
+    The pink trail behind you shows where you've been during the last 2.5 seconds of your own time.
+  </p>
+  <p>
+    The Earth and Moon sit on the first straight, and the Sun and the other planets are out in the
+    solar system around the course.
+    Choose "Fantasy" under "System" to race through a made-up system instead, with planets big
+    enough to get in the way and a black hole beside the course.
+    If you fly into a planet, you crash, and if you fall into the black hole, you are gone.
+    Either way, the ship reappears at rest at the last gate you passed while the race clock keeps
+    running.
+  </p>
+  <table class="rf-keys">
+    <tr><td><kbd>↑</kbd> or <kbd>W</kbd></td><td>Thrust</td></tr>
+    <tr><td><kbd>↓</kbd> or <kbd>S</kbd></td><td>Brake (slow down relative to the course)</td></tr>
+    <tr><td><kbd>←</kbd> <kbd>→</kbd> or <kbd>A</kbd> <kbd>D</kbd></td><td>Turn</td></tr>
+    <tr><td><kbd>R</kbd></td><td>Restart the race</td></tr>
+    <tr><td><kbd>L</kbd></td><td>Toggle the Lorentz transformation</td></tr>
+    <tr><td><kbd>C</kbd></td><td>Switch between Doppler color modes</td></tr>
+    <tr><td><kbd>+</kbd> <kbd>−</kbd> or scroll</td><td>Zoom in and out</td></tr>
+    <tr><td><kbd>P</kbd></td><td>Pause</td></tr>
+  </table>
+  <p>
+    The speed of light starts at 300 units per second, about a fifth of the width of the screen.
+    The course is about 32,000 units long.
+    Use the "Speed of light" slider to change it, from 50 to 1000 units per second.
+    The lower the speed of light, the shorter the distance you need to reach relativistic speeds,
+    and the stronger every effect on this page becomes for a given speed.
+    If you change the speed of light while flying, the ship keeps its speed in units per second,
+    unless that is now faster than 99.9% of the new speed of light.
+    Best times and ghosts are kept separately for each speed of light, system, and gravity
+    setting, and a run doesn't count if you change any of them during it.
+  </p>
+  <p>
+    "Engine power" sets the ship's acceleration, measured in the ship's own frame, in multiples of
+    the speed of light per second, so it scales with the speed of light.
+    At the default of 1&nbsp;c/s you pass 90% of the speed of light after about one and a half
+    seconds of thrust.
+    The engines cut out at 99.9% of the speed of light, where \(\gamma \approx 22.4\).
+  </p>
+  <p>
+    There is no friction in space, so you can't take a corner at speed by steering alone: turn
+    around and brake before the corner.
+    The more relativistic you are, the harder it is to change direction, because a sideways push
+    changes your direction less when your momentum is larger.
+  </p>
+  <p>
+    The race is timed by the course officials' clocks, which are at rest on the course.
+    Your own clock \(\tau\) runs slow compared to theirs, so you age less than your official time
+    during the race, and the faster you fly, the bigger the difference.
+  </p>
+
+  <h2>The solar system, to scale</h2>
+  <p>
+    The whole solar system is to scale with the speed of light: since light crosses \(c\) units per
+    second, one unit is \(299{,}792 / c\) kilometers, about 1000&nbsp;km at the default speed of
+    light.
+    At that scale the Earth is only 13 units across, smaller than the ship icon, and the Moon is
+    384 units away, about the width of the track: light takes 1.3 seconds to cross from the Earth to
+    the Moon.
+    Use the zoom to see them.
+    The Sun is 500 light-seconds (8.3 light-minutes) from the Earth, and Neptune is about 4
+    light-hours from the Sun.
+    The planets are placed where they are today in their orbits, which are drawn as circles (the
+    real orbits are slightly elliptical and tilted).
+    Their orbital speeds are around 0.01% of the speed of light, so they are treated as at rest.
+    Changing the speed of light rescales the whole solar system, since the course stays the same
+    size.
+  </p>
+  <p>
+    Zoom out to about 1/1000× to see the inner planets, and to about 1/10,000× to see the outer
+    ones.
+    The display under the speed readout names the nearest body and how long light takes to reach
+    its surface from you.
+    Flying to the Sun at 99.9% of the speed of light takes 8.3 minutes of rest-frame time, but only
+    about 22 seconds on your own clock.
+  </p>
+
+  <h2>The fantasy system</h2>
+  <p>
+    The fantasy system has a star, Ember, off to the left of the course; five planets and a moon,
+    including Azure on the first straight; and a black hole inside the first bend of the course.
+    Its sizes are fixed in units rather than tied to the speed of light, so the planets are hundreds
+    of units across.
+    Their masses are set by how compact they are: each planet's Schwarzschild radius (see below) is
+    5–10% of its radius, far more than any real planet, so their gravity is strong enough to bend
+    your path.
+    The masses scale with \(c^2\), so gravity is just as relativistic at every speed of light.
+  </p>
+  <p>
+    The black hole's event horizon has a radius of 80 units.
+    Around it you can see the photon sphere (dashed) and an accretion disk of hot gas orbiting it.
+    The gas orbits counterclockwise at up to half the speed of light, so the side moving toward
+    you is blueshifted and the side moving away is redshifted, and all of the light from the inner
+    disk is also redshifted as it climbs out of the black hole's gravity.
+  </p>
+
+  <h2>General relativity</h2>
+  <p>
+    With "Gravity (general relativity)" checked, the Sun, planets, moons, and black hole all pull on
+    the ship.
+    In the real solar system to scale, their gravity is far too weak to notice at these speeds, so
+    try the fantasy system.
+    A mass \(M\) has a <em>Schwarzschild radius</em>
+    \[
+      r_s = \frac{2GM}{c^2},
+    \]
+    which is the size of the event horizon if the mass is a black hole.
+    The game moves the ship along the paths of the Schwarzschild solution of Einstein's equations,
+    which describes spacetime around a single round mass.
+    Measured with the ship's own clock, the pull toward the mass is
+    \[
+      \frac{GM}{r^2}\left(1 + \frac{3L^2}{c^2 r^2}\right),
+    \]
+    where \(L\) is the ship's angular momentum per unit mass.
+    The first term is Newton's law of gravity.
+    The second term is the correction from general relativity: it makes orbits precess, and it
+    makes gravity much stronger for anything moving fast near a black hole, so it is possible to
+    fall in even while flying sideways at nearly the speed of light.
+    The pulls of several bodies are added together, which is a good approximation away from the
+    black hole.
+  </p>
+  <ul>
+    <li>
+      <strong>Gravitational time dilation.</strong>
+      A clock at rest a distance \(r\) from the mass runs slow by a factor
+      \(\sqrt{1 - r_s / r}\) compared to a clock far away.
+      The clocks near the black hole fall behind the others, and so does yours when you fly near
+      it: the display shows your clock rate \(d\tau/dt\), which includes both this effect and the
+      time dilation from your speed.
+      In a circular orbit at three times the horizon radius, your clock runs at 71% of the rate of
+      the race officials' clocks.
+    </li>
+    <li>
+      <strong>Gravitational redshift.</strong>
+      Light climbing out of a gravity well loses energy and is redshifted, and light falling in is
+      blueshifted.
+      The Doppler colors include this effect: deep inside the black hole's gravity, the rest of
+      the course looks bluer.
+    </li>
+    <li>
+      <strong>The event horizon.</strong>
+      Nothing that crosses the horizon at \(r = r_s\) can come back out, however hard the engines
+      push.
+      At the photon sphere, \(r = 1.5\,r_s\), light itself can orbit the black hole, and no stable
+      orbit exists inside \(3\,r_s\), where the accretion disk ends.
+    </li>
+  </ul>
+  <p>
+    Near the black hole, the map is not to scale: space there is curved, so a unit on the screen in
+    the direction of the black hole corresponds to more than one unit of distance.
+    The game also leaves out gravitational lensing, the bending of light around the black hole.
+    Lensing changes where things appear in the sky to someone looking out from the ship, and that
+    doesn't translate to a view from above.
+  </p>
+
+  <h2>What you are seeing</h2>
+  <p>
+    The stars, the course, the blue grid, and the clocks are at rest relative to each other, so they
+    define a <em>rest frame</em>.
+    The screen shows the world in <em>your</em> frame: the reference frame in which your ship is
+    momentarily at rest.
+    To draw each object, the game finds the event on the object's path that you consider to be
+    happening "now", and then applies the Lorentz transformation to find where that event is in your
+    coordinates.
+  </p>
+  <p>
+    If the ship moves at velocity \(\mathbf{v}\) relative to the rest frame, the Lorentz factor is
+    \[
+      \gamma = \frac{1}{\sqrt{1 - v^2/c^2}}.
+    \]
+    Three effects follow.
+  </p>
+  <ul>
+    <li>
+      <strong>Length contraction.</strong>
+      Distances along your direction of travel shrink by a factor of \(\gamma\), while distances
+      perpendicular to it don't change.
+      The grid squares squash into rectangles, the clocks and gate posts flatten into ellipses, and
+      the straights get shorter, so more of the course fits on the screen.
+    </li>
+    <li>
+      <strong>Time dilation.</strong>
+      While you coast, every clock on the course runs slow by a factor of \(\gamma\) compared to
+      your own clock \(\tau\).
+    </li>
+    <li>
+      <strong>Relativity of simultaneity.</strong>
+      The clocks on the course are synchronized in the rest frame, but not in yours.
+      A clock a rest-frame distance \(\Delta x\) ahead of you, measured along your direction of
+      travel, reads \(v \, \Delta x / c^2\) later than the clock where you are, and clocks behind you
+      read earlier.
+      Thrust toward a row of clocks and watch the ones far ahead jump forward as your speed
+      increases.
+      Brake, and they jump back.
+      The ghost is placed the same way, so when you are moving, the ghost ahead of you is shown
+      later in its run, and the ghost behind you earlier in its run.
+    </li>
+  </ul>
+
+  <h2>Doppler colors</h2>
+  <p>
+    Light from the things you fly toward is shifted to higher frequencies, and light from the
+    things you fly away from is shifted to lower frequencies.
+    For a source at rest in the rest frame, the ratio of the frequency you receive to the frequency
+    it emits is the Doppler factor
+    \[
+      D = \gamma \left(1 + \frac{v}{c} \cos\theta\right),
+    \]
+    where \(\theta\) is the angle, measured in the rest frame, between your velocity and the
+    direction to the source.
+    Even objects directly beside you, at \(\theta = 90^\circ\), are blueshifted by a factor of
+    \(\gamma\): this is the <em>transverse Doppler effect</em>.
+    There are two ways to color the light.
+  </p>
+  <ul>
+    <li>
+      <strong>Vivid.</strong>
+      Every light source emits a single wavelength \(\lambda\): amber track lamps, orange gates,
+      cyan clocks, and so on.
+      You receive the wavelength \(\lambda / D\), so as you speed up, the lamps ahead of you change
+      from yellow through green and blue to violet, and the lamps behind you turn red.
+      Light shifted beyond the visible range, into the ultraviolet or infrared, is drawn as a
+      dimmer blue-violet or deep red, so you can still see the course at high speed.
+    </li>
+    <li>
+      <strong>Realistic.</strong>
+      Every light source glows like a hot object (a blackbody) at some temperature \(T\), and the
+      planets reflect sunlight.
+      The Doppler shift turns the spectrum of a blackbody at temperature \(T\) into the spectrum of
+      a blackbody at temperature \(D\,T\).
+      Things behind you turn red and then fade to black.
+      Things ahead turn blue-white, but no more blue than that: a blackbody gets bluer as it gets
+      hotter only up to a pale sky blue, so a strong blueshift mostly looks white.
+      This is closer to what you would really see, because real light sources emit a broad range of
+      wavelengths.
+    </li>
+  </ul>
+  <p>
+    The colors match the light that reaches you, but the positions don't match what you would see.
+    The positions show where things <em>are</em> in your frame "now".
+    Light takes time to reach you, and the aberration of light would also crowd everything you see
+    toward the direction you are flying.
+    These effects on position are left out so that the Lorentz transformation is easier to see.
+  </p>
+  <p>
+    Uncheck "Lorentz transformation" (or press <kbd>L</kbd>) to compare with the picture without
+    it: the rest frame at a single rest-frame time, with no contraction.
+    The motion is still relativistic, so you can't exceed the speed of light, but the clocks all
+    agree and the grid stays square.
+  </p>
+</div>
+
+<script src="/assets/ts/out/relativistic_flight.js" type="module"></script>
