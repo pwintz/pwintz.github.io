@@ -1,0 +1,227 @@
+---
+layout: single
+permalink: /tools/phase_distance/
+title: Measuring Distance with the Phase of Light
+excerpt: "Move a mirror by a few nanometers and watch an interferometer detect it. Two light waves that traveled slightly different distances add up brighter or dimmer, which reveals changes in distance far smaller than any clock could time."
+tool_categories: [Physics]
+full_width: true
+date_added: 2026-11-06
+---
+
+<style>
+  .pd button,
+  .pd select {
+    font: inherit;
+    width: auto;
+    margin: 0;
+    padding: 0.3rem 0.65rem;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+  }
+  .pd button:hover { background: rgba(128, 128, 128, 0.1); }
+  .pd button[aria-pressed="true"] { background: #e8f0fe; border-color: #1a73e8; }
+  .pd label, .pd input { margin: 0; }
+  .pd canvas { display: block; width: 100%; }
+
+  /* A pinned panel stays at the top of the window while scrolling, below any pinned above it. */
+  .pd-panel { position: relative; padding: 0.4rem 2.2rem 0.4rem 0; margin-bottom: 0.6rem; background: #fff; }
+  .pd-panel.pd-pinned { position: sticky; z-index: 9; border-bottom: 1px solid rgba(128, 128, 128, 0.35); }
+  .pd .pd-pin {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.35rem;
+    padding: 0.25rem;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: #8a919c;
+    line-height: 0;
+    opacity: 0.6;
+  }
+  .pd .pd-pin:hover { background: rgba(128, 128, 128, 0.1); opacity: 1; }
+  .pd .pd-pin svg { width: 18px; height: 18px; transform: rotate(45deg); transition: transform 150ms; }
+  .pd .pd-pinned .pd-pin { color: #1a73e8; opacity: 1; }
+  .pd .pd-pinned .pd-pin svg { transform: none; }
+
+  /* Settings: a toolbar, with each label beside its control. */
+  .pd-toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.5rem 1.5rem; }
+  .pd-toolbar-group { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.1rem; }
+  .pd .pd-field { display: flex; align-items: center; gap: 0.4rem; font-size: 0.9em; color: #5f6368; }
+  .pd .pd-field input[type=range] { width: 14rem; }
+  .pd .pd-field output { min-width: 4.5rem; color: #202124; font-variant-numeric: tabular-nums; }
+  .pd .pd-field select { color: #202124; }
+
+  /* "?" buttons that explain a setting (see common/help.ts), as in the other tools. */
+  .pd .pd-help {
+    width: 1.25rem;
+    height: 1.25rem;
+    padding: 0;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: bold;
+    line-height: 1;
+    color: #6b6b6b;
+    flex: none;
+  }
+  .pd .pd-help[aria-expanded="true"] { background: #1a73e8; border-color: #1a73e8; color: #fff; }
+  .pd-help-popup {
+    position: absolute;
+    z-index: 30;
+    max-width: min(22rem, calc(100vw - 16px));
+    padding: 0.6rem 0.8rem;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+    font-size: 0.85em;
+    line-height: 1.45;
+  }
+
+  .pd-schematic-canvas { height: 330px; }
+  .pd-waves-canvas { height: 210px; }
+  .pd-fringes-canvas { height: 240px; }
+  .pd-imbalanced-canvas { height: 250px; } /* Made taller by the script when the waves stack below. */
+  .pd-heterodyne-canvas { height: 200px; }
+  .pd h3.pd-section-title { margin-top: 1.4rem; }
+  .pd .pd-section-title { margin: 1.8rem 0 0.4rem; }
+</style>
+
+<div class="pd">
+  <p>
+    Light is a wave, and two waves that meet add up.
+    If their crests line up, they reinforce each other into bright light; if the crests of one meet the troughs of the other, they cancel.
+    An <em>interferometer</em> uses this to measure changes in distance much smaller than the wavelength of light, by sending two beams along slightly different paths and watching how bright they are when they meet again.
+  </p>
+
+  <div class="pd-panel" data-fullscreen="false">
+    <div class="pd-toolbar">
+      <div class="pd-toolbar-group">
+        <label class="pd-field"><span data-help="How far the moving mirror has moved from its starting position, in nanometers (billionths of a meter). Its beam travels to the mirror and back, so its path changes by twice this distance. A human hair is about 80,000 nm wide.">Mirror moved by</span>
+          <input type="range" id="pd-displacement" min="-800" max="800" step="1">
+          <output id="pd-displacement-out"></output>
+        </label>
+        <label class="pd-field"><span data-help="The wavelength of the laser's light. Red helium–neon lasers (633 nm) are common in teaching labs; fiber-optic systems such as DAS use infrared light at 1550 nm. A shorter wavelength changes phase faster as the mirror moves, so it is more sensitive, but it repeats sooner.">Wavelength</span>
+          <select id="pd-wavelength">
+            <option value="633">633 nm (red)</option>
+            <option value="1550">1550 nm (infrared)</option>
+          </select>
+        </label>
+        <button type="button" id="pd-oscillate" aria-pressed="false">Move back and forth</button>
+      </div>
+      <div class="pd-toolbar-group">
+        <select id="pd-example" aria-label="Load an example">
+          <option value="" selected>Examples</option>
+          <option value="rest">At rest: the beams in step</option>
+          <option value="quarter">A quarter wavelength: dark</option>
+          <option value="half">Half a wavelength: bright again</option>
+          <option value="oneNm">Just 1 nm</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="pd-panel" data-fullscreen="false">
+    <canvas id="pd-schematic" class="pd-schematic-canvas" aria-label="A Michelson interferometer: a laser, a beam splitter, a fixed mirror, a moving mirror, and a detector"></canvas>
+  </div>
+
+  <div class="pd-panel" data-fullscreen="false">
+    <canvas id="pd-waves" class="pd-waves-canvas" aria-label="The waves returning from the two mirrors, their sum, the phase shift, and the brightness"></canvas>
+  </div>
+
+  <div class="pd-panel" data-fullscreen="false">
+    <canvas id="pd-fringes" class="pd-fringes-canvas" aria-label="Brightness at the detector against the mirror's position"></canvas>
+  </div>
+
+  <h2 class="pd-section-title">How it works</h2>
+  <p>
+    The laser's beam is split in two by a half-silvered mirror.
+    One half bounces off a fixed mirror, the other off a mirror that can move, and the beam splitter brings the two back together at the detector.
+    If the moving mirror moves away by a distance $d$, its beam travels $d$ farther out and $d$ farther back, so its path is $2d$ longer.
+    That delays it by a fraction $2d/\lambda$ of a wave, a phase shift of
+    $$ \Delta\phi = 2\pi \cdot \frac{2d}{\lambda} = \frac{4\pi d}{\lambda}, $$
+    where $\lambda$ is the wavelength.
+    The two waves then add to a brightness of
+    $$ \frac{1 + \cos \Delta\phi}{2} $$
+    of the brightest possible.
+    So moving the mirror a quarter wavelength (158 nm for red light) puts the waves exactly out of step, and the detector goes dark; moving it half a wavelength puts them back in step, and it is bright again.
+  </p>
+
+  <h2 class="pd-section-title">Why phase, and not timing?</h2>
+  <p>
+    You might think of measuring the distance by timing the light: a longer path takes longer.
+    But for small changes, the difference in time is hopelessly small.
+    Moving a mirror by 1 nm lengthens the round trip by 2 nm, which delays the light by $2\,\text{nm} / c \approx 7 \times 10^{-18}$ seconds.
+    The fastest electronics can time events to around $10^{-11}$ seconds, a million times too coarse.
+  </p>
+  <p>
+    Phase sidesteps this, because the light itself is the clock.
+    Its waves pass by about $5 \times 10^{14}$ times per second (for red light), so a delay of even a tiny fraction of one wave is a measurable change in how the two waves line up.
+    The same 1 nm shifts the phase of red light by $4\pi \cdot 1/633 \approx 0.02$ radians, and careful interferometers detect phase shifts of thousandths of a radian, so they can sense motions well below a nanometer.
+    The gravitational-wave detector LIGO, a Michelson interferometer with arms 4 km long, measures changes in length about ten thousand times smaller than a proton.
+  </p>
+
+  <h2 class="pd-section-title">What phase can't tell you on its own</h2>
+  <p>
+    The brightness repeats every half wavelength, so a single brightness reading can't distinguish a mirror moved by 10 nm from one moved by 10 nm plus any number of half wavelengths.
+    It also can't tell which way the mirror moved, since the brightness is the same for $+d$ and $-d$.
+    Real instruments get around both: they follow the phase continuously, counting each full cycle as it passes (as the "Move back and forth" button shows), and they measure two versions of the signal, a quarter cycle apart, to tell which way the phase is turning.
+  </p>
+
+  <h2 class="pd-section-title">How distributed acoustic sensing uses this</h2>
+  <p>
+    <a href="/tools/das_sensing/">Distributed acoustic sensing</a> (DAS) measures vibrations along an optical fiber with the same physics, but with no mirrors.
+    A laser pulse travels down the fiber, and tiny random flaws in the glass scatter a little of its light back.
+    Two of those scatterers, one gauge length $G$ apart, play the part of the two mirrors.
+    When the section of fiber between them stretches by $\Delta L$, the light from the farther one travels $2n\Delta L$ farther through glass of refractive index $n \approx 1.47$, and its phase shifts by
+    $$ \Delta\phi = \frac{4\pi n \xi\, \Delta L}{\lambda}, $$
+    where $\xi \approx 0.78$ accounts for stretching also changing the glass's refractive index.
+    The light from both scatterers comes back along the same fiber, so a DAS interrogator needs a way to compare them.
+    There are two common designs.
+  </p>
+
+  <div class="pd-panel" data-fullscreen="false">
+    <div class="pd-toolbar">
+      <div class="pd-toolbar-group">
+        <label class="pd-field"><span data-help="How much longer the section of fiber between the two scatterers gets. A vibration typically stretches a 10 m section by a few nanometers to a few hundred. Each nanometer shifts the phase of 1550 nm light in glass by about 0.009 radians.">Stretch the gauge section by</span>
+          <input type="range" id="pd-das-stretch" min="-600" max="600" step="5">
+          <output id="pd-das-stretch-out"></output>
+        </label>
+        <span class="pd-field">phase shift <output id="pd-das-phase"></output></span>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="pd-section-title">An imbalanced interferometer</h3>
+  <p>
+    In the first design, the returning light passes through an interferometer whose two arms have different lengths.
+    The long arm includes extra fiber that delays light by exactly the time light takes to cross the gauge and back, $2nG/c$.
+    So light that scattered at $z$ and went through the long arm meets light that scattered at $z + G$ and went through the short arm: the two scatterers' light interferes, just like the two mirrors' light above.
+    To tell which way the phase moved, the arms recombine in a 3×3 coupler, whose three outputs see the phase difference with extra shifts of 0°, 120°, and 240°.
+    Each output peaks at a different phase, so together they pin down the phase difference and its direction.
+  </p>
+  <div class="pd-panel" data-fullscreen="false">
+    <canvas id="pd-imbalanced" class="pd-imbalanced-canvas" aria-label="A DAS receiver: an imbalanced Mach–Zehnder interferometer with a 3×3 coupler"></canvas>
+  </div>
+
+  <h3 class="pd-section-title">Coherent detection</h3>
+  <p>
+    In the second design, the returning light is combined with a copy of the laser's own light, shifted in frequency by a few tens of megahertz.
+    Two waves of slightly different frequencies make a slow <em>beat</em>, which the detector records; the beat's phase follows the phase of the returning light.
+    The interrogator measures the beat phase for every point along the fiber, then subtracts the phases of points one gauge length apart.
+    Because the subtraction is done in software, the gauge length can be changed after the data is recorded.
+  </p>
+  <div class="pd-panel" data-fullscreen="false">
+    <canvas id="pd-heterodyne" class="pd-heterodyne-canvas" aria-label="Coherent detection: beat signals from two points along the fiber"></canvas>
+  </div>
+  <p>
+    Either way, the resting phase difference between two scatterers is random, because the scatterers are; it is the <em>change</em> in phase that reveals the strain.
+    And because the light must stay a coherent wave across these delays, DAS uses lasers with an exceptionally narrow range of frequencies.
+  </p>
+</div>
+
+<div id="pd-help-popup" class="pd-help-popup" role="note" hidden></div>
+
+<script src="/assets/ts/out/phase_distance.js" type="module"></script>
