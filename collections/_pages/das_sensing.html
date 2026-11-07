@@ -1,0 +1,381 @@
+---
+layout: single
+permalink: /tools/das_sensing/
+title: How Distributed Acoustic Sensing Works
+excerpt: "See how a single optical fiber becomes thousands of vibration sensors. Strike the ground, drive a car past, or send an earthquake wave, and watch the waterfall plot a DAS interrogator records, then follow a laser pulse down the fiber to see how backscattered light measures strain."
+tool_categories: [Physics]
+full_width: true
+date_added: 2026-11-06
+---
+
+<style>
+  .das button,
+  .das select {
+    font: inherit;
+    width: auto;
+    margin: 0;
+    padding: 0.3rem 0.65rem;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+  }
+  .das button:hover { background: rgba(128, 128, 128, 0.1); }
+  .das button[aria-pressed="true"] { background: #e8f0fe; border-color: #1a73e8; }
+  .das label, .das input { margin: 0; }
+  .das canvas { display: block; width: 100%; }
+
+  /* A pinned panel stays at the top of the window while scrolling, below any pinned above it. */
+  .das-panel { position: relative; padding: 0.4rem 2.2rem 0.4rem 0; margin-bottom: 0.6rem; background: #fff; }
+  .das-panel.das-pinned { position: sticky; z-index: 9; border-bottom: 1px solid rgba(128, 128, 128, 0.35); }
+  .das .das-pin {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.35rem;
+    padding: 0.25rem;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: #8a919c;
+    line-height: 0;
+    opacity: 0.6;
+  }
+  .das .das-pin:hover { background: rgba(128, 128, 128, 0.1); opacity: 1; }
+  .das .das-pin svg { width: 18px; height: 18px; transform: rotate(45deg); transition: transform 150ms; }
+  .das .das-pinned .das-pin { color: #1a73e8; opacity: 1; }
+  .das .das-pinned .das-pin svg { transform: none; }
+
+  /* Settings: a toolbar of sources (left) and examples and playback (right), then the settings,
+     with each label beside its control. */
+  .das-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem 1.5rem;
+    padding-bottom: 0.6rem;
+    margin-bottom: 0.6rem;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.25);
+  }
+  .das-toolbar-group { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.1rem; }
+  .das-group-label { font-size: 0.9em; color: #5f6368; }
+  .das .das-field { display: flex; align-items: center; gap: 0.4rem; font-size: 0.9em; color: #5f6368; }
+  .das .das-field input[type=range] { width: 7rem; }
+  .das .das-field output { min-width: 4.2rem; color: #202124; font-variant-numeric: tabular-nums; }
+  .das .das-field select { color: #202124; }
+  .das .das-warning {
+    margin: 0.6rem 0 0;
+    padding: 0.4rem 0.7rem;
+    border: 1px solid #f0c36d;
+    border-radius: 6px;
+    background: #fef7e0;
+    color: #7a5200;
+    font-size: 0.85em;
+  }
+  .das .das-warning[hidden] { display: none; }
+  .das .das-readout { margin: 0 0 0.4rem; font-size: 0.85em; color: #5f6368; font-variant-numeric: tabular-nums; }
+  /* "?" buttons that explain a setting (see common/help.ts), as in the other tools. */
+  .das .das-help {
+    width: 1.25rem;
+    height: 1.25rem;
+    padding: 0;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: bold;
+    line-height: 1;
+    color: #6b6b6b;
+    flex: none;
+  }
+  .das .das-help[aria-expanded="true"] { background: #1a73e8; border-color: #1a73e8; color: #fff; }
+  .das-help-popup {
+    position: absolute;
+    z-index: 30;
+    max-width: min(22rem, calc(100vw - 16px));
+    padding: 0.6rem 0.8rem;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+    font-size: 0.85em;
+    line-height: 1.45;
+  }
+
+  .das-map-canvas { aspect-ratio: 1000 / 330; max-height: 45vh; border: 1px solid rgba(128, 128, 128, 0.35); border-radius: 8px; touch-action: none; }
+  .das-hint { font-size: 0.85em; color: #5f6368; margin: 0.3rem 0 0; }
+
+  .das-data { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1fr); gap: 0.8rem; }
+  @media (max-width: 700px) { .das-data { grid-template-columns: 1fr; } }
+  .das-data figure { margin: 0; }
+  /* Graph titles are centered above their graphs, in the page font (the theme's captions are serif). */
+  .das .das-data figcaption { font-family: inherit; font-size: 0.9em; font-weight: bold; color: #3c4043; margin-bottom: 0.25rem; text-align: center; }
+  .das .das-data figure { display: block; }
+  .das-waterfall-canvas { height: 340px; cursor: pointer; }
+  .das-trace-canvas { height: 340px; }
+  .das-legend { display: flex; justify-content: center; align-items: center; gap: 0.5rem; font-size: 0.85em; color: #5f6368; margin-top: 0.3rem; }
+  .das-legend-bar { width: 10rem; height: 0.7rem; border-radius: 3px; background: linear-gradient(to right, rgb(33, 102, 172), rgb(247, 247, 247), rgb(179, 88, 6)); }
+
+  .das-interrogator-canvas { height: 500px; }
+  .das-manual { margin-bottom: 0.4rem; }
+  .das-manual[hidden] { display: none; }
+  .das .das-section-title { margin: 1.8rem 0 0.4rem; }
+  .das h3.das-section-title { margin-top: 1.4rem; }
+  .das-tex { overflow-x: auto; }
+</style>
+
+<div class="das">
+  <p>
+    <em>Distributed acoustic sensing</em> (DAS) turns an ordinary optical fiber, such as an unused strand in a telecommunications cable, into a line of thousands of vibration sensors.
+    An instrument called an <em>interrogator</em> sends laser pulses down the fiber and listens to the faint light that scatters back.
+    When a vibration stretches or squeezes a section of fiber, the light scattered from that section changes, so the interrogator can tell <em>where</em> along the fiber the ground moved and <em>how</em>.
+  </p>
+
+  <div class="das-panel" data-fullscreen="false">
+    <div class="das-toolbar">
+      <div class="das-toolbar-group">
+        <span class="das-group-label">Add</span>
+        <button type="button" id="das-car" aria-pressed="false">Drive a car past</button>
+        <button type="button" id="das-walker" aria-pressed="false">Walk along the fiber</button>
+        <button type="button" id="das-quake">Earthquake wave</button>
+        <label class="das-field">from
+          <input type="range" id="das-quake-angle" min="0" max="90" step="5">
+          <output id="das-quake-angle-out"></output>
+        </label>
+      </div>
+      <div class="das-toolbar-group">
+        <select id="das-example" aria-label="Load an example">
+          <option value="" selected>Examples</option>
+          <optgroup label="Sources">
+            <option value="hammer">A hammer strike</option>
+            <option value="car">A passing car</option>
+            <option value="walker">Footsteps</option>
+          </optgroup>
+          <optgroup label="Earthquake direction">
+            <option value="quakeAlong">Along the fiber (0°)</option>
+            <option value="quakeBroadside">Broadside to the fiber (90°)</option>
+          </optgroup>
+          <optgroup label="Gauge length">
+            <option value="longGauge">A long gauge blurs footsteps</option>
+          </optgroup>
+        </select>
+        <button type="button" id="das-play">❚❚ Pause</button>
+        <button type="button" id="das-clear">Clear</button>
+      </div>
+    </div>
+    <div class="das-toolbar-group">
+      <label class="das-field"><span data-help="How fast vibrations travel through the ground. It sets the slope of the V shapes in the waterfall: slower waves take longer to travel along the fiber, so they make steeper V shapes. Surface waves in soil travel at roughly 100–500 m/s; in rock they are faster.">Wave speed</span>
+        <input type="range" id="das-wave-speed" min="100" max="1000" step="50">
+        <output id="das-wave-speed-out"></output>
+      </label>
+      <label class="das-field"><span data-help="The length of fiber that each channel averages over: the interrogator compares the light scattered from the two ends of this section. A longer gauge collects more signal for the same strain, so it is less noisy, but it blurs out waves shorter than the gauge, such as the short waves from footsteps. Real systems typically use 5–20 m.">Gauge length</span>
+        <input type="range" id="das-gauge" min="1" max="60" step="1">
+        <output id="das-gauge-out"></output>
+      </label>
+      <label class="das-field"><span data-help="How far apart the channels are along the fiber: the interrogator samples the returning light this often in time, and each sample is one channel. It is set separately from the gauge length, and is usually shorter, so neighboring channels average over overlapping sections of fiber (with a 10 m gauge and 2 m spacing, 0–10 m, 2–12 m, 4–14 m, and so on). Closer channels don't add detail finer than the gauge length, but make the waterfall smoother. Spacing wider than the gauge leaves stretches of fiber that no channel measures. Real systems typically use 1–2 m.">Channel spacing</span>
+        <select id="das-channel">
+          <option value="1">1 m</option>
+          <option value="2">2 m</option>
+          <option value="5">5 m</option>
+          <option value="10">10 m</option>
+          <option value="20">20 m</option>
+        </select>
+      </label>
+      <label class="das-field"><span data-help="How strongly strain rate is colored on the fiber, the waterfall, and the plots. Raise it to see weak signals, such as distant footsteps; lower it if strong signals are flattened into solid color. It changes only the display, not the measurement.">Color scale</span>
+        <input type="range" id="das-gain" min="0.3" max="4" step="0.1">
+        <output id="das-gain-out"></output>
+      </label>
+      <label class="das-field">Speed
+        <select id="das-speed">
+          <option value="0.25">¼×</option>
+          <option value="0.5">½×</option>
+          <option value="1">1×</option>
+        </select>
+      </label>
+      <label class="das-field"><input type="checkbox" id="das-noise"> Background noise</label>
+    </div>
+    <p class="das-warning" id="das-pulse-warning" role="status" hidden>
+      <strong>Pulse longer than the gauge.</strong> <span id="das-pulse-warning-text"></span>
+    </p>
+    <p class="das-warning" id="das-gauge-warning" role="status" hidden>
+      <strong>Gaps between channels.</strong> <span id="das-gauge-warning-text"></span>
+    </p>
+  </div>
+
+  <div class="das-panel" data-fullscreen="false">
+    <canvas id="das-map" class="das-map-canvas" aria-label="Map of the fiber, the sources, and their wavefronts"></canvas>
+    <p class="das-hint">
+      Click the map to strike the ground with a hammer. Click the fiber (or the waterfall below) to choose which channel to plot.
+      The fiber is colored by how fast each part of it is being stretched or squeezed.
+    </p>
+  </div>
+
+  <div class="das-panel" data-fullscreen="false">
+    <div class="das-data">
+      <figure>
+        <figcaption>Waterfall: strain rate along the fiber over time</figcaption>
+        <canvas id="das-waterfall" class="das-waterfall-canvas" aria-label="Waterfall plot of strain rate against distance and time"></canvas>
+        <div class="das-legend"><span>squeezing</span><span class="das-legend-bar"></span><span>stretching</span></div>
+      </figure>
+      <figure>
+        <figcaption>One channel</figcaption>
+        <canvas id="das-trace" class="das-trace-canvas" aria-label="Strain rate at the selected channel over time"></canvas>
+      </figure>
+    </div>
+  </div>
+
+  <h2 class="das-section-title">Reading the waterfall</h2>
+  <p>
+    Each column of the waterfall is one <em>channel</em>, a short section of fiber, and each row is one moment, with the newest at the bottom.
+    A hammer strike makes a V: the wave reaches the nearest part of the fiber first and then spreads both ways, and the slope of each arm is the wave speed.
+    A passing car makes a diagonal streak whose slope is the car's speed.
+    An earthquake wave from far away arrives as a nearly straight line, tilted by how much the wave travels along the fiber.
+  </p>
+  <p>
+    A fiber feels only stretching <em>along</em> its length.
+    A wave that crosses the fiber at angle $\theta$ to it is felt with a factor of about $\cos^2\theta$, so a wave arriving broadside ($\theta = 90^\circ$) is nearly invisible.
+    Try sending the earthquake wave from different directions to see this.
+  </p>
+
+  <h2 class="das-section-title">Inside the interrogator</h2>
+  <div class="das-panel" data-fullscreen="false">
+    <div class="das-toolbar">
+      <div class="das-toolbar-group">
+        <label class="das-field"><span data-help="How many laser pulses the interrogator sends per second. Auto pulses as fast as the fiber allows: the next pulse goes out as soon as the previous one has returned. Each pulse measures the whole fiber once, giving one row of the waterfall. Vibrations faster than half the pulse rate can't be followed and show up as slower false signals (aliasing): try 20 Hz with the walker, whose footsteps are around 15 Hz. Each pulse must return before the next is sent, so a longer fiber limits the rate. Real systems pulse at 1–100 kHz; this page shows at most 200 rows per second, averaging faster pulses together, which lowers the noise.">Pulse rate</span>
+          <select id="das-prf">
+            <option value="20">20 Hz</option>
+            <option value="50">50 Hz</option>
+            <option value="100">100 Hz</option>
+            <option value="200">200 Hz</option>
+            <option value="1000">1 kHz</option>
+            <option value="10000">10 kHz</option>
+            <option value="100000">100 kHz</option>
+            <option value="500000">500 kHz</option>
+            <option value="1000000">1 MHz</option>
+            <option value="auto">Auto (fastest for the fiber)</option>
+          </select>
+        </label>
+        <label class="das-field"><span data-help="How long each laser pulse lasts. Light covers about 2 m of fiber in 10 ns, and the returning light from a stretch half that long arrives at the same moment, so a pulse of width τ blurs the measurement over about cτ/(2n), roughly 1 m per 10 ns. A longer pulse carries more light, so it is less noisy, but it blurs detail along the fiber, and it makes gauges shorter than its resolution pointless. Real systems typically use 10–100 ns.">Pulse width</span>
+          <select id="das-pulse">
+            <option value="10">10 ns</option>
+            <option value="20">20 ns</option>
+            <option value="50">50 ns</option>
+            <option value="100">100 ns</option>
+            <option value="200">200 ns</option>
+          </select>
+        </label>
+        <label class="das-field"><span data-help="The length of the whole fiber connected to the interrogator; the map shows its first kilometer. A longer fiber takes longer to read: the light needs about 10 μs per kilometer for the round trip, which limits how fast pulses can be sent. Light also fades on the way, about 0.2 dB per kilometer each way, so the backscatter from the far end is weaker and noisier. DAS systems commonly read 10–50 km of fiber.">Fiber length</span>
+          <select id="das-fiber">
+            <option value="0.1">100 m</option>
+            <option value="0.5">500 m</option>
+            <option value="1">1 km</option>
+            <option value="5">5 km</option>
+            <option value="10">10 km</option>
+            <option value="25">25 km</option>
+            <option value="50">50 km</option>
+          </select>
+        </label>
+        <label class="das-field"><span data-help="How long one pulse's round trip takes in this slow-motion view. In reality it takes about 10 μs per kilometer of fiber.">Slow motion</span>
+          <select id="das-slowmo">
+            <option value="0.5">0.5 s per pulse</option>
+            <option value="2">2 s per pulse</option>
+            <option value="4">4 s per pulse</option>
+            <option value="8">8 s per pulse</option>
+            <option value="16">16 s per pulse</option>
+          </select>
+        </label>
+      </div>
+      <div class="das-toolbar-group">
+        <label class="das-field"><span data-help="Where the scattering flaws are in the glass. In real fiber they are random, so their reflections add up differently at each point and the backscatter looks like noise (speckle) — though the same noise every pulse. If they were evenly spaced and identical, the backscatter would be steady along the fiber, apart from fading with distance.">Scatterers</span>
+          <select id="das-scatter">
+            <option value="random">Random</option>
+            <option value="even">Evenly spaced</option>
+          </select>
+        </label>
+        <label class="das-field"><span data-help="How to draw the light returning to the detector: an arrow for each scatterer's reflection, or a graph of the returning light's brightness along the fiber, which flows left toward the detector. Light from farther away arrives later, so the detector receives the fiber one distance at a time.">Returning light</span>
+          <select id="das-return">
+            <option value="arrows">Arrows</option>
+            <option value="intensity">Brightness graph</option>
+          </select>
+        </label>
+        <label class="das-field"><span data-help="Where the strain in this view comes from: the sources on the map above, or a section of fiber you stretch here with the sliders, in nanostrain (billionths). Setting it here uses real units, so the detector below shows the real phase change.">Strain</span>
+          <select id="das-strain-source">
+            <option value="map">From the map</option>
+            <option value="manual">Set here</option>
+          </select>
+        </label>
+        <button type="button" id="das-anim-play" aria-label="Pause or play the slow-motion pulse">❚❚ Pause</button>
+      </div>
+    </div>
+    <div class="das-toolbar-group das-manual" id="das-manual-strain" hidden>
+      <label class="das-field">Stretch a section by
+        <input type="range" id="das-ms-strain" min="-200" max="200" step="5">
+        <output id="das-ms-strain-out"></output>
+      </label>
+      <label class="das-field">centered at
+        <input type="range" id="das-ms-at" min="0" max="1000" step="5">
+        <output id="das-ms-at-out"></output>
+      </label>
+      <label class="das-field">over
+        <input type="range" id="das-ms-length" min="1" max="100" step="1">
+        <output id="das-ms-length-out"></output>
+      </label>
+    </div>
+    <p class="das-readout" id="das-i-readout"></p>
+    <canvas id="das-interrogator" class="das-interrogator-canvas" aria-label="Slow-motion view of a laser pulse and its backscatter"></canvas>
+  </div>
+  <h3 class="das-section-title">How the interrogator measures distance and strain</h3>
+  <p>
+    Glass is not perfectly uniform: tiny variations frozen into the fiber scatter a little of the light backward, which is called <em>Rayleigh backscatter</em>.
+    The interrogator sends a short laser pulse and records the light that returns.
+    Light scattered at distance $z$ returns after it has gone there and back, at time
+    $$ t = \frac{2 n z}{c}, \qquad\text{so}\qquad z = \frac{c\, t}{2 n}, $$
+    where $c$ is the speed of light and $n \approx 1.47$ is the refractive index of the fiber's core.
+    So the return signal over time is a map of the fiber over distance: a 1 km fiber is read in about 10 μs, and the next pulse can go out right after.
+    The animation above slows this down by a factor of about 400,000.
+    Each pulse produces one row of the waterfall, which fills in from near to far as the light returns; real interrogators send thousands of pulses per second.
+  </p>
+  <p>
+    The returned light looks like random noise, because the scatterers are randomly placed, but it is the same from pulse to pulse while nothing moves.
+    When a section of fiber of length $G$ (the <em>gauge length</em>) is stretched by strain $\varepsilon$, light has farther to travel through it, and the phase of the light scattered from its far end shifts relative to its near end by
+    $$ \Delta\phi = \frac{4 \pi n \xi G}{\lambda}\, \varepsilon, $$
+    where $\lambda \approx 1550$ nm is the laser's wavelength and $\xi \approx 0.78$ accounts for how stretching also changes the glass's refractive index.
+    Light from beyond a stretched section passes through it on the way out and back, so its phase is shifted too, and that shift carries on along the rest of the fiber (the first phase graph above).
+    Taking the difference across each gauge removes this carried-over shift and leaves only the strain within that gauge, which is how DAS pinpoints where the fiber stretched (the second graph).
+    Comparing this phase from one pulse to the next gives the strain rate of every section of fiber, thousands of times per second.
+    That is one row of the waterfall.
+  </p>
+  <p>
+    Why measure phase rather than timing?
+    Because the changes are far too small to time.
+    A vibration might stretch a 10 m section of fiber by about 10 nanometers.
+    That delays the returning light by only about $10^{-16}$ seconds, a million times shorter than an electronic detector can time.
+    But the light itself oscillates about $2 \times 10^{14}$ times per second, and 10 nm is a noticeable fraction of its 1550 nm wavelength.
+    So the delay shows up as a measurable shift in where the light is in its oscillation, its phase, which the interrogator reads by interfering light from the two ends of the gauge.
+    In effect, the phase is timing measured with the light's own oscillations as the clock ticks.
+    (<a href="/tools/phase_distance/">Measuring Distance with the Phase of Light</a> shows this with a simple interferometer.)
+    The round-trip time is still what tells the interrogator <em>where</em> the light came from; the phase tells it <em>how much</em> that section stretched.
+  </p>
+  <p>
+    What is the light interfered with?
+    In one common design, the returning light is interfered with itself.
+    The receiver splits it into two paths, one longer than the other by the round trip across one gauge length, and then recombines them.
+    That way, the light scattered at distance $z$ meets the light scattered at $z + G$ at the same moment.
+    The two waves add, and how bright their sum is depends on the phase difference between them: in step they add to twice the brightness, out of step they cancel.
+    The resting phase difference is random, because the scatterers are, but when the section between them stretches, it changes, and so does the brightness.
+    (Real receivers split the light three ways, with different extra phase shifts, so they can tell which way the phase moved, not just how bright the sum is.)
+    In the other common design, called coherent or heterodyne detection, the returning light is interfered with a copy of the laser's own light, slightly shifted in frequency.
+    That recovers the phase at every point along the fiber, and the interrogator then subtracts the phases at the two ends of each gauge.
+    <a href="/tools/phase_distance/">Measuring Distance with the Phase of Light</a> has interactive demos of both designs.
+  </p>
+  <p>
+    The gauge length sets the trade-off between sensitivity and detail: a longer gauge collects more phase change, so it is less noisy, but it averages over more fiber, so it blurs out waves shorter than the gauge.
+    Try a long gauge length with the walker, whose footsteps make short waves.
+  </p>
+  <p class="das-hint">
+    This page simplifies the physics for illustration: each source makes a single wavelet that travels at one speed, the ground is uniform, and the strain rates are in arbitrary units.
+  </p>
+</div>
+
+<div id="das-help-popup" class="das-help-popup" role="note" hidden></div>
+
+<script src="/assets/ts/out/das_sensing.js" type="module"></script>
