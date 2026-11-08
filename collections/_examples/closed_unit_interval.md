@@ -43,7 +43,7 @@ why:
   finite_set: >-
     $[0, 1]$ is not finite, because it has infinitely many elements.
   countable: >-
-    $[0, 1]$ is not finite or countable, because it is uncountable.
+    $[0, 1]$ is not countable, because it is uncountable.
   sequentially_compact: >-
     $[0, 1]$ is sequentially compact (as a compact metric space), locally compact, and paracompact, because it is compact.
   bounded: >-
@@ -51,5 +51,5 @@ why:
   infinite_set: >-
     $[0, 1]$ is uncountable, and so infinite, because Cantor's diagonal argument shows it cannot be listed.
   countably_infinite: >-
-    $[0, 1]$ is bounded, and it is not countably infinite.
+    $[0, 1]$ is not countably infinite, because it is uncountable.
 ---

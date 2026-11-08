@@ -1,5 +1,4 @@
 ---
-published: false
 title: Extended Kalman filter
 term: extended Kalman filter
 applies_to: state estimation
@@ -30,7 +29,7 @@ levels:
       where $H_k$ is the Jacobian of $h$ at $\hat{x}_k^-$ and $K_k = P_k^- H_k^\top (H_k P_k^- H_k^\top + R)^{-1}$.
 properties:
   - >-
-    If $f$ and $h$ are linear, the extended Kalman filter is the [Kalman filter](/definitions/kalman-filter).
+    If $f$ and $h$ are linear, then the extended Kalman filter is the [Kalman filter](/definitions/kalman-filter).
   - >-
     The extended Kalman filter is not optimal in general, and its estimate can diverge if the initial estimate is poor or the system is strongly nonlinear, because the linearization is accurate only near the estimate.
 ---

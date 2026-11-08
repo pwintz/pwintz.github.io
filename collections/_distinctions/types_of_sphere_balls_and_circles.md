@@ -8,7 +8,7 @@ summary: >
   A [sphere](/definitions/sphere) is hollow and a [ball](/definitions/ball) is solid.
   A [circle](/definitions/circle) is a sphere in the plane.
   A [closed ball](/definitions/closed-ball) includes its bounding sphere, and an [open ball](/definitions/open-ball) does not.
-  In [topology](/definitions/topology), any shape that can be continuously deformed into a sphere counts as a [topological sphere](/definitions/sphere-topological).
+  In [topology](/definitions/topology), every shape that can be continuously deformed into a sphere counts as a [topological sphere](/definitions/sphere-topological).
 terms:
   - circle
   - sphere

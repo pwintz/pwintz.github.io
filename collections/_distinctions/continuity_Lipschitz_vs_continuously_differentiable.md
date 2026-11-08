@@ -24,4 +24,4 @@ see_also:
 
 - If $f$ is [continuously differentiable](/definitions/continuously-differentiable) on $[a, b]$, then $f^{\prime}$ is a [continuous](/definitions/continuous) function on a [compact](/definitions/compact) set, so $\abs{f^{\prime}}$ is [bounded](/definitions/bounded) by some $L$.
   By the mean value theorem, $f$ is [Lipschitz continuous](/definitions/lipschitz-continuous) with constant $L$.
-- On any domain, a continuously differentiable function is _locally_ Lipschitz continuous: it is Lipschitz continuous on each compact interval in its domain.
+- On every domain, a continuously differentiable function is _locally_ Lipschitz continuous: it is Lipschitz continuous on each compact interval in its domain.

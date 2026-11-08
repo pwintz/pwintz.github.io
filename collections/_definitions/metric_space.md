@@ -6,7 +6,7 @@ applies_to: spaces
 levels:
   high-school:
     text: |-
-      A _metric space_ is a set of points with a way of measuring the distance between any two points.
+      A _metric space_ is a set of points with a way of measuring the distance between every two points.
   undergraduate:
     text: |-
       A _metric space_ is a set $X$ together with a [metric](/definitions/metric) $d$ on $X$.

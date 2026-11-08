@@ -13,7 +13,7 @@ levels:
   undergraduate:
     context: partially ordered sets
     text: |-
-      Consider a partially ordered set and a [subset](/definitions/subset) $S$ of it, with its upper bounds: the elements $M$ with $x \leq M$ for every $x \in S$.
+      Consider a partially ordered set and a [subset](/definitions/subset) $S$ of it, with its upper bounds: the elements $M$ such that $x \leq M$ for every $x \in S$.
       The _supremum_ of $S$ is an upper bound $M$ of $S$ such that
 
       $$M \leq M^{\prime} \quad \text{for every upper bound } M^{\prime} \text{ of } S.$$
@@ -22,7 +22,7 @@ properties:
     Every nonempty set of [real numbers](/definitions/real-number) that is [bounded](/definitions/bounded) above has a supremum.
     This is the completeness of $\reals$.
   - |-
-    If the supremum of $S$ belongs to $S$, it is the [maximum](/definitions/maximum) of $S$.
+    If the supremum of $S$ belongs to $S$, then it is the [maximum](/definitions/maximum) of $S$.
   - |-
     The supremum of $S$ is the negative of the [infimum](/definitions/infimum) of $\setdef{-x \suchthat x \in S}$.
 ---

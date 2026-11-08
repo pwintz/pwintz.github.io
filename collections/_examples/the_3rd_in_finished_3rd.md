@@ -8,5 +8,7 @@ why:
   ordinal_number: >-
     The "3rd" in "finished 3rd" is an ordinal number because it tells a position in an order.
   cardinal_number: >-
-    The "3rd" in "finished 3rd" is not a cardinal number, because it does not count anything, and it is not a nominal number, because its order matters.
+    The "3rd" in "finished 3rd" is not a cardinal number, because it does not count anything.
+  nominal_number: >-
+    The "3rd" in "finished 3rd" is not a nominal number, because its order matters.
 ---

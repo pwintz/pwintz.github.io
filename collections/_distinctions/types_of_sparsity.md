@@ -4,12 +4,13 @@ kind: family
 areas: [analysis, topology]
 summary: >
   Several terms describe a set that is "small" or "negligible," even when it has infinitely many points.
-  "[Nowhere dense](/definitions/nowhere-dense)" means small in a topological sense, and "[measure zero](/definitions/measure-zero)" means small in a size sense.
+  "[Nowhere dense](/definitions/nowhere-dense)" means small in a topological sense (and a [meager](/definitions/meager-set) set is a [countable](/definitions/countable) [union](/definitions/set-union) of nowhere dense sets), and "[measure zero](/definitions/measure-zero)" means small in a size sense.
   Neither implies the other.
-  An [event](/definitions/event) of [probability zero](/definitions/probability-zero) is a set of measure zero for a probability measure.
+  An [event](/definitions/event) of [probability zero](/definitions/probability-zero) is a set of measure zero for a [probability measure](/definitions/probability-measure).
 terms:
   - measure_zero
   - nowhere_dense
+  - meager_set
   - probability_zero
 examples:
   - example: the_cantor_set

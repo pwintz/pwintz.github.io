@@ -7,7 +7,7 @@ levels:
   high-school:
     text: |-
       Consider a set $C$ of points in the plane or in space.
-      The set $C$ is _convex_ if, for any two points of $C$, the straight segment between them lies in $C$.
+      The set $C$ is _convex_ if, for every two points of $C$, the straight segment between them lies in $C$.
   undergraduate:
     text: |-
       Consider a set $C$ in a real vector space.

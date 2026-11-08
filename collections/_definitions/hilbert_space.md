@@ -12,5 +12,5 @@ properties:
   - >-
     A Hilbert space is a [Banach space](/definitions/banach-space) whose [norm](/definitions/norm) comes from an [inner product](/definitions/inner-product).
   - >-
-    Every nonempty closed convex [subset](/definitions/subset) of a Hilbert space has a unique point closest to any given point, which makes orthogonal projection possible.
+    Every nonempty closed convex [subset](/definitions/subset) of a Hilbert space has a unique point closest to each given point, which makes orthogonal projection possible.
 ---

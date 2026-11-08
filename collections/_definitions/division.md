@@ -10,6 +10,6 @@ levels:
       $12 \div 3 = 4$ because $12$ split into $3$ equal groups gives $4$ in each group.
   high-school:
     text: |-
-      Consider two numbers $a$ and $b$, with $b \neq 0$.
-      _Division_ of $a$ by $b$, written $a \div b$, gives the number $c$ with $b c = a$.
+      Consider two numbers $a$ and $b$ such that $b \neq 0$.
+      _Division_ of $a$ by $b$, written $a \div b$, gives the number $c$ such that $b c = a$.
 ---

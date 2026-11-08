@@ -10,7 +10,7 @@ levels:
   high-school:
     text: |-
       Consider a function $f$ whose inputs and outputs are the same kind of thing.
-      A _fixed point_ of $f$ is a point $x$ with $f(x) = x$: the function leaves it unchanged.
+      A _fixed point_ of $f$ is a point $x$ such that $f(x) = x$: the function leaves it unchanged.
   undergraduate:
     text: |-
       Consider a function $f : X \to X$.

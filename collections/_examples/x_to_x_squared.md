@@ -12,5 +12,7 @@ why:
   function: >-
     $x \mapsto x^2$ is a function because it is a rule that assigns one output to each input.
   graph_of_function: >-
-    $x \mapsto x^2$ is not a graph or a curve, because it is a rule, not a set of points.
+    $x \mapsto x^2$ is not a graph, because it is a rule, not a set of points.
+  curve: >-
+    $x \mapsto x^2$ is not a curve, because it is a rule, not a set of points.
 ---

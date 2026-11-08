@@ -5,7 +5,7 @@ kind: synonyms
 areas: [sets]
 summary: >
   "Function" and "map" (or "mapping") mean exactly the same thing.
-  "Map" is more common when the function preserves some structure or acts on geometric objects, but any statement about functions holds for maps, and vice versa.
+  "Map" is more common when the function preserves some structure or acts on geometric objects, but every statement about functions holds for maps, and vice versa.
 terms:
   - function
   - map

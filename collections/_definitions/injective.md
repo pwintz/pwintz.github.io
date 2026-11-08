@@ -10,7 +10,7 @@ levels:
   #     The function is _injective_ if no two different inputs give the same output.
   high-school:
     text: |-
-      A function $f$ is _injective_ if any two pair of different inputs $x$ and $y$ give different outputs: $f(x) \neq f(y)$.
+      A function $f$ is _injective_ if every two different inputs $x$ and $y$ give different outputs: $f(x) \neq f(y)$.
   undergraduate:
     text: |-
       Consider a function $f : X \to Y$.

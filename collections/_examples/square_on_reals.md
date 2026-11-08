@@ -23,8 +23,7 @@ why:
   image: >-
     Squares of real numbers are exactly the nonnegative numbers.
   preimage: >-
-    The preimage $f^{-1}(\setdef{4})$ exists even though $f$ has no inverse.
-    No real number squares to $-1$, so $f^{-1}(\setdef{-1})$ is empty.
+    The preimage $f^{-1}(\setdef{4})$ exists even though $f$ has no inverse. No real number squares to $-1$, so $f^{-1}(\setdef{-1})$ is empty.
   uniformly_continuous: >-
     $f(x) = x^2$ is not uniformly continuous on $\reals$, because its graph gets steeper and steeper, so no single closeness of inputs works everywhere.
   continuously_differentiable: >-
@@ -34,16 +33,17 @@ why:
   continuous: >-
     $x \mapsto x^2$ is continuous.
   function: >-
-    $f(x) = x^2$ is a function and a map, as is every function.
-    "Function" is the more common word here, because the inputs and outputs are numbers.
+    $f(x) = x^2$ is a function and a map, as is every function. "Function" is the more common word here, because the inputs and outputs are numbers.
   range_statistics: >-
-    The range of $f$, in the sense of its image, is $[0, \infty)$, because those are the outputs that actually occur.
-    The range of $f$, in the sense of its codomain, is $\reals$, the set where outputs are allowed to land.
+    The range of $f$, in the sense of its image, is $[0, \infty)$, because those are the outputs that actually occur. The range of $f$, in the sense of its codomain, is $\reals$, the set where outputs are allowed to land.
   positive_definite_function: >-
-    $x \mapsto x^2$ on $\reals$ is positive definite because it is positive away from $0$ and zero at $0$.
-    It is not of class $\mathcal{K}$, because it is not increasing on all of $\reals$.
+    $x \mapsto x^2$ on $\reals$ is positive definite because it is positive away from $0$ and zero at $0$. It is not of class $\mathcal{K}$, because it is not increasing on all of $\reals$.
   sequentially_continuous: >-
     $x \mapsto x^2$ is continuous and sequentially continuous.
   functional: >-
-    $f(x) = x^2$ on $\reals$ is not an operator, functional, or transform, because its inputs are numbers, not elements of a space of functions.
+    $f(x) = x^2$ on $\reals$ is not a functional, because its inputs are numbers, not elements of a space of functions.
+  operator: >-
+    $f(x) = x^2$ on $\reals$ is not an operator, because its inputs are numbers, not elements of a space of functions.
+  transform: >-
+    $f(x) = x^2$ on $\reals$ is not a transform, because its inputs are numbers, not elements of a space of functions.
 ---

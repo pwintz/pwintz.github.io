@@ -16,5 +16,5 @@ levels:
   #   context: category theory
   #   text: |-
   #     Consider two sets $A$ and $B$ in the category of sets.
-  #     Their _disjoint union_ is the coproduct: a set $A \sqcup B$ with injections $A \to A \sqcup B$ and $B \to A \sqcup B$ such that any pair of functions $A \to C$ and $B \to C$ factors uniquely through it.
+  #     Their _disjoint union_ is the coproduct: a set $A \sqcup B$ with injections $A \to A \sqcup B$ and $B \to A \sqcup B$ such that every pair of functions $A \to C$ and $B \to C$ factors uniquely through it.
 ---

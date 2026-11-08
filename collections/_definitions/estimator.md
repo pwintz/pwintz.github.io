@@ -1,5 +1,4 @@
 ---
-published: false
 title: Estimator
 term: estimator
 applies_to: estimation problems

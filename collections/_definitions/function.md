@@ -16,6 +16,6 @@ levels:
     context: set theory
     text: |-
       Consider two sets $X$ and $Y$, and their product $X \times Y$.
-      A _function_ from $X$ to $Y$ is a [subset](/definitions/subset) $f \subseteq X \times Y$ such that for each $x \in X$ there is exactly one $y \in Y$ with $(x, y) \in f$.
+      A _function_ from $X$ to $Y$ is a [subset](/definitions/subset) $f \subseteq X \times Y$ such that for each $x \in X$ there is exactly one $y \in Y$ such that $(x, y) \in f$.
       In this formalization, a function is identified with its graph (together with its [codomain](/definitions/codomain)).
 ---

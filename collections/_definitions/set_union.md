@@ -19,5 +19,5 @@ levels:
       
       $$A \cup B = \setdef{x \suchthat x \in A \text{ or } x \in B}.$$
 
-      More generally, the union of a family of sets $$(A_i)_{i \in I}$$ is the set of all $x$ with $x \in A_i$ for some $i \in I$.
+      More generally, the union of a family of sets $$(A_i)_{i \in I}$$ is the set of all $x$ such that $x \in A_i$ for some $i \in I$.
 ---

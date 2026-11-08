@@ -1,5 +1,4 @@
 ---
-published: false
 title: Unscented Kalman filter
 term: unscented Kalman filter
 applies_to: state estimation
@@ -25,6 +24,6 @@ properties:
   - >-
     The unscented [transform](/definitions/transform) computes the mean and covariance of $g(x)$ correctly to second order in the Taylor expansion of $g$, whereas the linearization in the [extended Kalman filter](/definitions/extended-kalman-filter) is correct only to first order.
   - >-
-    If $f$ and $h$ are linear, the unscented Kalman filter is the [Kalman filter](/definitions/kalman-filter).
+    If $f$ and $h$ are linear, then the unscented Kalman filter is the [Kalman filter](/definitions/kalman-filter).
 ---
 The sigma points are not random samples, unlike the particles of a [particle filter](/definitions/particle-filter).

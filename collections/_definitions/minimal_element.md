@@ -17,7 +17,7 @@ properties:
   - >-
     A set can have several minimal elements, and a minimal element need not be a minimum, because some elements might not be comparable to it.
   - >-
-    If a set has a minimum, the minimum is its only minimal element.
+    If a set has a minimum, then the minimum is its only minimal element.
   - >-
     In a totally ordered set, such as $\reals$, minimal elements and minima are the same.
 ---

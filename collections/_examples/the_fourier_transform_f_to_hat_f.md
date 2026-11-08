@@ -6,7 +6,7 @@ is: [function, operator, transform]
 is_not: [functional]
 why:
   transform: >-
-    The Fourier transform is a function, and an operator, because it takes a function and returns a function.
+    The Fourier transform $f \mapsto \hat{f}$ is called a transform, because it converts a function of time into a function of frequency.
   functional: >-
-    The Fourier transform $f \mapsto \hat{f}$ is called a transform because it converts a function of time into a function of frequency, and it is not a functional, because its outputs are functions.
+    The Fourier transform $f \mapsto \hat{f}$ is not a functional, because its outputs are functions, not numbers.
 ---

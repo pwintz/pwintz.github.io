@@ -12,7 +12,7 @@ levels:
     context: physical systems
     text: |-
       Consider a physical system that stores energy and receives energy through its input.
-      The system is _passive_ if it cannot produce more energy than is supplied to it: the energy stored at any time is at most the initial stored energy plus the energy supplied through the input.
+      The system is _passive_ if it cannot produce more energy than is supplied to it: the energy stored at every time is at most the initial stored energy plus the energy supplied through the input.
   graduate:
     context: nonlinear control
     text: |-

@@ -12,5 +12,7 @@ why:
   finite_set: >-
     The empty set is finite, because it has $0$ elements, and $0$ is a finite number.
   uncountable: >-
-    The empty set is countable, and not uncountable, because it is finite.
+    The empty set is not uncountable, because it is finite.
+  countable: >-
+    The empty set is countable, because it is finite.
 ---

@@ -19,7 +19,7 @@ levels:
       $$\ip{\nabla f(x)}{v} = \mathrm{d}f_x(v) \quad \text{for every tangent vector } v.$$
 properties:
   - >-
-    If $\nabla f(x) \neq 0$, it points in the direction of steepest increase of $f$, and its length is the rate of increase in that direction.
+    If $\nabla f(x) \neq 0$, then it points in the direction of steepest increase of $f$, and its length is the rate of increase in that direction.
   - >-
     The gradient is perpendicular to the level sets of $f$.
   - >-

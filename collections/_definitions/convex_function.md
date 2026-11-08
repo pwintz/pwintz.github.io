@@ -7,7 +7,7 @@ levels:
   high-school:
     text: |-
       Consider a function $f$ from an interval to $\reals$.
-      The function $f$ is _convex_ if the segment between any two points on its graph lies on or above the graph.
+      The function $f$ is _convex_ if the segment between every two points on its graph lies on or above the graph.
   undergraduate:
     text: |-
       Consider a function $f : C \to \reals$ on a [convex set](/definitions/convex-set) $C$.

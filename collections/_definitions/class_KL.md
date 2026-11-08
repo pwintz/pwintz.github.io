@@ -11,5 +11,5 @@ levels:
       The function $\beta$ is of *class-$\mathcal{KL}$* if $r \mapsto \beta(r, s)$ is class-$\mathcal{K}$ for each $s$ and $s \mapsto \beta(r, s)$ is class-$\mathcal{L}$ for each $r$.
 properties:
   - >-
-    For $\dot{x} = f(x)$ with $f$ locally Lipschitz, the origin is [globally asymptotically stable](/definitions/globally-asymptotically-stable) if and only if there is a class-$\mathcal{KL}$ function $\beta$ with $\norm{x(t)} \leq \beta(\norm{x(0)}, t)$ for every solution and all $t \geq 0$.
+    For $\dot{x} = f(x)$ with $f$ locally Lipschitz, the origin is [globally asymptotically stable](/definitions/globally-asymptotically-stable) if and only if there is a class-$\mathcal{KL}$ function $\beta$ such that $\norm{x(t)} \leq \beta(\norm{x(0)}, t)$ for every solution and all $t \geq 0$.
 ---

@@ -22,8 +22,8 @@ levels:
       near $0$.
 properties:
   - >-
-    If a Lyapunov function exists, the [equilibrium](/definitions/equilibrium) is stable.
-    If $\dot{V}$ is negative definite, it is [asymptotically stable](/definitions/asymptotically-stable).
+    If a Lyapunov function exists, then the [equilibrium](/definitions/equilibrium) is stable.
+    If $\dot{V}$ is negative definite, then it is [asymptotically stable](/definitions/asymptotically-stable).
     If, in addition, $V$ is radially unbounded and $\dot{V}(x) < 0$ for all $x \neq 0$, it is [globally asymptotically stable](/definitions/globally-asymptotically-stable).
   - >-
     Converse Lyapunov theorems: every [asymptotically stable](/definitions/asymptotically-stable) [equilibrium](/definitions/equilibrium) of a system with a locally Lipschitz $f$ has a Lyapunov function with $\dot{V}$ negative definite.

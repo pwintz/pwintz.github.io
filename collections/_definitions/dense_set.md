@@ -7,7 +7,7 @@ levels:
   high-school:
     text: |-
       Consider a set of [real numbers](/definitions/real-number).
-      The set is _dense_ if it has members between any two different real numbers, no matter how close together the two numbers are.
+      The set is _dense_ if it has members between every two different real numbers, no matter how close together the two numbers are.
   undergraduate:
     context: subsets of $\reals$
     text: |-

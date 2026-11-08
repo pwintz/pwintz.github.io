@@ -13,7 +13,7 @@ levels:
     context: nonlinear systems
     text: |-
       Consider a system $\dot{x} = f(x)$ with output $y = h(x)$.
-      The system is (zero-state) _detectable_ if every solution with $y(t) = 0$ for all $t \geq 0$ converges to the origin.
+      The system is (zero-state) _detectable_ if every solution such that $y(t) = 0$ for all $t \geq 0$ converges to the origin.
 properties:
   - >-
     A linear system is detectable if and only if there is a [matrix](/definitions/matrix) $L$ such that $A - L C$ is Hurwitz, so a Luenberger [observer](/definitions/observer) can estimate the state with an error that converges to zero.

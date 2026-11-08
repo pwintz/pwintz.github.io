@@ -8,5 +8,7 @@ why:
   cardinal_number: >-
     The "3" in "3 apples" is a cardinal number because it tells how many apples there are.
   ordinal_number: >-
-    The "3" in "3 apples" is not an ordinal number, because it gives no position, and it is not a nominal number, because it is not just a label.
+    The "3" in "3 apples" is not an ordinal number, because it gives no position.
+  nominal_number: >-
+    The "3" in "3 apples" is not a nominal number, because it is not just a label.
 ---

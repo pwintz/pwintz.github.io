@@ -23,4 +23,4 @@ see_also:
 ## Notes
 
 - When the limit is a constant, such as $3.5$, the two kinds of convergence are equivalent.
-- A third kind, almost sure convergence (convergence with probability $1$), is stronger than [convergence in probability](/definitions/convergence-in-probability).
+- A third kind, almost sure convergence (convergence with [probability](/definitions/probability) $1$), is stronger than [convergence in probability](/definitions/convergence-in-probability).

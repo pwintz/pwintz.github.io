@@ -24,7 +24,7 @@ examples:
       Only the discrete metric differs.
   - example: points_0_0_and_100_100
     why: >-
-      In the discrete metric, they are at distance $1$, the same as any two different points, so the discrete metric does not measure size at all.
+      In the discrete metric, they are at distance $1$, the same as every two different points, so the discrete metric does not measure size at all.
   - example: north_pole_and_equator_point
 see_also:
   - types_of_norms
@@ -38,4 +38,4 @@ see_also:
 - The unit "[circles](/definitions/circle)" $\setdef{q \in \reals^2 \suchthat d(0, q) = 1}$ are a circle, a diamond, and a square, and for the [discrete metric](/definitions/discrete-metric), every point other than $0$.
 - Great-circle distance is the [geodesic distance](/definitions/geodesic-distance) on a [sphere](/definitions/sphere). It does not come from a [norm](/definitions/norm), because a sphere is not a vector space; see [norm vs. metric vs. inner product](/distinctions/norm-vs-metric-vs-inner-product).
 - A distance needs only a set of points, not a vector space.
-  The Euclidean, taxicab, and Chebyshev distances use the coordinates of $\reals^n$, the geodesic distance needs a surface (or manifold) along which to measure paths, and the discrete metric works on any set.
+  The Euclidean, taxicab, and Chebyshev distances use the coordinates of $\reals^n$, the geodesic distance needs a surface (or manifold) along which to measure paths, and the discrete metric works on every set.

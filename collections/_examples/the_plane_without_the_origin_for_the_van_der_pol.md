@@ -8,5 +8,7 @@ why:
   region_of_attraction: >-
     The plane without the origin is not called a region of attraction, because that term usually refers to an equilibrium.
   basin_of_attraction: >-
-    The plane without the origin is the basin of attraction of the limit cycle because every solution except the equilibrium at the origin converges to it, and it is forward invariant.
+    The plane without the origin is the basin of attraction of the Van der Pol limit cycle, because every solution except the equilibrium at the origin converges to it.
+  forward_invariant: >-
+    The plane without the origin is forward invariant for the Van der Pol oscillator, because a solution that starts away from the equilibrium never reaches it.
 ---

@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'A Luenberger observer'
 definition: luenberger_observer
 level: undergraduate

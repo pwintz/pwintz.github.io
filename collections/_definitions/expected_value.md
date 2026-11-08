@@ -7,7 +7,7 @@ synonyms: [expectation, "$\\mathbb{E}[X]$", population mean]
 levels:
   high-school:
     text: |-
-      Consider a random quantity with several possible values, each with a probability.
+      Consider a random quantity with several possible values, each with a [probability](/definitions/probability).
       The _expected value_ of the quantity is its long-run average: the average of its possible values, weighted by how likely each one is.
   undergraduate:
     context: probability
@@ -23,4 +23,4 @@ properties:
   - >-
     Expected value is linear: $\mathbb{E}[a X + b Y] = a \mathbb{E}[X] + b \mathbb{E}[Y]$.
 ---
-The expected value is a property of a probability distribution, while the mean of a data set is a property of the data.
+The expected value is a property of a [probability distribution](/definitions/probability-distribution), while the mean of a data set is a property of the data.

@@ -1,7 +1,7 @@
 ---
 title: 'The set of rational numbers, $\mathbb{Q}$'
 level: high-school
-is: [paracompact, measure_zero, dense_set, countable]
+is: [paracompact, measure_zero, dense_set, countable, meager_set]
 is_not: [compact, sequentially_compact, locally_compact, nowhere_dense, uncountable]
 why:
   paracompact: >-
@@ -12,4 +12,6 @@ why:
     $\mathbb{Q}$ is not nowhere dense, because it is dense in $\reals$.
   sequentially_compact: >-
     The set of rational numbers, $\mathbb{Q}$, is not locally compact, because no neighborhood of a point has a compact closure, so it is not compact or sequentially compact either.
+  meager_set: >-
+    $\mathbb{Q}$ is meager, because it is a countable union of single points, and each point is nowhere dense in $\reals$.
 ---

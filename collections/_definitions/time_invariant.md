@@ -21,5 +21,5 @@ properties:
   - >-
     Delaying the input of a time-invariant system (from the same initial state) delays its response by the same amount.
   - >-
-    Any time-varying system becomes time-invariant by adding time as a state $\tau$ with $\dot{\tau} = 1$.
+    Every time-varying system becomes time-invariant by adding time as a state $\tau$ such that $\dot{\tau} = 1$.
 ---

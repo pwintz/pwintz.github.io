@@ -7,7 +7,7 @@ levels:
   high-school:
     text: |-
       Consider a system with some allowed starting states and some unsafe states.
-      The system is _safe_ if, starting from any allowed initial state, it never reaches an unsafe state.
+      The system is _safe_ if, starting from every allowed initial state, it never reaches an unsafe state.
   graduate:
     context: dynamical systems
     text: |-

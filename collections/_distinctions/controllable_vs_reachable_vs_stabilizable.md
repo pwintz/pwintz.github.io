@@ -5,7 +5,7 @@ kind: hierarchy
 areas: [control]
 summary: >
   Controllability, reachability, and stabilizability describe how much a [control input](/definitions/control-input) can influence the state of a system.
-  A [controllable](/definitions/controllable) system can be steered from any state to the origin, and a [reachable](/definitions/reachable) system can be steered from the origin to any state.
+  A [controllable](/definitions/controllable) system can be steered from every state to the origin, and a [reachable](/definitions/reachable) system can be steered from the origin to every state.
   A [stabilizable](/definitions/stabilizable) system only needs feedback that makes it converge, so its uncontrollable parts must already be stable.
 relation: >
   controllable ⊂ stabilizable, and for continuous-time linear systems, controllable = reachable.

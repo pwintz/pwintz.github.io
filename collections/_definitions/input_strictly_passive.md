@@ -12,6 +12,6 @@ levels:
 
       $$u^{\top} y \geq \dot{V} + u^{\top} \varphi(u)$$
 
-      for some function $\varphi$ with $u^{\top} \varphi(u) > 0$ for all $u \neq 0$.
-      If only $u^{\top} y \geq \dot{V} + u^{\top} \varphi(u)$ holds, without the sign condition, the system is _input-feedforward passive_.
+      for some function $\varphi$ such that $u^{\top} \varphi(u) > 0$ for all $u \neq 0$.
+      If only $u^{\top} y \geq \dot{V} + u^{\top} \varphi(u)$ holds, without the sign condition, then the system is _input-feedforward passive_.
 ---

@@ -9,7 +9,7 @@ levels:
     context: set-valued analysis
     text: |-
       Consider a [closed set](/definitions/closed-set) $S \subseteq \reals^n$ and a point $x \in S$.
-      The _contingent cone_ $T_S(x)$ is the set of $v$ for which there exist $t_n \downarrow 0$ and $v_n \to v$ with $x + t_n v_n \in S$.
+      The _contingent cone_ $T_S(x)$ is the set of $v$ for which there exist $t_n \downarrow 0$ and $v_n \to v$ such that $x + t_n v_n \in S$.
 properties:
   - |-
     $v \in T_S(x)$ if and only if

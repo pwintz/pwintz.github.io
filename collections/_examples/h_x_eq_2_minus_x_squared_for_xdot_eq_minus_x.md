@@ -8,10 +8,9 @@ is: [barrier_function]
 is_not: [barrier_function_optimization, barrier_certificate]
 why:
   barrier_function_optimization: >-
-    $h(x) = 2 - x^2$ is a barrier function in control theory because it is zero on the boundary of $[-\sqrt{2}, \sqrt{2}]$, and $\nabla h(x) \cdot f(x) = 2 x^2 \geq -h(x)$, so this set is forward invariant.
-    It is not a barrier function in optimization, because it stays bounded near the boundary.
+    $h(x) = 2 - x^2$ is not a barrier function in optimization, because it stays bounded near the boundary.
   barrier_function: >-
-    $h(x) = 2 - x^2$ is a barrier function with $\alpha(r) = r$ because $\nabla h(x) \cdot f(x) = 2 x^2 \geq x^2 - 2 = -h(x)$, so it certifies that $[-\sqrt{2}, \sqrt{2}]$ is forward invariant.
+    $h(x) = 2 - x^2$ is a barrier function in control theory, because it is zero on the boundary of $[-\sqrt{2}, \sqrt{2}]$, and $\nabla h(x) \cdot f(x) = 2 x^2 \geq -h(x)$, so this set is forward invariant.
   barrier_certificate: >-
     $h(x) = 2 - x^2$ is not a barrier certificate, because it has the wrong sign: it is positive on the initial set.
 ---

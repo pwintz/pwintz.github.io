@@ -7,7 +7,7 @@ levels:
   high-school:
     text: |-
       Consider a [continuous](/definitions/continuous) function, and how close its inputs must be to make its outputs close.
-      The function is _uniformly continuous_ if, for any desired closeness of outputs, one closeness of inputs is enough everywhere at once.
+      The function is _uniformly continuous_ if, for every desired closeness of outputs, one closeness of inputs is enough everywhere at once.
   undergraduate:
     context: metric spaces
     text: |-

@@ -7,5 +7,9 @@ why:
   proposition: >-
     "$7$ is prime" is a proposition because it is true.
   propositional_formula: >-
-    "$7$ is prime" is not a predicate or a propositional formula, because it has no variables, and it is not an expression, because it is a statement, not a name for an object.
+    "$7$ is prime" is not a propositional formula, because it has no propositional variables.
+  predicate: >-
+    "$7$ is prime" is not a predicate, because it has no variables.
+  expression: >-
+    "$7$ is prime" is not an expression, because it is a statement, not a name for an object.
 ---

@@ -8,5 +8,7 @@ why:
   closed_map: >-
     The projection $(x, y) \mapsto x$ is not a closed map, because the hyperbola $x y = 1$ is closed, but its image $\reals \setminus \setdef{0}$ is not.
   continuous: >-
-    The projection $(x, y) \mapsto x$ is continuous, and it is an open map because it maps every open disk to an open interval.
+    The projection $(x, y) \mapsto x$ is continuous, because it is linear.
+  open_map: >-
+    The projection $(x, y) \mapsto x$ is an open map, because it maps every open disk to an open interval.
 ---

@@ -7,7 +7,7 @@ levels:
   high-school:
     text: |-
       A metric is a way of generalizing the concept of distance. 
-      Consider a set of points, and a rule that gives a "distance" between any two of them.
+      Consider a set of points, and a rule that gives a "distance" between every two of them.
       The rule is a _metric_ if 
       
       1. no distance is negative, 

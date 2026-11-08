@@ -5,7 +5,7 @@ kind: conflicting
 areas: [analysis, linear-algebra]
 summary: >
   "The [Jacobian](/definitions/jacobian)" can mean the matrix of all [partial derivatives](/definitions/partial-derivative) of a function, or the [determinant](/definitions/determinant) of that matrix.
-  The matrix exists for any [differentiable](/definitions/differentiable) $f : \reals^n \to \reals^m$; the determinant only when $m = n$.
+  The matrix exists for every [differentiable](/definitions/differentiable) $f : \reals^n \to \reals^m$; the determinant only when $m = n$.
 terms:
   - jacobian
   - jacobian_determinant

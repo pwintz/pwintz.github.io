@@ -17,4 +17,4 @@ properties:
   - >-
     Not every [subset](/definitions/subset) of $\reals$ is Lebesgue measurable: with the axiom of choice, the Vitali set has no [consistent](/definitions/consistent-scheme) length.
 ---
-In probability, measurable sets are called [events](/definitions/event).
+In [probability](/definitions/probability), measurable sets are called [events](/definitions/event).

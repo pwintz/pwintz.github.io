@@ -14,7 +14,7 @@ levels:
       The _gain margin_ of the loop is $1 / \abs{L(i \omega_{p})}$, often given in decibels as $-20 \log_{10} \abs{L(i \omega_{p})}$.
 properties:
   - >-
-    If the phase of $L$ does not reach $-180^{\circ}$ at any frequency, the gain margin is infinite.
+    If the phase of $L$ does not reach $-180^{\circ}$ at any frequency, then the gain margin is infinite.
   - >-
     The formula assumes a single phase crossover and a stable [open loop](/definitions/open-loop).
     In general, the margins should be read from the [Nyquist](/definitions/nyquist-criterion) plot.

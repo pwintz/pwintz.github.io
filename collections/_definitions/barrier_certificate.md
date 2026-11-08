@@ -14,7 +14,7 @@ levels:
       3. $\nabla B(x) \cdot f(x) \leq 0$ for every $x$.
 properties:
   - >-
-    If a barrier certificate exists, the system is safe: no solution starting in $X_0$ reaches $X_u$.
+    If a barrier certificate exists, then the system is safe: no solution starting in $X_0$ reaches $X_u$.
   - >-
     When $f$ is [polynomial](/definitions/polynomial) and the sets are semialgebraic, barrier certificates can be found with sum-of-squares programming (Prajna and Jadbabaie).
 ---

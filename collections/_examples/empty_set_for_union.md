@@ -8,5 +8,7 @@ why:
   zero_number: >-
     $\emptyset$ is not the number zero, because it is a set.
   identity_element: >-
-    $\emptyset$ is the empty set, and it is the identity element for union, because $A \cup \emptyset = A$.
+    $\emptyset$ is the identity element for union, because $A \cup \emptyset = A$ for every set $A$.
+  empty_set: >-
+    $\emptyset$ is the empty set, the set with no elements.
 ---

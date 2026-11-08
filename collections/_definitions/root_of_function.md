@@ -8,7 +8,7 @@ levels:
   high-school:
     text: |-
       Consider a function $f$.
-      A _root_ of $f$ is a number $x$ with $f(x) = 0$.
+      A _root_ of $f$ is a number $x$ such that $f(x) = 0$.
       A root of an equation is a solution of it.
 ---
 Strictly, an _equation_ such as $x^2 - 4 = 0$ has roots (solutions), while a _function_ such as $x \mapsto x^2 - 4$ has zeros.

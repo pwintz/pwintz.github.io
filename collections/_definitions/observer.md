@@ -1,5 +1,4 @@
 ---
-published: false
 title: Observer
 term: observer
 applies_to: state estimation
@@ -12,7 +11,7 @@ levels:
   undergraduate:
     text: |-
       Consider a plant with input $u$, output $y$, and an unknown state $x(t)$.
-      An _observer_ is a dynamical system that takes $u$ and $y$ and produces a state estimate $\hat{x}(t)$ with $\hat{x}(t) - x(t) \to 0$.
+      An _observer_ is a dynamical system that takes $u$ and $y$ and produces a state estimate $\hat{x}(t)$ such that $\hat{x}(t) - x(t) \to 0$.
 properties:
   - >-
     A [Luenberger observer](/definitions/luenberger-observer) whose error converges to zero (that is, with $A - L C$ Hurwitz) exists exactly when $(A, C)$ is [detectable](/definitions/detectable).

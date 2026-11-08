@@ -18,5 +18,5 @@ levels:
       The vectors _span_ $V$ if their span is all of $V$.
 properties:
   - >-
-    The span of any vectors is a subspace, the smallest subspace that contains them.
+    The span of every list of vectors is a subspace, the smallest subspace that contains them.
 ---

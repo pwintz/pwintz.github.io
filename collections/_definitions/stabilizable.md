@@ -19,7 +19,7 @@ properties:
 
     $$\operatorname{rank} \begin{bmatrix} \lambda I - A & B \end{bmatrix} = n$$
 
-    for every [eigenvalue](/definitions/eigenvalue) $\lambda$ of $A$ with $\operatorname{Re} \lambda \geq 0$ (the PBH test).
+    for every [eigenvalue](/definitions/eigenvalue) $\lambda$ of $A$ such that $\operatorname{Re} \lambda \geq 0$ (the PBH test).
   - >-
     For a [controllable](/definitions/controllable) linear system, the closed-loop [eigenvalues](/definitions/eigenvalue) can be placed anywhere by [state feedback](/definitions/state-feedback) ([pole](/definitions/pole) placement).
   - >-

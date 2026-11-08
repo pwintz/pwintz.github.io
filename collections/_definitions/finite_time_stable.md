@@ -19,4 +19,4 @@ properties:
   - >-
     Finite-time stability requires a [vector](/definitions/vector) field that is not [Lipschitz continuous](/definitions/lipschitz-continuous) at the [equilibrium](/definitions/equilibrium), because solutions of a Lipschitz system cannot reach an equilibrium in finite time.
 ---
-If the settling time is [bounded](/definitions/bounded) independently of the initial state, the [equilibrium](/definitions/equilibrium) is _fixed-time_ stable.
+If the settling time is [bounded](/definitions/bounded) independently of the initial state, then the [equilibrium](/definitions/equilibrium) is _fixed-time_ stable.

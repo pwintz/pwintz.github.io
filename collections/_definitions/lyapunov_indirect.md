@@ -14,7 +14,7 @@ levels:
     text: |-
       Consider a nonlinear system with an [equilibrium](/definitions/equilibrium), and the [Jacobian](/definitions/jacobian) of the system at the equilibrium (its linearization).
       _Lyapunov's indirect method_ checks the [eigenvalues](/definitions/eigenvalue) of the Jacobian.
-      If every eigenvalue has negative real part, the equilibrium is (locally) [exponentially stable](/definitions/exponentially-stable).
-      If some eigenvalue has positive real part, it is unstable.
-      If neither holds, the test is inconclusive.
+      If every eigenvalue has negative real part, then the equilibrium is (locally) [exponentially stable](/definitions/exponentially-stable).
+      If some eigenvalue has positive real part, then it is unstable.
+      If neither holds, then the test is inconclusive.
 ---

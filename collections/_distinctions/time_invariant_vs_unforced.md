@@ -25,4 +25,4 @@ see_also:
 
 - "Autonomous" is not listed here because it has two conflicting meanings: [time-invariant](/definitions/time-invariant), or with no input.
   See [the meanings of "autonomous"](/distinctions/meanings-of-autonomous).
-- Adding time as a state, with $\dot{\tau} = 1$, turns any time-varying system into a time-invariant one, so the distinction is about how a system is written, not what it can do.
+- Adding time as a state, with $\dot{\tau} = 1$, turns every time-varying system into a time-invariant one, so the distinction is about how a system is written, not what it can do.

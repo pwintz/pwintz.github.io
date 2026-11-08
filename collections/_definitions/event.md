@@ -13,10 +13,10 @@ levels:
     context: measure-theoretic probability
     text: |-
       Consider a probability space $(\Omega, \mathcal{F}, P)$.
-      An _event_ is a set $A \in \mathcal{F}$, that is, a [subset](/definitions/subset) of the sample space $\Omega$ that belongs to the [σ-algebra](/definitions/sigma-algebra) $\mathcal{F}$, so that its probability $P(A)$ is defined.
+      An _event_ is a set $A \in \mathcal{F}$, that is, a [subset](/definitions/subset) of the sample space $\Omega$ that belongs to the [σ-algebra](/definitions/sigma-algebra) $\mathcal{F}$, so that its [probability](/definitions/probability) $P(A)$ is defined.
 properties:
   - >-
     An [outcome](/definitions/outcome) $\omega$ and the event $\setdef{\omega}$ are different objects: an outcome is a result, and an event is a set of results.
   - >-
-    When $\Omega$ is [uncountable](/definitions/uncountable), such as $[0, 1]$, not every [subset](/definitions/subset) of $\Omega$ can be an event, because no probability can be assigned consistently to every subset.
+    When $\Omega$ is [uncountable](/definitions/uncountable), such as $[0, 1]$, not every [subset](/definitions/subset) of $\Omega$ can be an event, because no [probability](/definitions/probability) can be assigned consistently to every subset.
 ---

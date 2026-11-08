@@ -48,6 +48,13 @@ AMBIGUOUS = {
 }
 
 
+# Phrases that contain a defined term in a different sense. They are never linked.
+STOP_PHRASES = re.compile(
+    r"probability spaces?|(?:converges?|convergence) in probability|continuous (?:random variables?|ones?|distributions?)",
+    re.I,
+)
+
+
 def slug_url(path):
     name = os.path.basename(path)[:-3]
     return "/definitions/" + name.lower().replace("_", "-")
@@ -85,6 +92,9 @@ def link_unit(text, terms, own_url, log):
     protected = [m.span() for m in PROTECTED.finditer(text)]
     taken = list(protected)
     edits = []
+    # Phrases in which a term is used in another sense, such as "probability" in "probability space".
+    for m in STOP_PHRASES.finditer(text):
+        taken.append(m.span())
     lower = text.lower()
     # Longest phrases first, so "open ball" wins over "ball".
     for phrase in sorted(terms, key=len, reverse=True):

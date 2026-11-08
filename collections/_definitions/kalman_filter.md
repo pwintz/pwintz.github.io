@@ -1,5 +1,4 @@
 ---
-published: false
 title: Kalman filter
 term: Kalman filter
 applies_to: state estimation

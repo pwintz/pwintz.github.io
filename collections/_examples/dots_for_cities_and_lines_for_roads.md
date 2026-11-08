@@ -10,7 +10,7 @@ why:
   diagram: >-
     The dots and lines are a diagram of a network; in graph theory, the network itself is called a graph.
   plot: >-
-    The dots and lines are not a plot or the graph of a function, because the positions of the dots do not encode numbers.
+    The dots and lines are not a plot, because the positions of the dots do not encode numbers.
   graph_network: >-
     The dots and lines form a network, whose vertices are cities and whose edges are roads.
 ---

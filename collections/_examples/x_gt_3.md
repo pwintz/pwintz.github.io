@@ -10,5 +10,7 @@ why:
   relation: >-
     "$x > 3$" is not a relation, which is a set of pairs.
   proposition: >-
-    "$x > 3$" is not a proposition, because it is not true or false until $x$ is given, and it is not a sentence, because $x$ is free.
+    "$x > 3$" is not a proposition, because it is not true or false until $x$ is given.
+  sentence_logic: >-
+    "$x > 3$" is not a sentence, because $x$ is free.
 ---

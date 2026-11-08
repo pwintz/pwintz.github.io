@@ -7,11 +7,11 @@ levels:
   elementary:
     text: |-
       Think of a system that you can steer, like a toy car with a remote control.
-      The system is _controllable_ if you can steer it to any state you want.
+      The system is _controllable_ if you can steer it to every state you choose.
   high-school:
     text: |-
       Consider a system whose behavior depends on an input that you choose.
-      The system is _controllable_ if, by choosing its input, you can drive it from any starting state to the origin in a finite amount of time.
+      The system is _controllable_ if, by choosing its input, you can drive it from every starting state to the origin in a finite amount of time.
   undergraduate:
     text: |-
       Consider a system $\dot{x} = f(x, u)$ (or $x_{k+1} = f(x_k, u_k)$) with state $x$ and input $u$.

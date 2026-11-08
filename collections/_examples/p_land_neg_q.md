@@ -10,5 +10,7 @@ why:
   sentence_logic: >-
     $p \land \neg q$ is not a sentence of first-order logic, because it is a formula of propositional logic.
   proposition: >-
-    $p \land \neg q$ is not a proposition, because it is not true or false by itself, and it is not a predicate, because $p$ and $q$ stand for propositions, not objects.
+    $p \land \neg q$ is not a proposition, because it is not true or false by itself.
+  predicate: >-
+    $p \land \neg q$ is not a predicate, because $p$ and $q$ stand for propositions, not objects.
 ---

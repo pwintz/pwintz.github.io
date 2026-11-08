@@ -15,7 +15,7 @@ levels:
       A _zero_ of $G$ is a value of $s$ at which $G(s) = 0$: for a rational function, a root of the numerator after common factors are canceled.
 properties:
   - >-
-    If $z$ is a zero, the input $e^{z t}$ can be blocked completely: from a suitable initial state, the output is identically zero.
+    If $z$ is a zero, then the input $e^{z t}$ can be blocked completely: from a suitable initial state, the output is identically zero.
   - >-
     A system is minimum phase if all of its zeros have negative real part.
     Zeros in the right half-plane limit the performance that any controller can achieve.

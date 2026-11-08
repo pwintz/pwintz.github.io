@@ -1,5 +1,4 @@
 ---
-published: false
 title: Particle filter
 term: particle filter
 applies_to: state estimation
@@ -12,8 +11,8 @@ levels:
   undergraduate:
     context: "discrete-time systems with noise"
     text: |-
-      Consider a discrete-time system whose state $x_k$ evolves randomly according to a model $p(x_k \mid x_{k-1})$, and whose measured output $y_k$ has likelihood $p(y_k \mid x_k)$.
-      A _particle filter_ for this system is a [filter](/definitions/filter-estimation) that approximates the probability distribution of $x_k$, given the measurements $y_1, \dots, y_k$, by $N$ samples $x_k^1, \dots, x_k^N$, called _particles_, with weights $\omega_k^1, \dots, \omega_k^N$.
+      Consider a discrete-time system whose state $x_k$ evolves randomly according to a model $p(x_k \mid x_{k-1})$, and whose measured output $y_k$ has [likelihood](/definitions/likelihood) $p(y_k \mid x_k)$.
+      A _particle filter_ for this system is a [filter](/definitions/filter-estimation) that approximates the [probability distribution](/definitions/probability-distribution) of $x_k$, given the measurements $y_1, \dots, y_k$, by $N$ samples $x_k^1, \dots, x_k^N$, called _particles_, with weights $\omega_k^1, \dots, \omega_k^N$.
       At each step, it draws each particle $x_k^i$ from $p(x_k \mid x_{k-1}^i)$, multiplies each weight by $p(y_k \mid x_k^i)$, rescales the weights to sum to $1$, and, when a few particles carry most of the weight, _resamples_: it draws $N$ new particles from the old ones with probabilities equal to their weights, and gives each new particle the weight $1 / N$.
 properties:
   - >-

@@ -11,7 +11,7 @@ levels:
   undergraduate:
     context: topological spaces
     text: |-
-      Consider a [path-connected](/definitions/path-connected) topological space $X$, and the loops in $X$: [continuous](/definitions/continuous) maps $\gamma : [0, 1] \to X$ with $\gamma(0) = \gamma(1)$.
+      Consider a [path-connected](/definitions/path-connected) topological space $X$, and the loops in $X$: [continuous](/definitions/continuous) maps $\gamma : [0, 1] \to X$ such that $\gamma(0) = \gamma(1)$.
       The space $X$ is _simply connected_ if every loop can be continuously deformed, within $X$, to a constant loop.
 properties:
   - |-

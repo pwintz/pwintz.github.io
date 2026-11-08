@@ -12,5 +12,5 @@ levels:
   undergraduate:
     text: |-
       Consider a system with an [equilibrium](/definitions/equilibrium).
-      The equilibrium is _globally asymptotically stable_ if it is stable and every solution, from any initial state, converges to it.
+      The equilibrium is _globally asymptotically stable_ if it is stable and every solution, from every initial state, converges to it.
 ---

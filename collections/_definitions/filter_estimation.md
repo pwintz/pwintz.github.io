@@ -1,5 +1,4 @@
 ---
-published: false
 title: Filter (estimation)
 term: filter (estimation)
 applies_to: state estimation

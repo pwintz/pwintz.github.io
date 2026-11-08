@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'A particle filter'
 definition: particle_filter
 level: undergraduate

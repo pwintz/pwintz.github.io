@@ -18,9 +18,9 @@ levels:
     context: normed spaces
     text: |-
       Consider a map $f : X \to Y$ between [normed spaces](/definitions/normed-space) and a point $x$.
-      The map $f$ is Fréchet [differentiable](/definitions/differentiable) at $x$ if there is a [bounded](/definitions/bounded) [linear map](/definitions/linear-map) $Df(x) : X \to Y$ with $\norm{f(x + h) - f(x) - Df(x) h} = o(\norm{h})$ as $h \to 0$.
+      The map $f$ is Fréchet [differentiable](/definitions/differentiable) at $x$ if there is a [bounded](/definitions/bounded) [linear map](/definitions/linear-map) $Df(x) : X \to Y$ such that $\norm{f(x + h) - f(x) - Df(x) h} = o(\norm{h})$ as $h \to 0$.
       The map $Df(x)$ is the _Fréchet derivative_ of $f$ at $x$.
 properties:
   - >-
-    If $f$ is Fréchet [differentiable](/definitions/differentiable) at $x$, it is [continuous](/definitions/continuous) at $x$ and Gâteaux differentiable at $x$, with the same derivative.
+    If $f$ is Fréchet [differentiable](/definitions/differentiable) at $x$, then it is [continuous](/definitions/continuous) at $x$ and Gâteaux differentiable at $x$, with the same derivative.
 ---

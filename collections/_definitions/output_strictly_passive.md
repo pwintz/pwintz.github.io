@@ -12,6 +12,6 @@ levels:
 
       $$u^{\top} y \geq \dot{V} + y^{\top} \rho(y)$$
 
-      for some function $\rho$ with $y^{\top} \rho(y) > 0$ for all $y \neq 0$.
-      If only $u^{\top} y \geq \dot{V} + y^{\top} \rho(y)$ holds, without the sign condition, the system is _output-feedback passive_.
+      for some function $\rho$ such that $y^{\top} \rho(y) > 0$ for all $y \neq 0$.
+      If only $u^{\top} y \geq \dot{V} + y^{\top} \rho(y)$ holds, without the sign condition, then the system is _output-feedback passive_.
 ---

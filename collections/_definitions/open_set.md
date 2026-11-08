@@ -6,7 +6,7 @@ levels:
   elementary:
     context: subsets of $\reals$
     text: |-
-      For any [real numbers](/definitions/real-number) $a$ and $b$ with $a < b$, the interval of numbers strictly between $a$ and $b$ is called an open interval, and is written $(a, b)$. 
+      For all [real numbers](/definitions/real-number) $a$ and $b$ such that $a < b$, the interval of numbers strictly between $a$ and $b$ is called an open interval, and is written $(a, b)$. 
 
   high-school:
     context: subsets of $\reals^n$

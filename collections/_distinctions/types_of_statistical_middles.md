@@ -6,7 +6,7 @@ areas: [statistics]
 summary: >
   The mean, [median](/definitions/median), and mode are different ways to summarize the middle of data, and they can be far apart.
   "Average" usually means the mean.
-  The [geometric mean](/definitions/geometric-mean) averages growth factors and ratios, and the [expected value](/definitions/expected-value) is the mean of a probability distribution rather than of data.
+  The [geometric mean](/definitions/geometric-mean) averages growth factors and ratios, and the [expected value](/definitions/expected-value) is the mean of a [probability distribution](/definitions/probability-distribution) rather than of data.
 terms:
   - arithmetic_mean
   - average

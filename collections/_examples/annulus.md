@@ -10,5 +10,5 @@ why:
   simply_connected: >-
     A loop around the hole cannot be shrunk to a point without leaving the ring.
   path_connected: >-
-    The annulus is path-connected, and so connected, because any two points can be joined by a path that goes around the ring.
+    The annulus is path-connected, and so connected, because every two points can be joined by a path that goes around the ring.
 ---

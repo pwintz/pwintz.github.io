@@ -9,7 +9,7 @@ levels:
   high-school:
     context: sets of real numbers
     text: |-
-      A set $S$ of [real numbers](/definitions/real-number) is _bounded_ if there is a number $M$ with $\abs{x} \leq M$ for every $x \in S$.
+      A set $S$ of [real numbers](/definitions/real-number) is _bounded_ if there is a number $M$ such that $\abs{x} \leq M$ for every $x \in S$.
   undergraduate:
     context: metric spaces
     text: |-

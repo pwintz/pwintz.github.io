@@ -20,5 +20,5 @@ levels:
 properties:
   - |-
     A set has at most one maximum.
-    If the maximum exists, it equals the [supremum](/definitions/supremum).
+    If the maximum exists, then it equals the [supremum](/definitions/supremum).
 ---

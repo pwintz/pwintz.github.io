@@ -9,7 +9,7 @@ levels:
   high-school:
     text: |-
       Consider a [circle](/definitions/circle) or [sphere](/definitions/sphere) $S$.
-      The _diameter_ of $S$ is the length of any line segment through the center of $S$ with both endpoints on the boundary of $S$.
+      The _diameter_ of $S$ is the length of every line segment through the center of $S$ with both endpoints on the boundary of $S$.
   undergraduate:
     context: metric spaces
     text: |-

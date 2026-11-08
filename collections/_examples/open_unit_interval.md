@@ -24,5 +24,7 @@ why:
   bounded: >-
     $(0, 1)$ is bounded.
   compact: >-
-    $(0, 1)$ is not compact, because it is not closed: the sequence $1/n$ has no limit in $(0, 1)$, and it is not finite.
+    $(0, 1)$ is not compact, because it is not closed: the sequence $1/n$ has no limit in $(0, 1)$.
+  finite_set: >-
+    $(0, 1)$ is not finite, because it contains $1/n$ for every $n \geq 2$.
 ---

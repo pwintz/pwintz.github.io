@@ -11,6 +11,6 @@ levels:
       The set $A$ is a _proper subset_ of $B$ if $B$ has at least one thing that $A$ does not.
   high-school:
     text: |-
-      Consider two sets $A$ and $B$ with $A \subseteq B$.
+      Consider two sets $A$ and $B$ such that $A \subseteq B$.
       The set $A$ is a _proper subset_ of $B$ if $A \neq B$, so $B$ has at least one element that is not in $A$.
 ---

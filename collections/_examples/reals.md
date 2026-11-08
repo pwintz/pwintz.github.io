@@ -22,7 +22,11 @@ why:
   hausdorff_dimension: >-
     The Hausdorff dimension of $\reals$ is $1$.
   locally_compact: >-
-    $\reals$ is locally compact because every point has the compact neighborhood $[x - 1, x + 1]$, and it is paracompact because it is a metric space.
+    $\reals$ is locally compact, because every point $x$ has the compact neighborhood $[x - 1, x + 1]$.
   sequentially_compact: >-
-    The set of real numbers, $\reals$, is not compact or sequentially compact, because the sequence $1, 2, 3, \dots$ has no convergent subsequence.
+    The set of real numbers, $\reals$, is not sequentially compact, because the sequence $1, 2, 3, \dots$ has no convergent subsequence.
+  compact: >-
+    The set of real numbers, $\reals$, is not compact, because the sequence $1, 2, 3, \dots$ has no convergent subsequence.
+  paracompact: >-
+    $\reals$ is paracompact, because it is a metric space.
 ---

@@ -1,5 +1,4 @@
 ---
-published: false
 title: Luenberger observer
 term: Luenberger observer
 applies_to: linear systems

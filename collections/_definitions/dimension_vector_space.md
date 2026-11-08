@@ -15,6 +15,6 @@ levels:
       The _dimension_ of the space is the number of coordinates needed to describe a point.
   undergraduate:
     text: |-
-      The _dimension_ of the [vector](/definitions/vector) space $V$ is the minimum number of vectors needed to span $V$, which is also the number of vectors in any [basis](/definitions/vector-basis) of $V$.
+      The _dimension_ of the [vector](/definitions/vector) space $V$ is the minimum number of vectors needed to span $V$, which is also the number of vectors in every [basis](/definitions/vector-basis) of $V$.
 ---
 Other notions of dimension include the dimension of a manifold, the [Hausdorff dimension](/definitions/hausdorff-dimension) of a fractal, and the dimension of a physical quantity.

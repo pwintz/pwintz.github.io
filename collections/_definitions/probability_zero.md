@@ -7,11 +7,11 @@ levels:
   high-school:
     text: |-
       Consider an [event](/definitions/event) in a random experiment.
-      The event has _probability zero_ if its probability is $0$.
+      The event has _probability zero_ if its [probability](/definitions/probability) is $0$.
   undergraduate:
     context: probability
     text: |-
-      Consider a probability space with probability measure $P$, and an [event](/definitions/event) $E$.
+      Consider a probability space with [probability measure](/definitions/probability-measure) $P$, and an [event](/definitions/event) $E$.
       The event $E$ has _probability zero_ if $P(E) = 0$.
 properties:
   - >-

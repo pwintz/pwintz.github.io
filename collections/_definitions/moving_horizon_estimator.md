@@ -13,7 +13,7 @@ levels:
       $$x_{k+1} = f(x_k, u_k) + w_k, \qquad y_k = h(x_k) + v_k,$$
 
       with unknown [disturbances](/definitions/disturbance) $w_k$ and $v_k$, and a horizon length $N$.
-      A _moving horizon estimator_ for this system computes the state estimate $\hat{x}_k$ at each time $k$ by solving an optimization problem over the last $N$ steps: it chooses states $x_{k-N}, \dots, x_k$ that satisfy the model and any known constraints, and that minimize a cost penalizing the disturbances $w_j$, the output errors $y_j - h(x_j)$, and the distance of $x_{k-N}$ from a prior estimate (the _arrival cost_).
+      A _moving horizon estimator_ for this system computes the state estimate $\hat{x}_k$ at each time $k$ by solving an optimization problem over the last $N$ steps: it chooses states $x_{k-N}, \dots, x_k$ that satisfy the model and all known constraints, and that minimize a cost penalizing the disturbances $w_j$, the output errors $y_j - h(x_j)$, and the distance of $x_{k-N}$ from a prior estimate (the _arrival cost_).
       The estimate $\hat{x}_k$ is the final state $x_k$ of the minimizing trajectory.
 properties:
   - >-

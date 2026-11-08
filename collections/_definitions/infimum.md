@@ -22,5 +22,5 @@ properties:
     Every nonempty set of [real numbers](/definitions/real-number) that is [bounded](/definitions/bounded) below has an infimum.
     This is the completeness of $\reals$, and it fails in $\mathbb{Q}$.
   - >-
-    If the infimum of $S$ belongs to $S$, it is the minimum of $S$.
+    If the infimum of $S$ belongs to $S$, then it is the minimum of $S$.
 ---

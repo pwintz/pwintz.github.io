@@ -8,7 +8,7 @@ levels:
     text: |-
       Think of a function as a machine that takes inputs and gives outputs.
       The _domain_ of the function is the set of inputs that it accepts.
-      If a function machine only accepts [whole numbers](/definitions/whole-numbers), its domain is the whole numbers.
+      If a function machine only accepts [whole numbers](/definitions/whole-numbers), then its domain is the whole numbers.
   high-school:
     text: |-
       Consider a function given by a rule, such as a formula.

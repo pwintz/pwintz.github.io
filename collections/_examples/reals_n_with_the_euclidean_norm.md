@@ -7,7 +7,7 @@ why:
   locally_compact: >-
     Every point has a closed ball around it, which is compact.
   inner_product_space: >-
-    $\reals^n$ with the Euclidean norm is an inner product space, and so a normed space and a metric space, because the norm comes from the dot product.
+    $\reals^n$ with the Euclidean norm is an inner product space, because the norm comes from the dot product.
   hilbert_space: >-
     $\reals^n$ with the Euclidean norm is complete, as is every finite-dimensional normed space, so it is a Banach space and a Hilbert space.
 ---

@@ -26,7 +26,7 @@ see_also:
 ## Notes
 
 - Every [uniformly continuous](/definitions/uniformly-continuous) function is [continuous](/definitions/continuous) (as the name suggests), but some continuous functions are not uniformly continuous.
-- Uniform continuity is defined for functions between [metric spaces](/definitions/metric-space) (or, more generally, uniform spaces), whereas continuity is defined for functions between any topological spaces.
+- Uniform continuity is defined for functions between [metric spaces](/definitions/metric-space) (or, more generally, uniform spaces), whereas continuity is defined for functions between all topological spaces.
 - To distinguish continuity from uniform continuity, the former is sometimes called "ordinary continuity" or "pointwise continuity."
 - Uniform continuity is a global property, whereas continuity is a local property.
 - On a [compact](/definitions/compact) domain, every continuous function is uniformly continuous (the Heine–Cantor theorem).

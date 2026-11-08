@@ -8,5 +8,7 @@ why:
   algebraic_number: >-
     $\sqrt{2}$ is an algebraic number, because it solves $x^2 = 2$, or equivalently, it is a root of $x^2 - 2$.
   real_number: >-
-    $\sqrt{2}$ is a real number, and it is irrational, because it is not a ratio of integers.
+    $\sqrt{2}$ is a real number, because it is the length of the diagonal of a unit square.
+  irrational_number: >-
+    $\sqrt{2}$ is irrational, because it is not a ratio of integers.
 ---

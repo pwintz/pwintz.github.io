@@ -15,7 +15,7 @@ values:
   toeplitz_decomposition: '$H = A$, $K = 0$'
 why:
   lu_decomposition: >-
-    In any product $L U$, the top-left entry $0$ would force $L$ or $U$ to be singular, but $A$ is invertible.
+    In every product $L U$, the top-left entry $0$ would force $L$ or $U$ to be singular, but $A$ is invertible.
     Exchanging the rows gives $P A = I = I \cdot I$.
   qr_decomposition: >-
     The matrix is already orthogonal.

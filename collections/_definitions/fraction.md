@@ -12,7 +12,7 @@ levels:
       Fractions can be larger than one whole, such as $\frac{5}{4}$, and the numerator and denominator need not be [whole numbers](/definitions/whole-numbers).
   high-school:
     text: |-
-      Consider two numbers $a$ and $b$, with $b \neq 0$.
+      Consider two numbers $a$ and $b$ such that $b \neq 0$.
       A _fraction_ is an expression of the form $\frac{a}{b}$, with numerator $a$ and denominator $b$, that denotes $a$ divided by $b$.
 ---
 A fraction is a way of _writing_ a number.

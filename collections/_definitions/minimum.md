@@ -20,5 +20,5 @@ levels:
 properties:
   - >-
     A set has at most one minimum.
-    If the minimum exists, it equals the [infimum](/definitions/infimum).
+    If the minimum exists, then it equals the [infimum](/definitions/infimum).
 ---

@@ -8,7 +8,7 @@ summary: >
   The interior of a set is the part well inside it, the [exterior](/definitions/exterior) is the part well outside it, and the boundary is where the two meet.
   Every point of the space is in exactly one of the three.
 relation: >
-  For any set $A$, the space is the disjoint union of $\operatorname{int} A$, $\partial A$, and $\operatorname{ext} A$.
+  For every set $A$, the space is the disjoint union of $\operatorname{int} A$, $\partial A$, and $\operatorname{ext} A$.
 terms:
   - interior
   - exterior

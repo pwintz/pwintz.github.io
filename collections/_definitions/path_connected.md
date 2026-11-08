@@ -13,7 +13,7 @@ levels:
     context: topological spaces
     text: |-
       Consider a topological space $X$, and paths in it: [continuous](/definitions/continuous) maps $\gamma : [0, 1] \to X$.
-      The space $X$ is _path-connected_ if, for any two points $x, y \in X$, there is a path with $\gamma(0) = x$ and $\gamma(1) = y$.
+      The space $X$ is _path-connected_ if, for every two points $x, y \in X$, there is a path such that $\gamma(0) = x$ and $\gamma(1) = y$.
 properties:
   - |-
     Every path-connected space is [connected](/definitions/connected), but not every connected space is path-connected.

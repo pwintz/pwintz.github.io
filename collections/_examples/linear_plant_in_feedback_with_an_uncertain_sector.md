@@ -8,5 +8,7 @@ why:
   routh_hurwitz: >-
     The Routh–Hurwitz and Jury criteria do not apply, because the nonlinearity is uncertain.
   circle_criterion: >-
-    A linear plant in feedback with an uncertain sector-bounded nonlinearity is a Lur'e system, so the circle criterion applies and gives absolute stability, and it is proved with Lyapunov's direct method.
+    The circle criterion applies to a linear plant in feedback with an uncertain sector-bounded nonlinearity, because the loop is a Lur'e system, and it gives absolute stability.
+  lyapunov_direct: >-
+    Lyapunov's direct method applies to a linear plant in feedback with an uncertain sector-bounded nonlinearity, because the circle criterion is proved with a quadratic Lyapunov function.
 ---

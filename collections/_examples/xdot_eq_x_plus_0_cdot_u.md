@@ -7,5 +7,7 @@ why:
   stabilizable: >-
     $\dot{x} = x + 0 \cdot u$ is not stabilizable, because the state grows whatever the input.
   controllable: >-
-    $\dot{x} = x + 0 \cdot u$ is not controllable or reachable, because the input has no effect.
+    $\dot{x} = x + 0 \cdot u$ is not controllable, because the input has no effect.
+  reachable: >-
+    $\dot{x} = x + 0 \cdot u$ is not reachable, because the input has no effect.
 ---
