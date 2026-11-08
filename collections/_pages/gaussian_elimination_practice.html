@@ -69,6 +69,7 @@ date_added: 2026-10-20
   .ge-section-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.2rem; }
   .ge-control { display: inline-flex; align-items: center; gap: 0.4rem; }
   .ge-option-label { min-width: 7.5rem; font-weight: bold; }
+  .ge-level-note { flex: 1 1 14rem; font-size: 0.88em; color: #5f6368; }
   .ge-task-list { display: inline-flex; flex-direction: column; gap: 0.3rem; }
   /* The label lines up with the first checkbox, not the middle of the list. */
   .ge-section-row.ge-tasks { align-items: baseline; }
@@ -384,7 +385,16 @@ date_added: 2026-10-20
       or <strong>Edit</strong> to change any step (the steps after it are redone).
     </p>
     <p>
-      Under <strong>Practice tasks</strong>, choose what to practice: choosing the row operations,
+      Choose a <strong>Level</strong> to practice one skill at a time:
+    </p>
+    <ol>
+      <li>Choose the row operations (the page computes the new rows).</li>
+      <li>Compute the new rows (the page gives each row operation).</li>
+      <li>Choose the row operations and compute the new rows.</li>
+      <li>Do both, and also recognize when the matrix is in RREF.</li>
+    </ol>
+    <p>
+      Or, under <strong>Practice tasks</strong>, choose what to practice: choosing the row operations,
       computing the new rows, or both. If you don't choose the operations, the page gives each one,
       and you compute the new row. With <strong>Recognize when it's in RREF</strong>, the page
       doesn't tell you whether the matrix is in REF or RREF: say so yourself when you think it is
@@ -416,6 +426,16 @@ date_added: 2026-10-20
 
     <section class="ge-section" aria-labelledby="ge-practice-title">
       <h2 id="ge-practice-title" class="ge-section-title">Practice Options</h2>
+      <div class="ge-section-row">
+        <span class="ge-option-label">Level</span>
+        <span class="ge-pills" role="radiogroup" aria-label="Level" aria-describedby="ge-level-note">
+          <label class="ge-pill" title="Choose row operations"><input type="radio" name="ge-level" value="1"><span>1</span></label>
+          <label class="ge-pill" title="Compute row operations"><input type="radio" name="ge-level" value="2"><span>2</span></label>
+          <label class="ge-pill" title="Choose and compute row operations"><input type="radio" name="ge-level" value="3"><span>3</span></label>
+          <label class="ge-pill" title="Choose and compute row operations, and recognize the goal"><input type="radio" name="ge-level" value="4"><span>4</span></label>
+        </span>
+        <span id="ge-level-note" class="ge-level-note"></span>
+      </div>
       <div class="ge-section-row ge-tasks" role="group" aria-labelledby="ge-tasks-label">
         <span id="ge-tasks-label" class="ge-option-label">Practice tasks</span>
         <span class="ge-task-list">

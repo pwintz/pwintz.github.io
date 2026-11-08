@@ -13,6 +13,8 @@
 // When the student doesn't choose, the page gives each step (the standard algorithm's next one).
 // Optionally, the student also has to recognize when the goal is reached: the page doesn't say
 // whether the matrix is in REF or RREF until the student declares it.
+// Four levels set these tasks in order of difficulty (see LEVELS); the checkboxes can also be set
+// directly, and a combination that isn't a level selects no level.
 // When the student computes the new rows, their rows aren't checked automatically: a mistake carries
 // forward, as on paper. "Check" checks a row before it's applied, "Check all steps" checks the
 // rows so far, and "Show" fills a row in; each counts as a hint. Hints come in two
@@ -52,6 +54,15 @@ const MAX_ENTRY = 12;  // Largest entry (in absolute value) in a random matrix
 const MAX_SIZE  = 8;   // Largest matrix a student can type in
 // Whether to offer "Share result" after finishing (see shareBox). Hidden for now.
 const SHOW_SHARE_BUTTON = false;
+
+// The practice tasks of each level, from easiest to hardest, and what the level asks for.
+interface Tasks { choose: boolean; compute: boolean; recognize: boolean }
+const LEVELS: (Tasks & { note: string })[] = [
+  { choose: true,  compute: false, recognize: false, note: "Choose the row operations; the page computes the new rows." },
+  { choose: false, compute: true,  recognize: false, note: "The page gives each row operation; you compute the new row." },
+  { choose: true,  compute: true,  recognize: false, note: "Choose the row operations and compute the new rows." },
+  { choose: true,  compute: true,  recognize: true,  note: "Choose and compute the row operations, and say when the matrix is in {goal}." },
+];
 
 // ⋘──────── Row operations ────────⋙
 
@@ -412,6 +423,8 @@ function initPage(): void {
   const computeBox   = byId<HTMLInputElement>("ge-task-compute");
   const recognizeBox = byId<HTMLInputElement>("ge-task-recognize");
   const recognizeLabel = byId<HTMLSpanElement>("ge-task-recognize-label");
+  const levelButtons = [...document.querySelectorAll<HTMLInputElement>("input[name=ge-level]")];
+  const levelNote    = byId<HTMLSpanElement>("ge-level-note");
   const rowEntry     = byId<HTMLDivElement>("ge-row-entry");
   const rowEntryCells = byId<HTMLDivElement>("ge-row-entry-cells");
   const revealButton = byId<HTMLButtonElement>("ge-reveal");
@@ -1151,6 +1164,9 @@ function initPage(): void {
     recognizeBox.title = chooseOps ? "" : "Needs “Choose row operations”";
     recognizeLabel.textContent = `Recognize when it's in ${goal}`;
     computeBox.disabled = computeRows && !chooseOps;
+    const level = LEVELS.findIndex(l => l.choose === chooseOps && l.compute === computeRows && l.recognize === recognize);
+    levelButtons.forEach((radio, n) => { radio.checked = n === level; });
+    levelNote.textContent = level < 0 ? "Custom practice tasks (not one of the levels)." : LEVELS[level].note.replace("{goal}", goal);
     // When the page chooses the operations, the form shows the next one, locked.
     if (!chooseOps) fillGivenOp();
     for (const control of form.querySelectorAll<HTMLInputElement | HTMLSelectElement>(".ge-kinds input, .ge-fields select, .ge-fields input")) {
@@ -1245,20 +1261,23 @@ function initPage(): void {
     chooseBox.checked = true;
     chooseBox.dispatchEvent(new Event("change"));
   });
-  for (const box of [chooseBox, computeBox, recognizeBox]) {
-    box.addEventListener("change", () => {
-      chooseOps = chooseBox.checked;
-      computeRows = computeBox.checked;
-      if (!chooseOps && !computeRows) chooseOps = true;  // At least one task is on
-      recognize = recognizeBox.checked && chooseOps;
-      notYetAt = "";
-      rowEntryKey = "";
-      clearKind();
-      for (const k of ["replace", "scale"]) multiplier(k).value = "";
-      hintBox.hidden = true;
-      refresh();
-    });
+  function setTasks({ choose, compute, recognize: recognizeGoal }: Tasks): void {
+    chooseOps = choose || !compute;  // At least one task is on
+    computeRows = compute;
+    recognize = recognizeGoal && chooseOps;
+    notYetAt = "";
+    rowEntryKey = "";
+    clearKind();
+    for (const k of ["replace", "scale"]) multiplier(k).value = "";
+    hintBox.hidden = true;
+    refresh();
   }
+  for (const box of [chooseBox, computeBox, recognizeBox]) {
+    box.addEventListener("change", () => setTasks({
+      choose: chooseBox.checked, compute: computeBox.checked, recognize: recognizeBox.checked,
+    }));
+  }
+  levelButtons.forEach((radio, n) => radio.addEventListener("change", () => setTasks(LEVELS[n])));
   revealButton.addEventListener("click", () => {
     const op = formOp();
     if (typeof op === "string" || opProblem(op, start.length) || op.kind === "swap") return;
