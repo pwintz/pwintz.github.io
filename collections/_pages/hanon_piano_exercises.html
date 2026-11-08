@@ -5,7 +5,6 @@ title: Hanon Piano Exercises
 excerpt: "Hanon's piano exercises 1–20 in any key, mode, and practice rhythm, with fingering, playback, and printing."
 tool_categories: [Music]
 date_added: 2025-11-01
-draft: true
 ---
 
 <style>
@@ -132,7 +131,9 @@ draft: true
   /* The notes currently sounding. */
   #hanon-score .hanon-playing { fill: #1a73e8; stroke: #1a73e8; }
   #hanon-score { width: 100%; min-height: 300px; }
-  #hanon-score svg { display: block; overflow: visible; }
+  /* Each line's SVG shows exactly its slice of the page (see renderExercise), so clip to it. Letting
+     the slices overflow onto each other caused stale, half-drawn lines in mobile Chrome. */
+  #hanon-score svg { display: block; overflow: hidden; }
   .hanon-status { color: #c5221f; }
   .hanon-credit { font-size: 0.8em; opacity: 0.8; }
   .hanon-print-credit { display: none; }
