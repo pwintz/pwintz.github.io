@@ -5,10 +5,11 @@ kind: family
 areas: [analysis]
 summary: >
   Several terms describe the "smallest" element of a set or the "best" point for a function.
+  A minimum of a set is an element of the set that is below every element of the set.
   A lower bound is below everything in the set.
+  A [minimizer](/definitions/minimizer) is an input where a function is smallest.
   The [infimum](/definitions/infimum) is the best lower bound, and it is a minimum only if it belongs to the set.
   A [minimal element](/definitions/minimal-element) has nothing below it, which is weaker than being a minimum.
-  A [minimizer](/definitions/minimizer) is an input where a function is smallest.
 terms:
   - minimum
   - lower_bound

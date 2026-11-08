@@ -5,8 +5,8 @@ kind: hierarchy
 areas: [analysis]
 summary: >
   Lipschitz conditions bound the slopes of the lines through pairs of points on the graph of a function.
-  A [Lipschitz continuous](/definitions/lipschitz-continuous) (or _globally_ Lipschitz continuous) function has one bound $L$ that works on the whole domain.
   A [locally Lipschitz continuous](/definitions/locally-lipschitz-continuous) function has a bound near each point, but the bound can grow without limit across the domain, toward infinity or toward a missing boundary point.
+  A [Lipschitz continuous](/definitions/lipschitz-continuous) (or _globally_ Lipschitz continuous) function has one bound $L$ that works on the whole domain.
 relation: Lipschitz continuous ⊂ locally Lipschitz continuous ⊂ continuous
 terms:
   - locally_Lipschitz_continuous

@@ -11,8 +11,8 @@ terms:
   - euclidean_distance
   - taxicab_distance
   - chebyshev_distance
-  - discrete_metric
   - geodesic_distance
+  - discrete_metric
 examples_note: >-
   Each cell is the distance between the two points in that row.
 examples:

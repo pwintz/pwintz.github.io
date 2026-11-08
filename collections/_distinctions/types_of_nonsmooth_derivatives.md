@@ -9,9 +9,9 @@ summary: >
   The [Clarke generalized gradient](/definitions/clarke-generalized-gradient) and the [subdifferential](/definitions/subdifferential) are sets of possible slopes, and a [weak derivative](/definitions/weak-derivative) is defined by integration by parts.
 terms:
   - one_sided_derivative
-  - subdifferential
   - dini_derivative
   - clarke_generalized_gradient
+  - subdifferential
   - weak_derivative
 examples_note: >-
   Each cell is the ___ of the function in that row.

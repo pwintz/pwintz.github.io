@@ -9,9 +9,9 @@ summary: >
   [Regulation](/definitions/regulation) holds an output at a constant [set point](/definitions/set-point) despite [disturbances](/definitions/disturbance).
   [Tracking](/definitions/tracking) makes an output follow a reference that changes over time.
 terms:
+  - stabilization
   - regulation
   - tracking
-  - stabilization
 examples:
   - example: balancing_an_inverted_pendulum_upright
   - example: cruise_control_holding_100_km_h_on_hilly_roads

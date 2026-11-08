@@ -10,9 +10,9 @@ summary: >
   [Little o](/definitions/little-o) means "negligible in comparison," and asymptotic equivalence means "the ratio tends to $1$," which is stronger than big Theta.
 terms:
   - big_O
-  - little_o
-  - big_Theta
   - big_Omega
+  - big_Theta
+  - little_o
   - asymptotically_equivalent
 examples_note: >-
   In each row, $f$ is compared with $g$ as $x \to \infty$.

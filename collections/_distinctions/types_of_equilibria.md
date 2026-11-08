@@ -8,7 +8,7 @@ summary: >
   An [equilibrium](/definitions/equilibrium) is a state where the system stays put.
   In discrete time it is a [fixed point](/definitions/fixed-point) of the update map, but in [continuous](/definitions/continuous) time it is a zero of the vector field.
   A [steady state](/definitions/steady-state) is what the system settles into, which need not be an equilibrium.
-  An [operating point](/definitions/operating-point) pairs an equilibrium with its input, and a [set point](/definitions/set-point) is a target.
+  A [set point](/definitions/set-point) is a target, and an [operating point](/definitions/operating-point) pairs an equilibrium with its input.
 terms:
   - equilibrium
   - fixed_point

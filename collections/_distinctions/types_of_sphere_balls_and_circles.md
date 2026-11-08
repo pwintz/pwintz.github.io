@@ -5,9 +5,9 @@ kind: family
 areas: [geometry, topology]
 summary: >
   Round shapes have names that distinguish the surface from the solid and count the dimension.
-  A [sphere](/definitions/sphere) is hollow and a [ball](/definitions/ball) is solid.
   A [circle](/definitions/circle) is a sphere in the plane.
-  A [closed ball](/definitions/closed-ball) includes its bounding sphere, and an [open ball](/definitions/open-ball) does not.
+  A [sphere](/definitions/sphere) is hollow and a [ball](/definitions/ball) is solid.
+  An [open ball](/definitions/open-ball) excludes its bounding sphere, and a [closed ball](/definitions/closed-ball) includes its bounding sphere.
   In [topology](/definitions/topology), every shape that can be continuously deformed into a sphere counts as a [topological sphere](/definitions/sphere-topological).
 terms:
   - circle

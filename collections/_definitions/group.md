@@ -1,26 +1,26 @@
 ---
-published: false
 title: Group
 term: group
 applies_to: algebraic structures
 levels:
-  high-school:
-    text: |-
-      Consider a set with a way of combining two of its elements, like adding numbers.
-      The set is a _group_ if
-
-      1. its way of combining is associative,
-      2. it has an element that changes nothing, and
-      3. every element can be undone.
+# TODO: A high school level explanation may be possible but it is tricky to say things clearly without having too much notation or terminology. 
+  # high-school:
+#     text: |-
+#       Consider a set with an operator "+" for combining two of its elements, like addition "$+$" for [real numbers](/definitions/real-number).
+#       The set is a _group_ 
+# 
+#       1. "+" is [associative](/definitions/associative),
+#       2. There is an element of the set such  has an element that changes nothing, and
+#       3. every element can be undone.
   undergraduate:
     context: abstract algebra
     text: |-
       Consider a set $G$ with a [binary operation](/definitions/binary-operation) $\ast$.
       The set $G$ is a _group_ if
 
-      1. $\ast$ is associative: $(a \ast b) \ast c = a \ast (b \ast c)$ for all $a, b, c \in G$,
+      1. $\ast$ is [associative](/definitions/associative): $(a \ast b) \ast c = a \ast (b \ast c)$ for all $a, b, c \in G$,
       2. $G$ has an [identity element](/definitions/identity-element) $e$ such that $e \ast g = g \ast e = g$ for all $g \in G$, and
-      3. every element $g \in G$ has an inverse $g^{-1}$ such that $g \ast g^{-1} = g^{-1} \ast g = e$.
+      3. every element $g \in G$ has an [inverse](/definitions/inverse-element) $g^{-1}$ such that $g \ast g^{-1} = g^{-1} \ast g = e$.
 properties:
   - >-
     The [identity element](/definitions/identity-element) of a group is unique, and so is the inverse of each element.

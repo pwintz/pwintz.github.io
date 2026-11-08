@@ -5,7 +5,7 @@ kind: siblings
 areas: [control, linear-algebra]
 summary: >
   A linear system can be described by its state matrices or by its transfer function, and each description has its own special numbers.
-  The [poles](/definitions/pole) of a transfer function are the [eigenvalues](/definitions/eigenvalue) of the state matrix only for a minimal realization.
+  The [eigenvalues](/definitions/eigenvalue) of the state matrix are the [poles](/definitions/pole) of the transfer function only for a minimal realization.
   Canceled modes are eigenvalues but not poles, and they can hide an internal instability.
   Zeros are where the transfer function vanishes.
 terms:

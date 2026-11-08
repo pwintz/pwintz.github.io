@@ -11,10 +11,10 @@ terms:
   - plu_decomposition
   - cholesky_decomposition
   - qr_decomposition
+  - singular_value_decomposition
   - eigendecomposition
   - schur_decomposition
   - jordan_normal_form
-  - singular_value_decomposition
   - jordan_chevalley_decomposition
   - toeplitz_decomposition
 examples_note: >-

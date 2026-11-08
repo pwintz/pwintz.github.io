@@ -9,10 +9,10 @@ summary: >
   An [attractive](/definitions/attractive) set draws in all nearby solutions, and an [attractor](/definitions/attractor) is a [compact](/definitions/compact) invariant set that does.
   A [limit cycle](/definitions/limit-cycle) is an isolated [periodic](/definitions/periodic) orbit, which may attract or repel.
 terms:
+  - omega_limit_set
   - attractive
   - attractor
   - limit_cycle
-  - omega_limit_set
 examples:
   - example: the_origin_for_xdot_eq_minus_x
   - example: the_limit_cycle_of_the_van_der_pol_oscillator

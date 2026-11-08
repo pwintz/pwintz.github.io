@@ -15,7 +15,7 @@ levels:
     # so $a_{ij} = a_{ji}$. A _skew-symmetric_ matrix has $A^{\top} = -A$.
 properties:
   - >-
-    A real symmetric matrix has real [eigenvalues](/definitions/eigenvalue) and an orthonormal [basis](/definitions/vector-basis) of [eigenvectors](/definitions/eigenvector) (the spectral theorem), so $A = Q \Lambda Q^{\top}$ with $Q$ orthogonal and $\Lambda$ diagonal.
+    A real symmetric matrix has real [eigenvalues](/definitions/eigenvalue) and an [orthonormal](/definitions/orthonormal) [basis](/definitions/vector-basis) of [eigenvectors](/definitions/eigenvector) (the spectral theorem), so $A = Q \Lambda Q^{\top}$ with $Q$ orthogonal and $\Lambda$ diagonal.
   - |-
     Every square [matrix](/definitions/matrix) is the sum of a symmetric matrix and a [skew-symmetric matrix](/definitions/skew-symmetric-matrix), called its [Toeplitz decomposition](/definitions/toeplitz-decomposition):
 

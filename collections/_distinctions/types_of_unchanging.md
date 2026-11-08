@@ -6,9 +6,10 @@ areas: [language]
 summary: >
   Several terms describe something that stays the same, each in a different sense.
   A constant function has one value everywhere.
+  A [fixed point](/definitions/fixed-point) is a single input that a function leaves alone.
   An invariant quantity is unchanged by a particular transformation, but may differ from place to place.
+  [Idempotent](/definitions/idempotent) functions do nothing more the second time.
   "Uniform" means the same bounds work everywhere.
-  [Idempotent](/definitions/idempotent) functions do nothing more the second time, and a [fixed point](/definitions/fixed-point) is a single input that a function leaves alone.
 terms:
   - constant_function
   - fixed_point

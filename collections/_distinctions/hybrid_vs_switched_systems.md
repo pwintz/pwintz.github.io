@@ -5,8 +5,8 @@ kind: family
 areas: [dynamics, control]
 summary: >
   Some dynamical systems combine [continuous](/definitions/continuous) change with discrete events, and they are modeled in several ways.
-  A [hybrid system](/definitions/hybrid-system) has states that both flow and jump.
-  A [switched system](/definitions/switched-system) is a special case whose continuous state never jumps; only the active mode changes.
+  A [switched system](/definitions/switched-system) has a continuous state that flows and never jumps; only the active mode changes.
+  A [hybrid system](/definitions/hybrid-system) has states that both flow and jump, so a switched system is a special case of a hybrid system.
   A [hybrid automaton](/definitions/hybrid-automaton) is a way of modeling a hybrid system as a graph of modes.
 relation: switched systems ⊂ hybrid systems
 terms:

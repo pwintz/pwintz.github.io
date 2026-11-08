@@ -23,7 +23,7 @@ examples:
   - example: zero_derivative_means_constant
   - example: claim_sequence_is_bounded
 see_also:
-  - predicate_vs_proposition
+  - proposition_vs_predicate
   - axiom_vs_postulate_vs_assumption
   - hypothesis_vs_theory
 ---

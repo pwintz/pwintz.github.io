@@ -8,9 +8,9 @@ summary: >
   Neither implies the other.
   An [event](/definitions/event) of [probability zero](/definitions/probability-zero) is a set of measure zero for a [probability measure](/definitions/probability-measure).
 terms:
-  - measure_zero
   - nowhere_dense
   - meager_set
+  - measure_zero
   - probability_zero
 examples:
   - example: the_cantor_set

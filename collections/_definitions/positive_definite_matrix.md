@@ -1,6 +1,6 @@
 ---
 title: Positive definite matrix
-term: positive definite
+term: positive definite matrix
 applies_to: symmetric matrices
 levels:
   undergraduate:
@@ -20,4 +20,5 @@ properties:
 ---
 Some authors do not require $A$ to be symmetric.
 Then $x^{\top} A x > 0$ depends only on the symmetric part $\frac{1}{2}(A + A^{\top})$, so, for example, a rotation by less than $90°$ counts as positive definite.
+
 For complex matrices, $A$ is required to be Hermitian, and $x^{\top}$ is replaced by the conjugate transpose $x^{\ast}$.

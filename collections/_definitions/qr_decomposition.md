@@ -7,7 +7,7 @@ levels:
   undergraduate:
     text: |-
       Consider an $m \times n$ [matrix](/definitions/matrix) $A$.
-      A _QR decomposition_ of $A$ is a factorization $A = Q R$, where the columns of $Q$ are orthonormal and $R$ is upper triangular.
+      A _QR decomposition_ of $A$ is a factorization $A = Q R$, where the columns of $Q$ are [orthonormal](/definitions/orthonormal) and $R$ is upper triangular.
 properties:
   - |-
     Every matrix has a QR decomposition.

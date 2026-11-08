@@ -43,7 +43,7 @@ AMBIGUOUS = {
     "complete", "equivalent", "congruent", "isomorphic", "identified", "trace", "span", "kernel",
     "transpose", "pivot", "coefficient", "ratio", "fraction", "minimum", "maximum", "lower bound",
     "linear", "differential", "normal", "shape", "unit", "grid", "partition", "target", "smooth",
-    "event", "outcome", "sample point",
+    "event", "outcome", "sample point", "orthogonal", "perpendicular", "object", "objects", "interpretation", "interpretations", "interpreted",
     "element of", "maximal", "separated", "number of elements", "number of axes", "sentence",
 }
 

@@ -17,5 +17,5 @@ properties:
   - >-
     Its [norm](/definitions/norm) $\norm{f} = \sqrt{\int_a^b f(t)^2 \mathrm{d}t}$ measures the size of $f$ on average, and two functions that differ only at finitely many points have distance $0$.
   - >-
-    The functions $\sin(k t)$ for $k = 1, 2, \dots$ are orthogonal in the $L^2$ [inner product](/definitions/inner-product) on $[0, 2\pi]$, which is the [basis](/definitions/vector-basis) of Fourier series.
+    The functions $\sin(k t)$ for $k = 1, 2, \dots$ are [orthogonal](/definitions/orthogonal-vectors) in the $L^2$ [inner product](/definitions/inner-product) on $[0, 2\pi]$, which is the [basis](/definitions/vector-basis) of Fourier series.
 ---

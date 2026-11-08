@@ -6,9 +6,9 @@ areas: [dynamics, control]
 summary: >
   For a dynamical system with a set of states, there are several ways to say that solutions stay in the set or avoid danger.
   A [forward invariant](/definitions/forward-invariant) set traps every solution that starts in it.
-  A [controlled invariant](/definitions/controlled-invariant) set can be made to trap solutions by choosing inputs.
-  An [admissible set](/definitions/admissible-set) only satisfies the constraints now.
   Safety means solutions from the initial set never reach the unsafe set, which does not require the initial set to be invariant.
+  An [admissible set](/definitions/admissible-set) only satisfies the constraints now.
+  A [controlled invariant](/definitions/controlled-invariant) set can be made to trap solutions by choosing inputs.
 terms:
   - forward_invariant
   - safe

@@ -12,9 +12,9 @@ levels:
       $$Q^{\top} Q = Q Q^{\top} = I.$$
 properties:
   - >-
-    A matrix is orthogonal if and only if its columns are unit vectors that are perpendicular to each other (an orthonormal [basis](/definitions/vector-basis)).
+    A matrix is orthogonal if and only if its columns are [unit vectors](/definitions/unit-vector) that are perpendicular to each other (an [orthonormal](/definitions/orthonormal) [basis](/definitions/vector-basis)).
   - >-
     Orthogonal matrices preserve lengths and angles: $\norm{Q x} = \norm{x}$.
     They are the rotations and reflections, and $\det Q = \pm 1$.
 ---
-The name is a historical accident: the columns of an orthogonal matrix are orthonormal, not just orthogonal.
+The name is a historical accident: the columns of an orthogonal matrix are [orthonormal](/definitions/orthonormal), not just orthogonal.

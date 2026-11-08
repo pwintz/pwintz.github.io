@@ -1,5 +1,4 @@
 ---
-published: false
 title: '$=$, $<$, and $\subseteq$'
 level: high-school
 is: [relation]

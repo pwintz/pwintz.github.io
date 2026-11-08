@@ -1,5 +1,4 @@
 ---
-published: false
 title: Zero vector
 term: zero vector
 applies_to: vector spaces
@@ -9,7 +8,7 @@ levels:
     text: |-
       Think of [vectors](/definitions/vector) as arrows, which can be long or short.
       The _zero vector_ is the arrow with length zero.
-      It does not point in any direction.
+      It does not point in any direction and adding it using the tip-to-tail rule does not change the vector it is added to.
   high-school:
     text: |-
       The _zero vector_ is the [vector](/definitions/vector) whose components are all zero.

@@ -4,8 +4,8 @@ kind: siblings
 areas: [linear-algebra]
 summary: >
   Eigenvalues and singular values both describe how a matrix stretches vectors, but they agree only for special matrices.
-  An eigenvalue of a square matrix $A$ is a factor $\lambda$ by which $A$ scales a particular nonzero vector $x$, called a eigenvalue: $Ax = \lambda x$.
-  A singular value of a matrix $A$, square or not, is a factor $\sigma$ by which $A$ stretches vectors along some direction, allowing it them turn.
+  An eigenvalue of a square matrix $A$ is a factor $\lambda$ by which $A$ scales a particular nonzero vector $x$, called an eigenvector: $Ax = \lambda x$.
+  A singular value of a matrix $A$, square or not, is a factor $\sigma$ by which $A$ stretches vectors along some direction, allowing them to turn.
   [Singular values](/definitions/singular-value) are real and nonnegative, but [eigenvalues](/definitions/eigenvalue) can be negative or complex.
 # Singular values are the square roots of the eigenvalues of $A^{\top} A$.D
 # An eigenvalue of a square matrix $A$ is a factor by which $A$ stretches some nonzero vector without turning it off its line.
