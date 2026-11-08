@@ -12,7 +12,7 @@ levels:
       It describes where the solution ends up.
 properties:
   - >-
-    If the solution starting at $x$ is [bounded](/definitions/bounded), its ω-limit set is nonempty, [compact](/definitions/compact), connected, and invariant, and the solution converges to it.
+    If the solution starting at $x$ is [bounded](/definitions/bounded), its ω-limit set is nonempty, [compact](/definitions/compact), [connected](/definitions/connected), and invariant, and the solution converges to it.
   - >-
     The α-limit set is defined the same way, with $t_n \to -\infty$.
 ---

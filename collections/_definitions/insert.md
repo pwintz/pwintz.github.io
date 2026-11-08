@@ -13,6 +13,6 @@ levels:
     text: |-
       Consider a collection, such as a set or a list, and an element $x$.
       To _insert_ $x$ into the collection is to add it.
-      Inserting $x$ into a set $S$ gives $S \cup \lbrace x \rbrace$.
+      Inserting $x$ into a set $S$ gives $S \cup \setdef{x}$.
       Inserting $x$ into a list at position $i$ places it there and shifts the later elements back by one.
 ---

@@ -12,12 +12,12 @@ levels:
   undergraduate:
     text: |-
       Consider a set $S$.
-      The set $S$ is _countable_ if $S$ is [finite](/definitions/finite-set) or [countably infinite](/definitions/countably-infinite): equivalently, if there is an injective map from $S$ to $\mathbb{N}$.
+      The set $S$ is _countable_ if $S$ is [finite](/definitions/finite-set) or [countably infinite](/definitions/countably-infinite): equivalently, if there is an [injective](/definitions/injective) map from $S$ to $\nats$.
 properties:
   - |-
     Every [subset](/definitions/subset) of a countable set is countable.
   - |-
-    A countable union of countable sets is countable (assuming the axiom of countable choice), so $\mathbb{Z}$ and $\mathbb{Q}$ are countable.
+    A countable [union](/definitions/set-union) of countable sets is countable (assuming the axiom of countable choice), so $\mathbb{Z}$ and $\mathbb{Q}$ are countable.
 ---
 "Countable" is ambiguous: some authors use it to mean [countably infinite](/definitions/countably-infinite), excluding finite sets.
 When it matters, say "finite or countably infinite" or "at most countable."

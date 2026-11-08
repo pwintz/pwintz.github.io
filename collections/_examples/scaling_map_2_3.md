@@ -8,4 +8,7 @@ values:
 why:
   jacobian_determinant: >-
     A $1 \times 1$ square becomes a $2 \times 3$ rectangle, so every area is multiplied by $6$.
+  jacobian: >-
+    The Jacobian matrix of $f$ is diagonal, with the stretch factors $2$ and $3$.
+    Its determinant, $6$, is the factor by which $f$ multiplies areas.
 ---

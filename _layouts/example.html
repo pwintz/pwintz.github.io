@@ -17,6 +17,8 @@ layout: single
     values:      (Optional) For worked examples, a map from definition slugs to the term's value for this example,
                  e.g., "image: '$[0, \infty)$'".
     why:         (Optional) A map from definition slugs to the reason for the verdict or value.
+    detail:      (Optional) The full object or statement, when it is too large for the title, in Markdown.
+                 Shown below the title, here and in the by-example layout of distinctions. A matrix goes in a $$...$$ paragraph.
   The Markdown body is for a longer discussion.
 {% endcomment %}
 {% assign level = site.data.definition_levels | where: "id", page.level | first %}
@@ -24,6 +26,10 @@ layout: single
   <p class="distinction__meta">
     Example{% if level %} · <a href="{{ '/examples/' | relative_url }}?level={{ level.id }}" title="Examples up to this level">{{ level.name }}</a>{% endif %}
   </p>
+
+  {% if page.detail %}
+    <div class="example__detail">{{ page.detail | markdownify }}</div>
+  {% endif %}
 
   {% include example-definition-link.html example=page full=true %}
 

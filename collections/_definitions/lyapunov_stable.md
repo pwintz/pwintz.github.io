@@ -16,6 +16,8 @@ levels:
   undergraduate:
     text: |-
       Consider a system $\dot{x} = f(x)$ with an [equilibrium](/definitions/equilibrium) $x^{\ast}$.
-      The equilibrium is _stable_ if for every $\varepsilon > 0$ there is $\delta > 0$ such that $\lVert x(0) - x^{\ast} \rVert < \delta$ implies $\lVert x(t) - x^{\ast} \rVert < \varepsilon$ for all $t \geq 0$.
+      The equilibrium is _stable_ if for every $\varepsilon > 0$ there is $\delta > 0$ such that
+
+      $$\norm{x(0) - x^{\ast}} < \delta \implies \norm{x(t) - x^{\ast}} < \varepsilon \quad \text{for all } t \geq 0.$$
 ---
 Stability does not require solutions to converge to the [equilibrium](/definitions/equilibrium).

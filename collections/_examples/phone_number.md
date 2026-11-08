@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'A phone number'
 level: elementary
 is: [nominal_number]

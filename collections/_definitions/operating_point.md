@@ -12,5 +12,7 @@ levels:
   undergraduate:
     text: |-
       Consider a system $\dot{x} = f(x, u)$, which is to be linearized and designed to operate around some state.
-      An _operating point_ of the system is a pair $(x^{\ast}, u^{\ast})$ of a state and a constant input with $f(x^{\ast}, u^{\ast}) = 0$.
+      An _operating point_ of the system is a pair $(x^{\ast}, u^{\ast})$ of a state and a constant input with
+
+      $$f(x^{\ast}, u^{\ast}) = 0.$$
 ---

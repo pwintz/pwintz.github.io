@@ -3,7 +3,6 @@ published: false
 title: Parts of an expression
 kind: siblings
 areas: [language]
-status: draft
 summary: >
   The parts of an algebraic expression have names that depend on how they are combined.
   Terms are added and factors are multiplied.
@@ -15,20 +14,9 @@ terms:
   - expression
 examples:
   - example: 3x_squared_in_3x_squared_minus_5x_plus_2
-    why: >-
-      $3x^2$ is a term of $3x^2 - 5x + 2$ because it is one of the parts being added, and it is an expression.
-      It is not a factor, because $3x^2 - 5x + 2$ is not a product with $3x^2$ as one of its parts.
   - example: x_plus_1_in_3x_x_plus_1
-    why: >-
-      $x + 1$ is a factor of $3x(x + 1)$ because it is one of the parts being multiplied, and it is an expression.
-      It is not a term of $3x(x + 1)$, because $3x(x + 1)$ is not a sum.
   - example: minus_5_in_minus_5x
-    why: >-
-      $-5$ is a factor of $-5x$, and it is the coefficient because it is the constant factor of the term.
   - example: x_in_x_plus_1
-    why: >-
-      $x$ is a term of $x + 1$ because it is one of the parts being added.
-      It is not a factor, because inside $x + 1$, the variable $x$ is added, not multiplied.
 see_also:
   - equal_signs
 ---

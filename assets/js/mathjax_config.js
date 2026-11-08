@@ -24,6 +24,9 @@ MathJax = {
             suchthat: "\\mathrel{}\\middle|\\mathrel{}",
             // Norm, as in "\norm{x}". The bars do not grow; use \left\lVert ... \right\rVert for tall contents.
             norm: ["\\lVert #1 \\rVert", 1],
+            // Absolute value, as in "\abs{x}", and inner product, as in "\ip{x}{y}". The delimiters do not grow.
+            abs: ["\\lvert #1 \\rvert", 1],
+            ip: ["\\langle #1, #2 \\rangle", 2],
             // reals: "{\\mathbb{R}}",
         }
     }

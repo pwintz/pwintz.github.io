@@ -14,7 +14,7 @@ levels:
       In estimation, a _filter_ computes an estimate of the current state $x(t)$ from the measurements up to time $t$.
 properties:
   - >-
-    The Kalman filter is the optimal (minimum mean-square error) filter for linear systems with Gaussian noise.
+    The [Kalman filter](/definitions/kalman-filter) is the optimal (minimum mean-square error) filter for linear systems with Gaussian noise.
 ---
 In signal processing, a _filter_ is a system that shapes the frequency content of a signal, such as a low-pass filter.
 Such a filter is not a state [estimator](/definitions/estimator).

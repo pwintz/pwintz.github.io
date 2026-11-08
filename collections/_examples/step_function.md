@@ -12,4 +12,6 @@ why:
     $x_n = -1/n \to 0$, but $f(x_n) = 0$ does not approach $f(0) = 1$.
   limit_of_function: >-
     The left and right limits differ.
+  right_limit: >-
+    The step function jumps at $0$, so its left limit is $0$ and its right limit is $1$.
 ---

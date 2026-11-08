@@ -6,7 +6,7 @@ levels:
   elementary:
     text: |-
       A _set_ is a collection of different objects, called its elements.
-      Order and repetition do not matter: $\lbrace 1, 2 \rbrace$, $\lbrace 2, 1 \rbrace$, and $\lbrace 1, 1, 2 \rbrace$ are the same set.
+      Order and repetition do not matter: $\setdef{1, 2}$, $\setdef{2, 1}$, and $\setdef{1, 1, 2}$ are the same set.
   graduate:
     context: axiomatic set theory
     text: |-

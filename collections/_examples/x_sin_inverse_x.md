@@ -8,4 +8,6 @@ values:
 why:
   dini_derivative: >-
     The difference quotient $\frac{f(h) - f(0)}{h} = \sin(1/h)$ oscillates, so the one-sided derivatives do not exist, but its limit superior and limit inferior do.
+  one_sided_derivative: >-
+    The difference quotient $\frac{f(h) - f(0)}{h} = \sin(1/h)$ oscillates between $-1$ and $1$, so the one-sided derivatives at $0$ do not exist.
 ---

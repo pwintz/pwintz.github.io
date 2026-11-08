@@ -1,5 +1,4 @@
 ---
-published: false
 title: '$x^2 - 1$'
 level: high-school
 is: [polynomial, expression]
@@ -10,4 +9,7 @@ why:
   polynomial_function: >-
     $x^2 - 1$ is not a polynomial function, because it is an expression.
     It defines a function only once we say what $x$ ranges over.
+  polynomial: >-
+    $x^2 - 1$ is a polynomial: a formal expression with the coefficients $1$, $0$, and $-1$.
+    It is not an equation, because it has no equal sign, and it is not a function until it is given a domain.
 ---

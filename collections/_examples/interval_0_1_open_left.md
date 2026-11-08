@@ -10,4 +10,6 @@ values:
 why:
   minimum: >-
     The infimum $0$ is not in the set.
+  supremum: >-
+    The maximum of $(0, 1]$ is $1$, which equals the supremum.
 ---

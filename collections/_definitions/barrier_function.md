@@ -8,11 +8,15 @@ levels:
   graduate:
     text: |-
       Consider a system $\dot{x} = f(x)$ and a set $C = \setdef{x \suchthat h(x) \geq 0}$ that should remain safe.
-      A (zeroing) _barrier function_ for the system and $C$ is a [continuously differentiable](/definitions/continuously-differentiable) function $h$ such that $\nabla h(x) \cdot f(x) \geq -\alpha(h(x))$ for all $x$, for some extended class-$\mathcal{K}$ function $\alpha$ ([continuous](/definitions/continuous) and strictly increasing, with $\alpha(0) = 0$).
+      A (zeroing) _barrier function_ for the system and $C$ is a [continuously differentiable](/definitions/continuously-differentiable) function $h$ such that
+
+      $$\nabla h(x) \cdot f(x) \geq -\alpha(h(x)) \quad \text{for all } x,$$
+
+      for some extended class-$\mathcal{K}$ function $\alpha$ ([continuous](/definitions/continuous) and strictly increasing, with $\alpha(0) = 0$).
 properties:
   - >-
     If $h$ is a barrier function and solutions are unique, then $C$ is [forward invariant](/definitions/forward-invariant).
 ---
-[Barrier certificates](/definitions/barrier-certificate) and barrier functions use opposite sign conventions: the safe region is $\lbrace B \leq 0 \rbrace$ for a barrier certificate and $\lbrace h \geq 0 \rbrace$ for a barrier function.
+[Barrier certificates](/definitions/barrier-certificate) and barrier functions use opposite sign conventions: the safe region is $\setdef{B \leq 0}$ for a barrier certificate and $\setdef{h \geq 0}$ for a barrier function.
 Older _reciprocal_ barrier functions instead tend to infinity at the [boundary](/definitions/boundary) of $C$.
 In optimization, a [barrier function](/definitions/barrier-function-optimization) is something else.

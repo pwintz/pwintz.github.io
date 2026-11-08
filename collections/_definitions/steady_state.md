@@ -15,5 +15,5 @@ levels:
       The _steady-state response_ of a stable system to an input is what remains of its response as $t \to \infty$, after the transient response (which depends on the initial state) decays.
 properties:
   - >-
-    For a stable linear [time-invariant](/definitions/time-invariant) system with transfer function $G(s)$, the steady-state response to $\sin(\omega t)$ is $\lvert G(i \omega) \rvert \sin(\omega t + \angle G(i \omega))$.
+    For a stable linear [time-invariant](/definitions/time-invariant) system with transfer function $G(s)$, the steady-state response to $\sin(\omega t)$ is $\abs{G(i \omega)} \sin(\omega t + \angle G(i \omega))$.
 ---

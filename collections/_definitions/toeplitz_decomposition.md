@@ -12,7 +12,7 @@ levels:
 
       $$A = H + K$$ 
 
-      where $H$ is a [symmetric matrix](/definitions/symmetric-matrix) and a $K$ is skew-symmetric.
+      where $H$ is a [symmetric matrix](/definitions/symmetric-matrix) and a $K$ is [skew-symmetric](/definitions/skew-symmetric-matrix).
 #   graduate:
 #     context: complex matrices
 #     text: |-
@@ -44,4 +44,4 @@ properties:
 ---
 <!-- The Toeplitz decomposition is the matrix version of writing a complex number as $z = x + i y$ with $x$ and $y$ real: $H$ and $K$ play the roles of the real and imaginary parts, and Hermitian matrices play the role of real numbers. -->
 
-Do not confuse the Toeplitz decomposition (named after Otto Toeplitz) with decompositions _of_ Toeplitz matrices, such as the Vandermonde decomposition of a positive semidefinite Toeplitz matrix.
+Do not confuse the Toeplitz decomposition (named after Otto Toeplitz) with decompositions _of_ Toeplitz matrices, such as the Vandermonde decomposition of a [positive semidefinite](/definitions/positive-semidefinite-matrix) Toeplitz matrix.

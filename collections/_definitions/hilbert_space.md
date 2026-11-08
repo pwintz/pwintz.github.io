@@ -6,7 +6,7 @@ applies_to: spaces
 levels:
   graduate:
     text: |-
-      Consider an [inner product space](/definitions/inner-product-space), with the [norm](/definitions/norm) that its inner product defines.
+      Consider an [inner product space](/definitions/inner-product-space), with the [norm](/definitions/norm) that its [inner product](/definitions/inner-product) defines.
       The space is a _Hilbert space_ if it is complete with respect to that norm.
 properties:
   - >-

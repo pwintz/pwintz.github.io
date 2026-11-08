@@ -18,5 +18,5 @@ properties:
   - |-
     Every path-connected space is [connected](/definitions/connected), but not every connected space is path-connected.
   - |-
-    An open subset of $\reals^n$ is path-connected if and only if it is connected.
+    An open [subset](/definitions/subset) of $\reals^n$ is path-connected if and only if it is [connected](/definitions/connected).
 ---

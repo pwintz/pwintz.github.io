@@ -7,7 +7,7 @@ synonyms: [equilibrium point, rest point, stationary point]
 levels:
   elementary:
     text: |-
-      Think of a system that changes over time, like a ball rolling around in a bowl.
+      Think of a system that changes over time, like a [ball](/definitions/ball) rolling around in a bowl.
       An _equilibrium_ is a state in which the system stays put.
   high-school:
     text: |-
@@ -16,7 +16,9 @@ levels:
   undergraduate:
     text: |-
       Consider a system $\dot{x} = f(x)$ or $x_{k+1} = f(x_k)$.
-      An _equilibrium_ of $\dot{x} = f(x)$ is a state $x^{\ast}$ with $f(x^{\ast}) = 0$.
+      An _equilibrium_ of $\dot{x} = f(x)$ is a state $x^{\ast}$ with
+
+      $$f(x^{\ast}) = 0.$$
       An equilibrium of $x_{k+1} = f(x_k)$ is a state $x^{\ast}$ with $f(x^{\ast}) = x^{\ast}$.
 properties:
   - >-

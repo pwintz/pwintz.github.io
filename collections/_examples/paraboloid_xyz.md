@@ -1,5 +1,4 @@
 ---
-published: false
 title: '$f(x, y, z) = x^2 + y^2$'
 level: undergraduate
 values:
@@ -9,4 +8,8 @@ values:
 why:
   laplacian: >-
     The sum of the second partial derivatives with respect to $x$, $y$, and $z$.
+  jacobian: >-
+    The Laplacian of $f$ is the sum of its second partial derivatives, $2 + 2 + 0 = 4$, and its Jacobian is the row of its first partial derivatives.
+  divergence: >-
+    Divergence or curl are undefined for $f$ because those apply to vector fields, not to scalar functions such as $f$.
 ---

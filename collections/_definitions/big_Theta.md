@@ -12,5 +12,7 @@ levels:
   undergraduate:
     text: |-
       Consider two functions $f$ and $g$.
-      We write $f(x) = \Theta(g(x))$, read "$f$ is _big Theta_ of $g$," if $f = O(g)$ and $f = \Omega(g)$: for large $x$, $c \lvert g(x) \rvert \leq \lvert f(x) \rvert \leq C \lvert g(x) \rvert$ for some constants $0 < c \leq C$.
+      We write $f(x) = \Theta(g(x))$, read "$f$ is _big Theta_ of $g$," if $f = O(g)$ and $f = \Omega(g)$: for some constants $0 < c \leq C$ and all large $x$,
+
+      $$c \abs{g(x)} \leq \abs{f(x)} \leq C \abs{g(x)}.$$
 ---

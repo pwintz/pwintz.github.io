@@ -9,4 +9,6 @@ values:
 why:
   limit_of_function: >-
     $f(0)$ is undefined, but the limit exists anyway.
+  right_limit: >-
+    $\frac{\sin x}{x}$ approaches $1$ from both sides of $0$, so the left limit, the right limit, and the limit are all $1$, even though $f(0)$ is undefined.
 ---

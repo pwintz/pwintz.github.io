@@ -23,6 +23,6 @@ properties:
   - >-
     The number of particles needed for a good approximation typically grows rapidly with the dimension of the state.
 ---
-The state estimate is usually the weighted average of the particles, $\hat{x}_k = \sum_i \omega_k^i x_k^i$.
+The state estimate is usually the [weighted average](/definitions/weighted-average) of the particles, $\hat{x}_k = \sum_i \omega_k^i x_k^i$.
 
 The version described here, which draws particles from the model, is called the _bootstrap_ particle filter.

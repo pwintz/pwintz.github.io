@@ -3,12 +3,11 @@ published: false
 title: Types of derivatives
 kind: siblings
 areas: [analysis]
-status: draft
 summary: >
   Functions of one and of several variables have different kinds of derivatives.
-  An ordinary derivative is for a function of one variable.
+  An [ordinary derivative](/definitions/ordinary-derivative) is for a function of one variable.
   A partial derivative varies one of several variables while holding the others fixed.
-  The differential packages all of the partial derivatives into a single linear map.
+  The differential packages all of the [partial derivatives](/definitions/partial-derivative) into a single [linear map](/definitions/linear-map).
 terms:
   - ordinary_derivative
   - partial_derivative
@@ -17,12 +16,7 @@ examples_note: >-
   Each cell is the ___ of the function in that row.
 examples:
   - example: t_x_squared
-    why: >-
-      $f$ has two variables, so it has two partial derivatives, and no ordinary derivative.
-      The differential combines the partial derivatives into one linear approximation.
   - example: t_x_squared_on_path
-    why: >-
-      Along the path, $g(t) = f(t, e^t)$ is a function of one variable, so it has an ordinary derivative.
 see_also:
   - total_derivative
   - types_of_scalar_derivatives

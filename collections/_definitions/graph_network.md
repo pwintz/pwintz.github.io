@@ -6,7 +6,7 @@ applies_to: networks
 levels:
   elementary:
     text: |-
-      A _graph_ is a set of dots (vertices) connected by lines (edges).
+      A _graph_ is a set of dots (vertices) [connected](/definitions/connected) by lines (edges).
   undergraduate:
     context: graph theory
     text: |-

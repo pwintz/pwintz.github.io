@@ -11,7 +11,11 @@ levels:
     context: algebra
     text: |-
       Consider a ring $R$, such as $\reals$ or $\mathbb{Z}$, and a variable $x$.
-      A _polynomial_ in $x$ with [coefficients](/definitions/coefficient) in $R$ is a formal sum $a_0 + a_1 x + \dots + a_n x^n$ with $a_0, \dots, a_n \in R$.
+      A _polynomial_ in $x$ with [coefficients](/definitions/coefficient) in $R$ is a formal sum
+
+      $$a_0 + a_1 x + \dots + a_n x^n$$
+
+      with $a_0, \dots, a_n \in R$.
       Two polynomials are equal exactly when their coefficients are equal.
 properties:
   - |-

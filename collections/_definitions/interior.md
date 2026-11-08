@@ -14,7 +14,7 @@ levels:
   graduate:
     context: topological spaces
     text: |-
-      The _interior_ of $A$ is the union of all open sets contained in $A$: the largest open subset of $A$.
+      The _interior_ of $A$ is the [union](/definitions/set-union) of all [open sets](/definitions/open-set) contained in $A$: the largest open [subset](/definitions/subset) of $A$.
 properties:
   - |-
     A set is open if and only if it equals its interior.

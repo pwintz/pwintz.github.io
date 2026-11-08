@@ -12,8 +12,10 @@ levels:
   undergraduate:
     context: probability
     text: |-
-      Consider a random variable $X$, either discrete or with a density $f$.
-      The _expected value_ of $X$ is $\mathbb{E}[X] = \sum_x x P(X = x)$ (discrete) or $\int x f(x) \mathrm{d}x$ (with density $f$).
+      Consider a [random variable](/definitions/random-variable) $X$, either discrete or with a density $f$.
+      The _expected value_ of $X$ is
+
+      $$\mathbb{E}[X] = \sum_x x P(X = x) \quad \text{(discrete)} \qquad \text{or} \qquad \mathbb{E}[X] = \int x f(x) \mathrm{d}x \quad \text{(with density } f\text{)}.$$
       It is a [weighted average](/definitions/weighted-average) of the possible values, weighted by their probabilities.
 properties:
   - >-

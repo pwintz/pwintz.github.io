@@ -11,7 +11,7 @@ levels:
       The _limit inferior_ of the sequence is the smallest value that its terms keep coming back close to forever.
   undergraduate:
     text: |-
-      Consider a [sequence](/definitions/sequence) $(a_n)$ of real numbers.
+      Consider a [sequence](/definitions/sequence) $(a_n)$ of [real numbers](/definitions/real-number).
       The _limit inferior_ of $(a_n)$ is
 
       $$\liminf_{n \to \infty} a_n = \lim_{n \to \infty} \inf_{k \geq n} a_k,$$

@@ -6,7 +6,7 @@ synonyms: [coordinates, components]
 levels:
   high-school:
     text: |-
-      Consider a set of basis directions, such as "east" and "north."
+      Consider a set of [basis](/definitions/vector-basis) directions, such as "east" and "north."
       The _coordinate vector_ of a vector [vector](/definitions/vector) $v$ is the list of numbers saying how much of each basis direction is needed to equal $v$.
   undergraduate:
     text: |-
@@ -16,7 +16,7 @@ levels:
       $$[v]_B = (c_1, c_2, \dots, c_n) \in \reals^n.$$
 properties:
   - >-
-    The coordinate vector depends on the basis; the [vector](/definitions/vector) does not.
+    The coordinate vector depends on the [basis](/definitions/vector-basis); the [vector](/definitions/vector) does not.
   - >-
-    If the columns of $P$ are the new basis [vectors](/definitions/vector) written in the old basis, then the new coordinates of $v$ are $P^{-1}$ times its old coordinates.
+    If the columns of $P$ are the new [basis](/definitions/vector-basis) [vectors](/definitions/vector) written in the old basis, then the new coordinates of $v$ are $P^{-1}$ times its old coordinates.
 ---

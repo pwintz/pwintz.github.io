@@ -1,5 +1,4 @@
 ---
-published: false
 title: Arc length
 term: arc length
 applies_to: curves
@@ -13,11 +12,10 @@ levels:
     text: |-
       Consider a curve in the plane or in space.
       The _arc length_ of the curve is its length, as if it were straightened out.
-      The arc length of the unit [circle](/definitions/circle) is $2 \pi$.
   undergraduate:
     text: |-
-      Consider a parametrized curve $\gamma : [a, b] \to \reals^n$ whose derivative is continuous.
+      Consider a parametrized curve $\gamma : [a, b] \to \reals^n$ whose derivative is [continuous](/definitions/continuous).
       The _arc length_ of $\gamma$ is
 
-      $$L = \int_a^b \lVert \gamma^{\prime}(t) \rVert \mathrm{d}t.$$
+      $$L = \int_a^b \norm{\gamma^{\prime}(t)} \mathrm{d}t.$$
 ---

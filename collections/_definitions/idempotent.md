@@ -12,6 +12,8 @@ levels:
     text: |-
       Consider an element $x$ of a set with a [binary operation](/definitions/binary-operation) $\ast$, or a function $f$ from a set to itself.
       The element $x$ is _idempotent_ if $x \ast x = x$.
-      The function $f$ is _idempotent_ if $f \circ f = f$: applying it twice is the same as applying it once.
+      The function $f$ is _idempotent_ if applying it twice is the same as applying it once:
+
+      $$f \circ f = f.$$
       Examples include projections, absolute value, and rounding.
 ---

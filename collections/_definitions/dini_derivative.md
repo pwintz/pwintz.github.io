@@ -7,7 +7,7 @@ synonyms: ["$D^{+} f$"]
 levels:
   graduate:
     text: |-
-      Consider a function $f$ of a real variable $t$, which may not be differentiable.
+      Consider a function $f$ of a real variable $t$, which may not be [differentiable](/definitions/differentiable).
       The upper right _Dini derivative_ of $f$ at $t$ is
 
       $$D^{+} f(t) = \limsup_{h \to 0^{+}} \frac{f(t + h) - f(t)}{h}.$$

@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'A polar decomposition $A = Q S$, with $Q$ orthogonal and $S$ symmetric positive semidefinite'
 definition: polar_decomposition
 level: graduate

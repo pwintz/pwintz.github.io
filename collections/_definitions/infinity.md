@@ -17,7 +17,7 @@ levels:
       "$x \to \infty$" means $x$ becomes larger than any given number.
   undergraduate:
     text: |-
-      Consider the extended [real numbers](/definitions/real-number) $\reals \cup \lbrace -\infty, \infty \rbrace$.
+      Consider the extended [real numbers](/definitions/real-number) $\reals \cup \setdef{-\infty, \infty}$.
       In them, _infinity_ ($\infty$) is an element greater than every real number.
       Some arithmetic, such as $\infty - \infty$, is left undefined.
 ---

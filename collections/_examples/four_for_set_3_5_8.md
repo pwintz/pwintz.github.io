@@ -1,6 +1,6 @@
 ---
 published: false
-title: '$4$, for the set $\lbrace 3, 5, 8 \rbrace$'
+title: '$4$, for the set $\setdef{3, 5, 8}$'
 level: elementary
 is_not: [lower_bound]
 why:

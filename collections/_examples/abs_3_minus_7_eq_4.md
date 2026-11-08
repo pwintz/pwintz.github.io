@@ -1,5 +1,5 @@
 ---
-title: '$\lvert 3 - 7 \rvert = 4$'
+title: '$\abs{3 - 7} = 4$'
 level: elementary
 is: [distance]
 why:

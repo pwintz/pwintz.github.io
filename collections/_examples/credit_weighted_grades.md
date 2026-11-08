@@ -9,4 +9,7 @@ values:
 why:
   weighted_average: >-
     The credit-weighted grade point average is $(3 \cdot 4 + 1 \cdot 2) / 4 = 3.5$.
+  arithmetic_mean: >-
+    The credit-weighted grade point average is $3.5$, because the A counts three times as much as the C.
+    The unweighted mean of the two grades is $3.0$.
 ---

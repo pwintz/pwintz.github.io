@@ -1,5 +1,4 @@
 ---
-published: false
 title: Difference
 term: difference
 applies_to: numbers and vectors

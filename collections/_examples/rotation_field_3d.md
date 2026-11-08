@@ -15,4 +15,7 @@ why:
     A rotation does not spread out.
   curl: >-
     The rotation axis is the $z$-axis.
+  jacobian: >-
+    The Jacobian matrix of $F$ is not zero.
+    Its determinant is $0$ because $F$ has no $z$-component, so the last row of the matrix is zero, and $F$ flattens space onto a plane.
 ---

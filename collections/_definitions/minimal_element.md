@@ -11,7 +11,7 @@ levels:
       When some pairs cannot be compared, a set can have several minimal elements.
   undergraduate:
     text: |-
-      Consider a partially ordered set and a subset $S$ of it.
+      Consider a partially ordered set and a [subset](/definitions/subset) $S$ of it.
       A _minimal element_ of $S$ is an element $m$ of $S$ such that no element of $S$ is strictly smaller than $m$.
 properties:
   - >-

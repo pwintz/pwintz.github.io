@@ -10,4 +10,6 @@ values:
 why:
   total_derivative: >-
     By the chain rule, it equals $\frac{\partial f}{\partial t} + \frac{\partial f}{\partial x} \dot{x}$.
+  ordinary_derivative: >-
+    Along the path, $g(t) = f(t, e^t)$ is a function of one variable, so it has an ordinary derivative.
 ---

@@ -1,5 +1,4 @@
 ---
-published: false
 title: Ordinary derivative
 term: ordinary derivative
 applies_to: functions of one variable

@@ -14,6 +14,8 @@ levels:
       Consider a [sequence](/definitions/sequence) of numbers $a_1, a_2, a_3, \dots$ The _limit_ of the sequence is the number $L$ that its terms $a_n$ approach as $n$ grows.
   undergraduate:
     text: |-
-      Consider a sequence $(a_n)$ of real numbers and a number $L$.
-      The number $L$ is the _limit_ of $(a_n)$ if for every $\varepsilon > 0$ there exists $N$ such that $\lvert a_n - L \rvert < \varepsilon$ for all $n \geq N$.
+      Consider a sequence $(a_n)$ of [real numbers](/definitions/real-number) and a number $L$.
+      The number $L$ is the _limit_ of $(a_n)$ if for every $\varepsilon > 0$ there exists $N$ such that
+
+      $$\abs{a_n - L} < \varepsilon \quad \text{for all } n \geq N.$$
 ---

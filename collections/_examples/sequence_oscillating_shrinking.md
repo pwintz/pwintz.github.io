@@ -18,4 +18,6 @@ why:
     Early terms affect the supremum, but not the limit superior.
   liminf: >-
     The odd terms increase toward $-1$.
+  minimum: >-
+    The minimum and maximum of the terms, $-2$ and $\frac{3}{2}$, come from the first two terms, $a_1$ and $a_2$.
 ---

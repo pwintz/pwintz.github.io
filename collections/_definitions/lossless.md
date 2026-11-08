@@ -12,5 +12,7 @@ levels:
     context: nonlinear control
     text: |-
       Consider a [passive](/definitions/passive) system with input $u$, output $y$, and storage function $V$.
-      The system is _lossless_ if $u^{\top} y = \dot{V}$: all supplied energy is stored, and none is dissipated.
+      The system is _lossless_ if all supplied energy is stored, and none is dissipated:
+
+      $$u^{\top} y = \dot{V}.$$
 ---

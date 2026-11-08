@@ -1,13 +1,14 @@
 ---
-published: false
 title: Ordinal number
 term: ordinal number
 applies_to: numbers
 levels:
   elementary:
     text: |-
-      Think of the runners in a race, finishing first, second, and third.
-      An _ordinal number_ is a number that tells position in an order.
+      An _ordinal number_ is a number that tells position of an item in a list, such the first, second, and third runner in a race.
+  high-school:
+    text: |-
+      An _ordinal number_ is a number that tells position of an item in a list, such the first, second, and third.
   graduate:
     context: set theory
     text: |-

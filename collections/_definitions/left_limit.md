@@ -12,5 +12,7 @@ levels:
   undergraduate:
     text: |-
       Consider a function $f$ defined on an interval to the left of $a$.
-      We write $\lim_{x \to a^{-}} f(x) = L$, and call $L$ the _left limit_ of $f$ at $a$, if for every $\varepsilon > 0$ there is a $\delta > 0$ such that $\lvert f(x) - L \rvert < \varepsilon$ whenever $a - \delta < x < a$.
+      We write $\lim_{x \to a^{-}} f(x) = L$, and call $L$ the _left limit_ of $f$ at $a$, if for every $\varepsilon > 0$ there is a $\delta > 0$ such that
+
+      $$\abs{f(x) - L} < \varepsilon \quad \text{whenever } a - \delta < x < a.$$
 ---

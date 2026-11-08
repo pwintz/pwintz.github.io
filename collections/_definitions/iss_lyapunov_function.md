@@ -9,11 +9,11 @@ levels:
       Consider a system $\dot{x} = f(x, d)$ with state $x$ and input $d$.
       An _ISS-Lyapunov function_ for the system is a [continuously differentiable](/definitions/continuously-differentiable) function $V$ with
 
-      $$\alpha_1(\lvert x \rvert) \leq V(x) \leq \alpha_2(\lvert x \rvert)$$
+      $$\alpha_1(\norm{x}) \leq V(x) \leq \alpha_2(\norm{x})$$
 
       and
 
-      $$\nabla V(x) \cdot f(x, d) \leq -\alpha_3(\lvert x \rvert) + \sigma(\lvert d \rvert)$$
+      $$\nabla V(x) \cdot f(x, d) \leq -\alpha_3(\norm{x}) + \sigma(\norm{d})$$
 
       for all $x$ and $d$, where $\alpha_1$, $\alpha_2$, and $\alpha_3$ are class-$$\mathcal{K}_\infty$$ functions and $\sigma$ is a class-$\mathcal{K}$ function.
 properties:

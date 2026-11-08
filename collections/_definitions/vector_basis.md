@@ -11,7 +11,7 @@ levels:
   undergraduate:
     text: |-
       Consider a [vector](/definitions/vector) space $V$.
-      A _basis_ of $V$ is a set of vectors in $V$ that is linearly independent and spans $V$.
+      A _basis_ of $V$ is a set of vectors in $V$ that is [linearly independent](/definitions/linearly-independent) and spans $V$.
 properties:
   - |-
     Every vector $v$ in $V$ can be written in exactly one way as a linear combination $v = c_1 b_1 + \dots + c_n b_n$ of the basis vectors.

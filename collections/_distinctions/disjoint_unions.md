@@ -3,7 +3,7 @@ title: "Disjoint union: union of disjoint sets vs. tagged union"
 kind: conflicting
 areas: [sets]
 summary: >
-  "Disjoint union" can mean an ordinary union of sets that happen to be disjoint, or a construction that tags each element with the set it came from, so that copies of overlapping sets are kept apart.
+  "Disjoint [union](/definitions/set-union)" can mean an ordinary union of sets that happen to be disjoint, or a construction that tags each element with the set it came from, so that copies of overlapping sets are kept apart.
 terms:
   - union_of_disjoint_sets
   - disjoint_union
@@ -12,12 +12,9 @@ examples_note: >-
   In the tagged sense, each element is paired with a tag, $1$ for $A$ or $2$ for $B$.
 examples:
   - example: sets_apple_and_banana
-    why: >-
-      $A$ and $B$ are disjoint, so their union is a union of disjoint sets.
-      The tagged disjoint union is usually identified with it.
   - example: sets_apple_orange_and_orange_banana
     why: >-
-      $A$ and $B$ overlap, so their ordinary union $\lbrace \text{apple}, \text{orange}, \text{banana} \rbrace$ is not a disjoint union in either sense.
+      $A$ and $B$ overlap, so their ordinary union $\setdef{\text{apple}, \text{orange}, \text{banana}}$ is not a disjoint union in either sense.
       The tagged disjoint union keeps both copies of orange, so it has $4$ elements.
 see_also:
   - set_operations
@@ -27,5 +24,5 @@ see_also:
 ## Notes
 
 - When $A$ and $B$ are disjoint, the two meanings agree up to a natural bijection, so many authors use them interchangeably.
-- The tagged disjoint union has $\lvert A \rvert + \lvert B \rvert$ elements, even when $A$ and $B$ overlap.
+- The tagged disjoint [union](/definitions/set-union) has $\abs{A} + \abs{B}$ elements, even when $A$ and $B$ overlap.
   For example, $\reals \sqcup \reals$ is two separate copies of the real line.

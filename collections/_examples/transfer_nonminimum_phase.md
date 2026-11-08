@@ -9,4 +9,6 @@ values:
 why:
   transmission_zero: >-
     A zero in the right half-plane, which makes the system non-minimum phase.
+  pole: >-
+    The poles of $G$ are $-2$ and $-3$, where its denominator is zero, and its zero is $1$, where its numerator is zero.
 ---

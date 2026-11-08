@@ -15,5 +15,5 @@ levels:
       Every element is then in exactly one block.
 properties:
   - >-
-    Partitions of a set correspond exactly to equivalence [relations](/definitions/relation) on it: the blocks are the [equivalence classes](/definitions/equivalence class).
+    Partitions of a set correspond exactly to equivalence [relations](/definitions/relation) on it: the blocks are the [equivalence classes](/definitions/equivalence-relation).
 ---

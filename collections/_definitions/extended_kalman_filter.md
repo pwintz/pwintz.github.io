@@ -16,7 +16,7 @@ levels:
 
       $$x_{k+1} = f(x_k, u_k) + w_k, \qquad y_k = h(x_k) + v_k,$$
 
-      where $f$ and $h$ are differentiable, and the noises $w_k$ and $v_k$ are independent, zero-mean, and white, with covariances $Q$ and $R$.
+      where $f$ and $h$ are [differentiable](/definitions/differentiable), and the noises $w_k$ and $v_k$ are independent, zero-mean, and white, with covariances $Q$ and $R$.
       The _extended Kalman filter_ for this system is the [filter](/definitions/filter-estimation) that computes a state estimate $\hat{x}_k$ and an approximate error covariance $P_k$ by repeating two steps.
       First, it predicts
 
@@ -30,7 +30,7 @@ levels:
       where $H_k$ is the Jacobian of $h$ at $\hat{x}_k^-$ and $K_k = P_k^- H_k^\top (H_k P_k^- H_k^\top + R)^{-1}$.
 properties:
   - >-
-    If $f$ and $h$ are linear, the extended Kalman filter is the Kalman filter.
+    If $f$ and $h$ are linear, the extended Kalman filter is the [Kalman filter](/definitions/kalman-filter).
   - >-
     The extended Kalman filter is not optimal in general, and its estimate can diverge if the initial estimate is poor or the system is strongly nonlinear, because the linearization is accurate only near the estimate.
 ---

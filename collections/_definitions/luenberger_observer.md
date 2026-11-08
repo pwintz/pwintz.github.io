@@ -22,7 +22,7 @@ properties:
   - >-
     A gain $L$ that makes the error converge to zero exists exactly when $(A, C)$ is [detectable](/definitions/detectable).
   - >-
-    If $(A, C)$ is [observable](/definitions/observable), then $L$ can be chosen to place the eigenvalues of $A - L C$ anywhere (in complex-conjugate pairs).
+    If $(A, C)$ is [observable](/definitions/observable), then $L$ can be chosen to place the [eigenvalues](/definitions/eigenvalue) of $A - L C$ anywhere (in complex-conjugate pairs).
 ---
 The discrete-time version is $\hat{x}_{k+1} = A \hat{x}_k + B u_k + L (y_k - C \hat{x}_k)$.
 

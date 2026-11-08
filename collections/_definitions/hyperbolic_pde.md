@@ -24,5 +24,5 @@ levels:
 properties:
   - >-
     Hyperbolic equations typically describe waves.
-    Disturbances travel at finite speed and are not smoothed out.
+    [Disturbances](/definitions/disturbance) travel at finite speed and are not smoothed out.
 ---

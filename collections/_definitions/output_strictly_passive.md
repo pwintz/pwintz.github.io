@@ -8,6 +8,10 @@ levels:
     context: nonlinear control
     text: |-
       Consider a system with input $u$, output $y$, and a storage function $V$.
-      The system is _output strictly passive_ if $u^{\top} y \geq \dot{V} + y^{\top} \rho(y)$ for some function $\rho$ with $y^{\top} \rho(y) > 0$ for all $y \neq 0$.
+      The system is _output strictly passive_ if
+
+      $$u^{\top} y \geq \dot{V} + y^{\top} \rho(y)$$
+
+      for some function $\rho$ with $y^{\top} \rho(y) > 0$ for all $y \neq 0$.
       If only $u^{\top} y \geq \dot{V} + y^{\top} \rho(y)$ holds, without the sign condition, the system is _output-feedback passive_.
 ---

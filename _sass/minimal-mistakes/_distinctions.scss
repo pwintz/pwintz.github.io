@@ -244,6 +244,11 @@
     font-size: $type-size-5;
   }
 
+  // The full object of an example, below its title (the example's "detail").
+  .example__detail {
+    overflow-x: auto;
+  }
+
   .distinction__example-why {
     margin-top: 0.5em;
     font-size: $type-size-6;

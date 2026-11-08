@@ -1,22 +1,22 @@
 ---
-published: false
 title: Diameter
 term: diameter
 applies_to: sets
 levels:
   elementary:
     text: |-
-      Think of a [circle](/definitions/circle) and a straight line drawn across it through its center.
-      The _diameter_ of the circle is the distance across it, through its center.
+      The _diameter_ of the circle is the distance across a [circle](/definitions/circle), measured as the length of a straight line drawn through its center.
   high-school:
     text: |-
-      Consider a [circle](/definitions/circle) (or [sphere](/definitions/sphere)) and a line segment through its center with both endpoints on it.
-      The _diameter_ of the circle is the length of that segment.
+      Consider a [circle](/definitions/circle) or [sphere](/definitions/sphere) $S$.
+      The _diameter_ of $S$ is the length of any line segment through the center of $S$ with both endpoints on the boundary of $S$.
   undergraduate:
     context: metric spaces
     text: |-
-      Consider a set $A$ in a metric space with metric $d$.
-      The _diameter_ of $A$ is $\operatorname{diam}(A) = \sup \setdef{d(x, y) \suchthat x, y \in A}$, the largest distance between two points of $A$.
+      Consider a set $A$ in a [metric space](/definitions/metric-space) with [metric](/definitions/metric) $d$.
+      The _diameter_ of $A$ is the largest distance between two points of $A$:
+
+      $$\operatorname{diam}(A) = \sup \setdef{d(x, y) \suchthat x, y \in A}.$$
 properties:
   - >-
     The diameter of a [circle](/definitions/circle) or [sphere](/definitions/sphere) is twice its radius.

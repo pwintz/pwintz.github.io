@@ -12,5 +12,5 @@ levels:
 properties:
   - >-
     A function is [differentiable](/definitions/differentiable) at $a$ exactly when both one-sided derivatives exist and are equal.
-    For $\lvert x \rvert$ at $0$, they are $1$ and $-1$.
+    For $\abs{x}$ at $0$, they are $1$ and $-1$.
 ---

@@ -113,6 +113,7 @@ layout: single
           {% if example %}
             <section class="distinction__example" data-example-level="{{ example.level }}">
               <h3 class="distinction__example-title"><a href="{{ example.url | relative_url }}">{{ example.title | markdownify | remove: '<p>' | remove: '</p>' }}</a>{% include example-definition-link.html example=example %}</h3>
+              {% if example.detail %}<div class="example__detail">{{ example.detail | markdownify }}</div>{% endif %}
               {% assign why = ref.why | default: example.description %}
               {% if why %}<div class="distinction__example-why">{{ why | markdownify }}</div>{% endif %}
               <table>

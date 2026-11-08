@@ -5,11 +5,11 @@ applies_to: "sets, sequences, and functions"
 levels:
   elementary:
     text: |-
-      A set of numbers is _bounded_ if it does not go on forever in either direction: there is some number that all of them are smaller than in size.
+      A set of numbers is _bounded_ if it does not go on forever in either direction: there is some number that every number in the set is smaller than in size.
   high-school:
     context: sets of real numbers
     text: |-
-      A set $S$ of [real numbers](/definitions/real-number) is _bounded_ if there is a number $M$ with $\lvert x \rvert \leq M$ for every $x \in S$.
+      A set $S$ of [real numbers](/definitions/real-number) is _bounded_ if there is a number $M$ with $\abs{x} \leq M$ for every $x \in S$.
   undergraduate:
     context: metric spaces
     text: |-

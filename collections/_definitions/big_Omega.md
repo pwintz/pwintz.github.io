@@ -13,9 +13,11 @@ levels:
     context: "computer science (Knuth's definition)"
     text: |-
       Consider two functions $f$ and $g$.
-      We write $f(x) = \Omega(g(x))$ as $x \to \infty$, read "$f$ is _big Omega_ of $g$," if there exist $c > 0$ and $x_0$ such that $\lvert f(x) \rvert \geq c \lvert g(x) \rvert$ for all $x \geq x_0$.
+      We write $f(x) = \Omega(g(x))$ as $x \to \infty$, read "$f$ is _big Omega_ of $g$," if there exist $c > 0$ and $x_0$ such that
+
+      $$\abs{f(x)} \geq c \abs{g(x)} \quad \text{for all } x \geq x_0.$$
 properties:
   - >-
     In Knuth's sense, $f = \Omega(g)$ if and only if $g = O(f)$.
 ---
-In analytic number theory, $f = \Omega(g)$ has an older meaning (Hardy and Littlewood): $f$ is _not_ $o(g)$, so $\lvert f \rvert \geq c \lvert g \rvert$ only for arbitrarily large $x$, not for all large $x$.
+In [analytic](/definitions/analytic) number theory, $f = \Omega(g)$ has an older meaning (Hardy and Littlewood): $f$ is _not_ $o(g)$, so $\abs{f} \geq c \abs{g}$ only for arbitrarily large $x$, not for all large $x$.

@@ -1,5 +1,4 @@
 ---
-published: false
 title: Identity element
 term: identity element
 applies_to: binary operations
@@ -12,9 +11,12 @@ levels:
   undergraduate:
     text: |-
       Consider a set $S$ with a [binary operation](/definitions/binary-operation) $\ast$.
-      An _identity element_ for $\ast$ is an element $e$ with $e \ast a = a \ast e = a$ for all $a \in S$.
-      For addition, it is called the _additive identity_ (usually $0$).
-      For multiplication, it is the _multiplicative identity_ (usually $1$).
+      An _identity element_ for $\ast$ is an element $e$ such that
+
+      $$e \ast a = a \ast e = a \quad \text{for all } a \in S.$$
+
+      For addition, $e$ is called the _additive identity_ and is usually written as $0$.
+      For multiplication, $e$ is the _multiplicative identity_ and is usually written $1$.
 properties:
   - >-
     If an operation has an identity element, it is unique: if $e$ and $e^{\prime}$ are both identities, then $e = e \ast e^{\prime} = e^{\prime}$.

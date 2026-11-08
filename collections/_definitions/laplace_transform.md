@@ -8,7 +8,7 @@ levels:
   high-school:
     text: |-
       Consider a function of time, such as a signal that starts at time $0$.
-      The _Laplace transform_ turns the function into a function of a (complex) frequency, which turns linear differential equations into algebraic equations.
+      The _Laplace transform_ turns the function into a function of a (complex) frequency, which turns linear differential equations into [algebraic equations](/definitions/polynomial-equation).
   undergraduate:
     text: |-
       Consider a function $f$ defined on $[0, \infty)$.

@@ -8,7 +8,7 @@ levels:
   high-school:
     text: |-
       Consider a function $f$.
-      The function $f$ is _analytic_ if, near every point of its domain, it equals a power series (a "polynomial with infinitely many terms").
+      The function $f$ is _analytic_ if, near every point of its domain, it equals a power series (a "[polynomial](/definitions/polynomial) with infinitely many terms").
   undergraduate:
     text: |-
       Consider a function $f$ that has derivatives of every order.

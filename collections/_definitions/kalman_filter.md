@@ -15,7 +15,7 @@ levels:
 
       $$x_{k+1} = A x_k + B u_k + w_k, \qquad y_k = C x_k + v_k,$$
 
-      where the process noise $w_k$ and the measurement noise $v_k$ are independent, zero-mean, Gaussian, and white, with covariances $Q$ and $R$, and the initial state $x_0$ has mean $\hat{x}_0$ and covariance $P_0$.
+      where the process noise $w_k$ and the [measurement noise](/definitions/measurement-noise) $v_k$ are independent, zero-mean, Gaussian, and white, with covariances $Q$ and $R$, and the initial state $x_0$ has mean $\hat{x}_0$ and covariance $P_0$.
       The _Kalman filter_ for this system is the [filter](/definitions/filter-estimation) that computes a state estimate $\hat{x}_k$ and its error covariance $P_k$ by repeating two steps.
       First, it predicts
 

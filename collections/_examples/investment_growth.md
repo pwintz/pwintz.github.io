@@ -9,4 +9,6 @@ why:
   geometric_mean: >-
     Growing by a factor of $4$ twice gives $16$, the same total growth.
     Growing by a factor of $5$ twice would give $25$.
+  arithmetic_mean: >-
+    The arithmetic mean, $5$ per year, would overstate the total growth as $25$.
 ---

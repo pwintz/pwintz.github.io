@@ -12,6 +12,8 @@ levels:
   undergraduate:
     text: |-
       Consider a function $f : X \to Y$ and a set $B \subseteq Y$.
-      The _preimage_ of $B$ is $f^{-1}(B) = \setdef{x \in X \suchthat f(x) \in B}$.
+      The _preimage_ of $B$ is
+
+      $$f^{-1}(B) = \setdef{x \in X \suchthat f(x) \in B}.$$
       It is defined for every function, even one with no inverse function.
 ---

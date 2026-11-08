@@ -18,10 +18,10 @@ levels:
       where $\phi_0$ is a model of $\phi$, the constants $\alpha_i$ are chosen so that every root of $s^n + \alpha_1 s^{n-1} + \dots + \alpha_n$ has negative real part, and $\varepsilon > 0$ is a small parameter.
 properties:
   - >-
-    As $\varepsilon \to 0$, the estimation error of a high-gain observer decays faster and, without measurement noise, becomes arbitrarily small after a short transient, even if the model $\phi_0$ is inexact.
+    As $\varepsilon \to 0$, the estimation error of a high-gain observer decays faster and, without [measurement noise](/definitions/measurement-noise), becomes arbitrarily small after a short transient, even if the model $\phi_0$ is inexact.
   - >-
     A high-gain observer can _peak_: its estimates can be of order $1 / \varepsilon^{n-1}$ during the initial transient, so they are usually saturated before being fed to a controller.
   - >-
-    A smaller $\varepsilon$ amplifies measurement noise more, so the choice of $\varepsilon$ trades speed against noise sensitivity.
+    A smaller $\varepsilon$ amplifies [measurement noise](/definitions/measurement-noise) more, so the choice of $\varepsilon$ trades speed against noise sensitivity.
 ---
-High-gain observers are often combined with state feedback to recover the performance of the state-feedback controller by output feedback.
+High-gain observers are often combined with [state feedback](/definitions/state-feedback) to recover the performance of the state-feedback controller by [output feedback](/definitions/output-feedback).

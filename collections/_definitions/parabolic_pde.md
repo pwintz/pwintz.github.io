@@ -24,5 +24,5 @@ levels:
 properties:
   - >-
     Parabolic equations typically describe diffusion.
-    Disturbances spread instantly but are smoothed out over time.
+    [Disturbances](/definitions/disturbance) spread instantly but are smoothed out over time.
 ---

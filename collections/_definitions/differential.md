@@ -6,7 +6,7 @@ synonyms: ["$\\mathrm{d}f$", total derivative]
 levels:
   undergraduate:
     text: |-
-      Consider a differentiable function $f$ and a point $x$ in its domain.
+      Consider a [differentiable](/definitions/differentiable) function $f$ and a point $x$ in its domain.
       The _differential_ of $f$ at $x$ is the [linear map](/definitions/linear-map) $\mathrm{d}f_x : v \mapsto Df(x) v$ that best approximates $f(x + v) - f(x)$ for small $v$.
       For $f : \reals^n \to \reals$,
 

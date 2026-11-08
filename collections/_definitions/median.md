@@ -12,6 +12,8 @@ levels:
   undergraduate:
     context: probability
     text: |-
-      Consider a random variable $X$.
-      A _median_ of $X$ is a number $m$ with $P(X \leq m) \geq \frac{1}{2}$ and $P(X \geq m) \geq \frac{1}{2}$.
+      Consider a [random variable](/definitions/random-variable) $X$.
+      A _median_ of $X$ is a number $m$ with
+
+      $$P(X \leq m) \geq \frac{1}{2} \quad \text{and} \quad P(X \geq m) \geq \frac{1}{2}.$$
 ---

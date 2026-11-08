@@ -14,23 +14,29 @@ levels:
   high-school:
     text: |-
       Consider a function $f$.
-      The function $f$ is _continuous_ if $\lim_{x \to a} f(x) = f(a)$ for every $a$ in the domain of $f$.
+      The function $f$ is _continuous_ if
+
+      $$\lim_{x \to a} f(x) = f(a)$$
+
+      for every $a$ in the domain of $f$.
   undergraduate:
     context: metric spaces
     text: |-
-      Consider a function $f : X \to Y$ between metric spaces.
-      The function $f$ is _continuous_ if for every $x \in X$ and every $\varepsilon > 0$, there exists $\delta > 0$ such that $d(f(x), f(y)) < \varepsilon$ for every $y \in X$ with $d(x, y) < \delta$.
+      Consider a function $f : X \to Y$ between [metric spaces](/definitions/metric-space).
+      The function $f$ is _continuous_ if for every $x \in X$ and every $\varepsilon > 0$, there exists $\delta > 0$ such that
+
+      $$d(f(x), f(y)) < \varepsilon \quad \text{for every } y \in X \text{ with } d(x, y) < \delta.$$
       The choice of $\delta$ may depend on both $\varepsilon$ and $x$.
   graduate:
     context: topological spaces
     text: |-
       Consider a function $f : X \to Y$ between topological spaces.
-      The function $f$ is _continuous_ if the [preimage](/definitions/preimage) $f^{-1}(V)$ is open in $X$ for every open set $V$ in $Y$.
+      The function $f$ is _continuous_ if the [preimage](/definitions/preimage) $f^{-1}(V)$ is open in $X$ for every [open set](/definitions/open-set) $V$ in $Y$.
 properties:
   - >-
     Sums, products, and compositions of continuous functions are continuous.
   - >-
-    Continuous images of [compact](/definitions/compact) sets are compact, and continuous images of connected sets are connected.
+    Continuous images of [compact](/definitions/compact) sets are compact, and continuous images of [connected](/definitions/connected) sets are connected.
   - >-
     A continuous function on $[a, b]$ takes every value between $f(a)$ and $f(b)$ (the intermediate value theorem).
 ---

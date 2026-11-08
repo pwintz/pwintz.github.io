@@ -7,4 +7,7 @@ is_not: [append]
 why:
   append: >-
     The $4$ is added at the beginning, not the end.
+  insert: >-
+    Prepending $4$ inserts a single element at the beginning of the list.
+    It is not appending, which adds at the end.
 ---

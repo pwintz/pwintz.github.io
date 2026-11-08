@@ -3,12 +3,12 @@ published: false
 title: Types of semicontinuity of set-valued maps
 kind: family
 areas: [set-valued-analysis]
-status: draft
 summary: >
-  A set-valued map assigns a set to each point, and there is more than one way to say that the set changes continuously.
+  A [set-valued map](/definitions/set-valued-map) assigns a set to each point, and there is more than one way to say that the set changes continuously.
   Outer and upper semicontinuity both say that $F(x)$ cannot suddenly shrink in the limit, but they are not the same: outer semicontinuity is a closed-graph condition, while upper semicontinuity also rules out values escaping to infinity.
-  Inner and lower semicontinuity say that $F(x)$ cannot suddenly grow, and they agree in metric spaces.
+  Inner and lower semicontinuity say that $F(x)$ cannot suddenly grow, and they agree in [metric spaces](/definitions/metric-space).
 terms:
+  - set_valued_map
   - outer_semicontinuous
   - upper_semicontinuous_setvalued
   - inner_semicontinuous
@@ -18,28 +18,17 @@ examples_note: >-
   Is it ___ at $x = 0$?
 examples:
   - example: f_x_eq_set_0_for_x_neq_0_f_0_eq_minus_1_1
-    why: >-
-      $F$ jumps up at $0$, so it is outer and upper semicontinuous: limits of points of $F(y)$ lie in $F(0)$, and $F(y)$ stays near $F(0)$.
-      It is not inner or lower semicontinuous, because the point $1 \in F(0)$ is not a limit of points of $F(y)$ for $y \neq 0$.
   - example: f_x_eq_minus_1_1_for_x_neq_0_f_0_eq_set_0
-    why: >-
-      $F$ jumps down at $0$, so it is inner and lower semicontinuous: every point of $F(0)$ is a limit of points of $F(y)$.
-      It is not outer or upper semicontinuous, because $1 \in F(y)$ for $y \neq 0$ has no counterpart in $F(0)$.
   - example: f_x_eq_set_1_x_for_x_neq_0_f_0_eq_set_0
-    why: >-
-      $F$ is outer semicontinuous because its graph (a hyperbola plus the origin) is closed.
-      It is not upper semicontinuous, because $F(y)$ escapes every bounded open set $U \supseteq F(0)$ as $y \to 0$, and it is not inner or lower semicontinuous, because $0 \in F(0)$ is not a limit of points of $F(y)$.
   - example: f_x_eq_set_f_x_for_a_continuous_function_f
-    why: >-
-      $F(x) = \lbrace f(x) \rbrace$ is outer, upper, inner, and lower semicontinuous, because for single-valued maps, all four notions reduce to continuity.
 see_also:
   - types_of_tangent_spaces
   - types_of_continuous
 ---
 ## Notes
 
-- If $F$ has closed values and is locally bounded (in finite dimensions), then outer and upper semicontinuity are equivalent.
+- If $F$ has closed values and is locally [bounded](/definitions/bounded) (in finite dimensions), then outer and upper semicontinuity are equivalent.
   Much of the literature assumes this setting, which is why the terms are often treated as synonyms.
 - "Hemicontinuous" is used in economics (for example, by Aliprantis and Border) for Berge's notions, to avoid confusion with semicontinuity of real-valued functions.
-- A real-valued function $f$ is lower semicontinuous if $\liminf_{y \to x} f(y) \geq f(x)$.
-  This is equivalent to outer semicontinuity of the epigraph map $x \mapsto [f(x), \infty)$, not to lower semicontinuity of a set-valued map.
+- A real-valued function $f$ is [lower semicontinuous](/definitions/lower-semicontinuous-setvalued) if $\liminf_{y \to x} f(y) \geq f(x)$.
+  This is equivalent to outer semicontinuity of the epigraph map $x \mapsto [f(x), \infty)$, not to lower semicontinuity of a [set-valued map](/definitions/set-valued-map).

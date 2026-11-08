@@ -146,8 +146,8 @@ The level filter sets a maximum: it shows the items available at that level or a
 
 Filters are stored in the URL, so filtered lists can be linked to, e.g., `/definitions/?subject=topology&level=undergraduate`.
 
-Stub pages have `status: stub` and `published: false`, so they are not rendered.
-To publish a page, remove `published: false` and set `status: draft` or `status: complete`.
+Pages that are incomplete or not yet reviewed have `published: false`, so they are not rendered on the live site.
+To publish a page, remove `published: false`.
 Every file in these collections needs front matter.
 Otherwise, Jekyll copies it to the site as a raw `.md` file.
 
@@ -172,6 +172,8 @@ Rival definitions (e.g., whether the natural numbers include 0) go in separate f
 Write "A square matrix $A$ is called _symmetric_ if $A$ is equal to its transpose," not "A square matrix is called _symmetric_ if it is equal to its transpose."
 A pronoun is fine only when its antecedent is the nearest noun and cannot be mistaken (e.g., "its transpose" right after "$A$").
 
+**Plain-text `term`:** A definition's `term` must not start with math (`$...$`), because the definitions index groups terms by their first letter. Use Unicode instead (e.g., `L² inner product`) and put the math form in `synonyms`.
+
 **Name the term:** Each level's `text` is a complete sentence that names the term being defined, in italics.
 Write "An _expression_ is a combination of ...," not "A combination of ...."
 Use `_term_` for italics, or `*term*` when the term contains math (e.g., `*class-$\mathcal{K}$*`).
@@ -185,6 +187,8 @@ The setup should give only the object's basic, unsurprising features; the defini
 **Link other terms:** In each level's `text`, `caveat`, each property, and the notes, link the first mention of another defined term to its page, e.g., `[metric space](/definitions/metric-space)`.
 The URL is the file name, lowercased, with underscores replaced by hyphens.
 Do not link a term when it is used in an everyday sense (e.g., "a group of objects") or inside a longer term (e.g., "ball" inside "open ball").
+`python3 scripts/link_dictionary_terms.py` lists the first unlinked mentions of defined terms in definitions and distinctions, and `--write` links them.
+It skips math, existing links, italics, terms inside longer terms, and words that are often used in an everyday sense (its `AMBIGUOUS` list), so link those by hand.
 Links to dictionary pages that are not generated, because they are unpublished or do not exist, are shown in red with a dashed underline (by `_plugins/dictionary_broken_links.rb`).
 Links to unpublished pages are red even in a local preview with `--unpublished`, where those pages are generated, so the preview shows which links will be broken on the live site.
 
@@ -225,9 +229,8 @@ Markdown body: notes on terminology and conventions.
 title: Continuous vs. uniformly continuous
 kind: hierarchy        # An id from _data/distinction_kinds.yml.
 areas: [analysis]      # Ids from _data/distinction_areas.yml (subjects), most relevant first. A page may have several.
-status: draft          # stub | draft | complete
 summary: >
-  A sentence giving context (what the terms have in common, or where they come up), then one or two sentences stating the distinction.
+  A sentence giving context (what the terms have in common, or where they come up), then one or two sentences stating the distinction. Name the terms instead of writing "both" or "these", which rely on the title.
 relation: uniformly continuous ⊂ continuous
 terms:                 # File names (without .md) in _definitions.
   - continuous
@@ -264,6 +267,9 @@ Levels at which none of the terms has a definition are disabled.
 If a definition has no version at the selected level, the nearest lower level is shown, or, failing that, its lowest level.
 The reader's choice is remembered across pages.
 Without JavaScript, all levels are shown.
+
+**Where to put a `why`:** If the explanation is about one term alone (why this value or verdict holds), put it in the example file, under `why` and that term.
+Use a distinction's per-example `why` only for the contrast between the page's terms, and leave it out when there is no contrast to explain.
 
 **Explanations (`why`) in distinctions:** Each example's `why` should stand on its own, without the table beside it.
 Name the example (e.g., "$3 + 2x$", "The Cantor function"), not "It," and say what it is and is not for this page's terms, with the reason for each verdict.
@@ -309,12 +315,28 @@ Write "A gust of wind hitting a quadcopter drone," not "A gust of wind" under a 
 **Levels:** On a distinction page, examples above the level selected in the level switcher are hidden, with a note saying how many are hidden.
 Choose the level from the example itself and its verdicts: $\mathbb{Q}$ is a high-school example even in a table with graduate terms, but the Cantor function is not elementary.
 
+**Large objects:** When the full object or statement is too large for the title, such as the entries of a matrix or the statement of a theorem, give the title a short name ("The $3 \times 4$ matrix of ones") and put the object in `detail`, in Markdown: a statement in words, or a matrix as a display equation (e.g., `detail: '$$\begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}$$'`).
+It is shown below the title on the example's page and in the by-example layout of distinctions.
+
 **Name the action:** When an example is an action, such as appending, prepending, or inserting, the title says what is done, e.g., "Prepending $4$ to $(1, 2, 3)$ produces $(4, 1, 2, 3)$," not "$(1, 2, 3)$ and $4$ give $(4, 1, 2, 3)$."
 Describe the action in plain words when its name would answer the question the example asks.
+
+**No explanations in values:** A value states only the answer, such as `'$d(p, q) = 1$'` or `'None'`, with its units if any.
+Put reasons (e.g., "since $p \neq q$," "because $A$ is not square") in `why` under the same term, even when they are short.
 
 **Show what is calculated:** Write each value as the expression being computed, then its result, e.g., `'$A \cup B = \lbrace 1, 2, 3, 4 \rbrace$'`, `'$\inf S = 0$'`, or `'$\lim_{n \to \infty} a_n$ does not exist'`, not just `'$\lbrace 1, 2, 3, 4 \rbrace$'`.
 Name the object in the example's title (e.g., "$f(x, y) = (2x, 3y)$" or "The sequence $a_n = 1/n$") so that the values can refer to it.
 A value may be plain prose when no standard notation fits (e.g., "Its four edges").
+
+**Display the defining equation:** In a definition, put the defining equation or condition in a display equation (its own paragraph, `$$...$$`), even if it would fit inline, e.g., "The _infinity norm_ of $x$ is the largest absolute value of its entries," followed by `$$\norm{x}_{\infty} = \max_i \abs{x_i}.$$`
+When the display restates the preceding words in symbols, end the words with a colon ("…the largest absolute value of its entries:"); when it continues the sentence, such as the condition after "if, for all $x$,", use a comma.
+Keep minor or illustrative equations inline, such as "as in $\dot{x} = f(x)$."
+
+**Lists of conditions:** When a definition has two or more conditions, list them as a numbered list, one condition per item, ending all but the last with a comma and the second-to-last with ", and".
+
+**Math macros:** Write sets as `\setdef{1, 2, 3}` (not `\{ \}`, which kramdown turns into plain braces, or `\lbrace \rbrace`), the natural numbers and the real numbers as `\nats` and `\reals`, norms as `\norm{x}`, absolute values as `\abs{x}`, and inner products as `\ip{x}{y}` (defined in `assets/js/mathjax_config.js`).
+Use `\norm` for vectors, such as the state $x \in \reals^n$, and `\abs` only for numbers.
+In a YAML flow list, quote a value that contains braces, e.g., `synonyms: ['$\abs{A}$']`.
 
 **Math in YAML:** Use single quotes or block scalars (`>`) for values containing backslashes, and quote values containing `: `.
 Write `f^{\prime}` instead of `f'` (smart quotes would change the apostrophe), and `\lvert x \rvert` instead of `|x|`.

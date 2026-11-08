@@ -6,7 +6,7 @@ areas: [linear-algebra, language, computing]
 summary: >
   The dimension of a vector space counts independent directions.
   The dimension of a physical quantity is its kind, such as length or time.
-  In programming, the "number of dimensions" of an array is its number of axes.
+  In programming, the "[number of dimensions](/definitions/array-rank)" of an array is its number of axes.
 terms:
   - physical_dimension
   - dimension_vector_space
@@ -14,16 +14,9 @@ terms:
 examples_note: >-
   Each cell is the dimension of the object in that row, in the ___ sense.
 examples:
-  - example: reals_cubed
-    why: >-
-      The dimension of $\reals^3$ as a vector space is $3$ because every basis of $\reals^3$ has $3$ vectors.
+  - example: R3
   - example: distance_in_meters
-    why: >-
-      The physical dimension of a distance is length ($\mathsf{L}$), because meters are a unit of length.
   - example: vector_123_array
-    why: >-
-      The array has one axis, so its number of axes is $1$.
-      NumPy calls this `ndim`, the number of dimensions, even though the vector lies in the three-dimensional space $\reals^3$.
 see_also:
   - units_vs_dimension
   - types_of_array_quantities
@@ -32,6 +25,6 @@ see_also:
 ## Other meanings
 
 - The dimension of a manifold is the dimension of the space it locally looks like.
-  For example, a sphere in $\reals^3$ is two-dimensional.
-- The Hausdorff dimension of a fractal, such as the Cantor set, need not be an integer.
+  For example, a [sphere](/definitions/sphere) in $\reals^3$ is two-dimensional.
+- The [Hausdorff dimension](/definitions/hausdorff-dimension) of a fractal, such as the Cantor set, need not be an [integer](/definitions/integer).
 - The "dimensions" of an $m \times n$ matrix are $m$ and $n$, which is its shape.

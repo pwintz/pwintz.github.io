@@ -6,7 +6,7 @@ applies_to: transfer functions
 levels:
   high-school:
     text: |-
-      Consider a [fraction](/definitions/fraction) of polynomials, after canceling common factors.
+      Consider a [fraction](/definitions/fraction) of [polynomials](/definitions/polynomial), after canceling common factors.
       A _pole_ of the fraction is a value where the denominator is zero, so that the function blows up.
   undergraduate:
     text: |-

@@ -6,7 +6,7 @@ synonyms: [frontier, $\partial A$]
 levels:
   elementary:
     text: |-
-      Consider a shape drawn on a piece of paper using a continuous line that forms a closed loop. 
+      Consider a shape drawn on a piece of paper using a [continuous](/definitions/continuous) line that forms a [closed loop](/definitions/closed-loop). 
       There is a portion of the paper that is inside the shape and a portion that is outside. 
       The _boundary_ of the shape is curve that separates the inside from the outside.
     # caveat: >-
@@ -19,8 +19,10 @@ levels:
   graduate:
     context: topological spaces
     text: |-
-      Consider a subset $A$ of a topological space, with its closure $\overline{A}$ and its interior $\operatorname{int}(A)$.
-      The _boundary_ of $A$ is $\partial A = \overline{A} \setminus \operatorname{int}(A)$.
+      Consider a [subset](/definitions/subset) $A$ of a topological space, with its closure $\overline{A}$ and its interior $\operatorname{int}(A)$.
+      The _boundary_ of $A$ is
+
+      $$\partial A = \overline{A} \setminus \operatorname{int}(A).$$
 properties:
   - >-
     $\partial A = \overline{A} \cap \overline{X \setminus A}$, so a set and its complement have the same boundary.

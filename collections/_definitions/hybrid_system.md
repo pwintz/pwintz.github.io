@@ -10,5 +10,9 @@ levels:
   graduate:
     context: "the framework of Goebel, Sanfelice, and Teel"
     text: |-
-      A _hybrid system_ is given by $\dot{x} \in F(x)$ for $x \in C$ and $x^{+} \in G(x)$ for $x \in D$, where $C$ is the flow set, $F$ is the flow map, $D$ is the jump set, and $G$ is the jump map.
+      A _hybrid system_ is given by
+
+      $$\begin{aligned} \dot{x} &\in F(x), & x &\in C, \\ x^{+} &\in G(x), & x &\in D, \end{aligned}$$
+
+      where $C$ is the flow set, $F$ is the flow map, $D$ is the jump set, and $G$ is the jump map.
 ---

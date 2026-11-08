@@ -8,7 +8,9 @@ levels:
     context: dynamical systems
     text: |-
       Consider a function $V$ and a [vector](/definitions/vector) field $F$, with solutions of $\dot{x} = F(x)$.
-      The _Lie derivative_ of $V$ along $F$ is $L_F V(x) = \nabla V(x) \cdot F(x)$.
+      The _Lie derivative_ of $V$ along $F$ is
+
+      $$L_F V(x) = \nabla V(x) \cdot F(x).$$
       It is the rate of change of $V$ along those solutions.
   graduate:
     context: differential geometry

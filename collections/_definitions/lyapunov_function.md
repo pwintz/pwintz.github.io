@@ -15,7 +15,11 @@ levels:
   undergraduate:
     text: |-
       Consider a system $\dot{x} = f(x)$ with an [equilibrium](/definitions/equilibrium) at $x = 0$.
-      A _Lyapunov function_ for the equilibrium is a [continuously differentiable](/definitions/continuously-differentiable), [positive definite](/definitions/positive-definite-function) function $V$ whose derivative along solutions, $\dot{V}(x) = \nabla V(x) \cdot f(x)$, satisfies $\dot{V}(x) \leq 0$ near $0$.
+      A _Lyapunov function_ for the equilibrium is a [continuously differentiable](/definitions/continuously-differentiable), [positive definite](/definitions/positive-definite-function) function $V$ whose derivative along solutions satisfies
+
+      $$\dot{V}(x) = \nabla V(x) \cdot f(x) \leq 0$$
+
+      near $0$.
 properties:
   - >-
     If a Lyapunov function exists, the [equilibrium](/definitions/equilibrium) is stable.

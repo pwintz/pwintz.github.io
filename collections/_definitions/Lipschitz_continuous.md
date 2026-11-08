@@ -11,8 +11,10 @@ levels:
   undergraduate:
     context: metric spaces
     text: |-
-      Consider a function $f : X \to Y$ between metric spaces.
-      The function $f$ is _Lipschitz continuous_ if there exists $L \geq 0$ such that $d(f(x), f(y)) \leq L d(x, y)$ for all $x, y \in X$.
+      Consider a function $f : X \to Y$ between [metric spaces](/definitions/metric-space).
+      The function $f$ is _Lipschitz continuous_ if there exists $L \geq 0$ such that
+
+      $$d(f(x), f(y)) \leq L d(x, y) \quad \text{for all } x, y \in X.$$
       The smallest such $L$ is the _Lipschitz constant_ of $f$.
 properties:
   - >-
@@ -21,5 +23,5 @@ properties:
     A Lipschitz continuous function on an interval is [absolutely continuous](/definitions/absolutely-continuous).
     A Lipschitz continuous function on $\reals^n$ is [differentiable](/definitions/differentiable) [almost everywhere](/definitions/almost-everywhere) (Rademacher's theorem).
   - >-
-    A [differentiable](/definitions/differentiable) function on an interval is Lipschitz continuous with constant $L$ if and only if $\lvert f^{\prime}(x) \rvert \leq L$ for all $x$ (by the mean value theorem).
+    A [differentiable](/definitions/differentiable) function on an interval is Lipschitz continuous with constant $L$ if and only if $\abs{f^{\prime}(x)} \leq L$ for all $x$ (by the mean value theorem).
 ---

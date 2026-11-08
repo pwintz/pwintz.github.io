@@ -11,7 +11,7 @@ levels:
       The _limit superior_ of the sequence is the largest value that its terms keep coming back close to forever.
   undergraduate:
     text: |-
-      Consider a [sequence](/definitions/sequence) $(a_n)$ of real numbers.
+      Consider a [sequence](/definitions/sequence) $(a_n)$ of [real numbers](/definitions/real-number).
       The _limit superior_ of $(a_n)$ is
 
       $$\limsup_{n \to \infty} a_n = \lim_{n \to \infty} \sup_{k \geq n} a_k,$$

@@ -7,4 +7,4 @@ levels:
     text: |-
       The _whole numbers_ are $0, 1, 2, 3, \dots$, the numbers with no fractional or decimal part.
 ---
-"Whole numbers" is mostly used in schools. Some authors use it for all [integers](/definitions/integer) ($\dots, -2, -1, 0, 1, 2, \dots$) or for the positive integers, so it is best avoided in technical writing.
+"Whole numbers" is mostly used in schools. Some authors use it for all [integers](/definitions/integer) ($\dots, -2, -1, 0, 1, 2, \dots$) or for the [positive integers](/definitions/natural-numbers-from-one), so it is best avoided in technical writing.

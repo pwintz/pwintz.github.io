@@ -6,12 +6,12 @@ applies_to: ordered sets
 levels:
   elementary:
     text: |-
-      Think of a set of numbers, like $\lbrace 3, 5, 8 \rbrace$.
-      A _lower bound_ of the set is a number that is less than or equal to all of them.
+      Think of a set of numbers, like $\setdef{3, 5, 8}$.
+      A _lower bound_ of the set is a number that is less than or equal to every number in the set.
   high-school:
     context: sets of real numbers
     text: |-
-      Consider a set $S$ of real numbers.
+      Consider a set $S$ of [real numbers](/definitions/real-number).
       A _lower bound_ of $S$ is a number $m$ with $m \leq x$ for every $x \in S$.
       It does not need to be in $S$, and a set can have many lower bounds.
   undergraduate:

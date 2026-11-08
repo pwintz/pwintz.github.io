@@ -14,7 +14,7 @@ levels:
       The set $(0, 1]$ has no smallest element: for any $x$ in it, $x / 2$ is smaller.
   undergraduate:
     text: |-
-      Consider an ordered set and a subset $S$ of it.
+      Consider an ordered set and a [subset](/definitions/subset) $S$ of it.
       The _minimum_ of $S$ is an element of $S$ that is less than or equal to every element of $S$.
       The minimum of a function $f$ is the minimum of its set of values, if it exists.
 properties:

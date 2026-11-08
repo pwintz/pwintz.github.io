@@ -13,5 +13,5 @@ levels:
       A _normed space_ is a [vector](/definitions/vector) space together with a [norm](/definitions/norm).
 properties:
   - >-
-    Every normed space is a [metric space](/definitions/metric-space) with $d(x, y) = \lVert x - y \rVert$.
+    Every normed space is a [metric space](/definitions/metric-space) with $d(x, y) = \norm{x - y}$.
 ---

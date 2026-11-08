@@ -16,10 +16,10 @@ levels:
   undergraduate:
     context: functions on open subsets of $\reals^n$
     text: |-
-      Consider a function $f$ on an open subset of $\reals^n$ and a point $a$ in its domain.
+      Consider a function $f$ on an open [subset](/definitions/subset) of $\reals^n$ and a point $a$ in its domain.
       The function $f$ is _differentiable_ at $a$ if there is a [linear map](/definitions/linear-map) $Df(a)$ with
 
-      $$\lim_{h \to 0} \frac{\lVert f(a + h) - f(a) - Df(a) h \rVert}{\lVert h \rVert} = 0.$$
+      $$\lim_{h \to 0} \frac{\norm{f(a + h) - f(a) - Df(a) h}}{\norm{h}} = 0.$$
 properties:
   - >-
     Every differentiable function is [continuous](/definitions/continuous).

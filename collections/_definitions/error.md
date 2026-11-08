@@ -1,5 +1,4 @@
 ---
-published: false
 title: Error (of an approximation)
 term: error
 applies_to: approximations and measurements
@@ -12,6 +11,6 @@ levels:
     text: |-
       Consider an approximate or measured value $\hat{x}$ of a true value $x$.
       The _error_ of $\hat{x}$ is how far it is from $x$.
-      The _absolute error_ is $\lvert \hat{x} - x \rvert$, and the _relative error_ is $\lvert \hat{x} - x \rvert / \lvert x \rvert$.
+      The _absolute error_ is $\abs{\hat{x} - x}$, and the _relative error_ is $\abs{\hat{x} - x} / \abs{x}$.
 ---
 Sign conventions vary: some authors define the error as $\hat{x} - x$, and others as $x - \hat{x}$.

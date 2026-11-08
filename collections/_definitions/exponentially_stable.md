@@ -13,7 +13,7 @@ levels:
       Consider a system with an [equilibrium](/definitions/equilibrium) $x^{\ast}$.
       The equilibrium is (locally) _exponentially stable_ if there are $k, \lambda, \delta > 0$ such that
 
-      $$\lVert x(t) - x^{\ast} \rVert \leq k \lVert x(0) - x^{\ast} \rVert e^{-\lambda t}$$
+      $$\norm{x(t) - x^{\ast}} \leq k \norm{x(0) - x^{\ast}} e^{-\lambda t}$$
 
-      for all $t \geq 0$ whenever $\lVert x(0) - x^{\ast} \rVert < \delta$.
+      for all $t \geq 0$ whenever $\norm{x(0) - x^{\ast}} < \delta$.
 ---

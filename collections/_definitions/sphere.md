@@ -17,7 +17,9 @@ levels:
     context: metric spaces
     text: |-
       Consider a [metric space](/definitions/metric-space) with [metric](/definitions/metric) $d$, a center $c$, and a radius $r$.
-      The _sphere_ of radius $r$ around $c$ is $S(c, r) = \setdef{x \suchthat d(x, c) = r}$.
+      The _sphere_ of radius $r$ around $c$ is
+
+      $$S(c, r) = \setdef{x \suchthat d(x, c) = r}.$$
       In $\reals^{n+1}$ with the Euclidean metric, the unit sphere is written $S^n$; it is $n$-dimensional.
 ---
 The dimension convention is a common source of confusion: the ordinary sphere in $\reals^3$ is the $2$-sphere $S^2$, because its surface is two-dimensional.

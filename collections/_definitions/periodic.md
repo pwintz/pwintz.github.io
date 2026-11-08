@@ -11,13 +11,17 @@ levels:
   high-school:
     text: |-
       Consider a function $f$ of time $t$, and a number $T > 0$.
-      The function $f$ is _periodic_ with period $T$ if $f(t + T) = f(t)$ for all $t$.
-      Periodic events happen at regular intervals of length $T$.
+      The function $f$ is _periodic_ with period $T$ if
+
+      $$f(t + T) = f(t) \quad \text{for all } t.$$
+      Periodic [events](/definitions/event) happen at regular intervals of length $T$.
   undergraduate:
     context: dynamical systems
     text: |-
       Consider a solution $x(t)$ of a dynamical system.
-      The solution is _periodic_ if $x(t + T) = x(t)$ for all $t$ and some $T > 0$.
+      The solution is _periodic_ if, for some $T > 0$,
+
+      $$x(t + T) = x(t) \quad \text{for all } t.$$
 properties:
   - >-
     If $T$ is a period, so is every positive [integer](/definitions/integer) multiple of $T$.

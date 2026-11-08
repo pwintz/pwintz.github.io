@@ -12,5 +12,7 @@ levels:
   undergraduate:
     text: |-
       Consider a function $f$ defined on an interval to the right of $a$.
-      We write $\lim_{x \to a^{+}} f(x) = L$, and call $L$ the _right limit_ of $f$ at $a$, if for every $\varepsilon > 0$ there is a $\delta > 0$ such that $\lvert f(x) - L \rvert < \varepsilon$ whenever $a < x < a + \delta$.
+      We write $\lim_{x \to a^{+}} f(x) = L$, and call $L$ the _right limit_ of $f$ at $a$, if for every $\varepsilon > 0$ there is a $\delta > 0$ such that
+
+      $$\abs{f(x) - L} < \varepsilon \quad \text{whenever } a < x < a + \delta.$$
 ---

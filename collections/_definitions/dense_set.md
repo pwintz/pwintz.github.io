@@ -7,7 +7,7 @@ levels:
   high-school:
     text: |-
       Consider a set of [real numbers](/definitions/real-number).
-      The set is _dense_ if it has members between any two different real numbers, no matter how close together they are.
+      The set is _dense_ if it has members between any two different real numbers, no matter how close together the two numbers are.
   undergraduate:
     context: subsets of $\reals$
     text: |-
@@ -17,7 +17,7 @@ levels:
     context: topology
     text: |-
       Consider a topological space $X$ and a [subset](/definitions/subset) $A$ of $X$.
-      The set $A$ is _dense_ if its closure is $X$: every nonempty open set contains a point of $A$.
+      The set $A$ is _dense_ if its closure is $X$: every nonempty [open set](/definitions/open-set) contains a point of $A$.
 properties:
   - >-
     Both $\mathbb{Q}$ and $\reals \setminus \mathbb{Q}$ are dense in $\reals$.

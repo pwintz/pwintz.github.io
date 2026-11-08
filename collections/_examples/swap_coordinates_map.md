@@ -9,4 +9,7 @@ why:
   jacobian_determinant: >-
     Areas are unchanged, but the reflection flips regions over, so the sign is negative.
     The area scale factor is the absolute value, $1$.
+  jacobian: >-
+    The Jacobian matrix of $f$ swaps the coordinates.
+    Its determinant is $-1$ because $f$ keeps areas the same but reverses orientation.
 ---

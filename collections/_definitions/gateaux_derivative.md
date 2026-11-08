@@ -6,7 +6,7 @@ applies_to: maps between normed spaces
 levels:
   graduate:
     text: |-
-      Consider a map $f : X \to Y$ between normed spaces, a point $x$, and a direction $h$.
+      Consider a map $f : X \to Y$ between [normed spaces](/definitions/normed-space), a point $x$, and a direction $h$.
       The _Gâteaux derivative_ of $f$ at $x$ in the direction $h$ is $\lim_{t \to 0} \frac{f(x + t h) - f(x)}{t}$.
       The map $f$ is Gâteaux [differentiable](/definitions/differentiable) at $x$ if this limit exists for every direction $h$ and is a [bounded](/definitions/bounded) linear function of $h$.
 properties:

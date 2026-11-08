@@ -1,9 +1,10 @@
 ---
-published: false
-title: '$\lbrace \emptyset, \lbrace 1 \rbrace, \lbrace 2, 3 \rbrace, \lbrace 1, 2, 3 \rbrace \rbrace$, on $X = \lbrace 1, 2, 3 \rbrace$'
+title: '$\setdef{\emptyset, \setdef{1}, \setdef{2, 3}, \setdef{1, 2, 3}}$, on $X = \setdef{1, 2, 3}$'
 level: undergraduate
 is: [topology, sigma_algebra]
 why:
+  topology: >-
+    The collection $\setdef{\emptyset, \setdef{1}, \setdef{2, 3}, \setdef{1, 2, 3}}$ is a topology on $\setdef{1, 2, 3}$, because it contains $\emptyset$ and $\setdef{1, 2, 3}$, and every union and intersection of its sets is in it.
   sigma_algebra: >-
-    The collection $\lbrace \emptyset, \lbrace 1 \rbrace, \lbrace 2, 3 \rbrace, \lbrace 1, 2, 3 \rbrace \rbrace$ is a σ-algebra on $\lbrace 1, 2, 3 \rbrace$, because it contains the complement of each of its sets, and every union of them.
+    The collection $\setdef{\emptyset, \setdef{1}, \setdef{2, 3}, \setdef{1, 2, 3}}$ is a σ-algebra on $\setdef{1, 2, 3}$, because it contains the complement of each of its sets, and every union of them.
 ---

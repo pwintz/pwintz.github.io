@@ -13,7 +13,7 @@ levels:
       An _inner product space_ is a [vector](/definitions/vector) space together with an [inner product](/definitions/inner-product).
 properties:
   - >-
-    Every inner product space is a [normed space](/definitions/normed-space) with $\lVert x \rVert = \sqrt{\langle x, x \rangle}$.
+    Every inner product space is a [normed space](/definitions/normed-space) with $\norm{x} = \sqrt{\ip{x}{x}}$.
   - >-
-    The Cauchy–Schwarz inequality holds: $\lvert \langle x, y \rangle \rvert \leq \lVert x \rVert \lVert y \rVert$.
+    The Cauchy–Schwarz inequality holds: $\abs{\ip{x}{y}} \leq \norm{x} \norm{y}$.
 ---

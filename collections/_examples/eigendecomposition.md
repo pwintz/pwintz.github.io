@@ -7,4 +7,6 @@ why:
   singular_value_decomposition: >-
     An eigendecomposition $A = P D P^{-1}$ is not a singular value decomposition, because the columns of $P$ need not be orthonormal, and the eigenvalues in $D$ can be negative or complex.
     For a symmetric positive semidefinite matrix, the two decompositions coincide.
+  eigendecomposition: >-
+    An eigendecomposition is not a singular value decomposition, because $P$ need not be orthogonal, and the entries of $D$ can be negative or complex.
 ---

@@ -7,7 +7,15 @@ levels:
   undergraduate:
     text: |-
       Consider a square [matrix](/definitions/matrix) $A$.
-      A _PLU decomposition_ of $A$ is a factorization $A = P L U$, where $P$ is a permutation matrix (the identity matrix with its rows reordered), $L$ is lower triangular with ones on its diagonal, and $U$ is upper triangular.
+      A _PLU decomposition_ of $A$ is a factorization
+
+      $$A = P L U,$$
+
+      where
+
+      1. $P$ is a permutation matrix (the identity matrix with its rows reordered),
+      2. $L$ is lower triangular with ones on its diagonal, and
+      3. $U$ is upper triangular.
 properties:
   - |-
     Every square matrix has a PLU decomposition, unlike an [LU decomposition](/definitions/lu-decomposition), which need not exist.
@@ -20,4 +28,4 @@ properties:
 Some authors write $P A = L U$ instead of $A = P L U$.
 The two conventions use inverse permutation matrices, since $P^{-1} = P^{\top}$.
 
-Numerical libraries (for example, `lu` in MATLAB and `scipy.linalg.lu` in Python) compute a PLU decomposition with partial pivoting, not a plain LU decomposition.
+Numerical libraries (for example, `lu` in MATLAB and `scipy.linalg.lu` in Python) compute a PLU decomposition with partial pivoting, not a plain [LU decomposition](/definitions/lu-decomposition).

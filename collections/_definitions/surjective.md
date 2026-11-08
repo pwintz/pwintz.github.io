@@ -2,7 +2,7 @@
 title: Surjective function
 term: surjective
 applies_to: functions
-synonyms: [onto]
+synonyms: [surjection, onto]
 levels:
   # elementary:
   #   text: |-

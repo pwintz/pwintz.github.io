@@ -1,5 +1,4 @@
 ---
-published: false
 title: Operator
 term: operator
 applies_to: mappings

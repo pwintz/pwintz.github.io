@@ -6,4 +6,6 @@ is_not: [dirichlet_condition, robin_condition]
 why:
   neumann_condition: >-
     Insulated ends have zero heat flux.
+  dirichlet_condition: >-
+    A heated rod with insulated ends is not a Dirichlet or Robin condition, because it prescribes the flux, not the value.
 ---

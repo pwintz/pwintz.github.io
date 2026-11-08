@@ -6,4 +6,6 @@ is_not: [identity_equation]
 why:
   identity_equation: >-
     The equation $A = \pi r^2$ is not an identity because is not true for every choice of variables $A$ and $r$, such as for $A = 0$ and $r = 1$.
+  equation: >-
+    $A = \pi r^2$ is an equation, and it is a formula because it gives the area $A$ in terms of the radius $r$.
 ---

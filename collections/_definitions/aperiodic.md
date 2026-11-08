@@ -9,11 +9,13 @@ levels:
     # Something is _aperiodic_ if it does not repeat on a regular schedule.
   high-school:
     text: |-
-      A function, signal, or sequence of events is _aperiodic_ if it is not [periodic](/definitions/periodic).
+      A function, signal, or sequence of [events](/definitions/event) is _aperiodic_ if the time it takes to repeat varies, so that a shift by any fixed time $T > 0$ changes it.
   undergraduate:
     context: real-time systems
     text: |-
-      A sequence of times $t_1$, $t_2$, $t_3$, ... is called _aperiodic_ if there does not exist a constant $P > 0$ such that $t_{i + 1} - t_{i} = P$ for each $i = 1, 2, 3, \dots$.
+      A sequence of times $t_1$, $t_2$, $t_3$, ... is called _aperiodic_ if there does not exist a constant $P > 0$ such that
+
+      $$t_{i + 1} - t_{i} = P \quad \text{for each } i = 1, 2, 3, \dots.$$
     # TODO: Also define a periodic functions.
     # _Aperiodic_ events (or tasks) can occur at any time, with no guaranteed minimum separation between occurrences.
 ---

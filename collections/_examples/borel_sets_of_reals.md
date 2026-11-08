@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'The Borel sets of $\reals$'
 level: graduate
 description: >-
@@ -10,4 +9,6 @@ why:
   topology: >-
     Every set is a union of one-point sets, which are Borel, but not every set is Borel.
     So the Borel sets are not closed under arbitrary unions.
+  sigma_algebra: >-
+    The Borel sets of $\reals$ form a σ-algebra: the smallest σ-algebra that contains the open sets.
 ---

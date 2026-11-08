@@ -10,9 +10,9 @@ levels:
       The list is _divergent_ if its numbers do not settle down toward any one number.
   high-school:
     text: |-
-      Consider a [sequence](/definitions/sequence) (or series) of numbers.
-      It is _divergent_ if it does not converge.
-      It might grow without bound or oscillate.
+      Consider a [sequence](/definitions/sequence) $(a_n)$ of numbers.
+      The sequence $(a_n)$ is _divergent_ if, for every number $L$, there is a distance $\varepsilon > 0$ such that infinitely many terms $a_n$ are at least $\varepsilon$ away from $L$.
+      For example, the sequence might grow without bound or oscillate.
 properties:
   - >-
     A divergent [sequence](/definitions/sequence) can be [bounded](/definitions/bounded), such as $1, -1, 1, -1, \dots$ Every unbounded sequence diverges.

@@ -7,7 +7,11 @@ levels:
   undergraduate:
     text: |-
       Consider two sets $A$ and $B$, which may overlap.
-      Their _disjoint union_ is a set that combines them while keeping their elements apart: $A \sqcup B = (\lbrace 1 \rbrace \times A) \cup (\lbrace 2 \rbrace \times B)$, so each element is tagged with the set it came from.
+      The _disjoint union_ of $A$ and $B$ is a set that combines $A$ and $B$ while keeping the elements of $A$ apart from the elements of $B$:
+
+      $$A \sqcup B = (\setdef{1} \times A) \cup (\setdef{2} \times B),$$
+
+      so each element is tagged with the set it came from.
   # graduate:
   #   context: category theory
   #   text: |-

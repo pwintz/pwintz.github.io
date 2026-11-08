@@ -7,4 +7,6 @@ is_not: [lyapunov_indirect]
 why:
   lyapunov_indirect: >-
     The linearization $\dot{x} = 0$ has the eigenvalue $0$, so the indirect method is inconclusive.
+  lyapunov_direct: >-
+    Lyapunov's direct method applies, because $V = x^2$ gives $\dot{V} = -2 x^4$, which shows asymptotic stability.
 ---

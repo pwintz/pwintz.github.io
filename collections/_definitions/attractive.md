@@ -13,12 +13,14 @@ levels:
     context: equilibria
     text: |-
       Consider a system with an [equilibrium](/definitions/equilibrium) $x^{\ast}$.
-      The equilibrium is _attractive_ if there is $\delta > 0$ such that $\lVert x(0) - x^{\ast} \rVert < \delta$ implies $x(t) \to x^{\ast}$ as $t \to \infty$.
+      The equilibrium is _attractive_ if there is $\delta > 0$ such that
+
+      $$\norm{x(0) - x^{\ast}} < \delta \implies x(t) \to x^{\ast} \quad \text{as } t \to \infty.$$
   graduate:
     context: closed sets
     text: |-
-      Consider a dynamical system and a closed set $A$ of states.
-      The set $A$ is _attractive_ if there is a neighborhood $U$ of $A$ such that every solution starting in $U$ converges to $A$: its distance to $A$ tends to zero.
+      Consider a dynamical system and a [closed set](/definitions/closed-set) $A$ of states.
+      The set $A$ is _attractive_ if there is a [neighborhood](/definitions/neighborhood) $U$ of $A$ such that every solution starting in $U$ converges to $A$: its distance to $A$ tends to zero.
 properties:
   - >-
     Attractivity does not imply stability: solutions can make a large excursion before converging.

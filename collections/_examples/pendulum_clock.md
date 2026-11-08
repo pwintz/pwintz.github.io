@@ -1,6 +1,5 @@
 ---
-published: false
-title: 'The steady swing of a pendulum clock'
+title: 'The swinging pendulum of a grandfather clock'
 level: high-school
 is: [limit_cycle, periodic]
 ---

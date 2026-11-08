@@ -6,8 +6,8 @@ synonyms: [$A \sqcup B$ (in some texts)]
 levels:
   high-school:
     text: |-
-      Consider two sets that have no elements in common.
-      Their [union](/definitions/set-union) is a _union of disjoint sets_.
+      Consider two sets $A$ and $B$ that have no elements in common.
+      The [union](/definitions/set-union) $A \cup B$ is a _union of disjoint sets_.
   undergraduate:
     text: |-
       Consider sets $A$ and $B$ with $A \cap B = \emptyset$.

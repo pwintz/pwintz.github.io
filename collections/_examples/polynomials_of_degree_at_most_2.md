@@ -1,9 +1,9 @@
 ---
-published: false
-title: 'The polynomials of degree at most $2$'
+title: 'The set of polynomials of degree at most $2$'
 level: undergraduate
+is: [vector_space]
 values:
-  dimension_vector_space: '$\dim \lbrace a + b x + c x^2 \rbrace = 3$'
+  dimension_vector_space: '$\dim \setdef{a + b x + c x^2} = 3$'
 why:
   dimension_vector_space: >-
     $1$, $x$, and $x^2$ form a basis.

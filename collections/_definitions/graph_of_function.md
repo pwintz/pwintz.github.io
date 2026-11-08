@@ -15,5 +15,7 @@ levels:
   undergraduate:
     text: |-
       Consider a function $f : X \to Y$.
-      The _graph_ of $f$ is the set $\setdef{(x, f(x)) \suchthat x \in X} \subseteq X \times Y$.
+      The _graph_ of $f$ is the set
+
+      $$\setdef{(x, f(x)) \suchthat x \in X} \subseteq X \times Y.$$
 ---

@@ -19,5 +19,5 @@ properties:
   - >-
     $\reals$ can be constructed from $\mathbb{Q}$ using Dedekind cuts or Cauchy [sequences][(/definitions/sequence).
   - >-
-    Every nonempty set of real numbers that is [bounded](/definitions/bounded) above has a least upper bound (the completeness of $\reals$).
+    Every nonempty set of real numbers that is [bounded](/definitions/bounded) above has a [least upper bound](/definitions/supremum) (the completeness of $\reals$).
 ---

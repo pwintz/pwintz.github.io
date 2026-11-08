@@ -9,4 +9,8 @@ why:
     $0$ is the identity element for addition, because adding $0$ changes nothing.
   zero_vector: >-
     The number $0$ is not a zero vector, because it is a number, not a vector.
+  zero_number: >-
+    $0$ is the zero number, and it is the identity element for addition of numbers, because adding $0$ changes nothing.
+  empty_set: >-
+    $0$, for addition of numbers, is not the empty set or the zero vector, because it is a number.
 ---

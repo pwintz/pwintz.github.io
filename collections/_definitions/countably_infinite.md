@@ -11,11 +11,11 @@ levels:
   undergraduate:
     text: |-
       Consider a set $S$.
-      The set $S$ is _countably infinite_ if $S$ is in bijection with $\mathbb{N}$, so its elements can be listed as $a_1, a_2, a_3, \dots$ without missing any.
+      The set $S$ is _countably infinite_ if $S$ is in bijection with $\nats$, so its elements can be listed as $a_1, a_2, a_3, \dots$ without missing any.
 properties:
   - >-
-    $\mathbb{N}$, $\mathbb{Z}$, and $\mathbb{Q}$ are countably infinite, but $\reals$ is not.
+    $\nats$, $\mathbb{Z}$, and $\mathbb{Q}$ are countably infinite, but $\reals$ is not.
   - >-
-    Every infinite [subset](/definitions/subset) of a countably infinite set is countably infinite, and a countable [union](/definitions/set-union) of countable sets is countable (assuming the axiom of countable choice).
+    Every infinite [subset](/definitions/subset) of a countably infinite set is countably infinite, and a [countable](/definitions/countable) [union](/definitions/set-union) of countable sets is countable (assuming the axiom of countable choice).
 ---
-"Countable" is ambiguous: some authors mean countably infinite, and others mean finite or countably infinite.
+"[Countable](/definitions/countable)" is ambiguous: some authors mean countably infinite, and others mean finite or countably infinite.

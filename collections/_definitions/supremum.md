@@ -8,13 +8,15 @@ levels:
   high-school:
     context: sets of real numbers
     text: |-
-      Consider a set $S$ of real numbers.
+      Consider a set $S$ of [real numbers](/definitions/real-number).
       The _supremum_ of $S$ is the smallest number that is greater than or equal to every element of $S$.
   undergraduate:
     context: partially ordered sets
     text: |-
-      Consider a partially ordered set and a subset $S$ of it, with its upper bounds: the elements $M$ with $x \leq M$ for every $x \in S$.
-      The _supremum_ of $S$ is an upper bound $M$ of $S$ such that $M \leq M^{\prime}$ for every upper bound $M^{\prime}$ of $S$.
+      Consider a partially ordered set and a [subset](/definitions/subset) $S$ of it, with its upper bounds: the elements $M$ with $x \leq M$ for every $x \in S$.
+      The _supremum_ of $S$ is an upper bound $M$ of $S$ such that
+
+      $$M \leq M^{\prime} \quad \text{for every upper bound } M^{\prime} \text{ of } S.$$
 properties:
   - |-
     Every nonempty set of [real numbers](/definitions/real-number) that is [bounded](/definitions/bounded) above has a supremum.

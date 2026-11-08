@@ -12,7 +12,9 @@ levels:
   undergraduate:
     text: |-
       Consider two functions $f$ and $g$.
-      We write $f(x) = o(g(x))$ as $x \to \infty$, read "$f$ is _little o_ of $g$," if for every $\varepsilon > 0$ there is $x_0$ with $\lvert f(x) \rvert \leq \varepsilon \lvert g(x) \rvert$ for all $x \geq x_0$.
+      We write $f(x) = o(g(x))$ as $x \to \infty$, read "$f$ is _little o_ of $g$," if for every $\varepsilon > 0$ there is $x_0$ with
+
+      $$\abs{f(x)} \leq \varepsilon \abs{g(x)} \quad \text{for all } x \geq x_0.$$
 properties:
   - >-
     When $g(x) \neq 0$ for large $x$, $f = o(g)$ if and only if $f(x) / g(x) \to 0$: $f$ is negligible compared with $g$.

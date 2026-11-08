@@ -12,7 +12,9 @@ levels:
   undergraduate:
     text: |-
       Consider a function $f$ defined near $a$, except possibly at $a$.
-      We write $\lim_{x \to a} f(x) = L$, and call $L$ the _limit_ of $f$ at $a$, if for every $\varepsilon > 0$ there is a $\delta > 0$ such that $\lvert f(x) - L \rvert < \varepsilon$ whenever $0 < \lvert x - a \rvert < \delta$.
+      We write $\lim_{x \to a} f(x) = L$, and call $L$ the _limit_ of $f$ at $a$, if for every $\varepsilon > 0$ there is a $\delta > 0$ such that
+
+      $$\abs{f(x) - L} < \varepsilon \quad \text{whenever } 0 < \abs{x - a} < \delta.$$
 properties:
   - |-
     The limit at $a$ exists if and only if the [left limit](/definitions/left-limit) and the [right limit](/definitions/right-limit) at $a$ both exist and are equal.

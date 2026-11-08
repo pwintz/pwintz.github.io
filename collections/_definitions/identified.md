@@ -7,7 +7,7 @@ levels:
   undergraduate:
     text: |-
       Consider two objects that are not literally equal, but correspond to each other through a natural bijection.
-      The objects are _identified_ when we agree to treat them as the same.
+      The objects are _identified_ when we agree to treat the objects as the same.
   graduate:
     context: topology
     text: |-

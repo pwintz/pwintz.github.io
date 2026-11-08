@@ -15,7 +15,7 @@ levels:
   undergraduate:
     context: functions on an open set $U \subseteq \reals^n$
     text: |-
-      Consider a function $f : U \to \reals^m$ on an open set $U \subseteq \reals^n$.
+      Consider a function $f : U \to \reals^m$ on an [open set](/definitions/open-set) $U \subseteq \reals^n$.
       The function $f$ is _continuously differentiable_ if every [partial derivative](/definitions/partial-derivative) of $f$ exists and is [continuous](/definitions/continuous) on $U$.
 properties:
   - >-

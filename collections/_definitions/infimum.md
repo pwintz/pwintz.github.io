@@ -8,13 +8,15 @@ levels:
   high-school:
     context: sets of real numbers
     text: |-
-      Consider a set $S$ of real numbers.
+      Consider a set $S$ of [real numbers](/definitions/real-number).
       The _infimum_ of $S$ is the largest number that is less than or equal to every element of $S$.
   undergraduate:
     context: partially ordered sets
     text: |-
-      Consider a partially ordered set and a subset $S$ of it.
-      The _infimum_ of $S$ is a [lower bound](/definitions/lower-bound) $m$ of $S$ such that $m^{\prime} \leq m$ for every lower bound $m^{\prime}$ of $S$.
+      Consider a partially ordered set and a [subset](/definitions/subset) $S$ of it.
+      The _infimum_ of $S$ is a [lower bound](/definitions/lower-bound) $m$ of $S$ such that
+
+      $$m^{\prime} \leq m \quad \text{for every lower bound } m^{\prime} \text{ of } S.$$
 properties:
   - >-
     Every nonempty set of [real numbers](/definitions/real-number) that is [bounded](/definitions/bounded) below has an infimum.

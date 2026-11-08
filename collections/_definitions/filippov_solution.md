@@ -6,7 +6,7 @@ applies_to: differential equations
 levels:
   graduate:
     text: |-
-      Consider a differential equation $\dot{x} = f(x)$ whose right-hand side may be discontinuous, and replace $f$ by the set-valued map
+      Consider a differential equation $\dot{x} = f(x)$ whose right-hand side may be discontinuous, and replace $f$ by the [set-valued map](/definitions/set-valued-map)
 
       $$F(x) = \bigcap_{\delta > 0} \bigcap_{\mu(N) = 0} \overline{\operatorname{co}} f(B(x, \delta) \setminus N),$$
 

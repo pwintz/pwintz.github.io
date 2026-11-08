@@ -14,7 +14,7 @@ levels:
 
       the total change of $f$ satisfies
 
-      $$\sum_{k=1}^n \lvert f(y_k) - f(x_k) \rvert < \varepsilon.$$
+      $$\sum_{k=1}^n \abs{f(y_k) - f(x_k)} < \varepsilon.$$
   graduate:
     context: Lebesgue integration
     text: |-

@@ -3,7 +3,6 @@ published: false
 title: Function vs. map
 kind: synonyms
 areas: [sets]
-status: draft
 summary: >
   "Function" and "map" (or "mapping") mean exactly the same thing.
   "Map" is more common when the function preserves some structure or acts on geometric objects, but any statement about functions holds for maps, and vice versa.
@@ -12,17 +11,8 @@ terms:
   - map
 examples:
   - example: square_on_reals
-    why: >-
-      $f(x) = x^2$ is a function and a map, as is every function.
-      "Function" is the more common word here, because the inputs and outputs are numbers.
-  - example: a_linear_map_t_reals_squared_to_reals_squared
-    why: >-
-      $T$ is a function and a map.
-      "Linear map" is more common than "linear function," partly because "linear function" also means $x \mapsto m x + b$ in school algebra.
+  - example: a_linear_map_t_R2_to_R2
   - example: a_continuous_map_from_a_sphere_to_the_plane
-    why: >-
-      A continuous map from a sphere to the plane is a function and a map.
-      "Map" is the usual word in topology and geometry, where the inputs and outputs are points of spaces.
 see_also:
   - types_of_maps
   - function_vs_graph

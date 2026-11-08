@@ -3,11 +3,10 @@ published: false
 title: "Total derivative: along a path vs. linear map"
 kind: conflicting
 areas: [analysis]
-status: draft
 summary: >
   "Total derivative" has two meanings.
   It can mean the derivative of $f(t, x(t))$ with respect to $t$ along a path, including the change that comes through $x(t)$.
-  It can also mean the linear map $Df(x)$ of multivariable calculus, also called the differential.
+  It can also mean the [linear map](/definitions/linear-map) $Df(x)$ of multivariable calculus, also called the differential.
 terms:
   - total_derivative
   - total_derivative_linear_map
@@ -15,20 +14,14 @@ examples_note: >-
   Each cell is the total derivative of the function in that row, in the ___ sense.
 examples:
   - example: t_x_squared_on_path
-    why: >-
-      Along the path $x(t) = e^t$, the total derivative of $f$ is a number at each time $t$.
-      By the chain rule, it equals $\frac{\partial f}{\partial t} + \frac{\partial f}{\partial x} \dot{x}$.
   - example: t_x_squared
-    why: >-
-      The total derivative of $f$ as a function of two variables is the linear map $Df(t, x)$ at each point.
-      It takes a small change $(\Delta t, \Delta x)$ to the approximate change in $f$.
 see_also:
   - types_of_derivatives
   - types_of_scalar_derivatives
 ---
 ## How the two meanings are related
 
-The total derivative along a path is the linear map applied to the velocity of the path:
+The total derivative along a path is the [linear map](/definitions/linear-map) applied to the velocity of the path:
 
 $$\frac{\mathrm{d}}{\mathrm{d}t} f(t, x(t)) = Df(t, x(t))~(1, \dot{x}(t)).$$
 

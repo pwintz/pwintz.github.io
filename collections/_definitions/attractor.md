@@ -11,7 +11,11 @@ levels:
   graduate:
     text: |-
       Consider a dynamical system and a set $A$ of states.
-      The set $A$ is an _attractor_ if $A$ is [compact](/definitions/compact), invariant, and [attractive](/definitions/attractive): every solution starting near $A$ converges to $A$.
+      The set $A$ is an _attractor_ if
+
+      1. $A$ is [compact](/definitions/compact),
+      2. $A$ is invariant, and
+      3. $A$ is [attractive](/definitions/attractive): every solution starting near $A$ converges to $A$.
 ---
 Definitions vary.
 Some also require an attractor to be stable, or to contain no smaller attractor, or only require convergence for a set of initial states with positive measure (Milnor attractors).
