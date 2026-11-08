@@ -128,7 +128,7 @@ The dictionary has three collections:
   Rendered at `/definitions/<name>` with `_layouts/definition.html`.
 - `_distinctions`: One file per group of easily confused terms.
   Rendered at `/distinctions/<name>` with `_layouts/distinction.html`.
-- `_examples`: One file per example, e.g., `square_on_reals.md`.
+- `_examples`: One file per example, e.g., `x_sq_on_reals.md`.
   Rendered at `/examples/<name>` with `_layouts/example.html`.
   An example can be used by several distinctions, and is listed under every definition it addresses.
   An example does not need to be used by any distinction.
@@ -237,7 +237,7 @@ terms:                 # File names (without .md) in _definitions.
   - uniformly_continuous
 examples_note: >-      # (Optional) How to read the example grid, e.g., "Each cell is the ___ of the function in that row."
 examples:              # File names (without .md) in _examples, rendered as a grid with one column per term.
-  - example: square_on_reals
+  - example: x_sq_on_reals
     why: >-                                     # Why the example is or is not each term, as a full explanation.
       $x \mapsto x^2$ is continuous.
       It is not uniformly continuous, because its graph gets steeper without bound.

@@ -1,5 +1,4 @@
 ---
-published: false
 title: Random variable
 term: random variable
 applies_to: probability
@@ -12,5 +11,6 @@ levels:
     text: |-
       Consider a probability space $(\Omega, \mathcal{F}, P)$.
       A _random variable_ is a [measurable function](/definitions/measurable-map) $X : \Omega \to \reals$.
+      For each outcome $\omega$ of an experiment, $X$ produces a real number $X(\omega).$
 ---
 Despite its name, a random variable is a function, not a variable, and it is not random: the randomness is in the [outcome](/definitions/outcome) $\omega \in \Omega$.

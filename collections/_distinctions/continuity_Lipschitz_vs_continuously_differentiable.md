@@ -15,7 +15,7 @@ examples:
   - example: x_to_x_on_minus_1_1
   - example: f_x_eq_x_squared_sin_1_x_for_x_neq_0_f_0_eq_0_on
   - example: x_to_x_squared_on_0_1
-  - example: square_on_reals
+  - example: x_sq_on_reals
 see_also:
   - types_of_continuous
   - continuity_absolute_vs_Lipschitz

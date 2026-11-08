@@ -16,7 +16,7 @@ terms:
   - spatially_uniform
 examples:
   - example: x_to_sin_x_on_reals
-  - example: square_on_reals
+  - example: x_sq_on_reals
     why: >-
       $x \mapsto x^2$ is continuous at every point, but the $\delta$ needed for a given $\varepsilon$ shrinks as $\abs{x}$ grows, so it is continuous but not uniformly continuous.
   - example: x_n_to_0_on_0_1_over_2

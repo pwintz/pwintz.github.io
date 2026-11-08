@@ -1,5 +1,4 @@
 ---
-published: false
 title: Likelihood
 term: likelihood
 applies_to: statistical models

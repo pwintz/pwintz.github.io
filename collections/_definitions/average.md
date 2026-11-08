@@ -1,5 +1,4 @@
 ---
-published: false
 title: Average
 term: average
 applies_to: data

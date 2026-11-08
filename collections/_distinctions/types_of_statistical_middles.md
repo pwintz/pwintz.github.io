@@ -1,5 +1,4 @@
 ---
-published: false
 title: Measures of center
 kind: siblings
 areas: [statistics]

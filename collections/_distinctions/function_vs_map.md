@@ -1,5 +1,4 @@
 ---
-published: false
 title: Function vs. map
 kind: synonyms
 areas: [sets]
@@ -10,7 +9,7 @@ terms:
   - function
   - map
 examples:
-  - example: square_on_reals
+  - example: x_sq_on_reals
   - example: a_linear_map_t_R2_to_R2
   - example: a_continuous_map_from_a_sphere_to_the_plane
 see_also:

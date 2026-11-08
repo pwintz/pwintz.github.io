@@ -12,7 +12,7 @@ terms:
   - continuous
   - uniformly_continuous
 examples:
-  - example: square_on_reals
+  - example: x_sq_on_reals
   - example: x_to_e_x_on_reals
   - example: x_to_tan_x_on_minus_pi_2_pi_2
   - example: x_to_sin_1_x_on_0_infinity

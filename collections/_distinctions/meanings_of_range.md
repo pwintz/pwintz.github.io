@@ -13,7 +13,7 @@ terms:
 examples_note: >-
   Each cell is the range of the function or data in that row, in the ___ sense.
 examples:
-  - example: square_on_reals
+  - example: x_sq_on_reals
   - example: data_2_5_9
 see_also:
   - domain_vs_codomain_vs_image

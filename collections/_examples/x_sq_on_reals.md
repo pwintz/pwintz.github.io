@@ -1,10 +1,9 @@
 ---
-published: false
 title: '$f(x) = x^2$ on $\reals$'
 level: high-school
 description: >-
   The squaring function, as a function $f : \reals \to \reals$.
-is: [continuously_differentiable, continuous, sequentially_continuous, function, map, positive_definite_function, convex_function]
+is: [continuously_differentiable, continuous, sequentially_continuous, function, map, positive_definite_function, convex_function, locally_Lipschitz_continuous]
 is_not: [Lipschitz_continuous, uniformly_continuous, class_K, operator, functional, transform]
 values:
   domain: '$\reals$'
@@ -30,6 +29,8 @@ why:
     $x \mapsto x^2$ on $\reals$ is continuously differentiable because its derivative $2x$ is continuous.
   Lipschitz_continuous: >-
     $x \mapsto x^2$ on $\reals$ is not Lipschitz continuous, because its slope $2x$ is unbounded on $\reals$.
+  locally_Lipschitz_continuous: >-
+    $x \mapsto x^2$ on $\reals$ is locally Lipschitz continuous, because on each interval $[-R, R]$ its slope $2x$ is bounded by $2R$.
   continuous: >-
     $x \mapsto x^2$ is continuous.
   function: >-
@@ -37,9 +38,15 @@ why:
   range_statistics: >-
     The range of $f$, in the sense of its image, is $[0, \infty)$, because those are the outputs that actually occur. The range of $f$, in the sense of its codomain, is $\reals$, the set where outputs are allowed to land.
   positive_definite_function: >-
-    $x \mapsto x^2$ on $\reals$ is positive definite because it is positive away from $0$ and zero at $0$. It is not of class $\mathcal{K}$, because it is not increasing on all of $\reals$.
-  sequentially_continuous: >-
-    $x \mapsto x^2$ is continuous and sequentially continuous.
+    $x \mapsto x^2$ on $\reals$ is positive definite because it is positive away from $0$ and zero at $0$. 
+
+  # TODO: The following line was irrelevant to this "why"
+  # It is not of class $\mathcal{K}$, because it is not increasing on all of $\reals$.
+  
+  
+  # TODO: This next explanation doesn't really explain "why"
+  # sequentially_continuous: >-
+  #   $x \mapsto x^2$ is continuous and sequentially continuous.
   functional: >-
     $f(x) = x^2$ on $\reals$ is not a functional, because its inputs are numbers, not elements of a space of functions.
   operator: >-

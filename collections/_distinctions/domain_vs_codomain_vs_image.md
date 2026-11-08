@@ -15,7 +15,7 @@ terms:
 examples_note: >-
   Each cell is the ___ of the function in that row.
 examples:
-  - example: square_on_reals
+  - example: x_sq_on_reals
     why: >-
       The domain and codomain of $f$ are both $\reals$.
       Squares of real numbers are exactly the nonnegative numbers, so the image is $[0, \infty)$, which is smaller than the codomain.

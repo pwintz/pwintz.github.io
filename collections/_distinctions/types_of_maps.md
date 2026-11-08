@@ -13,7 +13,7 @@ terms:
   - functional
   - transform
 examples:
-  - example: square_on_reals
+  - example: x_sq_on_reals
   - example: f_to_f_prime_on_differentiable_functions
   - example: f_to_f_0
   - example: the_fourier_transform_f_to_hat_f

@@ -1,5 +1,4 @@
 ---
-published: false
 title: Uniform distribution
 term: uniform distribution
 applies_to: random variables

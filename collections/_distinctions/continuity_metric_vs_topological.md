@@ -13,7 +13,7 @@ terms:
   - continuous
   - sequentially_continuous
 examples:
-  - example: square_on_reals
+  - example: x_sq_on_reals
     why: >-
       The two definitions agree for functions between metric spaces, such as $x \mapsto x^2$ on $\reals$.
   - example: the_identity_map_from_reals_with_the_co_countable

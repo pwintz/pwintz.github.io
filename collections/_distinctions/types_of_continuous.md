@@ -21,7 +21,7 @@ examples:
   - example: x_to_sqrt_x_on_0_1
   - example: the_cantor_function_on_0_1
   - example: x_to_sin_1_x_on_0_1
-  - example: square_on_reals
+  - example: x_sq_on_reals
 see_also:
   - continuous_vs_uniform_continuous
   - continuity_uniform_vs_absolute

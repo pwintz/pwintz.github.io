@@ -1,5 +1,4 @@
 ---
-published: false
 title: Convex set vs. convex function
 kind: siblings
 areas: [analysis, geometry]
@@ -13,7 +12,7 @@ terms:
 examples:
   - example: closed_unit_disk
   - example: annulus
-  - example: square_on_reals
+  - example: x_sq_on_reals
   - example: abs_x
   - example: x_to_sin_x
 see_also:

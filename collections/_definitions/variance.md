@@ -20,5 +20,6 @@ properties:
   - >-
     The variance is in squared units: if $X$ is in meters, $\operatorname{Var}(X)$ is in square meters.
   - >-
-    The _sample variance_ of data, used to estimate the variance of a population, divides by $n - 1$ instead of $n$.
+    The high-school formula, which divides by $n$, gives the variance of the data themselves, such as the variance of a whole population.
+    If the data are a random sample from a larger population, then the [sample variance](/definitions/sample-variance), which divides by $n - 1$ instead of $n$, gives a better estimate of the population variance.
 ---

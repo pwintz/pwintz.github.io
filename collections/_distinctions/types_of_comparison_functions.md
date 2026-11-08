@@ -18,7 +18,7 @@ examples:
   - example: r_to_arctan_r_on_0_infinity
   - example: s_to_e_minus_s
   - example: r_s_to_r_e_minus_s
-  - example: square_on_reals
+  - example: x_sq_on_reals
   - example: x_1_x_2_to_x_1_squared_on_R2
 see_also:
   - types_of_dynamic_stability
