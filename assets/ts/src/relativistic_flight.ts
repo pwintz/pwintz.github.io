@@ -11,18 +11,30 @@
 // Every light source is modeled as a blackbody, because the Doppler shift turns a blackbody spectrum at
 // temperature T into another blackbody spectrum at temperature D·T, where D is the Doppler factor.
 
-export {};
+import { setupPanels } from "./common/panels";
+import { loadJSON, saveJSON } from "./common/storage";
+import { setupHelp } from "./common/help";
 
 // ─── Constants ─────────────────────────────────────────────────────────────────────────────────────
 
-/** Speed of light, in world units per second. The player can change it with a slider. */
-const DEFAULT_C = 300;
+/** The real speed of light, in world units per second. This fixes the size of a world unit: one unit
+ *  is 299,792,458 / 300 meters, about 999 km. Every map is fixed in these units. */
+const REAL_C = 300;
+const REAL_C2 = REAL_C * REAL_C;
+const METERS_PER_UNIT = 299792458 / REAL_C;
+/** Speed of light, in world units per second. The player can change it with a slider, which changes
+ *  only how fast light travels: the maps, sizes, and masses stay the same. */
+const DEFAULT_C = REAL_C;
 let C = DEFAULT_C;
 let C2 = C * C;
+/** How many seconds of ship time pass per second of real time. Turning, the crash animation, the
+ *  trail, and the rewind after a crash are measured in real time, so the ship stays controllable. */
+let gameSpeed = 1;
+const GAME_SPEEDS = [0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 50, 100];
 /** World units spanned by the longest side of the canvas when the ship is at rest. */
 const VIEW_SPAN = 1500;
 /** The engines cut out at this fraction of the speed of light. */
-const MAX_BETA = 0.999;
+const MAX_BETA = 0.9999;
 /** The largest proper speed γv, which corresponds to MAX_BETA. */
 function maxU(): number {
   return C * MAX_BETA / Math.sqrt(1 - MAX_BETA * MAX_BETA);
@@ -32,12 +44,9 @@ const DEFAULT_THRUST = 1;
 /** Turning rate, in radians per second of ship time. */
 const TURN_RATE = 3.4;
 const SHIP_RADIUS = 11;
-const LAPS = 2;
-const COUNTDOWN = 3;
-const TRACK_WIDTH = 420;
-const SAMPLE_SPACING = 40;
+/** Whether the device has a touch screen and no mouse, so the game shows on-screen buttons. */
+const TOUCH_ONLY = window.matchMedia("(pointer: coarse)").matches;
 const LAMP_EVERY = 5; // samples between lamps along the track edges
-const GATE_EVERY = 30; // samples between gates
 const POST_RADIUS = 14;
 const STAR_TILE = 2000;
 const STARS_PER_TILE = 150;
@@ -46,10 +55,34 @@ const CLOCK_RADIUS = 20;
 /** Seconds of rest-frame time for one turn of a clock hand. */
 const CLOCK_PERIOD = 10;
 const GRID_SPACING = 250;
-const GHOST_SAMPLE_INTERVAL = 0.05;
-const STORAGE_KEY = "relativistic-flight-best-v1";
+/** Ghosts are recorded every this many seconds of ship time. Ship time, unlike race time, passes at a
+ *  bounded rate however fast the ship goes, which keeps recordings small enough to store. */
+const GHOST_SAMPLE_INTERVAL = 0.1;
+/** Number of best runs kept for each combination of settings, each replayed as a ghost. */
+const MAX_BEST_RUNS = 5;
+const GHOST_MARKER_COLOR = "#c3adff";
+/** Best runs are saved under this prefix, per map (v2: maps and standard settings were added). */
+const STORAGE_KEY = "relativistic-flight-v2";
+const PIN_KEY = "relativistic_flight_pinned_panels";
+const SETTINGS_KEY = "relativistic_flight_settings";
 
-const TRAIL_TIME = 2.5; // seconds of ship time shown in the trail
+/** Settings remembered between visits. */
+interface SavedSettings {
+  map: string;
+  c: number;
+  thrust: number;
+  gravity: boolean;
+  lorentz: boolean;
+  doppler: ColorMode;
+  ghosts: boolean;
+  clocks: boolean;
+  grid: boolean;
+  orbits: boolean;
+  zoom: number;
+  gameSpeed: number;
+}
+
+const TRAIL_TIME = 2.5; // seconds of real time shown in the trail
 const TRAIL_INTERVAL = 0.03;
 const CRASH_TIME = 1.5;
 const MIN_ZOOM_FOR_LAMPS = 0.3;
@@ -127,10 +160,10 @@ interface Body {
   GM: number;
   kind: "body" | "blackhole";
   glow?: boolean;
+  /** Whether to draw the body's name (default true). */
+  label?: boolean;
 }
 
-type SystemMode = "real" | "fantasy";
-let systemMode: SystemMode = "real";
 /** Whether gravity (general relativity) is on. */
 let gravityOn = true;
 /** The bodies for the current settings, updated once per frame. */
@@ -142,57 +175,101 @@ const GM_KM3: Record<string, number> = {
   Jupiter: 1.26686534e8, Saturn: 3.7931187e7, Uranus: 5.793939e6, Neptune: 6.836529e6, Moon: 4902.8,
 };
 
-/** Schwarzschild radius of the fantasy black hole, in world units. */
-const BLACK_HOLE_RS = 80;
 const DISK_SRC: Source = { T: 7000, lambda: 590 };
 
-function placeBodies(track: Track): Body[] {
-  return systemMode === "fantasy" ? placeFantasyBodies(track) : placeRealBodies(track);
-}
+/** The planet run: a wide course strewn with planets to dodge, a black hole in the corridor, and a
+ *  star inside the loop. Sizes are fixed in world units. Each body's mass is given by its compactness
+ *  r_s/R (Schwarzschild radius over radius) at the real speed of light, GM = (r_s/R)·R·c²/2. The masses
+ *  stay fixed when the speed of light changes, so a slower speed of light makes every body more
+ *  compact and every black hole's horizon larger. The layout is random but seeded, so it is the same
+ *  on every visit and best times stay comparable. */
+const PLANET_RUN_COUNT = 90;
+/** Minimum gap between planets, so there is always room to fly between them. */
+const PLANET_RUN_GAP = 250;
+const PLANET_RUN_HOLE_RS = 50;
 
-/** A made-up planetary system sized for racing, with a black hole beside the course. Sizes are fixed
- *  in world units. Each body's mass is set by its compactness r_s/R (Schwarzschild radius over
- *  radius), so GM = (r_s/R)·R·c²/2 scales with c², and gravity is equally relativistic at every speed
- *  of light. */
-function placeFantasyBodies(track: Track): Body[] {
-  const star = { x: -4200, y: 3150 };
-  const body = (name: string, x: number, y: number, r: number, compactness: number, src: Source,
-                orbit: { x: number; y: number } = star): Body => ({
-    name, x, y, r, src, kind: "body", GM: (compactness * r * C2) / 2,
-    orbitX: orbit.x, orbitY: orbit.y, orbitR: Math.hypot(x - orbit.x, y - orbit.y),
+function placePlanetRunBodies(track: Track): Body[] {
+  const n = track.cx.length;
+  const rand = seededRandom(20261108);
+  const bodies: Body[] = [];
+  const hue = (lambda: number): [number, number, number] =>
+    lambda < 490 ? [0.4, 0.55, 1] : lambda < 560 ? [0.5, 0.9, 0.6] : lambda < 600 ? [0.95, 0.85, 0.55] : [1, 0.5, 0.35];
+  // Distance along the course, in samples, from sample i to the nearest gate or the start.
+  const gateDistance = (i: number) => Math.min(...[...track.gates, n - 3].map(g => {
+    const d = Math.abs(i - g);
+    return Math.min(d, n - d);
+  }));
+  const spacing = track.length / n;
+  const half = track.width / 2;
+  const at = (i: number, lateral: number) => ({
+    x: track.cx[i] + track.ty[i] * lateral,
+    y: track.cy[i] - track.tx[i] * lateral,
   });
-  const i = EARTH_SAMPLE;
-  const gaia = { x: 8800, y: 3000 };
-  return [
-    { ...body("Ember", star.x, star.y, 700, 0.02, { T: 4500, lambda: 600 }), orbitR: 0, glow: true },
-    body("Azure", track.cx[i] + track.ty[i] * 60, track.cy[i] - track.tx[i] * 60, 70, 0.1,
-         { T: SUNLIGHT, lambda: 475, tint: [0.4, 0.6, 1] }),
-    body("Rust", 900, 3100, 160, 0.08, { T: SUNLIGHT, lambda: 625, tint: [1, 0.5, 0.3] }),
-    body("Cobalt", 3600, 7300, 120, 0.1, { T: SUNLIGHT, lambda: 455, tint: [0.35, 0.45, 1] }),
-    body("Gaia", gaia.x, gaia.y, 300, 0.1, { T: SUNLIGHT, lambda: 540, tint: [0.5, 0.9, 0.5] }),
-    body("Pebble", gaia.x, gaia.y - 700, 45, 0.05, { T: SUNLIGHT, lambda: 570, tint: [0.75, 0.75, 0.75] }, gaia),
-    {
-      name: "Black hole", x: 4700, y: 1050, r: BLACK_HOLE_RS, src: { T: 0, lambda: 0 }, kind: "blackhole",
-      GM: (BLACK_HOLE_RS * C2) / 2, orbitX: 0, orbitY: 0, orbitR: 0,
-    },
-  ];
+
+  // A black hole in the middle of the corridor, a little past halfway around.
+  let holeI = Math.round(n * 0.55);
+  while (gateDistance(holeI) * spacing < 900) holeI++;
+  const hole = at(holeI, 0);
+  bodies.push({
+    name: "Black hole", x: hole.x, y: hole.y, r: (PLANET_RUN_HOLE_RS * REAL_C2) / C2, src: { T: 0, lambda: 0 }, kind: "blackhole",
+    GM: (PLANET_RUN_HOLE_RS * REAL_C2) / 2, orbitX: 0, orbitY: 0, orbitR: 0,
+  });
+
+  for (let attempt = 0; attempt < 4000 && bodies.length < PLANET_RUN_COUNT + 1; attempt++) {
+    const r = 60 * Math.pow(220 / 60, rand()); // radii from 60 to 220, more small than large
+    const i = Math.floor(rand() * n);
+    const lateral = (rand() * 2 - 1) * (half - 40);
+    // Keep the gates, the start, and the black hole's surroundings clear.
+    if (gateDistance(i) * spacing < r + 350) continue;
+    const { x, y } = at(i, lateral);
+    if (Math.hypot(x - hole.x, y - hole.y) < 900) continue;
+    if (bodies.some(b => Math.hypot(x - b.x, y - b.y) < r + b.r + PLANET_RUN_GAP)) continue;
+    const lambda = 440 + rand() * 220;
+    const compactness = 0.05 + rand() * 0.1;
+    bodies.push({
+      name: `Planet ${bodies.length}`, x, y, r, kind: "body", label: false,
+      src: { T: SUNLIGHT, lambda, tint: hue(lambda) }, GM: (compactness * r * REAL_C2) / 2,
+      orbitX: 0, orbitY: 0, orbitR: 0,
+    });
+  }
+
+  // A star in the middle of the loop, if it fits clear of the course.
+  const mx = track.cx.reduce((a, b) => a + b, 0) / n;
+  const my = track.cy.reduce((a, b) => a + b, 0) / n;
+  const clear = Math.min(...track.cx.map((x, i) => Math.hypot(x - mx, track.cy[i] - my))) - half;
+  if (clear > 900) {
+    bodies.push({
+      name: "Ember", x: mx, y: my, r: Math.min(700, clear - 300), src: { T: 4500, lambda: 600 }, kind: "body",
+      GM: (0.02 * Math.min(700, clear - 300) * REAL_C2) / 2, orbitX: 0, orbitY: 0, orbitR: 0, glow: true,
+    });
+  }
+  return bodies;
 }
 
 /** Days since the J2000 epoch, for placing the planets where they are today. */
 const DAYS_SINCE_J2000 = (Date.now() - Date.UTC(2000, 0, 1, 12)) / 86400000;
 
-/** Places the Sun, planets, and Moon to scale for the current speed of light. Planets are at rest in
- *  the rest frame: their orbital speeds are around 0.01% of the speed of light. */
-function placeRealBodies(track: Track): Body[] {
-  const k = C / KM_PER_LIGHT_SECOND; // world units per kilometer
-  const lon = (b: BodyData) => ((b.L0 + (b.rate * DAYS_SINCE_J2000) / 36525) * Math.PI) / 180;
-  // The Earth sits just left of the centerline. The Moon is placed (at the default speed of light)
-  // on the right side of the course, farther along it.
+/** The real solar system beside the grand loop. The Earth sits just left of the centerline of the
+ *  first straight, and the Moon (at the default speed of light) on the right side of the course,
+ *  farther along it. */
+function placeGrandLoopBodies(track: Track): Body[] {
   const i = EARTH_SAMPLE;
   const leftX = track.ty[i];
   const leftY = -track.tx[i];
   const ex = track.cx[i] + leftX * 60;
   const ey = track.cy[i] + leftY * 60;
+  const moonAngle = Math.asin(180 / 384);
+  const dirX = Math.cos(moonAngle) * track.tx[i] - Math.sin(moonAngle) * leftX;
+  const dirY = Math.cos(moonAngle) * track.ty[i] - Math.sin(moonAngle) * leftY;
+  return placeSolarSystem(ex, ey, dirX, dirY);
+}
+
+/** Places the Sun, planets, and Moon to scale, with the Earth at
+ *  (ex, ey) and the Moon in the direction (dirX, dirY) from it. Planets are at rest in the rest
+ *  frame: their orbital speeds are around 0.01% of the speed of light. */
+function placeSolarSystem(ex: number, ey: number, dirX: number, dirY: number): Body[] {
+  const k = REAL_C / KM_PER_LIGHT_SECOND; // world units per kilometer
+  const lon = (b: BodyData) => ((b.L0 + (b.rate * DAYS_SINCE_J2000) / 36525) * Math.PI) / 180;
   const earth = PLANETS[2];
   const le = lon(earth);
   const sunX = ex - earth.orbitKm * k * Math.cos(le);
@@ -214,12 +291,11 @@ function placeRealBodies(track: Track): Body[] {
       GM: GM_KM3[b.name] * k ** 3, kind: "body",
     });
   }
-  const moonAngle = Math.asin(180 / 384);
   const md = MOON.orbitKm * k;
   bodies.push({
     name: MOON.name,
-    x: ex + md * (Math.cos(moonAngle) * track.tx[i] - Math.sin(moonAngle) * leftX),
-    y: ey + md * (Math.cos(moonAngle) * track.ty[i] - Math.sin(moonAngle) * leftY),
+    x: ex + md * dirX,
+    y: ey + md * dirY,
     r: MOON.radiusKm * k, src: MOON.src,
     orbitX: ex, orbitY: ey, orbitR: md,
     GM: GM_KM3.Moon * k ** 3, kind: "body",
@@ -238,14 +314,215 @@ function segmentHitsCircle(x0: number, y0: number, x1: number, y1: number, cx: n
   return px * px + py * py < r * r;
 }
 
-// ─── Course ────────────────────────────────────────────────────────────────────────────────────────
+// ─── Maps ──────────────────────────────────────────────────────────────────────────────────────────
 
-/** Control points of the course centerline, traversed in order. */
-const CONTROL_POINTS: [number, number][] = [
+/** The settings that count for a map's standard best times. */
+interface Standard {
+  /** Speed of light, in units per second. */
+  c: number;
+  /** Engine power, in c per second. */
+  thrust: number;
+  gravity: boolean;
+}
+
+interface MapDef {
+  id: string;
+  name: string;
+  /** Control points of the course centerline, traversed in order. */
+  points: [number, number][];
+  trackWidth: number;
+  /** Distance between centerline samples, and the number of samples between gates. */
+  sampleSpacing: number;
+  gateEvery: number;
+  /** Distance along the spline from its first control point to the start line. */
+  startOffset: number;
+  laps: number;
+  /** Zoom (log₁₀ of the magnification) to start the map at. */
+  zoom: number;
+  bodies: (track: Track) => Body[];
+  standard: Standard;
+}
+
+/** The grand loop, used by two maps. */
+const GRAND_LOOP: [number, number][] = [
   [0, 0], [9000, 0], [11000, 1200], [11000, 3000], [9500, 4000], [6000, 3600], [4500, 5200],
   [6000, 7000], [10000, 7600], [11500, 9000], [10000, 10500], [2000, 10500], [-1000, 9000],
   [-1500, 5000], [-1000, 1500],
 ].map(([x, y]) => [x * 0.6, y * 0.6] as [number, number]);
+
+/** Dense "giant" planets for the slalom: compactness r_s/R = 0.3, far beyond any real planet. */
+function placeSlalomBodies(): Body[] {
+  const giant = (name: string, x: number, y: number, r: number, compactness: number, src: Source): Body => ({
+    name, x, y, r, src, kind: "body", GM: (compactness * r * REAL_C2) / 2, orbitX: 0, orbitY: 0, orbitR: 0,
+  });
+  return [
+    giant("Atlas", 1500, -80, 300, 0.3, { T: SUNLIGHT, lambda: 610, tint: [1, 0.6, 0.35] }),
+    giant("Boreas", 3000, -620, 300, 0.3, { T: SUNLIGHT, lambda: 480, tint: [0.45, 0.65, 1] }),
+    giant("Cronus", 4500, -80, 300, 0.3, { T: SUNLIGHT, lambda: 560, tint: [0.8, 0.8, 0.6] }),
+    giant("Dione", 6000, -620, 300, 0.3, { T: SUNLIGHT, lambda: 520, tint: [0.5, 0.95, 0.6] }),
+    giant("Eos", 7500, -80, 300, 0.3, { T: SUNLIGHT, lambda: 640, tint: [1, 0.45, 0.4] }),
+    giant("Helios", 4500, 1450, 600, 0.05, { T: 5000, lambda: 590 }),
+  ];
+}
+
+/** The slingshot map: black holes in a row, SLINGSHOT_SPACING apart, with the course looping around
+ *  each of them at distance SLINGSHOT_RADIUS. */
+const SLINGSHOT_HOLES = 4;
+const SLINGSHOT_SPACING = 1600;
+const SLINGSHOT_RADIUS = 500;
+
+/** The slingshot black holes, with very different masses, given by their Schwarzschild radii (which
+ *  are proportional to mass). The course loops around each at SLINGSHOT_RADIUS = 500, which is 33
+ *  horizon radii from Wisp but only 3.1 from Behemoth, just outside its innermost stable orbit. */
+const SLINGSHOT_HOLE_SIZES: [string, number][] = [["Wisp", 15], ["Behemoth", 160], ["Sprite", 40], ["Titan", 100]];
+
+function placeSlingshotBodies(): Body[] {
+  return SLINGSHOT_HOLE_SIZES.slice(0, SLINGSHOT_HOLES).map(([name, rs], k) => ({
+    name, x: k * SLINGSHOT_SPACING, y: 0, r: (rs * REAL_C2) / C2, src: { T: 0, lambda: 0 }, kind: "blackhole" as const,
+    GM: (rs * REAL_C2) / 2, orbitX: 0, orbitY: 0, orbitR: 0,
+  }));
+}
+
+/** A chain of figure eights through the black holes. The course goes out along the wave
+ *  y = R cos(πx/D), passing below and above the holes in turn, wraps around the last hole, comes
+ *  back along the mirror image y = −R cos(πx/D), and wraps around the first hole. The two waves
+ *  cross between each pair of holes, so the course loops around each hole, alternating between
+ *  clockwise and counterclockwise. Near each hole, the wave's radius of curvature, D²/(π²R), is
+ *  close to R, so each loop is nearly a circle around its hole. */
+function figureEightChain(): [number, number][] {
+  const D = SLINGSHOT_SPACING;
+  const R = SLINGSHOT_RADIUS;
+  const end = (SLINGSHOT_HOLES - 1) * D;
+  const points: [number, number][] = [];
+  const steps = 8 * (SLINGSHOT_HOLES - 1);
+  for (let i = 0; i < steps; i++) {
+    const x = (end * i) / steps;
+    points.push([x, R * Math.cos((Math.PI * x) / D)]);
+  }
+  // Around the last hole, from the outward wave to the return wave.
+  const sign = Math.cos((Math.PI * end) / D); // +1 if the outward wave ends below the hole
+  for (let i = 0; i < 8; i++) {
+    const a = sign * (Math.PI / 2 - (Math.PI * i) / 8);
+    points.push([end + R * Math.cos(a), R * Math.sin(a)]);
+  }
+  for (let i = 0; i < steps; i++) {
+    const x = end - (end * i) / steps;
+    points.push([x, -R * Math.cos((Math.PI * x) / D)]);
+  }
+  // Around the first hole, from the return wave back to the start of the outward wave.
+  for (let i = 0; i < 8; i++) {
+    const a = -Math.PI / 2 - (Math.PI * i) / 8;
+    points.push([R * Math.cos(a), R * Math.sin(a)]);
+  }
+  return points;
+}
+
+/** A smooth figure eight around the Earth and Moon: a lemniscate of Bernoulli whose foci are the
+ *  Earth, at (0, 0), and the Moon, 384 units away at (384, 0), stretched vertically by 1.5 to make its
+ *  loops rounder. It passes no closer than 80 units to either body and crosses itself at right
+ *  angles halfway between them. */
+function lemniscatePoints(): [number, number][] {
+  const a = 192; // half the distance between the foci
+  const stretch = 1.5;
+  const points: [number, number][] = [];
+  const n = 48;
+  for (let i = 0; i < n; i++) {
+    const t = (2 * Math.PI * i) / n;
+    const d = 1 + Math.sin(t) ** 2;
+    points.push([a + (a * Math.SQRT2 * Math.cos(t)) / d, (stretch * a * Math.SQRT2 * Math.sin(t) * Math.cos(t)) / d]);
+  }
+  return points;
+}
+
+const MAPS: MapDef[] = [
+  {
+    id: "earth-moon",
+    name: "Earth and Moon",
+    points: lemniscatePoints(),
+    trackWidth: 70,
+    sampleSpacing: 10,
+    gateEvery: 20,
+    startOffset: 120,
+    laps: 3,
+    zoom: 0.3,
+    bodies: () => placeSolarSystem(0, 0, 1, 0),
+    standard: { c: 300, thrust: 0.2, gravity: true },
+  },
+  {
+    id: "grand-loop",
+    name: "Grand loop (solar system)",
+    points: GRAND_LOOP,
+    trackWidth: 420,
+    sampleSpacing: 40,
+    gateEvery: 30,
+    startOffset: 1500,
+    laps: 2,
+    zoom: 0,
+    bodies: placeGrandLoopBodies,
+    standard: { c: 300, thrust: 1, gravity: true },
+  },
+  {
+    id: "planet-run",
+    name: "Planet run (fantasy)",
+    // A wide, irregular loop with gates far apart.
+    points: [[0, 0], [7000, -1500], [12000, 1000], [11000, 6000], [6000, 7500], [1500, 5000],
+             [-2000, 6500], [-4500, 3000]].map(([x, y]) => [x * 0.65, y * 0.65] as [number, number]),
+    trackWidth: 1400,
+    sampleSpacing: 40,
+    gateEvery: 63,
+    startOffset: 600,
+    laps: 2,
+    zoom: -0.15,
+    bodies: placePlanetRunBodies,
+    standard: { c: 300, thrust: 1, gravity: true },
+  },
+  {
+    id: "slingshot",
+    name: "Black hole slingshot (fantasy)",
+    points: figureEightChain(),
+    trackWidth: 300,
+    sampleSpacing: 40,
+    gateEvery: 30,
+    startOffset: 600,
+    laps: 2,
+    zoom: 0,
+    bodies: placeSlingshotBodies,
+    standard: { c: 300, thrust: 0.5, gravity: true },
+  },
+  {
+    id: "slalom",
+    name: "Giants' slalom (fantasy)",
+    points: [[0, 0], [1500, -700], [3000, 0], [4500, -700], [6000, 0], [7500, -700], [9000, 0],
+             [10200, 1200], [9000, 2600], [4500, 3000], [0, 2600], [-1200, 1200]],
+    trackWidth: 300,
+    sampleSpacing: 40,
+    gateEvery: 30,
+    startOffset: 300,
+    laps: 2,
+    zoom: 0,
+    bodies: placeSlalomBodies,
+    standard: { c: 300, thrust: 0.5, gravity: true },
+  },
+];
+
+let currentMap: MapDef = MAPS[0];
+/** Engine power, in c per second. */
+let thrustSetting = DEFAULT_THRUST;
+
+let bodiesCache: { track: Track; c: number; map: MapDef; bodies: Body[] } | null = null;
+
+function placeBodies(track: Track): Body[] {
+  if (!bodiesCache || bodiesCache.track !== track || bodiesCache.c !== C || bodiesCache.map !== currentMap) {
+    bodiesCache = { track, c: C, map: currentMap, bodies: currentMap.bodies(track) };
+  }
+  return bodiesCache.bodies;
+}
+
+/** Whether the current physics settings are the current map's standard ones. */
+function isStandard(): boolean {
+  const std = currentMap.standard;
+  return C === std.c && thrustSetting === std.thrust && gravityOn === std.gravity && gameSpeed === 1;
+}
 
 interface Track {
   /** Centerline samples, evenly spaced by arclength. */
@@ -261,23 +538,27 @@ interface Track {
   /** Sample indices of the gates; gate 0 is the start/finish line. */
   gates: number[];
   length: number;
+  width: number;
+  laps: number;
   minX: number;
   maxX: number;
   minY: number;
   maxY: number;
 }
 
-function buildTrack(): Track {
+function buildTrack(map: MapDef): Track {
+  const points = map.points;
+  const width = map.trackWidth;
   // Closed Catmull–Rom spline through the control points, densely sampled.
   const dense: [number, number][] = [];
-  const n = CONTROL_POINTS.length;
+  const n = points.length;
   for (let i = 0; i < n; i++) {
-    const p0 = CONTROL_POINTS[(i - 1 + n) % n];
-    const p1 = CONTROL_POINTS[i];
-    const p2 = CONTROL_POINTS[(i + 1) % n];
-    const p3 = CONTROL_POINTS[(i + 2) % n];
-    for (let s = 0; s < 200; s++) {
-      const t = s / 200;
+    const p0 = points[(i - 1 + n) % n];
+    const p1 = points[i];
+    const p2 = points[(i + 1) % n];
+    const p3 = points[(i + 2) % n];
+    for (let k = 0; k < 200; k++) {
+      const t = k / 200;
       const t2 = t * t;
       const t3 = t2 * t;
       const f = (a: number, b: number, c: number, d: number) =>
@@ -293,10 +574,9 @@ function buildTrack(): Track {
     cum.push(cum[i - 1] + Math.hypot(b[0] - a[0], b[1] - a[1]));
   }
   const length = cum[cum.length - 1];
-  const count = Math.round(length / SAMPLE_SPACING / GATE_EVERY) * GATE_EVERY;
+  const count = Math.round(length / map.sampleSpacing / map.gateEvery) * map.gateEvery;
   const spacing = length / count;
-  // Start the course (and so the start/finish line) partway down the first straight.
-  const startOffset = 1500;
+  const startOffset = map.startOffset;
   const cx: number[] = [];
   const cy: number[] = [];
   let j = 0;
@@ -320,15 +600,15 @@ function buildTrack(): Track {
     tx.push(dx / len);
     ty.push(dy / len);
     // With y pointing down, (ty, -tx) points to the left of the direction of travel.
-    lx.push(cx[i] + (dy / len) * TRACK_WIDTH / 2);
-    ly.push(cy[i] - (dx / len) * TRACK_WIDTH / 2);
-    rx.push(cx[i] - (dy / len) * TRACK_WIDTH / 2);
-    ry.push(cy[i] + (dx / len) * TRACK_WIDTH / 2);
+    lx.push(cx[i] + (dy / len) * width / 2);
+    ly.push(cy[i] - (dx / len) * width / 2);
+    rx.push(cx[i] - (dy / len) * width / 2);
+    ry.push(cy[i] + (dx / len) * width / 2);
   }
   const gates: number[] = [];
-  for (let i = 0; i < count; i += GATE_EVERY) gates.push(i);
+  for (let i = 0; i < count; i += map.gateEvery) gates.push(i);
   return {
-    cx, cy, tx, ty, lx, ly, rx, ry, gates, length,
+    cx, cy, tx, ty, lx, ly, rx, ry, gates, length, width, laps: map.laps,
     minX: Math.min(...lx, ...rx), maxX: Math.max(...lx, ...rx),
     minY: Math.min(...ly, ...ry), maxY: Math.max(...ly, ...ry),
   };
@@ -472,57 +752,120 @@ interface GhostSample {
 }
 
 interface Run {
+  /** Identifies the run's ghost recording in storage. */
+  id?: string;
   t: number;
   tau: number;
   samples: GhostSample[];
 }
 
-type Phase = "countdown" | "racing" | "finished";
+/** "ready": waiting at the start line, with the clocks stopped, until the first thrust. */
+type Phase = "ready" | "racing" | "finished";
 
 interface State {
   ship: Ship;
   phase: Phase;
-  /** Gates passed in order; the race ends after passing gate 0 for the (LAPS + 1)th time. */
+  /** Gates passed in order; the race ends after passing gate 0 for the (laps + 1)th time. */
   passed: number;
   thrusting: boolean;
   recording: GhostSample[];
-  lastSampleT: number;
+  lastSampleTau: number;
   result: Run | null;
-  newBest: boolean;
+  /** Rank of the finished run among the best runs, or 0 if it didn't make the list. */
+  newRank: number;
   /** Whether the speed of light, the system, or gravity changed during the race, which keeps the run
    *  from counting. */
   rulesChanged: boolean;
+  /** The storage key for the settings at the start signal, where this run's time can be saved. */
+  startKey: string;
+  /** Whether the settings at the start signal were the map's standard ones. */
+  standardAtStart: boolean;
+  /** Whether a finished run with custom settings can still be saved. */
+  awaitingSave: boolean;
   /** Ship time left before the ship reappears after a crash; zero when flying. */
   crashTimer: number;
   crashedInto: string;
   /** Recent positions, left at rest in the rest frame. */
   trail: { x: number; y: number; t: number; tau: number }[];
   lastTrailTau: number;
+  /** Debris from a crash, at rest-frame positions. */
   sparks: { x: number; y: number; vx: number; vy: number; life: number }[];
+  /** Ship time spent flying in the race, which excludes the returns after crashes. A crash rewinds
+   *  it along with the ship. */
+  flightTau: number;
+  /** Snapshots of the ship throughout the race's flight, for rewinding after a crash. The whole race
+   *  is kept, since back-to-back crashes can rewind further and further back. */
+  history: Snapshot[];
+  /** Snapshots taken at the start (index 0) and as the ship passed each gate (index = gates passed). */
+  checkpoints: Snapshot[];
+  /** The point a crash goes back to if it was at least REWIND_TIME seconds of flight earlier: the last
+   *  gate passed, or the point the last crash went back to, whichever is more recent. */
+  anchor: Snapshot;
+  /** Where the ship crashed, and the snapshot it returns to. */
+  crashFrom: { x: number; y: number; heading: number };
+  restoreTo: Snapshot;
+}
+
+/** The ship's state at one moment of flight. Returning to a snapshot restores its velocity too, so a
+ *  crash can't be used to shed speed. */
+interface Snapshot {
+  flightTau: number;
+  x: number;
+  y: number;
+  ux: number;
+  uy: number;
+  heading: number;
+  passed: number;
+}
+
+/** After a crash, the ship goes back to the last gate if it passed it at least this many seconds of
+ *  flight earlier, and otherwise to where it was this many seconds before the crash. */
+const REWIND_TIME = 2;
+const HISTORY_INTERVAL = 0.05;
+
+function snapshot(state: State): Snapshot {
+  const ship = state.ship;
+  return {
+    flightTau: state.flightTau, x: ship.x, y: ship.y, ux: ship.ux, uy: ship.uy, heading: ship.heading,
+    passed: state.passed,
+  };
 }
 
 function newState(track: Track): State {
   const back = 3; // start a few samples behind the start line
   const i = track.cx.length - back;
+  const start: Snapshot = {
+    flightTau: 0, x: track.cx[i], y: track.cy[i], ux: 0, uy: 0, heading: Math.atan2(track.ty[0], track.tx[0]),
+    passed: 0,
+  };
   return {
     ship: {
       x: track.cx[i], y: track.cy[i], ux: 0, uy: 0,
       heading: Math.atan2(track.ty[0], track.tx[0]),
-      t: -COUNTDOWN, tau: -COUNTDOWN,
+      t: 0, tau: 0,
     },
-    phase: "countdown",
+    phase: "ready",
     passed: 0,
     thrusting: false,
     recording: [],
-    lastSampleT: -Infinity,
+    lastSampleTau: -Infinity,
     result: null,
-    newBest: false,
+    newRank: 0,
     rulesChanged: false,
+    startKey: "",
+    standardAtStart: true,
+    awaitingSave: false,
     crashTimer: 0,
     crashedInto: "",
     trail: [],
     lastTrailTau: -Infinity,
     sparks: [],
+    flightTau: 0,
+    history: [],
+    checkpoints: [start],
+    anchor: start,
+    crashFrom: { x: 0, y: 0, heading: 0 },
+    restoreTo: start,
   };
 }
 
@@ -547,25 +890,26 @@ function metricFactor(x: number, y: number): number {
  *  - (vx, vy): the ship's velocity measured by that observer. */
 function kinematics(ship: Ship): { f: number; tdot: number; g: number; vx: number; vy: number } {
   const f = metricFactor(ship.x, ship.y);
-  // Split u into parts along and across the direction to the body whose field is strongest here.
-  // Radial proper lengths are stretched by 1/√f, so the radial part counts as u_r/√f locally.
-  let rx = 0;
-  let ry = 0;
+  // Measured by an observer at rest at the ship's position, radial proper lengths near a mass are
+  // stretched by 1/√(1 − r_s/r), so the part of u pointing toward each mass counts for more locally.
+  // Each body adds its own stretch along its own direction. This is exact for a single black hole,
+  // and unlike stretching along the direction of the single strongest body, it changes smoothly as
+  // the ship moves among many bodies.
+  let lx = ship.ux;
+  let ly = ship.uy;
   if (gravityOn) {
-    let strongest = 0;
     for (const b of currentBodies) {
-      const d = Math.hypot(ship.x - b.x, ship.y - b.y);
-      const phi = b.GM / Math.max(d, b.r);
-      if (d > 0 && phi > strongest) {
-        strongest = phi;
-        rx = (ship.x - b.x) / d;
-        ry = (ship.y - b.y) / d;
-      }
+      const dx = ship.x - b.x;
+      const dy = ship.y - b.y;
+      const d = Math.hypot(dx, dy);
+      if (d === 0) continue;
+      const compact = Math.min(0.9999, (2 * b.GM) / (C2 * Math.max(d, b.r)));
+      const stretch = 1 / Math.sqrt(1 - compact) - 1;
+      const ur = (ship.ux * dx + ship.uy * dy) / d;
+      lx += (stretch * ur * dx) / d;
+      ly += (stretch * ur * dy) / d;
     }
   }
-  const ur = ship.ux * rx + ship.uy * ry;
-  const lx = ship.ux + ur * rx * (1 / Math.sqrt(f) - 1);
-  const ly = ship.uy + ur * ry * (1 / Math.sqrt(f) - 1);
   const g = Math.sqrt(1 + (lx * lx + ly * ly) / C2);
   return { f, tdot: g / Math.sqrt(f), g, vx: lx / g, vy: ly / g };
 }
@@ -579,26 +923,153 @@ function velocityOf(ship: Ship): { vx: number; vy: number; g: number } {
   return { vx, vy, g };
 }
 
-/** Best runs are stored separately for each speed of light, system, and gravity setting. */
+/** The key for the best runs of the current map with the current settings. Each map has one list
+ *  for its standard settings, and a separate list for each combination of custom settings. */
 function storageKey(): string {
-  return `${STORAGE_KEY}-c${C}${systemMode === "real" ? "" : "-fantasy"}${gravityOn ? "" : "-nogravity"}`;
+  const base = `${STORAGE_KEY}-${currentMap.id}`;
+  return isStandard() ? base
+    : `${base}-custom-c${C}-e${thrustSetting}${gravityOn ? "" : "-nogravity"}${gameSpeed === 1 ? "" : `-x${gameSpeed}`}`;
 }
 
-function loadBest(): Run | null {
+// Each list of best runs is stored in two parts, so that a full storage can't cost a best time: the
+// times themselves, which are tiny, under the list's key; and each run's ghost recording under its own
+// key. If a recording doesn't fit, its run keeps its place on the list without a ghost.
+
+const GHOST_SEPARATOR = "~ghost~";
+
+function ghostKey(listKey: string, id: string): string {
+  return `${listKey}${GHOST_SEPARATOR}${id}`;
+}
+
+/** A ghost recording stored as columns of rounded numbers, which is several times smaller than a
+ *  list of objects. */
+interface StoredGhost {
+  t: number[];
+  x: number[];
+  y: number[];
+  h: number[];
+  vx: number[];
+  vy: number[];
+  tau: number[];
+}
+
+function encodeGhost(samples: GhostSample[]): StoredGhost {
+  const column = (get: (q: GhostSample) => number, digits: number) =>
+    samples.map(q => Math.round(get(q) * 10 ** digits) / 10 ** digits);
+  return {
+    t: column(q => q.t, 3), x: column(q => q.x, 1), y: column(q => q.y, 1), h: column(q => q.h, 3),
+    vx: column(q => q.vx, 1), vy: column(q => q.vy, 1), tau: column(q => q.tau, 3),
+  };
+}
+
+function decodeGhost(stored: StoredGhost | null): GhostSample[] {
+  if (!stored || !Array.isArray(stored.t)) return [];
+  return stored.t.map((t, i) => ({
+    t, x: stored.x[i], y: stored.y[i], h: stored.h[i], vx: stored.vx[i], vy: stored.vy[i], tau: stored.tau[i],
+  }));
+}
+
+function newRunId(): string {
+  return `${Date.now().toString(36)}${Math.floor(Math.random() * 1e6).toString(36)}`;
+}
+
+/** Loads the best runs saved under `key`, fastest first, with their ghost recordings. (Earlier
+ *  versions stored each run's recording inside the list; those are kept until the list is saved.) */
+function loadBests(key: string): Run[] {
+  const parsed = loadJSON<(Run & { samples?: GhostSample[] })[]>(key);
+  if (!Array.isArray(parsed)) return [];
+  return parsed
+    .filter(r => typeof r?.t === "number" && typeof r?.tau === "number")
+    .map(r => Array.isArray(r.samples)
+      ? { ...r, id: r.id ?? newRunId() }
+      : { id: r.id, t: r.t, tau: r.tau, samples: r.id ? decodeGhost(loadJSON<StoredGhost>(ghostKey(key, r.id))) : [] })
+    .sort((a, b) => a.t - b.t);
+}
+
+/** Saves the best runs under `key`: the times first, then any ghost recordings not yet stored, and
+ *  removes the recordings of runs that are no longer on the list. */
+function saveBests(runs: Run[], key: string): void {
+  for (const run of runs) run.id ??= newRunId();
+  saveJSON(key, runs.map(r => ({ id: r.id, t: r.t, tau: r.tau })));
+  const keep = new Set(runs.map(r => ghostKey(key, r.id!)));
   try {
-    const raw = localStorage.getItem(storageKey());
-    return raw ? JSON.parse(raw) as Run : null;
+    for (const run of runs) {
+      const gk = ghostKey(key, run.id!);
+      if (run.samples.length === 0 || localStorage.getItem(gk) !== null) continue;
+      try {
+        localStorage.setItem(gk, JSON.stringify(encodeGhost(run.samples)));
+      } catch {
+        // Storage is full: the run stays on the list without a ghost.
+      }
+    }
+    const stale: string[] = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k?.startsWith(`${key}${GHOST_SEPARATOR}`) && !keep.has(k)) stale.push(k);
+    }
+    stale.forEach(k => localStorage.removeItem(k));
   } catch {
-    return null;
+    // Storage is unavailable.
   }
 }
 
-function saveBest(run: Run): void {
+/** Removes a list of best runs and its ghost recordings. */
+function clearBests(key: string): void {
+  saveBests([], key);
   try {
-    localStorage.setItem(storageKey(), JSON.stringify(run));
+    localStorage.removeItem(key);
   } catch {
-    // Storage may be unavailable; the best run then lasts only until the page is closed.
+    // Nothing stored.
   }
+}
+
+/** Every saved list of best runs in this browser, by storage key. */
+function allSavedLists(): Record<string, Run[]> {
+  const lists: Record<string, Run[]> = {};
+  try {
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (!key?.startsWith(`${STORAGE_KEY}-`) || key.includes(GHOST_SEPARATOR)) continue;
+      const runs = loadBests(key);
+      if (runs.length > 0) lists[key] = runs;
+    }
+  } catch {
+    // Storage is unavailable.
+  }
+  return lists;
+}
+
+const TRANSFER_FORMAT = "relativistic-flight-best-times";
+
+/** Merges the lists from a shared file into this browser's lists, keeping the fastest runs of each.
+ *  Returns the number of runs added. */
+function importLists(text: string): number {
+  const data = JSON.parse(text) as { format?: string; lists?: Record<string, unknown> };
+  if (data.format !== TRANSFER_FORMAT || typeof data.lists !== "object" || data.lists === null) {
+    throw new Error("This file doesn't contain best times from this game.");
+  }
+  let added = 0;
+  for (const [key, value] of Object.entries(data.lists)) {
+    if (!key.startsWith(`${STORAGE_KEY}-`) || key.includes(GHOST_SEPARATOR) || !Array.isArray(value)) continue;
+    const runs = loadBests(key);
+    for (const run of value as Run[]) {
+      const valid = typeof run?.t === "number" && typeof run?.tau === "number" && Array.isArray(run.samples);
+      if (!valid || runs.some(r => r.t === run.t && r.tau === run.tau)) continue;
+      if (insertRun(runs, run) > 0) added++;
+    }
+    saveBests(runs, key);
+  }
+  return added;
+}
+
+/** Adds a run to the list of best runs, keeping the fastest MAX_BEST_RUNS. Returns the run's rank
+ *  (1 for the fastest), or 0 if it is too slow to make the list. */
+function insertRun(runs: Run[], run: Run): number {
+  const rank = runs.filter(r => r.t <= run.t).length + 1;
+  if (rank > MAX_BEST_RUNS) return 0;
+  runs.splice(rank - 1, 0, run);
+  runs.length = Math.min(runs.length, MAX_BEST_RUNS);
+  return rank;
 }
 
 // ─── Physics update ────────────────────────────────────────────────────────────────────────────────
@@ -610,41 +1081,62 @@ interface Controls {
   brake: boolean;
 }
 
-/** Advances the ship by dτ seconds of ship time. Returns true when the race has just finished. */
-/** Puts the ship at rest on the last gate it passed (or the start), facing along the course. */
-function respawn(state: State, track: Track): void {
+/** Full turns the ship spins while it returns to an earlier point after a crash. */
+const CRASH_SPINS = 2;
+
+/** Moves a crashed ship along its way back to the snapshot it returns to. Over CRASH_TIME seconds of
+ *  ship time it moves back to the snapshot's position while its velocity grows to the snapshot's
+ *  velocity. It spins fastest right after the crash, then slows down and settles at the snapshot's
+ *  heading. */
+function animateCrash(state: State): void {
   const ship = state.ship;
-  const n = track.cx.length;
-  const i = state.passed > 0 ? track.gates[(state.passed - 1) % track.gates.length] : n - 3;
-  ship.x = track.cx[i];
-  ship.y = track.cy[i];
-  ship.ux = 0;
-  ship.uy = 0;
-  ship.heading = Math.atan2(track.ty[i], track.tx[i]);
-  state.trail = [];
+  const from = state.crashFrom;
+  const to = state.restoreTo;
+  const progress = 1 - Math.max(0, state.crashTimer) / CRASH_TIME;
+  const e = progress * progress * (3 - 2 * progress); // ease in and out
+  ship.x = from.x + (to.x - from.x) * e;
+  ship.y = from.y + (to.y - from.y) * e;
+  // The heading's offset from the final heading shrinks like (1 − progress)³: it starts at the
+  // crash heading, plus CRASH_SPINS full turns, and comes to rest at the snapshot's heading.
+  let turn = from.heading - to.heading;
+  turn -= 2 * Math.PI * Math.floor(turn / (2 * Math.PI));
+  ship.heading = to.heading + (turn + CRASH_SPINS * 2 * Math.PI) * (1 - progress) ** 3;
+  ship.ux = to.ux * e;
+  ship.uy = to.uy * e;
+  if (state.crashTimer <= 0) {
+    state.crashTimer = 0;
+    ship.heading = to.heading;
+    state.trail = [];
+  }
 }
 
+/** Advances the ship by dτ seconds of ship time. Returns true when the race has just finished. */
 function step(state: State, track: Track, bodies: Body[], controls: Controls, dtau: number, thrust: number): boolean {
   const ship = state.ship;
+  /** The real time this step takes, for the effects that run in real time. */
+  const realDt = dtau / gameSpeed;
   state.thrusting = false;
   for (const sp of state.sparks) {
-    sp.x += sp.vx * dtau;
-    sp.y += sp.vy * dtau;
-    sp.life -= dtau;
+    sp.x += sp.vx * realDt;
+    sp.y += sp.vy * realDt;
+    sp.life -= realDt;
   }
   state.sparks = state.sparks.filter(sp => sp.life > 0);
-  if (state.crashTimer > 0) {
-    state.crashTimer -= dtau;
-    if (state.crashTimer <= 0) {
-      state.crashTimer = 0;
-      respawn(state, track);
-    }
+  const crashing = state.crashTimer > 0;
+  if (crashing) {
+    state.crashTimer -= realDt;
+    animateCrash(state);
   }
-  const canFly = state.phase !== "countdown" && state.crashTimer === 0;
+  if (state.phase === "ready" && controls.thrust) {
+    state.phase = "racing";
+    state.startKey = storageKey();
+    state.standardAtStart = isStandard();
+  }
+  const canFly = state.crashTimer === 0;
 
   if (canFly) {
-    if (controls.left) ship.heading -= TURN_RATE * dtau;
-    if (controls.right) ship.heading += TURN_RATE * dtau;
+    if (controls.left) ship.heading -= TURN_RATE * realDt;
+    if (controls.right) ship.heading += TURN_RATE * realDt;
     const g = gammaOf(ship);
     const uMag = Math.hypot(ship.ux, ship.uy);
     const nx = uMag > 0 ? ship.ux / uMag : 0;
@@ -678,7 +1170,7 @@ function step(state: State, track: Track, bodies: Body[], controls: Controls, dt
   // momentum per unit mass. The second term is the general-relativistic correction that makes
   // orbits precess and lets a black hole capture fast-moving things. Fields of several bodies are
   // added together.
-  if (gravityOn && state.phase !== "countdown" && state.crashTimer === 0) {
+  if (gravityOn && state.phase !== "ready" && state.crashTimer === 0) {
     for (const b of bodies) {
       const dx = ship.x - b.x;
       const dy = ship.y - b.y;
@@ -695,14 +1187,15 @@ function step(state: State, track: Track, bodies: Body[], controls: Controls, dt
   const { tdot } = kinematics(ship);
   const x0 = ship.x;
   const y0 = ship.y;
-  ship.x += ship.ux * dtau;
-  ship.y += ship.uy * dtau;
-  ship.t += tdot * dtau;
-  ship.tau += dtau;
-  if (state.phase === "countdown" && ship.t >= 0) {
-    state.phase = "racing";
-    ship.t = 0;
-    ship.tau = 0;
+  // While returning after a crash, the animation sets the position.
+  if (!crashing) {
+    ship.x += ship.ux * dtau;
+    ship.y += ship.uy * dtau;
+  }
+  // The clocks start with the race.
+  if (state.phase !== "ready") {
+    ship.t += tdot * dtau;
+    ship.tau += dtau;
   }
 
   // Crashing into the Sun, a planet, or the Moon, or falling into the black hole.
@@ -712,43 +1205,95 @@ function step(state: State, track: Track, bodies: Body[], controls: Controls, dt
       state.crashTimer = CRASH_TIME;
       state.crashedInto = b.kind === "blackhole" ? "Fell through the event horizon!"
         : `Crashed into ${b.name === "Sun" || b.name === "Moon" ? "the " : ""}${b.name}!`;
+      state.crashFrom = { x: ship.x, y: ship.y, heading: ship.heading };
+      // Go back to the anchor (the last gate, or where the last crash went back to) if it was at least
+      // REWIND_TIME seconds of flight ago, and otherwise to where the ship was REWIND_TIME seconds ago
+      // (which may be before the last gate). Back-to-back crashes so step back REWIND_TIME at a time,
+      // rather than to a gate passed long ago.
+      const anchor = state.anchor;
+      const back = state.flightTau - REWIND_TIME * gameSpeed;
+      const earlier = state.history.filter(h => h.flightTau <= back);
+      const target = anchor.flightTau <= back ? anchor : earlier.length > 0 ? earlier[earlier.length - 1] : state.checkpoints[0];
+      state.restoreTo = target;
+      state.anchor = target;
+      if (state.phase === "racing") {
+        state.passed = target.passed;
+        state.checkpoints.length = target.passed + 1;
+      }
+      state.flightTau = target.flightTau;
+      state.history = state.history.filter(h => h.flightTau <= target.flightTau);
       ship.ux = 0;
       ship.uy = 0;
       for (let k = 0; k < 40; k++) {
         const dir = Math.random() * Math.PI * 2;
-        const sp = 20 + Math.random() * 120;
-        state.sparks.push({ x: 0, y: 0, vx: sp * Math.cos(dir), vy: sp * Math.sin(dir), life: 0.5 + Math.random() });
+        const sp = 40 + Math.random() * 240;
+        state.sparks.push({ x: ship.x, y: ship.y, vx: sp * Math.cos(dir), vy: sp * Math.sin(dir), life: 0.5 + Math.random() });
       }
       return false;
     }
+  }
+
+  // Flight time and snapshots for rewinding.
+  if (state.phase === "racing" && state.crashTimer === 0) {
+    state.flightTau += dtau;
+    const last = state.history[state.history.length - 1];
+    if (!last || state.flightTau - last.flightTau >= HISTORY_INTERVAL) state.history.push(snapshot(state));
   }
 
   // The trail: markers left at rest where the ship has been.
   if (state.crashTimer === 0 && ship.tau - state.lastTrailTau >= TRAIL_INTERVAL) {
     state.trail.push({ x: ship.x, y: ship.y, t: ship.t, tau: ship.tau });
     state.lastTrailTau = ship.tau;
-    while (state.trail.length > 0 && state.trail[0].tau < ship.tau - TRAIL_TIME) state.trail.shift();
+    while (state.trail.length > 0 && state.trail[0].tau < ship.tau - TRAIL_TIME * gameSpeed) state.trail.shift();
   }
 
   let finished = false;
   if (state.phase === "racing") {
-    // Gates count only when crossed in order and in the direction of the course.
+    // Gates count only when crossed in order and in the direction of the course, and not while the
+    // ship returns to its checkpoint after a crash.
     const gi = track.gates[state.passed % track.gates.length];
+    // Gates count only when crossed within 60° of the course direction, so a ship on another part of
+    // a self-crossing course can't pass them.
     const along = (ship.x - x0) * track.tx[gi] + (ship.y - y0) * track.ty[gi];
-    if (along > 0 && segmentsCross(x0, y0, ship.x, ship.y, track.lx[gi], track.ly[gi], track.rx[gi], track.ry[gi])) {
+    const flying = !crashing && state.crashTimer === 0;
+    if (flying && along > 0.5 * Math.hypot(ship.x - x0, ship.y - y0) && segmentsCross(x0, y0, ship.x, ship.y, track.lx[gi], track.ly[gi], track.rx[gi], track.ry[gi])) {
       state.passed++;
-      if (state.passed === LAPS * track.gates.length + 1) {
+      state.checkpoints.push(snapshot(state));
+      state.anchor = state.checkpoints[state.checkpoints.length - 1];
+      if (state.passed === track.laps * track.gates.length + 1) {
         state.phase = "finished";
         finished = true;
       }
     }
-    if (ship.t - state.lastSampleT >= GHOST_SAMPLE_INTERVAL || finished) {
+    if (ship.tau - state.lastSampleTau >= GHOST_SAMPLE_INTERVAL || finished) {
       const { vx, vy } = velocityOf(ship);
       state.recording.push({ t: ship.t, x: ship.x, y: ship.y, h: ship.heading, vx, vy, tau: ship.tau });
-      state.lastSampleT = ship.t;
+      state.lastSampleTau = ship.tau;
     }
   }
   return finished;
+}
+
+/** The state of a recorded run at rest-frame time t. Before the start and after the finish, the
+ *  ghost waits at rest at its first and last positions. */
+function sampleRunAt(samples: GhostSample[], t: number): GhostSample {
+  if (t <= samples[0].t) return { ...samples[0], t, vx: 0, vy: 0 };
+  const last = samples[samples.length - 1];
+  if (t >= last.t) return { ...last, t, vx: 0, vy: 0 };
+  let lo = 0;
+  let hi = samples.length - 1;
+  while (hi - lo > 1) {
+    const mid = (lo + hi) >> 1;
+    if (samples[mid].t <= t) lo = mid;
+    else hi = mid;
+  }
+  const a = samples[lo];
+  const b = samples[hi];
+  const f = (t - a.t) / (b.t - a.t);
+  const mix = (p: number, q: number) => p + f * (q - p);
+  let dh = b.h - a.h;
+  dh -= 2 * Math.PI * Math.round(dh / (2 * Math.PI));
+  return { t, x: mix(a.x, b.x), y: mix(a.y, b.y), h: a.h + f * dh, vx: mix(a.vx, b.vx), vy: mix(a.vy, b.vy), tau: mix(a.tau, b.tau) };
 }
 
 // ─── View transform ────────────────────────────────────────────────────────────────────────────────
@@ -834,25 +1379,7 @@ class View {
   /** Finds the event on a recorded worldline that the ship considers simultaneous with now. */
   locateRun(samples: GhostSample[]): { sample: GhostSample; sx: number; sy: number } | null {
     if (samples.length === 0) return null;
-    const at = (t: number): GhostSample => {
-      if (t <= samples[0].t) return { ...samples[0], t, vx: 0, vy: 0 };
-      const last = samples[samples.length - 1];
-      if (t >= last.t) return { ...last, t, vx: 0, vy: 0 };
-      let lo = 0;
-      let hi = samples.length - 1;
-      while (hi - lo > 1) {
-        const mid = (lo + hi) >> 1;
-        if (samples[mid].t <= t) lo = mid;
-        else hi = mid;
-      }
-      const a = samples[lo];
-      const b = samples[hi];
-      const f = (t - a.t) / (b.t - a.t);
-      const mix = (p: number, q: number) => p + f * (q - p);
-      let dh = b.h - a.h;
-      dh -= 2 * Math.PI * Math.round(dh / (2 * Math.PI));
-      return { t, x: mix(a.x, b.x), y: mix(a.y, b.y), h: a.h + f * dh, vx: mix(a.vx, b.vx), vy: mix(a.vy, b.vy), tau: mix(a.tau, b.tau) };
-    };
+    const at = (t: number) => sampleRunAt(samples, t);
     const t0 = this.ship.t;
     let sample: GhostSample;
     if (!this.lorentz) {
@@ -864,7 +1391,7 @@ class View {
         return t - t0 - (this.vx * (s.x - this.ship.x) + this.vy * (s.y - this.ship.y)) / C2;
       };
       // Anything far enough away to be off screen is outside this window.
-      const span = 30000 / C + 10;
+      const span = 200000 / C + 10;
       let lo = t0 - span;
       let hi = t0 + span;
       if (f(lo) > 0 || f(hi) < 0) return null;
@@ -937,6 +1464,37 @@ function nearestBodyLine(ship: Ship, bodies: Body[]): string {
   return `nearest: ${best.name}, ${when}`;
 }
 
+/** Color for a ratio dt/dτ of race time to ship time: white at 1 (clocks in step), then yellow,
+ *  orange, and red as the race clock runs up to 20 or more times faster than the ship's clock. */
+function timeRateColor(rate: number): string {
+  const stops: [number, [number, number, number]][] = [
+    [0, [223, 232, 255]], [0.2, [255, 236, 120]], [0.5, [255, 160, 60]], [1, [255, 80, 110]],
+  ];
+  const f = Math.min(1, Math.max(0, Math.log(rate) / Math.log(20)));
+  let i = 0;
+  while (i < stops.length - 2 && f > stops[i + 1][0]) i++;
+  const [f0, c0] = stops[i];
+  const [f1, c1] = stops[i + 1];
+  const u = (f - f0) / (f1 - f0);
+  return `rgb(${c0.map((c, k) => Math.round(c + u * (c1[k] - c))).join(", ")})`;
+}
+
+/** A number in scientific notation with superscript exponent, like "2.998 × 10⁸". */
+function formatScientific(x: number, digits = 4): string {
+  const exponent = Math.floor(Math.log10(Math.abs(x)));
+  const mantissa = x / 10 ** exponent;
+  const superscripts = "⁰¹²³⁴⁵⁶⁷⁸⁹";
+  const sup = String(exponent).replace(/\d/g, d => superscripts[Number(d)]).replace("-", "⁻");
+  return `${mantissa.toFixed(digits - 1)} × 10${sup}`;
+}
+
+/** The speed of light in meters per second, and how it compares with the real value. */
+function speedOfLightText(): { text: string; real: boolean } {
+  const real = C === REAL_C;
+  const text = `${formatScientific(C * METERS_PER_UNIT)} m/s`;
+  return { text: real ? `${text} (real)` : `${text} (${(C / REAL_C).toFixed(2)}× real)`, real };
+}
+
 function formatTime(t: number): string {
   const sign = t < 0 ? "−" : "";
   const a = Math.abs(t);
@@ -946,7 +1504,7 @@ function formatTime(t: number): string {
 }
 
 function render(ctx: CanvasRenderingContext2D, state: State, track: Track, bodies: Body[], stars: Stars,
-                best: Run | null, view: View, opts: Options, width: number, height: number, dpr: number,
+                bests: Run[], view: View, opts: Options, width: number, height: number, dpr: number,
                 overlay: string | null): void {
   const ship = state.ship;
   /** Pixels per world unit at zoom 1; icons (the ships) keep this size at every zoom. */
@@ -989,8 +1547,6 @@ function render(ctx: CanvasRenderingContext2D, state: State, track: Track, bodie
   };
   let gridSpacing = GRID_SPACING;
   while (regionW / gridSpacing + regionH / gridSpacing > 120) gridSpacing *= 2;
-  const starTile = spacingFor(STAR_TILE, 60);
-  const starScale = starTile / STAR_TILE;
   const clockSpacing = spacingFor(CLOCK_SPACING, 150);
 
   // Rest-frame grid: coordinate lines rather than physical objects, so no Doppler shift.
@@ -1015,20 +1571,29 @@ function render(ctx: CanvasRenderingContext2D, state: State, track: Track, bodie
     drawLines(false);
   }
 
-  // Stars, repeated on square tiles.
+  // Stars in nested layers: layer k repeats the same pattern on tiles 2^k times as large, so every
+  // star stays in place as the view grows. As the view stretches or zooms out, the densest layer
+  // fades out gradually, which keeps the number of stars drawn manageable without stars jumping.
   const starSrc: Source = { T: 0, lambda: 0 };
-  for (let ti = Math.floor((ship.x + minX) / starTile); ti * starTile <= ship.x + maxX; ti++) {
-    for (let tj = Math.floor((ship.y + minY) / starTile); tj * starTile <= ship.y + maxY; tj++) {
-      for (let i = 0; i < STARS_PER_TILE; i++) {
-        const dx = ti * starTile + stars.x[i] * starScale - ship.x;
-        const dy = tj * starTile + stars.y[i] * starScale - ship.y;
-        const p = view.contract(dx, dy);
-        if (!onScreen(p.x, p.y, 2)) continue;
-        const s = stars.s[i];
-        starSrc.T = stars.temp[i];
-        starSrc.lambda = stars.lambda[i];
-        ctx.fillStyle = sourceColor(starSrc, view.dopplerFactor(dx, dy), stars.b[i]);
-        ctx.fillRect(toX(p.x) - s / 2, toY(p.y) - s / 2, s, s);
+  const starLevel = Math.max(0, 0.5 * Math.log2((regionW * regionH) / (30 * STAR_TILE * STAR_TILE)));
+  const firstLayer = Math.floor(starLevel);
+  for (let layer = firstLayer; layer < firstLayer + 3; layer++) {
+    const tile = STAR_TILE * 2 ** layer;
+    const tileScale = tile / STAR_TILE;
+    const layerAlpha = layer === firstLayer ? 1 - (starLevel - firstLayer) : 1;
+    for (let ti = Math.floor((ship.x + minX) / tile); ti * tile <= ship.x + maxX; ti++) {
+      for (let tj = Math.floor((ship.y + minY) / tile); tj * tile <= ship.y + maxY; tj++) {
+        for (let i = 0; i < STARS_PER_TILE; i++) {
+          const dx = ti * tile + stars.x[i] * tileScale - ship.x;
+          const dy = tj * tile + stars.y[i] * tileScale - ship.y;
+          const p = view.contract(dx, dy);
+          if (!onScreen(p.x, p.y, 2)) continue;
+          const s = stars.s[i];
+          starSrc.T = stars.temp[i];
+          starSrc.lambda = stars.lambda[i];
+          ctx.fillStyle = sourceColor(starSrc, view.dopplerFactor(dx, dy), stars.b[i] * layerAlpha);
+          ctx.fillRect(toX(p.x) - s / 2, toY(p.y) - s / 2, s, s);
+        }
       }
     }
   }
@@ -1039,7 +1604,9 @@ function render(ctx: CanvasRenderingContext2D, state: State, track: Track, bodie
     ctx.font = `11px ${MONO}`;
     ctx.textAlign = "center";
     ctx.textBaseline = "top";
-    const half = clockSpacing / 2;
+    // The lattice is offset by half the finest spacing, so each coarser lattice (used when zoomed out
+    // or moving fast) is a subset of the finer ones and its clocks stay put.
+    const half = CLOCK_SPACING / 2;
     for (let i = Math.ceil((ship.x + minX - half) / clockSpacing); i * clockSpacing + half <= ship.x + maxX; i++) {
       for (let j = Math.ceil((ship.y + minY - half) / clockSpacing); j * clockSpacing + half <= ship.y + maxY; j++) {
         const x = i * clockSpacing + half;
@@ -1152,7 +1719,7 @@ function render(ctx: CanvasRenderingContext2D, state: State, track: Track, bodie
       ctx.scale(scale, scale);
       ctx.fillStyle = sourceColor(src, view.dopplerFactor(x - ship.x, y - ship.y), g === nextGate ? 1 : 0.7);
       ctx.beginPath();
-      ctx.arc(0, 0, POST_RADIUS, 0, Math.PI * 2);
+      ctx.arc(0, 0, Math.min(POST_RADIUS, track.width * 0.04), 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
     });
@@ -1275,6 +1842,7 @@ function render(ctx: CanvasRenderingContext2D, state: State, track: Track, bodie
       ctx.restore();
       ctx.shadowBlur = 0;
     }
+    if (b.label === false) continue;
     const lx = toX(p.x);
     const ly = toY(p.y) + Math.max(rPx, 2.5) + 4;
     if (labels.some(l => Math.abs(l.x - lx) < 50 && Math.abs(l.y - ly) < 14)) continue;
@@ -1292,7 +1860,7 @@ function render(ctx: CanvasRenderingContext2D, state: State, track: Track, bodie
     const la = view.locateStatic(a.x, a.y);
     const lb = view.locateStatic(b.x, b.y);
     if (la.t < a.t || lb.t < b.t) continue;
-    const age = (ship.tau - b.tau) / TRAIL_TIME;
+    const age = (ship.tau - b.tau) / (TRAIL_TIME * gameSpeed);
     ctx.strokeStyle = `rgba(255, 111, 174, ${(0.7 * (1 - age)).toFixed(3)})`;
     ctx.beginPath();
     ctx.moveTo(toX(la.sx), toY(la.sy));
@@ -1300,15 +1868,31 @@ function render(ctx: CanvasRenderingContext2D, state: State, track: Track, bodie
     ctx.stroke();
   }
 
-  // Ghost of the best run, shown at the event on its worldline that is simultaneous with now.
-  if (opts.ghost && best && state.phase !== "countdown") {
-    const loc = view.locateRun(best.samples);
-    if (loc && onScreen(loc.sx, loc.sy, 40)) {
-      const s = loc.sample;
-      const D = view.dopplerFactor(s.x - ship.x, s.y - ship.y, s.vx, s.vy);
+  // Where a ray from the center of the screen at angle `ang` meets a rectangle inset from the edges.
+  const edgePoint = (ang: number, inset: number) => {
+    const rx = cx - inset;
+    const ry = cy - inset;
+    const t = Math.min(rx / Math.abs(Math.cos(ang) || 1e-9), ry / Math.abs(Math.sin(ang) || 1e-9));
+    return { x: cx + Math.cos(ang) * t, y: cy + Math.sin(ang) * t };
+  };
+
+  // Ghosts of the best runs, each shown at the event on its worldline that is simultaneous with now.
+  // Ghosts off screen get a numbered marker on the edge of the screen pointing toward them; the
+  // markers are drawn last, on top of the display panels.
+  const ghostMarkers: { ang: number; rank: number }[] = [];
+  if (opts.ghost && state.phase !== "ready") {
+    bests.forEach((run, rank) => {
+      const loc = view.locateRun(run.samples);
+      if (!loc) return;
+      if (!onScreen(loc.sx, loc.sy, 0)) {
+        ghostMarkers.push({ ang: Math.atan2(loc.sy, loc.sx), rank });
+        return;
+      }
+      const q = loc.sample;
+      const D = view.dopplerFactor(q.x - ship.x, q.y - ship.y, q.vx, q.vy);
       const color = sourceColor(SOURCES.ghost, D, 0.85);
       // The ghost is contracted along its velocity relative to the ship.
-      const w = view.lorentz ? addVelocities(-view.vx, -view.vy, s.vx, s.vy) : { x: 0, y: 0 };
+      const w = view.lorentz ? addVelocities(-view.vx, -view.vy, q.vx, q.vy) : { x: 0, y: 0 };
       const wMag = Math.hypot(w.x, w.y);
       ctx.save();
       ctx.translate(toX(loc.sx), toY(loc.sy));
@@ -1319,7 +1903,7 @@ function render(ctx: CanvasRenderingContext2D, state: State, track: Track, bodie
         const f = 1 - k;
         ctx.transform(1 - f * ux * ux, -f * ux * uy, -f * ux * uy, 1 - f * uy * uy, 0, 0);
       }
-      ctx.rotate(s.h);
+      ctx.rotate(q.h);
       const r = SHIP_RADIUS * baseScale;
       ctx.strokeStyle = color;
       ctx.lineWidth = 1.5;
@@ -1337,21 +1921,19 @@ function render(ctx: CanvasRenderingContext2D, state: State, track: Track, bodie
       ctx.font = `11px ${MONO}`;
       ctx.textAlign = "center";
       ctx.textBaseline = "top";
-      ctx.fillText(`ghost τ ${s.tau.toFixed(1)} s`, toX(loc.sx), toY(loc.sy) + 18);
-    }
+      ctx.fillText(`#${rank + 1}  τ ${q.tau.toFixed(1)} s`, toX(loc.sx), toY(loc.sy) + 18);
+    });
   }
 
   // Arrow toward the next gate when it is off screen.
   if (nextGate >= 0) {
     const gi = track.gates[nextGate];
     const p = view.contract(track.cx[gi] - ship.x, track.cy[gi] - ship.y);
-    if (!onScreen(p.x, p.y, -30)) {
+    if (!onScreen(p.x, p.y, -30 / scale)) {
       const ang = Math.atan2(p.y, p.x);
-      const rx = (halfW - 30 / scale) * scale;
-      const ry = (halfH - 30 / scale) * scale;
-      const t = Math.min(rx / Math.abs(Math.cos(ang) || 1e-9), ry / Math.abs(Math.sin(ang) || 1e-9));
+      const e = edgePoint(ang, 30);
       ctx.save();
-      ctx.translate(cx + Math.cos(ang) * t, cy + Math.sin(ang) * t);
+      ctx.translate(e.x, e.y);
       ctx.rotate(ang);
       ctx.fillStyle = `rgba(255, 196, 120, ${pulse})`;
       ctx.beginPath();
@@ -1379,13 +1961,14 @@ function render(ctx: CanvasRenderingContext2D, state: State, track: Track, bodie
     ctx.setLineDash([]);
   }
   for (const sp of state.sparks) {
+    const q = view.contract(sp.x - ship.x, sp.y - ship.y);
     ctx.fillStyle = `rgba(255, 190, 120, ${Math.min(1, sp.life).toFixed(3)})`;
-    ctx.fillRect(cx + sp.x * baseScale - 1.5, cy + sp.y * baseScale - 1.5, 3, 3);
+    ctx.fillRect(toX(q.x) - 1.5, toY(q.y) - 1.5, 3, 3);
   }
   ctx.save();
   ctx.translate(cx, cy);
   ctx.rotate(ship.heading);
-  ctx.globalAlpha = state.crashTimer > 0 ? 0 : 1;
+  ctx.globalAlpha = state.crashTimer > 0 ? 0.6 : 1;
   const s = SHIP_RADIUS * baseScale;
   if (state.thrusting) {
     ctx.fillStyle = "#ff9d3c";
@@ -1413,26 +1996,30 @@ function render(ctx: CanvasRenderingContext2D, state: State, track: Track, bodie
   // Heads-up display.
   const g = gammaOf(ship);
   const gatesPerLap = track.gates.length;
-  const lap = Math.min(LAPS, Math.max(1, Math.floor((state.passed - 1) / gatesPerLap) + 1));
+  const lap = Math.min(track.laps, Math.max(1, Math.floor((state.passed - 1) / gatesPerLap) + 1));
   const gateInLap = state.passed === 0 ? 0 : ((state.passed - 1) % gatesPerLap) + 1;
   const lines = [
     `v = ${beta.toFixed(4)} c   γ = ${g.toFixed(3)}`,
-    `race time (rest frame) ${formatTime(state.phase === "finished" && state.result ? state.result.t : ship.t)}`,
-    `your clock τ           ${formatTime(state.phase === "finished" && state.result ? state.result.tau : ship.tau)}`,
-    state.phase === "finished" ? "finished" : `lap ${lap}/${LAPS}   gate ${gateInLap}/${gatesPerLap}`,
-    best ? `best ${formatTime(best.t)}  (τ ${formatTime(best.tau)})` : "best —",
-    `c = ${C} units/s`,
+    state.phase === "finished" ? "finished" : `lap ${lap}/${track.laps}   gate ${gateInLap}/${gatesPerLap}`,
+    `c = ${speedOfLightText().text}`,
     nearestBodyLine(ship, bodies),
   ];
-  if (gravityOn) lines.splice(3, 0, `clock rate dτ/dt        ${(1 / kinematics(ship).tdot).toFixed(4)}`);
-  if (state.rulesChanged && state.phase !== "countdown") lines.push("settings changed: run won't count");
+  if (gravityOn) lines.splice(1, 0, `clock rate dτ/dt = ${(1 / kinematics(ship).tdot).toFixed(4)}`);
+  if (gameSpeed !== 1) lines.push(`game speed ${gameSpeed}× real time`);
+  if (state.rulesChanged && state.phase !== "ready") lines.push("settings changed: run can't be saved");
+  else if (!isStandard()) lines.push("custom settings");
   ctx.font = `13px ${MONO}`;
   ctx.textAlign = "left";
   ctx.textBaseline = "top";
   ctx.fillStyle = "rgba(4, 6, 13, 0.65)";
   ctx.fillRect(8, 8, 300, 18 * lines.length + 22);
   ctx.fillStyle = HUD;
-  lines.forEach((line, i) => ctx.fillText(line, 16, 15 + 18 * i));
+  lines.forEach((line, i) => {
+    // A speed of light other than the real one, and a game speed other than 1×, are shown in orange.
+    const unusual = (line.startsWith("c = ") && C !== REAL_C) || line.startsWith("game speed");
+    ctx.fillStyle = unusual ? "#ffb86b" : HUD;
+    ctx.fillText(line, 16, 15 + 18 * i);
+  });
   const barW = 284 - 16;
   const barY = 15 + 18 * lines.length + 2;
   ctx.fillStyle = "rgba(255, 255, 255, 0.12)";
@@ -1440,18 +2027,90 @@ function render(ctx: CanvasRenderingContext2D, state: State, track: Track, bodie
   ctx.fillStyle = "#ff6fae";
   ctx.fillRect(16, barY, barW * beta, 5);
 
+  // Race clocks and best times, in the lower right.
+  {
+    const done = state.phase === "finished" && state.result;
+    const raceT = done ? state.result!.t : ship.t;
+    const raceTau = done ? state.result!.tau : ship.tau;
+    const big = width < 560 ? 18 : width < 900 ? 22 : 28;
+    const small = 12;
+    const panelW = Math.min(width - 24, big * 11.5);
+    const listLines = Math.max(1, bests.length) + 1;
+    const listTitle = isStandard() ? "Best times" : "Best (custom)";
+    const mid = Math.round(big * 0.6);
+    const panelH = small * 1.5 * listLines + 10 + big * 1.6 + mid * 1.5 + 16;
+    const px0 = width - panelW - 12;
+    const py0 = height - panelH - 12;
+    ctx.fillStyle = "rgba(4, 6, 13, 0.7)";
+    ctx.fillRect(px0, py0, panelW, panelH);
+    ctx.textBaseline = "top";
+    let y = py0 + 8;
+    ctx.font = `bold ${small}px system-ui, sans-serif`;
+    ctx.textAlign = "left";
+    ctx.fillStyle = "rgba(223, 232, 255, 0.7)";
+    ctx.fillText(listTitle, px0 + 10, y);
+    ctx.textAlign = "right";
+    ctx.fillText("rest frame    your clock", px0 + panelW - 10, y);
+    y += small * 1.5;
+    ctx.font = `${small}px ${MONO}`;
+    if (bests.length === 0) {
+      ctx.textAlign = "left";
+      ctx.fillText("none yet", px0 + 10, y);
+      y += small * 1.5;
+    }
+    bests.forEach((run, i) => {
+      ctx.fillStyle = done && state.newRank === i + 1 ? "#ffd27a" : "rgba(223, 232, 255, 0.85)";
+      ctx.textAlign = "left";
+      ctx.fillText(`${i + 1}.`, px0 + 10, y);
+      ctx.textAlign = "right";
+      ctx.fillText(`${formatTime(run.t)}     ${formatTime(run.tau)}`, px0 + panelW - 10, y);
+      y += small * 1.5;
+    });
+    y += 6;
+    ctx.strokeStyle = "rgba(223, 232, 255, 0.25)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(px0 + 10, y);
+    ctx.lineTo(px0 + panelW - 10, y);
+    ctx.stroke();
+    y += 8;
+    // The race time is large and colored by how much faster it runs than your clock, dt/dτ.
+    const rate = done ? 1 : kinematics(ship).tdot;
+    const rateColor = timeRateColor(rate);
+    ctx.textBaseline = "middle";
+    ctx.textAlign = "left";
+    ctx.fillStyle = "rgba(223, 232, 255, 0.7)";
+    ctx.font = `${small}px system-ui, sans-serif`;
+    ctx.fillText("race time", px0 + 10, y + big * 0.45);
+    ctx.fillStyle = rateColor;
+    ctx.font = `bold ${small}px ${MONO}`;
+    ctx.fillText(`×${rate < 10 ? rate.toFixed(2) : rate.toFixed(1)}`, px0 + 10, y + big * 0.45 + small * 1.3);
+    ctx.font = `bold ${big}px ${MONO}`;
+    ctx.textAlign = "right";
+    ctx.fillText(formatTime(raceT), px0 + panelW - 10, y + big * 0.7);
+    y += big * 1.6;
+    ctx.textAlign = "left";
+    ctx.fillStyle = "rgba(223, 232, 255, 0.7)";
+    ctx.font = `${small}px system-ui, sans-serif`;
+    ctx.fillText("your clock τ", px0 + 10, y + mid * 0.6);
+    ctx.font = `${mid}px ${MONO}`;
+    ctx.textAlign = "right";
+    ctx.fillText(formatTime(raceTau), px0 + panelW - 10, y + mid * 0.6);
+    ctx.textBaseline = "top";
+  }
+
   // Rest-frame map of the course.
   const mapW = Math.min(170, width * 0.28);
   const mapScale = mapW / (track.maxX - track.minX);
   const mapH = (track.maxY - track.minY) * mapScale;
   const mx0 = width - mapW - 14;
-  const my0 = 14;
+  const my0 = 46;
   const mapX = (x: number) => mx0 + (x - track.minX) * mapScale;
   const mapY = (y: number) => my0 + (y - track.minY) * mapScale;
   ctx.fillStyle = "rgba(4, 6, 13, 0.65)";
   ctx.fillRect(mx0 - 6, my0 - 6, mapW + 12, mapH + 12);
   ctx.strokeStyle = "rgba(223, 232, 255, 0.4)";
-  ctx.lineWidth = Math.max(2, TRACK_WIDTH * mapScale);
+  ctx.lineWidth = Math.max(2, track.width * mapScale);
   ctx.lineJoin = "round";
   ctx.beginPath();
   for (let i = 0; i <= n; i++) {
@@ -1486,10 +2145,53 @@ function render(ctx: CanvasRenderingContext2D, state: State, track: Track, bodie
       ctx.fill();
     }
   }
+  // Ghosts on the map, at the ship's current rest-frame time (the map shows the rest frame).
+  if (opts.ghost && state.phase !== "ready") {
+    ctx.font = `9px ${MONO}`;
+    ctx.textAlign = "left";
+    ctx.textBaseline = "middle";
+    bests.forEach((run, rank) => {
+      const q = sampleRunAt(run.samples, ship.t);
+      ctx.fillStyle = GHOST_MARKER_COLOR;
+      ctx.beginPath();
+      ctx.arc(mapX(q.x), mapY(q.y), 2.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillText(String(rank + 1), mapX(q.x) + 4, mapY(q.y));
+    });
+  }
   ctx.fillStyle = "#ff6fae";
   ctx.beginPath();
   ctx.arc(mapX(ship.x), mapY(ship.y), 3.5, 0, Math.PI * 2);
   ctx.fill();
+
+  // Markers pointing toward off-screen ghosts. Markers that would overlap are spread along the edge.
+  const placed: { x: number; y: number }[] = [];
+  for (const { ang, rank } of ghostMarkers) {
+    let e = edgePoint(ang, 22);
+    for (let tries = 0; tries < 10 && placed.some(m => Math.hypot(m.x - e.x, m.y - e.y) < 22); tries++) {
+      e = { x: e.x - Math.sin(ang) * 22, y: e.y + Math.cos(ang) * 22 };
+    }
+    placed.push(e);
+    ctx.save();
+    ctx.translate(e.x, e.y);
+    ctx.fillStyle = GHOST_MARKER_COLOR;
+    ctx.strokeStyle = GHOST_MARKER_COLOR;
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.arc(0, 0, 9, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(Math.cos(ang) * 17, Math.sin(ang) * 17);
+    ctx.lineTo(Math.cos(ang + 0.5) * 10.5, Math.sin(ang + 0.5) * 10.5);
+    ctx.lineTo(Math.cos(ang - 0.5) * 10.5, Math.sin(ang - 0.5) * 10.5);
+    ctx.closePath();
+    ctx.fill();
+    ctx.font = `bold 11px ${MONO}`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(String(rank + 1), 0, 0.5);
+    ctx.restore();
+  }
 
   // Countdown and results.
   ctx.textAlign = "center";
@@ -1498,25 +2200,30 @@ function render(ctx: CanvasRenderingContext2D, state: State, track: Track, bodie
     ctx.fillStyle = "#ffb86b";
     ctx.font = "bold 22px system-ui, sans-serif";
     ctx.fillText(state.crashedInto, cx, cy - 80);
-  } else if (state.phase === "countdown" && !overlay) {
+  } else if (state.phase === "ready" && !overlay) {
     ctx.fillStyle = HUD;
-    ctx.font = "bold 64px system-ui, sans-serif";
-    ctx.fillText(String(Math.ceil(-ship.t)), cx, cy - 80);
+    ctx.font = "bold 22px system-ui, sans-serif";
+    ctx.fillText(TOUCH_ONLY ? "Press Thrust to start" : "Press ↑ to start", cx, cy - 80);
   } else if (state.phase === "racing" && ship.t < 1) {
     ctx.fillStyle = `rgba(223, 232, 255, ${1 - ship.t})`;
     ctx.font = "bold 64px system-ui, sans-serif";
     ctx.fillText("GO", cx, cy - 80);
   } else if (state.phase === "finished" && state.result && !overlay) {
-    ctx.fillStyle = "rgba(4, 6, 13, 0.7)";
-    ctx.fillRect(cx - 190, height - 104, 380, 86);
+    const by = cy + 20;
+    const bw = Math.min(width - 24, 420);
+    ctx.fillStyle = "rgba(4, 6, 13, 0.75)";
+    ctx.fillRect(cx - bw / 2, by, bw, 64);
     ctx.fillStyle = HUD;
-    ctx.font = "bold 18px system-ui, sans-serif";
-    ctx.fillText(state.newBest ? "Finished — new best!" : state.rulesChanged ? "Finished (settings changed, not counted)" : "Finished",
-                 cx, height - 84);
+    ctx.font = "bold 17px system-ui, sans-serif";
+    const list = state.standardAtStart ? "best times" : "best times for these custom settings";
+    const heading = state.rulesChanged ? "Finished (settings changed during the race)"
+      : state.awaitingSave ? "Finished with custom settings"
+      : state.newRank === 1 ? `Finished — new #1 on your ${list}!`
+      : state.newRank > 1 ? `Finished — #${state.newRank} on your ${list}`
+      : "Finished";
+    ctx.fillText(heading, cx, by + 20, bw - 16);
     ctx.font = `13px ${MONO}`;
-    ctx.fillText(`rest frame ${formatTime(state.result.t)}   your clock ${formatTime(state.result.tau)}`, cx, height - 60);
-    ctx.font = "13px system-ui, sans-serif";
-    ctx.fillText("Press R to race again", cx, height - 36);
+    ctx.fillText(`rest frame ${formatTime(state.result.t)}   your clock ${formatTime(state.result.tau)}`, cx, by + 46, bw - 16);
   }
 
   if (overlay) {
@@ -1542,16 +2249,22 @@ function init(): void {
   const lorentzBox = box("rf-lorentz");
   const dopplerSelect = document.getElementById("rf-doppler") as HTMLSelectElement;
   const orbitsBox = box("rf-orbits");
-  const systemSelect = document.getElementById("rf-system") as HTMLSelectElement;
+  const mapSelect = document.getElementById("rf-map") as HTMLSelectElement;
+  for (const m of MAPS) mapSelect.add(new Option(m.name, m.id));
   const gravityBox = box("rf-gravity");
-  systemMode = systemSelect.value as SystemMode;
-  gravityOn = gravityBox.checked;
+  const warning = document.getElementById("rf-custom-warning") as HTMLElement;
+  const standardBtn = document.getElementById("rf-standard") as HTMLButtonElement;
+  const endBox = document.getElementById("rf-end") as HTMLElement;
+  const endSave = document.getElementById("rf-end-save") as HTMLButtonElement;
+  const endRestart = document.getElementById("rf-end-restart") as HTMLButtonElement;
   const zoomSlider = box("rf-zoom");
   const zoomOut = document.getElementById("rf-zoom-out") as HTMLOutputElement;
   const zoomValue = () => Math.pow(10, Number(zoomSlider.value));
   const showZoom = () => {
     const z = zoomValue();
-    zoomOut.textContent = z >= 0.995 ? `${z.toFixed(z < 10 ? 1 : 0)}×` : `1/${Math.round(1 / z).toLocaleString()}×`;
+    zoomOut.textContent = z >= 0.995 ? `${z.toFixed(z < 10 ? 1 : 0)}×`
+      : z >= 0.1 ? `${z.toFixed(2)}×`
+      : `1/${Math.round(1 / z).toLocaleString()}×`;
   };
   const setZoom = (log10: number) => {
     zoomSlider.value = String(Math.min(Number(zoomSlider.max), Math.max(Number(zoomSlider.min), log10)));
@@ -1570,54 +2283,112 @@ function init(): void {
   const ghostBox = box("rf-ghost");
   const thrustSlider = box("rf-thrust");
   const thrustOut = document.getElementById("rf-thrust-out") as HTMLOutputElement;
-  const thrustAccel = () => Number(thrustSlider.value) * C;
+  const thrustAccel = () => thrustSetting * C;
   const showThrust = () => { thrustOut.textContent = `${Number(thrustSlider.value).toFixed(2)} c/s`; };
   const cSlider = box("rf-c");
+  const speedSlider = box("rf-speed");
+  const speedOut = document.getElementById("rf-speed-out") as HTMLOutputElement;
   const cOut = document.getElementById("rf-c-out") as HTMLOutputElement;
-  cSlider.value = String(DEFAULT_C);
-  cOut.textContent = `${DEFAULT_C} units/s`;
-  thrustSlider.value = String(DEFAULT_THRUST);
-  showThrust();
-  thrustSlider.addEventListener("input", showThrust);
-  thrustSlider.addEventListener("change", () => canvas.focus());
-  const fullscreenBtn = document.getElementById("rf-fullscreen") as HTMLButtonElement;
   const restartBtn = document.getElementById("rf-restart") as HTMLButtonElement;
   const clearBtn = document.getElementById("rf-clear-best") as HTMLButtonElement;
+  const exportBtn = document.getElementById("rf-export") as HTMLButtonElement;
+  const importBtn = document.getElementById("rf-import") as HTMLButtonElement;
+  const importFile = document.getElementById("rf-import-file") as HTMLInputElement;
+  const transferStatus = document.getElementById("rf-transfer-status") as HTMLElement;
 
-  const track = buildTrack();
+  let track = buildTrack(currentMap);
   const stars = makeStars();
-  let best = loadBest();
+  let bests = loadBests(storageKey());
   let state = newState(track);
   let view = new View(state.ship);
   const controls: Controls = { left: false, right: false, thrust: false, brake: false };
 
-  // Changing the speed of light keeps the ship's ordinary speed (capped below the new c), so lowering
-  // c makes the same motion more relativistic.
-  cSlider.addEventListener("input", () => {
+  /** Shows the warning about custom settings when they differ from the map's standard ones. */
+  const updateWarning = () => {
+    warning.hidden = isStandard();
+  };
+  /** After a physics setting changes: a race in progress can no longer be saved, and the best times
+   *  shown are the ones for the new settings. */
+  const settingsChanged = () => {
+    if (state.phase === "racing") state.rulesChanged = true;
+    bests = loadBests(storageKey());
+    updateWarning();
+  };
+
+  /** Sets the speed of light. The ship keeps its ordinary speed (capped below the new c), so lowering
+   *  c makes the same motion more relativistic. On a map measured in real distances, the course and
+   *  the ship's position scale with c. */
+  const setC = (c: number) => {
     const ship = state.ship;
     const { vx, vy } = velocityOf(ship);
-    C = Number(cSlider.value);
+    C = c;
     C2 = C * C;
-    cOut.textContent = `${C} units/s`;
+    cSlider.value = String(C);
+    const { text, real } = speedOfLightText();
+    cOut.textContent = text;
+    cOut.classList.toggle("rf-unreal", !real);
     const speed = Math.hypot(vx, vy);
     const capped = Math.min(speed, MAX_BETA * C);
     const g = 1 / Math.sqrt(1 - (capped * capped) / C2);
     ship.ux = speed > 0 ? (vx / speed) * capped * g : 0;
     ship.uy = speed > 0 ? (vy / speed) * capped * g : 0;
-    if (state.phase !== "countdown") state.rulesChanged = true;
-    best = loadBest();
+  };
+  const setGameSpeed = (speed: number) => {
+    gameSpeed = speed;
+    speedSlider.value = String(Math.max(0, GAME_SPEEDS.indexOf(speed)));
+    speedSlider.max = String(GAME_SPEEDS.length - 1);
+    speedOut.textContent = `${speed}×`;
+    speedOut.classList.toggle("rf-unreal", speed !== 1);
+  };
+  const setThrust = (thrust: number) => {
+    thrustSetting = thrust;
+    thrustSlider.value = String(thrust);
+    showThrust();
+  };
+  const setGravity = (on: boolean) => {
+    gravityOn = on;
+    gravityBox.checked = on;
+  };
+  const applyStandard = () => {
+    const std = currentMap.standard;
+    setC(std.c);
+    setThrust(std.thrust);
+    setGravity(std.gravity);
+    setGameSpeed(1);
+    settingsChanged();
+  };
+
+  cSlider.addEventListener("input", () => {
+    setC(Number(cSlider.value));
+    settingsChanged();
   });
   cSlider.addEventListener("change", () => canvas.focus());
-  const rulesChanged = () => {
-    systemMode = systemSelect.value as SystemMode;
-    gravityOn = gravityBox.checked;
-    if (state.phase !== "countdown") state.rulesChanged = true;
-    best = loadBest();
+  thrustSlider.addEventListener("input", () => {
+    setThrust(Number(thrustSlider.value));
+    settingsChanged();
+  });
+  thrustSlider.addEventListener("change", () => canvas.focus());
+  speedSlider.addEventListener("input", () => {
+    setGameSpeed(GAME_SPEEDS[Number(speedSlider.value)] ?? 1);
+    settingsChanged();
+  });
+  speedSlider.addEventListener("change", () => canvas.focus());
+  gravityBox.addEventListener("change", () => {
+    setGravity(gravityBox.checked);
+    settingsChanged();
     canvas.focus();
-  };
-  systemSelect.addEventListener("change", rulesChanged);
-  gravityBox.addEventListener("change", rulesChanged);
-  let focused = false;
+  });
+  standardBtn.addEventListener("click", () => {
+    applyStandard();
+    canvas.focus();
+  });
+  for (const input of [cSlider, thrustSlider, speedSlider, gravityBox, lorentzBox, ghostBox, clocksBox, gridBox, orbitsBox,
+                       zoomSlider, dopplerSelect, standardBtn]) {
+    input.addEventListener(input === standardBtn ? "click" : "change", () => saveSettings());
+  }
+  /** Whether keystrokes reach the game. Read from the browser each frame, since the canvas can be
+   *  focused before the focus listener is attached (when saved settings restart the race). */
+  const hasFocus = () => document.activeElement === canvas && document.hasFocus();
   let paused = false;
   let started = false;
 
@@ -1638,12 +2409,67 @@ function init(): void {
   window.addEventListener("resize", resize);
   resize();
 
-  const restart = () => {
+  /** Starts a new race; `focus` moves keyboard focus to the game (but not when the page loads). */
+  const restart = (focus = true) => {
+    track = buildTrack(currentMap);
     state = newState(track);
     view = new View(state.ship);
     paused = false;
-    canvas.focus();
+    started = focus;
+    if (focus) canvas.focus();
   };
+  const saveSettings = () => saveJSON(SETTINGS_KEY, {
+    map: currentMap.id, c: C, thrust: thrustSetting, gravity: gravityOn,
+    lorentz: lorentzBox.checked, doppler: colorMode, ghosts: ghostBox.checked, clocks: clocksBox.checked,
+    grid: gridBox.checked, orbits: orbitsBox.checked, zoom: Number(zoomSlider.value), gameSpeed,
+  } satisfies SavedSettings);
+  mapSelect.addEventListener("change", () => {
+    currentMap = MAPS.find(m => m.id === mapSelect.value) ?? MAPS[0];
+    applyStandard();
+    setZoom(currentMap.zoom);
+    restart();
+    saveSettings();
+  });
+
+  // Restore the settings from the last visit, if any; otherwise start with the first map's standard
+  // settings.
+  const saved = loadJSON<Partial<SavedSettings>>(SETTINGS_KEY);
+  currentMap = MAPS.find(m => m.id === saved?.map) ?? MAPS[0];
+  mapSelect.value = currentMap.id;
+  applyStandard();
+  setZoom(currentMap.zoom);
+  if (saved) {
+    const inRange = (input: HTMLInputElement, v: unknown) =>
+      typeof v === "number" && v >= Number(input.min) && v <= Number(input.max);
+    if (inRange(cSlider, saved.c)) setC(saved.c!);
+    if (inRange(thrustSlider, saved.thrust)) setThrust(saved.thrust!);
+    if (typeof saved.gravity === "boolean") setGravity(saved.gravity);
+    if (typeof saved.lorentz === "boolean") lorentzBox.checked = saved.lorentz;
+    if (typeof saved.ghosts === "boolean") ghostBox.checked = saved.ghosts;
+    if (typeof saved.clocks === "boolean") clocksBox.checked = saved.clocks;
+    if (typeof saved.grid === "boolean") gridBox.checked = saved.grid;
+    if (typeof saved.orbits === "boolean") orbitsBox.checked = saved.orbits;
+    if (saved.doppler === "vivid" || saved.doppler === "blackbody" || saved.doppler === "off") {
+      colorMode = saved.doppler;
+      dopplerSelect.value = colorMode;
+    }
+    if (inRange(zoomSlider, saved.zoom)) setZoom(saved.zoom!);
+    if (typeof saved.gameSpeed === "number" && GAME_SPEEDS.includes(saved.gameSpeed)) setGameSpeed(saved.gameSpeed);
+    settingsChanged();
+    restart(false);
+  }
+
+  // At the end of a run with custom settings, the run can be saved to the list for those settings.
+  endSave.addEventListener("click", () => {
+    if (!state.awaitingSave || !state.result) return;
+    const runs = loadBests(state.startKey);
+    state.newRank = insertRun(runs, state.result);
+    if (state.newRank > 0) saveBests(runs, state.startKey);
+    state.awaitingSave = false;
+    bests = loadBests(storageKey());
+    canvas.focus();
+  });
+  endRestart.addEventListener("click", () => restart());
 
   const keyMap: Record<string, keyof Controls> = {
     ArrowLeft: "left", KeyA: "left",
@@ -1662,17 +2488,26 @@ function init(): void {
     } else if (e.code === "KeyR" || (e.code === "Enter" && state.phase === "finished")) {
       restart();
       e.preventDefault();
+    } else if (e.code === "KeyF") {
+      // The same as the full-screen button on the game (see common/panels.ts).
+      if (document.fullscreenElement) void document.exitFullscreen();
+      else void root.requestFullscreen?.();
+      e.preventDefault();
     } else if (e.code === "KeyL") {
       lorentzBox.checked = !lorentzBox.checked;
+      saveSettings();
     } else if (e.code === "KeyC") {
       const modes: ColorMode[] = ["vivid", "blackbody", "off"];
       colorMode = modes[(modes.indexOf(colorMode) + 1) % modes.length];
       dopplerSelect.value = colorMode;
+      saveSettings();
     } else if (e.code === "Equal" || e.code === "NumpadAdd") {
       setZoom(Number(zoomSlider.value) + 0.1);
+      saveSettings();
       e.preventDefault();
     } else if (e.code === "Minus" || e.code === "NumpadSubtract") {
       setZoom(Number(zoomSlider.value) - 0.1);
+      saveSettings();
       e.preventDefault();
     } else if (e.code === "Space") {
       e.preventDefault();
@@ -1681,17 +2516,20 @@ function init(): void {
   canvas.addEventListener("wheel", e => {
     e.preventDefault();
     setZoom(Number(zoomSlider.value) - e.deltaY * 0.002);
+    saveSettings();
   }, { passive: false });
   canvas.addEventListener("keyup", e => {
     const control = keyMap[e.code];
     if (control) controls[control] = false;
   });
   canvas.addEventListener("focus", () => {
-    focused = true;
     started = true;
   });
+  canvas.addEventListener("pointerdown", () => {
+    started = true;
+    canvas.focus();
+  });
   canvas.addEventListener("blur", () => {
-    focused = false;
     for (const k of Object.keys(controls) as (keyof Controls)[]) controls[k] = false;
   });
 
@@ -1714,53 +2552,106 @@ function init(): void {
     btn.addEventListener("contextmenu", e => e.preventDefault());
   });
 
-  restartBtn.addEventListener("click", restart);
+  restartBtn.addEventListener("click", () => restart());
   clearBtn.addEventListener("click", () => {
-    best = null;
-    try {
-      localStorage.removeItem(storageKey());
-    } catch {
-      // Nothing stored.
-    }
+    bests = [];
+    clearBests(storageKey());
     canvas.focus();
   });
-  fullscreenBtn.addEventListener("click", () => {
-    if (document.fullscreenElement) void document.exitFullscreen();
-    else void root.requestFullscreen?.().then(() => canvas.focus());
+  // Sharing best times and ghosts: a JSON file with every saved list, shared through the device's
+  // share sheet where available and downloaded otherwise; and loading such a file.
+  const runsText = (n: number) => `${n} ${n === 1 ? "run" : "runs"}`;
+  exportBtn.addEventListener("click", async () => {
+    const lists = allSavedLists();
+    const count = Object.values(lists).reduce((n, runs) => n + runs.length, 0);
+    if (count === 0) {
+      transferStatus.textContent = "No best times to share yet.";
+      return;
+    }
+    const json = JSON.stringify({ format: TRANSFER_FORMAT, version: 2, exported: new Date().toISOString(), lists });
+    const name = "relativistic-flight-best-times.json";
+    const file = new File([json], name, { type: "application/json" });
+    if (navigator.canShare?.({ files: [file] })) {
+      try {
+        await navigator.share({ files: [file], title: "Racing Near the Speed of Light: best times" });
+        transferStatus.textContent = `Shared ${runsText(count)}.`;
+        return;
+      } catch (e) {
+        if ((e as Error).name === "AbortError") return;
+      }
+    }
+    const url = URL.createObjectURL(file);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = name;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    transferStatus.textContent = `Downloaded ${runsText(count)} as ${name}.`;
   });
+  importBtn.addEventListener("click", () => importFile.click());
+  importFile.addEventListener("change", async () => {
+    const file = importFile.files?.[0];
+    importFile.value = "";
+    if (!file) return;
+    try {
+      const added = importLists(await file.text());
+      bests = loadBests(storageKey());
+      transferStatus.textContent = added === 0
+        ? "Nothing added: these runs are already here or slower than your five best."
+        : `Added ${runsText(added)}.`;
+    } catch (e) {
+      transferStatus.textContent = e instanceof SyntaxError ? "This file isn't a best-times file." : (e as Error).message;
+    }
+  });
+
   document.addEventListener("fullscreenchange", () => {
-    fullscreenBtn.textContent = document.fullscreenElement ? "Exit full screen" : "Full screen";
     resize();
+    if (document.fullscreenElement === root) canvas.focus();
   });
+
+  setupHelp("rf");
+
+  // The game and the settings can be pinned, and the game shown full screen (see common/panels.ts).
+  const panels = setupPanels("rf", () =>
+    saveJSON(PIN_KEY, panels.list.map((panel, i) => (panels.isPinned(panel) ? i : -1)).filter(i => i >= 0)));
+  const savedPins = loadJSON<number[]>(PIN_KEY);
+  if (Array.isArray(savedPins)) {
+    for (const i of savedPins) if (panels.list[i]) panels.setPinned(panels.list[i], true);
+  }
   [lorentzBox, orbitsBox, gridBox, clocksBox, ghostBox].forEach(b => b.addEventListener("change", () => canvas.focus()));
 
-  const touchOnly = window.matchMedia("(pointer: coarse)").matches;
   let last = performance.now();
   const frame = (now: number) => {
     const dt = Math.min(0.05, (now - last) / 1000);
     last = now;
-    const running = started && !paused && (focused || touchOnly) && !document.hidden;
+    const running = started && !paused && (hasFocus() || TOUCH_ONLY) && !document.hidden;
     currentBodies = placeBodies(track);
     if (running) {
-      // Small steps keep gate crossings and orbits near the black hole accurate.
-      const n = Math.ceil(dt / 0.004);
+      // Small steps of ship time keep gate crossings and orbits accurate at every game speed.
+      const shipDt = dt * gameSpeed;
+      const n = Math.ceil(shipDt / 0.004);
       for (let i = 0; i < n; i++) {
-        if (step(state, track, currentBodies, controls, dt / n, thrustAccel())) {
+        if (step(state, track, currentBodies, controls, shipDt / n, thrustAccel())) {
           state.result = { t: state.ship.t, tau: state.ship.tau, samples: state.recording };
-          if (!state.rulesChanged && (!best || state.result.t < best.t)) {
-            best = state.result;
-            state.newBest = true;
-            saveBest(best);
+          if (state.rulesChanged) {
+            // A run whose settings changed during the race isn't saved.
+          } else if (state.standardAtStart) {
+            state.newRank = insertRun(bests, state.result);
+            if (state.newRank > 0) saveBests(bests, state.startKey);
+          } else {
+            state.awaitingSave = true;
           }
         }
       }
     }
     view.update(lorentzBox.checked);
+    endBox.hidden = state.phase !== "finished";
+    endSave.hidden = !state.awaitingSave;
 
     let overlay: string | null = null;
-    if (!started) overlay = "Click here to start\n↑ thrust · ↓ brake · ← → turn · + − zoom";
-    else if (!running) overlay = touchOnly || focused ? "Paused\nPress P to resume" : "Paused\nClick the game to resume";
-    render(ctx, state, track, currentBodies, stars, best, view,
+    if (!started) overlay = TOUCH_ONLY ? "Tap a control to start" : "Click here to start\n↑ thrust · ↓ brake · ← → turn · + − zoom";
+    else if (!running) overlay = TOUCH_ONLY || hasFocus() ? "Paused\nPress P to resume" : "Paused\nClick the game to resume";
+    render(ctx, state, track, currentBodies, stars, bests, view,
            { grid: gridBox.checked, clocks: clocksBox.checked, ghost: ghostBox.checked, orbits: orbitsBox.checked, zoom: zoomValue() },
            width, height, dpr, overlay);
     requestAnimationFrame(frame);

@@ -5,6 +5,7 @@ title: Racing Near the Speed of Light
 excerpt: "A time-trial race at close to the speed of light, where space contracts, clocks fall out of sync according to the Lorentz transformation, and the Doppler effect shifts the colors of everything you pass."
 tool_categories: [Physics]
 date_added: 2026-11-05
+full_width: true
 ---
 
 <style>
@@ -19,24 +20,105 @@ date_added: 2026-11-05
   .rf button:hover { background: rgba(128, 128, 128, 0.1); }
   /* The theme adds bottom margins to inputs and labels, which pushes them off-center in a row. */
   .rf input,
-  .rf label { margin: 0; }
+  .rf label,
+  .rf select { margin: 0; }
+
+  /* A pinned panel stays at the top of the window while scrolling (see common/panels.ts). */
+  .rf-panel { position: relative; }
+  .rf-panel.rf-pinned { position: sticky; z-index: 5; }
+  .rf .rf-pin,
+  .rf .rf-full {
+    position: absolute;
+    top: 0.45rem;
+    right: 0.35rem;
+    padding: 0.25rem;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: #8a919c;
+    line-height: 0;
+    opacity: 0.7;
+  }
+  .rf .rf-pin:hover,
+  .rf .rf-full:hover { background: rgba(128, 128, 128, 0.2); opacity: 1; }
+  .rf .rf-full { right: 2.2rem; }
+  .rf .rf-full svg { width: 18px; height: 18px; }
+  .rf .rf-pin svg { width: 18px; height: 18px; transform: rotate(45deg); transition: transform 150ms; }
+  .rf .rf-pinned .rf-pin { color: #6ea8fe; opacity: 1; }
+  .rf .rf-pinned .rf-pin svg { transform: none; }
+  .rf .rf-panel:fullscreen .rf-pin { display: none; }
+  .rf .rf-panel:fullscreen .rf-full { right: 0.35rem; }
+
   .rf-game { background: #04060d; border-radius: 8px; overflow: hidden; }
   .rf-game canvas { display: block; width: 100%; outline: none; touch-action: none; }
   .rf-game:fullscreen { border-radius: 0; display: flex; flex-direction: column; }
-  .rf-options {
+  .rf-stage { position: relative; }
+  /* Buttons shown on the game at the end of a run, below the results. */
+  .rf-end {
+    position: absolute;
+    left: 50%;
+    top: calc(50% + 96px);
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.6rem;
+  }
+  .rf .rf-end button { padding: 0.55rem 1.1rem; border-color: #1a73e8; background: #1a73e8; color: #fff; white-space: nowrap; }
+  .rf .rf-end button:hover { background: #1765cc; }
+  .rf .rf-end button.rf-secondary { border-color: rgba(223, 232, 255, 0.5); background: rgba(4, 6, 13, 0.8); color: #dfe8ff; }
+
+  .rf-settings { margin: 0.6rem 0 0; padding: 0.4rem 2.6rem 0.5rem 0; background: #fff; font-size: 0.9em; }
+  .rf-toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 1rem; }
+  .rf-group, .rf-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.2rem; }
+  .rf-row { margin: 0.45rem 0 0; }
+  .rf-row-title { font-weight: bold; min-width: 4.2rem; }
+  .rf-divider { margin: 0.5rem 0 0; border: none; border-top: 1px solid rgba(128, 128, 128, 0.3); }
+  .rf-settings label { display: inline-flex; align-items: center; gap: 0.35rem; }
+  .rf-settings input[type="checkbox"] { width: auto; }
+  .rf-settings select { width: auto; padding: 0.2rem 0.3rem; font: inherit; }
+  .rf-settings input[type="range"] { width: 8rem; }
+  .rf-settings output { min-width: 6.5em; font-variant-numeric: tabular-nums; }
+  /* A setting that differs from reality (a speed of light other than the real one, a faster game). */
+  .rf-settings output.rf-unreal { color: #c25e00; font-weight: bold; }
+  .rf-status { font-size: 0.9em; color: #5f6368; }
+  .rf .rf-warning {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.5rem 1.2rem;
-    margin: 0.6rem 0 0;
-    font-size: 0.9em;
+    gap: 0.4rem 0.8rem;
+    margin: 0.45rem 0 0;
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    background: #fff4e0;
+    color: #7a4b00;
   }
-  .rf-options label { display: inline-flex; align-items: center; gap: 0.35rem; }
-  .rf-options input[type="checkbox"] { width: auto; }
-  .rf-options select { width: auto; margin: 0; padding: 0.2rem 0.3rem; font: inherit; }
-  .rf-options input[type="range"] { width: 9rem; }
-  .rf-options output { min-width: 6.5em; font-variant-numeric: tabular-nums; }
-  .rf-options .rf-buttons { margin-left: auto; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .rf [hidden] { display: none !important; }
+
+  /* "?" buttons that explain a setting (see common/help.ts), as in the other tools. */
+  .rf .rf-help {
+    width: 1.25rem;
+    height: 1.25rem;
+    padding: 0;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: bold;
+    line-height: 1;
+    color: #6b6b6b;
+    flex: none;
+  }
+  .rf .rf-help[aria-expanded="true"] { background: #1a73e8; border-color: #1a73e8; color: #fff; }
+  .rf-help-popup {
+    position: absolute;
+    z-index: 30;
+    max-width: min(22rem, calc(100vw - 16px));
+    padding: 0.6rem 0.8rem;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+    font-size: 0.85em;
+    line-height: 1.45;
+  }
 
   /* On-screen controls, shown only on touch screens. */
   .rf-touch { display: none; }
@@ -72,8 +154,14 @@ date_added: 2026-11-05
 </style>
 
 <div class="rf">
-  <div id="rf-game" class="rf-game">
-    <canvas id="rf-canvas" tabindex="0" aria-label="Game: a race around a course of gates at relativistic speed"></canvas>
+  <div id="rf-game" class="rf-game rf-panel">
+    <div class="rf-stage">
+      <canvas id="rf-canvas" tabindex="0" aria-label="Game: a race around a course of gates at relativistic speed"></canvas>
+      <div id="rf-end" class="rf-end" hidden>
+        <button type="button" id="rf-end-save" hidden>Save this run</button>
+        <button type="button" id="rf-end-restart">Race again</button>
+      </div>
+    </div>
     <div class="rf-touch">
       <div>
         <button type="button" data-control="left" aria-label="Turn left">⟲</button>
@@ -86,61 +174,84 @@ date_added: 2026-11-05
     </div>
   </div>
 
-  <div class="rf-options">
-    <label>System
-      <select id="rf-system">
-        <option value="real" selected>Solar system (to scale)</option>
-        <option value="fantasy">Fantasy (big planets, black hole)</option>
-      </select>
-    </label>
-    <label><input type="checkbox" id="rf-gravity" checked> Gravity (general relativity)</label>
-    <label><input type="checkbox" id="rf-lorentz" checked> Lorentz transformation</label>
-    <label>Doppler colors
-      <select id="rf-doppler">
-        <option value="vivid" selected>Vivid (single wavelength)</option>
-        <option value="blackbody">Realistic (glowing hot)</option>
-        <option value="off">Off</option>
-      </select>
-    </label>
-    <label><input type="checkbox" id="rf-orbits" checked> Orbits</label>
-    <label><input type="checkbox" id="rf-grid" checked> Rest-frame grid</label>
-    <label><input type="checkbox" id="rf-clocks" checked> Clocks</label>
-    <label><input type="checkbox" id="rf-ghost" checked> Ghost of best run</label>
-    <label>Zoom
-      <input type="range" id="rf-zoom" min="-4.5" max="1.7" step="0.05" value="0">
-      <output id="rf-zoom-out" for="rf-zoom">1.0×</output>
-    </label>
-    <label>Speed of light
-      <input type="range" id="rf-c" min="50" max="1000" step="25" value="300">
-      <output id="rf-c-out" for="rf-c">300 units/s</output>
-    </label>
-    <label>Engine power
-      <input type="range" id="rf-thrust" min="0.25" max="4" step="0.25" value="1">
-      <output id="rf-thrust-out" for="rf-thrust">1.00 c/s</output>
-    </label>
-    <span class="rf-buttons">
-      <button type="button" id="rf-restart">Restart</button>
-      <button type="button" id="rf-clear-best">Clear best</button>
-      <button type="button" id="rf-fullscreen">Full screen</button>
-    </span>
+  <div class="rf-panel rf-settings" data-fullscreen="false">
+    <div class="rf-toolbar">
+      <div class="rf-group">
+        <label><span data-help="Each map has its own course, obstacles, number of laps, and standard settings. Choosing a map starts a new race with the map's standard settings.">Map</span>
+          <select id="rf-map"></select>
+        </label>
+        <button type="button" id="rf-restart">Restart</button>
+        <button type="button" id="rf-clear-best">Clear best times</button>
+      </div>
+      <div class="rf-group">
+        <span data-help="Share best times saves the best times and ghosts for every map in a file, which you can send to someone else. Load best times adds the runs from such a file to the lists in this browser, keeping the five fastest runs of each list.">Best times</span>
+        <button type="button" id="rf-export">Share</button>
+        <button type="button" id="rf-import">Load</button>
+        <input type="file" id="rf-import-file" accept=".json,application/json" hidden>
+        <span id="rf-transfer-status" class="rf-status" role="status"></span>
+      </div>
+    </div>
+    <hr class="rf-divider">
+    <div class="rf-row">
+      <span class="rf-row-title">Physics</span>
+      <label><span data-help="How fast light travels. The standard value is the real speed of light, 2.998 × 10⁸ m/s; other values are shown in orange. Changing it changes only the speed of light: the maps, sizes, and masses stay the same, so a slower speed of light makes the same motion more relativistic. It also makes every planet more compact and every black hole's event horizon larger, since a horizon's size is proportional to the mass divided by the speed of light squared; at the lowest settings, some black holes can swallow parts of a course.">Speed of light</span>
+        <input type="range" id="rf-c" min="50" max="1000" step="25" value="300">
+        <output id="rf-c-out" for="rf-c">2.998 × 10⁸ m/s (real)</output>
+      </label>
+      <label><span data-help="The ship's acceleration, measured on board, in multiples of the speed of light per second. At 1 c/s you pass 90% of the speed of light after about 1.5 seconds of thrust. A real rocket accelerating at 1 g would take about a year to get that close to the speed of light.">Engine power</span>
+        <input type="range" id="rf-thrust" min="0.05" max="4" step="0.05" value="1">
+        <output id="rf-thrust-out" for="rf-thrust">1.00 c/s</output>
+      </label>
+      <label><span data-help="How fast the game runs compared with real time: at 10×, ten seconds of your ship's clock pass for each real second, and at 0.5×, half a second does. Use it to cross the solar system in a reasonable time; at 99.99% of the speed of light, reaching Neptune takes about 3.5 minutes on your clock, or 21 seconds at 10×. Slow it down below 1× to thread between obstacles or watch the effects more closely. Steering, the crash animation, and the trail stay in real time, so the ship remains controllable. The standard game speed is 1×.">Game speed</span>
+        <input type="range" id="rf-speed" min="0" max="9" step="1" value="3">
+        <output id="rf-speed-out" for="rf-speed">1×</output>
+      </label>
+      <label><input type="checkbox" id="rf-gravity" checked>
+        <span data-help="The pull of the planets, stars, and black holes, computed with general relativity, along with the slowing of clocks and the redshift of light in their gravity. Uncheck to compare with flat spacetime.">Gravity (general relativity)</span></label>
+    </div>
+    <p id="rf-custom-warning" class="rf-warning" hidden>
+      <span>Custom settings: runs with these settings don't count toward this map's best times, but you can save a finished run to a separate list for these settings.</span>
+      <button type="button" id="rf-standard">Use standard settings</button>
+    </p>
+    <div class="rf-row">
+      <span class="rf-row-title">View</span>
+      <label><input type="checkbox" id="rf-lorentz" checked>
+        <span data-help="Draws the world in your ship's frame: lengths along your motion shrink by the Lorentz factor γ, and clocks ahead of you read later than clocks behind you. Unchecked, the game draws the rest frame at a single rest-frame time.">Lorentz transformation</span></label>
+      <label><span data-help="Vivid: each light emits a single wavelength, which the Doppler shift moves through the rainbow (blue ahead of you, red behind). Realistic: each light glows like a hot object, which looks blue-white ahead and dim red behind. Off: no color shifts.">Doppler colors</span>
+        <select id="rf-doppler">
+          <option value="vivid" selected>Vivid (single wavelength)</option>
+          <option value="blackbody">Realistic (glowing hot)</option>
+          <option value="off">Off</option>
+        </select>
+      </label>
+      <label><input type="checkbox" id="rf-ghost" checked>
+        <span data-help="Replays your five best runs on this map with these settings as dashed ships, numbered by rank. Numbered markers on the edge of the screen point toward ghosts that are off screen, and the map in the corner shows all of them.">Ghosts</span></label>
+      <label><input type="checkbox" id="rf-clocks" checked>
+        <span data-help="A lattice of clocks at rest, synchronized in the rest frame. Each shows the time it reads at the moment you consider to be now, so they disagree when you move or when they are deep in a gravity well.">Clocks</span></label>
+      <label><input type="checkbox" id="rf-grid" checked> Rest-frame grid</label>
+      <label><input type="checkbox" id="rf-orbits" checked> Orbits</label>
+      <label><span data-help="Zoom out to about 1/1000× to see the inner planets on the solar-system maps, and to about 1/10,000× to see the outer planets. You can also zoom with + and − or by scrolling over the game.">Zoom</span>
+        <input type="range" id="rf-zoom" min="-4.5" max="1.7" step="0.05" value="0">
+        <output id="rf-zoom-out" for="rf-zoom">1.0×</output>
+      </label>
+    </div>
   </div>
+  <div id="rf-help-popup" class="rf-help-popup" role="note" hidden></div>
 
   <h2>How to play</h2>
   <p>
-    Fly two laps of the course, passing through every gate in order.
+    Choose a map, then fly the laps of its course, passing through every gate in order.
+    The race starts the moment you first press thrust; until then the clocks wait, and you can turn to aim.
     The next gate pulses, and an arrow at the edge of the screen points to it when it is out of view.
-    The map in the corner shows the course in the rest frame.
-    Your best run is saved in this browser and replays as a dashed ghost ship.
+    The map in the corner shows the course in the rest frame, with your ship in pink and your ghosts in purple.
     The pink trail behind you shows where you've been during the last 2.5 seconds of your own time.
   </p>
   <p>
-    The Earth and Moon sit on the first straight, and the Sun and the other planets are out in the
-    solar system around the course.
-    Choose "Fantasy" under "System" to race through a made-up system instead, with planets big
-    enough to get in the way and a black hole beside the course.
-    If you fly into a planet, you crash, and if you fall into the black hole, you are gone.
-    Either way, the ship reappears at rest at the last gate you passed while the race clock keeps
-    running.
+    If you fly into a planet, you crash, and if you fall into a black hole, you are gone.
+    Either way, the ship spins back to an earlier point on its path and continues with the velocity it had there, while the race clock keeps running.
+    If you passed the last gate at least two seconds of flight before the crash, the ship goes back to that gate; otherwise it goes back to where it was two seconds before the crash, so you have time to steer away from whatever you hit.
+    If you crash again within two seconds, the ship goes back another two seconds, rather than all the way to an earlier gate.
+    Keeping the earlier velocity means a crash can't be used to stop quickly.
   </p>
   <table class="rf-keys">
     <tr><td><kbd>↑</kbd> or <kbd>W</kbd></td><td>Thrust</td></tr>
@@ -150,81 +261,109 @@ date_added: 2026-11-05
     <tr><td><kbd>L</kbd></td><td>Toggle the Lorentz transformation</td></tr>
     <tr><td><kbd>C</kbd></td><td>Switch between Doppler color modes</td></tr>
     <tr><td><kbd>+</kbd> <kbd>−</kbd> or scroll</td><td>Zoom in and out</td></tr>
+    <tr><td><kbd>F</kbd></td><td>Toggle full screen</td></tr>
     <tr><td><kbd>P</kbd></td><td>Pause</td></tr>
   </table>
   <p>
-    The speed of light starts at 300 units per second, about a fifth of the width of the screen.
-    The course is about 32,000 units long.
-    Use the "Speed of light" slider to change it, from 50 to 1000 units per second.
-    The lower the speed of light, the shorter the distance you need to reach relativistic speeds,
-    and the stronger every effect on this page becomes for a given speed.
-    If you change the speed of light while flying, the ship keeps its speed in units per second,
-    unless that is now faster than 99.9% of the new speed of light.
-    Best times and ghosts are kept separately for each speed of light, system, and gravity
-    setting, and a run doesn't count if you change any of them during it.
+    On a touch screen, use the buttons under the game, and the full-screen button in the game's top right corner to fill the screen or to leave full screen.
+    At the end of a run, buttons on the game let you race again or save the run.
   </p>
-  <p>
-    "Engine power" sets the ship's acceleration, measured in the ship's own frame, in multiples of
-    the speed of light per second, so it scales with the speed of light.
-    At the default of 1&nbsp;c/s you pass 90% of the speed of light after about one and a half
-    seconds of thrust.
-    The engines cut out at 99.9% of the speed of light, where \(\gamma \approx 22.4\).
-  </p>
-  <p>
-    There is no friction in space, so you can't take a corner at speed by steering alone: turn
-    around and brake before the corner.
-    The more relativistic you are, the harder it is to change direction, because a sideways push
-    changes your direction less when your momentum is larger.
-  </p>
+
+  <h2>Race clocks and best times</h2>
   <p>
     The race is timed by the course officials' clocks, which are at rest on the course.
-    Your own clock \(\tau\) runs slow compared to theirs, so you age less than your official time
-    during the race, and the faster you fly, the bigger the difference.
+    The race time is shown large in the lower right corner, with your own clock \(\tau\) below it.
+    Your clock runs slow compared to the officials' clocks, so you age less than your race time, and the faster you fly, the bigger the difference.
+    The number beside the race time is the rate \(dt/d\tau\): how many seconds of race time pass for each second on your clock.
+    The race time changes color with this rate, from white when the two clocks keep pace, through yellow and orange, to red when the race clock runs 20 or more times faster than yours.
+  </p>
+  <p>
+    Your five best times on each map are listed above the clocks and replay as dashed ghost ships, numbered by rank.
+    When a ghost is off screen, a numbered marker on the edge of the screen points toward it.
+    Best times are saved in this browser.
+    To give your results to someone else, press "Share" next to "Best times" to save every map's best times and ghosts in a file, and send them the file.
+    They can press "Load" to add your runs to their own lists, where your ghosts race alongside theirs.
+  </p>
+  <p>
+    Each map has a standard set of physics settings: the speed of light, the engine power, and gravity.
+    Only runs with the standard settings count toward the map's best times.
+    Choosing a map loads its standard settings.
+    If you change them, a warning appears with a button to restore them, and at the end of a run you can save your time to a separate list for your custom settings.
+    A run can't be saved if you change the settings during it.
+    The view settings, such as the zoom and the Doppler colors, don't affect the race.
+    Your map and settings are remembered in this browser for your next visit.
+  </p>
+  <p>
+    Every map's standard settings use the real speed of light, 2.998&nbsp;×&nbsp;10⁸&nbsp;m/s, and real time.
+    Distances on every map are fixed: one unit is about 999&nbsp;km, so light crosses 300 units each second.
+    The "Speed of light" slider changes only how fast light travels, and shows it in orange when it isn't the real value.
+    A slower speed of light makes the same motion more relativistic, and because the masses stay the same, it also makes every planet more compact and every black hole larger.
+    If you change the speed of light while flying, the ship keeps its speed, unless that is now faster than 99.99% of the new speed of light.
+  </p>
+  <p>
+    The "Game speed" slider runs the game from 10 times slower to 100 times faster than real time; the fast settings make the solar system practical to explore.
+    At 10×, ten seconds pass on your ship's clock for each real second, while steering, the crash animation, and the trail stay in real time.
+  </p>
+  <p>
+    "Engine power" sets the ship's acceleration, measured in the ship's own frame, in multiples of the speed of light per second.
+    At 1&nbsp;c/s you pass 90% of the speed of light after about one and a half seconds of thrust.
+    The engines cut out at 99.99% of the speed of light, where \(\gamma \approx 70.7\).
+  </p>
+  <p>
+    There is no friction in space, so you can't take a corner at speed by steering alone: turn around and brake before the corner.
+    The more relativistic you are, the harder it is to change direction, because a sideways push changes your direction less when your momentum is larger.
   </p>
 
-  <h2>The solar system, to scale</h2>
+  <h2>Maps</h2>
+  <ul>
+    <li>
+      <strong>Earth and Moon.</strong>
+      A smooth figure eight around the real Earth and Moon, to scale, for three laps, at standard engine power 0.2&nbsp;c/s.
+      The course is a lemniscate, a figure-eight curve whose loops wrap around two points, with the Earth and the Moon at those points.
+      One unit is about 999&nbsp;km, so the Earth is only 13 units across, smaller than the ship icon, and the Moon is 384 units away: light takes 1.3 seconds to cross from the Earth to the Moon.
+      The gravity of the real Earth and Moon is far too weak to notice at these speeds.
+    </li>
+    <li>
+      <strong>Grand loop (solar system).</strong>
+      A long course with the Earth and Moon on its first straight and the rest of the solar system to scale around it.
+      The Sun is 500 light-seconds (8.3 light-minutes) from the Earth, and Neptune is about 4 light-hours from the Sun.
+      Zoom out to about 1/1000× to see the inner planets, and to about 1/10,000× to see the outer ones.
+      Flying to the Sun at 99.99% of the speed of light takes 8.3 minutes of rest-frame time, but only about 7 seconds on your own clock.
+      The planets are placed where they are today in their orbits, which are drawn as circles (the real orbits are slightly elliptical and tilted).
+      Their orbital speeds are around 0.01% of the speed of light, so they are treated as at rest.
+    </li>
+    <li>
+      <strong>Planet run (fantasy).</strong>
+      A wide, winding course strewn with about 90 planets, with gates about 2500 units apart, so you have to pick your own path between the planets.
+      The planets range from 120 to 440 units across, and there is always a gap of at least 250 units between them.
+      A black hole sits in the middle of the course a little past halfway around, with a wide clear zone around it, and a star, Ember, glows inside the loop.
+      Each planet's Schwarzschild radius (see below) is 5–15% of its radius, far more than any real planet, so their gravity bends your path.
+      The layout is the same on every visit, so best times stay comparable.
+    </li>
+    <li>
+      <strong>Black hole slingshot (fantasy).</strong>
+      Four black holes in a row, with a course that weaves between them in a chain of figure eights, at standard engine power 0.5&nbsp;c/s.
+      The course loops around each black hole in turn, alternating between clockwise and counterclockwise, and crosses itself between each pair.
+      The black holes have very different masses: from lightest to heaviest, Wisp, Sprite, Titan, and Behemoth, whose event horizons have radii of 15, 40, 100, and 160 units.
+      Every loop passes 500 units from its black hole, so Wisp barely bends your path, while Behemoth pulls about 11 times as hard as Wisp.
+      The loop around Behemoth is only 3.1 horizon radii from it, just outside its innermost stable orbit, and clocks there run at about 79% of the rate of distant clocks.
+      Gravity helps swing you around each loop, and pulls much harder the faster you fly.
+      Cut too close to Behemoth and you fall in.
+      Gates count only when you fly through them roughly along the course, so you can't pass a gate early from the other path at a crossing.
+    </li>
+    <li>
+      <strong>Giants' slalom (fantasy).</strong>
+      A course that weaves between five dense giant planets, at standard engine power 0.5&nbsp;c/s.
+      Each giant's Schwarzschild radius is 30% of its radius, so its gravity pulls you toward it, and clocks at its surface run at 84% of the rate of distant clocks.
+    </li>
+  </ul>
   <p>
-    The whole solar system is to scale with the speed of light: since light crosses \(c\) units per
-    second, one unit is \(299{,}792 / c\) kilometers, about 1000&nbsp;km at the default speed of
-    light.
-    At that scale the Earth is only 13 units across, smaller than the ship icon, and the Moon is
-    384 units away, about the width of the track: light takes 1.3 seconds to cross from the Earth to
-    the Moon.
-    Use the zoom to see them.
-    The Sun is 500 light-seconds (8.3 light-minutes) from the Earth, and Neptune is about 4
-    light-hours from the Sun.
-    The planets are placed where they are today in their orbits, which are drawn as circles (the
-    real orbits are slightly elliptical and tilted).
-    Their orbital speeds are around 0.01% of the speed of light, so they are treated as at rest.
-    Changing the speed of light rescales the whole solar system, since the course stays the same
-    size.
+    The masses of the fantasy bodies are set so that their Schwarzschild radii take the values given here at the real speed of light.
+    Lowering the speed of light makes those radii larger, in proportion to \(1/c^2\).
   </p>
   <p>
-    Zoom out to about 1/1000× to see the inner planets, and to about 1/10,000× to see the outer
-    ones.
-    The display under the speed readout names the nearest body and how long light takes to reach
-    its surface from you.
-    Flying to the Sun at 99.9% of the speed of light takes 8.3 minutes of rest-frame time, but only
-    about 22 seconds on your own clock.
-  </p>
-
-  <h2>The fantasy system</h2>
-  <p>
-    The fantasy system has a star, Ember, off to the left of the course; five planets and a moon,
-    including Azure on the first straight; and a black hole inside the first bend of the course.
-    Its sizes are fixed in units rather than tied to the speed of light, so the planets are hundreds
-    of units across.
-    Their masses are set by how compact they are: each planet's Schwarzschild radius (see below) is
-    5–10% of its radius, far more than any real planet, so their gravity is strong enough to bend
-    your path.
-    The masses scale with \(c^2\), so gravity is just as relativistic at every speed of light.
-  </p>
-  <p>
-    The black hole's event horizon has a radius of 80 units.
-    Around it you can see the photon sphere (dashed) and an accretion disk of hot gas orbiting it.
-    The gas orbits counterclockwise at up to half the speed of light, so the side moving toward
-    you is blueshifted and the side moving away is redshifted, and all of the light from the inner
-    disk is also redshifted as it climbs out of the black hole's gravity.
+    Around each black hole you can see the photon sphere (dashed) and an accretion disk of hot gas orbiting it.
+    The gas orbits counterclockwise at up to half the speed of light, so the side moving toward you is blueshifted and the side moving away is redshifted, and all of the light from the inner disk is also redshifted as it climbs out of the black hole's gravity.
   </p>
 
   <h2>General relativity</h2>
@@ -232,7 +371,7 @@ date_added: 2026-11-05
     With "Gravity (general relativity)" checked, the Sun, planets, moons, and black hole all pull on
     the ship.
     In the real solar system to scale, their gravity is far too weak to notice at these speeds, so
-    try the fantasy system.
+    try the fantasy maps.
     A mass \(M\) has a <em>Schwarzschild radius</em>
     \[
       r_s = \frac{2GM}{c^2},
@@ -325,8 +464,8 @@ date_added: 2026-11-05
       Thrust toward a row of clocks and watch the ones far ahead jump forward as your speed
       increases.
       Brake, and they jump back.
-      The ghost is placed the same way, so when you are moving, the ghost ahead of you is shown
-      later in its run, and the ghost behind you earlier in its run.
+      The ghosts are placed the same way, so when you are moving, a ghost ahead of you is shown
+      later in its run, and a ghost behind you earlier in its run.
     </li>
   </ul>
 
