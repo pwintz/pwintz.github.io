@@ -1,9 +1,8 @@
 ---
-published: false
 title: Preimage
 term: preimage
 applies_to: functions and sets
-synonyms: [inverse image]
+synonyms: [inverse image, "$f^{-1}$"]
 levels:
   high-school:
     text: |-
@@ -15,5 +14,6 @@ levels:
       The _preimage_ of $B$ is
 
       $$f^{-1}(B) = \setdef{x \in X \suchthat f(x) \in B}.$$
-      It is defined for every function, even one with no inverse function.
+
 ---
+The preimage is always defined, even for functions with no inverse.

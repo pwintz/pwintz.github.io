@@ -1,8 +1,8 @@
 ---
-published: false
 title: 'The relation $<$ on $\reals$'
 level: undergraduate
 is: [relation]
+is_not: [binary_operation]
 values:
   relation: '$\setdef{(x, y) \in \reals \times \reals \suchthat x \text{ is less than } y}$'
 why:

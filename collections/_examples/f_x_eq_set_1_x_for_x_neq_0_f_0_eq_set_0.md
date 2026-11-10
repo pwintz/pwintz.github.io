@@ -8,6 +8,7 @@ is: [
 ]
 is_not: [
   upper_semicontinuous_setvalued,
+  # TODO: Check
   inner_semicontinuous,
   lower_semicontinuous_setvalued
 ]

@@ -1,0 +1,35 @@
+---
+published: false
+title: Statistical moment
+term: statistical moment
+applies_to: random variables
+synonyms: [moment]
+levels:
+  high-school:
+    text: |-
+      Consider a random quantity $X$.
+      The _moments_ of $X$ are the long-run averages of the powers of $X$: the first moment is the average of $X$, the second moment is the average of $X^2$, the third moment is the average of $X^3$, and so on.
+  undergraduate:
+    context: probability
+    text: |-
+      Consider a [random variable](/definitions/random-variable) $X$ and a positive [integer](/definitions/integer) $k$.
+      The $k$th _moment_ of $X$ is the [expected value](/definitions/expected-value)
+
+      $$\mathbb{E}[X^k].$$
+
+      The $k$th _central moment_ of $X$ is the $k$th moment of $X$ about the mean $\mu = \mathbb{E}[X]$:
+
+      $$\mathbb{E}[(X - \mu)^k].$$
+properties:
+  - >-
+    The first moment of a [random variable](/definitions/random-variable) is the mean of the random variable.
+  - >-
+    The second central moment of a [random variable](/definitions/random-variable) is the [variance](/definitions/variance) of the random variable.
+  - >-
+    The [variance](/definitions/variance) is the second moment minus the square of the first moment: $\operatorname{Var}(X) = \mathbb{E}[X^2] - (\mathbb{E}[X])^2$.
+  - >-
+    The third and fourth central moments, divided by $\sigma^3$ and $\sigma^4$, where $\sigma$ is the [standard deviation](/definitions/standard-deviation), are the skewness and the kurtosis.
+---
+The name comes from physics: the first moment of a mass distribution locates the center of mass, and the second moment is the moment of inertia.
+
+The moments of a data set $x_1, \dots, x_n$, called sample moments, are the averages $(x_1^k + \dots + x_n^k) / n$.

@@ -18,6 +18,7 @@ levels:
       The _zero vector_ of $V$ is its additive identity: the vector $\mathbf{0}$ with
 
       $$v + \mathbf{0} = v \quad \text{for every } v \in V.$$
+
       In a space of functions, it is the function that is $0$ everywhere.
 properties:
   - >-

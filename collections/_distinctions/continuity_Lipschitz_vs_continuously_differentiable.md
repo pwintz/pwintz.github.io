@@ -1,5 +1,4 @@
 ---
-published: false
 title: Lipschitz continuous vs. continuously differentiable
 kind: hierarchy
 areas: [analysis]
@@ -7,7 +6,9 @@ summary: >
   Lipschitz continuity and [continuous](/definitions/continuous) differentiability both rule out functions that are too steep or too wild, but in different ways.
   A [Lipschitz continuous](/definitions/lipschitz-continuous) function has a [bounded](/definitions/bounded) slope but may have corners.
   A [continuously differentiable](/definitions/continuously-differentiable) function has no corners, but its slope may be unbounded on an unbounded domain.
-relation: On a compact interval $[a, b]$, continuously differentiable ⊂ Lipschitz continuous.
+relation:
+  context: 'On a compact interval $[a, b]$:'
+  relation: continuously differentiable ⊂ Lipschitz continuous
 terms:
   - Lipschitz_continuous
   - continuously_differentiable

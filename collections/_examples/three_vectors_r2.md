@@ -1,9 +1,8 @@
 ---
-published: false
 title: 'The vectors $(1, 0)$, $(0, 1)$, and $(1, 1)$ in $\reals^2$'
 level: high-school
 is: [
-  span,
+  spanning_set,
   pairwise_linearly_independent
 ]
 is_not: [
@@ -13,6 +12,8 @@ is_not: [
   orthonormal
 ]
 why:
+  spanning_set: >-
+    The vectors $(1, 0)$, $(0, 1)$, and $(1, 1)$ form a spanning set of $\reals^2$, because every vector $(x, y)$ is $x (1, 0) + y (0, 1) + 0 (1, 1)$.
   linearly_independent: >-
     The vectors $(1, 0)$, $(0, 1)$, and $(1, 1)$ are not linearly independent, because $(1, 1) = (1, 0) + (0, 1)$.
   vector_basis: >-

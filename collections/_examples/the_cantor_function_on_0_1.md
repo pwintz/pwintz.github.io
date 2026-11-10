@@ -1,6 +1,6 @@
 ---
-published: false
 title: 'The Cantor function on $[0, 1]$'
+# TODO: Add details.
 level: undergraduate
 is: [
   Holder_continuous,

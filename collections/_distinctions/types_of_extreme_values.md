@@ -8,8 +8,9 @@ summary: >
   The minimum and maximum of a set are its smallest and [largest elements](/definitions/maximum), if it has them.
   The [infimum](/definitions/infimum) and [supremum](/definitions/supremum) are the best lower and upper bounds, which exist for every nonempty [bounded](/definitions/bounded) set of real numbers but need not be in the set.
   The [limit inferior](/definitions/liminf) and [limit superior](/definitions/limsup) of a sequence describe where its terms end up, ignoring any finite number of early terms.
-relation: >
-  For a bounded sequence, $\inf a_n \leq \liminf a_n \leq \limsup a_n \leq \sup a_n$.
+relation:
+  context: 'For a bounded sequence $(a_n)$:'
+  relation: '$\inf a_n \leq \liminf a_n \leq \limsup a_n \leq \sup a_n$'
 terms:
   - minimum
   - maximum

@@ -16,6 +16,7 @@ levels:
       A sequence of times $t_1$, $t_2$, $t_3$, ... is called _aperiodic_ if there does not exist a constant $P > 0$ such that
 
       $$t_{i + 1} - t_{i} = P \quad \text{for each } i = 1, 2, 3, \dots.$$
+
     # TODO: Also define a periodic functions.
     # _Aperiodic_ events (or tasks) can occur at any time, with no guaranteed minimum separation between occurrences.
 ---

@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'A bar graph of monthly rainfall'
 level: elementary
 is: [
@@ -14,7 +13,7 @@ why:
   graph_chart: >-
     A bar graph is a chart because it displays data.
   graph_of_function: >-
-    A bar graph is not the graph of a function, because it is a picture, not a set of points.
-  graph_network: >-
-    A bar graph is not a network, because it has no vertices or edges.
+    A bar graph is not the graph of a function, because it is not defined as the set of points $(x, y)$ that satisfy $y = f(x)$.
+  # graph_network: >-
+  #   A bar graph is not a network, because it has no vertices or edges.
 ---

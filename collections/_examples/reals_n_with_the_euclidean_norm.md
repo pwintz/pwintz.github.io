@@ -1,5 +1,4 @@
 ---
-published: false
 title: '$\reals^n$ with the Euclidean norm'
 level: undergraduate
 is: [

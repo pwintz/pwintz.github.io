@@ -35,7 +35,7 @@ why:
   constant_function: >-
     $x \mapsto \abs{x}$ is not constant.
   continuously_differentiable: >-
-    $f(x) = \abs{x}$ is not continuously differentiable, because it is not even differentiable at $0$.
+    $f(x) = \abs{x}$ is not continuously differentiable, because $f$ has no derivative at $0$, so the derivative is not a continuous function on all of $\reals$.
   one_sided_derivative: >-
     At $0$, the one-sided derivatives of $\abs{x}$ are $1$ and $-1$, and the corresponding Dini derivatives equal them.
   smooth: >-

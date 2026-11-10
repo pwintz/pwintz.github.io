@@ -1,5 +1,4 @@
 ---
-published: false
 title: Partial derivative
 term: partial derivative
 applies_to: functions of several variables
@@ -12,7 +11,9 @@ levels:
   undergraduate:
     text: |-
       Consider a function $f$ of several variables $x_1, \dots, x_n$.
-      The _partial derivative_ $\frac{\partial f}{\partial x_i}$ is the derivative of $f$ with respect to $x_i$ while the other variables are held fixed.
+      The _partial derivative_ $\frac{\partial f}{\partial x_i}$ is the derivative of $f$ with respect to $x_i$ while the other variables are held fixed:
+
+    # TODO: Add formula: $$\frac{\partial f}{\partial x_i}() = \lim_{x \to $$
 properties:
   - >-
     Having all partial derivatives at a point does not make a function [differentiable](/definitions/differentiable) there, or even [continuous](/definitions/continuous).

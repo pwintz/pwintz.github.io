@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'Balancing an inverted pendulum upright'
 level: high-school
 is: [

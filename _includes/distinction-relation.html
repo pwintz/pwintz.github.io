@@ -1,0 +1,8 @@
+{% comment %}
+  One relation on a distinction page: an optional context (left-aligned) above the relation (centered).
+  Parameters: context (optional Markdown), relation (Markdown).
+{% endcomment %}
+<div class="distinction__relation-group">
+  {% if include.context %}<div class="distinction__relation-context">{{ include.context | markdownify }}</div>{% endif %}
+  <div class="distinction__relation">{{ include.relation | markdownify }}</div>
+</div>

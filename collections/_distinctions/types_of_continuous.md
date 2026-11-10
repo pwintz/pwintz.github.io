@@ -1,14 +1,17 @@
 ---
-published: false
+# TODO: Make this types of continuity in $\reals$?
+# Other types of continuity to add:
+# - left/right continuous. 
+# - upper/lower continuous.
 title: Types of continuity
 kind: siblings
 areas: [analysis]
 summary: >
-  There are several strengths of continuity.
+  There are many ways to describe the continuity of a function.
   On a [compact](/definitions/compact) interval, each is a special case of the next, from [continuously differentiable](/definitions/continuously-differentiable) to [continuous](/definitions/continuous).
-relation: >
-  On a compact interval $[a, b]$:
-  continuously differentiable ⊂ Lipschitz continuous ⊂ absolutely continuous ⊂ uniformly continuous = continuous.
+relation:
+  context: 'On a compact interval $[a, b]$:'
+  relation: continuously differentiable ⊂ Lipschitz continuous ⊂ absolutely continuous ⊂ uniformly continuous = continuous
 terms:
   - continuous
   - uniformly_continuous

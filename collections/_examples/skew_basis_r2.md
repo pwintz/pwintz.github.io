@@ -1,11 +1,10 @@
 ---
-published: false
 title: 'The vectors $(1, 0)$ and $(1, 1)$ in $\reals^2$'
 level: high-school
 is: [
   vector_basis,
   linearly_independent,
-  span,
+  spanning_set,
   pairwise_linearly_independent
 ]
 is_not: [
@@ -13,6 +12,7 @@ is_not: [
   orthonormal
 ]
 why:
+  # TODO: Add more details for why it is basis. Don't just jump to dispelling a possible mistake.
   vector_basis: >-
     A basis need not be perpendicular: $(x, y) = (x - y)(1, 0) + y (1, 1)$.
   orthogonal_vectors: >-

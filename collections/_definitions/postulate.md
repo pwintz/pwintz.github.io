@@ -1,5 +1,4 @@
 ---
-published: false
 title: Postulate
 term: postulate
 applies_to: mathematical theories

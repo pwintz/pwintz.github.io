@@ -13,6 +13,7 @@ levels:
       The function $f$ is a _polynomial function_ if, for some $a_0, \dots, a_n \in F$,
 
       $$f(x) = a_0 + a_1 x + \dots + a_n x^n \quad \text{for all } x \in F.$$
+
       Two polynomial functions are equal when they give the same output for every input.
 properties:
   - |-

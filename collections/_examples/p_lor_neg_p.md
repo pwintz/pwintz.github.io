@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'The tautology $p \lor \neg p$'
 level: undergraduate
 is: [propositional_formula]

@@ -4,7 +4,7 @@ level: high-school
 is: [
   vector_basis,
   linearly_independent,
-  span,
+  spanning_set,
   orthogonal_vectors,
   pairwise_linearly_independent,
   orthonormal

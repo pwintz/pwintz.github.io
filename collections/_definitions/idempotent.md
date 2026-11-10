@@ -15,5 +15,6 @@ levels:
       The function $f$ is _idempotent_ if applying it twice is the same as applying it once:
 
       $$f \circ f = f.$$
+
       Examples include projections, absolute value, and rounding.
 ---

@@ -2,13 +2,18 @@
 published: false
 title: 'The unit circle, for $\dot{x} = y$, $\dot{y} = -x$ (the harmonic oscillator)'
 level: undergraduate
-is: [omega_limit_set]
+is: [
+  periodic_orbit,
+  omega_limit_set
+]
 is_not: [
   limit_cycle,
   attractive,
   attractor
 ]
 why:
+  periodic_orbit: >-
+    The unit circle is a periodic orbit of the harmonic oscillator, because the solution $(\cos t, -\sin t)$ goes around the unit circle with period $2 \pi$.
   omega_limit_set: >-
     The unit circle is the ω-limit set of each of its own points, because the solutions on it go around it periodically.
   limit_cycle: >-

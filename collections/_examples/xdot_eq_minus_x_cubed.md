@@ -1,5 +1,4 @@
 ---
-published: false
 title: '$\dot{x} = -x^3$'
 level: high-school
 is: [

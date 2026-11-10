@@ -15,5 +15,6 @@ levels:
       The _open ball_ of radius $r$ around $c$ is the set of points at distance strictly less than $r$ from $c$:
 
       $$B(c, r) = \setdef{x \suchthat d(x, c) < r}.$$
+
       It does not include the [sphere](/definitions/sphere) $S(c, r)$.
 ---

@@ -3,12 +3,15 @@ published: false
 title: 'The limit cycle of the Van der Pol oscillator'
 level: undergraduate
 is: [
+  periodic_orbit,
   limit_cycle,
   attractor,
   attractive,
   omega_limit_set
 ]
 why:
+  periodic_orbit: >-
+    The limit cycle of the Van der Pol oscillator is a periodic orbit, because the solutions on it repeat with a fixed period.
   limit_cycle: >-
     The Van der Pol limit cycle is an isolated periodic orbit, so it is a limit cycle.
   omega_limit_set: >-

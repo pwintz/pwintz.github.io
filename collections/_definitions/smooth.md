@@ -1,5 +1,4 @@
 ---
-published: false
 title: Smooth function
 term: smooth
 applies_to: functions

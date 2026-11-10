@@ -1,5 +1,4 @@
 ---
-published: false
 title: '$x \mapsto x^3$, from $\reals$ to $\reals$'
 level: undergraduate
 is: [
@@ -8,6 +7,7 @@ is: [
   closed_map
 ]
 why:
+  # TODO: This explanation is a bit round about. 
   continuous: >-
     $x \mapsto x^3$ is a homeomorphism of $\reals$: it is continuous, with the continuous inverse $x \mapsto \sqrt[3]{x}$.
     So it maps open sets to open sets and closed sets to closed sets.

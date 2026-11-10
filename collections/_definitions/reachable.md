@@ -1,13 +1,12 @@
 ---
-published: false
 title: Reachable system
 term: reachable
 applies_to: control systems
 levels:
   high-school:
     text: |-
-      Consider a system that starts from rest at the origin, and an input that you choose.
-      The system is _reachable_ if you can steer it to every state you choose in a finite amount of time.
+      Consider a control system  with an input that you choose.
+      The system is _reachable_ if you can steer it from the origin to every state you choose in a finite amount of time.
   undergraduate:
     text: |-
       Consider a system with state $x$ and input $u$, starting from the origin.

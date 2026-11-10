@@ -1,5 +1,4 @@
 ---
-published: false
 title: '$\setdef{1, 2}$ and $\setdef{1, 2}$'
 level: elementary
 is: [subset]

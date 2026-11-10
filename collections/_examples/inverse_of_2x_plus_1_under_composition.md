@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'The function $f(x) = 2x + 1$ on $\reals$ under composition of functions'
 level: high-school
 values:

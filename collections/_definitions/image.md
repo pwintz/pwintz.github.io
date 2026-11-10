@@ -18,5 +18,6 @@ levels:
       The _image_ of $A$ is
 
       $$f(A) = \setdef{f(x) \suchthat x \in A}.$$
+
       The image of $f$ is $f(X)$.
 ---

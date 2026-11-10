@@ -1,5 +1,4 @@
 ---
-published: false
 title: '$x^2 + 1$'
 level: high-school
 is: [
@@ -20,7 +19,7 @@ why:
   predicate: >-
     $x^2 + 1$ is not a predicate, because it has no relation sign, so it is never true or false.
   sentence_logic: >-
-    $x^2 + 1$ is not a sentence, because it has no relation sign, so it is never true or false.
+    $x^2 + 1$ is not a sentence, because every sentence is a formula and $x^2 + 1$ is a term, which names a number instead of making a claim.
   formula_logic: >-
     $x^2 + 1$ is not a formula, because $x^2 + 1$ is a term that names a number and makes no claim that could be true or false.
   term_logic: >-

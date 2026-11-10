@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'The average $a \ast b = \frac{a + b}{2}$ of two real numbers'
 level: high-school
 is: [commutative]

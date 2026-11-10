@@ -11,7 +11,7 @@ levels:
       For every matrix, this equals the number of independent columns.
   undergraduate:
     text: |-
-      Consider a [matrix](/definitions/matrix) and its column space, the span of its columns.
+      Consider a [matrix](/definitions/matrix) and its [column space](/definitions/column-space), the span of its columns.
       The _rank_ of the matrix is the dimension of its column space: the maximum number of [linearly independent](/definitions/linearly-independent) columns.
 properties:
   - >-

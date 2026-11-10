@@ -1,5 +1,4 @@
 ---
-published: false
 title: Continuously differentiable function
 term: continuously differentiable
 applies_to: functions
@@ -7,8 +6,7 @@ synonyms: [$C^1$]
 levels:
   high-school:
     text: |-
-      Consider a function $f$ that has a derivative at every point of its domain.
-      The function $f$ is _continuously differentiable_ if the derivative $f^{\prime}$ is itself a [continuous](/definitions/continuous) function.
+      A function $f$ is called _continuously differentiable_ if the derivative $f^{\prime}$ exists at each point in the domain of $f$ and the derivative is itself a [continuous](/definitions/continuous) function.
     caveat: >-
       Having a derivative everywhere is not enough.
       The function given by $f(x) = x^2 \sin(1/x)$ for $x \neq 0$ and $f(0) = 0$ is [differentiable](/definitions/differentiable) everywhere, but its derivative is not [continuous](/definitions/continuous) at $0$.

@@ -1,5 +1,4 @@
 ---
-published: false
 title: Left limit
 term: left limit
 applies_to: functions of a real variable

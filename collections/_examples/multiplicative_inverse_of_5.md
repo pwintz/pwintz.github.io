@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'The number $5$ under multiplication of real numbers'
 level: elementary
 values:

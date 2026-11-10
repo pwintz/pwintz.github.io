@@ -1,12 +1,12 @@
 ---
-published: false
 title: Continuous function
 term: continuous
 applies_to: functions
 levels:
   elementary:
     text: |-
-      Think of the graph of a function, drawn with a pencil.
+      Think of a function $y = f(x)$. 
+      The graph of $f(x)$ is a plot that shows the value of $y$ for each values of $x$ by plotting the value of $x$ on a horizontal axis and the value $y = f(x)$ on the vertical axis. 
       The function is _continuous_ if you can draw its graph without lifting your pencil.
     caveat: >-
       This only works when the domain is one unbroken interval.
@@ -26,6 +26,7 @@ levels:
       The function $f$ is _continuous_ if for every $x \in X$ and every $\varepsilon > 0$, there exists $\delta > 0$ such that
 
       $$d(f(x), f(y)) < \varepsilon \quad \text{for every } y \in X \text{ with } d(x, y) < \delta.$$
+      
       The choice of $\delta$ may depend on both $\varepsilon$ and $x$.
   graduate:
     context: topological spaces

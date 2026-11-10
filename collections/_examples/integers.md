@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'The integers $\mathbb{Z}$'
 level: high-school
 is: [

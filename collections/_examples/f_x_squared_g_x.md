@@ -1,7 +1,6 @@
 ---
-published: false
 title: '$f(x) = x^2$, $g(x) = x$'
-level: high-school
+level: undergraduate
 description: >-
   Comparing $f$ with $g$ as $x \to \infty$.
 is: [big_Omega]

@@ -1,5 +1,4 @@
 ---
-published: false
 title: '$f \mapsto f(0)$'
 level: undergraduate
 is: [

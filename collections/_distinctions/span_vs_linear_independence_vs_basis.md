@@ -9,7 +9,7 @@ summary: >
   A [basis](/definitions/vector-basis) is both: linearly independent and spanning.
 terms:
   - linearly_independent
-  - span
+  - spanning_set
   - vector_basis
 examples:
   - example: standard_basis_r2

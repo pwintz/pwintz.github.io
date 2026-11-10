@@ -1,6 +1,6 @@
 ---
-published: false
 title: '$e$'
+# TODO: Add details
 level: high-school
 is: [
   transcendental_number,

@@ -11,6 +11,7 @@ levels:
       The _Lie derivative_ of $V$ along $F$ is
 
       $$L_F V(x) = \nabla V(x) \cdot F(x).$$
+
       It is the rate of change of $V$ along those solutions.
   graduate:
     context: differential geometry

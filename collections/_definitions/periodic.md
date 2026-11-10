@@ -14,6 +14,7 @@ levels:
       The function $f$ is _periodic_ with period $T$ if
 
       $$f(t + T) = f(t) \quad \text{for all } t.$$
+
       Periodic [events](/definitions/event) happen at regular intervals of length $T$.
   undergraduate:
     context: dynamical systems

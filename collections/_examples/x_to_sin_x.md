@@ -19,6 +19,10 @@ why:
     It has infinitely many roots, but a nonzero polynomial has only finitely many.
   analytic: >-
     $\sin$ is analytic because its Taylor series converges to it everywhere.
+  differentiable: >-
+    $x \mapsto \sin x$ is differentiable at every $x$, with derivative $\cos x$.
   continuously_differentiable: >-
-    $x \mapsto \sin x$ is smooth, continuously differentiable, and differentiable, because it is analytic.
+    $x \mapsto \sin x$ is continuously differentiable, because its derivative $\cos x$ is continuous.
+  smooth: >-
+    $x \mapsto \sin x$ is smooth, because its derivatives $\cos x$, $-\sin x$, $-\cos x$, $\sin x$, … repeat and all exist.
 ---

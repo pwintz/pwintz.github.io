@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'The plane without the origin, for the Van der Pol oscillator'
 level: undergraduate
 is: [
@@ -13,5 +12,5 @@ why:
   basin_of_attraction: >-
     The plane without the origin is the basin of attraction of the Van der Pol limit cycle, because every solution except the equilibrium at the origin converges to it.
   forward_invariant: >-
-    The plane without the origin is forward invariant for the Van der Pol oscillator, because a solution that starts away from the equilibrium never reaches it.
+    The plane without the origin is forward invariant for the Van der Pol oscillator, because a solution that starts away from the origin never reaches it.
 ---

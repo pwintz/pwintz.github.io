@@ -14,5 +14,6 @@ levels:
       The _change_ in $x$ is the final value minus the initial value:
 
       $$\Delta x = x_{\text{final}} - x_{\text{initial}}.$$
+
       It is negative when the quantity decreases.
 ---

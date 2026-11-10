@@ -1,5 +1,4 @@
 ---
-published: false
 title: '$\reals^2$ and $\mathbb{C}$, as real vector spaces'
 level: undergraduate
 is: [

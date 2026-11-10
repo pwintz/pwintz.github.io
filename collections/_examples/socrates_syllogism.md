@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'The argument "All humans are mortal; Socrates is human; therefore, Socrates is mortal"'
 level: undergraduate
 values:

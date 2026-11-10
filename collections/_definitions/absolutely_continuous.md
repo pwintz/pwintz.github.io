@@ -1,5 +1,4 @@
 ---
-published: false
 title: Absolutely continuous function
 term: absolutely continuous
 applies_to: functions

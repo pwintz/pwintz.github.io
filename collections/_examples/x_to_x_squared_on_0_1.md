@@ -1,5 +1,4 @@
 ---
-published: false
 title: '$x \mapsto x^2$ on $[0, 1]$'
 level: high-school
 values:

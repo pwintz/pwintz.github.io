@@ -1,5 +1,4 @@
 ---
-published: false
 title: '$f \mapsto f^{\prime}$, on differentiable functions'
 level: high-school
 is: [

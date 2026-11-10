@@ -1,5 +1,4 @@
 ---
-published: false
 title: '$r \mapsto \arctan r$ on $[0, \infty)$'
 level: graduate
 is: [

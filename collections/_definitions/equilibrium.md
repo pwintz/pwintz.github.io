@@ -19,6 +19,7 @@ levels:
       An _equilibrium_ of $\dot{x} = f(x)$ is a state $x^{\ast}$ with
 
       $$f(x^{\ast}) = 0.$$
+
       An equilibrium of $x_{k+1} = f(x_k)$ is a state $x^{\ast}$ such that $f(x^{\ast}) = x^{\ast}$.
 properties:
   - >-

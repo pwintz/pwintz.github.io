@@ -23,6 +23,27 @@
     margin-bottom: 1em;
   }
 
+  .distinction__relations {
+    padding: 0 2em;
+  }
+
+  .distinction__relation-group {
+    margin-bottom: 1em;
+
+    .distinction__relation {
+      margin-bottom: 0;
+    }
+  }
+
+  .distinction__relation-context {
+    text-align: left;
+    font-size: $type-size-5;
+
+    p {
+      margin-bottom: 0.25em;
+    }
+  }
+
   .distinction__back {
     margin-top: 2em;
     font-size: $type-size-6;
@@ -307,10 +328,12 @@
   }
 
   .example-list__item {
-    margin-bottom: 0.5em;
+    margin-bottom: 1em;
+    line-height: 1.6;
 
     .level-badge {
       margin-left: 0.5em;
+      vertical-align: 0.15em;
     }
   }
 
@@ -325,8 +348,13 @@
     color: $muted-text-color;
   }
 
+  // The explanation below an example's title, set off by a rule on its left.
   .example-list__why {
+    margin-top: 0.35em;
+    padding: 0.1em 0 0.1em 0.75em;
+    border-left: 3px solid $border-color;
     font-size: $type-size-6;
+    line-height: 1.6;
     color: $muted-text-color;
   }
 

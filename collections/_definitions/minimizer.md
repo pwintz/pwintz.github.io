@@ -15,6 +15,7 @@ levels:
       A _minimizer_ of $f$ is a point $x^{\ast}$ in the domain of $f$ with
 
       $$f(x^{\ast}) \leq f(x) \quad \text{for all } x \text{ in the domain}.$$
+
       The set of all minimizers is $\operatorname{arg\hspace{1mu}min} f$.
       The minimizer is an input; the minimum $f(x^{\ast})$ is an output.
 ---
