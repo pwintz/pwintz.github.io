@@ -1,5 +1,4 @@
 ---
-published: false
 title: '$\dot{x} = -x$, $y = 0$'
 level: undergraduate
 is: [detectable]

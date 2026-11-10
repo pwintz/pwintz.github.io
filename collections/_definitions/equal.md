@@ -1,5 +1,4 @@
 ---
-published: false
 title: Equal
 term: equal
 applies_to: any objects
@@ -16,5 +15,6 @@ levels:
 properties:
   - >-
     Two sets are equal if and only if they have the same elements.
+  - >-
     Two functions are equal if and only if they have the same domain, [codomain](/definitions/codomain), and output at every input.
 ---

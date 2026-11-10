@@ -1,13 +1,13 @@
 ---
-published: false
+# published: false
 title: Observable system
 term: observable
 applies_to: control systems
 levels:
-  elementary:
-    text: |-
-      Think of a system that you can only partly see, like a machine with only a few dials.
-      The system is _observable_ if you can figure out everything about it just by watching what you can measure.
+  # elementary:
+  #   text: |-
+  #     Think of a system that you can only partly measure, like a machine with only a few dials.
+  #     The system is _observable_ if you can figure out everything about it just by watching what you can measure.
   high-school:
     text: |-
       Consider a system whose starting state is unknown, but whose input and output you can see.

@@ -1,5 +1,4 @@
 ---
-published: false
 title: Indexed family
 term: indexed family
 applies_to: collections

@@ -1,5 +1,4 @@
 ---
-published: false
 title: Feedforward control
 term: feedforward
 applies_to: control systems
@@ -7,7 +6,7 @@ levels:
   high-school:
     text: |-
       Consider a system that is affected by a [disturbance](/definitions/disturbance) that you can see coming.
-      _Feedforward_ control acts on the disturbance before it affects the result.
+      _Feedforward_ control reacts to the disturbance before it affects the result.
   undergraduate:
     text: |-
       Consider a control system with a measured [disturbance](/definitions/disturbance) or a known reference signal.

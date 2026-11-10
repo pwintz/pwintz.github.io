@@ -1,5 +1,4 @@
 ---
-published: false
 title: Disturbance
 term: disturbance
 applies_to: control systems

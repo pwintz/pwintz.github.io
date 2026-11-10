@@ -1,5 +1,4 @@
 ---
-published: false
 title: Detectable system
 term: detectable
 applies_to: control systems

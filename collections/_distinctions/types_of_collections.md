@@ -1,5 +1,4 @@
 ---
-published: false
 title: Types of collections
 kind: siblings
 areas: [sets]

@@ -1,5 +1,4 @@
 ---
-published: false
 title: Multiset
 term: multiset
 applies_to: collections

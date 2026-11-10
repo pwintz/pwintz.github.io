@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'A thermostat'
 level: elementary
 is: [

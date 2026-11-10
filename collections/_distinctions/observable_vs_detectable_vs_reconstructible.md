@@ -1,12 +1,11 @@
 ---
-published: false
 title: Observable vs. reconstructible vs. detectable
 kind: hierarchy
 areas: [control]
 summary: >
   Observability, reconstructibility, and detectability describe how much the output of a system reveals about its state.
-  An [observable](/definitions/observable) system's initial state can be determined from its output, and a [reconstructible](/definitions/reconstructible) system's current state can be.
-  A [detectable](/definitions/detectable) system only needs its unobserved parts to decay on their own, so that an observer's error still converges.
+  An [observable](/definitions/observable) system's _initial_ state can be determined from its output, whereas a [reconstructible](/definitions/reconstructible) system's _current_ state can be determined.
+  A [detectable](/definitions/detectable) system may have unobservable parts but those parts must that decay to zero so that an observer's error still converges.
 relation: >
   observable ⊂ detectable, and for continuous-time linear systems, observable = reconstructible.
 terms:

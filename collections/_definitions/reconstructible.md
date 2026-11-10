@@ -1,5 +1,4 @@
 ---
-published: false
 title: Reconstructible system
 term: reconstructible
 applies_to: control systems

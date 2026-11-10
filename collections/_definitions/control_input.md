@@ -1,5 +1,4 @@
 ---
-published: false
 title: Control input
 term: control input
 applies_to: control systems
@@ -11,6 +10,7 @@ levels:
   undergraduate:
     context: control systems
     text: |-
-      Consider a control system, whose inputs affect its behavior.
-      A _control input_ is an input $u$ chosen by the controller or designer to influence the system.
+      In a control system, a _control input_ is an input $u$ chosen by the controller at each time to change the behavior of the system.
 ---
+A control input is in contrast to a parameter, which is constant with respect to time. 
+

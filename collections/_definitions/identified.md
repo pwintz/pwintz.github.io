@@ -1,5 +1,4 @@
 ---
-published: false
 title: Identified
 term: identified
 applies_to: any objects

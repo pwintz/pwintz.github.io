@@ -1,5 +1,4 @@
 ---
-published: false
 title: Exogenous input
 term: exogenous input
 applies_to: control systems
@@ -7,7 +6,7 @@ synonyms: [external input]
 levels:
   high-school:
     text: |-
-      Consider a system.
+      Consider a system that changes over time.
       An _exogenous input_ is any signal that comes into the system from outside it, such as a [control input](/definitions/control-input) or a [disturbance](/definitions/disturbance).
   undergraduate:
     context: control systems

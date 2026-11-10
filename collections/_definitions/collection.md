@@ -1,5 +1,4 @@
 ---
-published: false
 title: Collection
 term: collection
 applies_to: collections
@@ -10,5 +9,5 @@ levels:
   graduate:
     context: set theory
     text: |-
-      _Collection_ is an informal word, usually a synonym for "set," used for variety (e.g., "a collection of [subsets](/definitions/subset)") or for classes that are too large to be sets.
+      _Collection_ is an informal word, used as a synonym for "set," to produced for variety (e.g., "a collection of [subsets](/definitions/subset)") or for classes that are too large to be sets ("the collection of all sets").
 ---

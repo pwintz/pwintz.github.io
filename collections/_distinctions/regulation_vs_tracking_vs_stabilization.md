@@ -1,5 +1,4 @@
 ---
-published: false
 title: Types of control objectives
 kind: siblings
 areas: [control]

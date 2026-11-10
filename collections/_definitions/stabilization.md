@@ -1,5 +1,4 @@
 ---
-published: false
 title: Stabilization
 term: stabilization
 applies_to: control problems
