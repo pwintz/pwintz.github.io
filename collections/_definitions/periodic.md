@@ -1,13 +1,12 @@
 ---
-published: false
 title: Periodic
 term: periodic
 applies_to: "functions, signals, and events"
 levels:
-  elementary:
-    text: |-
-      Think of something that happens again and again, like the seasons.
-      It is _periodic_ if it repeats the same pattern at regular intervals.
+  # elementary:
+  #   text: |-
+  #     Think of something that happens again and again, like the seasons.
+  #     It is _periodic_ if it repeats the same pattern at regular intervals.
   high-school:
     text: |-
       Consider a function $f$ of time $t$, and a number $T > 0$.

@@ -16,7 +16,7 @@ terms:
 examples:
   - example: x_to_sin_x
   - example: f_x_eq_e_minus_1_x_for_x_gt_0_f_x_eq_0_for_x_leq_0
-  - example: x_to_x_x
+  - example: x_to_x_abs_x
   - example: f_x_eq_x_squared_sin_1_x_for_x_neq_0_f_0_eq_0
   - example: abs_x
 see_also:

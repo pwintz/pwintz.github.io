@@ -1,5 +1,4 @@
 ---
-published: false
 title: Periodic orbit vs. limit cycle
 kind: hierarchy
 areas: [dynamics]

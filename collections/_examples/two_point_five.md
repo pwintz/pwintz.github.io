@@ -1,5 +1,4 @@
 ---
-published: false
 title: '$2.5$'
 level: elementary
 is_not: [

@@ -1,5 +1,4 @@
 ---
-published: false
 title: Polynomial function
 term: polynomial function
 applies_to: functions

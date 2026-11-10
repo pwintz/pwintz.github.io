@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'The unit circle, for $\dot{x} = y$, $\dot{y} = -x$ (the harmonic oscillator)'
 level: undergraduate
 is: [

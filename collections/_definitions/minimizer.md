@@ -3,12 +3,11 @@ published: false
 title: Minimizer
 term: minimizer
 applies_to: functions
-synonyms: [argument of the minimum, "$\\operatorname{arg\\hspace{1mu}min}$"]
+synonyms: [least element, smallest element, argument of the minimum, "$\\operatorname{arg\\hspace{1mu}min}$"]
 levels:
   high-school:
     text: |-
-      Consider a function and its inputs.
-      A _minimizer_ of the function is an input at which the function takes its smallest value.
+      A _minimizer_ a function $f(x)$ is an input at which the function takes its smallest value.
   undergraduate:
     text: |-
       Consider a function $f$ with real values.

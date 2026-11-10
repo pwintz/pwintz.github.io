@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'An invertible linear map $V \to V$'
 level: undergraduate
 is: [

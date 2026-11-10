@@ -1,5 +1,4 @@
 ---
-published: false
 title: '$1$ and $\setdef{1, 2}$'
 level: elementary
 is: [element_of]

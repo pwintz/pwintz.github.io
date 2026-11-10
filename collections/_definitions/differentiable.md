@@ -1,5 +1,4 @@
 ---
-published: false
 title: Differentiable function
 term: differentiable
 applies_to: functions
@@ -20,6 +19,7 @@ levels:
       The function $f$ is _differentiable_ at $a$ if there is a [linear map](/definitions/linear-map) $Df(a)$ with
 
       $$\lim_{h \to 0} \frac{\norm{f(a + h) - f(a) - Df(a) h}}{\norm{h}} = 0.$$
+      
 properties:
   - >-
     Every differentiable function is [continuous](/definitions/continuous).

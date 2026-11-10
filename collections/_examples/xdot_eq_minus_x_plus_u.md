@@ -1,5 +1,4 @@
 ---
-published: false
 title: '$\dot{x} = -x + u$'
 level: high-school
 is: [

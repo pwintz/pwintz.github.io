@@ -1,5 +1,4 @@
 ---
-published: false
 title: T1 space
 term: T₁
 applies_to: topological spaces
@@ -9,7 +8,7 @@ levels:
     context: topology
     text: |-
       Consider a topological space $X$.
-      The space $X$ is _T₁_ if every single point of $X$ is a [closed set](/definitions/closed-set).
+      The space $X$ is _T₁_ if every point of $X$ is a [closed set](/definitions/closed-set).
 properties:
   - >-
     A space is T₁ if and only if, for every two distinct points, each has a [neighborhood](/definitions/neighborhood) that does not contain the other.

@@ -1,5 +1,4 @@
 ---
-published: false
 title: Open ball
 term: open ball
 applies_to: sets of points

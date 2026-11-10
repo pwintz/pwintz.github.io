@@ -1,5 +1,4 @@
 ---
-published: false
 title: Sphere
 term: sphere
 applies_to: sets of points
