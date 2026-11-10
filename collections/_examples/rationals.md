@@ -1,8 +1,20 @@
 ---
 title: 'The set of rational numbers, $\mathbb{Q}$'
 level: high-school
-is: [paracompact, measure_zero, dense_set, countable, meager_set]
-is_not: [compact, sequentially_compact, locally_compact, nowhere_dense, uncountable]
+is: [
+  paracompact,
+  measure_zero,
+  dense_set,
+  countable,
+  meager_set
+]
+is_not: [
+  compact,
+  sequentially_compact,
+  locally_compact,
+  nowhere_dense,
+  uncountable
+]
 why:
   paracompact: >-
     $\mathbb{Q}$ is paracompact because it is a metric space.

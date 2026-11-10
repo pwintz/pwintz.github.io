@@ -3,7 +3,12 @@ published: false
 title: '$3x + 2$'
 level: high-school
 is: [expression]
-is_not: [equation, identity_equation, formula, inequality]
+is_not: [
+  equation,
+  identity_equation,
+  formula,
+  inequality
+]
 why:
   expression: >-
     $3x + 2$ is an expression.

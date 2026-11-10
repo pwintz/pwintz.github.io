@@ -3,8 +3,24 @@ title: '$f(x) = x^2$ on $\reals$'
 level: high-school
 description: >-
   The squaring function, as a function $f : \reals \to \reals$.
-is: [continuously_differentiable, continuous, sequentially_continuous, function, map, positive_definite_function, convex_function, locally_Lipschitz_continuous]
-is_not: [Lipschitz_continuous, uniformly_continuous, class_K, operator, functional, transform]
+is: [
+  continuously_differentiable,
+  continuous,
+  sequentially_continuous,
+  function,
+  map,
+  positive_definite_function,
+  convex_function,
+  locally_Lipschitz_continuous
+]
+is_not: [
+  Lipschitz_continuous,
+  uniformly_continuous,
+  class_K,
+  operator,
+  functional,
+  transform
+]
 values:
   domain: '$\reals$'
   codomain: '$\reals$'

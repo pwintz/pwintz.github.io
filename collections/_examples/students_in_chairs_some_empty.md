@@ -5,5 +5,8 @@ level: elementary
 description: >-
   The function sends each student to a chair.
 is: [injective]
-is_not: [surjective, bijective]
+is_not: [
+  surjective,
+  bijective
+]
 ---

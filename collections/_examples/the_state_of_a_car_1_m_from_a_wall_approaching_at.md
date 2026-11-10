@@ -3,7 +3,10 @@ published: false
 title: 'The state of a car $1$ m from a wall, approaching at $30$ m/s, with limited braking'
 level: undergraduate
 is: [admissible_set]
-is_not: [controlled_invariant, safe]
+is_not: [
+  controlled_invariant,
+  safe
+]
 why:
   safe: >-
     The state of a car $1$ m from a wall, approaching at $30$ m/s with limited braking, is not safe, because every solution from it hits the wall.

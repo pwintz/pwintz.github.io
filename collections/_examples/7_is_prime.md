@@ -2,7 +2,12 @@
 title: '"$7$ is prime"'
 level: high-school
 is: [proposition]
-is_not: [propositional_formula, relation, expression, sentence_logic]
+is_not: [
+  propositional_formula,
+  relation,
+  expression,
+  sentence_logic
+]
 why:
   proposition: >-
     "$7$ is prime" is a proposition because it is true.

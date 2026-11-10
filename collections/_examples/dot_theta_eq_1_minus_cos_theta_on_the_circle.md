@@ -3,7 +3,10 @@ published: false
 title: '$\dot{\theta} = 1 - \cos \theta$, on the circle'
 level: undergraduate
 is: [attractive]
-is_not: [lyapunov_stable, asymptotically_stable]
+is_not: [
+  lyapunov_stable,
+  asymptotically_stable
+]
 why:
   attractive: >-
     The equilibrium $\theta = 0$ is attractive because every solution converges to it.

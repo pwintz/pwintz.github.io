@@ -1,7 +1,11 @@
 ---
 title: '$[0, 1] \cup [2, 3]$'
 level: high-school
-is_not: [connected, path_connected, simply_connected]
+is_not: [
+  connected,
+  path_connected,
+  simply_connected
+]
 why:
   connected: >-
     $[0, 1] \cup [2, 3]$ is not connected, because it has two components with a gap in between.

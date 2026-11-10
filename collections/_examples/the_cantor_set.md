@@ -6,8 +6,18 @@ values:
   cardinality: '$\mathfrak{c}$'
   lebesgue_measure: '$0$'
   hausdorff_dimension: '$\log 2 / \log 3 \approx 0.63$'
-is: [closed_set, nowhere_dense, measure_zero, uncountable, meager_set]
-is_not: [open_set, countable, finite_set]
+is: [
+  closed_set,
+  nowhere_dense,
+  measure_zero,
+  uncountable,
+  meager_set
+]
+is_not: [
+  open_set,
+  countable,
+  finite_set
+]
 why:
   uncountable: >-
     Even though its total length is $0$, its points correspond to the infinite sequences of $0$s and $2$s in base $3$, which are uncountable.

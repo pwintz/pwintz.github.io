@@ -2,7 +2,10 @@
 published: false
 title: '$\reals \setminus \mathbb{Q}$, as a subset of $\reals$'
 level: undergraduate
-is: [dense_set, almost_everywhere]
+is: [
+  dense_set,
+  almost_everywhere
+]
 why:
   dense_set: >-
     $\reals \setminus \mathbb{Q}$ is dense because every interval contains an irrational number.

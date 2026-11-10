@@ -2,8 +2,15 @@
 published: false
 title: 'First-order lag $\dot{x} = -x + u$, $y = x$'
 level: graduate
-is: [passive, output_strictly_passive, strictly_passive]
-is_not: [lossless, input_strictly_passive]
+is: [
+  passive,
+  output_strictly_passive,
+  strictly_passive
+]
+is_not: [
+  lossless,
+  input_strictly_passive
+]
 why:
   output_strictly_passive: >-
     The first-order lag is output strictly passive, because, with $V = \frac{1}{2} x^2$, $u y = \dot{V} + y^2$.

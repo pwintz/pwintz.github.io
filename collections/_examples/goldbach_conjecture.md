@@ -3,7 +3,10 @@ title: 'Goldbach''s conjecture'
 detail: 'Every even integer greater than $2$ is the sum of two primes.'
 level: high-school
 is: [conjecture]
-is_not: [theorem, hypothesis_science]
+is_not: [
+  theorem,
+  hypothesis_science
+]
 why:
   conjecture: >-
     Goldbach's conjecture is a conjecture, because it is a mathematical statement that is believed true but has no proof.

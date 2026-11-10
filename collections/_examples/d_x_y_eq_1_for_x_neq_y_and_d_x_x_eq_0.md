@@ -2,7 +2,10 @@
 title: '$d(x, y) = 1$ for $x \neq y$, and $d(x, x) = 0$'
 level: undergraduate
 definition: discrete_metric
-is: [metric, discrete_metric]
+is: [
+  metric,
+  discrete_metric
+]
 is_not: [norm]
 why:
   metric: >-

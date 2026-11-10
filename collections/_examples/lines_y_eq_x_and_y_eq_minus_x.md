@@ -1,7 +1,11 @@
 ---
 title: 'The lines $y = x$ and $y = -x$ in the plane, with direction vectors $(1, 1)$ and $(1, -1)$'
 level: high-school
-is: [right_angle, perpendicular, orthogonal_vectors]
+is: [
+  right_angle,
+  perpendicular,
+  orthogonal_vectors
+]
 why:
   right_angle: >-
     The lines $y = x$ and $y = -x$ cross at the origin and form four right angles there.

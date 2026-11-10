@@ -1,8 +1,16 @@
 ---
 title: '$x \mapsto \sin x$'
 level: high-school
-is: [differentiable, continuously_differentiable, smooth, analytic]
-is_not: [polynomial_function, convex_function]
+is: [
+  differentiable,
+  continuously_differentiable,
+  smooth,
+  analytic
+]
+is_not: [
+  polynomial_function,
+  convex_function
+]
 why:
   convex_function: >-
     The function $\sin$ is not convex, because its second derivative, $-\sin x$, is negative on $(0, \pi)$.

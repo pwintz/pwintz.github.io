@@ -1,7 +1,11 @@
 ---
 title: 'A low-pass filter on a sensor signal'
 level: high-school
-is_not: [observer, filter_estimation, predictor]
+is_not: [
+  observer,
+  filter_estimation,
+  predictor
+]
 why:
   filter_estimation: >-
     A low-pass filter is a filter in the signal-processing sense: it smooths a signal. It is not a filter estimator because it does not estimate an unknown value.

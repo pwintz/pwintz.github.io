@@ -2,7 +2,10 @@
 published: false
 title: 'Prepending $4$ to $(1, 2, 3)$ produces $(4, 1, 2, 3)$'
 level: elementary
-is: [prepend, insert]
+is: [
+  prepend,
+  insert
+]
 is_not: [append]
 why:
   append: >-

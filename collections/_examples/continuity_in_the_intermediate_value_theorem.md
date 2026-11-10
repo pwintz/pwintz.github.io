@@ -3,7 +3,10 @@ published: false
 title: '"$f$ is continuous on $[a, b]$," in the intermediate value theorem'
 level: undergraduate
 is: [assumption]
-is_not: [axiom, postulate]
+is_not: [
+  axiom,
+  postulate
+]
 why:
   assumption: >-
     "$f$ is continuous on $[a, b]$" is an assumption of the intermediate value theorem, because the theorem is proved only for continuous $f$.

@@ -1,7 +1,10 @@
 ---
 title: '$x^2 - 1 = 0$'
 level: high-school
-is: [polynomial_equation, equation]
+is: [
+  polynomial_equation,
+  equation
+]
 is_not: [polynomial]
 why:
   polynomial_equation: >-

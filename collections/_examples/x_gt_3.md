@@ -1,8 +1,18 @@
 ---
 title: '"$x > 3$"'
 level: high-school
-is: [predicate, formula_logic, expression]
-is_not: [proposition, relation, sentence_logic, propositional_formula, term_logic]
+is: [
+  predicate,
+  formula_logic,
+  expression
+]
+is_not: [
+  proposition,
+  relation,
+  sentence_logic,
+  propositional_formula,
+  term_logic
+]
 why:
   predicate: >-
     "$x > 3$" is a predicate because its truth depends on $x$.

@@ -2,7 +2,12 @@
 published: false
 title: 'The limit cycle of the Van der Pol oscillator'
 level: undergraduate
-is: [limit_cycle, attractor, attractive, omega_limit_set]
+is: [
+  limit_cycle,
+  attractor,
+  attractive,
+  omega_limit_set
+]
 why:
   limit_cycle: >-
     The Van der Pol limit cycle is an isolated periodic orbit, so it is a limit cycle.

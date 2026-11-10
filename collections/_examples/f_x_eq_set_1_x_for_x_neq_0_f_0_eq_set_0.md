@@ -2,8 +2,15 @@
 published: false
 title: '$F(x) = \setdef{1/x}$ for $x \neq 0$, $F(0) = \setdef{0}$'
 level: graduate
-is: [set_valued_map, outer_semicontinuous]
-is_not: [upper_semicontinuous_setvalued, inner_semicontinuous, lower_semicontinuous_setvalued]
+is: [
+  set_valued_map,
+  outer_semicontinuous
+]
+is_not: [
+  upper_semicontinuous_setvalued,
+  inner_semicontinuous,
+  lower_semicontinuous_setvalued
+]
 why:
   outer_semicontinuous: >-
     $F$ is outer semicontinuous because its graph (a hyperbola plus the origin) is closed.

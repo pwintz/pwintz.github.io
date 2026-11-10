@@ -2,8 +2,18 @@
 published: false
 title: '$\dot{x} = -x + u$'
 level: high-school
-is: [autonomous_time_invariant, time_invariant, linear_system, affine_system, control_affine, feedback_linearizable]
-is_not: [autonomous_no_input, unforced]
+is: [
+  autonomous_time_invariant,
+  time_invariant,
+  linear_system,
+  affine_system,
+  control_affine,
+  feedback_linearizable
+]
+is_not: [
+  autonomous_no_input,
+  unforced
+]
 why:
   autonomous_time_invariant: >-
     $\dot{x} = -x + u$ is not autonomous in the sense of having no input, because it has the input $u$.

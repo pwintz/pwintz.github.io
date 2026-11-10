@@ -1,7 +1,10 @@
 ---
 title: '$\exists x \, (x^2 = 2)$'
 level: undergraduate
-is: [sentence_logic, formula_logic]
+is: [
+  sentence_logic,
+  formula_logic
+]
 values:
   proposition: 'True if $x$ ranges over $\reals$; false if $x$ ranges over the rational numbers'
 why:

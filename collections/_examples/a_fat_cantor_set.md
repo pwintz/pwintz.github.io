@@ -1,7 +1,10 @@
 ---
 title: 'A "fat" Cantor set'
 level: graduate
-is: [nowhere_dense, meager_set]
+is: [
+  nowhere_dense,
+  meager_set
+]
 is_not: [measure_zero]
 why:
   nowhere_dense: >-

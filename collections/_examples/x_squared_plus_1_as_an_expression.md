@@ -2,8 +2,16 @@
 published: false
 title: '$x^2 + 1$'
 level: high-school
-is: [expression, term_logic]
-is_not: [proposition, predicate, sentence_logic, formula_logic]
+is: [
+  expression,
+  term_logic
+]
+is_not: [
+  proposition,
+  predicate,
+  sentence_logic,
+  formula_logic
+]
 why:
   expression: >-
     $x^2 + 1$ is an expression, because it names a number once $x$ is given.

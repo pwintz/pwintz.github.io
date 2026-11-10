@@ -3,7 +3,10 @@ published: false
 title: 'The connection between two people in a social network'
 level: elementary
 is: [edge_graph]
-is_not: [edge_polygon, boundary]
+is_not: [
+  edge_polygon,
+  boundary
+]
 why:
   edge_graph: >-
     The connection is an edge of a graph whose vertices are people.

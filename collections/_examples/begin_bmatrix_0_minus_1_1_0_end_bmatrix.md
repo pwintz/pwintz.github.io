@@ -8,8 +8,17 @@ values:
   determinant: '$\det A = 0 \cdot 0 - (-1) \cdot 1 = 1$'
   trace: '$\operatorname{tr} A = 0 + 0 = 0$'
   invertible_matrix: '$$A^{-1} = \begin{bmatrix} 0 & 1 \\ -1 & 0 \end{bmatrix}$$'
-is: [array, matrix, invertible_matrix, orthogonal_matrix, skew_symmetric_matrix]
-is_not: [linear_map, symmetric_matrix]
+is: [
+  array,
+  matrix,
+  invertible_matrix,
+  orthogonal_matrix,
+  skew_symmetric_matrix
+]
+is_not: [
+  linear_map,
+  symmetric_matrix
+]
 why:
   orthogonal_matrix: >-
     The rotation $$A = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}$$ is orthogonal, because its inverse, the rotation by $-90°$, is its transpose.

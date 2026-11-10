@@ -3,7 +3,10 @@ published: false
 title: 'A moving horizon estimator'
 definition: moving_horizon_estimator
 level: graduate
-is: [estimator, filter_estimation]
+is: [
+  estimator,
+  filter_estimation
+]
 is_not: [predictor]
 why:
   filter_estimation: >-

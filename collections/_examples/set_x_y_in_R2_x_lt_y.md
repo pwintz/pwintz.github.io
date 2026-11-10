@@ -3,7 +3,10 @@ published: false
 title: '$\setdef{(x, y) \in \reals^2 \suchthat x < y}$'
 level: high-school
 is: [relation]
-is_not: [predicate, proposition]
+is_not: [
+  predicate,
+  proposition
+]
 why:
   predicate: >-
     $\setdef{(x, y) \in \reals^2 \suchthat x < y}$ is a relation: the set of pairs for which the predicate "$x < y$" is true.

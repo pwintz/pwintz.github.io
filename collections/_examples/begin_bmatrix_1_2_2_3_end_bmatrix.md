@@ -6,8 +6,16 @@ values:
   transpose: '$A^{\top} = A$'
   determinant: '$\det A = 1 \cdot 3 - 2 \cdot 2 = -1$'
   trace: '$\operatorname{tr} A = 1 + 3 = 4$'
-is_not: [positive_definite_matrix, positive_semidefinite_matrix, orthogonal_matrix, skew_symmetric_matrix]
-is: [symmetric_matrix, invertible_matrix]
+is_not: [
+  positive_definite_matrix,
+  positive_semidefinite_matrix,
+  orthogonal_matrix,
+  skew_symmetric_matrix
+]
+is: [
+  symmetric_matrix,
+  invertible_matrix
+]
 why:
   transpose: >-
     The matrix $$A = \begin{bmatrix} 1 & 2 \\ 2 & 3 \end{bmatrix}$$ is its own transpose, because it is symmetric.

@@ -3,7 +3,11 @@ published: false
 title: '$\mathbb{Q}$, as a subset of $\reals$'
 level: undergraduate
 is: [dense_set]
-is_not: [open_set, closed_set, almost_everywhere]
+is_not: [
+  open_set,
+  closed_set,
+  almost_everywhere
+]
 values:
   interior: '$\operatorname{int} \mathbb{Q} = \emptyset$'
   boundary: '$\partial \mathbb{Q} = \reals$'

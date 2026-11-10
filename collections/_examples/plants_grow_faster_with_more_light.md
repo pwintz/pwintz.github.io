@@ -2,7 +2,11 @@
 title: 'Before an experiment: "Bean plants grow taller with more hours of light each day"'
 level: elementary
 is: [hypothesis_science]
-is_not: [theory_science, scientific_law, conjecture]
+is_not: [
+  theory_science,
+  scientific_law,
+  conjecture
+]
 why:
   hypothesis_science: >-
     "Bean plants grow taller with more hours of light" is a hypothesis, because it is a prediction that an experiment can test and could show to be false.

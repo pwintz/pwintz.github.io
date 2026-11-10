@@ -6,8 +6,20 @@ values:
   cardinality: '$\mathfrak{c}$'
   lebesgue_measure: '$\infty$'
   hausdorff_dimension: '$1$'
-is: [open_set, closed_set, locally_compact, paracompact, uncountable]
-is_not: [compact, sequentially_compact, countable, finite_set, countably_infinite]
+is: [
+  open_set,
+  closed_set,
+  locally_compact,
+  paracompact,
+  uncountable
+]
+is_not: [
+  compact,
+  sequentially_compact,
+  countable,
+  finite_set,
+  countably_infinite
+]
 why:
   open_set: >-
     The set $\reals$ is open as a subset of itself, because every interval around a real number is inside $\reals$.

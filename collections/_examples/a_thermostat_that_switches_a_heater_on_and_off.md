@@ -1,7 +1,11 @@
 ---
 title: 'A thermostat that switches a heater on and off'
 level: high-school
-is: [hybrid_system, hybrid_automaton, switched_system]
+is: [
+  hybrid_system,
+  hybrid_automaton,
+  switched_system
+]
 why:
   switched_system: >-
     The thermostat is a switched system because the heater mode switches while the temperature changes continuously.

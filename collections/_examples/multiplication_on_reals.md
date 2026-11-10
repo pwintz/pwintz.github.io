@@ -1,7 +1,11 @@
 ---
 title: 'Multiplication $\times$ on $\reals$'
 level: elementary
-is: [binary_operation, associative, commutative]
+is: [
+  binary_operation,
+  associative,
+  commutative
+]
 is_not: [relation]
 why:
   binary_operation: >-

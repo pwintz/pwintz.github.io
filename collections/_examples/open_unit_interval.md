@@ -6,8 +6,15 @@ values:
   boundary: '$\partial (0, 1) = \setdef{0, 1}$'
   exterior: '$\operatorname{ext} (0, 1) = (-\infty, 0) \cup (1, \infty)$'
   closure: '$\overline{(0, 1)} = [0, 1]$'
-is: [open_set, bounded]
-is_not: [closed_set, finite_set, compact]
+is: [
+  open_set,
+  bounded
+]
+is_not: [
+  closed_set,
+  finite_set,
+  compact
+]
 why:
   closure: >-
     The closure of $(0, 1)$ adds its boundary points $0$ and $1$.

@@ -2,7 +2,10 @@
 title: 'A thermostat setting of 20 degrees'
 level: high-school
 is: [set_point]
-is_not: [equilibrium, operating_point]
+is_not: [
+  equilibrium,
+  operating_point
+]
 why:
   set_point: >-
     A thermostat setting of $20$ degrees is a set point because it is a target chosen for the room.

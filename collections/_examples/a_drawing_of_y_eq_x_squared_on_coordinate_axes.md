@@ -1,8 +1,15 @@
 ---
 title: 'A drawing of $y = x^2$ on coordinate axes'
 level: elementary
-is: [graph_of_function, graph_chart, plot]
-is_not: [graph_network, diagram]
+is: [
+  graph_of_function,
+  graph_chart,
+  plot
+]
+is_not: [
+  graph_network,
+  diagram
+]
 why:
   graph_chart: >-
     The drawing of $y = x^2$ is a chart, because it is a picture that displays information.

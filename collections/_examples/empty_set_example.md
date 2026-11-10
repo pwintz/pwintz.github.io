@@ -2,8 +2,17 @@
 title: 'The empty set $\emptyset$'
 definition: empty_set
 level: high-school
-is: [open_set, closed_set, finite_set, countable, empty_set]
-is_not: [countably_infinite, uncountable]
+is: [
+  open_set,
+  closed_set,
+  finite_set,
+  countable,
+  empty_set
+]
+is_not: [
+  countably_infinite,
+  uncountable
+]
 why:
   open_set: >-
     The empty set is open in $\reals$, because it has no points, so the condition on its points holds vacuously.

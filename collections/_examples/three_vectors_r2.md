@@ -2,8 +2,16 @@
 published: false
 title: 'The vectors $(1, 0)$, $(0, 1)$, and $(1, 1)$ in $\reals^2$'
 level: high-school
-is: [span, pairwise_linearly_independent]
-is_not: [vector_basis, linearly_independent, orthogonal_vectors, orthonormal]
+is: [
+  span,
+  pairwise_linearly_independent
+]
+is_not: [
+  vector_basis,
+  linearly_independent,
+  orthogonal_vectors,
+  orthonormal
+]
 why:
   linearly_independent: >-
     The vectors $(1, 0)$, $(0, 1)$, and $(1, 1)$ are not linearly independent, because $(1, 1) = (1, 0) + (0, 1)$.

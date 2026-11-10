@@ -1,8 +1,17 @@
 ---
 title: '$\forall x \, (x^2 \geq 0)$, with $x$ ranging over $\reals$'
 level: undergraduate
-is: [sentence_logic, proposition, formula_logic, expression]
-is_not: [predicate, propositional_formula, term_logic]
+is: [
+  sentence_logic,
+  proposition,
+  formula_logic,
+  expression
+]
+is_not: [
+  predicate,
+  propositional_formula,
+  term_logic
+]
 values:
   propositional_logic: 'Only a single unit $p$, with no access to $x$ or to $x^2 \geq 0$'
   first_order_logic: 'A sentence of first-order logic'

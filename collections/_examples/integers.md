@@ -2,8 +2,16 @@
 published: false
 title: 'The integers $\mathbb{Z}$'
 level: high-school
-is: [countably_infinite, infinite_set, countable]
-is_not: [dense_set, finite_set, uncountable]
+is: [
+  countably_infinite,
+  infinite_set,
+  countable
+]
+is_not: [
+  dense_set,
+  finite_set,
+  uncountable
+]
 why:
   countably_infinite: >-
     The integers are countably infinite, because they can be listed as $0, 1, -1, 2, -2, \dots$

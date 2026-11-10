@@ -3,7 +3,10 @@ published: false
 title: 'The unit circle, for the closed unit disk in $\reals^2$'
 level: high-school
 is: [boundary]
-is_not: [edge_polygon, edge_graph]
+is_not: [
+  edge_polygon,
+  edge_graph
+]
 why:
   boundary: >-
     The unit circle is the boundary of the closed unit disk because every ball around a point of the circle contains points inside and outside the disk.

@@ -1,7 +1,10 @@
 ---
 title: 'The first-order sentence $\forall x \, (x^2 \geq 0) \land \neg \exists x \, (x^2 < 0)$, whose propositional form is $p \land \neg q$'
 level: graduate
-is: [sentence_logic, formula_logic]
+is: [
+  sentence_logic,
+  formula_logic
+]
 is_not: [propositional_formula]
 why:
   sentence_logic: >-

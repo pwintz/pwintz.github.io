@@ -1,7 +1,12 @@
 ---
 title: '$1$, for $S = [1, 2]$'
 level: high-school
-is: [lower_bound, infimum, minimum, minimal_element]
+is: [
+  lower_bound,
+  infimum,
+  minimum,
+  minimal_element
+]
 why:
   minimal_element: >-
     $1$ is a minimal element of $[1, 2]$, because no element of $[1, 2]$ is smaller than $1$.

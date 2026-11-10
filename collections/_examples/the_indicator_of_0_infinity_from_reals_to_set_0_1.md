@@ -2,7 +2,10 @@
 published: false
 title: 'The indicator of $[0, \infty)$, from $\reals$ to $\setdef{0, 1}$ with the discrete topology'
 level: undergraduate
-is: [open_map, closed_map]
+is: [
+  open_map,
+  closed_map
+]
 is_not: [continuous]
 why:
   continuous: >-

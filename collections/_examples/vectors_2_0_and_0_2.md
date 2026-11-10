@@ -2,7 +2,11 @@
 published: false
 title: 'The vectors $(2, 0)$ and $(0, 2)$ in $\reals^2$'
 level: high-school
-is: [pairwise_linearly_independent, linearly_independent, orthogonal_vectors]
+is: [
+  pairwise_linearly_independent,
+  linearly_independent,
+  orthogonal_vectors
+]
 is_not: [orthonormal]
 why:
   pairwise_linearly_independent: >-

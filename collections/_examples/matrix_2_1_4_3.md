@@ -1,7 +1,11 @@
 ---
 title: 'The matrix $$\begin{bmatrix} 2 & 1 \\ 4 & 3 \end{bmatrix}$$'
 level: undergraduate
-is_not: [orthogonal_matrix, symmetric_matrix, skew_symmetric_matrix]
+is_not: [
+  orthogonal_matrix,
+  symmetric_matrix,
+  skew_symmetric_matrix
+]
 is: [invertible_matrix]
 values:
   lu_decomposition: '$$L = \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix}$$, $$U = \begin{bmatrix} 2 & 1 \\ 0 & 1 \end{bmatrix}$$'

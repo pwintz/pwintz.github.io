@@ -1,7 +1,10 @@
 ---
 title: 'The subsets of $\reals$ that are finite or have a finite complement'
 level: graduate
-is_not: [sigma_algebra, topology]
+is_not: [
+  sigma_algebra,
+  topology
+]
 why:
   sigma_algebra: >-
     The finite and cofinite subsets of $\reals$ do not form a σ-algebra.

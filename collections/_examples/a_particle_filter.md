@@ -2,7 +2,10 @@
 title: 'A particle filter'
 definition: particle_filter
 level: undergraduate
-is: [estimator, filter_estimation]
+is: [
+  estimator,
+  filter_estimation
+]
 is_not: [predictor]
 why:
   filter_estimation: >-

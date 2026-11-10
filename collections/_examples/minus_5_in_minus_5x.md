@@ -2,7 +2,10 @@
 published: false
 title: '$-5$, in $-5x$'
 level: elementary
-is: [coefficient, factor]
+is: [
+  coefficient,
+  factor
+]
 why:
   coefficient: >-
     $-5$ is the coefficient of $-5x$, because it is the constant factor of the term.

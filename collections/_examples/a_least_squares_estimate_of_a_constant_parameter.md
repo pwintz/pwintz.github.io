@@ -2,7 +2,11 @@
 title: 'A least-squares estimate of a constant parameter from data'
 level: high-school
 is: [estimator]
-is_not: [observer, filter_estimation, predictor]
+is_not: [
+  observer,
+  filter_estimation,
+  predictor
+]
 why:
   estimator: >-
     A least-squares estimate is an estimator because it estimates a quantity from data.

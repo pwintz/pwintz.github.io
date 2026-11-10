@@ -6,8 +6,16 @@ values:
   cardinality: '$\aleph_0$'
   lebesgue_measure: '$0$'
   hausdorff_dimension: '$0$'
-is: [infinite_set, countably_infinite, bounded, countable]
-is_not: [uncountable, finite_set]
+is: [
+  infinite_set,
+  countably_infinite,
+  bounded,
+  countable
+]
+is_not: [
+  uncountable,
+  finite_set
+]
 why:
   diameter: >-
     The diameter of $\mathbb{Q} \cap [0, 1]$ is $1$, because it contains $0$ and $1$.

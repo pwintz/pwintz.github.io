@@ -1,7 +1,11 @@
 ---
 title: 'A linear map $T : \reals^2 \to \reals^2$'
 level: undergraduate
-is: [function, map, linear_map]
+is: [
+  function,
+  map,
+  linear_map
+]
 why:
   function: >-
     $T$ is a function and a map.

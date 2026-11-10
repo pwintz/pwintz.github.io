@@ -9,7 +9,12 @@ values:
   cardinality: '$\mathfrak{c}$'
   lebesgue_measure: '$0$'
   hausdorff_dimension: '$1$'
-is: [circle, sphere, sphere_topological, circle_topological]
+is: [
+  circle,
+  sphere,
+  sphere_topological,
+  circle_topological
+]
 is_not: [ball]
 why:
   arc_length: >-

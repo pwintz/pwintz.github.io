@@ -6,8 +6,15 @@ values:
   determinant: '$\det A = 1 \cdot 4 - 2 \cdot 2 = 0$'
   trace: '$\operatorname{tr} A = 1 + 4 = 5$'
   kernel: '$$\ker A = \operatorname{span} \begin{bmatrix} 2 \\ -1 \end{bmatrix}$$'
-is: [positive_semidefinite_matrix, symmetric_matrix]
-is_not: [full_rank, positive_definite_matrix, invertible_matrix]
+is: [
+  positive_semidefinite_matrix,
+  symmetric_matrix
+]
+is_not: [
+  full_rank,
+  positive_definite_matrix,
+  invertible_matrix
+]
 why:
   invertible_matrix: >-
     The matrix $$A = \begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$$ is not invertible, because $\det A = 0$: its second row is twice its first.

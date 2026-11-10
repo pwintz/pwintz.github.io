@@ -1,7 +1,13 @@
 ---
 title: '$x \mapsto \abs{x}$ on $[-1, 1]$'
 level: high-school
-is: [locally_Lipschitz_continuous, Lipschitz_continuous, Holder_continuous, uniformly_continuous, absolutely_continuous]
+is: [
+  locally_Lipschitz_continuous,
+  Lipschitz_continuous,
+  Holder_continuous,
+  uniformly_continuous,
+  absolutely_continuous
+]
 is_not: [continuously_differentiable]
 why:
   Lipschitz_continuous: >-

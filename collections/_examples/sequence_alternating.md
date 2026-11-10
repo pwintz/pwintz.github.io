@@ -2,7 +2,10 @@
 published: false
 title: 'The sequence $a_n = (-1)^{n + 1}$, for $n \geq 1$: $1, -1, 1, -1, \dots$'
 level: high-school
-is: [bounded, divergent]
+is: [
+  bounded,
+  divergent
+]
 is_not: [convergent]
 values:
   limit_of_sequence: '$\lim_{n \to \infty} a_n$ does not exist'

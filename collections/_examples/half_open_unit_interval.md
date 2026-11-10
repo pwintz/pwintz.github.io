@@ -1,7 +1,10 @@
 ---
 title: '$[0, 1)$, as a subset of $\reals$'
 level: high-school
-is_not: [open_set, closed_set]
+is_not: [
+  open_set,
+  closed_set
+]
 values:
   interior: '$\operatorname{int} [0, 1) = (0, 1)$'
   boundary: '$\partial [0, 1) = \setdef{0, 1}$'

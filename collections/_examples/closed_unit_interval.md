@@ -11,8 +11,22 @@ values:
   boundary: '$\partial [0, 1] = \setdef{0, 1}$'
   exterior: '$\operatorname{ext} [0, 1] = (-\infty, 0) \cup (1, \infty)$'
   closure: '$\overline{[0, 1]} = [0, 1]$'
-is: [closed_set, compact, sequentially_compact, locally_compact, paracompact, bounded, infinite_set, uncountable]
-is_not: [open_set, finite_set, countably_infinite, countable]
+is: [
+  closed_set,
+  compact,
+  sequentially_compact,
+  locally_compact,
+  paracompact,
+  bounded,
+  infinite_set,
+  uncountable
+]
+is_not: [
+  open_set,
+  finite_set,
+  countably_infinite,
+  countable
+]
 why:
   closure: >-
     The closure of $[0, 1]$ is $[0, 1]$ itself, because $[0, 1]$ is closed.

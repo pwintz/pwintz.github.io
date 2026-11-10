@@ -2,7 +2,10 @@
 published: false
 title: '$x \mapsto e^x$ on $\reals$'
 level: high-school
-is: [continuous, analytic]
+is: [
+  continuous,
+  analytic
+]
 is_not: [uniformly_continuous]
 why:
   analytic: >-

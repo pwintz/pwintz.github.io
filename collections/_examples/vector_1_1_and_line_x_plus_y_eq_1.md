@@ -1,7 +1,10 @@
 ---
 title: 'The vector $(1, 1)$ and the line $x + y = 1$ in the plane, whose direction vector is $(1, -1)$'
 level: high-school
-is: [normal_vector, orthogonal_vectors]
+is: [
+  normal_vector,
+  orthogonal_vectors
+]
 is_not: [perpendicular]
 why:
   normal_vector: >-

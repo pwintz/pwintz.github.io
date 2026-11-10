@@ -2,8 +2,15 @@
 published: false
 title: '$x \mapsto \sin(1/x)$ on $(0, 1]$'
 level: undergraduate
-is: [continuous, continuously_differentiable, locally_Lipschitz_continuous]
-is_not: [uniformly_continuous, Lipschitz_continuous]
+is: [
+  continuous,
+  continuously_differentiable,
+  locally_Lipschitz_continuous
+]
+is_not: [
+  uniformly_continuous,
+  Lipschitz_continuous
+]
 why:
   continuously_differentiable: >-
     $x \mapsto \sin(1/x)$ is continuously differentiable, and so continuous, on $(0, 1]$.

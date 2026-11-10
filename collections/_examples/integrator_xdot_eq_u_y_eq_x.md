@@ -2,8 +2,15 @@
 published: false
 title: 'Integrator $\dot{x} = u$, $y = x$'
 level: undergraduate
-is: [passive, lossless]
-is_not: [input_strictly_passive, output_strictly_passive, strictly_passive]
+is: [
+  passive,
+  lossless
+]
+is_not: [
+  input_strictly_passive,
+  output_strictly_passive,
+  strictly_passive
+]
 why:
   strictly_passive: >-
     The integrator is not strictly passive in any sense, because no energy is dissipated.

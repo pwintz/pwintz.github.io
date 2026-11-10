@@ -1,7 +1,10 @@
 ---
 title: 'A continuous map from a sphere to the plane'
 level: high-school
-is: [function, map]
+is: [
+  function,
+  map
+]
 why:
   function: >-
     A continuous map from a sphere to the plane is a function and a map.

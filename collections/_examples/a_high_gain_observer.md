@@ -3,7 +3,10 @@ published: false
 title: 'A high-gain observer'
 definition: high_gain_observer
 level: graduate
-is: [observer, estimator]
+is: [
+  observer,
+  estimator
+]
 is_not: [predictor]
 why:
   observer: >-

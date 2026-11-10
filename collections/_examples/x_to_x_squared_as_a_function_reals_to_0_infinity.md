@@ -3,7 +3,10 @@ published: false
 title: '$x \mapsto x^2$, as a function $\reals \to [0, \infty)$'
 level: high-school
 is: [surjective]
-is_not: [injective, bijective]
+is_not: [
+  injective,
+  bijective
+]
 why:
   surjective: >-
     $x \mapsto x^2$ is surjective onto $[0, \infty)$, because every $y \geq 0$ is $(\sqrt{y})^2$.

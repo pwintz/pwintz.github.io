@@ -2,7 +2,11 @@
 published: false
 title: '$\reals^2$ and $\mathbb{C}$, as real vector spaces'
 level: undergraduate
-is: [isomorphic, identified, equivalent]
+is: [
+  isomorphic,
+  identified,
+  equivalent
+]
 is_not: [equal]
 why:
   identified: >-

@@ -2,7 +2,10 @@
 published: false
 title: '$\emptyset$ and $\setdef{1, 2}$'
 level: elementary
-is: [subset, proper_subset]
+is: [
+  subset,
+  proper_subset
+]
 is_not: [element_of]
 why:
   element_of: >-

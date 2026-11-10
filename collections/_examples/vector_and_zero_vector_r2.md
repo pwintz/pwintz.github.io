@@ -2,7 +2,12 @@
 title: 'The vectors $(1, 0)$ and $(0, 0)$ in $\reals^2$'
 level: undergraduate
 is: [orthogonal_vectors]
-is_not: [linearly_independent, perpendicular, pairwise_linearly_independent, orthonormal]
+is_not: [
+  linearly_independent,
+  perpendicular,
+  pairwise_linearly_independent,
+  orthonormal
+]
 why:
   linearly_independent: >-
     The vectors $(1, 0)$ and $(0, 0)$ are not linearly independent, because $0 \cdot (1, 0) + 1 \cdot (0, 0) = (0, 0)$ is a linear combination with a nonzero coefficient that equals the zero vector.

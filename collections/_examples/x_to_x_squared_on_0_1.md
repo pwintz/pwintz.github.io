@@ -5,7 +5,14 @@ level: high-school
 values:
   riemann_integral: '$\int_0^1 x^2 \mathrm{d}x = \frac{1}{3}$'
   lebesgue_integral: '$\frac{1}{3}$'
-is: [locally_Lipschitz_continuous, Lipschitz_continuous, continuously_differentiable, absolutely_continuous, continuous, uniformly_continuous]
+is: [
+  locally_Lipschitz_continuous,
+  Lipschitz_continuous,
+  continuously_differentiable,
+  absolutely_continuous,
+  continuous,
+  uniformly_continuous
+]
 why:
   riemann_integral: >-
     The Riemann integral of $x^2$ on $[0, 1]$ is $\frac{1}{3}$, because $\frac{x^3}{3}$ is an antiderivative.

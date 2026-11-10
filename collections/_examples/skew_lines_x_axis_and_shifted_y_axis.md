@@ -2,7 +2,10 @@
 title: 'The $x$-axis and the line through $(0, 0, 1)$ parallel to the $y$-axis in $\reals^3$'
 level: high-school
 is: [orthogonal_vectors]
-is_not: [perpendicular, right_angle]
+is_not: [
+  perpendicular,
+  right_angle
+]
 why:
   orthogonal_vectors: >-
     The $x$-axis and the line through $(0, 0, 1)$ parallel to the $y$-axis have orthogonal direction vectors $(1, 0, 0)$ and $(0, 1, 0)$, so the lines are orthogonal.

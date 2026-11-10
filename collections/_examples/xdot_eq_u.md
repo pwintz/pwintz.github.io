@@ -2,7 +2,11 @@
 published: false
 title: '$\dot{x} = u$'
 level: high-school
-is: [controllable, reachable, stabilizable]
+is: [
+  controllable,
+  reachable,
+  stabilizable
+]
 why:
   stabilizable: >-
     $\dot{x} = u$ is stabilizable, for example with $u = -x$.

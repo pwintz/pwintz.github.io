@@ -2,7 +2,10 @@
 published: false
 title: '$\setdef{(x, y) \suchthat \max(\abs{x}, \abs{y}) = 1}$'
 level: undergraduate
-is: [sphere, sphere_topological]
+is: [
+  sphere,
+  sphere_topological
+]
 is_not: [circle]
 why:
   sphere: >-

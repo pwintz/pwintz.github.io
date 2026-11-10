@@ -2,7 +2,10 @@
 title: 'A Luenberger observer'
 definition: luenberger_observer
 level: undergraduate
-is: [observer, estimator]
+is: [
+  observer,
+  estimator
+]
 is_not: [predictor]
 why:
   observer: >-

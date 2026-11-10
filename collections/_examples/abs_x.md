@@ -1,8 +1,17 @@
 ---
 title: '$f(x) = \abs{x}$'
 level: high-school
-is: [idempotent, convex_function]
-is_not: [differentiable, continuously_differentiable, smooth, analytic, constant_function]
+is: [
+  idempotent,
+  convex_function
+]
+is_not: [
+  differentiable,
+  continuously_differentiable,
+  smooth,
+  analytic,
+  constant_function
+]
 values:
   one_sided_derivative: '$f_{+}^{\prime}(0) = 1$ and $f_{-}^{\prime}(0) = -1$'
   # dini_derivative: '$D^{+} f(0) = D_{+} f(0) = 1$ and $D^{-} f(0) = D_{-} f(0) = -1$'

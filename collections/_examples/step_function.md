@@ -2,7 +2,10 @@
 published: false
 title: 'The step function: $0$ for $x < 0$ and $1$ for $x \geq 0$'
 level: undergraduate
-is_not: [sequentially_continuous, continuous]
+is_not: [
+  sequentially_continuous,
+  continuous
+]
 values:
   limit_of_function: '$\lim_{x \to 0} f(x)$ does not exist'
   left_limit: '$\lim_{x \to 0^{-}} f(x) = 0$'

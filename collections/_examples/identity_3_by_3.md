@@ -1,7 +1,10 @@
 ---
 title: 'The $3 \times 3$ identity matrix'
 level: high-school
-is: [positive_definite_matrix, positive_semidefinite_matrix]
+is: [
+  positive_definite_matrix,
+  positive_semidefinite_matrix
+]
 values:
   array_rank: '$2$'
   array_shape: '$(3, 3)$'

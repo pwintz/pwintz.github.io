@@ -1,8 +1,14 @@
 ---
 title: 'A gust of wind hitting a quadcopter drone'
 level: high-school
-is: [exogenous_input, disturbance]
-is_not: [control_input, measurement_noise]
+is: [
+  exogenous_input,
+  disturbance
+]
+is_not: [
+  control_input,
+  measurement_noise
+]
 # TODO: Add a sketch
 why:
   exogenous_input: >-

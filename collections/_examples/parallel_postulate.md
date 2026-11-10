@@ -2,7 +2,10 @@
 title: 'Euclid''s parallel postulate'
 detail: 'Through a point not on a line, there is exactly one line parallel to the given line.'
 level: high-school
-is: [postulate, axiom]
+is: [
+  postulate,
+  axiom
+]
 is_not: [assumption]
 why:
   assumption: >-

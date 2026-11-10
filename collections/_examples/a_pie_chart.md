@@ -2,7 +2,10 @@
 title: 'A pie chart'
 level: elementary
 is: [chart]
-is_not: [plot, diagram]
+is_not: [
+  plot,
+  diagram
+]
 why:
   chart: >-
     A pie chart is a chart because it displays data.

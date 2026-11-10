@@ -1,7 +1,11 @@
 ---
 title: 'The matrix $$\begin{bmatrix} 4 & 2 \\ 2 & 3 \end{bmatrix}$$'
 level: undergraduate
-is: [symmetric_matrix, positive_definite_matrix, positive_semidefinite_matrix]
+is: [
+  symmetric_matrix,
+  positive_definite_matrix,
+  positive_semidefinite_matrix
+]
 values:
   lu_decomposition: '$$L = \begin{bmatrix} 1 & 0 \\ 1/2 & 1 \end{bmatrix}$$, $$U = \begin{bmatrix} 4 & 2 \\ 0 & 2 \end{bmatrix}$$'
   plu_decomposition: '$P = I$, with $L$ and $U$ as in the LU decomposition'

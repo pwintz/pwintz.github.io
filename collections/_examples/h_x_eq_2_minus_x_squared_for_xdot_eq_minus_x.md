@@ -5,7 +5,10 @@ level: graduate
 description: >-
   With initial set $X_0 = [-1, 1]$ and unsafe set $X_u = \setdef{x \suchthat \abs{x} \geq 2}$.
 is: [barrier_function]
-is_not: [barrier_function_optimization, barrier_certificate]
+is_not: [
+  barrier_function_optimization,
+  barrier_certificate
+]
 why:
   barrier_function_optimization: >-
     $h(x) = 2 - x^2$ is not a barrier function in optimization, because it stays bounded near the boundary.

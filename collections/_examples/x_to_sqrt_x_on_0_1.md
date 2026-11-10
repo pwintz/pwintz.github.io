@@ -2,8 +2,17 @@
 published: false
 title: '$x \mapsto \sqrt{x}$ on $[0, 1]$'
 level: undergraduate
-is: [Holder_continuous, uniformly_continuous, absolutely_continuous, continuous]
-is_not: [locally_Lipschitz_continuous, Lipschitz_continuous, continuously_differentiable]
+is: [
+  Holder_continuous,
+  uniformly_continuous,
+  absolutely_continuous,
+  continuous
+]
+is_not: [
+  locally_Lipschitz_continuous,
+  Lipschitz_continuous,
+  continuously_differentiable
+]
 why:
   Lipschitz_continuous: >-
     $x \mapsto \sqrt{x}$ is not Lipschitz continuous, because its slope is unbounded near $0$.

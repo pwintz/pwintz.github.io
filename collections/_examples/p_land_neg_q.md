@@ -2,7 +2,12 @@
 title: '$p \land \neg q$'
 level: undergraduate
 is: [propositional_formula]
-is_not: [proposition, predicate, sentence_logic, formula_logic]
+is_not: [
+  proposition,
+  predicate,
+  sentence_logic,
+  formula_logic
+]
 values:
   propositional_logic: 'A formula of propositional logic'
   first_order_logic: 'Becomes a first-order sentence once $p$ and $q$ are replaced by sentences, such as $\forall x \, (x^2 \geq 0) \land \neg \exists x \, (x^2 < 0)$'

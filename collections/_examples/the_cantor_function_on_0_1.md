@@ -2,8 +2,16 @@
 published: false
 title: 'The Cantor function on $[0, 1]$'
 level: undergraduate
-is: [Holder_continuous, uniformly_continuous, continuous]
-is_not: [Lipschitz_continuous, absolutely_continuous, continuously_differentiable]
+is: [
+  Holder_continuous,
+  uniformly_continuous,
+  continuous
+]
+is_not: [
+  Lipschitz_continuous,
+  absolutely_continuous,
+  continuously_differentiable
+]
 why:
   Lipschitz_continuous: >-
     The Cantor function is not Lipschitz continuous, because it rises by $2^{-n}$ over intervals of length $3^{-n}$, so its slopes are unbounded.
