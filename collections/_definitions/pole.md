@@ -1,5 +1,4 @@
 ---
-published: false
 title: Pole of a transfer function
 term: pole
 applies_to: transfer functions
@@ -7,7 +6,7 @@ levels:
   high-school:
     text: |-
       Consider a [fraction](/dictionary/definitions/fraction) of [polynomials](/dictionary/definitions/polynomial), after canceling common factors.
-      A _pole_ of the fraction is a value where the denominator is zero, so that the function blows up.
+      A _pole_ of the fraction is a value where the denominator is zero, so that the function blows up near that point.
   undergraduate:
     text: |-
       Consider a transfer function $G(s)$, a function of the complex variable $s$.

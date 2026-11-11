@@ -1,5 +1,4 @@
 ---
-published: false
 title: '$f(t, x) = t x^2$'
 level: undergraduate
 values:
