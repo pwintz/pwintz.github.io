@@ -580,18 +580,28 @@
   }
 
   .dictionary-search__more {
-    margin: 0.4em 0.6em 0;
-    padding: 0.2em 0.75em;
-    border: 1px solid $border-color;
+    display: block;
+    width: 100%;
+    margin: 0.5em 0 0;
+    padding: 0.5em 1em;
+    border: 1px solid $link-color;
     border-radius: $border-radius;
-    background: transparent;
+    background: rgba($link-color, 0.08);
+    font-family: inherit;
     font-size: $type-size-6;
-    color: $primary-color;
+    font-weight: bold;
+    color: $link-color;
     cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+
+    &::after {
+      content: " \25BE";
+    }
 
     &:hover,
     &:focus-visible {
-      border-color: $primary-color;
+      background: $link-color;
+      color: #fff;
     }
 
     &[hidden] {

@@ -128,7 +128,7 @@ excerpt: "The differences between mathematical terms that are easily confused."
       group.querySelector(".dictionary-search__count").textContent = count;
       const more = group.querySelector(".dictionary-search__more");
       more.hidden = count <= LIMIT || expanded.has(group);
-      more.textContent = `Show all ${count}`;
+      more.textContent = `Show all ${count} ${group.querySelector(".dictionary-search__heading").firstChild.textContent.trim().toLowerCase()}`;
       total += count;
     }
     status.textContent = words.length === 0 ? "" : total === 0 ? "No matches." : "";
