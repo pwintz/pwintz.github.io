@@ -5,7 +5,7 @@ areas: [sets]
 summary: >
   Mathematics has several kinds of "a bunch of things," which differ in whether order and repetition matter.
   A set ignores order and repetition.
-  A [multiset](/definitions/multiset) keeps repetition.
+  A [multiset](/dictionary/definitions/multiset) keeps repetition.
   A sequence keeps order and repetition.
   "Collection" is informal, and "group" is a technical term for a set with an operation.
 terms:

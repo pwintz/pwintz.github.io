@@ -18,7 +18,7 @@ levels:
       usually by evaluating at $x$ a function $f$ fitted to the data.
 properties:
   - >-
-    Extrapolation is less reliable than [interpolation](/definitions/interpolation), because the data give no information about how the quantity behaves outside the range of the data.
+    Extrapolation is less reliable than [interpolation](/dictionary/definitions/interpolation), because the data give no information about how the quantity behaves outside the range of the data.
   - >-
     The error of an extrapolation usually grows with the distance from the range of the data.
 ---

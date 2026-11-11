@@ -12,11 +12,11 @@ levels:
   undergraduate:
     context: topological spaces
     text: |-
-      Consider a topological space $X$, and paths in it: [continuous](/definitions/continuous) maps $\gamma : [0, 1] \to X$.
+      Consider a topological space $X$, and paths in it: [continuous](/dictionary/definitions/continuous) maps $\gamma : [0, 1] \to X$.
       The space $X$ is _path-connected_ if, for every two points $x, y \in X$, there is a path such that $\gamma(0) = x$ and $\gamma(1) = y$.
 properties:
   - |-
-    Every path-connected space is [connected](/definitions/connected), but not every connected space is path-connected.
+    Every path-connected space is [connected](/dictionary/definitions/connected), but not every connected space is path-connected.
   - |-
-    An open [subset](/definitions/subset) of $\reals^n$ is path-connected if and only if it is [connected](/definitions/connected).
+    An open [subset](/dictionary/definitions/subset) of $\reals^n$ is path-connected if and only if it is [connected](/dictionary/definitions/connected).
 ---

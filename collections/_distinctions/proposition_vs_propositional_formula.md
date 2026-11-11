@@ -3,9 +3,9 @@ title: Proposition vs. propositional formula
 kind: siblings
 areas: [sets]
 summary: >
-  In logic, statements are combined with [logical connectives](/definitions/logical-connective) such as "and" ($\land$), "or" ($\lor$), and "not" ($\neg$).
-  A [proposition](/definitions/proposition) is a particular statement that is true or false, such as "$7$ is prime."
-  A [propositional formula](/definitions/propositional-formula) is a pattern, such as $p \land \neg q$, built from propositional variables that stand for propositions, and the formula has a truth value only once each variable is assigned a truth value.
+  In logic, statements are combined with [logical connectives](/dictionary/definitions/logical-connective) such as "and" ($\land$), "or" ($\lor$), and "not" ($\neg$).
+  A [proposition](/dictionary/definitions/proposition) is a particular statement that is true or false, such as "$7$ is prime."
+  A [propositional formula](/dictionary/definitions/propositional-formula) is a pattern, such as $p \land \neg q$, built from propositional variables that stand for propositions, and the formula has a truth value only once each variable is assigned a truth value.
   Substituting a proposition for each variable in a propositional formula gives a proposition.
 terms:
   - proposition
@@ -24,4 +24,4 @@ see_also:
 ---
 ## Notes
 
-- A [propositional formula](/definitions/propositional-formula) plays the same role for propositions that an algebraic [expression](/definitions/expression) such as $x + 1$ plays for numbers: the formula has a value only once its variables have values.
+- A [propositional formula](/dictionary/definitions/propositional-formula) plays the same role for propositions that an algebraic [expression](/dictionary/definitions/expression) such as $x + 1$ plays for numbers: the formula has a value only once its variables have values.

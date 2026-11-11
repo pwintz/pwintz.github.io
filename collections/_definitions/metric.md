@@ -21,11 +21,11 @@ levels:
       The function $d$ is a _metric_ on $X$ if, for all $x, y, z \in X$,
 
       1. $d(x, y) = 0$ if and only if $x = y$,
-      2. $d(x, y) = d(y, x)$ ([symmetry](/definitions/geometric-symmetry)), and
+      2. $d(x, y) = d(y, x)$ ([symmetry](/dictionary/definitions/geometric-symmetry)), and
       3. $d(x, z) \leq d(x, y) + d(y, z)$ (the triangle inequality).
 
       The last condition is the _triangle inequality_.
-      The set $X$ need not be a [vector](/definitions/vector) space.
+      The set $X$ need not be a [vector](/dictionary/definitions/vector) space.
 ---
-In differential geometry, a "metric" (Riemannian metric) is an [inner product](/definitions/inner-product) on each [tangent space](/definitions/tangent-space), not a distance function, though it determines one.
+In differential geometry, a "metric" (Riemannian metric) is an [inner product](/dictionary/definitions/inner-product) on each [tangent space](/dictionary/definitions/tangent-space), not a distance function, though it determines one.
 In everyday language, a "metric" is any measurement or performance indicator.

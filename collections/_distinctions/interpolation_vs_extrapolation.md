@@ -5,8 +5,8 @@ kind: siblings
 areas: [analysis, statistics]
 summary: >
   Given values of a quantity measured at several points, one often wants to estimate the value at a new point.
-  [Interpolation](/definitions/interpolation) estimates the value at a point inside the range of the measured points.
-  [Extrapolation](/definitions/extrapolation) estimates the value at a point outside that range, which is less reliable, because the data say nothing about how the quantity behaves there.
+  [Interpolation](/dictionary/definitions/interpolation) estimates the value at a point inside the range of the measured points.
+  [Extrapolation](/dictionary/definitions/extrapolation) estimates the value at a point outside that range, which is less reliable, because the data say nothing about how the quantity behaves there.
 terms:
   - interpolation
   - extrapolation
@@ -19,5 +19,5 @@ examples:
 ---
 ## Notes
 
-- In numerical analysis, "[interpolation](/definitions/interpolation)" often means constructing a function that passes exactly through the data points, not only estimating a value between them.
-- Forecasting, which is predicting future values from past values, is a kind of [extrapolation](/definitions/extrapolation) in time.
+- In numerical analysis, "[interpolation](/dictionary/definitions/interpolation)" often means constructing a function that passes exactly through the data points, not only estimating a value between them.
+- Forecasting, which is predicting future values from past values, is a kind of [extrapolation](/dictionary/definitions/extrapolation) in time.

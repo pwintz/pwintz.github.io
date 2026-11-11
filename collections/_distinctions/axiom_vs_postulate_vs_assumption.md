@@ -6,7 +6,7 @@ areas: [language]
 summary: >
   Every mathematical argument starts from statements that are not proved, but those statements play different roles.
   An axiom is accepted without proof as a foundation of a whole theory, and "postulate" is an older synonym, used mainly in geometry.
-  An assumption is a condition of one result, such as "$f$ is [continuous](/definitions/continuous)" in a theorem about $f$.
+  An assumption is a condition of one result, such as "$f$ is [continuous](/dictionary/definitions/continuous)" in a theorem about $f$.
 terms:
   - assumption
   - postulate
@@ -23,4 +23,4 @@ see_also:
 ## Notes
 
 - In mathematics, "hypothesis" usually means an assumption of a theorem, as in "the hypotheses of the theorem are satisfied."
-  This differs from a [scientific hypothesis](/definitions/hypothesis-science); see [hypothesis vs. theory](/distinctions/hypothesis-vs-theory).
+  This differs from a [scientific hypothesis](/dictionary/definitions/hypothesis-science); see [hypothesis vs. theory](/dictionary/distinctions/hypothesis-vs-theory).

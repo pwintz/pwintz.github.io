@@ -10,4 +10,4 @@ levels:
     text: |-
       A _hypothesis_ is a proposed explanation or prediction that can be tested by observation or experiment, and that the evidence could show to be false.
 ---
-In mathematics, "hypothesis" usually means an [assumption](/definitions/assumption) of a theorem instead.
+In mathematics, "hypothesis" usually means an [assumption](/dictionary/definitions/assumption) of a theorem instead.

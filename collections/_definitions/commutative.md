@@ -10,15 +10,15 @@ levels:
   undergraduate:
     context: abstract algebra
     text: |-
-      Consider a set $S$ with a [binary operation](/definitions/binary-operation) $\ast$.
+      Consider a set $S$ with a [binary operation](/dictionary/definitions/binary-operation) $\ast$.
       The operation $\ast$ is _commutative_ if
 
       $$a \ast b = b \ast a \quad \text{for all } a, b \in S.$$
 properties:
   - >-
-    Addition and multiplication of [real numbers](/definitions/real-number) are commutative.
+    Addition and multiplication of [real numbers](/dictionary/definitions/real-number) are commutative.
   - >-
     Subtraction, division, composition of functions, and multiplication of matrices are not commutative: for example, $5 - 3 = 2$, but $3 - 5 = -2$.
   - >-
-    A [group](/definitions/group) whose operation is commutative is called _abelian_.
+    A [group](/dictionary/definitions/group) whose operation is commutative is called _abelian_.
 ---

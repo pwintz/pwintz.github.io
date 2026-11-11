@@ -14,6 +14,6 @@ levels:
       The property holds _uniformly_ (in the parameter) if the same constants work for every value of the parameter.
 properties:
   - >-
-    [Uniform continuity](/definitions/uniformly-continuous), [uniform convergence](/definitions/uniform-convergence), and uniform stability are uniform versions of continuity, convergence, and stability: the same $\delta$, $N$, or bounds work at every point or for every initial time.
+    [Uniform continuity](/dictionary/definitions/uniformly-continuous), [uniform convergence](/dictionary/definitions/uniform-convergence), and uniform stability are uniform versions of continuity, convergence, and stability: the same $\delta$, $N$, or bounds work at every point or for every initial time.
 ---
-"Uniform" has other meanings; see [meanings of "uniform"](/distinctions/meanings-of-uniform).
+"Uniform" has other meanings; see [meanings of "uniform"](/dictionary/distinctions/meanings-of-uniform).

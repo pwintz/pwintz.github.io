@@ -12,6 +12,6 @@ levels:
 properties:
   - >-
     Being in the admissible set now does not guarantee that the constraints can be satisfied in the future.
-    The states from which they can be satisfied forever form the [viability kernel](/definitions/viability-kernel): the largest [controlled invariant](/definitions/controlled-invariant) [subset](/definitions/subset) of the admissible set.
+    The states from which they can be satisfied forever form the [viability kernel](/dictionary/definitions/viability-kernel): the largest [controlled invariant](/dictionary/definitions/controlled-invariant) [subset](/dictionary/definitions/subset) of the admissible set.
 ---
 "Admissible" is also used for inputs (admissible controls are those satisfying the input constraints), which is a different use.

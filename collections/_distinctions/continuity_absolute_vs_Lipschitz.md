@@ -5,8 +5,8 @@ kind: hierarchy
 areas: [analysis]
 summary: >
   Lipschitz continuity and absolute continuity are both stronger than continuity, and both are used to justify integrating a derivative.
-  A [Lipschitz continuous](/definitions/lipschitz-continuous) function has a [bounded](/definitions/bounded) slope.
-  An [absolutely continuous](/definitions/absolutely-continuous) function is the integral of its derivative, which may be unbounded.
+  A [Lipschitz continuous](/dictionary/definitions/lipschitz-continuous) function has a [bounded](/dictionary/definitions/bounded) slope.
+  An [absolutely continuous](/dictionary/definitions/absolutely-continuous) function is the integral of its derivative, which may be unbounded.
 relation: Lipschitz continuous ⊂ absolutely continuous
 terms:
   - Lipschitz_continuous
@@ -22,4 +22,4 @@ see_also:
 ---
 ## Notes
 
-- If $f$ is [Lipschitz continuous](/definitions/lipschitz-continuous) with constant $L > 0$, then choosing $\delta = \varepsilon / L$ in the definition of absolute continuity works, which is why every Lipschitz continuous function is [absolutely continuous](/definitions/absolutely-continuous).
+- If $f$ is [Lipschitz continuous](/dictionary/definitions/lipschitz-continuous) with constant $L > 0$, then choosing $\delta = \varepsilon / L$ in the definition of absolute continuity works, which is why every Lipschitz continuous function is [absolutely continuous](/dictionary/definitions/absolutely-continuous).

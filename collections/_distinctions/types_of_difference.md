@@ -6,7 +6,7 @@ summary: >
   Many quantities compare two things by "how far apart" they are.
   A difference is the result of subtraction and can be negative.
   No distance is negative.
-  An error compares an approximation with the truth, a change compares the end with the start, and a [set difference](/definitions/set-difference) removes elements.
+  An error compares an approximation with the truth, a change compares the end with the start, and a [set difference](/dictionary/definitions/set-difference) removes elements.
 terms:
   - difference
   - distance

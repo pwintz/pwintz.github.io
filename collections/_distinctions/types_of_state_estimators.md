@@ -30,4 +30,4 @@ see_also:
 ## Notes
 
 <!-- - A _smoother_ estimates a past state from measurements up to the present, which is more accurate than filtering because it uses later data. -->
-- The [Kalman filter](/definitions/kalman-filter) alternates a _prediction_ step (propagating the estimate forward with the model) and an _update_ step (correcting it with a new measurement).
+- The [Kalman filter](/dictionary/definitions/kalman-filter) alternates a _prediction_ step (propagating the estimate forward with the model) and an _update_ step (correcting it with a new measurement).

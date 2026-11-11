@@ -6,7 +6,7 @@ applies_to: visualizations
 levels:
   elementary:
     text: |-
-      A _diagram_ is a drawing that shows how the parts of something are arranged or [connected](/definitions/connected), rather than showing measured values.
+      A _diagram_ is a drawing that shows how the parts of something are arranged or [connected](/dictionary/definitions/connected), rather than showing measured values.
   undergraduate:
     text: |-
       A _diagram_ is a schematic drawing of relationships or structure.

@@ -14,11 +14,11 @@ levels:
       The set $[0, 1)$ has no largest element: for any $x$ in it, $(x + 1) / 2$ is larger.
   undergraduate:
     text: |-
-      Consider an ordered set and a [subset](/definitions/subset) $S$ of it.
+      Consider an ordered set and a [subset](/dictionary/definitions/subset) $S$ of it.
       The _maximum_ of $S$ is an element of $S$ that is greater than or equal to every element of $S$.
       The maximum of a function $f$ is the maximum of its set of values, if it exists.
 properties:
   - |-
     A set has at most one maximum.
-    If the maximum exists, then it equals the [supremum](/definitions/supremum).
+    If the maximum exists, then it equals the [supremum](/dictionary/definitions/supremum).
 ---

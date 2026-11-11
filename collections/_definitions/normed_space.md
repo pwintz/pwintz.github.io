@@ -7,11 +7,11 @@ synonyms: [normed vector space]
 levels:
   high-school:
     text: |-
-      A _normed space_ is a [vector](/definitions/vector) space with a way of measuring the length of each vector.
+      A _normed space_ is a [vector](/dictionary/definitions/vector) space with a way of measuring the length of each vector.
   undergraduate:
     text: |-
-      A _normed space_ is a [vector](/definitions/vector) space together with a [norm](/definitions/norm).
+      A _normed space_ is a [vector](/dictionary/definitions/vector) space together with a [norm](/dictionary/definitions/norm).
 properties:
   - >-
-    Every normed space is a [metric space](/definitions/metric-space) with $d(x, y) = \norm{x - y}$.
+    Every normed space is a [metric space](/dictionary/definitions/metric-space) with $d(x, y) = \norm{x - y}$.
 ---

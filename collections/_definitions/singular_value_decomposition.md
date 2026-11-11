@@ -6,7 +6,7 @@ synonyms: [SVD]
 levels:
   undergraduate:
     text: |-
-      Consider an $m \times n$ real [matrix](/definitions/matrix) $A$.
+      Consider an $m \times n$ real [matrix](/dictionary/definitions/matrix) $A$.
       A _singular value decomposition_ of $A$ is a factorization
 
       $$A = U \Sigma V^{\top},$$
@@ -15,10 +15,10 @@ levels:
 properties:
   - |-
     Every matrix has a singular value decomposition.
-    The [singular values](/definitions/singular-value) are the square roots of the [eigenvalues](/definitions/eigenvalue) of $A^{\top} A$.
+    The [singular values](/dictionary/definitions/singular-value) are the square roots of the [eigenvalues](/dictionary/definitions/eigenvalue) of $A^{\top} A$.
   - |-
-    The [rank](/definitions/matrix-rank) of $A$ is the number of nonzero [singular values](/definitions/singular-value).
+    The [rank](/dictionary/definitions/matrix-rank) of $A$ is the number of nonzero [singular values](/dictionary/definitions/singular-value).
   - |-
-    Geometrically, every [linear map](/definitions/linear-map) is a rotation (or reflection), followed by stretching along perpendicular axes, followed by another rotation (or reflection).
+    Geometrically, every [linear map](/dictionary/definitions/linear-map) is a rotation (or reflection), followed by stretching along perpendicular axes, followed by another rotation (or reflection).
 ---
 For complex matrices, $V^{\top}$ is replaced by the conjugate transpose $V^{\ast}$, and $U$ and $V$ are unitary.

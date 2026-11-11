@@ -3,9 +3,9 @@ title: Sentence vs. propositional formula
 kind: siblings
 areas: [sets]
 summary: >
-  Formal logic has formulas at two levels: [propositional logic](/definitions/propositional-logic) (zeroth-order logic), whose variables stand for whole statements, and [first-order logic](/definitions/first-order-logic), whose variables stand for objects such as numbers.
-  A [sentence](/definitions/sentence-logic) is a formula of first-order logic in which a [quantifier](/definitions/quantifier), such as "for all" ($\forall$) or "there exists" ($\exists$), binds every variable, and the sentence is true or false once its symbols are interpreted, for example as statements about [real numbers](/definitions/real-number).
-  A [propositional formula](/definitions/propositional-formula) is a formula of propositional logic, built from propositional variables with [logical connectives](/definitions/logical-connective) such as $\land$ and $\neg$, and the formula is true or false once each variable is assigned a truth value.
+  Formal logic has formulas at two levels: [propositional logic](/dictionary/definitions/propositional-logic) (zeroth-order logic), whose variables stand for whole statements, and [first-order logic](/dictionary/definitions/first-order-logic), whose variables stand for objects such as numbers.
+  A [sentence](/dictionary/definitions/sentence-logic) is a formula of first-order logic in which a [quantifier](/dictionary/definitions/quantifier), such as "for all" ($\forall$) or "there exists" ($\exists$), binds every variable, and the sentence is true or false once its symbols are interpreted, for example as statements about [real numbers](/dictionary/definitions/real-number).
+  A [propositional formula](/dictionary/definitions/propositional-formula) is a formula of propositional logic, built from propositional variables with [logical connectives](/dictionary/definitions/logical-connective) such as $\land$ and $\neg$, and the formula is true or false once each variable is assigned a truth value.
 terms:
   - sentence_logic
   - propositional_formula
@@ -25,5 +25,5 @@ see_also:
 ---
 ## Notes
 
-- The truth of a [propositional formula](/definitions/propositional-formula) depends on a truth assignment to its variables, and the truth of a sentence depends on an [interpretation](/definitions/interpretation-logic) of its symbols, such as the set the variables range over.
-- Some books call every propositional formula without variables a "sentence" of [propositional logic](/definitions/propositional-logic); this page uses "sentence" in the first-order sense.
+- The truth of a [propositional formula](/dictionary/definitions/propositional-formula) depends on a truth assignment to its variables, and the truth of a sentence depends on an [interpretation](/dictionary/definitions/interpretation-logic) of its symbols, such as the set the variables range over.
+- Some books call every propositional formula without variables a "sentence" of [propositional logic](/dictionary/definitions/propositional-logic); this page uses "sentence" in the first-order sense.

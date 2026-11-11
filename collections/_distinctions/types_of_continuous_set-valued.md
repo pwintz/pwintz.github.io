@@ -4,9 +4,9 @@ title: Types of semicontinuity of set-valued maps
 kind: family
 areas: [set-valued-analysis]
 summary: >
-  A [set-valued map](/definitions/set-valued-map) assigns a set to each point, and there is more than one way to say that the set changes continuously.
+  A [set-valued map](/dictionary/definitions/set-valued-map) assigns a set to each point, and there is more than one way to say that the set changes continuously.
   Outer and upper semicontinuity both say that $F(x)$ cannot suddenly shrink in the limit, but they are not the same: outer semicontinuity is a closed-graph condition, while upper semicontinuity also rules out values escaping to infinity.
-  Inner and lower semicontinuity say that $F(x)$ cannot suddenly grow, and they agree in [metric spaces](/definitions/metric-space).
+  Inner and lower semicontinuity say that $F(x)$ cannot suddenly grow, and they agree in [metric spaces](/dictionary/definitions/metric-space).
 terms:
   - set_valued_map
   - outer_semicontinuous
@@ -27,8 +27,8 @@ see_also:
 ---
 ## Notes
 
-- If $F$ has closed values and is locally [bounded](/definitions/bounded) (in finite dimensions), then outer and upper semicontinuity are equivalent.
+- If $F$ has closed values and is locally [bounded](/dictionary/definitions/bounded) (in finite dimensions), then outer and upper semicontinuity are equivalent.
   Much of the literature assumes this setting, which is why the terms are often treated as synonyms.
 - "Hemicontinuous" is used in economics (for example, by Aliprantis and Border) for Berge's notions, to avoid confusion with semicontinuity of real-valued functions.
-- A real-valued function $f$ is [lower semicontinuous](/definitions/lower-semicontinuous-setvalued) if $\liminf_{y \to x} f(y) \geq f(x)$.
-  This is equivalent to outer semicontinuity of the epigraph map $x \mapsto [f(x), \infty)$, not to lower semicontinuity of a [set-valued map](/definitions/set-valued-map).
+- A real-valued function $f$ is [lower semicontinuous](/dictionary/definitions/lower-semicontinuous-setvalued) if $\liminf_{y \to x} f(y) \geq f(x)$.
+  This is equivalent to outer semicontinuity of the epigraph map $x \mapsto [f(x), \infty)$, not to lower semicontinuity of a [set-valued map](/dictionary/definitions/set-valued-map).

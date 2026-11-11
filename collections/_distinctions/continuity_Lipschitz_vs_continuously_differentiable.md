@@ -3,9 +3,9 @@ title: Lipschitz continuous vs. continuously differentiable
 kind: hierarchy
 areas: [analysis]
 summary: >
-  Lipschitz continuity and [continuous](/definitions/continuous) differentiability both rule out functions that are too steep or too wild, but in different ways.
-  A [Lipschitz continuous](/definitions/lipschitz-continuous) function has a [bounded](/definitions/bounded) slope but may have corners.
-  A [continuously differentiable](/definitions/continuously-differentiable) function has no corners, but its slope may be unbounded on an unbounded domain.
+  Lipschitz continuity and [continuous](/dictionary/definitions/continuous) differentiability both rule out functions that are too steep or too wild, but in different ways.
+  A [Lipschitz continuous](/dictionary/definitions/lipschitz-continuous) function has a [bounded](/dictionary/definitions/bounded) slope but may have corners.
+  A [continuously differentiable](/dictionary/definitions/continuously-differentiable) function has no corners, but its slope may be unbounded on an unbounded domain.
 relation:
   context: 'On a compact interval $[a, b]$:'
   relation: continuously differentiable ⊂ Lipschitz continuous
@@ -23,6 +23,6 @@ see_also:
 ---
 ## Notes
 
-- If $f$ is [continuously differentiable](/definitions/continuously-differentiable) on $[a, b]$, then $f^{\prime}$ is a [continuous](/definitions/continuous) function on a [compact](/definitions/compact) set, so $\abs{f^{\prime}}$ is [bounded](/definitions/bounded) by some $L$.
-  By the mean value theorem, $f$ is [Lipschitz continuous](/definitions/lipschitz-continuous) with constant $L$.
+- If $f$ is [continuously differentiable](/dictionary/definitions/continuously-differentiable) on $[a, b]$, then $f^{\prime}$ is a [continuous](/dictionary/definitions/continuous) function on a [compact](/dictionary/definitions/compact) set, so $\abs{f^{\prime}}$ is [bounded](/dictionary/definitions/bounded) by some $L$.
+  By the mean value theorem, $f$ is [Lipschitz continuous](/dictionary/definitions/lipschitz-continuous) with constant $L$.
 - On every domain, a continuously differentiable function is _locally_ Lipschitz continuous: it is Lipschitz continuous on each compact interval in its domain.

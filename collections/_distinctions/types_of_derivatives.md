@@ -5,9 +5,9 @@ kind: siblings
 areas: [analysis]
 summary: >
   Functions of one and of several variables have different kinds of derivatives.
-  An [ordinary derivative](/definitions/ordinary-derivative) is for a function of one variable.
+  An [ordinary derivative](/dictionary/definitions/ordinary-derivative) is for a function of one variable.
   A partial derivative varies one of several variables while holding the others fixed.
-  The differential packages all of the [partial derivatives](/definitions/partial-derivative) into a single [linear map](/definitions/linear-map).
+  The differential packages all of the [partial derivatives](/dictionary/definitions/partial-derivative) into a single [linear map](/dictionary/definitions/linear-map).
 terms:
   - ordinary_derivative
   - partial_derivative
@@ -26,4 +26,4 @@ see_also:
 ## Notes
 
 - "Total derivative" is not listed here because it has two conflicting meanings: the derivative along a path, such as $g^{\prime}(t)$ above, and the differential.
-  See [the meanings of "total derivative"](/distinctions/total-derivative).
+  See [the meanings of "total derivative"](/dictionary/distinctions/total-derivative).

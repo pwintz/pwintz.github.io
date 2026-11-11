@@ -5,7 +5,7 @@ applies_to: solutions of hybrid systems
 levels:
   graduate:
     text: |-
-      A solution of a [hybrid system](/definitions/hybrid-system) is _Zeno_ if it has infinitely many jumps while its ordinary time stays [bounded](/definitions/bounded).
+      A solution of a [hybrid system](/dictionary/definitions/hybrid-system) is _Zeno_ if it has infinitely many jumps while its ordinary time stays [bounded](/dictionary/definitions/bounded).
 ---
 
 In a Zeno solution, the time between jumps approaches zero, meaning the system jumps infinitely often jumps infinitely often in a finite amount of time.

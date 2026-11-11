@@ -5,7 +5,7 @@ areas: [linear-algebra]
 summary: >
   Vectors in a vector space are often described by lists of numbers, which depend on a choice of basis.
   A vector is an element of a vector space.
-  Its [coordinate vector](/definitions/coordinate-vector) is a list of numbers (coordinates) that describes it relative to a chosen [basis](/definitions/vector-basis).
+  Its [coordinate vector](/dictionary/definitions/coordinate-vector) is a list of numbers (coordinates) that describes it relative to a chosen [basis](/dictionary/definitions/vector-basis).
   Changing the basis changes the coordinates, not the vector.
 terms:
   - vector

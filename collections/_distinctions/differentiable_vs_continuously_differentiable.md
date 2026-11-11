@@ -4,8 +4,8 @@ kind: hierarchy
 areas: [analysis]
 summary: >
   For a function of a real variable, the derivative $f^{\prime}(x)$ measures the slope of the graph at each point $x$.
-  A [differentiable](/definitions/differentiable) function has a derivative at every point, but the derivative can oscillate wildly as $x$ changes causing the derivative to be discontinuous.
-  A [continuously differentiable](/definitions/continuously-differentiable) function has a derivative at every point, and the derivative is also a [continuous](/definitions/continuous) function of $x$.
+  A [differentiable](/dictionary/definitions/differentiable) function has a derivative at every point, but the derivative can oscillate wildly as $x$ changes causing the derivative to be discontinuous.
+  A [continuously differentiable](/dictionary/definitions/continuously-differentiable) function has a derivative at every point, and the derivative is also a [continuous](/dictionary/definitions/continuous) function of $x$.
 relation: continuously differentiable ⊂ differentiable
 terms:
   - differentiable

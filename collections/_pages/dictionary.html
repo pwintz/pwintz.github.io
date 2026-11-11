@@ -1,0 +1,150 @@
+---
+# Lists the dictionary entries, which `jekyll serve --incremental` does not track, so always rebuild it.
+regenerate: true
+layout: single
+permalink: /dictionary/
+title: Dictionary of Fine (Mathematical) Distinctions
+excerpt: "The differences between mathematical terms that are easily confused."
+---
+<div class="distinctions">
+<p>
+  In mathematics, many terms are similar but not interchangeable.
+  This dictionary groups easily confused terms, defines each one, and explains the distinction with examples to illustrate the difference.
+
+  This work was inspired by the <em>Dictionary of Fine Distinctions: Nuances, Niceties, and Subtle Shades of Meaning</em> by Eli Burnstein.
+</p>
+
+<ul>
+  <li><a href="{{ '/dictionary/distinctions/' | relative_url }}">Distinctions</a>: groups of easily confused terms, with the differences between them.</li>
+  <li><a href="{{ '/dictionary/definitions/' | relative_url }}">Definitions</a>: definitions of each term at several levels, from elementary to graduate.</li>
+  <li><a href="{{ '/dictionary/examples/' | relative_url }}">Examples</a>: examples and non-examples of the terms.</li>
+</ul>
+
+<form class="dictionary-filters dictionary-search" role="search" onsubmit="return false">
+  <label class="dictionary-filters__field dictionary-filters__search">
+    <span>Search the dictionary</span>
+    <input type="search" id="dictionary-search" placeholder="Search distinctions, definitions, and examples, e.g., continuous" autocomplete="off">
+  </label>
+</form>
+<p id="dictionary-search-status" class="dictionary-empty" aria-live="polite" hidden></p>
+<div id="dictionary-search-results" class="dictionary-search">
+  <section class="dictionary-search__group" data-search-group hidden>
+    <h2 class="dictionary-search__heading">Distinctions <span class="dictionary-search__count"></span></h2>
+    <ul class="dictionary-search__list">
+      {%- for d in site.distinctions -%}
+        {%- assign kind = site.data.distinction_kinds | where: "id", d.kind | first %}
+        <li class="dictionary-search__item" hidden data-search="{{ d.title | strip_html | downcase | escape }}">
+          <div class="dictionary-search__title-row">
+            <a class="dictionary-search__title" href="{{ d.url | relative_url }}">{{ d.title }}</a>
+            {%- if kind %}<span class="dictionary-search__meta">{{ kind.name }}</span>{% endif %}
+          </div>
+          {%- if d.summary %}<div class="dictionary-search__text">{{ d.summary | markdownify | remove: '<p>' | remove: '</p>' }}</div>{% endif %}
+        </li>
+      {%- endfor -%}
+    </ul>
+    <button type="button" class="dictionary-search__more" hidden></button>
+  </section>
+  <section class="dictionary-search__group" data-search-group hidden>
+    <h2 class="dictionary-search__heading">Definitions <span class="dictionary-search__count"></span></h2>
+    <ul class="dictionary-search__list">
+      {%- for d in site.definitions -%}
+        {%- capture name %}{{ d.term | default: d.title }}{% endcapture %}
+        <li class="dictionary-search__item" hidden data-search="{{ name | strip_html | downcase | escape }}" data-synonyms="{{ d.synonyms | join: '|' | escape }}">
+          <div class="dictionary-search__title-row">
+            <a class="dictionary-search__title" href="{{ d.url | relative_url }}">{{ name }}</a>
+            <span class="dictionary-search__synonym" hidden></span>
+            {%- if d.applies_to %}<span class="dictionary-search__meta">{{ d.applies_to }}</span>{% endif %}
+            <span class="dictionary-search__levels">
+              {%- for level in site.data.definition_levels %}{% if d.levels[level.id] %}<span class="level-badge">{{ level.name }}</span>{% endif %}{% endfor -%}
+            </span>
+          </div>
+        </li>
+      {%- endfor -%}
+    </ul>
+    <button type="button" class="dictionary-search__more" hidden></button>
+  </section>
+  <section class="dictionary-search__group" data-search-group hidden>
+    <h2 class="dictionary-search__heading">Examples <span class="dictionary-search__count"></span></h2>
+    <ul class="dictionary-search__list">
+      {%- for d in site.examples -%}
+        {%- assign level = site.data.definition_levels | where: "id", d.level | first %}
+        <li class="dictionary-search__item" hidden data-search="{{ d.title | strip_html | downcase | escape }}">
+          <div class="dictionary-search__title-row">
+            <a class="dictionary-search__title" href="{{ d.url | relative_url }}">{{ d.title }}</a>
+            {%- if level %}<span class="dictionary-search__levels"><span class="level-badge">{{ level.name }}</span></span>{% endif %}
+          </div>
+        </li>
+      {%- endfor -%}
+    </ul>
+    <button type="button" class="dictionary-search__more" hidden></button>
+  </section>
+</div>
+<script>
+(() => {
+  const input = document.getElementById("dictionary-search");
+  const status = document.getElementById("dictionary-search-status");
+  const groups = [...document.querySelectorAll("[data-search-group]")];
+  // The most results shown in each group.
+  const LIMIT = 10;
+  // The searchable form of a title or synonym, without LaTeX markup, so that, e.g., "1" does not match
+  // "$\operatorname{arg\hspace{1mu}min}$" (searched as "argmin") and "setdef" does not match "$\setdef{3, 5, 8}$".
+  const plain = text => text
+    .replace(/\\(?:[hv]space|[mk]?kern|mspace|mskip)\*?\s*(?:\{[^}]*\}|[-\d.]+\s*[a-z]{2})/g, "")
+    .replace(/\\[a-zA-Z]+\*?/g, " ")
+    .replace(/[${}^_\\]/g, "")
+    .toLowerCase();
+  const matches = (text, words) => { const t = plain(text); return words.every(w => t.includes(w)); };
+
+  // Groups that the reader expanded to show every match. Reset when the search changes.
+  const expanded = new Set();
+
+  function update() {
+    const words = input.value.toLowerCase().split(/\s+/).filter(Boolean);
+    let total = 0;
+    for (const group of groups) {
+      let count = 0;
+      for (const item of group.querySelectorAll("li")) {
+        // An item matches if its name matches, or if one of its synonyms does, in which case the synonym is shown.
+        let hit = words.length > 0 && matches(item.dataset.search, words);
+        const synonymLabel = item.querySelector(".dictionary-search__synonym");
+        if (synonymLabel) {
+          const synonym = !hit && words.length > 0
+            ? (item.dataset.synonyms || "").split("|").find(s => s && matches(s, words))
+            : undefined;
+          if (synonym) hit = true;
+          synonymLabel.hidden = !synonym;
+          const text = synonym ? `also called ${synonym}` : "";
+          if (synonymLabel.dataset.text !== text) {
+            synonymLabel.dataset.text = text;
+            synonymLabel.textContent = text;
+            // Synonyms can contain math, such as "$+$".
+            if (synonym && synonym.includes("$")) window.MathJax?.typesetPromise?.([synonymLabel]);
+          }
+        }
+        if (hit) count++;
+        item.hidden = !hit || (count > LIMIT && !expanded.has(group));
+      }
+      group.hidden = count === 0;
+      group.querySelector(".dictionary-search__count").textContent = count;
+      const more = group.querySelector(".dictionary-search__more");
+      more.hidden = count <= LIMIT || expanded.has(group);
+      more.textContent = `Show all ${count}`;
+      total += count;
+    }
+    status.textContent = words.length === 0 ? "" : total === 0 ? "No matches." : "";
+    status.hidden = !status.textContent;
+    const params = new URLSearchParams(location.search);
+    if (input.value) params.set("q", input.value); else params.delete("q");
+    history.replaceState(null, "", location.pathname + (params.toString() ? "?" + params : ""));
+  }
+
+  input.value = new URLSearchParams(location.search).get("q") || "";
+  input.addEventListener("input", () => { expanded.clear(); update(); });
+  for (const group of groups) {
+    group.querySelector(".dictionary-search__more").addEventListener("click", () => { expanded.add(group); update(); });
+  }
+  update();
+})();
+</script>
+
+</div>

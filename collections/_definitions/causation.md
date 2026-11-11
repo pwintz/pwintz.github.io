@@ -20,6 +20,6 @@ properties:
   - >-
     Intervening is different from observing: $P(Y \mid \operatorname{do}(X = x))$ describes what happens if $X$ is _set_ to $x$, and the conditional probability $P(Y \mid X = x)$ describes what happens among the cases in which $X$ _happens to equal_ $x$.
   - >-
-    A [correlation](/definitions/correlation) between $X$ and $Y$ can come from $X$ causing $Y$, from $Y$ causing $X$, from a common cause of both (a _confounder_), or from chance.
+    A [correlation](/dictionary/definitions/correlation) between $X$ and $Y$ can come from $X$ causing $Y$, from $Y$ causing $X$, from a common cause of both (a _confounder_), or from chance.
     A randomized experiment sets $X$ by a coin flip, which removes the confounders, so a correlation in a randomized experiment indicates causation.
 ---

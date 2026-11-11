@@ -5,7 +5,7 @@ kind: family
 areas: [sets]
 summary: >
   "Add" is used informally for many ways of combining things.
-  Addition combines numbers (or vectors); [union](/definitions/set-union) combines sets; insert, append, and prepend put one element into a collection; concatenation joins lists; and a [Minkowski sum](/definitions/minkowski-sum) adds sets element by element.
+  Addition combines numbers (or vectors); [union](/dictionary/definitions/set-union) combines sets; insert, append, and prepend put one element into a collection; concatenation joins lists; and a [Minkowski sum](/dictionary/definitions/minkowski-sum) adds sets element by element.
 terms:
   - addition
   - set_union
@@ -28,6 +28,6 @@ see_also:
 ---
 ## Notes
 
-- "Sum" usually means the result of addition, but also appears in "direct sum" of vector spaces and "[Minkowski sum](/definitions/minkowski-sum)" of sets.
+- "Sum" usually means the result of addition, but also appears in "direct sum" of vector spaces and "[Minkowski sum](/dictionary/definitions/minkowski-sum)" of sets.
 - To _refine_ a partition or cover is to split its pieces further, which adds pieces but is not addition.
-  See [types of splitting](/distinctions/types-of-splitting).
+  See [types of splitting](/dictionary/distinctions/types-of-splitting).

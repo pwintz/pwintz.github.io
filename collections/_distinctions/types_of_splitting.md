@@ -7,7 +7,7 @@ summary: >
   Several operations split something into pieces.
   Division splits a number.
   A partition splits a set into non-overlapping pieces, but a partition of an interval is a list of cut points whose pieces share endpoints.
-  A [refinement](/definitions/refinement) splits pieces further.
+  A [refinement](/dictionary/definitions/refinement) splits pieces further.
   Separated sets are disjoint and not even touching.
 terms:
   - division

@@ -4,7 +4,7 @@ kind: siblings
 areas: [analysis, geometry]
 summary: >
   "Convex" describes both sets and functions, and the two meanings are linked.
-  A [convex set](/definitions/convex-set) contains the segment between every two of its points, and a [convex function](/definitions/convex-function) lies on or below the segment between every two points on its graph.
+  A [convex set](/dictionary/definitions/convex-set) contains the segment between every two of its points, and a [convex function](/dictionary/definitions/convex-function) lies on or below the segment between every two points on its graph.
   A function is convex exactly when the region on and above its graph is a convex set.
 terms:
   - convex_set

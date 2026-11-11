@@ -4,9 +4,9 @@ kind: family
 areas: [analysis, topology]
 summary: >
   Several terms describe a set that is "small" or "negligible," even when it has infinitely many points.
-  "[Nowhere dense](/definitions/nowhere-dense)" means small in a topological sense (and a [meager](/definitions/meager-set) set is a [countable](/definitions/countable) [union](/definitions/set-union) of nowhere dense sets), and "[measure zero](/definitions/measure-zero)" means small in a size sense.
+  "[Nowhere dense](/dictionary/definitions/nowhere-dense)" means small in a topological sense (and a [meager](/dictionary/definitions/meager-set) set is a [countable](/dictionary/definitions/countable) [union](/dictionary/definitions/set-union) of nowhere dense sets), and "[measure zero](/dictionary/definitions/measure-zero)" means small in a size sense.
   Neither implies the other.
-  An [event](/definitions/event) of [probability zero](/definitions/probability-zero) is a set of measure zero for a [probability measure](/definitions/probability-measure).
+  An [event](/dictionary/definitions/event) of [probability zero](/dictionary/definitions/probability-zero) is a set of measure zero for a [probability measure](/dictionary/definitions/probability-measure).
 terms:
   - nowhere_dense
   - meager_set
@@ -25,7 +25,7 @@ see_also:
 ---
 ## Notes
 
-- A [countable](/definitions/countable) [union](/definitions/set-union) of [nowhere dense](/definitions/nowhere-dense) sets is called _meager_ (or of first category).
+- A [countable](/dictionary/definitions/countable) [union](/dictionary/definitions/set-union) of [nowhere dense](/dictionary/definitions/nowhere-dense) sets is called _meager_ (or of first category).
   The Baire category theorem says $\reals$ is not meager.
   
-- "Almost every" means "except on a set of [measure zero](/definitions/measure-zero)," and "almost never" means "with [probability zero](/definitions/probability-zero)."
+- "Almost every" means "except on a set of [measure zero](/dictionary/definitions/measure-zero)," and "almost never" means "with [probability zero](/dictionary/definitions/probability-zero)."

@@ -9,7 +9,7 @@ levels:
   undergraduate:
     context: affine spaces
     text: |-
-      Consider an [affine](/definitions/affine-system) space, which has locations but no chosen origin.
+      Consider an [affine](/dictionary/definitions/affine-system) space, which has locations but no chosen origin.
       A _point_ is an element of an affine space.
-      The difference between two points is a [vector](/definitions/vector) (the [displacement](/definitions/displacement) between them), and adding a vector to a point gives a point, but two points cannot be added.
+      The difference between two points is a [vector](/dictionary/definitions/vector) (the [displacement](/dictionary/definitions/displacement) between them), and adding a vector to a point gives a point, but two points cannot be added.
 ---

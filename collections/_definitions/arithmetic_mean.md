@@ -17,5 +17,5 @@ levels:
 
       $$\bar{x} = \frac{1}{n} \sum_{i=1}^n x_i.$$
 ---
-There are other means, such as the [geometric mean](/definitions/geometric-mean) $\sqrt[n]{x_1 x_2 \cdots x_n}$ and the harmonic mean.
+There are other means, such as the [geometric mean](/dictionary/definitions/geometric-mean) $\sqrt[n]{x_1 x_2 \cdots x_n}$ and the harmonic mean.
 "Mean" alone usually means the arithmetic mean.

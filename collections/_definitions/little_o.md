@@ -8,7 +8,7 @@ levels:
   high-school:
     text: |-
       Consider two functions $f$ and $g$, and compare their sizes for large $x$.
-      We write $f(x) = o(g(x))$ as $x \to \infty$, read "$f$ is _little o_ of $g$," to mean that $f(x)$ becomes negligible compared with $g(x)$: the [ratio](/definitions/ratio) $f(x) / g(x)$ approaches $0$.
+      We write $f(x) = o(g(x))$ as $x \to \infty$, read "$f$ is _little o_ of $g$," to mean that $f(x)$ becomes negligible compared with $g(x)$: the [ratio](/dictionary/definitions/ratio) $f(x) / g(x)$ approaches $0$.
   undergraduate:
     text: |-
       Consider two functions $f$ and $g$.

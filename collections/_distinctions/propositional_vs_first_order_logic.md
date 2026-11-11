@@ -5,8 +5,8 @@ kind: hierarchy
 areas: [sets]
 summary: >
   Formal logics differ in how far they look inside statements.
-  [Propositional logic](/definitions/propositional-logic), also called zeroth-order logic, treats each statement as a unit $p$ that is true or false, and combines the units with [logical connectives](/definitions/logical-connective).
-  [First-order logic](/definitions/first-order-logic) looks inside statements: a statement can say that [objects](/definitions/object-logic) have properties, and [quantifiers](/definitions/quantifier) can say "for all objects" or "there exists an object."
+  [Propositional logic](/dictionary/definitions/propositional-logic), also called zeroth-order logic, treats each statement as a unit $p$ that is true or false, and combines the units with [logical connectives](/dictionary/definitions/logical-connective).
+  [First-order logic](/dictionary/definitions/first-order-logic) looks inside statements: a statement can say that [objects](/dictionary/definitions/object-logic) have properties, and [quantifiers](/dictionary/definitions/quantifier) can say "for all objects" or "there exists an object."
 relation: propositional logic ⊂ first-order logic
 terms:
   - propositional_logic
@@ -23,4 +23,4 @@ see_also:
 ---
 ## Notes
 
-- "Zeroth-order" fits the pattern of the names: [first-order logic](/definitions/first-order-logic) quantifies over objects, second-order logic also quantifies over sets of objects, and [zeroth-order logic](/definitions/propositional-logic) quantifies over nothing.
+- "Zeroth-order" fits the pattern of the names: [first-order logic](/dictionary/definitions/first-order-logic) quantifies over objects, second-order logic also quantifies over sets of objects, and [zeroth-order logic](/dictionary/definitions/propositional-logic) quantifies over nothing.

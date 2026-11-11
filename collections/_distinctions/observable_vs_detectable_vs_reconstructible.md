@@ -4,8 +4,8 @@ kind: hierarchy
 areas: [control]
 summary: >
   Observability, reconstructibility, and detectability describe how much the output of a system reveals about its state.
-  An [observable](/definitions/observable) system's _initial_ state can be determined from its output, whereas a [reconstructible](/definitions/reconstructible) system's _current_ state can be determined.
-  A [detectable](/definitions/detectable) system may have unobservable parts but those parts must that decay to zero so that an observer's error still converges.
+  An [observable](/dictionary/definitions/observable) system's _initial_ state can be determined from its output, whereas a [reconstructible](/dictionary/definitions/reconstructible) system's _current_ state can be determined.
+  A [detectable](/dictionary/definitions/detectable) system may have unobservable parts but those parts must that decay to zero so that an observer's error still converges.
 relation: >
   observable ⊂ detectable, and for continuous-time linear systems, observable = reconstructible.
 terms:
@@ -24,7 +24,7 @@ see_also:
 ---
 ## Duality
 
-Each notion is dual to one on the [controllability page](/distinctions/controllable-vs-reachable-vs-stabilizable).
+Each notion is dual to one on the [controllability page](/dictionary/distinctions/controllable-vs-reachable-vs-stabilizable).
 With $(A, C)$ paired with $(A^{\top}, C^{\top})$:
 
 - observability is dual to reachability,

@@ -5,7 +5,7 @@ kind: hierarchy
 areas: [analysis]
 summary: >
   Two conditions say that the terms of a sequence settle down, and they differ in whether they mention a limit.
-  A convergent sequence gets close to a limit, and a [Cauchy sequence](/definitions/cauchy-sequence) has terms that get close to each other.
+  A convergent sequence gets close to a limit, and a [Cauchy sequence](/dictionary/definitions/cauchy-sequence) has terms that get close to each other.
   Every convergent sequence is Cauchy, and in a complete space, such as $\reals$, every Cauchy sequence converges.
 relation: convergent ⊂ Cauchy
 terms:

@@ -4,10 +4,10 @@ kind: siblings
 areas: [geometry, linear-algebra]
 summary: >
   Right angles, perpendicular lines, orthogonal vectors, and normal vectors all describe things that meet "squarely."
-  A [right angle](/definitions/right-angle) is an angle of $90^\circ$, so the term describes an angle.
-  [Perpendicular](/definitions/perpendicular) describes lines or planes that intersect and form right angles.
-  [Orthogonal](/definitions/orthogonal-vectors) describes vectors whose [inner product](/definitions/inner-product) is $0$, which extends the idea to vectors that do not meet, such as directions of skew lines, to the [zero vector](/definitions/zero-vector), and to vectors that are not arrows, such as functions.
-  A [normal vector](/definitions/normal-vector) is perpendicular to a line, curve, or surface at a point, so the term describes a vector relative to a shape.
+  A [right angle](/dictionary/definitions/right-angle) is an angle of $90^\circ$, so the term describes an angle.
+  [Perpendicular](/dictionary/definitions/perpendicular) describes lines or planes that intersect and form right angles.
+  [Orthogonal](/dictionary/definitions/orthogonal-vectors) describes vectors whose [inner product](/dictionary/definitions/inner-product) is $0$, which extends the idea to vectors that do not meet, such as directions of skew lines, to the [zero vector](/dictionary/definitions/zero-vector), and to vectors that are not arrows, such as functions.
+  A [normal vector](/dictionary/definitions/normal-vector) is perpendicular to a line, curve, or surface at a point, so the term describes a vector relative to a shape.
 terms:
   - right_angle
   - perpendicular
@@ -33,5 +33,5 @@ see_also:
 ---
 ## Notes
 
-- In an [inner product space](/definitions/inner-product-space), the angle $\theta$ between nonzero vectors $u$ and $v$ is defined by $\cos \theta = \ip{u}{v} / (\norm{u} \norm{v})$, so nonzero [orthogonal vectors](/definitions/orthogonal-vectors) form a [right angle](/definitions/right-angle) in this generalized sense.
-- Some authors use "[perpendicular](/definitions/perpendicular)" and "orthogonal" as synonyms for nonzero vectors.
+- In an [inner product space](/dictionary/definitions/inner-product-space), the angle $\theta$ between nonzero vectors $u$ and $v$ is defined by $\cos \theta = \ip{u}{v} / (\norm{u} \norm{v})$, so nonzero [orthogonal vectors](/dictionary/definitions/orthogonal-vectors) form a [right angle](/dictionary/definitions/right-angle) in this generalized sense.
+- Some authors use "[perpendicular](/dictionary/definitions/perpendicular)" and "orthogonal" as synonyms for nonzero vectors.

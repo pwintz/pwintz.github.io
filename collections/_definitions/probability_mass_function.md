@@ -7,8 +7,8 @@ synonyms: [PMF]
 levels:
   high-school:
     text: |-
-      Consider a [random variable](/definitions/random-variable) $X$ that takes finitely or countably many values.
-      The _probability mass function_ of $X$ gives the [probability](/definitions/probability) of each value:
+      Consider a [random variable](/dictionary/definitions/random-variable) $X$ that takes finitely or countably many values.
+      The _probability mass function_ of $X$ gives the [probability](/dictionary/definitions/probability) of each value:
 
       $$p(x) = P(X = x).$$
 properties:

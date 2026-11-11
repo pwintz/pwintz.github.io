@@ -5,7 +5,7 @@ kind: siblings
 areas: [topology, analysis, geometry]
 summary: >
   Given a set in a space, every point of the space falls into exactly one of three parts.
-  The interior of a set is the part well inside it, the [exterior](/definitions/exterior) is the part well outside it, and the boundary is where the two meet.
+  The interior of a set is the part well inside it, the [exterior](/dictionary/definitions/exterior) is the part well outside it, and the boundary is where the two meet.
   Every point of the space is in exactly one of the three.
 relation: >
   For every set $A$, the space is the disjoint union of $\operatorname{int} A$, $\partial A$, and $\operatorname{ext} A$.
@@ -31,5 +31,5 @@ see_also:
 ## Notes
 
 - "Inside" in everyday speech often means "enclosed by."
-  A [circle](/definitions/circle) encloses a disk, but the circle's interior, as a set, is empty.
+  A [circle](/dictionary/definitions/circle) encloses a disk, but the circle's interior, as a set, is empty.
 - The closure of a set is its interior together with its boundary.

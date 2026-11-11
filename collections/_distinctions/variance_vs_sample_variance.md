@@ -4,8 +4,8 @@ kind: siblings
 areas: [statistics]
 summary: >
   The spread of data is measured by the average squared distance of the data from their mean.
-  The [variance](/definitions/variance) of the data divides the sum of the squared distances by the number $n$ of data points, which describes the data themselves.
-  The [sample variance](/definitions/sample-variance) divides by $n - 1$ instead, which gives an unbiased estimate of the variance of the population that the data were sampled from.
+  The [variance](/dictionary/definitions/variance) of the data divides the sum of the squared distances by the number $n$ of data points, which describes the data themselves.
+  The [sample variance](/dictionary/definitions/sample-variance) divides by $n - 1$ instead, which gives an unbiased estimate of the variance of the population that the data were sampled from.
 terms:
   - variance
   - sample_variance

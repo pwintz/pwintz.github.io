@@ -5,8 +5,8 @@ kind: siblings
 areas: [control]
 summary: >
   A feedback controller may or may not have memory.
-  A [static feedback](/definitions/static-feedback) law computes the input from the current measurement alone.
-  A [dynamic feedback](/definitions/dynamic-feedback) law has its own state, so the input can depend on the history of the measurements.
+  A [static feedback](/dictionary/definitions/static-feedback) law computes the input from the current measurement alone.
+  A [dynamic feedback](/dictionary/definitions/dynamic-feedback) law has its own state, so the input can depend on the history of the measurements.
 terms:
   - static_feedback
   - dynamic_feedback
@@ -23,6 +23,6 @@ see_also:
 ## Notes
 
 - "Static" does not mean "constant."
-  A [static feedback](/definitions/static-feedback) law $u = k(y)$ can be nonlinear and still has no memory.
-- The double integrator with position output cannot be stabilized by static [output feedback](/definitions/output-feedback), but a dynamic controller, such as a lead compensator or an observer-based controller, stabilizes it.
+  A [static feedback](/dictionary/definitions/static-feedback) law $u = k(y)$ can be nonlinear and still has no memory.
+- The double integrator with position output cannot be stabilized by static [output feedback](/dictionary/definitions/output-feedback), but a dynamic controller, such as a lead compensator or an observer-based controller, stabilizes it.
 - A dynamic controller can be viewed as static feedback for an augmented system whose state includes the controller state.

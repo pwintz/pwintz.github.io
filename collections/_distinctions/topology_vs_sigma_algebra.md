@@ -3,9 +3,9 @@ title: Topology vs. σ-algebra
 kind: siblings
 areas: [topology, analysis, statistics]
 summary: >
-  Topologies and σ-algebras are both collections of [subsets](/definitions/subset) that are closed under some operations.
-  A [topology](/definitions/topology) is closed under arbitrary [unions](/definitions/set-union) and finite [intersections](/definitions/set-intersection), and describes nearness.
-  A [σ-algebra](/definitions/sigma-algebra) is closed under complements and [countable](/definitions/countable) unions, and describes what can be measured.
+  Topologies and σ-algebras are both collections of [subsets](/dictionary/definitions/subset) that are closed under some operations.
+  A [topology](/dictionary/definitions/topology) is closed under arbitrary [unions](/dictionary/definitions/set-union) and finite [intersections](/dictionary/definitions/set-intersection), and describes nearness.
+  A [σ-algebra](/dictionary/definitions/sigma-algebra) is closed under complements and [countable](/dictionary/definitions/countable) unions, and describes what can be measured.
 terms:
   - topology
   - sigma_algebra
@@ -29,6 +29,6 @@ see_also:
 ---
 ## Notes
 
-- The axioms differ in two ways: a [topology](/definitions/topology) allows any union (even [uncountable](/definitions/uncountable)) but not complements, while a [σ-algebra](/definitions/sigma-algebra) allows complements but only [countable](/definitions/countable) [unions](/definitions/set-union).
+- The axioms differ in two ways: a [topology](/dictionary/definitions/topology) allows any union (even [uncountable](/dictionary/definitions/uncountable)) but not complements, while a [σ-algebra](/dictionary/definitions/sigma-algebra) allows complements but only [countable](/dictionary/definitions/countable) [unions](/dictionary/definitions/set-union).
 
-- [Continuous](/definitions/continuous) maps pull [open sets](/definitions/open-set) back to open sets; [measurable maps](/definitions/measurable-map) pull [measurable sets](/definitions/measurable-set) back to measurable sets.
+- [Continuous](/dictionary/definitions/continuous) maps pull [open sets](/dictionary/definitions/open-set) back to open sets; [measurable maps](/dictionary/definitions/measurable-map) pull [measurable sets](/dictionary/definitions/measurable-set) back to measurable sets.

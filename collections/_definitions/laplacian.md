@@ -16,5 +16,5 @@ levels:
 
       $$\Delta f = \nabla \cdot \nabla f = \frac{\partial^2 f}{\partial x_1^2} + \dots + \frac{\partial^2 f}{\partial x_n^2},$$
 
-      the [divergence](/definitions/divergence) of the [gradient](/definitions/gradient).
+      the [divergence](/dictionary/definitions/divergence) of the [gradient](/dictionary/definitions/gradient).
 ---

@@ -11,8 +11,8 @@ levels:
       The quantities are _correlated_ if they tend to rise and fall together (positive correlation) or if one tends to rise when the other falls (negative correlation).
   undergraduate:
     text: |-
-      Consider [random variables](/definitions/random-variable) $X$ and $Y$ with positive [standard deviations](/definitions/standard-deviation) $\sigma_X$ and $\sigma_Y$.
-      The _correlation_ of $X$ and $Y$ is their [covariance](/definitions/covariance) scaled by the standard deviations:
+      Consider [random variables](/dictionary/definitions/random-variable) $X$ and $Y$ with positive [standard deviations](/dictionary/definitions/standard-deviation) $\sigma_X$ and $\sigma_Y$.
+      The _correlation_ of $X$ and $Y$ is their [covariance](/dictionary/definitions/covariance) scaled by the standard deviations:
 
       $$\rho(X, Y) = \frac{\operatorname{Cov}(X, Y)}{\sigma_X \sigma_Y}.$$
 
@@ -23,5 +23,5 @@ properties:
   - >-
     Correlation measures only how close the relationship is to a straight line: if $X$ is uniform on $[-1, 1]$ and $Y = X^2$, then $\rho(X, Y) = 0$, although $Y$ is determined by $X$.
   - >-
-    The correlation does not depend on the units of $X$ and $Y$, unlike the [covariance](/definitions/covariance).
+    The correlation does not depend on the units of $X$ and $Y$, unlike the [covariance](/dictionary/definitions/covariance).
 ---

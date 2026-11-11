@@ -7,16 +7,16 @@ synonyms: [unbiased sample variance]
 levels:
   high-school:
     text: |-
-      Consider data $x_1, \dots, x_n$ that are a random sample from a larger population, with sample [mean](/definitions/arithmetic-mean) $\bar{x}$.
+      Consider data $x_1, \dots, x_n$ that are a random sample from a larger population, with sample [mean](/dictionary/definitions/arithmetic-mean) $\bar{x}$.
       The _sample variance_ of the data is the sum of the squared distances from the mean divided by $n - 1$:
 
       $$s^2 = \frac{1}{n - 1} \sum_{i = 1}^{n} (x_i - \bar{x})^2.$$
 
-      The sample variance estimates the [variance](/definitions/variance) of the whole population.
+      The sample variance estimates the [variance](/dictionary/definitions/variance) of the whole population.
   undergraduate:
     context: statistics
     text: |-
-      Consider independent [random variables](/definitions/random-variable) $X_1, \dots, X_n$ that have the same distribution, with sample mean $\bar{X} = \frac{1}{n} \sum_{i = 1}^{n} X_i$, such that $n \geq 2$.
+      Consider independent [random variables](/dictionary/definitions/random-variable) $X_1, \dots, X_n$ that have the same distribution, with sample mean $\bar{X} = \frac{1}{n} \sum_{i = 1}^{n} X_i$, such that $n \geq 2$.
       The _sample variance_ is the random variable
 
       $$S^2 = \frac{1}{n - 1} \sum_{i = 1}^{n} (X_i - \bar{X})^2.$$

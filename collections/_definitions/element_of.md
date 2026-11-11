@@ -12,6 +12,6 @@ levels:
   graduate:
     context: axiomatic set theory
     text: |-
-      _Element of_, written $\in$, is the primitive [relation](/definitions/relation) of set theory.
+      _Element of_, written $\in$, is the primitive [relation](/dictionary/definitions/relation) of set theory.
       All other set-theoretic notions are defined in terms of it.
 ---

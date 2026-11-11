@@ -14,7 +14,7 @@ levels:
   undergraduate:
     context: classical mechanics
     text: |-
-      Consider a mechanical system with generalized coordinates $q = (q_1, \dots, q_n)$, a [Lagrangian](/definitions/lagrangian) $L(q, \dot{q}, t)$, and the [conjugate momenta](/definitions/conjugate-momentum) $p_i = \partial L / \partial \dot{q}_i$.
+      Consider a mechanical system with generalized coordinates $q = (q_1, \dots, q_n)$, a [Lagrangian](/dictionary/definitions/lagrangian) $L(q, \dot{q}, t)$, and the [conjugate momenta](/dictionary/definitions/conjugate-momentum) $p_i = \partial L / \partial \dot{q}_i$.
       The _Hamiltonian_ of the system is
 
       $$H(q, p, t) = \sum_{i = 1}^{n} p_i \dot{q}_i - L(q, \dot{q}, t),$$
@@ -30,4 +30,4 @@ properties:
 ---
 The passage from $L(q, \dot{q}, t)$ to $H(q, p, t)$ is the Legendre transform in the velocities.
 
-In [optimal control](/definitions/optimal-control), the _Hamiltonian_ $H(x, u, \lambda) = \ell(x, u) + \lambda^\top f(x, u)$ of Pontryagin's maximum principle generalizes the Hamiltonian of mechanics, with the costate $\lambda$ in place of the momenta.
+In [optimal control](/dictionary/definitions/optimal-control), the _Hamiltonian_ $H(x, u, \lambda) = \ell(x, u) + \lambda^\top f(x, u)$ of Pontryagin's maximum principle generalizes the Hamiltonian of mechanics, with the costate $\lambda$ in place of the momenta.

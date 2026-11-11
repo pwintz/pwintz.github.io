@@ -4,7 +4,7 @@ title: "Autonomous: time-invariant vs. no input"
 kind: conflicting
 areas: [dynamics, control]
 summary: >
-  "Autonomous" means [time-invariant](/definitions/time-invariant) to some authors (no explicit dependence on $t$) and "has no input" to others.
+  "Autonomous" means [time-invariant](/dictionary/definitions/time-invariant) to some authors (no explicit dependence on $t$) and "has no input" to others.
   The two meanings disagree for time-varying systems without inputs and for time-invariant systems with inputs.
 terms:
   - autonomous_time_invariant
@@ -20,5 +20,5 @@ see_also:
 ---
 ## Avoiding the ambiguity
 
-Say "[time-invariant](/definitions/time-invariant)" or "with no input" instead of "autonomous."
-These terms, and "[unforced](/definitions/unforced)," are compared on [time-invariant vs. unforced](/distinctions/time-invariant-vs-unforced).
+Say "[time-invariant](/dictionary/definitions/time-invariant)" or "with no input" instead of "autonomous."
+These terms, and "[unforced](/dictionary/definitions/unforced)," are compared on [time-invariant vs. unforced](/dictionary/distinctions/time-invariant-vs-unforced).

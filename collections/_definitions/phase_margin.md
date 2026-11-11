@@ -6,11 +6,11 @@ applies_to: feedback loops
 levels:
   high-school:
     text: |-
-      Consider a [feedback](/definitions/feedback) loop, and extra phase lag that might be added to it, such as from a time delay.
-      The _phase margin_ of the loop is how much extra phase lag the loop can tolerate before the [closed loop](/definitions/closed-loop) becomes unstable.
+      Consider a [feedback](/dictionary/definitions/feedback) loop, and extra phase lag that might be added to it, such as from a time delay.
+      The _phase margin_ of the loop is how much extra phase lag the loop can tolerate before the [closed loop](/dictionary/definitions/closed-loop) becomes unstable.
   undergraduate:
     text: |-
-      Consider a stable [feedback](/definitions/feedback) loop with open-loop transfer function $L(s)$, whose magnitude crosses $1$ at the frequency $\omega_{g}$.
+      Consider a stable [feedback](/dictionary/definitions/feedback) loop with open-loop transfer function $L(s)$, whose magnitude crosses $1$ at the frequency $\omega_{g}$.
       The _phase margin_ of the loop is $180^{\circ} + \angle L(i \omega_{g})$.
 properties:
   - >-

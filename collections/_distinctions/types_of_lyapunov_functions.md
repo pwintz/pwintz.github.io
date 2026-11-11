@@ -4,10 +4,10 @@ title: Types of Lyapunov functions
 kind: siblings
 areas: [dynamics, control]
 summary: >
-  [Lyapunov functions](/definitions/lyapunov-function) prove stability, and variants handle systems with [control inputs](/definitions/control-input) or [disturbances](/definitions/disturbance).
+  [Lyapunov functions](/dictionary/definitions/lyapunov-function) prove stability, and variants handle systems with [control inputs](/dictionary/definitions/control-input) or [disturbances](/dictionary/definitions/disturbance).
   A Lyapunov function decreases along the solutions of a system without inputs.
-  A [control Lyapunov function](/definitions/control-lyapunov-function) can be made to decrease by choosing the input.
-  An [ISS-Lyapunov function](/definitions/iss-lyapunov-function) decreases whenever the state is large compared with a disturbance input.
+  A [control Lyapunov function](/dictionary/definitions/control-lyapunov-function) can be made to decrease by choosing the input.
+  An [ISS-Lyapunov function](/dictionary/definitions/iss-lyapunov-function) decreases whenever the state is large compared with a disturbance input.
 terms:
   - lyapunov_function
   - control_lyapunov_function
@@ -27,7 +27,7 @@ see_also:
 ---
 ## Notes
 
-- A [Lyapunov function](/definitions/lyapunov-function) is a property of a system with no input (or a fixed feedback law).
-  A [control Lyapunov function](/definitions/control-lyapunov-function) is a property of a control system, before a feedback law is chosen.
+- A [Lyapunov function](/dictionary/definitions/lyapunov-function) is a property of a system with no input (or a fixed feedback law).
+  A [control Lyapunov function](/dictionary/definitions/control-lyapunov-function) is a property of a control system, before a feedback law is chosen.
 - Lyapunov's direct method uses a Lyapunov function to prove stability without solving the system.
-  See [stability criteria](/distinctions/types-stability-criterion).
+  See [stability criteria](/dictionary/distinctions/types-stability-criterion).

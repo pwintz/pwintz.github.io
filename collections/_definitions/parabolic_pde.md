@@ -20,9 +20,9 @@ levels:
 
       $$\sum_{i,j} a_{ij} \partial_i \partial_j u + (\text{lower-order terms}) = 0.$$
 
-      The equation is _parabolic_ where the [coefficient](/definitions/coefficient) [matrix](/definitions/matrix) $(a_{ij})$ has one zero [eigenvalue](/definitions/eigenvalue) and all of its other eigenvalues have the same sign (with a first-order term in the direction of the zero eigenvalue, such as $u_t$).
+      The equation is _parabolic_ where the [coefficient](/dictionary/definitions/coefficient) [matrix](/dictionary/definitions/matrix) $(a_{ij})$ has one zero [eigenvalue](/dictionary/definitions/eigenvalue) and all of its other eigenvalues have the same sign (with a first-order term in the direction of the zero eigenvalue, such as $u_t$).
 properties:
   - >-
     Parabolic equations typically describe diffusion.
-    [Disturbances](/definitions/disturbance) spread instantly but are smoothed out over time.
+    [Disturbances](/dictionary/definitions/disturbance) spread instantly but are smoothed out over time.
 ---

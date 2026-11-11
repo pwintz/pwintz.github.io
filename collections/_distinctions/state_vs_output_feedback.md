@@ -3,9 +3,9 @@ title: State feedback vs. output feedback
 kind: siblings
 areas: [control]
 summary: >
-  A [feedback](/definitions/feedback) controller computes its input from information about the system, which may be more or less complete.
-  [State feedback](/definitions/state-feedback) uses the full state, which is rarely measured directly.
-  [Output feedback](/definitions/output-feedback) uses only the measured output, and it may need an [observer](/definitions/observer) or other dynamics to do what state feedback can.
+  A [feedback](/dictionary/definitions/feedback) controller computes its input from information about the system, which may be more or less complete.
+  [State feedback](/dictionary/definitions/state-feedback) uses the full state, which is rarely measured directly.
+  [Output feedback](/dictionary/definitions/output-feedback) uses only the measured output, and it may need an [observer](/dictionary/definitions/observer) or other dynamics to do what state feedback can.
 terms:
   - state_feedback
   - output_feedback

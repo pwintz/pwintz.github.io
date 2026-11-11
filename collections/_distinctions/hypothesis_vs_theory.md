@@ -31,4 +31,4 @@ see_also:
 
 - Scientific laws and theories are not ranked: a theory does not become a law with more evidence.
 
-- In mathematics, a "hypothesis" usually means an [assumption](/definitions/assumption) of a theorem, and a "theory" is a body of results, such as group theory.
+- In mathematics, a "hypothesis" usually means an [assumption](/dictionary/definitions/assumption) of a theorem, and a "theory" is a body of results, such as group theory.

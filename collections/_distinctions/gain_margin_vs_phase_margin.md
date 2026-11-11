@@ -4,8 +4,8 @@ title: Gain margin vs. phase margin
 kind: siblings
 areas: [control]
 summary: >
-  Gain and [phase margins](/definitions/phase-margin) measure how far a feedback loop is from becoming unstable.
-  The [gain margin](/definitions/gain-margin) is how much the loop gain can grow before instability.
+  Gain and [phase margins](/dictionary/definitions/phase-margin) measure how far a feedback loop is from becoming unstable.
+  The [gain margin](/dictionary/definitions/gain-margin) is how much the loop gain can grow before instability.
   The phase margin is how much extra phase lag, such as from a time delay, the loop can tolerate.
   They are measured at different frequencies, and neither one alone guarantees robustness.
 terms:
@@ -17,10 +17,10 @@ see_also:
 ---
 ## Examples
 
-The [closed loop](/definitions/closed-loop) $1 + L(s) = 0$ with $L(s) = \frac{K}{(s + 1)^3}$ is stable exactly when $K < 8$ (by the [Routh–Hurwitz](/definitions/routh-hurwitz) criterion).
+The [closed loop](/dictionary/definitions/closed-loop) $1 + L(s) = 0$ with $L(s) = \frac{K}{(s + 1)^3}$ is stable exactly when $K < 8$ (by the [Routh–Hurwitz](/dictionary/definitions/routh-hurwitz) criterion).
 The phase of $L$ reaches $-180^{\circ}$ at $\omega_{p} = \sqrt{3}$, where $\abs{L} = K / 8$.
 
-| [Open loop](/definitions/open-loop) $L(s)$ | [Gain margin](/definitions/gain-margin) | Phase margin | Closed loop |
+| [Open loop](/dictionary/definitions/open-loop) $L(s)$ | [Gain margin](/dictionary/definitions/gain-margin) | Phase margin | Closed loop |
 | --- | --- | --- | --- |
 | $\frac{1}{s + 1}$ | infinite | $180^{\circ}$ | stable |
 | $\frac{2}{(s + 1)^3}$ | $4$ (about $12$ dB) | about $68^{\circ}$ | stable |
@@ -33,6 +33,6 @@ For $L(s) = \frac{2}{(s + 1)^3}$, the gain crossover frequency is $\omega_{g} \a
 
 - The gain margin is read where the phase is $-180^{\circ}$, and the phase margin is read where the magnitude is $1$.
   These are different frequencies.
-- Large gain and [phase margins](/definitions/phase-margin) do not rule out a [Nyquist](/definitions/nyquist-criterion) plot that passes close to $-1$ at some other frequency.
+- Large gain and [phase margins](/dictionary/definitions/phase-margin) do not rule out a [Nyquist](/dictionary/definitions/nyquist-criterion) plot that passes close to $-1$ at some other frequency.
   The distance from the Nyquist plot to $-1$, which is the reciprocal of the peak of the sensitivity function, is a more reliable measure of robustness.
 - Typical design targets are a gain margin of at least $2$ ($6$ dB) and a phase margin of $30^{\circ}$ to $60^{\circ}$.

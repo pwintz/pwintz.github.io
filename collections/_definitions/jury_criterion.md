@@ -7,7 +7,7 @@ levels:
   undergraduate:
     context: discrete-time linear systems
     text: |-
-      Consider a discrete-time linear system, which is stable when all roots of its characteristic [polynomial](/definitions/polynomial) lie strictly inside the unit [circle](/definitions/circle).
-      The _Jury_ stability criterion is a test, using the [coefficients](/definitions/coefficient) of the polynomial, for whether all of its roots lie there.
-      It is the discrete-time counterpart of the [Routh–Hurwitz](/definitions/routh-hurwitz) criterion.
+      Consider a discrete-time linear system, which is stable when all roots of its characteristic [polynomial](/dictionary/definitions/polynomial) lie strictly inside the unit [circle](/dictionary/definitions/circle).
+      The _Jury_ stability criterion is a test, using the [coefficients](/dictionary/definitions/coefficient) of the polynomial, for whether all of its roots lie there.
+      It is the discrete-time counterpart of the [Routh–Hurwitz](/dictionary/definitions/routh-hurwitz) criterion.
 ---

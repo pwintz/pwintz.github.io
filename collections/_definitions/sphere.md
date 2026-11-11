@@ -5,7 +5,7 @@ applies_to: sets of points
 levels:
   elementary:
     text: |-
-      Think of a [ball](/definitions/ball), like a basketball.
+      Think of a [ball](/dictionary/definitions/ball), like a basketball.
       A _sphere_ is the surface of the ball, like the skin of the basketball.
       A sphere is hollow: it does not include the inside.
   high-school:
@@ -15,7 +15,7 @@ levels:
   undergraduate:
     context: metric spaces
     text: |-
-      Consider a [metric space](/definitions/metric-space) with [metric](/definitions/metric) $d$, a center $c$, and a radius $r$.
+      Consider a [metric space](/dictionary/definitions/metric-space) with [metric](/dictionary/definitions/metric) $d$, a center $c$, and a radius $r$.
       The _sphere_ of radius $r$ around $c$ is
 
       $$S(c, r) = \setdef{x \suchthat d(x, c) = r}.$$

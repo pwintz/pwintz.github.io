@@ -16,5 +16,5 @@ properties:
   - >-
     Two sets are equal if and only if they have the same elements.
   - >-
-    Two functions are equal if and only if they have the same domain, [codomain](/definitions/codomain), and output at every input.
+    Two functions are equal if and only if they have the same domain, [codomain](/dictionary/definitions/codomain), and output at every input.
 ---

@@ -11,6 +11,6 @@ levels:
     context: control systems
     text: |-
       Consider a control system $\dot{x} = f(x, u, d)$, with inputs from outside.
-      A _disturbance_ is an unwanted [exogenous input](/definitions/exogenous-input), such as $d$, that affects the dynamics of the system.
+      A _disturbance_ is an unwanted [exogenous input](/dictionary/definitions/exogenous-input), such as $d$, that affects the dynamics of the system.
       It changes the actual state of the system.
 ---

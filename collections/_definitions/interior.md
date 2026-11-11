@@ -10,14 +10,14 @@ levels:
   undergraduate:
     context: subsets of $\reals^n$
     text: |-
-      A point $x$ is in the _interior_ of $A$ if there exists an [open ball](/definitions/open-ball) around $x$ that is contained in $A$.
+      A point $x$ is in the _interior_ of $A$ if there exists an [open ball](/dictionary/definitions/open-ball) around $x$ that is contained in $A$.
   graduate:
     context: topological spaces
     text: |-
-      The _interior_ of $A$ is the [union](/definitions/set-union) of all [open sets](/definitions/open-set) contained in $A$: the largest open [subset](/definitions/subset) of $A$.
+      The _interior_ of $A$ is the [union](/dictionary/definitions/set-union) of all [open sets](/dictionary/definitions/open-set) contained in $A$: the largest open [subset](/dictionary/definitions/subset) of $A$.
 properties:
   - |-
     A set is open if and only if it equals its interior.
   - |-
-    The interior, [boundary](/definitions/boundary), and [exterior](/definitions/exterior) of a set are disjoint, and together they make up the whole space.
+    The interior, [boundary](/dictionary/definitions/boundary), and [exterior](/dictionary/definitions/exterior) of a set are disjoint, and together they make up the whole space.
 ---

@@ -5,8 +5,8 @@ kind: family
 areas: [sets]
 summary: >
   A function can match its inputs to its outputs in several ways, and functions from a structure to itself have their own names.
-  [Injective](/definitions/injective), [surjective](/definitions/surjective), and [bijective](/definitions/bijective) describe how a function matches inputs to outputs.
-  [Endomorphisms](/definitions/endomorphism) and [automorphisms](/definitions/automorphism) are structure-preserving maps from an object to itself.
+  [Injective](/dictionary/definitions/injective), [surjective](/dictionary/definitions/surjective), and [bijective](/dictionary/definitions/bijective) describe how a function matches inputs to outputs.
+  [Endomorphisms](/dictionary/definitions/endomorphism) and [automorphisms](/dictionary/definitions/automorphism) are structure-preserving maps from an object to itself.
 terms:
   - injective
   - surjective
@@ -28,6 +28,6 @@ see_also:
 ---
 ## Notes
 
-- Whether a function is [surjective](/definitions/surjective) depends on its [codomain](/definitions/codomain), not just its rule.
-- For groups and vector spaces, every [bijective](/definitions/bijective) homomorphism is an isomorphism.
-  For topological spaces, this fails: $t \mapsto (\cos t, \sin t)$ is a [continuous](/definitions/continuous) bijection from $[0, 2\pi)$ onto the unit [circle](/definitions/circle), but its inverse is not continuous, so it is not a [homeomorphism](/definitions/homeomorphism).
+- Whether a function is [surjective](/dictionary/definitions/surjective) depends on its [codomain](/dictionary/definitions/codomain), not just its rule.
+- For groups and vector spaces, every [bijective](/dictionary/definitions/bijective) homomorphism is an isomorphism.
+  For topological spaces, this fails: $t \mapsto (\cos t, \sin t)$ is a [continuous](/dictionary/definitions/continuous) bijection from $[0, 2\pi)$ onto the unit [circle](/dictionary/definitions/circle), but its inverse is not continuous, so it is not a [homeomorphism](/dictionary/definitions/homeomorphism).

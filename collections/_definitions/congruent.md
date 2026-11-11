@@ -15,4 +15,4 @@ levels:
       The figures are _congruent_ if such motions can move one exactly onto the other: the figures have the same shape and the same size.
 ---
 In number theory, "congruent" has a different meaning: $a \equiv b \pmod{n}$ means $n$ divides $a - b$.
-Both meanings are [equivalence](/definitions/equivalence-relation) [relations](/definitions/relation).
+Both meanings are [equivalence](/dictionary/definitions/equivalence-relation) [relations](/dictionary/definitions/relation).

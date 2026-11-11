@@ -14,4 +14,4 @@ levels:
       In one convention, the system is _autonomous_ if its equations do not depend explicitly on time, as in $\dot{x} = f(x)$.
 ---
 This convention is common in the theory of ordinary differential equations.
-Compare [autonomous (no input)](/definitions/autonomous-no-input).
+Compare [autonomous (no input)](/dictionary/definitions/autonomous-no-input).

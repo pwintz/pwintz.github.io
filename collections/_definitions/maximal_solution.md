@@ -6,7 +6,7 @@ applies_to: solutions of hybrid systems
 levels:
   graduate:
     text: |-
-      Consider a solution of a [hybrid system](/definitions/hybrid-system), defined on a hybrid time domain.
+      Consider a solution of a [hybrid system](/dictionary/definitions/hybrid-system), defined on a hybrid time domain.
       The solution is _maximal_ if it cannot be extended: no other solution agrees with it on its hybrid time domain and has a strictly larger domain.
 properties:
   - >-

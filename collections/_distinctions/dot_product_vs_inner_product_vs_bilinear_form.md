@@ -4,8 +4,8 @@ kind: hierarchy
 areas: [linear-algebra]
 summary: >
   Bilinear forms, inner products, and the dot product are all ways of multiplying two vectors to get a number, from the most general to the most specific.
-  The [dot product](/definitions/dot-product) is one particular [inner product](/definitions/inner-product) on $\reals^n$.
-  An inner product is a [bilinear form](/definitions/bilinear-form) that is also symmetric and positive definite.
+  The [dot product](/dictionary/definitions/dot-product) is one particular [inner product](/dictionary/definitions/inner-product) on $\reals^n$.
+  An inner product is a [bilinear form](/dictionary/definitions/bilinear-form) that is also symmetric and positive definite.
 relation: >
   dot product ⊂ inner products ⊂ bilinear forms
 terms:
@@ -21,6 +21,6 @@ see_also:
 ---
 ## Notes
 
-- A [bilinear form](/definitions/bilinear-form) $B$ is _symmetric_ if $B(x, y) = B(y, x)$, and _positive definite_ if $B(x, x) > 0$ for every $x \neq 0$.
+- A [bilinear form](/dictionary/definitions/bilinear-form) $B$ is _symmetric_ if $B(x, y) = B(y, x)$, and _positive definite_ if $B(x, x) > 0$ for every $x \neq 0$.
 
-- On a complex vector space, an [inner product](/definitions/inner-product) is conjugate symmetric and linear in only one argument (sesquilinear), so it is not a bilinear form.
+- On a complex vector space, an [inner product](/dictionary/definitions/inner-product) is conjugate symmetric and linear in only one argument (sesquilinear), so it is not a bilinear form.

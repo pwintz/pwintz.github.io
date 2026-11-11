@@ -8,6 +8,6 @@ levels:
       A _transform_ turns a function into another function, often to reveal hidden information or make a problem easier.
   undergraduate:
     text: |-
-      A _transform_ is an [operator](/definitions/operator), usually an integral operator, that converts a function of one variable into a function of another variable.
+      A _transform_ is an [operator](/dictionary/definitions/operator), usually an integral operator, that converts a function of one variable into a function of another variable.
 ---
-"Transformation" also means a map from a space to itself, such as a rotation or a [linear transformation](/definitions/linear-map). That usage is broader.
+"Transformation" also means a map from a space to itself, such as a rotation or a [linear transformation](/dictionary/definitions/linear-map). That usage is broader.

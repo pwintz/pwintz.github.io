@@ -19,7 +19,7 @@ why:
   proposition: >-
     $p \land \neg q$ is not a proposition, because it is not true or false by itself---the truth value depends on the truth values of $p$ and $q$.
   predicate: >-
-    $p \land \neg q$ is not a predicate, because the variables of a predicate stand for [objects](/definitions/object-logic), such as numbers, sets, or points, which a statement can be about, but $p$ and $q$ stand for propositions, which are statements that are true or false.
+    $p \land \neg q$ is not a predicate, because the variables of a predicate stand for [objects](/dictionary/definitions/object-logic), such as numbers, sets, or points, which a statement can be about, but $p$ and $q$ stand for propositions, which are statements that are true or false.
     For example, in the predicate "$x > 3$," the variable $x$ stands for a number, and the number $5$ is neither true nor false; in $p \land \neg q$, the variable $p$ stands for a statement such as "$7$ is prime," which is true.
   propositional_logic: >-
     $p \land \neg q$ is a formula of propositional logic, because $p \land \neg q$ combines the propositional variables $p$ and $q$ with the connectives $\land$ and $\neg$.

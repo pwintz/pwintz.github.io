@@ -12,7 +12,7 @@ levels:
     context: programming
     text: |-
       Consider a running program.
-      An _exception_ is a runtime [event](/definitions/event) that interrupts the normal flow of the program to signal an unusual condition.
+      An _exception_ is a runtime [event](/dictionary/definitions/event) that interrupts the normal flow of the program to signal an unusual condition.
       It is raised (or thrown) where the condition is detected and can be handled (or caught) elsewhere.
 ---
 In Java, `Error` and `Exception` are separate classes: an `Error` signals a serious problem that a program should not try to catch, such as running out of memory.

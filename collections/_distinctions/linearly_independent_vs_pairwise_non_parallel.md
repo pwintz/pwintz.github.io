@@ -4,8 +4,8 @@ kind: hierarchy
 areas: [linear-algebra]
 summary: >
   A list of vectors can avoid redundancy as a whole or one pair at a time.
-  A list of [linearly independent](/definitions/linearly-independent) vectors has no vector that is a [linear combination](/definitions/linear-combination) of the others, which rules out redundancy among three or more vectors as well as among pairs.
-  A list of [pairwise linearly independent](/definitions/pairwise-linearly-independent) (pairwise non-parallel) vectors has no two vectors on the same line through the origin.
+  A list of [linearly independent](/dictionary/definitions/linearly-independent) vectors has no vector that is a [linear combination](/dictionary/definitions/linear-combination) of the others, which rules out redundancy among three or more vectors as well as among pairs.
+  A list of [pairwise linearly independent](/dictionary/definitions/pairwise-linearly-independent) (pairwise non-parallel) vectors has no two vectors on the same line through the origin.
 relation: linearly independent ⊂ pairwise non-parallel
 terms:
   - pairwise_linearly_independent

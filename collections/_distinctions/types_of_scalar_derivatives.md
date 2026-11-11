@@ -3,7 +3,7 @@ title: Types of multivariable derivatives
 kind: siblings
 areas: [analysis]
 summary: >
-  The directional derivative, the Jacobian, the gradient, the differential, and the Lie derivative all package the [partial derivatives](/definitions/partial-derivative) of a function differently: as a vector ([gradient](/definitions/gradient)), a matrix ([Jacobian](/definitions/jacobian)), a [linear map](/definitions/linear-map) (differential), or a single number in a chosen direction ([directional derivative](/definitions/directional-derivative)) or along a vector field ([Lie derivative](/definitions/lie-derivative)).
+  The directional derivative, the Jacobian, the gradient, the differential, and the Lie derivative all package the [partial derivatives](/dictionary/definitions/partial-derivative) of a function differently: as a vector ([gradient](/dictionary/definitions/gradient)), a matrix ([Jacobian](/dictionary/definitions/jacobian)), a [linear map](/dictionary/definitions/linear-map) (differential), or a single number in a chosen direction ([directional derivative](/dictionary/definitions/directional-derivative)) or along a vector field ([Lie derivative](/dictionary/definitions/lie-derivative)).
 terms:
   - gradient
   - jacobian
@@ -26,9 +26,9 @@ see_also:
 ---
 ## Notes
 
-- At each point, the [gradient](/definitions/gradient) is a vector and the differential is a [covector](/definitions/covector).
-  The differential needs no extra structure, but the gradient depends on an [inner product](/definitions/inner-product): $\nabla f(x)$ is the vector with $\ip{\nabla f(x)}{v} = \mathrm{d}f_x(v)$ for every $v$.
-  With the [dot product](/definitions/dot-product), they have the same components in the standard [basis](/definitions/vector-basis) of $\reals^n$ (or every [orthonormal](/definitions/orthonormal) basis), but not in other coordinates.
+- At each point, the [gradient](/dictionary/definitions/gradient) is a vector and the differential is a [covector](/dictionary/definitions/covector).
+  The differential needs no extra structure, but the gradient depends on an [inner product](/dictionary/definitions/inner-product): $\nabla f(x)$ is the vector with $\ip{\nabla f(x)}{v} = \mathrm{d}f_x(v)$ for every $v$.
+  With the [dot product](/dictionary/definitions/dot-product), they have the same components in the standard [basis](/dictionary/definitions/vector-basis) of $\reals^n$ (or every [orthonormal](/dictionary/definitions/orthonormal) basis), but not in other coordinates.
   In polar coordinates, for example, $\mathrm{d}f$ has components $(\partial_r f, \partial_\theta f)$, while $\nabla f$ has components $(\partial_r f, \frac{1}{r^2} \partial_\theta f)$ in the coordinate basis $(\partial_r, \partial_\theta)$.
-  See [vector vs. covector](/distinctions/vector-vs-covector).
+  See [vector vs. covector](/dictionary/distinctions/vector-vs-covector).
 <!-- - In control theory, the Lie derivative of a Lyapunov function $V$ along $\dot{x} = F(x)$ is often written $\dot{V}(x)$. -->

@@ -5,8 +5,8 @@ kind: siblings
 areas: [statistics]
 summary: >
   Statisticians disagree about what a probability means.
-  In [frequentist probability](/definitions/frequentist-probability), a probability is a long-run frequency over repeated experiments, so an unknown parameter is a fixed number without a probability.
-  In [Bayesian probability](/definitions/bayesian-probability), a probability is a degree of belief, so an unknown parameter has a probability distribution.
+  In [frequentist probability](/dictionary/definitions/frequentist-probability), a probability is a long-run frequency over repeated experiments, so an unknown parameter is a fixed number without a probability.
+  In [Bayesian probability](/dictionary/definitions/bayesian-probability), a probability is a degree of belief, so an unknown parameter has a probability distribution.
 terms:
   - frequentist probability
   - Bayesian probability

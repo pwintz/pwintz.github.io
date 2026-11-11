@@ -4,8 +4,8 @@ kind: hierarchy
 areas: [linear-algebra]
 summary: >
   A list of vectors can point in "different directions" in two senses.
-  A set of [linearly independent](/definitions/linearly-independent) vectors have no redundant vectors: no vector in the list is a [linear combination](/definitions/linear-combination) of the others.
-  [Orthogonal](/definitions/orthogonal-vectors) vectors are pairwise at [right angles](/definitions/right-angle): every two different vectors in the list have [inner product](/definitions/inner-product) $0$.
+  A set of [linearly independent](/dictionary/definitions/linearly-independent) vectors have no redundant vectors: no vector in the list is a [linear combination](/dictionary/definitions/linear-combination) of the others.
+  [Orthogonal](/dictionary/definitions/orthogonal-vectors) vectors are pairwise at [right angles](/dictionary/definitions/right-angle): every two different vectors in the list have [inner product](/dictionary/definitions/inner-product) $0$.
   Linear independence is defined in every vector space, but orthogonality requires an inner product.
 relation: orthogonal and nonzero ⊂ linearly independent
 terms:
@@ -26,4 +26,4 @@ see_also:
 ---
 ## Notes
 
-- The Gram–Schmidt process turns every [linearly independent](/definitions/linearly-independent) list into an [orthogonal](/definitions/orthogonal-vectors) list with the same [span](/definitions/span).
+- The Gram–Schmidt process turns every [linearly independent](/dictionary/definitions/linearly-independent) list into an [orthogonal](/dictionary/definitions/orthogonal-vectors) list with the same [span](/dictionary/definitions/span).

@@ -11,7 +11,7 @@ levels:
     context: logic
     text: |-
       Consider a set $X$ of objects.
-      A _predicate_ on $X$ is a function $P$ that assigns to each $x \in X$ a [proposition](/definitions/proposition) $P(x)$; for example, the predicate "$x$ is prime" assigns to $7$ the proposition "$7$ is prime."
+      A _predicate_ on $X$ is a function $P$ that assigns to each $x \in X$ a [proposition](/dictionary/definitions/proposition) $P(x)$; for example, the predicate "$x$ is prime" assigns to $7$ the proposition "$7$ is prime."
       Each proposition is either true or false, so the predicate $P$ determines the function
 
       $$P : X \to \setdef{\text{true}, \text{false}}$$

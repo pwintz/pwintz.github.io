@@ -4,10 +4,10 @@ title: Types of transforms
 kind: siblings
 areas: [analysis, control, differential-equations]
 summary: >
-  Integral [transforms](/definitions/transform) turn a function of time into a function of frequency, which is easier to analyze for linear systems.
-  The [Fourier transform](/definitions/fourier-transform) decomposes a function on the whole real line into frequencies.
-  The [Laplace transform](/definitions/laplace-transform) of a function on $[0, \infty)$ adds exponential decay, so it exists for growing functions and suits initial value problems.
-  The [Z-transform](/definitions/z-transform) is the version for sequences.
+  Integral [transforms](/dictionary/definitions/transform) turn a function of time into a function of frequency, which is easier to analyze for linear systems.
+  The [Fourier transform](/dictionary/definitions/fourier-transform) decomposes a function on the whole real line into frequencies.
+  The [Laplace transform](/dictionary/definitions/laplace-transform) of a function on $[0, \infty)$ adds exponential decay, so it exists for growing functions and suits initial value problems.
+  The [Z-transform](/dictionary/definitions/z-transform) is the version for sequences.
 terms:
   - fourier_transform
   - laplace_transform
@@ -26,7 +26,7 @@ see_also:
 ---
 ## Notes
 
-- If $f = 0$ for $t < 0$ and the [Laplace transform](/definitions/laplace-transform) converges on the imaginary axis, then $\hat{f}(\omega) = F(i \omega)$.
+- If $f = 0$ for $t < 0$ and the [Laplace transform](/dictionary/definitions/laplace-transform) converges on the imaginary axis, then $\hat{f}(\omega) = F(i \omega)$.
 - Fourier analysis is natural for steady-state and frequency-response questions.
-  The Laplace transform turns linear ODEs with initial conditions into [algebraic equations](/definitions/polynomial-equation), which is why it is used for transfer functions in control.
-- Related [transforms](/definitions/transform) include the discrete-time [Fourier transform](/definitions/fourier-transform) (DTFT) and the discrete Fourier transform (DFT), which acts on finite sequences.
+  The Laplace transform turns linear ODEs with initial conditions into [algebraic equations](/dictionary/definitions/polynomial-equation), which is why it is used for transfer functions in control.
+- Related [transforms](/dictionary/definitions/transform) include the discrete-time [Fourier transform](/dictionary/definitions/fourier-transform) (DTFT) and the discrete Fourier transform (DFT), which acts on finite sequences.

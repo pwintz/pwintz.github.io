@@ -10,7 +10,7 @@ levels:
       The operation is _idempotent_ if doing it twice gives the same result as doing it once.
   undergraduate:
     text: |-
-      Consider an element $x$ of a set with a [binary operation](/definitions/binary-operation) $\ast$, or a function $f$ from a set to itself.
+      Consider an element $x$ of a set with a [binary operation](/dictionary/definitions/binary-operation) $\ast$, or a function $f$ from a set to itself.
       The element $x$ is _idempotent_ if $x \ast x = x$.
       The function $f$ is _idempotent_ if applying it twice is the same as applying it once:
 

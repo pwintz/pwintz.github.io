@@ -13,11 +13,11 @@ levels:
   high-school:
     text: |-
       _Infinity_, written $\infty$, is a symbol for growing without bound.
-      It is not a [real number](/definitions/real-number).
+      It is not a [real number](/dictionary/definitions/real-number).
       "$x \to \infty$" means $x$ becomes larger than any given number.
   undergraduate:
     text: |-
-      Consider the extended [real numbers](/definitions/real-number) $\reals \cup \setdef{-\infty, \infty}$.
+      Consider the extended [real numbers](/dictionary/definitions/real-number) $\reals \cup \setdef{-\infty, \infty}$.
       In them, _infinity_ ($\infty$) is an element greater than every real number.
       Some arithmetic, such as $\infty - \infty$, is left undefined.
 ---

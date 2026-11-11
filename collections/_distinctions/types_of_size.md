@@ -43,9 +43,9 @@ see_also:
 ---
 ## Notes
 
-- The Cantor set shows that being [uncountable](/definitions/uncountable) and having [measure zero](/definitions/measure-zero) are compatible.
-- Here, $\aleph_0$ is the [cardinality](/definitions/cardinality) of $\nats$ ([countably infinite](/definitions/countably-infinite)), and $\mathfrak{c}$ is the cardinality of $\reals$ (the continuum, which is uncountable).
-- The dimension of a set here is its [Hausdorff dimension](/definitions/hausdorff-dimension), which differs from the [dimension of a vector space](/definitions/dimension-vector-space).
-- "Area" of a [circle](/definitions/circle) usually means the area of the disk inside it.
-- The [norm](/definitions/norm) of a vector is its length, which is different from the [arc length](/definitions/arc-length) of a curve and the measure of a set.
+- The Cantor set shows that being [uncountable](/dictionary/definitions/uncountable) and having [measure zero](/dictionary/definitions/measure-zero) are compatible.
+- Here, $\aleph_0$ is the [cardinality](/dictionary/definitions/cardinality) of $\nats$ ([countably infinite](/dictionary/definitions/countably-infinite)), and $\mathfrak{c}$ is the cardinality of $\reals$ (the continuum, which is uncountable).
+- The dimension of a set here is its [Hausdorff dimension](/dictionary/definitions/hausdorff-dimension), which differs from the [dimension of a vector space](/dictionary/definitions/dimension-vector-space).
+- "Area" of a [circle](/dictionary/definitions/circle) usually means the area of the disk inside it.
+- The [norm](/dictionary/definitions/norm) of a vector is its length, which is different from the [arc length](/dictionary/definitions/arc-length) of a curve and the measure of a set.
 - "Amount" and "quantity" are not technical terms.

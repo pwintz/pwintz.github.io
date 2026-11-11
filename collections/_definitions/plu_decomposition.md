@@ -6,7 +6,7 @@ synonyms: [LU decomposition with partial pivoting, LUP decomposition]
 levels:
   undergraduate:
     text: |-
-      Consider a square [matrix](/definitions/matrix) $A$.
+      Consider a square [matrix](/dictionary/definitions/matrix) $A$.
       A _PLU decomposition_ of $A$ is a factorization
 
       $$A = P L U,$$
@@ -18,7 +18,7 @@ levels:
       3. $U$ is upper triangular.
 properties:
   - |-
-    Every square matrix has a PLU decomposition, unlike an [LU decomposition](/definitions/lu-decomposition), which need not exist.
+    Every square matrix has a PLU decomposition, unlike an [LU decomposition](/dictionary/definitions/lu-decomposition), which need not exist.
   - |-
     Gaussian elimination with row exchanges computes a PLU decomposition: $P$ records the row exchanges, $U$ is the resulting echelon form, and $L$ records the multiples of rows that were subtracted.
   - |-
@@ -28,4 +28,4 @@ properties:
 Some authors write $P A = L U$ instead of $A = P L U$.
 The two conventions use inverse permutation matrices, since $P^{-1} = P^{\top}$.
 
-Numerical libraries (for example, `lu` in MATLAB and `scipy.linalg.lu` in Python) compute a PLU decomposition with partial pivoting, not a plain [LU decomposition](/definitions/lu-decomposition).
+Numerical libraries (for example, `lu` in MATLAB and `scipy.linalg.lu` in Python) compute a PLU decomposition with partial pivoting, not a plain [LU decomposition](/dictionary/definitions/lu-decomposition).

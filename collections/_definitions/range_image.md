@@ -20,6 +20,6 @@ levels:
       $$f(X) = \setdef{f(x) \suchthat x \in X}.$$
 properties:
   - >-
-    The range (in this sense) of a [matrix](/definitions/matrix) $A$ is its [column space](/definitions/column-space), the set of all [vectors](/definitions/vector) $A x$.
+    The range (in this sense) of a [matrix](/dictionary/definitions/matrix) $A$ is its [column space](/dictionary/definitions/column-space), the set of all [vectors](/dictionary/definitions/vector) $A x$.
 ---
-See [the meanings of "range"](/distinctions/meanings-of-range) for the other conventions.
+See [the meanings of "range"](/dictionary/distinctions/meanings-of-range) for the other conventions.

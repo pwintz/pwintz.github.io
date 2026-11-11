@@ -15,5 +15,5 @@ levels:
     context: set theory
     text: |-
       Consider a set $S$, and assume the axiom of choice.
-      The set $S$ is _infinite_ exactly when $S$ is in bijection with a [proper subset](/definitions/proper-subset) of itself (Dedekind infinite).
+      The set $S$ is _infinite_ exactly when $S$ is in bijection with a [proper subset](/dictionary/definitions/proper-subset) of itself (Dedekind infinite).
 ---

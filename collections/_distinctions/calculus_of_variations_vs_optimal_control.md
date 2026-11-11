@@ -1,12 +1,11 @@
 ---
-published: false
 title: Calculus of variations vs. optimal control
 kind: hierarchy
 areas: [control, analysis]
 summary: >
   The calculus of variations and optimal control seek a function of time that minimizes a cost given by an integral.
-  In the [calculus of variations](/definitions/calculus-of-variations), the unknown is a curve $y(t)$, and the cost depends on $y$ and its derivative $y^{\prime}$, which can be chosen freely.
-  In [optimal control](/definitions/optimal-control), the unknown is an input $u(t)$, which may be constrained to a set $U$, and the state $x(t)$ is determined by the input through the dynamics $\dot{x} = f(x, u)$.
+  In the [calculus of variations](/dictionary/definitions/calculus-of-variations), the unknown is a curve $y(t)$, and the cost depends on $y$ and its derivative $y^{\prime}$, which can be chosen freely.
+  In [optimal control](/dictionary/definitions/optimal-control), the unknown is an input $u(t)$, which may be constrained to a set $U$, and the state $x(t)$ is determined by the input through the dynamics $\dot{x} = f(x, u)$.
 relation: calculus of variations ⊂ optimal control
 terms:
   - calculus_of_variations
@@ -22,6 +21,6 @@ examples:
 ---
 ## Notes
 
-- A problem in the [calculus of variations](/definitions/calculus-of-variations) is the [optimal control](/definitions/optimal-control) problem with the dynamics $\dot{x} = u$ and no constraints on $u$.
+- A problem in the [calculus of variations](/dictionary/definitions/calculus-of-variations) is the [optimal control](/dictionary/definitions/optimal-control) problem with the dynamics $\dot{x} = u$ and no constraints on $u$.
 - Pontryagin's maximum principle in optimal control generalizes the Euler–Lagrange equation of the calculus of variations to constrained inputs, where the optimal input can jump ("bang-bang" control).
-- The Hamiltonian of Pontryagin's maximum principle is named after the [Hamiltonian](/definitions/hamiltonian) of mechanics, which comes from the calculus of variations through Hamilton's principle.
+- The Hamiltonian of Pontryagin's maximum principle is named after the [Hamiltonian](/dictionary/definitions/hamiltonian) of mechanics, which comes from the calculus of variations through Hamilton's principle.

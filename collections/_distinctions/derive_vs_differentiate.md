@@ -4,8 +4,8 @@ title: Derive vs. differentiate
 kind: siblings
 areas: [language]
 summary: >
-  "[Derive](/definitions/derive)" and "derivative" share a root, so the two verbs are easy to mix up in calculus.
-  To [differentiate](/definitions/differentiate) a function is to compute its derivative.
+  "[Derive](/dictionary/definitions/derive)" and "derivative" share a root, so the two verbs are easy to mix up in calculus.
+  To [differentiate](/dictionary/definitions/differentiate) a function is to compute its derivative.
   To derive a result is to obtain it by reasoning.
   Despite the similar words, "deriving" has nothing to do with derivatives.
 terms:
@@ -20,6 +20,6 @@ see_also:
 ---
 ## Notes
 
-- "[Derive](/definitions/derive) the derivative" is grammatical but awkward.
-  Prefer "[differentiate](/definitions/differentiate) $f$" or "compute $f^{\prime}$."
+- "[Derive](/dictionary/definitions/derive) the derivative" is grammatical but awkward.
+  Prefer "[differentiate](/dictionary/definitions/differentiate) $f$" or "compute $f^{\prime}$."
 - "Derivate" is not standard English for "differentiate," though it resembles the word in several other languages.

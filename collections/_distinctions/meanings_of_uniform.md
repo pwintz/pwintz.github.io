@@ -5,8 +5,8 @@ kind: conflicting
 areas: [language, analysis]
 summary: >
   "Uniform" means "the same everywhere," and what is the same depends on the context.
-  A property holds uniformly in a parameter when the same constants work for every value of the parameter, as in uniform continuity and [uniform convergence](/definitions/uniform-convergence).
-  A [uniform distribution](/definitions/uniform-distribution) gives every [outcome](/definitions/outcome) the same [probability](/definitions/probability), and a uniform field or material has the same value at every point.
+  A property holds uniformly in a parameter when the same constants work for every value of the parameter, as in uniform continuity and [uniform convergence](/dictionary/definitions/uniform-convergence).
+  A [uniform distribution](/dictionary/definitions/uniform-distribution) gives every [outcome](/dictionary/definitions/outcome) the same [probability](/dictionary/definitions/probability), and a uniform field or material has the same value at every point.
 terms:
   - uniform_in_parameter
   - uniformly_continuous

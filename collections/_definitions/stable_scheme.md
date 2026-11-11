@@ -14,4 +14,4 @@ levels:
       Consider a numerical scheme for a differential equation, and errors introduced at one step, from rounding or from the data.
       The scheme is _stable_ if those errors are not amplified without bound as the computation proceeds, uniformly as the step sizes tend to zero (over a fixed time interval).
 ---
-This is different from the stability of an [equilibrium](/definitions/equilibrium) of a dynamical system, though the two are related.
+This is different from the stability of an [equilibrium](/dictionary/definitions/equilibrium) of a dynamical system, though the two are related.

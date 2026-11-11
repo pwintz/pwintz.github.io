@@ -13,5 +13,5 @@ levels:
       An _estimator_ is any rule for computing an estimate of the quantity from the data.
 properties:
   - >-
-    [Observers](/definitions/observer), filters, and [predictors](/definitions/predictor) are all estimators of a state.
+    [Observers](/dictionary/definitions/observer), filters, and [predictors](/dictionary/definitions/predictor) are all estimators of a state.
 ---

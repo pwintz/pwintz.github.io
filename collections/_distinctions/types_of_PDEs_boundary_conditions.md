@@ -5,9 +5,9 @@ kind: siblings
 areas: [differential-equations]
 summary: >
   A partial differential equation on a region needs conditions on the boundary of the region, and these come in several types.
-  A [Dirichlet](/definitions/dirichlet-condition) condition fixes the value on the boundary.
-  A [Neumann](/definitions/neumann-condition) condition fixes the flux (normal derivative).
-  A [Robin](/definitions/robin-condition) condition fixes a combination of the two.
+  A [Dirichlet](/dictionary/definitions/dirichlet-condition) condition fixes the value on the boundary.
+  A [Neumann](/dictionary/definitions/neumann-condition) condition fixes the flux (normal derivative).
+  A [Robin](/dictionary/definitions/robin-condition) condition fixes a combination of the two.
 terms:
   - dirichlet_condition
   - neumann_condition
@@ -25,5 +25,5 @@ see_also:
 ## Notes
 
 - A _Cauchy_ condition specifies both the value and the normal derivative on the same part of the boundary.
-  It is appropriate for [hyperbolic](/definitions/hyperbolic-pde) equations (like an initial position and velocity for the wave equation), but generally makes [elliptic](/definitions/elliptic-pde) problems ill-posed.
-- For a pure [Neumann](/definitions/neumann-condition) problem for the Laplace equation, a solution exists only if the total flux is zero, and it is unique only up to an added constant.
+  It is appropriate for [hyperbolic](/dictionary/definitions/hyperbolic-pde) equations (like an initial position and velocity for the wave equation), but generally makes [elliptic](/dictionary/definitions/elliptic-pde) problems ill-posed.
+- For a pure [Neumann](/dictionary/definitions/neumann-condition) problem for the Laplace equation, a solution exists only if the total flux is zero, and it is unique only up to an added constant.

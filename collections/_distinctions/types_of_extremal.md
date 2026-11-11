@@ -7,9 +7,9 @@ summary: >
   Several terms describe the "smallest" element of a set or the "best" point for a function.
   A minimum of a set is an element of the set that is below every element of the set.
   A lower bound is below everything in the set.
-  A [minimizer](/definitions/minimizer) is an input where a function is smallest.
-  The [infimum](/definitions/infimum) is the best lower bound, and it is a minimum only if it belongs to the set.
-  A [minimal element](/definitions/minimal-element) has nothing below it, which is weaker than being a minimum.
+  A [minimizer](/dictionary/definitions/minimizer) is an input where a function is smallest.
+  The [infimum](/dictionary/definitions/infimum) is the best lower bound, and it is a minimum only if it belongs to the set.
+  A [minimal element](/dictionary/definitions/minimal-element) has nothing below it, which is weaker than being a minimum.
 terms:
   - minimum
   - lower_bound
@@ -31,7 +31,7 @@ see_also:
 ## Notes
 
 - "Smallest" and "least" are synonyms for minimum.
-  "The smallest [closed set](/definitions/closed-set) containing $A$" (the closure) is a minimum with respect to $\subseteq$, not just a minimal set.
-- To _minimize_ $f$ is to find its minimum value or its [minimizers](/definitions/minimizer).
+  "The smallest [closed set](/dictionary/definitions/closed-set) containing $A$" (the closure) is a minimum with respect to $\subseteq$, not just a minimal set.
+- To _minimize_ $f$ is to find its minimum value or its [minimizers](/dictionary/definitions/minimizer).
   "Minimize" is the verb; "minimum" and "minimizer" are nouns.
-- Everything on this page has a mirror image: upper bound, [supremum](/definitions/supremum), maximum, maximal element, and maximizer.
+- Everything on this page has a mirror image: upper bound, [supremum](/dictionary/definitions/supremum), maximum, maximal element, and maximizer.

@@ -26,4 +26,4 @@ see_also:
 - It is common to say "plot the function," but what is meant is "plot the graph of the function."
 - In set theory, a function is _defined_ as its graph (a set of pairs), so the distinction is between a rule and a set only informally.
 - "Graph" also means a network of vertices and edges, or any chart, which are unrelated.
-  See [the meanings of "graph"](/distinctions/meanings-of-graph).
+  See [the meanings of "graph"](/dictionary/distinctions/meanings-of-graph).

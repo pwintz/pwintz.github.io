@@ -10,5 +10,5 @@ levels:
       A _claim_ is a statement inside the proof that is stated and proved separately, as a step toward the result.
 properties:
   - >-
-    A claim is used only within its proof, unlike a [lemma](/definitions/lemma), which can be cited elsewhere.
+    A claim is used only within its proof, unlike a [lemma](/dictionary/definitions/lemma), which can be cited elsewhere.
 ---

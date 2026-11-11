@@ -10,7 +10,7 @@ levels:
     context: logic
     text: |-
       Consider a mathematical theory, such as set theory or the theory of groups.
-      An _axiom_ of the theory is a statement that is taken as given, rather than proved, and from which the theory's [theorems](/definitions/theorem) are derived.
+      An _axiom_ of the theory is a statement that is taken as given, rather than proved, and from which the theory's [theorems](/dictionary/definitions/theorem) are derived.
 properties:
   - >-
     Axioms are not claimed to be true about the world; they define what the theory is about.

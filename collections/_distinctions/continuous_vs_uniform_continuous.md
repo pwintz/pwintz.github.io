@@ -5,8 +5,8 @@ kind: hierarchy
 areas: [analysis]
 summary: >
   Continuity says that small changes in input cause small changes in output, and uniform continuity asks for this at the same scale everywhere.
-  A [continuous](/definitions/continuous) function may need a smaller $\delta$ at some points than at others.
-  A [uniformly continuous](/definitions/uniformly-continuous) function has one $\delta$ that works everywhere.
+  A [continuous](/dictionary/definitions/continuous) function may need a smaller $\delta$ at some points than at others.
+  A [uniformly continuous](/dictionary/definitions/uniformly-continuous) function has one $\delta$ that works everywhere.
 relation: uniformly continuous ⊂ continuous
 terms:
   - continuous
@@ -25,8 +25,8 @@ see_also:
 ---
 ## Notes
 
-- Every [uniformly continuous](/definitions/uniformly-continuous) function is [continuous](/definitions/continuous) (as the name suggests), but some continuous functions are not uniformly continuous.
-- Uniform continuity is defined for functions between [metric spaces](/definitions/metric-space) (or, more generally, uniform spaces), whereas continuity is defined for functions between all topological spaces.
+- Every [uniformly continuous](/dictionary/definitions/uniformly-continuous) function is [continuous](/dictionary/definitions/continuous) (as the name suggests), but some continuous functions are not uniformly continuous.
+- Uniform continuity is defined for functions between [metric spaces](/dictionary/definitions/metric-space) (or, more generally, uniform spaces), whereas continuity is defined for functions between all topological spaces.
 - To distinguish continuity from uniform continuity, the former is sometimes called "ordinary continuity" or "pointwise continuity."
 - Uniform continuity is a global property, whereas continuity is a local property.
-- On a [compact](/definitions/compact) domain, every continuous function is uniformly continuous (the Heine–Cantor theorem).
+- On a [compact](/dictionary/definitions/compact) domain, every continuous function is uniformly continuous (the Heine–Cantor theorem).

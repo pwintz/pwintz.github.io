@@ -14,4 +14,4 @@ levels:
       In another convention, the system is _autonomous_ if it has no input, as in $\dot{x} = f(t, x)$, which may still depend explicitly on time.
 ---
 This convention appears in some control texts.
-Compare [autonomous (time-invariant)](/definitions/autonomous-time-invariant).
+Compare [autonomous (time-invariant)](/dictionary/definitions/autonomous-time-invariant).

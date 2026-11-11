@@ -21,4 +21,4 @@ see_also:
 When it matters whether $0$ is included, say so explicitly.
 Unambiguous notation includes $$\mathbb{Z}_{\geq 0}$$ (or $$\nats_0$$) for $\setdef{0, 1, 2, \dots}$ and $$\mathbb{Z}_{> 0}$$ (or $$\nats_{+}$$) for $\setdef{1, 2, 3, \dots}$.
 
-Natural numbers that start at $0$ are also called [whole numbers](/distinctions/natural-numbers-vs-whole-numbers), mostly in schools.
+Natural numbers that start at $0$ are also called [whole numbers](/dictionary/distinctions/natural-numbers-vs-whole-numbers), mostly in schools.

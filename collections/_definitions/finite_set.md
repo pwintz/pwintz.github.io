@@ -11,4 +11,4 @@ levels:
       Consider a set $S$.
       The set $S$ is _finite_ if $S$ is empty or in bijection with $\setdef{1, 2, \dots, n}$ for some $n \in \nats$.
 ---
-For a number, "finite" means "a [real number](/definitions/real-number), not $\pm \infty$," which is unrelated.
+For a number, "finite" means "a [real number](/dictionary/definitions/real-number), not $\pm \infty$," which is unrelated.

@@ -16,6 +16,6 @@ levels:
       $$p(t_f) = p_{\mathrm{T}}(t_f) \quad \text{and} \quad v(t_f) = v_{\mathrm{T}}(t_f).$$
 properties:
   - >-
-    Rendezvous is a condition at the final time $t_f$ only, so rendezvous is usually posed as an [optimal control](/definitions/optimal-control) problem with a terminal constraint, such as minimizing fuel.
+    Rendezvous is a condition at the final time $t_f$ only, so rendezvous is usually posed as an [optimal control](/dictionary/definitions/optimal-control) problem with a terminal constraint, such as minimizing fuel.
 ---
 In multi-agent systems, _rendezvous_ means a different problem: the agents must all converge to one common point, which the agents agree on through communication instead of knowing in advance.

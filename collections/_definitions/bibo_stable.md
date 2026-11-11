@@ -11,11 +11,11 @@ levels:
   undergraduate:
     text: |-
       Consider an input-output system that starts from the zero initial state.
-      The system is _BIBO stable_ (bounded-input, bounded-output stable) if every [bounded](/definitions/bounded) input produces a bounded output.
+      The system is _BIBO stable_ (bounded-input, bounded-output stable) if every [bounded](/dictionary/definitions/bounded) input produces a bounded output.
 properties:
   - >-
-    A linear [time-invariant](/definitions/time-invariant) system is BIBO stable if and only if its impulse response is absolutely integrable.
-    For a rational transfer function, this means every [pole](/definitions/pole) has negative real part.
+    A linear [time-invariant](/dictionary/definitions/time-invariant) system is BIBO stable if and only if its impulse response is absolutely integrable.
+    For a rational transfer function, this means every [pole](/dictionary/definitions/pole) has negative real part.
   - >-
     BIBO stability does not imply internal stability: an unstable mode that is uncontrollable or unobservable does not appear in the input-output behavior.
 ---

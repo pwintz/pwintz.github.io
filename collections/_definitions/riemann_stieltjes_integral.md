@@ -14,9 +14,9 @@ levels:
       as the longest subinterval of the partition shrinks to $0$.
 properties:
   - >-
-    With $g(x) = x$, it is the [Riemann integral](/definitions/riemann-integral).
-    If $g$ is [continuously differentiable](/definitions/continuously-differentiable), then $\int_a^b f \mathrm{d}g = \int_a^b f(x) g^{\prime}(x) \mathrm{d}x$.
+    With $g(x) = x$, it is the [Riemann integral](/dictionary/definitions/riemann-integral).
+    If $g$ is [continuously differentiable](/dictionary/definitions/continuously-differentiable), then $\int_a^b f \mathrm{d}g = \int_a^b f(x) g^{\prime}(x) \mathrm{d}x$.
   - >-
-    If $g$ jumps by $c$ at a point $p$ where $f$ is [continuous](/definitions/continuous), then the jump contributes $c f(p)$, so sums and integrals can be written as one integral.
-    For a [random variable](/definitions/random-variable) $X$ with [cumulative distribution function](/definitions/cumulative-distribution-function) $F$, $\mathbb{E}[X] = \int x \mathrm{d}F(x)$, whether $X$ is discrete, continuous, or neither.
+    If $g$ jumps by $c$ at a point $p$ where $f$ is [continuous](/dictionary/definitions/continuous), then the jump contributes $c f(p)$, so sums and integrals can be written as one integral.
+    For a [random variable](/dictionary/definitions/random-variable) $X$ with [cumulative distribution function](/dictionary/definitions/cumulative-distribution-function) $F$, $\mathbb{E}[X] = \int x \mathrm{d}F(x)$, whether $X$ is discrete, continuous, or neither.
 ---

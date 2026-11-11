@@ -5,9 +5,9 @@ applies_to: numbers
 levels:
   high-school:
     text: |-
-      A number $a$ is an _algebraic number_ if $a$ is a solution to a [polynomial equation](/definitions/polynomial-equation) whose [coefficients](/definitions/coefficient) are all [integers](/definitions/integer).
+      A number $a$ is an _algebraic number_ if $a$ is a solution to a [polynomial equation](/dictionary/definitions/polynomial-equation) whose [coefficients](/dictionary/definitions/coefficient) are all [integers](/dictionary/definitions/integer).
   undergraduate:
     text: |-
       Consider a real or complex number $a$.
-      The number $a$ is an _algebraic number_ if $a$ is a root of a nonzero [polynomial](/definitions/polynomial) with [integer](/definitions/integer) [coefficients](/definitions/coefficient).
+      The number $a$ is an _algebraic number_ if $a$ is a root of a nonzero [polynomial](/dictionary/definitions/polynomial) with [integer](/dictionary/definitions/integer) [coefficients](/dictionary/definitions/coefficient).
 ---

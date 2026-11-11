@@ -20,5 +20,5 @@ see_also:
 ---
 ## Notes
 
-In mathematics, "size" is informal and can mean many things, such as [cardinality](/definitions/cardinality), length, or [norm](/definitions/norm).
-See [size, length, area, and related terms](/distinctions/types-of-size).
+In mathematics, "size" is informal and can mean many things, such as [cardinality](/dictionary/definitions/cardinality), length, or [norm](/dictionary/definitions/norm).
+See [size, length, area, and related terms](/dictionary/distinctions/types-of-size).

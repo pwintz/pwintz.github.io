@@ -13,9 +13,9 @@ levels:
       $$\ip{f}{g} = \int_a^b f(t) g(t) \mathrm{d}t.$$
 properties:
   - >-
-    The $L^2$ [inner product](/definitions/inner-product) is the [continuous](/definitions/continuous) analog of the [dot product](/definitions/dot-product): the sum over entries becomes an integral over the interval.
+    The $L^2$ [inner product](/dictionary/definitions/inner-product) is the [continuous](/dictionary/definitions/continuous) analog of the [dot product](/dictionary/definitions/dot-product): the sum over entries becomes an integral over the interval.
   - >-
-    Its [norm](/definitions/norm) $\norm{f} = \sqrt{\int_a^b f(t)^2 \mathrm{d}t}$ measures the size of $f$ on average, and two functions that differ only at finitely many points have distance $0$.
+    Its [norm](/dictionary/definitions/norm) $\norm{f} = \sqrt{\int_a^b f(t)^2 \mathrm{d}t}$ measures the size of $f$ on average, and two functions that differ only at finitely many points have distance $0$.
   - >-
-    The functions $\sin(k t)$ for $k = 1, 2, \dots$ are [orthogonal](/definitions/orthogonal-vectors) in the $L^2$ [inner product](/definitions/inner-product) on $[0, 2\pi]$, which is the [basis](/definitions/vector-basis) of Fourier series.
+    The functions $\sin(k t)$ for $k = 1, 2, \dots$ are [orthogonal](/dictionary/definitions/orthogonal-vectors) in the $L^2$ [inner product](/dictionary/definitions/inner-product) on $[0, 2\pi]$, which is the [basis](/dictionary/definitions/vector-basis) of Fourier series.
 ---

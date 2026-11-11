@@ -8,11 +8,11 @@ levels:
   graduate:
     text: |-
       Consider a dynamical system, where $\phi(t, x)$ is the solution starting at the point $x$.
-      The _ω-limit set_ of $x$ is the set of all points $z$ such that $\phi(t_n, x) \to z$ for some [sequence](/definitions/sequence) of times $t_n \to \infty$.
+      The _ω-limit set_ of $x$ is the set of all points $z$ such that $\phi(t_n, x) \to z$ for some [sequence](/dictionary/definitions/sequence) of times $t_n \to \infty$.
       It describes where the solution ends up.
 properties:
   - >-
-    If the solution starting at $x$ is [bounded](/definitions/bounded), then its ω-limit set is nonempty, [compact](/definitions/compact), [connected](/definitions/connected), and invariant, and the solution converges to it.
+    If the solution starting at $x$ is [bounded](/dictionary/definitions/bounded), then its ω-limit set is nonempty, [compact](/dictionary/definitions/compact), [connected](/dictionary/definitions/connected), and invariant, and the solution converges to it.
   - >-
     The α-limit set is defined the same way, with $t_n \to -\infty$.
 ---

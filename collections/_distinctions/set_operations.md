@@ -5,8 +5,8 @@ kind: siblings
 areas: [sets]
 summary: >
   Two sets can be combined into a new set in several ways.
-  The [union](/definitions/set-union) of two sets contains everything in either set, and the [intersection](/definitions/set-intersection) contains everything in both.
-  The [set difference](/definitions/set-difference) $A \setminus B$ contains what is in $A$ but not in $B$.
+  The [union](/dictionary/definitions/set-union) of two sets contains everything in either set, and the [intersection](/dictionary/definitions/set-intersection) contains everything in both.
+  The [set difference](/dictionary/definitions/set-difference) $A \setminus B$ contains what is in $A$ but not in $B$.
   Union and intersection do not depend on the order of $A$ and $B$, but set difference does.
 terms:
   - set_union
@@ -25,5 +25,5 @@ see_also:
 ## Notes
 
 - The _symmetric difference_ $(A \setminus B) \cup (B \setminus A)$, here $\setdef{1, 4}$, contains what is in exactly one of the two sets.
-- "Disjoint [union](/definitions/set-union)" has two conflicting meanings, so it is not listed here.
-  See [disjoint union](/distinctions/disjoint-unions).
+- "Disjoint [union](/dictionary/definitions/set-union)" has two conflicting meanings, so it is not listed here.
+  See [disjoint union](/dictionary/distinctions/disjoint-unions).

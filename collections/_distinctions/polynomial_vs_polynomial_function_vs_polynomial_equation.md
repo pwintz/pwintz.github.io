@@ -4,10 +4,10 @@ title: Polynomial vs. polynomial function vs. polynomial equation
 kind: siblings
 areas: [numbers, language]
 summary: >
-  "[Polynomial](/definitions/polynomial)" is used for three related objects that are easy to conflate.
+  "[Polynomial](/dictionary/definitions/polynomial)" is used for three related objects that are easy to conflate.
   A polynomial is an expression, such as $x^2 - 1$.
-  A [polynomial function](/definitions/polynomial-function) assigns an output to each input using a polynomial.
-  A [polynomial equation](/definitions/polynomial-equation), such as $x^2 - 1 = 0$, is a statement to be solved.
+  A [polynomial function](/dictionary/definitions/polynomial-function) assigns an output to each input using a polynomial.
+  A [polynomial equation](/dictionary/definitions/polynomial-equation), such as $x^2 - 1 = 0$, is a statement to be solved.
 terms:
   - polynomial
   - polynomial_function
@@ -25,5 +25,5 @@ see_also:
 ---
 ## Notes
 
-- Over $\reals$ and $\mathbb{C}$, a [polynomial](/definitions/polynomial) and its [polynomial function](/definitions/polynomial-function) determine each other, so "polynomial" is often used for both.
-- "Solve the polynomial $x^2 - 1$" is shorthand for "find the roots of $x^2 - 1$," that is, solve the [polynomial equation](/definitions/polynomial-equation) $x^2 - 1 = 0$.
+- Over $\reals$ and $\mathbb{C}$, a [polynomial](/dictionary/definitions/polynomial) and its [polynomial function](/dictionary/definitions/polynomial-function) determine each other, so "polynomial" is often used for both.
+- "Solve the polynomial $x^2 - 1$" is shorthand for "find the roots of $x^2 - 1$," that is, solve the [polynomial equation](/dictionary/definitions/polynomial-equation) $x^2 - 1 = 0$.

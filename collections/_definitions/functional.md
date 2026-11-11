@@ -1,5 +1,4 @@
 ---
-published: false
 title: Functional
 term: functional
 applies_to: mappings
@@ -10,6 +9,6 @@ levels:
   undergraduate:
     context: functional analysis
     text: |-
-      Consider a [vector](/definitions/vector) space, often a space of functions, and its scalars.
+      Consider a [vector](/dictionary/definitions/vector) space, often a space of functions, and its scalars.
       A _functional_ is a map from the vector space to its scalars.
 ---

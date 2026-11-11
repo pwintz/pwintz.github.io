@@ -24,11 +24,11 @@ properties:
     The decimals $n.d_1 \ldots d_k$ then lie within $10^{-k}$ of $x$, so the decimals converge to $x$.
     A negative real number is written as the negative of a decimal.
   - >-
-    A real number is [rational](/definitions/rational-number) exactly when its decimal expansion either ends or repeats, such as $\frac{1}{4} = 0.25$ and $\frac{1}{3} = 0.333\ldots$, so the decimal expansion of an [irrational number](/definitions/irrational-number), such as $\sqrt{2} = 1.41421\ldots$, neither ends nor repeats.
+    A real number is [rational](/dictionary/definitions/rational-number) exactly when its decimal expansion either ends or repeats, such as $\frac{1}{4} = 0.25$ and $\frac{1}{3} = 0.333\ldots$, so the decimal expansion of an [irrational number](/dictionary/definitions/irrational-number), such as $\sqrt{2} = 1.41421\ldots$, neither ends nor repeats.
   - >-
     Some real numbers have two decimal expansions: a decimal that ends, such as $1.0$, equals the decimal that instead ends with repeating $9$s, such as $0.999\ldots$, because $\sum_{k = 1}^{\infty} \frac{9}{10^k} = 1$.
   - >-
-    $\reals$ can be constructed from $\mathbb{Q}$ using Dedekind cuts or Cauchy [sequences](/definitions/sequence).
+    $\reals$ can be constructed from $\mathbb{Q}$ using Dedekind cuts or Cauchy [sequences](/dictionary/definitions/sequence).
   - >-
-    Every nonempty set of real numbers that is [bounded](/definitions/bounded) above has a [least upper bound](/definitions/supremum) (the completeness of $\reals$).
+    Every nonempty set of real numbers that is [bounded](/dictionary/definitions/bounded) above has a [least upper bound](/dictionary/definitions/supremum) (the completeness of $\reals$).
 ---

@@ -12,6 +12,6 @@ levels:
   undergraduate:
     text: |-
       Consider an interval $[a, b]$.
-      A _partition_ of $[a, b]$ is a finite [sequence](/definitions/sequence) of points $a = x_0 < x_1 < \dots < x_n = b$ that divides $[a, b]$ into subintervals $[x_{k-1}, x_k]$, as in a Riemann sum.
+      A _partition_ of $[a, b]$ is a finite [sequence](/dictionary/definitions/sequence) of points $a = x_0 < x_1 < \dots < x_n = b$ that divides $[a, b]$ into subintervals $[x_{k-1}, x_k]$, as in a Riemann sum.
 ---
-Despite the name, this is not a [partition](/definitions/set-partition) of $[a, b]$ in the set sense: neighboring subintervals share an endpoint.
+Despite the name, this is not a [partition](/dictionary/definitions/set-partition) of $[a, b]$ in the set sense: neighboring subintervals share an endpoint.

@@ -6,15 +6,15 @@ synonyms: [$\nabla f$]
 levels:
   undergraduate:
     text: |-
-      Consider a [differentiable](/definitions/differentiable) function $f : \reals^n \to \reals$.
-      The _gradient_ of $f$ is the [vector](/definitions/vector) of [partial derivatives](/definitions/partial-derivative)
+      Consider a [differentiable](/dictionary/definitions/differentiable) function $f : \reals^n \to \reals$.
+      The _gradient_ of $f$ is the [vector](/dictionary/definitions/vector) of [partial derivatives](/dictionary/definitions/partial-derivative)
 
       $$\nabla f(x) = \left( \frac{\partial f}{\partial x_1}(x), \dots, \frac{\partial f}{\partial x_n}(x) \right).$$
   graduate:
     context: Riemannian manifolds
     text: |-
-      Consider a smooth function $f$ on a Riemannian manifold, with [inner product](/definitions/inner-product) $\ip{\cdot}{\cdot}$ on each [tangent space](/definitions/tangent-space).
-      The _gradient_ of $f$ at $x$ is the [vector](/definitions/vector) $\nabla f(x)$ such that
+      Consider a smooth function $f$ on a Riemannian manifold, with [inner product](/dictionary/definitions/inner-product) $\ip{\cdot}{\cdot}$ on each [tangent space](/dictionary/definitions/tangent-space).
+      The _gradient_ of $f$ at $x$ is the [vector](/dictionary/definitions/vector) $\nabla f(x)$ such that
 
       $$\ip{\nabla f(x)}{v} = \mathrm{d}f_x(v) \quad \text{for every tangent vector } v.$$
 properties:
@@ -23,5 +23,5 @@ properties:
   - >-
     The gradient is perpendicular to the level sets of $f$.
   - >-
-    The gradient depends on the choice of [inner product](/definitions/inner-product) (Riemannian [metric](/definitions/metric)); the [differential](/definitions/differential) $\mathrm{d}f$ does not.
+    The gradient depends on the choice of [inner product](/dictionary/definitions/inner-product) (Riemannian [metric](/dictionary/definitions/metric)); the [differential](/dictionary/definitions/differential) $\mathrm{d}f$ does not.
 ---

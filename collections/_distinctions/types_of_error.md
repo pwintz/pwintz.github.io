@@ -6,7 +6,7 @@ areas: [computing]
 summary: >
   In computing, "error" and related words describe different ways that things go wrong.
   A numerical error is the gap between a computed value and the true value, and it is often unavoidable.
-  An [exception](/definitions/exception) is a mechanism for signaling unusual conditions at runtime.
+  An [exception](/dictionary/definitions/exception) is a mechanism for signaling unusual conditions at runtime.
   A bug is a mistake in the program.
   Each can occur without the others.
 terms:

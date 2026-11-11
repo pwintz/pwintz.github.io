@@ -14,5 +14,5 @@ levels:
       To _concatenate_ $a$ and $b$ is to join $a$ and $b$ end to end, giving $(a_1, \dots, a_m, b_1, \dots, b_n)$.
 properties:
   - >-
-    Concatenation is associative but not commutative, and, unlike [union](/definitions/set-union), it keeps repeated elements.
+    Concatenation is associative but not commutative, and, unlike [union](/dictionary/definitions/set-union), it keeps repeated elements.
 ---

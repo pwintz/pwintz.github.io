@@ -6,11 +6,11 @@ synonyms: [orthogonal vectors]
 levels:
   high-school:
     text: |-
-      Two vectors in the plane or in space are _orthogonal_ if the vectors meet at a [right angle](/definitions/right-angle), which happens exactly when their [dot product](/definitions/dot-product) is $0$.
+      Two vectors in the plane or in space are _orthogonal_ if the vectors meet at a [right angle](/dictionary/definitions/right-angle), which happens exactly when their [dot product](/dictionary/definitions/dot-product) is $0$.
   undergraduate:
     context: inner product spaces
     text: |-
-      Consider an [inner product space](/definitions/inner-product-space) $V$.
+      Consider an [inner product space](/dictionary/definitions/inner-product-space) $V$.
       Two vectors $u, v \in V$ are _orthogonal_ if
 
       $$\ip{u}{v} = 0.$$
@@ -18,11 +18,11 @@ levels:
       A list of vectors is _orthogonal_ if every two different vectors in the list are orthogonal.
 properties:
   - >-
-    The [zero vector](/definitions/zero-vector) is orthogonal to every vector.
+    The [zero vector](/dictionary/definitions/zero-vector) is orthogonal to every vector.
 
   - >-
-    An orthogonal list of nonzero vectors is [linearly independent](/definitions/linearly-independent).
+    An orthogonal list of nonzero vectors is [linearly independent](/dictionary/definitions/linearly-independent).
 
   - >-
-    An orthogonal list of [unit vectors](/definitions/unit-vector) is called _orthonormal_.
+    An orthogonal list of [unit vectors](/dictionary/definitions/unit-vector) is called _orthonormal_.
 ---

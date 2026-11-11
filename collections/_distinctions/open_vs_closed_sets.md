@@ -4,8 +4,8 @@ title: Open vs. closed sets
 kind: siblings
 areas: [topology, analysis]
 summary: >
-  Open and [closed sets](/definitions/closed-set) describe how a set sits inside a larger space, and the names suggest opposites, but they are not.
-  An [open set](/definitions/open-set) contains a small [ball](/definitions/ball) around each of its points, so it contains none of its boundary.
+  Open and [closed sets](/dictionary/definitions/closed-set) describe how a set sits inside a larger space, and the names suggest opposites, but they are not.
+  An [open set](/dictionary/definitions/open-set) contains a small [ball](/dictionary/definitions/ball) around each of its points, so it contains none of its boundary.
   A closed set contains all of its boundary, and its complement is open.
   A set can be both, or neither.
 terms:
@@ -32,4 +32,4 @@ see_also:
 ## Notes
 
 - Whether a set is open or closed depends on the surrounding space: $[0, 1)$ is neither in $\reals$, but it is open in the space $[0, \infty)$, and closed in the space $(-1, 1)$.
-- In a [connected](/definitions/connected) space, such as $\reals$, the only sets that are both open and closed are $\emptyset$ and the whole space.
+- In a [connected](/dictionary/definitions/connected) space, such as $\reals$, the only sets that are both open and closed are $\emptyset$ and the whole space.

@@ -4,7 +4,7 @@ title: Rational vs. irrational vs. algebraic vs. transcendental numbers
 kind: hierarchy
 areas: [numbers]
 summary: >
-  [Real numbers](/definitions/real-number) are classified in two independent ways.
+  [Real numbers](/dictionary/definitions/real-number) are classified in two independent ways.
   Every real number is either rational or irrational.
   Separately, every number is either algebraic or transcendental.
   Irrational does not mean transcendental: $\sqrt{2}$ is irrational but algebraic.
@@ -28,6 +28,6 @@ see_also:
 ---
 ## Notes
 
-- "Irrational" only applies to [real numbers](/definitions/real-number).
+- "Irrational" only applies to [real numbers](/dictionary/definitions/real-number).
   A complex number such as $1 + i$ is neither rational nor irrational.
-- The [algebraic numbers](/definitions/algebraic-number) are [countable](/definitions/countable), so almost every real number is transcendental, even though it is hard to prove that any particular number (such as $\pi$) is transcendental.
+- The [algebraic numbers](/dictionary/definitions/algebraic-number) are [countable](/dictionary/definitions/countable), so almost every real number is transcendental, even though it is hard to prove that any particular number (such as $\pi$) is transcendental.

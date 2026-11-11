@@ -4,7 +4,7 @@ title: Variance vs. standard deviation
 kind: siblings
 areas: [statistics]
 summary: >
-  [Variance](/definitions/variance) and [standard deviation](/definitions/standard-deviation) both measure how spread out data or a [random variable](/definitions/random-variable) is around the mean.
+  [Variance](/dictionary/definitions/variance) and [standard deviation](/dictionary/definitions/standard-deviation) both measure how spread out data or a [random variable](/dictionary/definitions/random-variable) is around the mean.
   The variance is the mean squared distance from the mean, in squared units.
   The standard deviation is its square root, in the same units as the data.
 terms:

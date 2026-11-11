@@ -18,6 +18,6 @@ levels:
 
       $$d_2(p, q) = \norm{p - q}_2$$
 
-      where $\norm{\cdot}$ indicates the [Euclidean norm](/definitions/euclidean-norm).
+      where $\norm{\cdot}$ indicates the [Euclidean norm](/dictionary/definitions/euclidean-norm).
 properties:
 ---

@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'Minimizing $\int_0^\infty \bigl(x(t)^2 + u(t)^2\bigr) \, \mathrm{d}t$ for the system $\dot{x} = x + u$, with $x(0) = 1$'
 level: graduate
 is: [

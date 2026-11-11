@@ -7,8 +7,8 @@ levels:
   undergraduate:
     context: measure theory
     text: |-
-      Consider a [measurable function](/definitions/measurable-map) $f \geq 0$ on a measure space, such as $\reals$ with [Lebesgue measure](/definitions/lebesgue-measure) $\mu$.
-      The _Lebesgue integral_ of $f$ slices the range of $f$ instead of its domain: it is the [supremum](/definitions/supremum) of the integrals of simple functions $s = \sum_k c_k \mathbf{1}_{A_k}$ below $f$,
+      Consider a [measurable function](/dictionary/definitions/measurable-map) $f \geq 0$ on a measure space, such as $\reals$ with [Lebesgue measure](/dictionary/definitions/lebesgue-measure) $\mu$.
+      The _Lebesgue integral_ of $f$ slices the range of $f$ instead of its domain: it is the [supremum](/dictionary/definitions/supremum) of the integrals of simple functions $s = \sum_k c_k \mathbf{1}_{A_k}$ below $f$,
 
       $$\int f \mathrm{d}\mu = \sup \setdef{\sum_k c_k \mu(A_k) \suchthat 0 \leq s \leq f}.$$
 

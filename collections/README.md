@@ -125,26 +125,26 @@ I think the following make sense to sort the topics into priority levels, based 
 The dictionary has three collections:
 
 - `_definitions`: One file per term, e.g., `continuous.md`.
-  Rendered at `/definitions/<name>` with `_layouts/definition.html`.
+  Rendered at `/dictionary/definitions/<name>` with `_layouts/definition.html`.
 - `_distinctions`: One file per group of easily confused terms.
-  Rendered at `/distinctions/<name>` with `_layouts/distinction.html`.
+  Rendered at `/dictionary/distinctions/<name>` with `_layouts/distinction.html`.
 - `_examples`: One file per example, e.g., `x_sq_on_reals.md`.
-  Rendered at `/examples/<name>` with `_layouts/example.html`.
+  Rendered at `/dictionary/examples/<name>` with `_layouts/example.html`.
   An example can be used by several distinctions, and is listed under every definition it addresses.
   An example does not need to be used by any distinction.
 
 There are three index pages, all filterable by search text, subject, and level (and, for distinctions, kind) using `assets/ts/src/dictionary_filters.ts`.
 The level filter sets a maximum: it shows the items available at that level or a simpler one.
 
-- `/distinctions/` (`collections/_pages/distinctions.html`) lists distinctions by subject.
+- `/dictionary/distinctions/` (`collections/_pages/distinctions.html`) lists distinctions by subject.
   Its level filter shows a distinction only if every compared term has a definition at that level or a simpler one, and links from the filtered list open each distinction at that level (via `?level=`).
-- `/definitions/` (`collections/_pages/definitions.html`) lists definitions A–Z. A definition's subjects are the subjects of the distinctions that use it.
+- `/dictionary/definitions/` (`collections/_pages/definitions.html`) lists definitions A–Z. A definition's subjects are the subjects of the distinctions that use it.
   Choosing a level shows the definitions that have that level or a lower one, each at the most advanced of those levels.
   Hovering over (or tapping) a level badge next to a term shows the term's definition at that level.
-- `/examples/` (`collections/_pages/examples.html`) lists examples by level.
+- `/dictionary/examples/` (`collections/_pages/examples.html`) lists examples by level.
   An example's subjects are the subjects of the distinctions that use it.
 
-Filters are stored in the URL, so filtered lists can be linked to, e.g., `/definitions/?subject=topology&level=undergraduate`.
+Filters are stored in the URL, so filtered lists can be linked to, e.g., `/dictionary/definitions/?subject=topology&level=undergraduate`.
 
 Pages that are incomplete or not yet reviewed have `published: false`, so they are not rendered on the live site.
 To publish a page, remove `published: false`.
@@ -184,7 +184,7 @@ If the term names a new kind of object (matrix, set, sequence, group, polynomial
 Set up one object, not a class: write "Consider a function $f$ from $\reals$ to $\reals$ whose graph is a straight line," not "Consider functions from $\reals$ to $\reals$ whose graphs are straight lines."
 The setup should give only the object's basic, unsurprising features; the defining condition comes in the next sentence.
 
-**Link other terms:** In each level's `text`, `caveat`, each property, and the notes, link the first mention of another defined term to its page, e.g., `[metric space](/definitions/metric-space)`.
+**Link other terms:** In each level's `text`, `caveat`, each property, and the notes, link the first mention of another defined term to its page, e.g., `[metric space](/dictionary/definitions/metric-space)`.
 The URL is the file name, lowercased, with underscores replaced by hyphens.
 Do not link a term when it is used in an everyday sense (e.g., "a group of objects") or inside a longer term (e.g., "ball" inside "open ball").
 `python3 scripts/link_dictionary_terms.py` lists the first unlinked mentions of defined terms in definitions and distinctions, and `--write` links them.

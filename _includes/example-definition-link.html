@@ -12,7 +12,7 @@
 {%- assign edl_slug = include.example.definition -%}
 {%- if edl_slug -%}
   {%- assign edl_definition = site.definitions | where: "slug", edl_slug | first -%}
-  {%- assign edl_url = edl_slug | downcase | replace: "_", "-" | prepend: "/definitions/" -%}
+  {%- assign edl_url = edl_slug | downcase | replace: "_", "-" | prepend: "/dictionary/definitions/" -%}
   {%- if include.full -%}
     {%- assign edl_name = edl_definition.term | default: edl_definition.title | default: edl_slug | replace: "_", " " -%}
     <p class="example__definition">Definition: <a href="{{ edl_url | relative_url }}">{{ edl_name | markdownify | remove: '<p>' | remove: '</p>' | strip }}</a></p>

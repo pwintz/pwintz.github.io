@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'The interval $(0, 1]$'
 level: high-school
 values:
@@ -9,7 +8,7 @@ values:
   supremum: '$\sup (0, 1] = 1$'
 why:
   minimum: >-
-    The infimum $0$ is not in the set.
+    The infimum $0$ is not in the set. For every $x \in (0, 1]$, we can fine another value in the interval that is smaller.
   supremum: >-
     The maximum of $(0, 1]$ is $1$, which equals the supremum.
 ---

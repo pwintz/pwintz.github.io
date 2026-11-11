@@ -11,9 +11,9 @@ levels:
   undergraduate:
     context: smooth surfaces in $\reals^n$
     text: |-
-      Consider a [smooth](/definitions/smooth) surface $M$ in $\reals^n$, a point $x$ of $M$, and the smooth curves $\gamma$ in $M$ such that $\gamma(0) = x$.
+      Consider a [smooth](/dictionary/definitions/smooth) surface $M$ in $\reals^n$, a point $x$ of $M$, and the smooth curves $\gamma$ in $M$ such that $\gamma(0) = x$.
       The _tangent space_ $T_x M$ is the set of velocities $\gamma^{\prime}(0)$ of those curves.
 properties:
   - >-
-    The tangent space is a [vector](/definitions/vector) space whose dimension equals the dimension of $M$.
+    The tangent space is a [vector](/dictionary/definitions/vector) space whose dimension equals the dimension of $M$.
 ---

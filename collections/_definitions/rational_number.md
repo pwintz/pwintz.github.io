@@ -5,16 +5,16 @@ applies_to: numbers
 levels:
   elementary:
     text: |-
-      A _rational number_ is a number that can be written as a [fraction](/definitions/fraction) of [whole numbers](/definitions/whole-numbers), or the negative of one.
+      A _rational number_ is a number that can be written as a [fraction](/dictionary/definitions/fraction) of [whole numbers](/dictionary/definitions/whole-numbers), or the negative of one.
   high-school:
     text: |-
-      A _rational number_ is a number that can be written as $p/q$, where $p$ and $q$ are [integers](/definitions/integer) and $q \neq 0$.
+      A _rational number_ is a number that can be written as $p/q$, where $p$ and $q$ are [integers](/dictionary/definitions/integer) and $q \neq 0$.
   undergraduate:
     text: |-
-      A _rational number_ is an element of $\mathbb{Q}$, constructed as equivalence classes of pairs $(p, q)$ of [integers](/definitions/integer) such that $q \neq 0$, where $(p, q) \sim (r, s)$ if $p s = q r$.
+      A _rational number_ is an element of $\mathbb{Q}$, constructed as equivalence classes of pairs $(p, q)$ of [integers](/dictionary/definitions/integer) such that $q \neq 0$, where $(p, q) \sim (r, s)$ if $p s = q r$.
 properties:
   - >-
-    A [real number](/definitions/real-number) is rational if and only if its decimal expansion either ends or repeats.
+    A [real number](/dictionary/definitions/real-number) is rational if and only if its decimal expansion either ends or repeats.
   - >-
-    Between every two [real numbers](/definitions/real-number) there is a rational number: $\mathbb{Q}$ is [dense](/definitions/dense-set) in $\reals$.
+    Between every two [real numbers](/dictionary/definitions/real-number) there is a rational number: $\mathbb{Q}$ is [dense](/dictionary/definitions/dense-set) in $\reals$.
 ---

@@ -5,8 +5,8 @@ kind: siblings
 areas: [statistics]
 summary: >
   In everyday speech, "probability" and "likelihood" are synonyms, but in statistics they are different functions of the same formula $p(x \mid \theta)$.
-  A [probability](/definitions/probability) fixes the parameter $\theta$ and varies the data $x$, and it adds up to $1$ over the data.
-  A [likelihood](/definitions/likelihood) fixes the observed data $x$ and varies the parameter $\theta$, and it need not add up to $1$.
+  A [probability](/dictionary/definitions/probability) fixes the parameter $\theta$ and varies the data $x$, and it adds up to $1$ over the data.
+  A [likelihood](/dictionary/definitions/likelihood) fixes the observed data $x$ and varies the parameter $\theta$, and it need not add up to $1$.
 terms:
   - probability
   - likelihood

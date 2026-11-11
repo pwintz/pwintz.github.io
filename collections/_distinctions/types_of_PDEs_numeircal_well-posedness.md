@@ -27,5 +27,5 @@ see_also:
 ---
 ## The Lax equivalence theorem
 
-For a [consistent](/definitions/consistent-scheme) finite-difference scheme for a [well-posed](/definitions/well-posed) linear initial value problem, the scheme is convergent if and only if it is stable.
+For a [consistent](/dictionary/definitions/consistent-scheme) finite-difference scheme for a [well-posed](/dictionary/definitions/well-posed) linear initial value problem, the scheme is convergent if and only if it is stable.
 Consistency alone is not enough, as the unstable examples above show.

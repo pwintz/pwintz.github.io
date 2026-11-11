@@ -5,8 +5,8 @@ kind: siblings
 areas: [linear-algebra]
 summary: >
   Several kinds of square matrices are defined by how the matrix relates to its transpose or its inverse.
-  A [symmetric matrix](/definitions/symmetric-matrix) equals its transpose, and a [skew-symmetric](/definitions/skew-symmetric-matrix) matrix equals the negative of its transpose.
-  An [orthogonal matrix](/definitions/orthogonal-matrix) is a matrix whose inverse is its transpose, and an [invertible](/definitions/invertible-matrix) matrix is a matrix that has an inverse.
+  A [symmetric matrix](/dictionary/definitions/symmetric-matrix) equals its transpose, and a [skew-symmetric](/dictionary/definitions/skew-symmetric-matrix) matrix equals the negative of its transpose.
+  An [orthogonal matrix](/dictionary/definitions/orthogonal-matrix) is a matrix whose inverse is its transpose, and an [invertible](/dictionary/definitions/invertible-matrix) matrix is a matrix that has an inverse.
 terms:
   - invertible_matrix
   - symmetric_matrix

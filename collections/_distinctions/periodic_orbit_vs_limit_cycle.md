@@ -4,8 +4,8 @@ kind: hierarchy
 areas: [dynamics]
 summary: >
   In a dynamical system, a solution can return to its starting state and go around the same loop again and again.
-  A [periodic orbit](/definitions/periodic-orbit) is such a loop.
-  A [limit cycle](/definitions/limit-cycle) is a periodic orbit that is isolated, with no other periodic orbits nearby, so that nearby solutions spiral toward the limit cycle or away from it.
+  A [periodic orbit](/dictionary/definitions/periodic-orbit) is such a loop.
+  A [limit cycle](/dictionary/definitions/limit-cycle) is a periodic orbit that is isolated, with no other periodic orbits nearby, so that nearby solutions spiral toward the limit cycle or away from it.
 relation: limit cycle ⊂ periodic orbit
 terms:
   - periodic_orbit
@@ -22,5 +22,5 @@ see_also:
 ## Notes
 
 - A limit cycle can be stable, unstable, or semistable (attracting from one side and repelling from the other).
-- Linear systems have no [limit cycles](/definitions/limit-cycle), because a multiple of a [periodic](/definitions/periodic) solution of a linear system is another periodic solution, so [periodic orbits](/definitions/periodic-orbit) of linear systems are never isolated.
-- [Conservative systems](/definitions/conservative-system), such as the frictionless pendulum, have families of periodic orbits, and limit cycles arise in systems that gain and lose energy, such as the Van der Pol oscillator.
+- Linear systems have no [limit cycles](/dictionary/definitions/limit-cycle), because a multiple of a [periodic](/dictionary/definitions/periodic) solution of a linear system is another periodic solution, so [periodic orbits](/dictionary/definitions/periodic-orbit) of linear systems are never isolated.
+- [Conservative systems](/dictionary/definitions/conservative-system), such as the frictionless pendulum, have families of periodic orbits, and limit cycles arise in systems that gain and lose energy, such as the Van der Pol oscillator.

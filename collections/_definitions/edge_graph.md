@@ -5,7 +5,7 @@ applies_to: graphs (networks)
 levels:
   elementary:
     text: |-
-      Imagine a network drawn as dots [connected](/definitions/connected) by lines, like a map of cities and roads.
+      Imagine a network drawn as dots [connected](/dictionary/definitions/connected) by lines, like a map of cities and roads.
       Each line connecting two dots in the network is called an _edge_.
   undergraduate:
     context: graph theory

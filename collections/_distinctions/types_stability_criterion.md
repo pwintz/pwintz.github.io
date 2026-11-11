@@ -4,7 +4,7 @@ title: Stability criteria and which systems they apply to
 kind: family
 areas: [control, dynamics]
 summary: >
-  Each stability test, such as the [Routh–Hurwitz](/definitions/routh-hurwitz), [Jury](/definitions/jury-criterion), [Nyquist](/definitions/nyquist-criterion), and [circle](/definitions/circle) criteria and Lyapunov's methods, applies to a particular kind of system and information.
+  Each stability test, such as the [Routh–Hurwitz](/dictionary/definitions/routh-hurwitz), [Jury](/dictionary/definitions/jury-criterion), [Nyquist](/dictionary/definitions/nyquist-criterion), and [circle](/dictionary/definitions/circle) criteria and Lyapunov's methods, applies to a particular kind of system and information.
   Using a continuous-time test on a discrete-time system, or a linear test on a nonlinear system, gives meaningless results.
 terms:
   - routh_hurwitz
@@ -32,8 +32,8 @@ see_also:
 ---
 ## Notes
 
-- For linear systems, the [eigenvalue](/definitions/eigenvalue) test (Hurwitz or Schur) is exact.
+- For linear systems, the [eigenvalue](/dictionary/definitions/eigenvalue) test (Hurwitz or Schur) is exact.
   A repeated eigenvalue on the imaginary axis with a nontrivial Jordan block makes $\dot{x} = A x$ unstable, while a simple one gives marginal stability.
-- Krasovskii's method constructs a [Lyapunov function](/definitions/lyapunov-function) from $f$ itself, such as $V(x) = f(x)^{\top} f(x)$.
-- The negative feedback connection of two [passive](/definitions/passive) systems is passive, and under additional conditions (such as strict passivity of one of them, or zero-state observability), its [equilibrium](/definitions/equilibrium) is [asymptotically stable](/definitions/asymptotically-stable).
+- Krasovskii's method constructs a [Lyapunov function](/dictionary/definitions/lyapunov-function) from $f$ itself, such as $V(x) = f(x)^{\top} f(x)$.
+- The negative feedback connection of two [passive](/dictionary/definitions/passive) systems is passive, and under additional conditions (such as strict passivity of one of them, or zero-state observability), its [equilibrium](/dictionary/definitions/equilibrium) is [asymptotically stable](/dictionary/definitions/asymptotically-stable).
   This is another way to prove stability without solving the system.

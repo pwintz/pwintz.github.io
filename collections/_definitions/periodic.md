@@ -14,7 +14,7 @@ levels:
 
       $$f(t + T) = f(t) \quad \text{for all } t.$$
 
-      Periodic [events](/definitions/event) happen at regular intervals of length $T$.
+      Periodic [events](/dictionary/definitions/event) happen at regular intervals of length $T$.
   undergraduate:
     context: dynamical systems
     text: |-
@@ -24,7 +24,7 @@ levels:
       $$x(t + T) = x(t) \quad \text{for all } t.$$
 properties:
   - >-
-    If $T$ is a period, then so is every positive [integer](/definitions/integer) multiple of $T$.
+    If $T$ is a period, then so is every positive [integer](/dictionary/definitions/integer) multiple of $T$.
   - >-
     The trajectory of a nonconstant periodic solution is a closed curve, called a periodic orbit.
 ---

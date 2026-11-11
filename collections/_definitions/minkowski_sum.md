@@ -10,7 +10,7 @@ levels:
       The _Minkowski sum_ of $A$ and $B$ is the set of all sums $a + b$, with $a$ in $A$ and $b$ in $B$.
   undergraduate:
     text: |-
-      Consider [subsets](/definitions/subset) $A$ and $B$ of a [vector](/definitions/vector) space.
+      Consider [subsets](/dictionary/definitions/subset) $A$ and $B$ of a [vector](/dictionary/definitions/vector) space.
       The _Minkowski sum_ of $A$ and $B$ is
 
       $$A + B = \setdef{a + b \suchthat a \in A, b \in B}.$$

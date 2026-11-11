@@ -1,4 +1,4 @@
-// Filters for the Dictionary of Fine Distinctions index pages (/distinctions/ and /definitions/).
+// Filters for the Dictionary of Fine Distinctions index pages (/dictionary/distinctions/ and /dictionary/definitions/).
 // The form (_includes/dictionary-filters.html) filters items marked with data-filter-item by
 //   - search text, matched against data-search (every word must appear),
 //   - subject, matched against the space-separated data-subjects,
@@ -7,7 +7,7 @@
 //     data-levels every level at which an item is available, i.e., its own level and all higher ones.
 // Groups (data-filter-group) with no visible items are hidden. An item listed in several groups (with the same
 // data-filter-key) is counted once. The filters are stored in the URL, so a
-// filtered list can be linked to, e.g., /definitions/?subject=topology&level=undergraduate.
+// filtered list can be linked to, e.g., /dictionary/definitions/?subject=topology&level=undergraduate.
 // On the definitions page, choosing a level also shows each definition's text at the most advanced level up to it,
 // and hovering over a definition's level badge shows its text at that level.
 // On the distinctions page, an item matches a level if every term it compares has a definition at that level
@@ -110,7 +110,7 @@ function init(): void {
 
     // Links to distinction pages carry the chosen level, so the page opens at that level.
     for (const item of items) {
-      for (const link of item.querySelectorAll<HTMLAnchorElement>('a[href*="/distinctions/"]')) {
+      for (const link of item.querySelectorAll<HTMLAnchorElement>('a[href*="/dictionary/distinctions/"]')) {
         const target = new URL(link.href);
         if (level) target.searchParams.set("level", level);
         else target.searchParams.delete("level");

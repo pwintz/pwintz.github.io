@@ -22,5 +22,5 @@ see_also:
 ---
 ## Notes
 
-- Every [continuous](/definitions/continuous) function on a [compact](/definitions/compact) interval $[a, b]$ is [uniformly continuous](/definitions/uniformly-continuous), so on $[a, b]$ this is also the distinction between continuous and [absolutely continuous](/definitions/absolutely-continuous) functions.
+- Every [continuous](/dictionary/definitions/continuous) function on a [compact](/dictionary/definitions/compact) interval $[a, b]$ is [uniformly continuous](/dictionary/definitions/uniformly-continuous), so on $[a, b]$ this is also the distinction between continuous and [absolutely continuous](/dictionary/definitions/absolutely-continuous) functions.
 - Taking $n = 1$ in the definition of absolute continuity gives the definition of uniform continuity, which is why every absolutely continuous function is uniformly continuous.

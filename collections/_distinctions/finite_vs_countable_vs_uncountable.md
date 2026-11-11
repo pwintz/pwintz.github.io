@@ -6,8 +6,8 @@ areas: [sets, numbers]
 summary: >
   Sets can be sorted by how many elements they have.
   A finite set can be counted completely.
-  A [countable](/definitions/countable) set can be listed one element at a time, even if the list never ends.
-  An [uncountable](/definitions/uncountable) set is too large to list at all.
+  A [countable](/dictionary/definitions/countable) set can be listed one element at a time, even if the list never ends.
+  An [uncountable](/dictionary/definitions/uncountable) set is too large to list at all.
   Every set is either countable or uncountable.
 relation: >
   finite ⊂ countable, and uncountable means "not countable."
@@ -32,6 +32,6 @@ see_also:
 ## Notes
 
 - "Countable" is used in two ways.
-  In this dictionary it means finite or countably infinite, but some authors use it only for [countably infinite](/definitions/countably-infinite) sets.
-  "[At most countable](/definitions/countable)" is unambiguous.
-- Size and countability are different: the Cantor set has length $0$ but is [uncountable](/definitions/uncountable), while $\mathbb{Q}$ is [dense](/definitions/dense-set) in $\reals$ but countable.
+  In this dictionary it means finite or countably infinite, but some authors use it only for [countably infinite](/dictionary/definitions/countably-infinite) sets.
+  "[At most countable](/dictionary/definitions/countable)" is unambiguous.
+- Size and countability are different: the Cantor set has length $0$ but is [uncountable](/dictionary/definitions/uncountable), while $\mathbb{Q}$ is [dense](/dictionary/definitions/dense-set) in $\reals$ but countable.

@@ -11,7 +11,7 @@ levels:
       $$\abs{f_n(x) - f(x)} < \varepsilon \quad \text{for all } n \geq N \text{ and all } x \in X.$$
 properties:
   - >-
-    If the functions $f_n$ are [continuous](/definitions/continuous) and converge uniformly to $f$, then $f$ is continuous.
+    If the functions $f_n$ are [continuous](/dictionary/definitions/continuous) and converge uniformly to $f$, then $f$ is continuous.
     If $f_n$ converges pointwise to $f$ instead of uniformly, then $f$ need not be continuous: $f_n(x) = x^n$ on $[0, 1]$ converges pointwise to the function that is $0$ for $x < 1$ and $1$ at $x = 1$.
 ---
 

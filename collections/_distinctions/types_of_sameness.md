@@ -28,6 +28,6 @@ see_also:
 
 <!-- TODO: Add similar as a definition. -->
 - "Similar" is another word in this family.
-  Similar triangles have the same shape but possibly different sizes, and similar matrices $A$ and $B = P^{-1} A P$ represent the same [linear map](/definitions/linear-map) in different bases.
+  Similar triangles have the same shape but possibly different sizes, and similar matrices $A$ and $B = P^{-1} A P$ represent the same [linear map](/dictionary/definitions/linear-map) in different bases.
   
-- Equality, congruence, isomorphism, and similarity are all [equivalence relations](/definitions/equivalence-relation), so each one splits objects into classes of "same in that respect."
+- Equality, congruence, isomorphism, and similarity are all [equivalence relations](/dictionary/definitions/equivalence-relation), so each one splits objects into classes of "same in that respect."

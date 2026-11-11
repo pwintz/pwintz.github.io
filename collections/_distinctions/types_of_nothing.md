@@ -29,4 +29,4 @@ see_also:
 - **"Does not exist" vs. "is zero."** $\lim_{x \to 0} \sin(1/x)$ does not exist, while $\lim_{x \to 0} x \sin(1/x) = 0$.
   A limit that does not exist is not zero.
 - **Measure zero and nowhere dense** describe sets that are small but not empty.
-  See [types of sparsity](/distinctions/types-of-sparsity).
+  See [types of sparsity](/dictionary/distinctions/types-of-sparsity).

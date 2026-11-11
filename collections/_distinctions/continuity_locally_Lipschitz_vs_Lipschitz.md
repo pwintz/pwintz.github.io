@@ -5,8 +5,8 @@ kind: hierarchy
 areas: [analysis]
 summary: >
   Lipschitz conditions bound the slopes of the lines through pairs of points on the graph of a function.
-  A [locally Lipschitz continuous](/definitions/locally-lipschitz-continuous) function has a bound near each point, but the bound can grow without limit across the domain, toward infinity or toward a missing boundary point.
-  A [Lipschitz continuous](/definitions/lipschitz-continuous) (or _globally_ Lipschitz continuous) function has one bound $L$ that works on the whole domain.
+  A [locally Lipschitz continuous](/dictionary/definitions/locally-lipschitz-continuous) function has a bound near each point, but the bound can grow without limit across the domain, toward infinity or toward a missing boundary point.
+  A [Lipschitz continuous](/dictionary/definitions/lipschitz-continuous) (or _globally_ Lipschitz continuous) function has one bound $L$ that works on the whole domain.
 relation: Lipschitz continuous ⊂ locally Lipschitz continuous ⊂ continuous
 terms:
   - locally_Lipschitz_continuous
@@ -28,5 +28,5 @@ see_also:
 ---
 ## Notes
 
-- On a [compact](/definitions/compact) domain, such as $[0, 1]$, locally Lipschitz continuous and Lipschitz continuous are equivalent, so the difference appears only on domains that are unbounded or missing boundary points.
+- On a [compact](/dictionary/definitions/compact) domain, such as $[0, 1]$, locally Lipschitz continuous and Lipschitz continuous are equivalent, so the difference appears only on domains that are unbounded or missing boundary points.
 - The difference matters for differential equations $\dot{x} = f(x)$: local Lipschitz continuity of $f$ gives unique solutions for a short time, and global Lipschitz continuity also rules out finite-time blow-up, as in $\dot{x} = x^2$, whose solution from $x(0) = 1$ is $x(t) = 1 / (1 - t)$.

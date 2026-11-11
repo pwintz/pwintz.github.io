@@ -4,7 +4,7 @@ title: Types of maps
 kind: family
 areas: [sets, analysis]
 summary: >
-  [Operators](/definitions/operator), [functionals](/definitions/functional), and [transforms](/definitions/transform) are all functions.
+  [Operators](/dictionary/definitions/operator), [functionals](/dictionary/definitions/functional), and [transforms](/dictionary/definitions/transform) are all functions.
   Their names signal what the inputs and outputs are:
   operators act on vectors (often functions) and return vectors, functionals return scalars, and transforms change the variable of a function.
 terms:
@@ -25,4 +25,4 @@ see_also:
 ## Notes
 
 - "Map" is not listed here because it is an exact synonym for "function."
-  See [function vs. map](/distinctions/function-vs-map).
+  See [function vs. map](/dictionary/distinctions/function-vs-map).

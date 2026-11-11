@@ -5,8 +5,8 @@ kind: siblings
 areas: [sets]
 summary: >
   A function comes with several sets that describe its inputs and outputs.
-  The domain is where inputs come from, and the [codomain](/definitions/codomain) is where outputs are allowed to land.
-  The image is the set of outputs that actually occur, and a [preimage](/definitions/preimage) is the set of inputs that land in a given set.
+  The domain is where inputs come from, and the [codomain](/dictionary/definitions/codomain) is where outputs are allowed to land.
+  The image is the set of outputs that actually occur, and a [preimage](/dictionary/definitions/preimage) is the set of inputs that land in a given set.
 terms:
   - domain
   - image
@@ -30,6 +30,6 @@ see_also:
 ---
 ## Notes
 
-- The notation $f^{-1}(B)$ for a [preimage](/definitions/preimage) does not mean $f$ has an inverse.
-- "Range" is not listed here because it has conflicting meanings: usually the image, but sometimes the [codomain](/definitions/codomain).
-  See [the meanings of "range"](/distinctions/meanings-of-range).
+- The notation $f^{-1}(B)$ for a [preimage](/dictionary/definitions/preimage) does not mean $f$ has an inverse.
+- "Range" is not listed here because it has conflicting meanings: usually the image, but sometimes the [codomain](/dictionary/definitions/codomain).
+  See [the meanings of "range"](/dictionary/distinctions/meanings-of-range).

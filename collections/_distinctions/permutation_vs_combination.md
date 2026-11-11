@@ -5,11 +5,11 @@ kind: siblings
 areas: [statistics, sets]
 summary: |
   Many counting problems ask how many ways there are to choose $k$ objects from a set of $n$ objects.
-  If the order of the chosen objects matters, then each choice is a [permutation](/definitions/permutation), and the number of permutations is
+  If the order of the chosen objects matters, then each choice is a [permutation](/dictionary/definitions/permutation), and the number of permutations is
 
   $$P(n, k) = \frac{n!}{(n - k)!}.$$
 
-  If the order does not matter, then each choice is a [combination](/definitions/combination), and the number of combinations is the binomial coefficient, read "$n$ choose $k$":
+  If the order does not matter, then each choice is a [combination](/dictionary/definitions/combination), and the number of combinations is the binomial coefficient, read "$n$ choose $k$":
 
   $$\binom{n}{k} = \frac{n!}{k! \, (n - k)!}.$$
 terms:
@@ -27,6 +27,6 @@ examples:
 ---
 ## Notes
 
-- Each [combination](/definitions/combination) of $k$ objects can be put in order in $k!$ ways, so $\binom{n}{k} = P(n, k) / k!$.
-- The everyday word "combination," as in a "combination lock," usually means a [permutation](/definitions/permutation), because the order of the numbers matters.
+- Each [combination](/dictionary/definitions/combination) of $k$ objects can be put in order in $k!$ ways, so $\binom{n}{k} = P(n, k) / k!$.
+- The everyday word "combination," as in a "combination lock," usually means a [permutation](/dictionary/definitions/permutation), because the order of the numbers matters.
 - Both counts assume that each object is chosen at most once; choosing with repetition gives $n^k$ ordered choices and $\binom{n + k - 1}{k}$ unordered choices.

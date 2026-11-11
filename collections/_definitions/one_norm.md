@@ -6,7 +6,7 @@ synonyms: ['$\norm{x}_1$', taxicab norm, Manhattan norm, $\ell^1$ norm]
 levels:
   high-school:
     text: |-
-      Consider a [vector](/definitions/vector) $x = (x_1, \dots, x_n)$.
+      Consider a [vector](/dictionary/definitions/vector) $x = (x_1, \dots, x_n)$.
       The _1-norm_ of $x$ is the sum of the absolute values of its entries:
 
       $$\norm{x}_1 = \abs{x_1} + \dots + \abs{x_n}.$$

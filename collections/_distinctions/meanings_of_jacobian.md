@@ -4,8 +4,8 @@ title: 'Jacobian: matrix vs. determinant'
 kind: conflicting
 areas: [analysis, linear-algebra]
 summary: >
-  "The [Jacobian](/definitions/jacobian)" can mean the matrix of all [partial derivatives](/definitions/partial-derivative) of a function, or the [determinant](/definitions/determinant) of that matrix.
-  The matrix exists for every [differentiable](/definitions/differentiable) $f : \reals^n \to \reals^m$; the determinant only when $m = n$.
+  "The [Jacobian](/dictionary/definitions/jacobian)" can mean the matrix of all [partial derivatives](/dictionary/definitions/partial-derivative) of a function, or the [determinant](/dictionary/definitions/determinant) of that matrix.
+  The matrix exists for every [differentiable](/dictionary/definitions/differentiable) $f : \reals^n \to \reals^m$; the determinant only when $m = n$.
 terms:
   - jacobian
   - jacobian_determinant
@@ -23,5 +23,5 @@ see_also:
 ---
 ## Avoiding the ambiguity
 
-Say "[Jacobian](/definitions/jacobian) matrix" or "[Jacobian determinant](/definitions/jacobian-determinant)."
-Notation helps too: $Df(x)$ or $J_f(x)$ for the matrix, and $\det Df(x)$ for the [determinant](/definitions/determinant).
+Say "[Jacobian](/dictionary/definitions/jacobian) matrix" or "[Jacobian determinant](/dictionary/definitions/jacobian-determinant)."
+Notation helps too: $Df(x)$ or $J_f(x)$ for the matrix, and $\det Df(x)$ for the [determinant](/dictionary/definitions/determinant).

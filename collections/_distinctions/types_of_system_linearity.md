@@ -5,9 +5,9 @@ kind: hierarchy
 areas: [control, dynamics]
 summary: >
   Control systems are classified by how the state and input enter the dynamics.
-  A linear system has no offset, and an [affine](/definitions/affine-system) system may have one.
-  A [control-affine](/definitions/control-affine) system can be nonlinear in the state but enters the input linearly.
-  A [feedback linearizable](/definitions/feedback-linearizable) system is nonlinear, but a change of coordinates and feedback make it exactly linear.
+  A linear system has no offset, and an [affine](/dictionary/definitions/affine-system) system may have one.
+  A [control-affine](/dictionary/definitions/control-affine) system can be nonlinear in the state but enters the input linearly.
+  A [feedback linearizable](/dictionary/definitions/feedback-linearizable) system is nonlinear, but a change of coordinates and feedback make it exactly linear.
 relation: >
   linear ⊂ affine ⊂ control-affine, and every feedback linearizable system is control-affine.
 terms:
@@ -27,7 +27,7 @@ see_also:
 ---
 ## Linearization vs. feedback linearization
 
-- _Jacobian linearization_ approximates a system near an [operating point](/definitions/operating-point) by its first-order Taylor expansion.
+- _Jacobian linearization_ approximates a system near an [operating point](/dictionary/definitions/operating-point) by its first-order Taylor expansion.
   Every smooth system has one, but it is only an approximation.
 - _Feedback linearization_ is exact on a region, but only some systems allow it.
 

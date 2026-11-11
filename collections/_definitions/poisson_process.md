@@ -11,13 +11,13 @@ levels:
   undergraduate:
     context: probability
     text: |-
-      A _Poisson process_ with rate $\lambda > 0$ is a [stochastic process](/definitions/stochastic-process) $(N_t)_{t \geq 0}$ with $N_0 = 0$ such that
+      A _Poisson process_ with rate $\lambda > 0$ is a [stochastic process](/dictionary/definitions/stochastic-process) $(N_t)_{t \geq 0}$ with $N_0 = 0$ such that
 
       1. the increments $N_t - N_s$ over disjoint time intervals $(s, t]$ are independent, and
-      2. for $s < t$, the increment $N_t - N_s$ has a [Poisson distribution](/definitions/poisson-distribution) with mean $\lambda (t - s)$.
+      2. for $s < t$, the increment $N_t - N_s$ has a [Poisson distribution](/dictionary/definitions/poisson-distribution) with mean $\lambda (t - s)$.
 properties:
   - >-
-    The times between consecutive events of a Poisson process are independent and have an [exponential distribution](/definitions/exponential-distribution) with rate $\lambda$.
+    The times between consecutive events of a Poisson process are independent and have an [exponential distribution](/dictionary/definitions/exponential-distribution) with rate $\lambda$.
   - >-
     The sample paths of a Poisson process are step functions that jump up by $1$ at each event.
 ---

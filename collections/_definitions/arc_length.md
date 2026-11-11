@@ -14,7 +14,7 @@ levels:
       The _arc length_ of the curve is its length, as if it were straightened out.
   undergraduate:
     text: |-
-      Consider a parametrized curve $\gamma : [a, b] \to \reals^n$ whose derivative is [continuous](/definitions/continuous).
+      Consider a parametrized curve $\gamma : [a, b] \to \reals^n$ whose derivative is [continuous](/dictionary/definitions/continuous).
       The _arc length_ of $\gamma$ is
 
       $$L = \int_a^b \norm{\gamma^{\prime}(t)} \mathrm{d}t.$$

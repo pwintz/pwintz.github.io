@@ -5,9 +5,9 @@ kind: family
 areas: [dynamics]
 summary: >
   In a dynamical system, several kinds of sets describe where solutions end up.
-  An [ω-limit set](/definitions/omega-limit-set) is where one particular solution ends up.
-  An [attractive](/definitions/attractive) set draws in all nearby solutions, and an [attractor](/definitions/attractor) is a [compact](/definitions/compact) invariant set that does.
-  A [limit cycle](/definitions/limit-cycle) is an isolated [periodic](/definitions/periodic) orbit, which may attract or repel.
+  An [ω-limit set](/dictionary/definitions/omega-limit-set) is where one particular solution ends up.
+  An [attractive](/dictionary/definitions/attractive) set draws in all nearby solutions, and an [attractor](/dictionary/definitions/attractor) is a [compact](/dictionary/definitions/compact) invariant set that does.
+  A [limit cycle](/dictionary/definitions/limit-cycle) is an isolated [periodic](/dictionary/definitions/periodic) orbit, which may attract or repel.
 terms:
   - omega_limit_set
   - attractive
@@ -25,5 +25,5 @@ see_also:
 ---
 ## Notes
 
-- Definitions of "attractor" vary: some require stability, some require that the set contain no smaller attractor, and Milnor [attractors](/definitions/attractor) only need to attract a set of initial states with positive measure.
+- Definitions of "attractor" vary: some require stability, some require that the set contain no smaller attractor, and Milnor [attractors](/dictionary/definitions/attractor) only need to attract a set of initial states with positive measure.
 - Strange attractors, such as the Lorenz attractor, are attractors with a fractal structure on which the dynamics are chaotic.

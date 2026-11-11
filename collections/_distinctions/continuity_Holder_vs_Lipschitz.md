@@ -23,4 +23,4 @@ see_also:
 ---
 ## Notes
 
-- Hölder continuity does not fit into the chain on the [types of continuity](/distinctions/types-of-continuous) page: the Cantor function is [Hölder continuous](/definitions/holder-continuous) but not [absolutely continuous](/definitions/absolutely-continuous), and $f(x) = 1 / \ln(1/x)$ (with $f(0) = 0$) is absolutely continuous on $[0, \frac{1}{2}]$ but not Hölder continuous.
+- Hölder continuity does not fit into the chain on the [types of continuity](/dictionary/distinctions/types-of-continuous) page: the Cantor function is [Hölder continuous](/dictionary/definitions/holder-continuous) but not [absolutely continuous](/dictionary/definitions/absolutely-continuous), and $f(x) = 1 / \ln(1/x)$ (with $f(0) = 0$) is absolutely continuous on $[0, \frac{1}{2}]$ but not Hölder continuous.

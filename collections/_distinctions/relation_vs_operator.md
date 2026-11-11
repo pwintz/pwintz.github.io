@@ -4,7 +4,7 @@ kind: siblings
 areas: [sets]
 summary: >
   Symbols placed between two objects, such as $+$ and $<$, do different kinds of things.
-  A [binary operation](/definitions/binary-operation) takes two objects and produces a new object of the same type.
+  A [binary operation](/dictionary/definitions/binary-operation) takes two objects and produces a new object of the same type.
   A binary relation takes two objects and says whether they are related (true or false).
 terms:
   - binary_operation
@@ -22,5 +22,5 @@ see_also:
 ## Notes
 
 - "$2 + 3 = 5$" combines both: $+$ is an operation that produces $5$, and $=$ is a relation that makes the whole statement a proposition.
-- "[Operator](/definitions/operator)" is often used for "operation" in elementary arithmetic (the "plus operator"), but in analysis an operator is a map between vector spaces.
-  See [types of maps](/distinctions/types-of-maps).
+- "[Operator](/dictionary/definitions/operator)" is often used for "operation" in elementary arithmetic (the "plus operator"), but in analysis an operator is a map between vector spaces.
+  See [types of maps](/dictionary/distinctions/types-of-maps).

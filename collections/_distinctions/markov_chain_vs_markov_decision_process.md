@@ -5,8 +5,8 @@ kind: hierarchy
 areas: [statistics, control]
 summary: >
   Markov chains and Markov decision processes model a system that moves at random between states, where the probabilities of the next state depend only on the current state.
-  In a [Markov chain](/definitions/markov-chain), the probabilities of the next state are fixed, so the chain only describes what happens.
-  In a [Markov decision process](/definitions/markov-decision-process), a decision maker chooses an action in each state, the action changes the probabilities of the next state, and each choice earns a reward, so the model asks which choices earn the most reward.
+  In a [Markov chain](/dictionary/definitions/markov-chain), the probabilities of the next state are fixed, so the chain only describes what happens.
+  In a [Markov decision process](/dictionary/definitions/markov-decision-process), a decision maker chooses an action in each state, the action changes the probabilities of the next state, and each choice earns a reward, so the model asks which choices earn the most reward.
 relation: Markov chain = Markov decision process with one action in each state
 terms:
   - markov_chain
@@ -23,5 +23,5 @@ see_also:
 ---
 ## Notes
 
-- A [Markov chain](/definitions/markov-chain) with a reward in each state, but no actions, is called a _Markov reward process_.
+- A [Markov chain](/dictionary/definitions/markov-chain) with a reward in each state, but no actions, is called a _Markov reward process_.
 - In a _hidden Markov model_, the states of a Markov chain are not observed directly; only random observations that depend on the states are seen.

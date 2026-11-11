@@ -4,8 +4,8 @@ kind: siblings
 areas: [linear-algebra, computing]
 summary: >
   A matrix decomposition writes a matrix in terms of simpler matrices.
-  Most are products: LU, PLU, and [Cholesky decompositions](/definitions/cholesky-decomposition) use triangular factors, QR and [singular value decompositions](/definitions/singular-value-decomposition) use orthogonal factors, and [eigendecompositions](/definitions/eigendecomposition), [Schur decompositions](/definitions/schur-decomposition), and [Jordan normal forms](/definitions/jordan-normal-form) are similarities $A = P M P^{-1}$ to a simpler matrix $M$ (diagonal, triangular, or made of Jordan blocks).
-  In contrast, the [Jordan–Chevalley decomposition](/definitions/jordan-chevalley-decomposition) is a sum of commuting diagonalizable and nilpotent parts, and the [Toeplitz decomposition](/definitions/toeplitz-decomposition) is a sum $H + K$ of a [symmetric matrix](/definitions/symmetric-matrix) $H$ and a [skew-symmetric](/definitions/skew-symmetric-matrix) matrix $K$.
+  Most are products: LU, PLU, and [Cholesky decompositions](/dictionary/definitions/cholesky-decomposition) use triangular factors, QR and [singular value decompositions](/dictionary/definitions/singular-value-decomposition) use orthogonal factors, and [eigendecompositions](/dictionary/definitions/eigendecomposition), [Schur decompositions](/dictionary/definitions/schur-decomposition), and [Jordan normal forms](/dictionary/definitions/jordan-normal-form) are similarities $A = P M P^{-1}$ to a simpler matrix $M$ (diagonal, triangular, or made of Jordan blocks).
+  In contrast, the [Jordan–Chevalley decomposition](/dictionary/definitions/jordan-chevalley-decomposition) is a sum of commuting diagonalizable and nilpotent parts, and the [Toeplitz decomposition](/dictionary/definitions/toeplitz-decomposition) is a sum $H + K$ of a [symmetric matrix](/dictionary/definitions/symmetric-matrix) $H$ and a [skew-symmetric](/dictionary/definitions/skew-symmetric-matrix) matrix $K$.
 terms:
   - lu_decomposition
   - plu_decomposition
@@ -43,16 +43,16 @@ see_also:
 <!-- artial pivoting for numerical stability. -->
   PLU is Gaussian elimination with row exchanges, recorded.
 
-- **QR:** least-squares problems and the QR algorithm for [eigenvalues](/definitions/eigenvalue).
+- **QR:** least-squares problems and the QR algorithm for [eigenvalues](/dictionary/definitions/eigenvalue).
   QR is the Gram–Schmidt process, recorded.
   
-- **SVD:** rank, low-rank approximation, and the geometry of a [linear map](/definitions/linear-map).
+- **SVD:** rank, low-rank approximation, and the geometry of a [linear map](/dictionary/definitions/linear-map).
 
 - **Cholesky:** solving $A x = b$ when $A$ is symmetric positive definite, as in least squares and optimization, at half the cost of LU, and sampling from a multivariate normal distribution.
 
 - **Eigendecomposition:** computing powers and exponentials of a diagonalizable matrix, and decoupling linear systems into independent modes.
 
-- **Schur:** computing eigenvalues stably; it exists for every matrix, unlike an [eigendecomposition](/definitions/eigendecomposition).
+- **Schur:** computing eigenvalues stably; it exists for every matrix, unlike an [eigendecomposition](/dictionary/definitions/eigendecomposition).
 
 - **Jordan normal form:** classifying matrices up to similarity, and computing $e^{A t}$ for matrices that are not diagonalizable, by hand.
 

@@ -13,14 +13,14 @@ levels:
     context: ordinary differential equations
     text: |-
       Consider a dynamical system $\dot{x} = f(x)$.
-      A _periodic orbit_ of the system is the [orbit](/definitions/orbit) of a nonconstant [periodic](/definitions/periodic) solution $x$, which is a solution such that, for some $T > 0$,
+      A _periodic orbit_ of the system is the [orbit](/dictionary/definitions/orbit) of a nonconstant [periodic](/dictionary/definitions/periodic) solution $x$, which is a solution such that, for some $T > 0$,
 
       $$x(t + T) = x(t) \quad \text{for all } t.$$
 properties:
   - >-
     A periodic orbit is a closed curve.
   - >-
-    Every [limit cycle](/definitions/limit-cycle) is a periodic orbit.
+    Every [limit cycle](/dictionary/definitions/limit-cycle) is a periodic orbit.
   - >-
-    In a planar system with a [continuously differentiable](/definitions/continuously-differentiable) $f$, every periodic orbit encloses at least one [equilibrium](/definitions/equilibrium).
+    In a planar system with a [continuously differentiable](/dictionary/definitions/continuously-differentiable) $f$, every periodic orbit encloses at least one [equilibrium](/dictionary/definitions/equilibrium).
 ---

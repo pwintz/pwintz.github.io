@@ -9,9 +9,9 @@ levels:
   high-school:
     context: sets of real numbers
     text: |-
-      A set $S$ of [real numbers](/definitions/real-number) is _bounded_ if there is a number $M$ such that $\abs{x} \leq M$ for every $x \in S$.
+      A set $S$ of [real numbers](/dictionary/definitions/real-number) is _bounded_ if there is a number $M$ such that $\abs{x} \leq M$ for every $x \in S$.
   undergraduate:
     context: metric spaces
     text: |-
-      A [subset](/definitions/subset) of a [metric space](/definitions/metric-space) is _bounded_ if it is contained in some [ball](/definitions/ball). A [sequence](/definitions/sequence) or function is _bounded_ if its set of values is bounded.
+      A [subset](/dictionary/definitions/subset) of a [metric space](/dictionary/definitions/metric-space) is _bounded_ if it is contained in some [ball](/dictionary/definitions/ball). A [sequence](/dictionary/definitions/sequence) or function is _bounded_ if its set of values is bounded.
 ---

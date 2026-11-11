@@ -41,7 +41,7 @@ layout: single
 
 <div class="distinctions">
   <p class="distinction__meta">
-    {% for id in page.areas %}{% assign area = site.data.distinction_areas | where: "id", id | first %}{% if area %}<a href="{{ '/distinctions/' | relative_url }}?subject={{ area.id }}" title="More distinctions in {{ area.name }}">{{ area.name }}</a>{% unless forloop.last %}, {% endunless %}{% endif %}{% endfor %}{% if page.areas and kind %} · {% endif %}{% if kind %}<a href="{{ '/distinctions/' | relative_url }}?kind={{ kind.id }}" title="{{ kind.description }}">{{ kind.name }}</a>{% endif %}
+    {% for id in page.areas %}{% assign area = site.data.distinction_areas | where: "id", id | first %}{% if area %}<a href="{{ '/dictionary/distinctions/' | relative_url }}?subject={{ area.id }}" title="More distinctions in {{ area.name }}">{{ area.name }}</a>{% unless forloop.last %}, {% endunless %}{% endif %}{% endfor %}{% if page.areas and kind %} · {% endif %}{% if kind %}<a href="{{ '/dictionary/distinctions/' | relative_url }}?kind={{ kind.id }}" title="{{ kind.description }}">{{ kind.name }}</a>{% endif %}
   </p>
 
   {% if page.summary %}
@@ -192,7 +192,7 @@ layout: single
     </ul>
   {% endif %}
 
-  <p class="distinction__back"><a href="{{ '/distinctions/' | relative_url }}">All distinctions</a> · <a href="{{ '/definitions/' | relative_url }}">All definitions</a></p>
+  <p class="distinction__back"><a href="{{ '/dictionary/distinctions/' | relative_url }}">All distinctions</a> · <a href="{{ '/dictionary/definitions/' | relative_url }}">All definitions</a></p>
 </div>
 
 {% if page.terms %}

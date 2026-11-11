@@ -7,7 +7,7 @@ levels:
     context: first-order logic
     text: |-
       Consider a first-order language, with variables, constant symbols, and function symbols.
-      A _term_ is a string of symbols built by the rules of the language that names an [object](/definitions/object-logic), such as $x$, $3$, or $x^2 + 1$.
+      A _term_ is a string of symbols built by the rules of the language that names an [object](/dictionary/definitions/object-logic), such as $x$, $3$, or $x^2 + 1$.
       Terms are built in two steps:
 
       1. every variable and every constant symbol is a term, and
@@ -16,6 +16,6 @@ properties:
   - >-
     A term has a value, such as a number, once its variables are given values, but a term has no truth value.
   - >-
-    A relation symbol applied to terms, such as $x^2 + 1 > 3$, is a [formula](/definitions/formula-logic), not a term.
+    A relation symbol applied to terms, such as $x^2 + 1 > 3$, is a [formula](/dictionary/definitions/formula-logic), not a term.
 ---
-In algebra, a "[term](/definitions/term-of-sum)" is one of the summands of a sum, such as $3x^2$ in $3x^2 - 5x + 2$; that meaning is different.
+In algebra, a "[term](/dictionary/definitions/term-of-sum)" is one of the summands of a sum, such as $3x^2$ in $3x^2 - 5x + 2$; that meaning is different.

@@ -4,8 +4,8 @@ kind: siblings
 areas: [statistics]
 summary: >
   Consider events that happen independently of each other at a constant average rate $\lambda$, such as customers arriving at a shop (a _Poisson process_).
-  The [Poisson distribution](/definitions/poisson-distribution) describes the _number_ of events in a fixed length of time, which is a whole number.
-  The [exponential distribution](/definitions/exponential-distribution) describes the _time_ until the next event, which is a positive real number.
+  The [Poisson distribution](/dictionary/definitions/poisson-distribution) describes the _number_ of events in a fixed length of time, which is a whole number.
+  The [exponential distribution](/dictionary/definitions/exponential-distribution) describes the _time_ until the next event, which is a positive real number.
 terms:
   - poisson_distribution
   - exponential_distribution
@@ -22,5 +22,5 @@ see_also:
 ## Notes
 
 - The two distributions are linked by $P(T > t) = P(N_t = 0) = e^{-\lambda t}$, where $N_t$ is the number of events in time $t$ and $T$ is the time of the first event.
-- The Poisson distribution is [discrete](/definitions/discrete-distribution), and the exponential distribution is [continuous](/definitions/continuous-distribution).
+- The Poisson distribution is [discrete](/dictionary/definitions/discrete-distribution), and the exponential distribution is [continuous](/dictionary/definitions/continuous-distribution).
 - In a Poisson process, the mean number of events per unit of time is $\lambda$, and the mean time between events is $1 / \lambda$.

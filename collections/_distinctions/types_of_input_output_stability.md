@@ -6,7 +6,7 @@ areas: [control, dynamics]
 summary: >
   For a system with inputs, stability can be required of the state or only of the output.
   Input-to-state stability bounds the state for every initial state and input.
-  BIBO stability only requires [bounded](/definitions/bounded) outputs for bounded inputs, starting from zero.
+  BIBO stability only requires [bounded](/dictionary/definitions/bounded) outputs for bounded inputs, starting from zero.
   A finite $L_2$ gain bounds the energy of the output by the energy of the input.
 terms:
   - bibo_stable
@@ -24,7 +24,7 @@ see_also:
 ---
 ## Notes
 
-- For linear [time-invariant](/definitions/time-invariant) systems with a minimal realization, input-to-state stability, BIBO stability, finite $L_2$ gain, and asymptotic stability of the origin are all equivalent.
+- For linear [time-invariant](/dictionary/definitions/time-invariant) systems with a minimal realization, input-to-state stability, BIBO stability, finite $L_2$ gain, and asymptotic stability of the origin are all equivalent.
   The distinctions matter for nonlinear systems and for non-minimal realizations.
 - Input-to-state stability is about the state from every initial state.
   BIBO stability and $L_2$ gain are about the input-output map, usually from the zero initial state.

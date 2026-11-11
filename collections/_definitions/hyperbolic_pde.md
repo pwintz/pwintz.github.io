@@ -20,9 +20,9 @@ levels:
 
       $$\sum_{i,j} a_{ij} \partial_i \partial_j u + (\text{lower-order terms}) = 0.$$
 
-      The equation is _hyperbolic_ where the [coefficient](/definitions/coefficient) [matrix](/definitions/matrix) $(a_{ij})$ has no zero [eigenvalues](/definitions/eigenvalue), one eigenvalue of one sign, and all others of the opposite sign.
+      The equation is _hyperbolic_ where the [coefficient](/dictionary/definitions/coefficient) [matrix](/dictionary/definitions/matrix) $(a_{ij})$ has no zero [eigenvalues](/dictionary/definitions/eigenvalue), one eigenvalue of one sign, and all others of the opposite sign.
 properties:
   - >-
     Hyperbolic equations typically describe waves.
-    [Disturbances](/definitions/disturbance) travel at finite speed and are not smoothed out.
+    [Disturbances](/dictionary/definitions/disturbance) travel at finite speed and are not smoothed out.
 ---

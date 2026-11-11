@@ -6,11 +6,11 @@ synonyms: [size (in MATLAB)]
 levels:
   high-school:
     text: |-
-      Consider an [array](/definitions/array) of numbers, which has some length in each direction.
+      Consider an [array](/dictionary/definitions/array) of numbers, which has some length in each direction.
       The _shape_ of the array is the list of those lengths.
   undergraduate:
     context: programming
     text: |-
-      Consider an [array](/definitions/array) with one or more axes.
+      Consider an [array](/dictionary/definitions/array) with one or more axes.
       The _shape_ of the array is the tuple of its lengths along each axis.
 ---

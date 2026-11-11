@@ -6,7 +6,7 @@ areas: [linear-algebra, computing]
 summary: >
   "Rank" means two different things for arrays and for matrices, so the rank of a matrix depends on which meaning is intended.
   The "rank" of an array (or tensor) is its number of axes, so every matrix has rank $2$ in this sense.
-  The rank of a matrix in linear algebra is its number of [linearly independent](/definitions/linearly-independent) columns.
+  The rank of a matrix in linear algebra is its number of [linearly independent](/dictionary/definitions/linearly-independent) columns.
 terms:
   - array_rank
   - matrix_rank

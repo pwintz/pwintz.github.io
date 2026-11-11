@@ -8,7 +8,7 @@ kind: siblings
 areas: [analysis]
 summary: >
   There are many ways to describe the continuity of a function.
-  On a [compact](/definitions/compact) interval, each is a special case of the next, from [continuously differentiable](/definitions/continuously-differentiable) to [continuous](/definitions/continuous).
+  On a [compact](/dictionary/definitions/compact) interval, each is a special case of the next, from [continuously differentiable](/dictionary/definitions/continuously-differentiable) to [continuous](/dictionary/definitions/continuous).
 relation:
   context: 'On a compact interval $[a, b]$:'
   relation: continuously differentiable ⊂ Lipschitz continuous ⊂ absolutely continuous ⊂ uniformly continuous = continuous
@@ -34,7 +34,7 @@ see_also:
 ## Notes
 
 - Each neighboring pair in the chain has its own page, listed under "See also."
-- On domains other than [compact](/definitions/compact) intervals, the chain changes.
-  [Lipschitz continuous](/definitions/lipschitz-continuous) ⊂ [uniformly continuous](/definitions/uniformly-continuous) ⊂ [continuous](/definitions/continuous) still holds, but continuous functions need not be uniformly continuous, and [continuously differentiable](/definitions/continuously-differentiable) functions need not be Lipschitz continuous (see the last two examples).
+- On domains other than [compact](/dictionary/definitions/compact) intervals, the chain changes.
+  [Lipschitz continuous](/dictionary/definitions/lipschitz-continuous) ⊂ [uniformly continuous](/dictionary/definitions/uniformly-continuous) ⊂ [continuous](/dictionary/definitions/continuous) still holds, but continuous functions need not be uniformly continuous, and [continuously differentiable](/dictionary/definitions/continuously-differentiable) functions need not be Lipschitz continuous (see the last two examples).
 - Hölder continuity lies between Lipschitz continuity and uniform continuity.
   It is not covered here yet.

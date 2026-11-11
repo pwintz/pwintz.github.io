@@ -5,7 +5,7 @@ kind: siblings
 areas: [control, linear-algebra]
 summary: >
   A linear system can be described by its state matrices or by its transfer function, and each description has its own special numbers.
-  The [eigenvalues](/definitions/eigenvalue) of the state matrix are the [poles](/definitions/pole) of the transfer function only for a minimal realization.
+  The [eigenvalues](/dictionary/definitions/eigenvalue) of the state matrix are the [poles](/dictionary/definitions/pole) of the transfer function only for a minimal realization.
   Canceled modes are eigenvalues but not poles, and they can hide an internal instability.
   Zeros are where the transfer function vanishes.
 terms:
@@ -31,8 +31,8 @@ see_also:
 ---
 ## Notes
 
-- "[Poles](/definitions/pole)" and "[eigenvalues](/definitions/eigenvalue)" are often used interchangeably, which is correct only for minimal realizations.
+- "[Poles](/dictionary/definitions/pole)" and "[eigenvalues](/dictionary/definitions/eigenvalue)" are often used interchangeably, which is correct only for minimal realizations.
 - The poles of the closed-loop system, not the open-loop system, determine closed-loop stability.
   Root locus plots show how the closed-loop poles move as a gain changes.
 - A "zero" of a transfer function is a value of $s$, which is unrelated to the number $0$.
-  See [types of nothing](/distinctions/types-of-nothing).
+  See [types of nothing](/dictionary/distinctions/types-of-nothing).

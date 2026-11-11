@@ -6,7 +6,7 @@ areas: [analysis]
 summary: >
   Functions can be sorted by how many derivatives they have and how well behaved those derivatives are.
   Each condition is stronger than the previous one.
-  A smooth function has derivatives of every order, but it can still differ from its Taylor series, which an [analytic](/definitions/analytic) function cannot.
+  A smooth function has derivatives of every order, but it can still differ from its Taylor series, which an [analytic](/dictionary/definitions/analytic) function cannot.
 relation: analytic ⊂ smooth ⊂ continuously differentiable ⊂ differentiable
 terms:
   - differentiable
@@ -26,5 +26,5 @@ see_also:
 ---
 ## Notes
 
-- $C^k$ functions have $k$ [continuous](/definitions/continuous) derivatives, so the chain continues: $C^{\infty} \subset \dots \subset C^2 \subset C^1$.
-- For complex functions, the chain collapses: a function that is complex [differentiable](/definitions/differentiable) on an [open set](/definitions/open-set) (holomorphic) is automatically [analytic](/definitions/analytic).
+- $C^k$ functions have $k$ [continuous](/dictionary/definitions/continuous) derivatives, so the chain continues: $C^{\infty} \subset \dots \subset C^2 \subset C^1$.
+- For complex functions, the chain collapses: a function that is complex [differentiable](/dictionary/definitions/differentiable) on an [open set](/dictionary/definitions/open-set) (holomorphic) is automatically [analytic](/dictionary/definitions/analytic).

@@ -22,5 +22,5 @@ properties:
 
     $$\operatorname{rank} \begin{bmatrix} C \\ C A \\ \vdots \\ C A^{n-1} \end{bmatrix} = n.$$
   - >-
-    Observability is dual to controllability: $(A, C)$ is observable if and only if $(A^{\top}, C^{\top})$ is [controllable](/definitions/controllable).
+    Observability is dual to controllability: $(A, C)$ is observable if and only if $(A^{\top}, C^{\top})$ is [controllable](/dictionary/definitions/controllable).
 ---

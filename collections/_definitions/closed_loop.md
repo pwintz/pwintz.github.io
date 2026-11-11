@@ -14,6 +14,6 @@ levels:
   undergraduate:
     text: |-
       Consider a control system $\dot x = f(x, u)$. 
-      In _closed-loop_ control, the input $u$ is computed from measurements of the output (or state), forming a [feedback](/definitions/feedback) loop.
+      In _closed-loop_ control, the input $u$ is computed from measurements of the output (or state), forming a [feedback](/dictionary/definitions/feedback) loop.
       The _closed-loop system_ is the plant together with its controller.
 ---

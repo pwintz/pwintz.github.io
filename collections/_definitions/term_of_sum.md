@@ -11,4 +11,4 @@ levels:
     text: |-
       In the summation of two or more values, each value is called a _term_ of the sum.
 ---
-"Term" also means an element of a [sequence](/definitions/sequence) (the third term of $1, 4, 9, \dots$ is $9$) and, in logic, an expression that denotes an object.
+"Term" also means an element of a [sequence](/dictionary/definitions/sequence) (the third term of $1, 4, 9, \dots$ is $9$) and, in logic, an expression that denotes an object.

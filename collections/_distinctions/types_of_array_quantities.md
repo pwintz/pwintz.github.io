@@ -26,5 +26,5 @@ see_also:
 
 Each of these quantities is often called by a word with conflicting meanings:
 
-- the number of axes is called the "rank" or the "[number of dimensions](/definitions/array-rank)" (see [the meanings of "rank"](/distinctions/meanings-of-rank) and [the meanings of "dimension"](/distinctions/meanings-of-dimension)), and
-- the number of elements and the shape are both called the "size" (see [the meanings of "size"](/distinctions/meanings-of-size-of-array)).
+- the number of axes is called the "rank" or the "[number of dimensions](/dictionary/definitions/array-rank)" (see [the meanings of "rank"](/dictionary/distinctions/meanings-of-rank) and [the meanings of "dimension"](/dictionary/distinctions/meanings-of-dimension)), and
+- the number of elements and the shape are both called the "size" (see [the meanings of "size"](/dictionary/distinctions/meanings-of-size-of-array)).

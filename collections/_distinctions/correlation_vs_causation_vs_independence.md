@@ -5,9 +5,9 @@ kind: siblings
 areas: [statistics]
 summary: >
   Two quantities that vary together can be related in different senses.
-  [Correlation](/definitions/correlation) measures how closely two quantities follow a straight-line relationship in observed data or in a probability model.
-  [Causation](/definitions/causation) says that changing one quantity, while everything else is held fixed, changes the other quantity.
-  [Statistical independence](/definitions/statistical-independence) says that knowing the value of one quantity does not change the probabilities of the values of the other quantity.
+  [Correlation](/dictionary/definitions/correlation) measures how closely two quantities follow a straight-line relationship in observed data or in a probability model.
+  [Causation](/dictionary/definitions/causation) says that changing one quantity, while everything else is held fixed, changes the other quantity.
+  [Statistical independence](/dictionary/definitions/statistical-independence) says that knowing the value of one quantity does not change the probabilities of the values of the other quantity.
 terms:
   - correlation
   - causation

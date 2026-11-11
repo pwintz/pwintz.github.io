@@ -3,7 +3,7 @@ published: false
 title: 'A random number $X = \sum_{k=1}^\infty 2 B_k 3^{-k}$, where $B_1, B_2, \dots$ are independent fair coin flips with values $0$ and $1$'
 level: graduate
 detail: |-
-  The digits of $X$ in base $3$ are $0$ or $2$, so $X$ lies in [the Cantor set](/examples/the-cantor-set), and the [cumulative distribution function](/definitions/cumulative-distribution-function) of $X$ is [the Cantor function](/examples/the-cantor-function-on-0-1).
+  The digits of $X$ in base $3$ are $0$ or $2$, so $X$ lies in [the Cantor set](/dictionary/examples/the-cantor-set), and the [cumulative distribution function](/dictionary/definitions/cumulative-distribution-function) of $X$ is [the Cantor function](/dictionary/examples/the-cantor-function-on-0-1).
 values:
   discrete_distribution: 'No'
   continuous_distribution: 'No'

@@ -11,4 +11,4 @@ levels:
     text: |-
       To _prepend_ $x$ to a list $(a_1, \dots, a_n)$ is to form the list $(x, a_1, \dots, a_n)$, with $x$ added at the beginning.
 ---
-Compare [append](/definitions/append), which adds an element at the end.
+Compare [append](/dictionary/definitions/append), which adds an element at the end.

@@ -4,9 +4,9 @@ kind: family
 areas: [control]
 summary: >
   A control system is affected by signals that it does not generate itself, and these signals have different names depending on their role.
-  [Exogenous inputs](/definitions/exogenous-input) are any inputs from outside the system.
-  A [control input](/definitions/control-input) is chosen; a [disturbance](/definitions/disturbance) acts on the dynamics; [measurement noise](/definitions/measurement-noise) only corrupts what is measured.
-  A [perturbation](/definitions/perturbation) is a change to the system itself, which may or may not be modeled as an input.
+  [Exogenous inputs](/dictionary/definitions/exogenous-input) are any inputs from outside the system.
+  A [control input](/dictionary/definitions/control-input) is chosen; a [disturbance](/dictionary/definitions/disturbance) acts on the dynamics; [measurement noise](/dictionary/definitions/measurement-noise) only corrupts what is measured.
+  A [perturbation](/dictionary/definitions/perturbation) is a change to the system itself, which may or may not be modeled as an input.
 terms:
   - exogenous_input
   - control_input

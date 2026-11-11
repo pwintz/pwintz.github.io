@@ -5,9 +5,9 @@ kind: family
 areas: [analysis]
 summary: >
   An integral adds up the values of a function, weighted by small pieces of something, and different integrals differ in how the pieces are cut and weighted.
-  The [Riemann integral](/definitions/riemann-integral) cuts the domain into small intervals, and an [improper integral](/definitions/improper-integral) extends it by a limit to unbounded intervals or functions.
-  The [Riemann–Stieltjes integral](/definitions/riemann-stieltjes-integral) weights the pieces by the change in another function, and the [Lebesgue integral](/definitions/lebesgue-integral) cuts the range instead of the domain, which handles more functions and limits.
-  The Itô and [Stratonovich integrals](/definitions/stratonovich-integral) integrate with respect to [Brownian motion](/definitions/brownian-motion), where the point at which the integrand is evaluated changes the answer.
+  The [Riemann integral](/dictionary/definitions/riemann-integral) cuts the domain into small intervals, and an [improper integral](/dictionary/definitions/improper-integral) extends it by a limit to unbounded intervals or functions.
+  The [Riemann–Stieltjes integral](/dictionary/definitions/riemann-stieltjes-integral) weights the pieces by the change in another function, and the [Lebesgue integral](/dictionary/definitions/lebesgue-integral) cuts the range instead of the domain, which handles more functions and limits.
+  The Itô and [Stratonovich integrals](/dictionary/definitions/stratonovich-integral) integrate with respect to [Brownian motion](/dictionary/definitions/brownian-motion), where the point at which the integrand is evaluated changes the answer.
 terms:
   - riemann_integral
   - improper_integral

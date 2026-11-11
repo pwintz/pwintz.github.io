@@ -10,6 +10,6 @@ levels:
       The _coefficient_ of the term is the number that multiplies its variable.
   high-school:
     text: |-
-      Consider a term of a [polynomial](/definitions/polynomial), made of a constant factor times a variable part.
+      Consider a term of a [polynomial](/dictionary/definitions/polynomial), made of a constant factor times a variable part.
       The _coefficient_ of the term is the constant factor that multiplies its variable part.
 ---

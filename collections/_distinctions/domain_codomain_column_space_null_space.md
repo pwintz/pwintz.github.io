@@ -4,11 +4,11 @@ title: Domain vs. codomain vs. column space vs. null space of a matrix
 kind: siblings
 areas: [linear-algebra]
 summary: >
-  An $m \times n$ matrix $A$ defines the [linear map](/definitions/linear-map) $x \mapsto A x$, and four subspaces describe the inputs and outputs of the map.
-  The [domain](/definitions/domain) is $\reals^n$, the space of inputs, whose dimension is the number of columns.
-  The [codomain](/definitions/codomain) (or target) is $\reals^m$, the space where outputs land, whose dimension is the number of rows.
-  The [column space](/definitions/column-space), which is the [image](/definitions/image) of the map, is the set of outputs $A x$ that actually occur, a subspace of the codomain.
-  The [null space](/definitions/kernel), also called the kernel, is the set of inputs $x$ such that $A x = 0$, a subspace of the domain.
+  An $m \times n$ matrix $A$ defines the [linear map](/dictionary/definitions/linear-map) $x \mapsto A x$, and four subspaces describe the inputs and outputs of the map.
+  The [domain](/dictionary/definitions/domain) is $\reals^n$, the space of inputs, whose dimension is the number of columns.
+  The [codomain](/dictionary/definitions/codomain) (or target) is $\reals^m$, the space where outputs land, whose dimension is the number of rows.
+  The [column space](/dictionary/definitions/column-space), which is the [image](/dictionary/definitions/image) of the map, is the set of outputs $A x$ that actually occur, a subspace of the codomain.
+  The [null space](/dictionary/definitions/kernel), also called the kernel, is the set of inputs $x$ such that $A x = 0$, a subspace of the domain.
 relation: |-
   null space ⊆ domain $= \reals^n$, and column space ⊆ codomain $= \reals^m$.
 terms:
@@ -31,4 +31,4 @@ see_also:
 ## Notes
 
 - The rank–nullity theorem relates the dimensions: $\dim \operatorname{col} A + \dim \ker A = n$, the dimension of the domain.
-- "Range" sometimes means the [column space](/definitions/column-space) and sometimes the [codomain](/definitions/codomain); see [meanings of range](/distinctions/meanings-of-range).
+- "Range" sometimes means the [column space](/dictionary/definitions/column-space) and sometimes the [codomain](/dictionary/definitions/codomain); see [meanings of range](/dictionary/distinctions/meanings-of-range).

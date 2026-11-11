@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'Finding the shortest curve $y(x)$ in the plane from $(0, 0)$ to $(1, 1)$'
 level: undergraduate
 detail: >-
@@ -8,6 +7,7 @@ is: [
   calculus_of_variations,
   optimal_control
 ]
+# TODO These long "why" blocks should be displayed larger. Not with small text. 
 why:
   calculus_of_variations: >-
     Finding the shortest curve from $(0, 0)$ to $(1, 1)$ is a problem in the calculus of variations, because the unknown is a function $y$ with fixed end values, and the length is the integral of $L(y^{\prime}) = \sqrt{1 + (y^{\prime})^2}$.

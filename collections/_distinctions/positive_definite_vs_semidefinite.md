@@ -4,8 +4,8 @@ kind: hierarchy
 areas: [linear-algebra]
 summary: >
   Positive definiteness and semidefiniteness describe the sign of the quadratic form $x^{\top} A x$ of a symmetric matrix, and they appear in optimization, stability, and statistics.
-  A [symmetric matrix](/definitions/symmetric-matrix) $A$ is [positive semidefinite](/definitions/positive-semidefinite-matrix) if $x^{\top} A x \geq 0$ for every vector $x$, and positive definite if $x^{\top} A x > 0$ for every nonzero $x$.
-  Equivalently, the [eigenvalues](/definitions/eigenvalue) of $A$ are nonnegative or positive.
+  A [symmetric matrix](/dictionary/definitions/symmetric-matrix) $A$ is [positive semidefinite](/dictionary/definitions/positive-semidefinite-matrix) if $x^{\top} A x \geq 0$ for every vector $x$, and positive definite if $x^{\top} A x > 0$ for every nonzero $x$.
+  Equivalently, the [eigenvalues](/dictionary/definitions/eigenvalue) of $A$ are nonnegative or positive.
 relation: positive definite ⊂ positive semidefinite
 terms:
   - positive_definite_matrix
@@ -29,5 +29,5 @@ see_also:
 
 - Negative definite and negative semidefinite matrices are defined the same way, with the inequalities reversed: $A$ is negative definite exactly when $-A$ is positive definite.
 - A matrix that is neither positive nor negative semidefinite is _indefinite_.
-- A [positive definite function](/definitions/positive-definite-function), as used for [Lyapunov functions](/definitions/lyapunov-function), is a different notion: a function with $V(0) = 0$ and $V(x) > 0$ for $x \neq 0$.
+- A [positive definite function](/dictionary/definitions/positive-definite-function), as used for [Lyapunov functions](/dictionary/definitions/lyapunov-function), is a different notion: a function with $V(0) = 0$ and $V(x) > 0$ for $x \neq 0$.
   The quadratic form $V(x) = x^{\top} A x$ is a positive definite function exactly when $A$ is a positive definite matrix.

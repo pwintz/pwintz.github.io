@@ -3,9 +3,9 @@ title: Formula vs. sentence
 kind: hierarchy
 areas: [sets]
 summary: >
-  In [first-order logic](/definitions/first-order-logic), statements about objects are written as strings of symbols with variables and [quantifiers](/definitions/quantifier).
-  A [formula](/definitions/formula-logic) is every such string that is built by the rules of the language, such as $x > 3$ or $\forall x \, (x^2 \geq 0)$, and the variables in a formula can be free or bound by quantifiers.
-  A [sentence](/definitions/sentence-logic) is a formula in which a quantifier binds every variable, so a sentence is true or false once its symbols are interpreted, without assigning values to variables.
+  In [first-order logic](/dictionary/definitions/first-order-logic), statements about objects are written as strings of symbols with variables and [quantifiers](/dictionary/definitions/quantifier).
+  A [formula](/dictionary/definitions/formula-logic) is every such string that is built by the rules of the language, such as $x > 3$ or $\forall x \, (x^2 \geq 0)$, and the variables in a formula can be free or bound by quantifiers.
+  A [sentence](/dictionary/definitions/sentence-logic) is a formula in which a quantifier binds every variable, so a sentence is true or false once its symbols are interpreted, without assigning values to variables.
 relation: sentence ⊂ formula
 terms:
   - formula_logic
@@ -29,4 +29,4 @@ see_also:
 ## Notes
 
 - Quantifying every free variable of a formula gives a sentence: $\forall x \, (x > 3)$ and $\exists x \, (x > 3)$ are sentences.
-- A formula with free variables expresses a [predicate](/definitions/predicate), and a sentence expresses a [proposition](/definitions/proposition) once its symbols are interpreted.
+- A formula with free variables expresses a [predicate](/dictionary/definitions/predicate), and a sentence expresses a [proposition](/dictionary/definitions/proposition) once its symbols are interpreted.

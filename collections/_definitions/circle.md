@@ -13,7 +13,7 @@ levels:
     text: |-
       Consider a center $c$ in the plane and a radius $r > 0$.
       The _circle_ with center $c$ and radius $r$ is the set of points in the plane at distance $r$ from $c$.
-      It is a [sphere](/definitions/sphere) in $\reals^2$ (the $1$-sphere $S^1$).
+      It is a [sphere](/dictionary/definitions/sphere) in $\reals^2$ (the $1$-sphere $S^1$).
   # TODO: Add undergraduate for metric space on R^n
   # TODO: Add graduate for other types of metric spaces.
 ---

@@ -5,7 +5,7 @@ kind: family
 areas: [analysis, topology]
 summary: >
   "Dense" and "almost everywhere" both mean "nearly everything," in different senses.
-  A [dense](/definitions/dense-set) set is close to everything; an "[almost everywhere](/definitions/almost-everywhere)" set misses only a set of [measure zero](/definitions/measure-zero).
+  A [dense](/dictionary/definitions/dense-set) set is close to everything; an "[almost everywhere](/dictionary/definitions/almost-everywhere)" set misses only a set of [measure zero](/dictionary/definitions/measure-zero).
   Neither implies the other.
 terms:
   - dense_set
@@ -20,5 +20,5 @@ see_also:
 ---
 ## Notes
 
-- "[Dense](/definitions/dense-set)" has another meaning for matrices: a dense matrix has mostly nonzero entries, the opposite of a [sparse](/definitions/sparse-matrix) matrix.
+- "[Dense](/dictionary/definitions/dense-set)" has another meaning for matrices: a dense matrix has mostly nonzero entries, the opposite of a [sparse](/dictionary/definitions/sparse-matrix) matrix.
   It is unrelated to a dense set.

@@ -9,5 +9,5 @@ levels:
     context: topology
     text: |-
       Consider a topological space $X$.
-      The space $X$ is a _topological circle_ if $X$ is homeomorphic to the unit [circle](/definitions/circle) $S^1$.
+      The space $X$ is a _topological circle_ if $X$ is homeomorphic to the unit [circle](/dictionary/definitions/circle) $S^1$.
 ---

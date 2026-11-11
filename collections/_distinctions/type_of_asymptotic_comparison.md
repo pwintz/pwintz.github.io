@@ -5,9 +5,9 @@ kind: family
 areas: [analysis, computing]
 summary: >
   To compare how fast two functions grow, mathematicians and computer scientists use several notations.
-  [Big O](/definitions/big-o) is an upper bound up to a constant factor, and [big Omega](/definitions/big-omega) is a lower bound.
-  [Big Theta](/definitions/big-theta) is both.
-  [Little o](/definitions/little-o) means "negligible in comparison," and asymptotic equivalence means "the ratio tends to $1$," which is stronger than big Theta.
+  [Big O](/dictionary/definitions/big-o) is an upper bound up to a constant factor, and [big Omega](/dictionary/definitions/big-omega) is a lower bound.
+  [Big Theta](/dictionary/definitions/big-theta) is both.
+  [Little o](/dictionary/definitions/little-o) means "negligible in comparison," and asymptotic equivalence means "the ratio tends to $1$," which is stronger than big Theta.
 terms:
   - big_O
   - big_Omega

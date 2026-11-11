@@ -8,6 +8,6 @@ levels:
       A scientific _law_ is a statement, often an equation, that describes a pattern that holds in every tested case, without explaining why.
 properties:
   - >-
-    A law describes what happens, and a [theory](/definitions/theory-science) explains why.
+    A law describes what happens, and a [theory](/dictionary/definitions/theory-science) explains why.
     A theory does not become a law by gaining more evidence.
 ---

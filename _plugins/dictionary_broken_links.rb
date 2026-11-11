@@ -4,7 +4,7 @@
 #   - links to pages marked `published: false`. These are generated in a local preview built with
 #     --unpublished, but not on the live site, so they are marked in both cases.
 #
-# Only links to /definitions/<name>, /distinctions/<name>, and /examples/<name> are checked.
+# Only links to /dictionary/definitions/<name>, /dictionary/distinctions/<name>, and /dictionary/examples/<name> are checked.
 #
 # The links are marked in the written HTML files, after every build. This also covers pages that an
 # incremental build (`jekyll serve --incremental`) did not regenerate, and unmarks links whose targets
@@ -20,7 +20,7 @@ module DictionaryBrokenLinks
     unpublished: "This page is not published yet.",
   }.freeze
 
-  # "/definitions/foo/", "/definitions/foo.html", and "/definitions/foo#bar" all name the page "/definitions/foo".
+  # "/dictionary/definitions/foo/", "/dictionary/definitions/foo.html", and "/dictionary/definitions/foo#bar" all name the page "/dictionary/definitions/foo".
   def self.normalize(url)
     url.sub(/[?#].*\z/, "").sub(%r{/\z}, "").sub(/\.html\z/, "")
   end
@@ -33,7 +33,7 @@ module DictionaryBrokenLinks
   end
 
   def self.mark(html, published, unpublished, baseurl)
-    pattern = %r{<a\s[^>]*?href="#{Regexp.escape(baseurl)}(/(?:#{PREFIXES.join("|")})/[^"]+)"[^>]*>}
+    pattern = %r{<a\s[^>]*?href="#{Regexp.escape(baseurl)}(/dictionary/(?:#{PREFIXES.join("|")})/[^"]+)"[^>]*>}
     html.gsub(pattern) do |tag|
       path = normalize(Regexp.last_match(1))
       tag = unmark(tag)

@@ -2,7 +2,7 @@
 """Link the first unlinked mention of each defined term in the Dictionary of Fine Distinctions.
 
 Following the "Link other terms" rule in collections/README.md, the first mention of another defined
-term in each unit of prose gets a link to the term's page, e.g., "[metric space](/definitions/metric-space)".
+term in each unit of prose gets a link to the term's page, e.g., "[metric space](/dictionary/definitions/metric-space)".
 The units are each level's `text` and `caveat` and each property of a definition, the `summary` of a
 distinction, and the Markdown body of a definition or distinction.
 
@@ -57,7 +57,7 @@ STOP_PHRASES = re.compile(
 
 def slug_url(path):
     name = os.path.basename(path)[:-3]
-    return "/definitions/" + name.lower().replace("_", "-")
+    return "/dictionary/definitions/" + name.lower().replace("_", "-")
 
 
 def load_terms():
@@ -88,7 +88,7 @@ PROTECTED = re.compile(
 
 def link_unit(text, terms, own_url, log):
     """Link the first unlinked mention of each term in one unit of prose."""
-    linked = set(re.findall(r"\]\((/definitions/[a-z0-9-]+)\)", text)) | {own_url}
+    linked = set(re.findall(r"\]\((/dictionary/definitions/[a-z0-9-]+)\)", text)) | {own_url}
     protected = [m.span() for m in PROTECTED.finditer(text)]
     taken = list(protected)
     edits = []

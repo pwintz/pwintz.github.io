@@ -15,5 +15,5 @@ levels:
 
       $$u^{\top} y \geq \dot{V} + \psi(x)$$
 
-      for some [positive definite](/definitions/positive-definite-function) function $\psi$ of the state.
+      for some [positive definite](/dictionary/definitions/positive-definite-function) function $\psi$ of the state.
 ---

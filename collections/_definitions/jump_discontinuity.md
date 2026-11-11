@@ -11,12 +11,12 @@ levels:
   undergraduate:
     text: |-
       Consider a function $f$ defined near a point $a$.
-      The function $f$ has a _jump discontinuity_ at $a$ if the [left limit](/definitions/left-limit) and the [right limit](/definitions/right-limit) at $a$ both exist and
+      The function $f$ has a _jump discontinuity_ at $a$ if the [left limit](/dictionary/definitions/left-limit) and the [right limit](/dictionary/definitions/right-limit) at $a$ both exist and
 
       $$\lim_{x \to a^{-}} f(x) \neq \lim_{x \to a^{+}} f(x).$$
 properties:
   - >-
-    No choice of $f(a)$ makes $f$ [continuous](/definitions/continuous) at a jump discontinuity.
+    No choice of $f(a)$ makes $f$ [continuous](/dictionary/definitions/continuous) at a jump discontinuity.
   - >-
     A derivative has no jump discontinuities, by Darboux's theorem, and a monotone function has no discontinuities other than jump discontinuities.
 ---

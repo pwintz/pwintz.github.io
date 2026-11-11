@@ -4,7 +4,7 @@ kind: siblings
 areas: [linear-algebra, analysis]
 summary: >
   Norms, metrics, and inner products measure size, distance, and angle, and each one gives the next in a natural way.
-  A [norm](/definitions/norm) measures the lengths of vectors, a [metric](/definitions/metric) measures distances between points, and an [inner product](/definitions/inner-product) measures both lengths and angles.
+  A [norm](/dictionary/definitions/norm) measures the lengths of vectors, a [metric](/dictionary/definitions/metric) measures distances between points, and an [inner product](/dictionary/definitions/inner-product) measures both lengths and angles.
   An inner product gives a norm, and a norm gives a metric, but not the reverse.
 relation: >
   An inner product gives a norm, $\norm{x} = \sqrt{\ip{x}{x}}$, and a norm gives a metric, $d(x, y) = \norm{x - y}$.
@@ -27,11 +27,11 @@ see_also:
 ---
 ## Notes
 
-- A [norm](/definitions/norm) comes from an [inner product](/definitions/inner-product) exactly when it satisfies the parallelogram law,
+- A [norm](/dictionary/definitions/norm) comes from an [inner product](/dictionary/definitions/inner-product) exactly when it satisfies the parallelogram law,
 
   $$\norm{x + y}^2 + \norm{x - y}^2 = 2 \norm{x}^2 + 2 \norm{y}^2.$$
-- A [metric](/definitions/metric) comes from a norm only if it is translation invariant ($d(x + z, y + z) = d(x, y)$) and scales ($d(c x, c y) = \abs{c} d(x, y)$).
+- A [metric](/dictionary/definitions/metric) comes from a norm only if it is translation invariant ($d(x + z, y + z) = d(x, y)$) and scales ($d(c x, c y) = \abs{c} d(x, y)$).
 - Each structure needs a different setting.
   An inner product and a norm are defined only on a (real or complex) vector space, because their definitions add vectors and multiply them by scalars.
-  A metric needs only a set: the [discrete metric](/definitions/discrete-metric) works on any set, and the great-circle distance works on a [sphere](/definitions/sphere), which is not a vector space.
-  So every [inner product space](/definitions/inner-product-space) is a [normed space](/definitions/normed-space), and every normed space is a [metric space](/definitions/metric-space), but a metric space need not have a norm or an inner product.
+  A metric needs only a set: the [discrete metric](/dictionary/definitions/discrete-metric) works on any set, and the great-circle distance works on a [sphere](/dictionary/definitions/sphere), which is not a vector space.
+  So every [inner product space](/dictionary/definitions/inner-product-space) is a [normed space](/dictionary/definitions/normed-space), and every normed space is a [metric space](/dictionary/definitions/metric-space), but a metric space need not have a norm or an inner product.

@@ -7,7 +7,7 @@ synonyms: [transmission zero]
 levels:
   high-school:
     text: |-
-      Consider a [fraction](/definitions/fraction) of [polynomials](/definitions/polynomial), after canceling common factors.
+      Consider a [fraction](/dictionary/definitions/fraction) of [polynomials](/dictionary/definitions/polynomial), after canceling common factors.
       A _zero_ of the fraction is a value where the numerator is zero, so that the function is zero.
   undergraduate:
     text: |-
@@ -20,5 +20,5 @@ properties:
     A system is minimum phase if all of its zeros have negative real part.
     Zeros in the right half-plane limit the performance that any controller can achieve.
 ---
-For state-space systems, the _invariant zeros_ are the values of $s$ where the Rosenbrock system [matrix](/definitions/matrix) loses [rank](/definitions/matrix-rank).
+For state-space systems, the _invariant zeros_ are the values of $s$ where the Rosenbrock system [matrix](/dictionary/definitions/matrix) loses [rank](/dictionary/definitions/matrix-rank).
 They include the transmission zeros and also any zeros canceled by uncontrollable or unobservable modes.

@@ -8,8 +8,8 @@ levels:
       A stationary object is said to be in an _asymptotically stable_ position if, after a small push, the object returns to its initial resting position.
   high-school:
     text: |-
-      An [equilibrium](/definitions/equilibrium) is _asymptotically stable_ if solutions that start close to it stay close and eventually approach it.
+      An [equilibrium](/dictionary/definitions/equilibrium) is _asymptotically stable_ if solutions that start close to it stay close and eventually approach it.
   undergraduate:
     text: |-
-      An [equilibrium](/definitions/equilibrium) is _asymptotically stable_ if it is both stable and [attractive](/definitions/attractive).
+      An [equilibrium](/dictionary/definitions/equilibrium) is _asymptotically stable_ if it is both stable and [attractive](/dictionary/definitions/attractive).
 ---

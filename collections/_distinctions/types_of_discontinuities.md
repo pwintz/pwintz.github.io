@@ -4,11 +4,11 @@ title: Removable vs. jump vs. infinite vs. oscillating discontinuities
 kind: siblings
 areas: [analysis]
 summary: >
-  A function of a real variable can fail to be [continuous](/definitions/continuous) at a point $a$ in several ways, classified by what the one-sided limits at $a$ do.
-  At a [removable discontinuity](/definitions/removable-discontinuity), the limit at $a$ exists, but the value $f(a)$ is different or missing.
-  At a [jump discontinuity](/definitions/jump-discontinuity), the [left limit](/definitions/left-limit) and the [right limit](/definitions/right-limit) both exist but differ.
-  At an [infinite discontinuity](/definitions/infinite-discontinuity), the function grows without bound as $x$ approaches $a$.
-  At an [oscillating discontinuity](/definitions/oscillating-discontinuity), the function stays [bounded](/definitions/bounded) but swings between different values, so a one-sided limit does not exist.
+  A function of a real variable can fail to be [continuous](/dictionary/definitions/continuous) at a point $a$ in several ways, classified by what the one-sided limits at $a$ do.
+  At a [removable discontinuity](/dictionary/definitions/removable-discontinuity), the limit at $a$ exists, but the value $f(a)$ is different or missing.
+  At a [jump discontinuity](/dictionary/definitions/jump-discontinuity), the [left limit](/dictionary/definitions/left-limit) and the [right limit](/dictionary/definitions/right-limit) both exist but differ.
+  At an [infinite discontinuity](/dictionary/definitions/infinite-discontinuity), the function grows without bound as $x$ approaches $a$.
+  At an [oscillating discontinuity](/dictionary/definitions/oscillating-discontinuity), the function stays [bounded](/dictionary/definitions/bounded) but swings between different values, so a one-sided limit does not exist.
 terms:
   - removable_discontinuity
   - jump_discontinuity

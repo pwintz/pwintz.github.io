@@ -6,7 +6,7 @@ areas: [analysis]
 summary: >
   The limit of a function at a point can be taken from both sides or from one side.
   The limit of $f$ at $a$ describes $f(x)$ as $x$ approaches $a$ from both sides.
-  The left and [right limits](/definitions/right-limit) look at only one side each.
+  The left and [right limits](/dictionary/definitions/right-limit) look at only one side each.
   The limit exists exactly when both one-sided limits exist and are equal.
 terms:
   - limit_of_function
@@ -27,5 +27,5 @@ see_also:
 ## Notes
 
 - One-sided limits are also used at the endpoints of an interval, where only one side is available.
-  For $f(x) = \sqrt{x}$, only the [right limit](/definitions/right-limit) at $0$ makes sense.
-- The [one-sided derivative](/definitions/one-sided-derivative) of $f$ at $a$ is the one-sided limit of its difference quotient.
+  For $f(x) = \sqrt{x}$, only the [right limit](/dictionary/definitions/right-limit) at $0$ makes sense.
+- The [one-sided derivative](/dictionary/definitions/one-sided-derivative) of $f$ at $a$ is the one-sided limit of its difference quotient.

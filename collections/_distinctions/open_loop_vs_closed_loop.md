@@ -5,7 +5,7 @@ areas: [control]
 summary: >
   A controller can decide its input with or without measuring what the system is doing.
   Open-loop control computes the input without measuring the output, and closed-loop (feedback) control uses the measured output to correct errors.
-  [Feedforward](/definitions/feedforward) acts on a measured [disturbance](/definitions/disturbance) or a known reference before it affects the output, and is usually combined with feedback.
+  [Feedforward](/dictionary/definitions/feedforward) acts on a measured [disturbance](/dictionary/definitions/disturbance) or a known reference before it affects the output, and is usually combined with feedback.
 terms:
   - open_loop
   - closed_loop
@@ -26,4 +26,4 @@ see_also:
 
 - In loop analysis, the "open-loop transfer function" $L(s)$ is the loop broken at one point.
   It describes a closed-loop design, not open-loop control.
-- Pure [feedforward control](/definitions/open-loop) is a form of open-loop control, so some authors use the terms interchangeably.
+- Pure [feedforward control](/dictionary/definitions/open-loop) is a form of open-loop control, so some authors use the terms interchangeably.

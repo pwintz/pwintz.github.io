@@ -9,7 +9,7 @@ levels:
     context: convex functions
     text: |- # TODO: Move subgradient into a separate definition.
       Consider a convex function $f$ and a point $x$.
-      A [vector](/definitions/vector) $g$ is a _subgradient_ of $f$ at $x$ if
+      A [vector](/dictionary/definitions/vector) $g$ is a _subgradient_ of $f$ at $x$ if
 
       $$f(y) \geq f(x) + g \cdot (y - x) \quad \text{for all } y,$$
 
@@ -17,7 +17,7 @@ levels:
       The _subdifferential_ $\partial f(x)$ is the set of all subgradients at $x$.
 properties:
   - >-
-    A point $x$ minimizes a [convex function](/definitions/convex-function) $f$ if and only if $0 \in \partial f(x)$.
+    A point $x$ minimizes a [convex function](/dictionary/definitions/convex-function) $f$ if and only if $0 \in \partial f(x)$.
   - >-
-    If a [convex function](/definitions/convex-function) $f$ is [differentiable](/definitions/differentiable) at $x$, then $\partial f(x) = \setdef{\nabla f(x)}$.
+    If a [convex function](/dictionary/definitions/convex-function) $f$ is [differentiable](/dictionary/definitions/differentiable) at $x$, then $\partial f(x) = \setdef{\nabla f(x)}$.
 ---

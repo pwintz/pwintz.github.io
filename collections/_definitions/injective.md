@@ -18,4 +18,4 @@ levels:
 
       $$f(x_1) = f(x_2) \implies x_1 = x_2.$$
 ---
-"One-to-one" (injective) is easily confused with "one-to-one correspondence" ([bijective](/definitions/bijective)).
+"One-to-one" (injective) is easily confused with "one-to-one correspondence" ([bijective](/dictionary/definitions/bijective)).

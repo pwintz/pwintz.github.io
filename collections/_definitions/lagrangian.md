@@ -20,7 +20,7 @@ levels:
       $$\frac{\mathrm{d}}{\mathrm{d}t} \frac{\partial L}{\partial \dot{q}_i} = \frac{\partial L}{\partial q_i}, \qquad i = 1, \dots, n.$$
 properties:
   - >-
-    For a [conservative system](/definitions/conservative-system), $L = T - V$ is a Lagrangian.
+    For a [conservative system](/dictionary/definitions/conservative-system), $L = T - V$ is a Lagrangian.
   - >-
     The motions of a system with Lagrangian $L$ make the action $\int_{t_0}^{t_1} L(q, \dot{q}, t) \, \mathrm{d}t$ stationary (Hamilton's principle).
   - >-

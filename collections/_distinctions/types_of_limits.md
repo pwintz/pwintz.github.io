@@ -5,8 +5,8 @@ kind: family
 areas: [analysis]
 summary: >
   A sequence of numbers can approach a value, or several values, in several senses.
-  A sequence of [real numbers](/definitions/real-number) might not have a limit, but every such sequence has a [limit superior](/definitions/limsup) and a [limit inferior](/definitions/liminf) (possibly infinite).
-  A [limit point](/definitions/limit-point) belongs to a set, not a sequence.
+  A sequence of [real numbers](/dictionary/definitions/real-number) might not have a limit, but every such sequence has a [limit superior](/dictionary/definitions/limsup) and a [limit inferior](/dictionary/definitions/liminf) (possibly infinite).
+  A [limit point](/dictionary/definitions/limit-point) belongs to a set, not a sequence.
 terms:
   - limit_of_sequence
   - limsup

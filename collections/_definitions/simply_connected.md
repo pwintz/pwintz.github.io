@@ -11,14 +11,14 @@ levels:
   undergraduate:
     context: topological spaces
     text: |-
-      Consider a [path-connected](/definitions/path-connected) topological space $X$, and the loops in $X$: [continuous](/definitions/continuous) maps $\gamma : [0, 1] \to X$ such that $\gamma(0) = \gamma(1)$.
+      Consider a [path-connected](/dictionary/definitions/path-connected) topological space $X$, and the loops in $X$: [continuous](/dictionary/definitions/continuous) maps $\gamma : [0, 1] \to X$ such that $\gamma(0) = \gamma(1)$.
       The space $X$ is _simply connected_ if every loop can be continuously deformed, within $X$, to a constant loop.
 properties:
   - |-
-    Equivalently, $X$ is [path-connected](/definitions/path-connected) and its fundamental group is trivial.
+    Equivalently, $X$ is [path-connected](/dictionary/definitions/path-connected) and its fundamental group is trivial.
   - |-
-    A [connected](/definitions/connected) open [subset](/definitions/subset) of the plane is simply connected if and only if it has no holes: its complement has no [bounded](/definitions/bounded) piece.
+    A [connected](/dictionary/definitions/connected) open [subset](/dictionary/definitions/subset) of the plane is simply connected if and only if it has no holes: its complement has no [bounded](/dictionary/definitions/bounded) piece.
   - |-
     Having "no holes" does not mean being solid.
-    The surface of a [sphere](/definitions/sphere) is hollow, but it is simply connected, since every loop on it can slide off to a point.
+    The surface of a [sphere](/dictionary/definitions/sphere) is hollow, but it is simply connected, since every loop on it can slide off to a point.
 ---

@@ -6,7 +6,7 @@ applies_to: sets of vectors
 levels:
   high-school:
     text: |-
-      Consider a list of [vectors](/definitions/vector) $v_1, \dots, v_k$.
+      Consider a list of [vectors](/dictionary/definitions/vector) $v_1, \dots, v_k$.
       The vectors are _linearly independent_ if none of them can be built from the others by stretching and adding.
   undergraduate:
     text: |-
@@ -18,5 +18,5 @@ levels:
       is $c_1 = \dots = c_k = 0$.
 properties:
   - >-
-    A set that contains the [zero vector](/definitions/zero-vector) is not linearly independent, because $1 \cdot 0 = 0$.
+    A set that contains the [zero vector](/dictionary/definitions/zero-vector) is not linearly independent, because $1 \cdot 0 = 0$.
 ---

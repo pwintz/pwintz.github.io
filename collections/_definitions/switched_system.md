@@ -13,6 +13,6 @@ levels:
       $$\dot{x} = f_{\sigma(t)}(x).$$ 
 properties:
   - >-
-    A switched system can be unstable even if every subsystem $\dot{x} = f_{p}(x)$ is [asymptotically stable](/definitions/asymptotically-stable), because of how the switching is timed. A common [Lyapunov function](/definitions/lyapunov-function) for all subsystems guarantees stability under arbitrary switching.
+    A switched system can be unstable even if every subsystem $\dot{x} = f_{p}(x)$ is [asymptotically stable](/dictionary/definitions/asymptotically-stable), because of how the switching is timed. A common [Lyapunov function](/dictionary/definitions/lyapunov-function) for all subsystems guarantees stability under arbitrary switching.
 ---
-In contrast to a [hybrid system](/definitions/hybrid-system), the state of a switched system is [continuous](/definitions/continuous) at switches.
+In contrast to a [hybrid system](/dictionary/definitions/hybrid-system), the state of a switched system is [continuous](/dictionary/definitions/continuous) at switches.

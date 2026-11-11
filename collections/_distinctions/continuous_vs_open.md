@@ -4,9 +4,9 @@ title: Continuous vs. open vs. closed maps
 kind: siblings
 areas: [topology]
 summary: >
-  A function between topological spaces can relate the [open sets](/definitions/open-set) of its domain and [codomain](/definitions/codomain) in two directions.
-  Continuity is about [preimages](/definitions/preimage): preimages of open sets are open.
-  Open and [closed maps](/definitions/closed-map) are about images: images of open (or closed) sets are open (or closed).
+  A function between topological spaces can relate the [open sets](/dictionary/definitions/open-set) of its domain and [codomain](/dictionary/definitions/codomain) in two directions.
+  Continuity is about [preimages](/dictionary/definitions/preimage): preimages of open sets are open.
+  Open and [closed maps](/dictionary/definitions/closed-map) are about images: images of open (or closed) sets are open (or closed).
   None of the three properties implies another.
 terms:
   - continuous
@@ -24,5 +24,5 @@ see_also:
 ---
 ## Notes
 
-- A [continuous](/definitions/continuous) bijection is a [homeomorphism](/definitions/homeomorphism) exactly when it is open (equivalently, closed).
-- Every continuous map from a [compact](/definitions/compact) space to a [Hausdorff](/definitions/hausdorff-space) space is closed.
+- A [continuous](/dictionary/definitions/continuous) bijection is a [homeomorphism](/dictionary/definitions/homeomorphism) exactly when it is open (equivalently, closed).
+- Every continuous map from a [compact](/dictionary/definitions/compact) space to a [Hausdorff](/dictionary/definitions/hausdorff-space) space is closed.

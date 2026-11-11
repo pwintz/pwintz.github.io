@@ -6,7 +6,7 @@ areas: [linear-algebra, analysis, topology]
 summary: >
   Spaces in analysis are sorted by how much structure they have for measuring distance and angle.
   Each kind of space adds structure to the previous one.
-  Banach and [Hilbert spaces](/definitions/hilbert-space) add completeness: [Cauchy sequences](/definitions/cauchy-sequence) converge.
+  Banach and [Hilbert spaces](/dictionary/definitions/hilbert-space) add completeness: [Cauchy sequences](/dictionary/definitions/cauchy-sequence) converge.
 relation: >
   Hilbert spaces ⊂ Banach spaces ⊂ normed spaces ⊂ metric spaces, and Hilbert spaces ⊂ inner product spaces ⊂ normed spaces.
 terms:

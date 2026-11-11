@@ -7,7 +7,7 @@ synonyms: [leading coefficient]
 levels:
   high-school:
     text: |-
-      Consider a nonzero row of a [matrix](/definitions/matrix), read from left to right.
+      Consider a nonzero row of a [matrix](/dictionary/definitions/matrix), read from left to right.
       The _leading entry_ of the row is its first nonzero entry.
 properties:
   - |-

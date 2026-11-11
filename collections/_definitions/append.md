@@ -11,4 +11,4 @@ levels:
     text: |-
       To _append_ $x$ to a list $(a_1, \dots, a_n)$ is to form the list $(a_1, \dots, a_n, x)$, with $x$ added at the end.
 ---
-Some programming languages use "append" for joining two lists, which is [concatenation](/definitions/concatenate). Compare [prepend](/definitions/prepend), which adds an element at the beginning.
+Some programming languages use "append" for joining two lists, which is [concatenation](/dictionary/definitions/concatenate). Compare [prepend](/dictionary/definitions/prepend), which adds an element at the beginning.

@@ -11,5 +11,5 @@ levels:
       _State feedback_ is a control law that uses the full state, $u = k(x)$ instead of only a partial measurement of the state.
 properties:
   - >-
-    For a [controllable](/definitions/controllable) linear system, linear state feedback can place the closed-loop [eigenvalues](/definitions/eigenvalue) anywhere ([pole](/definitions/pole) placement).
+    For a [controllable](/dictionary/definitions/controllable) linear system, linear state feedback can place the closed-loop [eigenvalues](/dictionary/definitions/eigenvalue) anywhere ([pole](/dictionary/definitions/pole) placement).
 ---

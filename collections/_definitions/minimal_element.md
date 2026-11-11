@@ -6,12 +6,12 @@ applies_to: partially ordered sets
 levels:
   high-school:
     text: |-
-      Consider a set whose elements can be compared, though maybe not every pair, as with sets ordered by "is a [subset](/definitions/subset) of."
+      Consider a set whose elements can be compared, though maybe not every pair, as with sets ordered by "is a [subset](/dictionary/definitions/subset) of."
       A _minimal element_ of the set is an element with nothing in the set smaller than it.
       When some pairs cannot be compared, a set can have several minimal elements.
   undergraduate:
     text: |-
-      Consider a partially ordered set and a [subset](/definitions/subset) $S$ of it.
+      Consider a partially ordered set and a [subset](/dictionary/definitions/subset) $S$ of it.
       A _minimal element_ of $S$ is an element $m$ of $S$ such that no element of $S$ is strictly smaller than $m$.
 properties:
   - >-

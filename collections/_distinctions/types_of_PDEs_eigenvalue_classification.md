@@ -5,7 +5,7 @@ kind: siblings
 areas: [differential-equations]
 summary: >
   Linear second-order partial differential equations fall into three types with very different behavior.
-  Second-order PDEs are classified by the signs of the [eigenvalues](/definitions/eigenvalue) of their second-order coefficients, like conic sections.
+  Second-order PDEs are classified by the signs of the [eigenvalues](/dictionary/definitions/eigenvalue) of their second-order coefficients, like conic sections.
   The type determines how information propagates and which boundary or initial conditions make sense.
 terms:
   - elliptic_pde

@@ -6,20 +6,20 @@ synonyms: [frontier, $\partial A$]
 levels:
   elementary:
     text: |-
-      Consider a shape drawn on a piece of paper using a [continuous](/definitions/continuous) line that forms a [closed loop](/definitions/closed-loop). 
+      Consider a shape drawn on a piece of paper using a [continuous](/dictionary/definitions/continuous) line that forms a [closed loop](/dictionary/definitions/closed-loop). 
       There is a portion of the paper that is inside the shape and a portion that is outside. 
       The _boundary_ of the shape is curve that separates the inside from the outside.
     # caveat: >-
-      # In more than two dimensions, the boundary of a solid [ball](/definitions/ball) is its whole spherical surface, not just an outline.
+      # In more than two dimensions, the boundary of a solid [ball](/dictionary/definitions/ball) is its whole spherical surface, not just an outline.
   undergraduate:
     context: subsets of $\reals^n$
     text: |-
       Consider a set $A \subseteq \reals^n$ and a point $x$.
-      The point $x$ is in the _boundary_ of $A$ if every [open ball](/definitions/open-ball) around $x$ contains both a point of $A$ and a point not in $A$.
+      The point $x$ is in the _boundary_ of $A$ if every [open ball](/dictionary/definitions/open-ball) around $x$ contains both a point of $A$ and a point not in $A$.
   graduate:
     context: topological spaces
     text: |-
-      Consider a [subset](/definitions/subset) $A$ of a topological space, with its closure $\overline{A}$ and its interior $\operatorname{int}(A)$.
+      Consider a [subset](/dictionary/definitions/subset) $A$ of a topological space, with its closure $\overline{A}$ and its interior $\operatorname{int}(A)$.
       The _boundary_ of $A$ is
 
       $$\partial A = \overline{A} \setminus \operatorname{int}(A).$$

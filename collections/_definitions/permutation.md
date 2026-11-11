@@ -13,12 +13,12 @@ levels:
     context: combinatorics
     text: |-
       Consider a set $S$ with $n$ elements and a number $k \leq n$.
-      A _$k$-permutation_ of $S$ is an [injective](/definitions/injective) function
+      A _$k$-permutation_ of $S$ is an [injective](/dictionary/definitions/injective) function
 
       $$\sigma : \setdef{1, \dots, k} \to S,$$
 
       which lists the elements $\sigma(1), \dots, \sigma(k)$ in order.
-      A _permutation_ of $S$ is an $n$-permutation of $S$, which is the same as a [bijective](/definitions/bijective) function from $\setdef{1, \dots, n}$ to $S$.
+      A _permutation_ of $S$ is an $n$-permutation of $S$, which is the same as a [bijective](/dictionary/definitions/bijective) function from $\setdef{1, \dots, n}$ to $S$.
 properties:
   - |-
     The number of permutations of $k$ of $n$ objects is

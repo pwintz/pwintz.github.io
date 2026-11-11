@@ -4,8 +4,8 @@ kind: siblings
 areas: [sets]
 summary: >
   In logic, statements are classified by whether they include enough information to determine whether they are true or false.
-  A [proposition](/definitions/proposition) is a statement that is true or false, such as "$7 > 3$."
-  A [predicate](/definitions/predicate) is a statement with variables, such as "$x > 3$," that becomes a proposition once its variable $x$ is given a value, such as "$7 > 3$" (true) or bound by [quantifiers](/definitions/quantifier), such as "$\forall x,\, x > 3$" (false).
+  A [proposition](/dictionary/definitions/proposition) is a statement that is true or false, such as "$7 > 3$."
+  A [predicate](/dictionary/definitions/predicate) is a statement with variables, such as "$x > 3$," that becomes a proposition once its variable $x$ is given a value, such as "$7 > 3$" (true) or bound by [quantifiers](/dictionary/definitions/quantifier), such as "$\forall x,\, x > 3$" (false).
 terms:
   - proposition
   - predicate
@@ -26,4 +26,4 @@ see_also:
 ---
 ## Notes
 
-- An $n$-place [predicate](/definitions/predicate) and an $n$-ary [relation](/definitions/relation) carry the same information: the relation is the set of tuples that satisfy the predicate (its _extension_).
+- An $n$-place [predicate](/dictionary/definitions/predicate) and an $n$-ary [relation](/dictionary/definitions/relation) carry the same information: the relation is the set of tuples that satisfy the predicate (its _extension_).

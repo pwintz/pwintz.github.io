@@ -10,7 +10,7 @@ levels:
       An _identity element_ for the operation is one that leaves everything unchanged.
   undergraduate:
     text: |-
-      Consider a set $S$ with a [binary operation](/definitions/binary-operation) $\ast$.
+      Consider a set $S$ with a [binary operation](/dictionary/definitions/binary-operation) $\ast$.
       An _identity element_ for $\ast$ is an element $e$ such that
 
       $$e \ast a = a \ast e = a \quad \text{for all } a \in S.$$

@@ -4,9 +4,9 @@ title: Probability measure vs. distribution vs. mass function vs. density vs. CD
 kind: siblings
 areas: [statistics]
 summary: >
-  [Probability](/definitions/probability) theory has several objects that describe how likely things are, and they are often used loosely as synonyms.
-  A [probability measure](/definitions/probability-measure) assigns probabilities to events, and the [distribution](/definitions/probability-distribution) of a random variable is the probability measure it induces on its values.
-  A distribution can be described by a [cumulative distribution function](/definitions/cumulative-distribution-function), which every random variable has, and by a [probability mass function](/definitions/probability-mass-function) for discrete [random variables](/definitions/random-variable) or a [probability density](/definitions/probability-density) for [continuous](/definitions/continuous) ones.
+  [Probability](/dictionary/definitions/probability) theory has several objects that describe how likely things are, and they are often used loosely as synonyms.
+  A [probability measure](/dictionary/definitions/probability-measure) assigns probabilities to events, and the [distribution](/dictionary/definitions/probability-distribution) of a random variable is the probability measure it induces on its values.
+  A distribution can be described by a [cumulative distribution function](/dictionary/definitions/cumulative-distribution-function), which every random variable has, and by a [probability mass function](/dictionary/definitions/probability-mass-function) for discrete [random variables](/dictionary/definitions/random-variable) or a [probability density](/dictionary/definitions/probability-density) for [continuous](/dictionary/definitions/continuous) ones.
 terms:
   - probability_measure
   - probability_distribution
@@ -27,4 +27,4 @@ see_also:
 ---
 ## Notes
 
-- The value $f(x)$ of a density is not a [probability](/definitions/probability), and it can be larger than $1$; a value $p(x)$ of a mass function is a probability.
+- The value $f(x)$ of a density is not a [probability](/dictionary/definitions/probability), and it can be larger than $1$; a value $p(x)$ of a mass function is a probability.

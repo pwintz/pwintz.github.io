@@ -4,10 +4,10 @@ title: Fraction vs. ratio vs. rational number
 kind: siblings
 areas: [numbers]
 summary: >
-  Fractions, ratios, and [rational numbers](/definitions/rational-number) all involve dividing one quantity by another, so the words are often used interchangeably.
+  Fractions, ratios, and [rational numbers](/dictionary/definitions/rational-number) all involve dividing one quantity by another, so the words are often used interchangeably.
   A fraction is a way of writing a number as one quantity divided by another.
   A ratio compares quantities.
-  A rational number is a number that some fraction of [integers](/definitions/integer) represents.
+  A rational number is a number that some fraction of [integers](/dictionary/definitions/integer) represents.
 terms:
   - fraction
   - ratio
@@ -26,4 +26,4 @@ see_also:
 
 - A ratio $a : b$ with $a$ parts of one kind and $b$ parts of another corresponds to the fractions $\frac{a}{a + b}$ and $\frac{b}{a + b}$ of the whole.
   Confusing $\frac{a}{b}$ with $\frac{a}{a + b}$ is a common mistake.
-- "Rational" comes from "ratio": a [rational number](/definitions/rational-number) is a ratio of two [integers](/definitions/integer).
+- "Rational" comes from "ratio": a [rational number](/dictionary/definitions/rational-number) is a ratio of two [integers](/dictionary/definitions/integer).

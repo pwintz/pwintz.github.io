@@ -9,7 +9,7 @@ levels:
       Think of a whole, like a pizza, split into $b$ equal parts.
       A _fraction_ is a number written as $\frac{a}{b}$ that means $a$ of those parts.
     caveat: >-
-      Fractions can be larger than one whole, such as $\frac{5}{4}$, and the numerator and denominator need not be [whole numbers](/definitions/whole-numbers).
+      Fractions can be larger than one whole, such as $\frac{5}{4}$, and the numerator and denominator need not be [whole numbers](/dictionary/definitions/whole-numbers).
   high-school:
     text: |-
       Consider two numbers $a$ and $b$ such that $b \neq 0$.

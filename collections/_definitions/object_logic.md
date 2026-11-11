@@ -14,11 +14,11 @@ levels:
     text: |-
       Consider a first-order language interpreted in a structure whose underlying set $D$ is called the _domain of discourse_.
       An _object_ is an element of $D$.
-      The variables of a [predicate](/definitions/predicate) and the [quantifiers](/definitions/quantifier) $\forall x$ and $\exists x$ range over the objects in $D$.
+      The variables of a [predicate](/dictionary/definitions/predicate) and the [quantifiers](/dictionary/definitions/quantifier) $\forall x$ and $\exists x$ range over the objects in $D$.
 properties:
   - >-
-    The same statement can have different truth values for different domains of discourse: $\exists x \, (x^2 = 2)$ is true if the objects are [real numbers](/definitions/real-number) and false if the objects are [rational numbers](/definitions/rational-number).
+    The same statement can have different truth values for different domains of discourse: $\exists x \, (x^2 = 2)$ is true if the objects are [real numbers](/dictionary/definitions/real-number) and false if the objects are [rational numbers](/dictionary/definitions/rational-number).
   - >-
-    In [propositional logic](/definitions/propositional-logic), the variables stand for [propositions](/definitions/proposition), not objects, so propositional logic has no domain of discourse.
+    In [propositional logic](/dictionary/definitions/propositional-logic), the variables stand for [propositions](/dictionary/definitions/proposition), not objects, so propositional logic has no domain of discourse.
 ---
 In everyday mathematical writing, "object" means any mathematical thing, such as a number, a function, or a space, without a technical meaning.

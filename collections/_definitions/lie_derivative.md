@@ -7,7 +7,7 @@ levels:
   undergraduate:
     context: dynamical systems
     text: |-
-      Consider a function $V$ and a [vector](/definitions/vector) field $F$, with solutions of $\dot{x} = F(x)$.
+      Consider a function $V$ and a [vector](/dictionary/definitions/vector) field $F$, with solutions of $\dot{x} = F(x)$.
       The _Lie derivative_ of $V$ along $F$ is
 
       $$L_F V(x) = \nabla V(x) \cdot F(x).$$
@@ -16,7 +16,7 @@ levels:
   graduate:
     context: differential geometry
     text: |-
-      Consider a function $V$ and a [vector](/definitions/vector) field $F$ on a manifold, where $\phi_t$ is the flow of $F$.
+      Consider a function $V$ and a [vector](/dictionary/definitions/vector) field $F$ on a manifold, where $\phi_t$ is the flow of $F$.
       The _Lie derivative_ of $V$ along $F$ is
 
       $$L_F V(x) = \frac{\mathrm{d}}{\mathrm{d}t} V(\phi_t(x)) \big\rvert_{t = 0}.$$
@@ -25,5 +25,5 @@ levels:
 properties:
   - >-
     If $L_F V(x) \leq 0$ for all $x$, then $V$ never increases along solutions of $\dot{x} = F(x)$.
-    This is how [Lyapunov functions](/definitions/lyapunov-function) are checked, without solving the system.
+    This is how [Lyapunov functions](/dictionary/definitions/lyapunov-function) are checked, without solving the system.
 ---

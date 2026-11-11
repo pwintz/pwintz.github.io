@@ -16,6 +16,6 @@ levels:
   undergraduate:
     context: metric spaces
     text: |-
-      Consider a [metric space](/definitions/metric-space) with [metric](/definitions/metric) $d$, and points $x$ and $y$ in it.
+      Consider a [metric space](/dictionary/definitions/metric-space) with [metric](/dictionary/definitions/metric) $d$, and points $x$ and $y$ in it.
       The _distance_ between $x$ and $y$ is the value $d(x, y)$.
 ---

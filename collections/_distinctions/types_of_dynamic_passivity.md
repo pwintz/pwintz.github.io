@@ -5,9 +5,9 @@ kind: family
 areas: [control]
 summary: >
   Passivity describes systems that store and dissipate energy but cannot produce it.
-  A [passive](/definitions/passive) system cannot generate energy.
+  A [passive](/dictionary/definitions/passive) system cannot generate energy.
   The variants say where energy is dissipated: in proportion to the input, the output, or the state.
-  A [lossless](/definitions/lossless) system dissipates none.
+  A [lossless](/dictionary/definitions/lossless) system dissipates none.
 terms:
   - passive
   - lossless
@@ -27,5 +27,5 @@ see_also:
 ## Notes
 
 - Strict passivity dissipates energy whenever the state is nonzero.
-  If the storage function $V$ is positive definite, it is then a [Lyapunov function](/definitions/lyapunov-function), and the origin of the [unforced](/definitions/unforced) system ($u = 0$) is [asymptotically stable](/definitions/asymptotically-stable).
+  If the storage function $V$ is positive definite, it is then a [Lyapunov function](/dictionary/definitions/lyapunov-function), and the origin of the [unforced](/dictionary/definitions/unforced) system ($u = 0$) is [asymptotically stable](/dictionary/definitions/asymptotically-stable).
 - Output strict passivity implies finite $L_2$ gain, a form of input-output stability.

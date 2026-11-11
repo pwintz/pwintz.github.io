@@ -5,10 +5,10 @@ kind: family
 areas: [geometry, topology]
 summary: >
   Round shapes have names that distinguish the surface from the solid and count the dimension.
-  A [circle](/definitions/circle) is a sphere in the plane.
-  A [sphere](/definitions/sphere) is hollow and a [ball](/definitions/ball) is solid.
-  An [open ball](/definitions/open-ball) excludes its bounding sphere, and a [closed ball](/definitions/closed-ball) includes its bounding sphere.
-  In [topology](/definitions/topology), every shape that can be continuously deformed into a sphere counts as a [topological sphere](/definitions/sphere-topological).
+  A [circle](/dictionary/definitions/circle) is a sphere in the plane.
+  A [sphere](/dictionary/definitions/sphere) is hollow and a [ball](/dictionary/definitions/ball) is solid.
+  An [open ball](/dictionary/definitions/open-ball) excludes its bounding sphere, and a [closed ball](/dictionary/definitions/closed-ball) includes its bounding sphere.
+  In [topology](/dictionary/definitions/topology), every shape that can be continuously deformed into a sphere counts as a [topological sphere](/dictionary/definitions/sphere-topological).
 terms:
   - circle
   - sphere
@@ -31,8 +31,8 @@ see_also:
 ---
 ## Different norms give different "spheres"
 
-[Spheres](/definitions/sphere) and [balls](/definitions/ball) depend on the [metric](/definitions/metric).
-In $\reals^2$, the unit sphere for the [Euclidean norm](/definitions/euclidean-norm) is a [circle](/definitions/circle), the unit sphere for the [max norm](/definitions/infinity-norm) $\max(\abs{x}, \abs{y})$ is a square, and the unit sphere for the [taxicab norm](/definitions/one-norm) $\abs{x} + \abs{y}$ is a diamond.
+[Spheres](/dictionary/definitions/sphere) and [balls](/dictionary/definitions/ball) depend on the [metric](/dictionary/definitions/metric).
+In $\reals^2$, the unit sphere for the [Euclidean norm](/dictionary/definitions/euclidean-norm) is a [circle](/dictionary/definitions/circle), the unit sphere for the [max norm](/dictionary/definitions/infinity-norm) $\max(\abs{x}, \abs{y})$ is a square, and the unit sphere for the [taxicab norm](/dictionary/definitions/one-norm) $\abs{x} + \abs{y}$ is a diamond.
 
 ## Circles, spheres, and hyperspheres
 

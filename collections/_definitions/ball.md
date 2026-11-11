@@ -8,16 +8,16 @@ levels:
   #     A _ball_ is a solid round object, including everything inside.
   high-school:
     text: |-
-      A _ball_ is the set of all points within a distance $r$ of a center $c$. It is consists of the [sphere](/definitions/sphere) together with everything inside it.
+      A _ball_ is the set of all points within a distance $r$ of a center $c$. It is consists of the [sphere](/dictionary/definitions/sphere) together with everything inside it.
   undergraduate:
     context: metric spaces
     text: |-
-      A _ball_ is the set of all points within a distance $r$ of a center $c$: the [sphere](/definitions/sphere) together with everything inside it.
-      If the boundary of the ball is included in the set, then the _ball_ is a [closed ball](/definitions/closed-ball):
+      A _ball_ is the set of all points within a distance $r$ of a center $c$: the [sphere](/dictionary/definitions/sphere) together with everything inside it.
+      If the boundary of the ball is included in the set, then the _ball_ is a [closed ball](/dictionary/definitions/closed-ball):
       
       $$\mathbb{B} = \setdef{x \suchthat d(x, c) \leq r}.$$
 
-      If boundary is excluded, then it is called an [open ball](/definitions/open-ball): 
+      If boundary is excluded, then it is called an [open ball](/dictionary/definitions/open-ball): 
 
       $$\mathbb{B} = \setdef{x \suchthat d(x, c) < r}.$$
       

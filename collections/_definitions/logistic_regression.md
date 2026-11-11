@@ -7,7 +7,7 @@ levels:
   high-school:
     text: |-
       Consider data in which each input $x$ has an outcome of "yes" or "no," written $1$ or $0$.
-      _Logistic regression_ is the method of modeling the [probability](/definitions/probability) of "yes" as the S-shaped function
+      _Logistic regression_ is the method of modeling the [probability](/dictionary/definitions/probability) of "yes" as the S-shaped function
 
       $$p(x) = \frac{1}{1 + e^{-(a + b x)}}$$
 
@@ -16,11 +16,11 @@ levels:
     context: statistics
     text: |-
       Consider data $(x_1, y_1), \dots, (x_n, y_n)$, where each input $x_i \in \reals^d$ is a vector of features and each outcome $y_i$ is $0$ or $1$.
-      _Logistic regression_ is the method of modeling the [probability](/definitions/probability) that $y_i = 1$ as
+      _Logistic regression_ is the method of modeling the [probability](/dictionary/definitions/probability) that $y_i = 1$ as
 
       $$p(x_i) = \sigma(\beta_0 + \beta^\top x_i), \qquad \text{where } \sigma(z) = \frac{1}{1 + e^{-z}},$$
 
-      and choosing the parameters $\beta_0$ and $\beta$ that maximize the [likelihood](/definitions/likelihood) of the observed outcomes.
+      and choosing the parameters $\beta_0$ and $\beta$ that maximize the [likelihood](/dictionary/definitions/likelihood) of the observed outcomes.
 properties:
   - |-
     In logistic regression, the log-odds is a linear function of $x$:

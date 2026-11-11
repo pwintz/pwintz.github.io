@@ -22,7 +22,7 @@ levels:
   undergraduate:
     context: metric spaces
     text: |-
-      Consider a function $f : X \to Y$ between [metric spaces](/definitions/metric-space).
+      Consider a function $f : X \to Y$ between [metric spaces](/dictionary/definitions/metric-space).
       The function $f$ is _continuous_ if for every $x \in X$ and every $\varepsilon > 0$, there exists $\delta > 0$ such that
 
       $$d(f(x), f(y)) < \varepsilon \quad \text{for every } y \in X \text{ with } d(x, y) < \delta.$$
@@ -32,12 +32,12 @@ levels:
     context: topological spaces
     text: |-
       Consider a function $f : X \to Y$ between topological spaces.
-      The function $f$ is _continuous_ if the [preimage](/definitions/preimage) $f^{-1}(V)$ is open in $X$ for every [open set](/definitions/open-set) $V$ in $Y$.
+      The function $f$ is _continuous_ if the [preimage](/dictionary/definitions/preimage) $f^{-1}(V)$ is open in $X$ for every [open set](/dictionary/definitions/open-set) $V$ in $Y$.
 properties:
   - >-
     Sums, products, and compositions of continuous functions are continuous.
   - >-
-    Continuous images of [compact](/definitions/compact) sets are compact, and continuous images of [connected](/definitions/connected) sets are connected.
+    Continuous images of [compact](/dictionary/definitions/compact) sets are compact, and continuous images of [connected](/dictionary/definitions/connected) sets are connected.
   - >-
     A continuous function on $[a, b]$ takes every value between $f(a)$ and $f(b)$ (the intermediate value theorem).
 ---

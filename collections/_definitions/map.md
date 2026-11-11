@@ -11,5 +11,5 @@ levels:
   undergraduate:
     text: |-
       A _map_ is a function.
-      "Map" is often preferred when the function preserves some structure, as in "[linear map](/definitions/linear-map)" or "[continuous](/definitions/continuous) map," or when its inputs and outputs are geometric objects.
+      "Map" is often preferred when the function preserves some structure, as in "[linear map](/dictionary/definitions/linear-map)" or "[continuous](/dictionary/definitions/continuous) map," or when its inputs and outputs are geometric objects.
 ---

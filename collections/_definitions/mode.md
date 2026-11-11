@@ -12,6 +12,6 @@ levels:
   undergraduate:
     context: probability
     text: |-
-      Consider a [probability distribution](/definitions/probability-distribution), with its [probability mass function](/definitions/probability-mass-function) (or density).
+      Consider a [probability distribution](/dictionary/definitions/probability-distribution), with its [probability mass function](/dictionary/definitions/probability-mass-function) (or density).
       A _mode_ of the distribution is a value at which that function is largest.
 ---

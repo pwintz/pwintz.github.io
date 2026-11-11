@@ -22,9 +22,9 @@ properties:
 
     $$\operatorname{rank} \begin{bmatrix} B & A B & \cdots & A^{n-1} B \end{bmatrix} = n$$
 
-    (the Kalman [rank](/definitions/matrix-rank) condition).
+    (the Kalman [rank](/dictionary/definitions/matrix-rank) condition).
   - >-
-    Every controllable linear system is [stabilizable](/definitions/stabilizable).
+    Every controllable linear system is [stabilizable](/dictionary/definitions/stabilizable).
 ---
 Many authors, especially for continuous-time linear systems, define "controllable" to mean that any state can be steered to any other state.
 For continuous-time linear systems, this agrees with controllability to the origin and with reachability, but in discrete time the notions differ.

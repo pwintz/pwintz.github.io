@@ -328,13 +328,13 @@ collections:
   # Dictionary of Fine Distinctions. Stub pages are marked "published: false".
   distinctions:
     output: true
-    permalink: /distinctions/:name
+    permalink: /dictionary/distinctions/:name
   definitions:
     output: true
-    permalink: /definitions/:name
+    permalink: /dictionary/definitions/:name
   examples:
     output: true
-    permalink: /examples/:name
+    permalink: /dictionary/examples/:name
 
 
 # HTML Compression

@@ -6,7 +6,7 @@ synonyms: [$f \sim g$]
 levels:
   high-school:
     text: |-
-      Functions $f$ and $g$ are _asymptotically equivalent_ as $x \to \infty$ if the [ratio](/definitions/ratio) $f(x) / g(x)$ approaches $1$, so that $f(x)$ and $g(x)$ are nearly equal in relative terms for large $x$.
+      Functions $f$ and $g$ are _asymptotically equivalent_ as $x \to \infty$ if the [ratio](/dictionary/definitions/ratio) $f(x) / g(x)$ approaches $1$, so that $f(x)$ and $g(x)$ are nearly equal in relative terms for large $x$.
   undergraduate:
     text: |-
       Functions $f$ and $g$ are _asymptotically equivalent_ as $x \to \infty$, written $f(x) \sim g(x)$, if $$\lim_{x \to \infty} f(x) / g(x) = 1.$$

@@ -6,8 +6,8 @@ areas: [analysis, sets]
 summary: >
   Several properties describe a set or sequence that is "not too big," in different senses.
   A finite set has finitely many elements.
-  A [bounded](/definitions/bounded) set fits inside a [ball](/definitions/ball), and may have [infinitely many elements](/definitions/infinite-set).
-  A [compact](/definitions/compact) set is bounded and (in $\reals^n$) closed.
+  A [bounded](/dictionary/definitions/bounded) set fits inside a [ball](/dictionary/definitions/ball), and may have [infinitely many elements](/dictionary/definitions/infinite-set).
+  A [compact](/dictionary/definitions/compact) set is bounded and (in $\reals^n$) closed.
   A convergent sequence has a limit, which makes it bounded, but not every bounded sequence converges.
 terms:
   - finite_set
@@ -27,11 +27,11 @@ see_also:
 ---
 ## Finite values vs. bounded functions
 
-The function $f(x) = 1/x$ on $(0, 1]$ has a finite value at every point, but it is not [bounded](/definitions/bounded).
+The function $f(x) = 1/x$ on $(0, 1]$ has a finite value at every point, but it is not [bounded](/dictionary/definitions/bounded).
 "Finite everywhere" and "bounded" are different conditions.
 
 ## Constrained
 
 "Constrained" is not a technical term on its own.
 In optimization, a constrained variable is required to satisfy given conditions, such as $g(x) \leq 0$.
-A [constraint set](/definitions/admissible-set) can be unbounded, such as $\setdef{x \suchthat x \geq 0}$.
+A [constraint set](/dictionary/definitions/admissible-set) can be unbounded, such as $\setdef{x \suchthat x \geq 0}$.

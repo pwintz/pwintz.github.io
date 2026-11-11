@@ -5,10 +5,10 @@ kind: family
 areas: [dynamics]
 summary: >
   Classical mechanics describes the motion of a system in terms of generalized coordinates $q$, such as positions and angles.
-  A [conservative system](/definitions/conservative-system) is a system whose forces come from a potential energy $V(q)$, so the total energy is constant.
-  The [Lagrangian](/definitions/lagrangian) $L(q, \dot{q}, t)$ is a function of the positions and velocities whose Euler–Lagrange equations are the equations of motion; for a conservative system, $L = T - V$.
-  The [conjugate momentum](/definitions/conjugate-momentum) $p = \partial L / \partial \dot{q}$ is the variable that replaces the velocity $\dot{q}$.
-  The [Hamiltonian](/definitions/hamiltonian) $H(q, p, t) = p \cdot \dot{q} - L$ is a function of the positions and the conjugate momenta; for a conservative system, $H = T + V$ is the total energy.
+  A [conservative system](/dictionary/definitions/conservative-system) is a system whose forces come from a potential energy $V(q)$, so the total energy is constant.
+  The [Lagrangian](/dictionary/definitions/lagrangian) $L(q, \dot{q}, t)$ is a function of the positions and velocities whose Euler–Lagrange equations are the equations of motion; for a conservative system, $L = T - V$.
+  The [conjugate momentum](/dictionary/definitions/conjugate-momentum) $p = \partial L / \partial \dot{q}$ is the variable that replaces the velocity $\dot{q}$.
+  The [Hamiltonian](/dictionary/definitions/hamiltonian) $H(q, p, t) = p \cdot \dot{q} - L$ is a function of the positions and the conjugate momenta; for a conservative system, $H = T + V$ is the total energy.
   Being conservative is a property of a system, whereas the Lagrangian and the Hamiltonian are functions that describe a system, conservative or not.
 terms:
   - conservative_system
@@ -31,6 +31,6 @@ see_also:
 ---
 ## Notes
 
-- The [Lagrangian](/definitions/lagrangian) $T - V$ and the [Hamiltonian](/definitions/hamiltonian) $T + V$ differ by the sign of $V$, because $H = p \cdot \dot{q} - L$ and $p \cdot \dot{q} = 2T$ when $T$ is quadratic in the velocities.
+- The [Lagrangian](/dictionary/definitions/lagrangian) $T - V$ and the [Hamiltonian](/dictionary/definitions/hamiltonian) $T + V$ differ by the sign of $V$, because $H = p \cdot \dot{q} - L$ and $p \cdot \dot{q} = 2T$ when $T$ is quadratic in the velocities.
 - The Euler–Lagrange equations are $n$ second-order equations, whereas Hamilton's equations are $2n$ first-order equations.
 - "Lagrangian" also names the function $f(x) + \lambda^\top g(x)$ in constrained optimization, and "Hamiltonian" also names the function $\ell(x, u) + \lambda^\top f(x, u)$ in Pontryagin's maximum principle.

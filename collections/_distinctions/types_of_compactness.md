@@ -5,7 +5,7 @@ kind: family
 areas: [topology, analysis]
 summary: >
   Compactness is a strong finiteness condition.
-  Sequential compactness is the version based on sequences, which agrees with compactness in [metric spaces](/definitions/metric-space).
+  Sequential compactness is the version based on sequences, which agrees with compactness in [metric spaces](/dictionary/definitions/metric-space).
   Local compactness asks for compactness only near each point, and paracompactness is a weaker global condition that every metric space satisfies.
 terms:
   - compact

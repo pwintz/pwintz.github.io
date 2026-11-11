@@ -4,8 +4,8 @@ title: Types of barrier functions
 kind: siblings
 areas: [control, dynamics]
 summary: >
-  Barrier certificates, barrier functions, and control barrier functions all certify safety by keeping solutions in a set, but with different conventions: a [barrier certificate](/definitions/barrier-certificate) is nonpositive on the initial set, while a barrier function is nonnegative on the safe set.
-  A [control barrier function](/definitions/control-barrier-function) can be kept valid by choosing the input.
+  Barrier certificates, barrier functions, and control barrier functions all certify safety by keeping solutions in a set, but with different conventions: a [barrier certificate](/dictionary/definitions/barrier-certificate) is nonpositive on the initial set, while a barrier function is nonnegative on the safe set.
+  A [control barrier function](/dictionary/definitions/control-barrier-function) can be kept valid by choosing the input.
 terms:
   - barrier_certificate
   - barrier_function
@@ -26,7 +26,7 @@ see_also:
 
 | Concept | Safe or initial region | Unsafe region | Derivative condition |
 | --- | --- | --- | --- |
-| [Barrier certificate](/definitions/barrier-certificate) $B$ | $B \leq 0$ on $X_0$ | $B > 0$ on $X_u$ | $\dot{B} \leq 0$ |
+| [Barrier certificate](/dictionary/definitions/barrier-certificate) $B$ | $B \leq 0$ on $X_0$ | $B > 0$ on $X_u$ | $\dot{B} \leq 0$ |
 | Barrier function $h$ | $h \geq 0$ on $C$ | outside $C$ | $\dot{h} \geq -\alpha(h)$ |
 
 Negating a barrier certificate need not give a barrier function, because the derivative conditions differ.
@@ -35,7 +35,7 @@ Negating a barrier certificate need not give a barrier function, because the der
 
 - Older _reciprocal_ barrier functions tend to infinity at the boundary of the safe set, like barrier functions in optimization.
   The _zeroing_ barrier functions on this page are finite and equal zero on the boundary.
-- "Safe set" in the [control barrier function](/definitions/control-barrier-function) literature means the set $C$ that is rendered [forward invariant](/definitions/forward-invariant).
+- "Safe set" in the [control barrier function](/dictionary/definitions/control-barrier-function) literature means the set $C$ that is rendered [forward invariant](/dictionary/definitions/forward-invariant).
   In the barrier certificate literature, safety is a property of the system with respect to $X_0$ and $X_u$.
 - In optimization, "barrier function" means something else.
-  See [the meanings of "barrier function"](/distinctions/meanings-of-barrier-function).
+  See [the meanings of "barrier function"](/dictionary/distinctions/meanings-of-barrier-function).

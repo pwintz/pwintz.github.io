@@ -11,7 +11,7 @@ levels:
   undergraduate:
     text: |-
       Consider an infinite set $S$.
-      The set $S$ is _uncountable_ if there does not exist a [surjection](/definitions/surjection) from $\nats$ onto $S$.
+      The set $S$ is _uncountable_ if there does not exist a [surjection](/dictionary/definitions/surjection) from $\nats$ onto $S$.
 properties:
   - >-
     $\reals$ is uncountable (Cantor's diagonal argument), and so is every interval with more than one point.

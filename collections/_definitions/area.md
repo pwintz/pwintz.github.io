@@ -13,6 +13,6 @@ levels:
     text: |-
       Consider a region in the plane, or a surface in space.
       Its _area_ is its two-dimensional size.
-      The area of a surface in space, such as a [sphere](/definitions/sphere), is called its _surface area_.
+      The area of a surface in space, such as a [sphere](/dictionary/definitions/sphere), is called its _surface area_.
     # TODO: Add undergraduate version involving integrals.
 ---

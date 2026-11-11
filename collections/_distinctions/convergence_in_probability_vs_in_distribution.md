@@ -4,9 +4,9 @@ title: Convergence in probability vs. in distribution
 kind: hierarchy
 areas: [statistics]
 summary: >
-  A sequence of [random variables](/definitions/random-variable) $X_n$ can approach a random variable $X$ in several senses.
-  [Convergence in probability](/definitions/convergence-in-probability) says that the random values $X_n$ themselves get close to $X$.
-  [Convergence in distribution](/definitions/convergence-in-distribution) says only that their probabilities approach those of $X$, so the values themselves may never settle down.
+  A sequence of [random variables](/dictionary/definitions/random-variable) $X_n$ can approach a random variable $X$ in several senses.
+  [Convergence in probability](/dictionary/definitions/convergence-in-probability) says that the random values $X_n$ themselves get close to $X$.
+  [Convergence in distribution](/dictionary/definitions/convergence-in-distribution) says only that their probabilities approach those of $X$, so the values themselves may never settle down.
 relation: >
   convergence in probability ⇒ convergence in distribution
 terms:
@@ -23,4 +23,4 @@ see_also:
 ## Notes
 
 - When the limit is a constant, such as $3.5$, the two kinds of convergence are equivalent.
-- A third kind, almost sure convergence (convergence with [probability](/definitions/probability) $1$), is stronger than [convergence in probability](/definitions/convergence-in-probability).
+- A third kind, almost sure convergence (convergence with [probability](/dictionary/definitions/probability) $1$), is stronger than [convergence in probability](/dictionary/definitions/convergence-in-probability).

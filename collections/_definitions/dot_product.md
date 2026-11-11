@@ -6,14 +6,14 @@ synonyms: [scalar product, $x \cdot y$]
 levels:
   high-school:
     text: |-
-      Consider two [vectors](/definitions/vector) $x = (x_1, \dots, x_n)$ and $y = (y_1, \dots, y_n)$ in $\reals^n$.
+      Consider two [vectors](/dictionary/definitions/vector) $x = (x_1, \dots, x_n)$ and $y = (y_1, \dots, y_n)$ in $\reals^n$.
       The _dot product_ of $x$ and $y$ is
 
       $$x \cdot y = x_1 y_1 + x_2 y_2 + \dots + x_n y_n.$$
   undergraduate:
     text: |-
       Consider the vector space $\reals^n$, with vectors written as columns.
-      The _dot product_ is the standard [inner product](/definitions/inner-product) on $\reals^n$,
+      The _dot product_ is the standard [inner product](/dictionary/definitions/inner-product) on $\reals^n$,
 
       $$x \cdot y = x^{\top} y.$$
 properties:

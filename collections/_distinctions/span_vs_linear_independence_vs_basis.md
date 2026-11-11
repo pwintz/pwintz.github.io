@@ -5,8 +5,8 @@ kind: siblings
 areas: [linear-algebra]
 summary: >
   A list of vectors in a vector space can have too few vectors to reach everything, or too many to avoid redundancy.
-  [Linearly independent](/definitions/linearly-independent) vectors have no redundancy, and spanning vectors reach every vector by [linear combinations](/definitions/linear-combination).
-  A [basis](/definitions/vector-basis) is both: linearly independent and spanning.
+  [Linearly independent](/dictionary/definitions/linearly-independent) vectors have no redundancy, and spanning vectors reach every vector by [linear combinations](/dictionary/definitions/linear-combination).
+  A [basis](/dictionary/definitions/vector-basis) is both: linearly independent and spanning.
 terms:
   - linearly_independent
   - spanning_set
@@ -25,4 +25,4 @@ see_also:
 ---
 ## Notes
 
-- In an $n$-dimensional space, $n$ [linearly independent](/definitions/linearly-independent) vectors automatically span, and $n$ spanning vectors are automatically linearly independent.
+- In an $n$-dimensional space, $n$ [linearly independent](/dictionary/definitions/linearly-independent) vectors automatically span, and $n$ spanning vectors are automatically linearly independent.

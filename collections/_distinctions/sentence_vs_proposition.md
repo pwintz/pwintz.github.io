@@ -4,9 +4,9 @@ kind: siblings
 areas: [sets]
 summary: >
   In logic, a statement can be studied as a string of symbols or as a claim that is true or false.
-  A [sentence](/definitions/sentence-logic) is a formula of [first-order logic](/definitions/first-order-logic), a string of symbols in which a [quantifier](/definitions/quantifier) binds every variable.
-  A [proposition](/definitions/proposition) is a claim that is true or false.
-  A sentence expresses a proposition only once its symbols are interpreted, for example by choosing the set that the variables range over, and the same sentence can express different propositions under different [interpretations](/definitions/interpretation-logic).
+  A [sentence](/dictionary/definitions/sentence-logic) is a formula of [first-order logic](/dictionary/definitions/first-order-logic), a string of symbols in which a [quantifier](/dictionary/definitions/quantifier) binds every variable.
+  A [proposition](/dictionary/definitions/proposition) is a claim that is true or false.
+  A sentence expresses a proposition only once its symbols are interpreted, for example by choosing the set that the variables range over, and the same sentence can express different propositions under different [interpretations](/dictionary/definitions/interpretation-logic).
 terms:
   - sentence_logic
   - proposition

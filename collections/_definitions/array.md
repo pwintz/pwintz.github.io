@@ -12,6 +12,6 @@ levels:
   undergraduate:
     context: programming
     text: |-
-      An _array_ is a collection of elements indexed by tuples of [integers](/definitions/integer) $(i_1, \dots, i_k)$ in a rectangular index range. The number $k$ of indices is the [number of axes](/definitions/array-rank) (or dimensions) of the array.
+      An _array_ is a collection of elements indexed by tuples of [integers](/dictionary/definitions/integer) $(i_1, \dots, i_k)$ in a rectangular index range. The number $k$ of indices is the [number of axes](/dictionary/definitions/array-rank) (or dimensions) of the array.
 ---
 An array is a data structure. Its entries can be any type, and no arithmetic is implied.

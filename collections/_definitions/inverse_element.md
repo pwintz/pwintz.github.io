@@ -24,11 +24,11 @@ levels:
   undergraduate:
     context: abstract algebra
     text: |-
-      Consider a set $S$ with a [binary operation](/definitions/binary-operation) $\ast$ and an [identity element](/definitions/identity-element) $e$.
+      Consider a set $S$ with a [binary operation](/dictionary/definitions/binary-operation) $\ast$ and an [identity element](/dictionary/definitions/identity-element) $e$.
       An _inverse_ of an element $a \in S$ is an element $b \in S$ such that
 
       $$a \ast b = b \ast a = e.$$
 properties:
   - >-
-    If $\ast$ is [associative](/definitions/associative), then each element has at most one inverse, which is written $a^{-1}$ (or $-a$ when the operation is addition).
+    If $\ast$ is [associative](/dictionary/definitions/associative), then each element has at most one inverse, which is written $a^{-1}$ (or $-a$ when the operation is addition).
 ---

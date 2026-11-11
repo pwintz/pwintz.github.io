@@ -30,12 +30,12 @@ see_also:
 
 - **Histogram vs. bar chart.** A histogram shows how many values fall in each range of a numerical variable, so its bars touch and their order is fixed.
   A bar chart compares separate categories, so its bars are separated and can be reordered.
-- **Venn diagram vs. Euler diagram.** A Venn diagram shows every possible [intersection](/definitions/set-intersection) of the sets, even empty ones.
+- **Venn diagram vs. Euler diagram.** A Venn diagram shows every possible [intersection](/dictionary/definitions/set-intersection) of the sets, even empty ones.
   An Euler diagram shows only the relationships that actually occur.
 - **Line chart vs. graph of a function.** A line chart connects data points with segments.
   The segments between points are not data.
 
 "Graph" has several conflicting meanings (the graph of a function, a network, or any chart).
-See [the meanings of "graph"](/distinctions/meanings-of-graph).
+See [the meanings of "graph"](/dictionary/distinctions/meanings-of-graph).
 
 See also [this list of graph types](https://graphtutorials.com/types-of-graphs/).

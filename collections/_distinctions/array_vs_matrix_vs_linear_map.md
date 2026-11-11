@@ -5,7 +5,7 @@ areas: [linear-algebra, computing]
 summary: >
   Grids of numbers appear throughout linear algebra and computing, but a grid can be just data, a matrix with its own arithmetic, or a way of writing a linear map.
   An array is a grid of data. A matrix is a grid of numbers with matrix arithmetic.
-  A [linear map](/definitions/linear-map) is a function between vector spaces. A matrix represents a linear map as an array of scalars with respect to a given [vector basis](/definitions/vector-basis).
+  A [linear map](/dictionary/definitions/linear-map) is a function between vector spaces. A matrix represents a linear map as an array of scalars with respect to a given [vector basis](/dictionary/definitions/vector-basis).
 terms:
   - array
   - matrix
@@ -28,5 +28,5 @@ see_also:
 ---
 ## Notes
 
-- A matrix $A$ defines the linear map $x \mapsto A x$ from $\reals^n$ to $\reals^m$, and every linear map between these spaces has this form. This is why matrices and [linear maps](/definitions/linear-map) are easily identified.
-- For a linear map $T : V \to V$, changing the [basis](/definitions/vector-basis) by an [invertible](/definitions/invertible-matrix) matrix $P$ changes its matrix from $A$ to $P^{-1} A P$. Properties of $T$ (such as [eigenvalues](/definitions/eigenvalue), trace, and [determinant](/definitions/determinant)) are those that all of these matrices share.
+- A matrix $A$ defines the linear map $x \mapsto A x$ from $\reals^n$ to $\reals^m$, and every linear map between these spaces has this form. This is why matrices and [linear maps](/dictionary/definitions/linear-map) are easily identified.
+- For a linear map $T : V \to V$, changing the [basis](/dictionary/definitions/vector-basis) by an [invertible](/dictionary/definitions/invertible-matrix) matrix $P$ changes its matrix from $A$ to $P^{-1} A P$. Properties of $T$ (such as [eigenvalues](/dictionary/definitions/eigenvalue), trace, and [determinant](/dictionary/definitions/determinant)) are those that all of these matrices share.

@@ -4,10 +4,10 @@ title: Switched system vs. hybrid system vs. hybrid automaton
 kind: family
 areas: [dynamics, control]
 summary: >
-  Some dynamical systems combine [continuous](/definitions/continuous) change with discrete events, and they are modeled in several ways.
-  A [switched system](/definitions/switched-system) has a continuous state that flows and never jumps; only the active mode changes.
-  A [hybrid system](/definitions/hybrid-system) has states that both flow and jump, so a switched system is a special case of a hybrid system.
-  A [hybrid automaton](/definitions/hybrid-automaton) is a way of modeling a hybrid system as a graph of modes.
+  Some dynamical systems combine [continuous](/dictionary/definitions/continuous) change with discrete events, and they are modeled in several ways.
+  A [switched system](/dictionary/definitions/switched-system) has a continuous state that flows and never jumps; only the active mode changes.
+  A [hybrid system](/dictionary/definitions/hybrid-system) has states that both flow and jump, so a switched system is a special case of a hybrid system.
+  A [hybrid automaton](/dictionary/definitions/hybrid-automaton) is a way of modeling a hybrid system as a graph of modes.
 relation: switched systems ⊂ hybrid systems
 terms:
   - switched_system
@@ -24,7 +24,7 @@ see_also:
 ---
 ## Notes
 
-- A [switched system](/definitions/switched-system) can be unstable even if every subsystem is [asymptotically stable](/definitions/asymptotically-stable), because of how the switches are timed.
-  A common [Lyapunov function](/definitions/lyapunov-function) for all of the subsystems guarantees stability under arbitrary switching.
-- The flow-set and jump-set formulation of Goebel, Sanfelice, and Teel and the [hybrid automaton](/definitions/hybrid-automaton) formulation describe the same class of systems.
+- A [switched system](/dictionary/definitions/switched-system) can be unstable even if every subsystem is [asymptotically stable](/dictionary/definitions/asymptotically-stable), because of how the switches are timed.
+  A common [Lyapunov function](/dictionary/definitions/lyapunov-function) for all of the subsystems guarantees stability under arbitrary switching.
+- The flow-set and jump-set formulation of Goebel, Sanfelice, and Teel and the [hybrid automaton](/dictionary/definitions/hybrid-automaton) formulation describe the same class of systems.
   The former is convenient for Lyapunov analysis, and the latter for modeling and verification.

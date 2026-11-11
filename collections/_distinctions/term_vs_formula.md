@@ -3,9 +3,9 @@ title: Term vs. formula
 kind: siblings
 areas: [sets]
 summary: >
-  In logic, the [expressions](/definitions/expression) of a formal language, which are the well-formed strings of symbols, come in two kinds.
-  A [term](/definitions/term-logic), such as $x^2 + 1$, names an [object](/definitions/object-logic), so a term has a value, such as a number.
-  A [formula](/definitions/formula-logic), such as $x^2 + 1 > 3$, makes a claim about objects, so a formula has a truth value.
+  In logic, the [expressions](/dictionary/definitions/expression) of a formal language, which are the well-formed strings of symbols, come in two kinds.
+  A [term](/dictionary/definitions/term-logic), such as $x^2 + 1$, names an [object](/dictionary/definitions/object-logic), so a term has a value, such as a number.
+  A [formula](/dictionary/definitions/formula-logic), such as $x^2 + 1 > 3$, makes a claim about objects, so a formula has a truth value.
   Applying a relation symbol, such as $>$ or $=$, to terms gives a formula.
 terms:
   - term_logic

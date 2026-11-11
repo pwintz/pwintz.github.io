@@ -7,16 +7,16 @@ levels:
   undergraduate:
     context: real matrices
     text: |-
-      Consider a square real [matrix](/definitions/matrix) $A$.
+      Consider a square real [matrix](/dictionary/definitions/matrix) $A$.
       The _Toeplitz decomposition_ of $A$ is a sum
 
       $$A = H + K$$ 
 
-      where $H$ is a [symmetric matrix](/definitions/symmetric-matrix) and a $K$ is [skew-symmetric](/definitions/skew-symmetric-matrix).
+      where $H$ is a [symmetric matrix](/dictionary/definitions/symmetric-matrix) and a $K$ is [skew-symmetric](/dictionary/definitions/skew-symmetric-matrix).
 #   graduate:
 #     context: complex matrices
 #     text: |-
-#       Consider a square complex [matrix](/definitions/matrix) $A$, and let $A^*$ be the conjugate transpose of $A$.
+#       Consider a square complex [matrix](/dictionary/definitions/matrix) $A$, and let $A^*$ be the conjugate transpose of $A$.
 #       The _Toeplitz decomposition_ of $A$ writes $A$ as $A = H + i K$, where
 # 
 #       $$H = \frac{1}{2}(A + A^*) \quad \text{and} \quad K = \frac{1}{2 i}(A - A^*)$$
@@ -44,4 +44,4 @@ properties:
 ---
 <!-- The Toeplitz decomposition is the matrix version of writing a complex number as $z = x + i y$ with $x$ and $y$ real: $H$ and $K$ play the roles of the real and imaginary parts, and Hermitian matrices play the role of real numbers. -->
 
-Do not confuse the Toeplitz decomposition (named after Otto Toeplitz) with decompositions _of_ Toeplitz matrices, such as the Vandermonde decomposition of a [positive semidefinite](/definitions/positive-semidefinite-matrix) Toeplitz matrix.
+Do not confuse the Toeplitz decomposition (named after Otto Toeplitz) with decompositions _of_ Toeplitz matrices, such as the Vandermonde decomposition of a [positive semidefinite](/dictionary/definitions/positive-semidefinite-matrix) Toeplitz matrix.

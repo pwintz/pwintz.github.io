@@ -12,7 +12,7 @@ levels:
     # Consider numbers arranged in $m$ rows and $n$ columns. A _matrix_ is such a rectangular grid of numbers.
   undergraduate:
     text: |-
-      An $m \times n$ _matrix_ over a field $F$ (such as $\reals$) is an [array](/definitions/array) $A = (a_{ij})$ with entries in $F$, together with the operations of scalar multiplication, matrix addition, and matrix multiplication.
-    # Consider a field $F$ (such as $\reals$) and an [array](/definitions/array) $A = (a_{ij})$ of entries in $F$ with $m$ rows and $n$ columns. Together with the operations of matrix addition and matrix multiplication, $A$ is an $m \times n$ _matrix_ over $F$.
+      An $m \times n$ _matrix_ over a field $F$ (such as $\reals$) is an [array](/dictionary/definitions/array) $A = (a_{ij})$ with entries in $F$, together with the operations of scalar multiplication, matrix addition, and matrix multiplication.
+    # Consider a field $F$ (such as $\reals$) and an [array](/dictionary/definitions/array) $A = (a_{ij})$ of entries in $F$ with $m$ rows and $n$ columns. Together with the operations of matrix addition and matrix multiplication, $A$ is an $m \times n$ _matrix_ over $F$.
 ---
 

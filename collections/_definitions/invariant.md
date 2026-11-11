@@ -10,4 +10,4 @@ levels:
     text: |-
       An _invariant_ is a quantity or property that does not change under a given transformation or along solutions of a given system.
 ---
-An _invariant set_ of a dynamical system is preserved as a whole, even though its individual points move. See [types of set invariance](/distinctions/types-of-dynamic-set-invariance).
+An _invariant set_ of a dynamical system is preserved as a whole, even though its individual points move. See [types of set invariance](/dictionary/distinctions/types-of-dynamic-set-invariance).

@@ -3,7 +3,7 @@ title: "Disjoint union: union of disjoint sets vs. tagged union"
 kind: conflicting
 areas: [sets]
 summary: >
-  "Disjoint [union](/definitions/set-union)" can mean an ordinary union of sets that happen to be disjoint, or a construction that tags each element with the set it came from, so that copies of overlapping sets are kept apart.
+  "Disjoint [union](/dictionary/definitions/set-union)" can mean an ordinary union of sets that happen to be disjoint, or a construction that tags each element with the set it came from, so that copies of overlapping sets are kept apart.
 terms:
   - union_of_disjoint_sets
   - disjoint_union
@@ -24,5 +24,5 @@ see_also:
 ## Notes
 
 - When $A$ and $B$ are disjoint, the two meanings agree up to a natural bijection, so many authors use them interchangeably.
-- The tagged disjoint [union](/definitions/set-union) has $\abs{A} + \abs{B}$ elements, even when $A$ and $B$ overlap.
+- The tagged disjoint [union](/dictionary/definitions/set-union) has $\abs{A} + \abs{B}$ elements, even when $A$ and $B$ overlap.
   For example, $\reals \sqcup \reals$ is two separate copies of the real line.

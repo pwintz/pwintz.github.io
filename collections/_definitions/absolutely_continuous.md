@@ -25,9 +25,9 @@ levels:
       for every $x \in [a, b]$.
 properties:
   - |-
-    An absolutely continuous function $f$ is [differentiable](/definitions/differentiable) [almost everywhere](/definitions/almost-everywhere), and
+    An absolutely continuous function $f$ is [differentiable](/dictionary/definitions/differentiable) [almost everywhere](/dictionary/definitions/almost-everywhere), and
 
     $$f(x) = f(a) + \int_a^x f^{\prime}(t) \mathrm{d}t.$$
   - >-
-    Every absolutely continuous function is [uniformly continuous](/definitions/uniformly-continuous) and has [bounded](/definitions/bounded) variation.
+    Every absolutely continuous function is [uniformly continuous](/dictionary/definitions/uniformly-continuous) and has [bounded](/dictionary/definitions/bounded) variation.
 ---

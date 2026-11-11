@@ -9,10 +9,10 @@ levels:
     context: topology
     text: |-
       Consider a set $A$ in a topological space.
-      The set $A$ is _meager_ if $A$ is a [countable](/definitions/countable) [union](/definitions/set-union) of [nowhere dense](/definitions/nowhere-dense) sets.
+      The set $A$ is _meager_ if $A$ is a [countable](/dictionary/definitions/countable) [union](/dictionary/definitions/set-union) of [nowhere dense](/dictionary/definitions/nowhere-dense) sets.
 properties:
   - >-
-    In $\reals$ (or every complete [metric space](/definitions/metric-space)), a meager set has empty interior, by the Baire category theorem, so the complement of a meager set is [dense](/definitions/dense-set).
+    In $\reals$ (or every complete [metric space](/dictionary/definitions/metric-space)), a meager set has empty interior, by the Baire category theorem, so the complement of a meager set is [dense](/dictionary/definitions/dense-set).
   - >-
-    Meager is a topological notion of "small," and [measure zero](/definitions/measure-zero) is a size notion: $\reals$ is the [union](/definitions/set-union) of a meager set and a set of measure zero.
+    Meager is a topological notion of "small," and [measure zero](/dictionary/definitions/measure-zero) is a size notion: $\reals$ is the [union](/dictionary/definitions/set-union) of a meager set and a set of measure zero.
 ---

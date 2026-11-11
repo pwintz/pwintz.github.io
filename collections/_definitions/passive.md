@@ -17,14 +17,14 @@ levels:
     context: nonlinear control
     text: |-
       Consider a system $\dot{x} = f(x, u)$ with output $y = h(x, u)$.
-      The system is _passive_ if there is a [continuously differentiable](/definitions/continuously-differentiable) storage function $V \geq 0$ with
+      The system is _passive_ if there is a [continuously differentiable](/dictionary/definitions/continuously-differentiable) storage function $V \geq 0$ with
 
       $$u^{\top} y \geq \dot{V}$$
 
       along all solutions.
 properties:
   - >-
-    Every [lossless](/definitions/lossless) system is passive.
+    Every [lossless](/dictionary/definitions/lossless) system is passive.
   - >-
-    The negative [feedback](/definitions/feedback) connection of two passive systems is passive.
+    The negative [feedback](/dictionary/definitions/feedback) connection of two passive systems is passive.
 ---

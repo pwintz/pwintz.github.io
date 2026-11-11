@@ -12,5 +12,5 @@ levels:
       A _theorem_ is a statement that has been proved from axioms and earlier results, and that the author considers a main result.
 properties:
   - >-
-    Whether a proved statement is labeled a theorem, a proposition, a lemma, or a [corollary](/definitions/corollary) is the author's choice about its importance and role, not a mathematical property.
+    Whether a proved statement is labeled a theorem, a proposition, a lemma, or a [corollary](/dictionary/definitions/corollary) is the author's choice about its importance and role, not a mathematical property.
 ---

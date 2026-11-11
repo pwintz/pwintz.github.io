@@ -9,5 +9,5 @@ levels:
     context: measure theory
     text: |-
       Consider a property of the points of a measure space, which may hold at some points and fail at others.
-      The property holds _almost everywhere_ if the set of points where it fails has [measure zero](/definitions/measure-zero).
+      The property holds _almost everywhere_ if the set of points where it fails has [measure zero](/dictionary/definitions/measure-zero).
 ---

@@ -18,5 +18,5 @@ levels:
       $$d_1(p, q) = \sum_{i=1}^n \abs{p_i - q_i}.$$
 properties:
   - >-
-    The taxicab distance is $\norm{p - q}_1$, the [1-norm](/definitions/one-norm) of the difference.
+    The taxicab distance is $\norm{p - q}_1$, the [1-norm](/dictionary/definitions/one-norm) of the difference.
 ---

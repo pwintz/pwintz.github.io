@@ -12,11 +12,11 @@ levels:
   undergraduate:
     context: logic
     text: |-
-      _First-order logic_ is the formal system whose [formulas](/definitions/formula-logic) are built from [terms](/definitions/term-logic) with relation symbols, [logical connectives](/definitions/logical-connective), and the [quantifiers](/definitions/quantifier) $\forall$ and $\exists$, where the quantified variables range over the [objects](/definitions/object-logic) of a domain of discourse.
-      The truth value of a [sentence](/definitions/sentence-logic) is determined by an [interpretation](/definitions/interpretation-logic), which chooses the domain of discourse and the meaning of each symbol.
+      _First-order logic_ is the formal system whose [formulas](/dictionary/definitions/formula-logic) are built from [terms](/dictionary/definitions/term-logic) with relation symbols, [logical connectives](/dictionary/definitions/logical-connective), and the [quantifiers](/dictionary/definitions/quantifier) $\forall$ and $\exists$, where the quantified variables range over the [objects](/dictionary/definitions/object-logic) of a domain of discourse.
+      The truth value of a [sentence](/dictionary/definitions/sentence-logic) is determined by an [interpretation](/dictionary/definitions/interpretation-logic), which chooses the domain of discourse and the meaning of each symbol.
 properties:
   - >-
-    "First-order" means that [quantifiers](/definitions/quantifier) range over objects only; _second-order logic_ also quantifies over properties and sets of objects, as in "for every set $S$ of natural numbers, …".
+    "First-order" means that [quantifiers](/dictionary/definitions/quantifier) range over objects only; _second-order logic_ also quantifies over properties and sets of objects, as in "for every set $S$ of natural numbers, …".
   - >-
-    First-order logic contains [propositional logic](/definitions/propositional-logic): replacing the propositional variables of a [propositional formula](/definitions/propositional-formula) by sentences gives a sentence.
+    First-order logic contains [propositional logic](/dictionary/definitions/propositional-logic): replacing the propositional variables of a [propositional formula](/dictionary/definitions/propositional-formula) by sentences gives a sentence.
 ---

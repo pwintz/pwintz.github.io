@@ -4,8 +4,8 @@ kind: siblings
 areas: [linear-algebra]
 summary: >
   Vectors and covectors are both described by lists of numbers in coordinates, so they are easy to confuse.
-  A [covector](/definitions/covector) is a linear function that takes a vector and returns a number.
-  In coordinates, both look like lists of numbers, but when the [basis](/definitions/vector-basis) changes, their coordinates change in opposite ways.
+  A [covector](/dictionary/definitions/covector) is a linear function that takes a vector and returns a number.
+  In coordinates, both look like lists of numbers, but when the [basis](/dictionary/definitions/vector-basis) changes, their coordinates change in opposite ways.
 terms:
   - vector
   - covector
@@ -24,16 +24,16 @@ see_also:
 ---
 ## Why coordinates change differently
 
-In one dimension, suppose we change units from meters to centimeters, so the new [basis](/definitions/vector-basis) vector is $100$ times shorter than the old one.
+In one dimension, suppose we change units from meters to centimeters, so the new [basis](/dictionary/definitions/vector-basis) vector is $100$ times shorter than the old one.
 
-- A [displacement](/definitions/displacement) of $2$ m becomes $200$ cm.
+- A [displacement](/dictionary/definitions/displacement) of $2$ m becomes $200$ cm.
   Its coordinate is multiplied by $100$: the coordinates of a vector change _opposite_ to the basis (they are contravariant).
-- A temperature [gradient](/definitions/gradient) of $5$ degrees per meter becomes $0.05$ degrees per centimeter.
-  Its coordinate is divided by $100$: the coordinates of a [covector](/definitions/covector) change _with_ the basis (they are covariant).
+- A temperature [gradient](/dictionary/definitions/gradient) of $5$ degrees per meter becomes $0.05$ degrees per centimeter.
+  Its coordinate is divided by $100$: the coordinates of a [covector](/dictionary/definitions/covector) change _with_ the basis (they are covariant).
 
 The value of a covector applied to a vector does not depend on the basis: $5 \times 2 = 0.05 \times 200 = 10$ degrees.
 
 ## Notes
 
-- With an [inner product](/definitions/inner-product), each vector $v$ determines a covector $w \mapsto \ip{v}{w}$.
+- With an [inner product](/dictionary/definitions/inner-product), each vector $v$ determines a covector $w \mapsto \ip{v}{w}$.
   This is how the gradient (a vector) is obtained from the differential (a covector), and why the two are often confused.

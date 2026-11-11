@@ -5,10 +5,10 @@ kind: siblings
 areas: [dynamics, control]
 summary: >
   For a dynamical system with a set of states, there are several ways to say that solutions stay in the set or avoid danger.
-  A [forward invariant](/definitions/forward-invariant) set traps every solution that starts in it.
+  A [forward invariant](/dictionary/definitions/forward-invariant) set traps every solution that starts in it.
   Safety means solutions from the initial set never reach the unsafe set, which does not require the initial set to be invariant.
-  An [admissible set](/definitions/admissible-set) only satisfies the constraints now.
-  A [controlled invariant](/definitions/controlled-invariant) set can be made to trap solutions by choosing inputs.
+  An [admissible set](/dictionary/definitions/admissible-set) only satisfies the constraints now.
+  A [controlled invariant](/dictionary/definitions/controlled-invariant) set can be made to trap solutions by choosing inputs.
 terms:
   - forward_invariant
   - safe
@@ -29,7 +29,7 @@ see_also:
 ---
 ## Notes
 
-- The largest [controlled invariant](/definitions/controlled-invariant) [subset](/definitions/subset) of the [admissible set](/definitions/admissible-set) is the _viability kernel_.
+- The largest [controlled invariant](/dictionary/definitions/controlled-invariant) [subset](/dictionary/definitions/subset) of the [admissible set](/dictionary/definitions/admissible-set) is the _viability kernel_.
   States outside it are admissible but doomed.
 - Forward invariance is about the future.
   A set is _backward invariant_ if every solution through it has stayed in it for all past time, and _invariant_ if it is both.
