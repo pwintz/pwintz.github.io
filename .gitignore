@@ -1,6 +1,8 @@
 # Miscellaneous
 *.colpkg
 
+# HTML output file from review_progress script for checking progress on checking dictionary items. 
+review_progress.html
 
 # Vim
 *~
@@ -350,4 +352,4 @@ TSWLatexianTemp*
 # glossaries
 *.glstex
 
-# End of https://www.toptal.com/developers/gitignore/api/latex
+# End of https://www.toptal.com/developers/gitignore/api/latexdev/

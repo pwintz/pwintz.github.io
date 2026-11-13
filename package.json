@@ -40,7 +40,8 @@
     "build:ts": "esbuild assets/ts/src/*.tsx assets/ts/src/*.ts --bundle --outdir=assets/ts/out --format=esm",
     "watch": "esbuild assets/ts/src/*.tsx assets/ts/src/*.ts --bundle --outdir=assets/ts/out --format=esm --watch",
     "link:unicodeit": "npm install --no-save --install-links=false ../unicodeit",
-    "serve": "bash scripts/serve-local.sh"
+    "serve": "bash scripts/serve-local.sh",
+    "progress": "python3 scripts/review_progress.py"
   },
   "dependencies": {
     "@types/wicg-file-system-access": "^2023.10.7",
