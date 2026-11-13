@@ -1,5 +1,4 @@
 ---
-published: false
 title: Countably infinite set
 term: countably infinite
 applies_to: sets

@@ -45,6 +45,7 @@ AMBIGUOUS = {
     "linear", "differential", "normal", "shape", "unit", "grid", "partition", "target", "smooth",
     "event", "outcome", "sample point", "orthogonal", "perpendicular", "object", "objects", "interpretation", "interpretations", "interpreted",
     "element of", "maximal", "separated", "number of elements", "number of axes", "sentence",
+    "algebra",
 }
 
 

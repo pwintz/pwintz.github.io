@@ -1,5 +1,4 @@
 ---
-published: false
 title: Gaussian process
 term: Gaussian process
 applies_to: random processes

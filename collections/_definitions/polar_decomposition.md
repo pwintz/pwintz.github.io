@@ -22,4 +22,4 @@ properties:
 The name comes from the polar form $z = e^{i \theta} r$ of a complex number: $Q$ plays the role of the rotation $e^{i \theta}$, and $S$ plays the role of the length $r \geq 0$.
 
 Some authors use the _left_ polar decomposition $A = P Q$, with $P = \sqrt{A A^{\top}}$, instead.
-For complex matrices, $Q$ is unitary and $S = \sqrt{A^* A}$ is Hermitian [positive semidefinite](/dictionary/definitions/positive-semidefinite-matrix).
+For complex matrices, $Q$ is unitary and $S = \sqrt{A^{\ast} A}$ is Hermitian [positive semidefinite](/dictionary/definitions/positive-semidefinite-matrix).

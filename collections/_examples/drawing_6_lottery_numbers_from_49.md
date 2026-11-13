@@ -1,14 +1,16 @@
 ---
-published: false
 title: 'Drawing $6$ different lottery numbers from $1, 2, \dots, 49$, where only the set of numbers drawn matters'
 level: high-school
+is: [combination]
 is_not: [permutation]
 values:
-  combination: '$\binom{49}{6} = 13\,983\,816$'
+  binomial_coefficient: '$\binom{49}{6} = 13\,983\,816$'
 why:
+  combination: >-
+    Each draw of $6$ lottery numbers from $49$ is a combination of $6$ of the numbers, because only the set of numbers drawn matters.
   permutation: >-
-    Drawing $6$ lottery numbers from $49$ is not a permutation, because a ticket wins with the right numbers in every order of drawing.
-  combination: |-
+    A draw of $6$ lottery numbers from $49$ is not a permutation, because a ticket wins with the right numbers in every order of drawing.
+  binomial_coefficient: |-
     Drawing $6$ lottery numbers from $49$ has
 
     $$\binom{49}{6} = \frac{49 \cdot 48 \cdot 47 \cdot 46 \cdot 45 \cdot 44}{6!} = 13\,983\,816$$

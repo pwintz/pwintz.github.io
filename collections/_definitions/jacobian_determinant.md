@@ -18,6 +18,6 @@ properties:
   - |-
     Inverse function theorem: if $\det Df(x) \neq 0$ and $f$ is [continuously differentiable](/dictionary/definitions/continuously-differentiable), then $f$ has a continuously differentiable inverse near $x$.
   - |-
-    The Jacobian determinant of a composition is the product of the Jacobian determinants: $\det D(g \circ f)(x) = \det Dg(f(x)) \cdot \det Df(x)$.
+    The Jacobian determinant of a [composition](/dictionary/definitions/function-composition) is the product of the Jacobian determinants: $\det D(g \circ f)(x) = \det Dg(f(x)) \cdot \det Df(x)$.
 ---
 It is often called simply "the Jacobian," which can also mean the [Jacobian matrix](/dictionary/definitions/jacobian). See [Jacobian: matrix vs. determinant](/dictionary/distinctions/meanings-of-jacobian).

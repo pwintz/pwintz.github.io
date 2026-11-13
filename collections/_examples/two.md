@@ -1,5 +1,4 @@
 ---
-published: false
 title: '$2$'
 level: high-school
 is: [
@@ -14,7 +13,11 @@ is_not: [
 ]
 why:
   rational_number: >-
-    $2$ is an integer, and so a rational number ($2/1$) and a real number.
+    $2$ is rational number because it can be written as a ratio of two integers: $2/1$.
+  irrational_number: >-
+    $2$ is not irrational because it is rational.
   algebraic_number: >-
-    $2$ is algebraic, because it is a root of $x - 2$, so it is not irrational or transcendental.
+    $2$ is algebraic because it is a root of $x - 2$. 
+  transcendental_number: >-
+    $2$ is not transcendental because it is algebraic.
 ---

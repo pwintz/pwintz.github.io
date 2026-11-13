@@ -17,6 +17,6 @@ levels:
       2. every solution starting near the equilibrium reaches it exactly, at a finite time that may depend on the initial state, and stays there.
 properties:
   - >-
-    Finite-time stability requires a [vector](/dictionary/definitions/vector) field that is not [Lipschitz continuous](/dictionary/definitions/lipschitz-continuous) at the [equilibrium](/dictionary/definitions/equilibrium), because solutions of a Lipschitz system cannot reach an equilibrium in finite time.
+    Finite-time stability requires a [vector field](/dictionary/definitions/vector-field) that is not [Lipschitz continuous](/dictionary/definitions/lipschitz-continuous) at the [equilibrium](/dictionary/definitions/equilibrium), because solutions of a Lipschitz system cannot reach an equilibrium in finite time.
 ---
 If the settling time is [bounded](/dictionary/definitions/bounded) independently of the initial state, then the [equilibrium](/dictionary/definitions/equilibrium) is _fixed-time_ stable.

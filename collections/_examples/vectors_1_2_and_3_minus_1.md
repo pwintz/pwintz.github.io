@@ -12,5 +12,5 @@ why:
   dot_product: >-
     The dot product of $(1, 2)$ and $(3, -1)$ adds the products of their entries, $1$.
   weighted_inner_product: >-
-    The weighted inner product counts the first entries twice, because $W_{11} = 2$, which gives $4$.
+    The weighted inner product counts the first entries twice, because the entry $w_{11}$ of $W$ is $2$, which gives $4$.
 ---

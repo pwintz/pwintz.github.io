@@ -16,6 +16,6 @@ levels:
       A _symmetry_ of the object is a transformation of the surrounding space that maps the object onto itself.
 properties:
   - >-
-    The symmetries of an object form a [group](/dictionary/definitions/group) under composition, its symmetry group.
+    The symmetries of an object form a [group](/dictionary/definitions/group) under [composition](/dictionary/definitions/function-composition), its symmetry group.
     For example, a square has $8$ symmetries.
 ---

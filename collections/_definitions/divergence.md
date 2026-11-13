@@ -10,7 +10,7 @@ levels:
       The _divergence_ of the flow measures how much it spreads out from each point (positive) or gathers in toward it (negative).
   undergraduate:
     text: |-
-      Consider a [vector](/dictionary/definitions/vector) field $F = (F_1, \dots, F_n) : \reals^n \to \reals^n$.
+      Consider a [vector field](/dictionary/definitions/vector-field) $F = (F_1, \dots, F_n) : \reals^n \to \reals^n$.
       The _divergence_ of $F$ is the scalar function
 
       $$\nabla \cdot F = \frac{\partial F_1}{\partial x_1} + \dots + \frac{\partial F_n}{\partial x_n}.$$

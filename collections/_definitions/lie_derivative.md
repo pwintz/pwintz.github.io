@@ -7,7 +7,7 @@ levels:
   undergraduate:
     context: dynamical systems
     text: |-
-      Consider a function $V$ and a [vector](/dictionary/definitions/vector) field $F$, with solutions of $\dot{x} = F(x)$.
+      Consider a function $V$ and a [vector field](/dictionary/definitions/vector-field) $F$, with solutions of $\dot{x} = F(x)$.
       The _Lie derivative_ of $V$ along $F$ is
 
       $$L_F V(x) = \nabla V(x) \cdot F(x).$$
@@ -16,12 +16,12 @@ levels:
   graduate:
     context: differential geometry
     text: |-
-      Consider a function $V$ and a [vector](/dictionary/definitions/vector) field $F$ on a manifold, where $\phi_t$ is the flow of $F$.
+      Consider a function $V$ and a [vector field](/dictionary/definitions/vector-field) $F$ on a manifold, where $\phi_t$ is the [flow](/dictionary/definitions/flow) of $F$.
       The _Lie derivative_ of $V$ along $F$ is
 
       $$L_F V(x) = \frac{\mathrm{d}}{\mathrm{d}t} V(\phi_t(x)) \big\rvert_{t = 0}.$$
 
-      Lie derivatives are also defined for vector fields and differential forms.
+      [Lie derivatives](/dictionary/definitions/lie-derivative) are also defined for [vector fields](/dictionary/definitions/vector-field) and [differential forms](/dictionary/definitions/differential-form).
 properties:
   - >-
     If $L_F V(x) \leq 0$ for all $x$, then $V$ never increases along solutions of $\dot{x} = F(x)$.

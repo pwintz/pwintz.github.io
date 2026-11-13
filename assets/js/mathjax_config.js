@@ -27,6 +27,8 @@ MathJax = {
             // Absolute value, as in "\abs{x}", and inner product, as in "\ip{x}{y}". The delimiters do not grow.
             abs: ["\\lvert #1 \\rvert", 1],
             ip: ["\\langle #1, #2 \\rangle", 2],
+            // Domain of an operator, as in "\dom D".
+            dom: "\\operatorname{dom}",
             // reals: "{\\mathbb{R}}",
         }
     }

@@ -21,5 +21,5 @@ properties:
   - >-
     A function $f : X \to Y$ is bijective if and only if it has an inverse function $f^{-1} : Y \to X$.
   - >-
-    A composition of bijections is a bijection.
+    A [composition](/dictionary/definitions/function-composition) of bijections is a bijection.
 ---

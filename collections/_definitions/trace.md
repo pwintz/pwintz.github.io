@@ -6,10 +6,10 @@ applies_to: square matrices
 levels:
   undergraduate:
     text: |-
-      Consider an $n \times n$ [matrix](/dictionary/definitions/matrix) $A$.
+      Consider an $n \times n$ [matrix](/dictionary/definitions/matrix) $A = [a_{ij}]$.
       The _trace_ of $A$ is the sum of its diagonal entries:
 
-      $$\operatorname{tr} A = A_{11} + A_{22} + \dots + A_{nn}.$$
+      $$\operatorname{tr} A = a_{11} + a_{22} + \dots + a_{nn}.$$
 properties:
   - >-
     The trace of $A$ is the sum of its [eigenvalues](/dictionary/definitions/eigenvalue), counted with multiplicity.

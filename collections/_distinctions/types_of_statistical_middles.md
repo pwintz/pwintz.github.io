@@ -3,7 +3,7 @@ title: Measures of center
 kind: siblings
 areas: [statistics]
 summary: >
-  The mean, [median](/dictionary/definitions/median), and mode are different ways to summarize the middle of data, and they can be far apart.
+  The [mean](/dictionary/definitions/arithmetic-mean), [median](/dictionary/definitions/median), and [mode](/dictionary/definitions/mode) are different ways to summarize the middle of data, and they can be far apart.
   "Average" usually means the mean.
   The [geometric mean](/dictionary/definitions/geometric-mean) averages growth factors and ratios, and the [expected value](/dictionary/definitions/expected-value) is the mean of a [probability distribution](/dictionary/definitions/probability-distribution) rather than of data.
 terms:

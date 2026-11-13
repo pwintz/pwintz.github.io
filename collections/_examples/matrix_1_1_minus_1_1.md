@@ -1,8 +1,8 @@
 ---
-published: false
-title: 'The matrix $$\begin{bmatrix} 1 & 1 \\ -1 & 1 \end{bmatrix}$$, which is not symmetric'
+title: 'The matrix $$\begin{bmatrix} 1 & 1 \\ -1 & 1 \end{bmatrix}$$'
 level: undergraduate
 is_not: [
+  symmetric
   positive_definite_matrix,
   positive_semidefinite_matrix
 ]

@@ -5,11 +5,10 @@ term: pivot
 applies_to: matrices in Gaussian elimination
 levels:
   high-school:
-    # TODO: Revise.
     text: |-
-      Consider a [matrix](/dictionary/definitions/matrix).
-      A _pivot_ of the matrix is the [leading entry](/dictionary/definitions/leading-entry) of one of its nonzero rows.
-      Its position is a _pivot position_, and its column is a _pivot column_.
+      Consider a [matrix](/dictionary/definitions/matrix) $A$, and use row operations to bring $A$ to an echelon form, in which each [leading entry](/dictionary/definitions/leading-entry) is to the right of the leading entry in the row above it.
+      A _pivot_ of $A$ is a leading entry of that echelon form.
+      The position of a pivot is a _pivot position_ of $A$, and its column is a _pivot column_ of $A$.
   undergraduate:
     context: Gaussian elimination
     text: |-

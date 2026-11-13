@@ -1,5 +1,4 @@
 ---
-published: false
 title: Tangent space
 term: tangent space
 applies_to: smooth manifolds
@@ -13,6 +12,7 @@ levels:
     text: |-
       Consider a [smooth](/dictionary/definitions/smooth) surface $M$ in $\reals^n$, a point $x$ of $M$, and the smooth curves $\gamma$ in $M$ such that $\gamma(0) = x$.
       The _tangent space_ $T_x M$ is the set of velocities $\gamma^{\prime}(0)$ of those curves.
+  # TODO: Add graduate version.
 properties:
   - >-
     The tangent space is a [vector](/dictionary/definitions/vector) space whose dimension equals the dimension of $M$.

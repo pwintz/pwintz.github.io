@@ -15,6 +15,10 @@ values:
   schur_decomposition: '$Q = I$, $T = A$'
   jordan_normal_form: '$P = I$, $J = A$'
   toeplitz_decomposition: '$$H = \begin{bmatrix} 1 & 1/2 \\ 1/2 & 1 \end{bmatrix}$$, $$K = \begin{bmatrix} 0 & 1/2 \\ -1/2 & 0 \end{bmatrix}$$'
+  entrywise_exponential: '$$\begin{bmatrix} e & e \\ 1 & e \end{bmatrix}$$'
+  matrix_exponential: '$$e^{A} = \begin{bmatrix} e & e \\ 0 & e \end{bmatrix}$$'
+is: [defective_matrix]
+is_not: [singular_matrix]
 why:
   cholesky_decomposition: >-
     The matrix $$A = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$$ has no Cholesky decomposition, because $A$ is not symmetric.
@@ -42,4 +46,12 @@ why:
     The shear $$\begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$$ has the eigenvalue $1$ twice, and it fixes the vector $(1, 0)$.
   lu_decomposition: >-
     $A$ is upper triangular, so its LU decomposition is $I \cdot A$, and its QR decomposition is $I \cdot A$.
+  entrywise_exponential: >-
+    The entrywise exponential of $$A = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$$ has $e^0 = 1$ in the lower left.
+  matrix_exponential: >-
+    The matrix exponential of $$A = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$$ is $e^{I + N} = e^{I} e^{N} = e (I + N)$, where $N = A - I$, because $I$ and $N$ commute and $N^2 = 0$.
+  defective_matrix: >-
+    The matrix $$A = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$$ is defective, because its eigenvalue $1$ has multiplicity $2$, but its eigenvectors are the nonzero multiples of $(1, 0)$.
+  singular_matrix: >-
+    The matrix $$A = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$$ is not singular, because its determinant is $1$.
 ---

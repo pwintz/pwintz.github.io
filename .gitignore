@@ -1,3 +1,7 @@
+# Miscellaneous
+*.colpkg
+
+
 # Vim
 *~
 *.sw[p_]

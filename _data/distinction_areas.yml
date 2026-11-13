@@ -9,6 +9,8 @@
   name: Topology
 - id: linear-algebra
   name: Linear Algebra
+- id: algebra
+  name: Abstract Algebra
 - id: set-valued-analysis
   name: Set-valued Analysis
 - id: dynamics
@@ -21,6 +23,8 @@
   name: Mathematical Language
 - id: geometry
   name: Geometry
+- id: physics
+  name: Physics
 - id: differential-equations
   name: Differential Equations
 - id: computing

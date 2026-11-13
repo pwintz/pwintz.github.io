@@ -1,32 +1,28 @@
 ---
-published: false
 title: Permutation vs. combination
 kind: siblings
 areas: [statistics, sets]
-summary: |
-  Many counting problems ask how many ways there are to choose $k$ objects from a set of $n$ objects.
-  If the order of the chosen objects matters, then each choice is a [permutation](/dictionary/definitions/permutation), and the number of permutations is
-
-  $$P(n, k) = \frac{n!}{(n - k)!}.$$
-
-  If the order does not matter, then each choice is a [combination](/dictionary/definitions/combination), and the number of combinations is the binomial coefficient, read "$n$ choose $k$":
-
-  $$\binom{n}{k} = \frac{n!}{k! \, (n - k)!}.$$
+summary: >
+  Many counting problems choose $k$ different objects from a set of $n$ objects, and the result is either a permutation or a combination.
+  A [permutation](/dictionary/definitions/permutation) is an ordered list of the chosen objects, so $(A, B)$ and $(B, A)$ are different permutations.
+  A [combination](/dictionary/definitions/combination) is the set of the chosen objects, with no order, so $\setdef{A, B}$ and $\setdef{B, A}$ are the same combination.
+  For the numbers of permutations and combinations, see [$P(n, k)$ vs. $\binom{n}{k}$](/dictionary/distinctions/number-of-permutations-vs-binomial-coefficient).
 terms:
   - permutation
   - combination
-examples_note: >-
-  Each cell is the number of ways to make the choice in that row, when the choice is of the column's kind.
 examples:
-  - example: choosing_2_of_the_letters_a_b_c
+  - example: the_ordered_list_a_b_from_a_b_c
+  - example: the_set_a_b_from_a_b_c
     why: >-
-      Choosing $2$ of the letters $A$, $B$, $C$ gives twice as many permutations as combinations, because each combination of $2$ letters can be put in order in $2! = 2$ ways.
+      The set $\setdef{A, B}$ is one combination, but the same two letters form two permutations, $(A, B)$ and $(B, A)$.
   - example: electing_a_president_and_a_vice_president_from_10_members
   - example: choosing_a_committee_of_2_from_10_members
   - example: drawing_6_lottery_numbers_from_49
+see_also:
+  - number_of_permutations_vs_binomial_coefficient
 ---
 ## Notes
 
-- Each [combination](/dictionary/definitions/combination) of $k$ objects can be put in order in $k!$ ways, so $\binom{n}{k} = P(n, k) / k!$.
 - The everyday word "combination," as in a "combination lock," usually means a [permutation](/dictionary/definitions/permutation), because the order of the numbers matters.
-- Both counts assume that each object is chosen at most once; choosing with repetition gives $n^k$ ordered choices and $\binom{n + k - 1}{k}$ unordered choices.
+
+A combination is written as a set, like $\{A, B, C\}$, because the order does not matter, whereas a permutation is written as a list or a tuple, like $(A, B, C)$ or $(C, B, A)$ because the order does matter.

@@ -22,4 +22,4 @@ properties:
 ---
 The related $L D L^{\top}$ decomposition, with $L$ lower triangular with ones on its diagonal and $D$ diagonal, avoids square roots and also applies to some symmetric matrices that are not positive definite.
 
-For complex matrices, $A$ is Hermitian positive definite and $A = L L^*$.
+For complex matrices, $A$ is Hermitian positive definite and $A = L L^{\ast}$.

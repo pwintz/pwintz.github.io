@@ -16,13 +16,13 @@ levels:
     context: complex matrices
     text: |-
       Consider a square complex [matrix](/dictionary/definitions/matrix) $A$.
-      A _Schur decomposition_ of $A$ is a factorization $A = Q T Q^*$, where $Q$ is unitary ($Q^* Q = I$) and $T$ is upper triangular.
+      A _Schur decomposition_ of $A$ is a factorization $A = Q T Q^{\ast}$, where $Q$ is unitary ($Q^{\ast} Q = I$) and $T$ is upper triangular.
 properties:
   - |-
     Every square complex matrix has a Schur decomposition, but it is not unique.
     The diagonal entries of $T$ are the [eigenvalues](/dictionary/definitions/eigenvalue) of $A$.
   - |-
-    The upper triangular factor $T$ is diagonal exactly when $A$ is normal ($A A^* = A^* A$).
+    The upper triangular factor $T$ is diagonal exactly when $A$ is normal ($A A^{\ast} = A^{\ast} A$).
     For a real [symmetric matrix](/dictionary/definitions/symmetric-matrix), a Schur decomposition is an [eigendecomposition](/dictionary/definitions/eigendecomposition) $A = Q \Lambda Q^{\top}$.
   - |-
     Unlike an [eigendecomposition](/dictionary/definitions/eigendecomposition), a Schur decomposition exists for every matrix and uses an orthogonal (or unitary) $Q$, so it can be computed stably.

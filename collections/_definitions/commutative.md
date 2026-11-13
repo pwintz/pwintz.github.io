@@ -18,7 +18,7 @@ properties:
   - >-
     Addition and multiplication of [real numbers](/dictionary/definitions/real-number) are commutative.
   - >-
-    Subtraction, division, composition of functions, and multiplication of matrices are not commutative: for example, $5 - 3 = 2$, but $3 - 5 = -2$.
+    Subtraction, division, [composition](/dictionary/definitions/function-composition) of functions, and multiplication of matrices are not commutative: for example, $5 - 3 = 2$, but $3 - 5 = -2$.
   - >-
     A [group](/dictionary/definitions/group) whose operation is commutative is called _abelian_.
 ---

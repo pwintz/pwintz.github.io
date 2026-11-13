@@ -1,5 +1,4 @@
 ---
-published: false
 title: Compact set
 term: compact
 applies_to: sets and spaces

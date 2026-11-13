@@ -4,7 +4,9 @@ level: undergraduate
 is_not: [
   orthogonal_matrix,
   symmetric_matrix,
-  skew_symmetric_matrix
+  skew_symmetric_matrix,
+  singular_matrix,
+  defective_matrix
 ]
 is: [invertible_matrix]
 values:
@@ -22,13 +24,15 @@ values:
   determinant: '$\det A = 2 \cdot 3 - 1 \cdot 4 = 2$'
   trace: '$\operatorname{tr} A = 2 + 3 = 5$'
   invertible_matrix: '$$A^{-1} = \frac{1}{2} \begin{bmatrix} 3 & -1 \\ -4 & 2 \end{bmatrix}$$'
+  minor: '$M_{11} = 3$, $M_{12} = 4$, $M_{21} = 1$, $M_{22} = 2$'
+  cofactor: '$C_{11} = 3$, $C_{12} = -4$, $C_{21} = -1$, $C_{22} = 2$'
 why:
   invertible_matrix: >-
     The matrix $$A = \begin{bmatrix} 2 & 1 \\ 4 & 3 \end{bmatrix}$$ is invertible, because $\det A = 2 \neq 0$; its inverse comes from the $2 \times 2$ formula.
   orthogonal_matrix: >-
     The matrix $$A = \begin{bmatrix} 2 & 1 \\ 4 & 3 \end{bmatrix}$$ is not orthogonal, because its inverse is not its transpose.
   symmetric_matrix: >-
-    The matrix $$A = \begin{bmatrix} 2 & 1 \\ 4 & 3 \end{bmatrix}$$ is not symmetric, because $A_{12} = 1 \neq 4 = A_{21}$.
+    The matrix $$A = \begin{bmatrix} 2 & 1 \\ 4 & 3 \end{bmatrix}$$ is not symmetric, because its entries $a_{12} = 1$ and $a_{21} = 4$ differ.
   cholesky_decomposition: >-
     The matrix $$A = \begin{bmatrix} 2 & 1 \\ 4 & 3 \end{bmatrix}$$ has no Cholesky decomposition, because $A$ is not symmetric.
   lu_decomposition: >-
@@ -52,4 +56,13 @@ why:
     The entry $-3$ above the diagonal is nonzero because $A$ is not normal.
   toeplitz_decomposition: >-
     The Toeplitz decomposition of $$A = \begin{bmatrix} 2 & 1 \\ 4 & 3 \end{bmatrix}$$ splits $A$ into its symmetric part $H = \frac{1}{2}(A + A^{\top})$ and its skew-symmetric part $K = \frac{1}{2}(A - A^{\top})$, which average and split the off-diagonal entries $1$ and $4$.
+  singular_matrix: >-
+    The matrix $$A = \begin{bmatrix} 2 & 1 \\ 4 & 3 \end{bmatrix}$$ is not singular, because $\det A = 2 \neq 0$.
+  defective_matrix: >-
+    The matrix $$A = \begin{bmatrix} 2 & 1 \\ 4 & 3 \end{bmatrix}$$ is not defective, because its eigenvalues $(5 \pm \sqrt{17}) / 2$ are distinct.
+  minor: >-
+    Each minor of $$A = \begin{bmatrix} 2 & 1 \\ 4 & 3 \end{bmatrix}$$ is the single entry left after deleting one row and one column; for example, deleting row $1$ and column $2$ leaves $4$, so $M_{12} = 4$.
+  cofactor: >-
+    The cofactors of $$A = \begin{bmatrix} 2 & 1 \\ 4 & 3 \end{bmatrix}$$ are its minors with the signs $+$ and $-$ in a checkerboard pattern, so $C_{12} = -M_{12} = -4$ and $C_{21} = -M_{21} = -1$.
+    Expanding along row $1$ gives $\det A = 2 \cdot 3 + 1 \cdot (-4) = 2$.
 ---

@@ -10,6 +10,7 @@ values:
   array_shape: '$(3, 3)$'
   array_size: '$3 \cdot 3 = 9$'
   matrix_rank: '$\operatorname{rank} I = 3$'
+  nullity: '$\operatorname{nullity} I = 0$'
 why:
   matrix_rank: >-
     The $3 \times 3$ identity matrix has rank $3$, because its columns are linearly independent.
@@ -20,4 +21,6 @@ why:
     The $3 \times 3$ identity matrix is positive definite, because $x^{\top} I x = \norm{x}^2 > 0$ for every nonzero $x$.
   positive_semidefinite_matrix: >-
     The $3 \times 3$ identity matrix is positive semidefinite, because it is positive definite.
+  nullity: >-
+    The $3 \times 3$ identity matrix has nullity $0$, because $I x = x$, so $I x = 0$ only for $x = 0$.
 ---

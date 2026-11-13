@@ -1,5 +1,4 @@
 ---
-published: false
 title: '$x \mapsto \sqrt{x}$ on $[0, \infty)$'
 level: high-school
 is: [

@@ -1,5 +1,4 @@
 ---
-published: false
 title: Continuous vs. uniformly continuous
 kind: hierarchy
 areas: [analysis]

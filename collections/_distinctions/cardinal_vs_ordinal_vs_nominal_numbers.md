@@ -1,5 +1,4 @@
 ---
-published: false
 title: Cardinal vs. ordinal vs. nominal numbers
 kind: siblings
 areas: [numbers]

@@ -15,8 +15,12 @@ examples:
   - example: matrix_1_3_5_0_2_4
   - example: matrix_0_2_4_1_3_5
   - example: leading_entry_not_pivot
+  - example: matrix_1_2_3_4
+    why: >-
+      The $3$ in row $2$ of $$\begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$$ is a leading entry but not a pivot, and the pivot $-2$ of the echelon form is not an entry of the original matrix.
 see_also:
   - array_vs_matrix_vs_linear_map
+  - rank_vs_nullity
 ---
 ## Notes
 

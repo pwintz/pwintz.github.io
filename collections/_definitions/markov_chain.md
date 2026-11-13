@@ -17,7 +17,7 @@ levels:
       This condition is called the _Markov property_.
 properties:
   - >-
-    A Markov chain with finitely many states and transition probabilities that do not depend on the time $n$ is described by a transition matrix $P$, whose entry $P_{ij}$ is the [probability](/dictionary/definitions/probability) of moving from state $i$ to state $j$ in one step.
+    A Markov chain with finitely many states and transition probabilities that do not depend on the time $n$ is described by a transition matrix $P = [p_{ij}]$, whose entry $p_{ij}$ is the [probability](/dictionary/definitions/probability) of moving from state $i$ to state $j$ in one step.
   - >-
     Each row of a transition matrix adds up to $1$.
   - >-

@@ -1,5 +1,4 @@
 ---
-published: false
 title: Rational vs. irrational vs. algebraic vs. transcendental numbers
 kind: hierarchy
 areas: [numbers]
@@ -8,9 +7,8 @@ summary: >
   Every real number is either rational or irrational.
   Separately, every number is either algebraic or transcendental.
   Irrational does not mean transcendental: $\sqrt{2}$ is irrational but algebraic.
-relation: integers ⊂ rational numbers ⊂ algebraic numbers, and transcendental numbers ⊂ irrational numbers (for real numbers).
+relation: rational numbers ⊂ algebraic numbers and transcendental numbers ⊂ irrational numbers (for real numbers).
 terms:
-  - integer
   - rational_number
   - irrational_number
   - real_number

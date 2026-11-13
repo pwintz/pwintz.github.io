@@ -9,14 +9,18 @@ values:
   determinant: '$\det A = 1 \cdot 4 - 2 \cdot 2 = 0$'
   trace: '$\operatorname{tr} A = 1 + 4 = 5$'
   kernel: '$$\ker A = \operatorname{span} \begin{bmatrix} 2 \\ -1 \end{bmatrix}$$'
+  matrix_rank: '$\operatorname{rank} A = 1$'
+  nullity: '$\operatorname{nullity} A = 1$'
 is: [
   positive_semidefinite_matrix,
-  symmetric_matrix
+  symmetric_matrix,
+  singular_matrix
 ]
 is_not: [
   full_rank,
   positive_definite_matrix,
-  invertible_matrix
+  invertible_matrix,
+  defective_matrix
 ]
 why:
   invertible_matrix: >-
@@ -33,4 +37,12 @@ why:
     The matrix $$A = \begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$$ has $2$ rows, so $A x \in \reals^2$, and the codomain of $x \mapsto A x$ is $\reals^2$.
   column_space: >-
     The column space of $$A = \begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$$ is a line, because the second column $(2, 4)$ is twice the first column $(1, 2)$, so both columns lie on the line spanned by $(1, 2)$.
+  matrix_rank: >-
+    The matrix $$\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$$ has rank $1$, because its second column is twice its first column.
+  nullity: >-
+    The matrix $$\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$$ has nullity $1$, because its kernel is the line spanned by $(2, -1)$.
+  singular_matrix: >-
+    The matrix $$\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$$ is singular, because its determinant is $1 \cdot 4 - 2 \cdot 2 = 0$.
+  defective_matrix: >-
+    The matrix $$\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$$ is not defective, because its eigenvalues $0$ and $5$ are distinct, so it has two linearly independent eigenvectors.
 ---

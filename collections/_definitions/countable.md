@@ -1,5 +1,4 @@
 ---
-published: false
 title: Countable set
 term: countable
 applies_to: sets
@@ -7,7 +6,7 @@ synonyms: [at most countable]
 levels:
   high-school:
     text: |-
-      Consider a set, and try to list its elements one after another, as $a_1, a_2, a_3, \dots$ (possibly stopping after finitely many).
+      Consider a set, and try to list its elements one after another, as $a_1, a_2, a_3, \dots$ (possibly stopping after finitely many or continuing forever).
       The set is _countable_ if this can be done so that every element appears in the list.
   undergraduate:
     text: |-

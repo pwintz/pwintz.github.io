@@ -1,14 +1,17 @@
 ---
 published: false
-title: "Continuity: metric vs. sequential vs. topological"
+title: "Continuity Definitions: metric vs. sequential vs. topological"
 kind: hierarchy
 areas: [topology, analysis]
 summary: >
   Continuity can be defined with distances, with sequences, or with [open sets](/dictionary/definitions/open-set).
   The ε-δ definition of continuity (for [metric spaces](/dictionary/definitions/metric-space)) and the open-set definition (for topological spaces) agree on metric spaces.
   In metric spaces, continuity is also equivalent to sequential continuity, but in general topological spaces, sequential continuity is weaker.
-relation: >
-  continuous ⊂ sequentially continuous, with equality for functions on metric spaces (and, more generally, first-countable spaces).
+relation:
+  - context: 'For functions between topological spaces:'
+    relation: continuous ⊂ sequentially continuous
+  - context: 'For functions on metric spaces (more generally, on first-countable spaces):'
+    relation: continuous = sequentially continuous
 terms:
   - continuous
   - sequentially_continuous

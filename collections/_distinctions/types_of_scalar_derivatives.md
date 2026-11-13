@@ -3,7 +3,7 @@ title: Types of multivariable derivatives
 kind: siblings
 areas: [analysis]
 summary: >
-  The directional derivative, the Jacobian, the gradient, the differential, and the Lie derivative all package the [partial derivatives](/dictionary/definitions/partial-derivative) of a function differently: as a vector ([gradient](/dictionary/definitions/gradient)), a matrix ([Jacobian](/dictionary/definitions/jacobian)), a [linear map](/dictionary/definitions/linear-map) (differential), or a single number in a chosen direction ([directional derivative](/dictionary/definitions/directional-derivative)) or along a vector field ([Lie derivative](/dictionary/definitions/lie-derivative)).
+  The directional derivative, the Jacobian, the gradient, the differential, and the Lie derivative all package the [partial derivatives](/dictionary/definitions/partial-derivative) of a function differently: as a vector ([gradient](/dictionary/definitions/gradient)), a matrix ([Jacobian](/dictionary/definitions/jacobian)), a [linear map](/dictionary/definitions/linear-map) (differential), or a single number in a chosen direction ([directional derivative](/dictionary/definitions/directional-derivative)) or along a [vector field](/dictionary/definitions/vector-field) ([Lie derivative](/dictionary/definitions/lie-derivative)).
 terms:
   - gradient
   - jacobian

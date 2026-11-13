@@ -1,5 +1,4 @@
 ---
-published: false
 title: '$x \mapsto e^x$ on $\reals$'
 level: high-school
 is: [

@@ -1,4 +1,5 @@
 ---
+# TODO: Restructure this example.
 published: false
 title: 'An investment that doubles in value one year and grows eightfold the next'
 level: high-school

@@ -197,6 +197,7 @@ Analogies that explain the idea ("like the slope of a hill in the direction you 
 Facts about the term go in the `properties` list instead: theorems, consequences, and equivalent characterizations ("Equivalently, ...").
 For example, "real symmetric matrices have real eigenvalues" is a property of symmetric matrices, not part of their definition.
 The Markdown body is for notes: terminology, conflicting usages, and conventions.
+The layout puts the body under a "Notes" heading (`h2`), so when the notes have several substantial sections, separate them with `###` subheadings, such as "### Adjoints of unbounded operators" and "### Other meanings of "adjoint"".
 
 On a definition's page, examples and then properties are listed in their own sections after the definition.
 On distinction pages, they appear in collapsed "Examples" and "Properties" lists under each definition, and examples above the selected level are hidden.
@@ -324,22 +325,28 @@ Describe the action in plain words when its name would answer the question the e
 **No explanations in values:** A value states only the answer, such as `'$d(p, q) = 1$'` or `'None'`, with its units if any.
 Put reasons (e.g., "since $p \neq q$," "because $A$ is not square") in `why` under the same term, even when they are short.
 
-**Show what is calculated:** Write each value as the expression being computed, then its result, e.g., `'$A \cup B = \lbrace 1, 2, 3, 4 \rbrace$'`, `'$\inf S = 0$'`, or `'$\lim_{n \to \infty} a_n$ does not exist'`, not just `'$\lbrace 1, 2, 3, 4 \rbrace$'`.
+**No calculations in values:** A value is the final answer only, with no intermediate steps, but it may give alternative forms of the answer, such as an exact value and its decimal approximation: `'$\sigma^2 = 1/150 \approx 0.0067$ m$^2$'`, not `'$\frac{0.1^2 + 0^2 + 0.1^2}{3} \approx 0.0067$ m$^2$'`.
+Put the calculation in `why`, under the same term, as a display equation when it is long.
+
+**Show what is calculated:** Write each value as the name of the quantity being computed, then its result, e.g., `'$A \cup B = \lbrace 1, 2, 3, 4 \rbrace$'`, `'$\inf S = 0$'`, or `'$\lim_{n \to \infty} a_n$ does not exist'`, not just `'$\lbrace 1, 2, 3, 4 \rbrace$'`.
 Name the object in the example's title (e.g., "$f(x, y) = (2x, 3y)$" or "The sequence $a_n = 1/n$") so that the values can refer to it.
 A value may be plain prose when no standard notation fits (e.g., "Its four edges").
 
 **Display the defining equation:** In a definition, put the defining equation or condition in a display equation (its own paragraph, `$$...$$`), even if it would fit inline, e.g., "The _infinity norm_ of $x$ is the largest absolute value of its entries," followed by `$$\norm{x}_{\infty} = \max_i \abs{x_i}.$$`
 When the display restates the preceding words in symbols, end the words with a colon ("…the largest absolute value of its entries:"); when it continues the sentence, such as the condition after "if, for all $x$,", use a comma.
 Keep minor or illustrative equations inline, such as "as in $\dot{x} = f(x)$."
+In prose (level texts, properties, notes, and `why`), put a matrix with more than two rows in its own display equation, not inline; a `$$...$$` in the middle of a sentence renders inline and squeezes tall matrices into the line.
+Titles and `values` may keep such matrices inline.
 
 **Lists of conditions:** When a definition has two or more conditions, list them as a numbered list, one condition per item, ending all but the last with a comma and the second-to-last with ", and".
 
-**Math macros:** Write sets as `\setdef{1, 2, 3}` (not `\{ \}`, which kramdown turns into plain braces, or `\lbrace \rbrace`), the natural numbers and the real numbers as `\nats` and `\reals`, norms as `\norm{x}`, absolute values as `\abs{x}`, and inner products as `\ip{x}{y}` (defined in `assets/js/mathjax_config.js`).
+**Math macros:** Write sets as `\setdef{1, 2, 3}` (not `\{ \}`, which kramdown turns into plain braces, or `\lbrace \rbrace`), the natural numbers and the real numbers as `\nats` and `\reals`, norms as `\norm{x}`, absolute values as `\abs{x}`, inner products as `\ip{x}{y}`, and the domain of an operator as `\dom D` (defined in `assets/js/mathjax_config.js`).
 Use `\norm` for vectors, such as the state $x \in \reals^n$, and `\abs` only for numbers.
 In a YAML flow list, quote a value that contains braces, e.g., `synonyms: ['$\abs{A}$']`.
 
 **Math in YAML:** Use single quotes or block scalars (`>`) for values containing backslashes, and quote values containing `: `.
 Write `f^{\prime}` instead of `f'` (smart quotes would change the apostrophe), and `\lvert x \rvert` instead of `|x|`.
+Write `\ast` instead of `*` in math, such as `$T^{\ast}$` for an adjoint, because kramdown reads two asterisks in a paragraph as emphasis before MathJax sees the math, which deletes the asterisks and italicizes the text between them.
 
 ## LaTeX Macros
 

@@ -16,12 +16,12 @@ levels:
 #   graduate:
 #     context: complex matrices
 #     text: |-
-#       Consider a square complex [matrix](/dictionary/definitions/matrix) $A$, and let $A^*$ be the conjugate transpose of $A$.
+#       Consider a square complex [matrix](/dictionary/definitions/matrix) $A$, and let $A^{\ast}$ be the conjugate transpose of $A$.
 #       The _Toeplitz decomposition_ of $A$ writes $A$ as $A = H + i K$, where
 # 
-#       $$H = \frac{1}{2}(A + A^*) \quad \text{and} \quad K = \frac{1}{2 i}(A - A^*)$$
+#       $$H = \frac{1}{2}(A + A^{\ast}) \quad \text{and} \quad K = \frac{1}{2 i}(A - A^{\ast})$$
 # 
-#       are Hermitian ($H^* = H$ and $K^* = K$).
+#       are Hermitian ($H^{\ast} = H$ and $K^{\ast} = K$).
 properties:
   - |-
     The Toeplitz decomposition exists and is unique.
@@ -34,10 +34,10 @@ properties:
   # - |-
   #   For a real matrix $A$, $H$ is the symmetric part $\frac{1}{2}(A + A^{\top})$ and $i K$ is the skew-symmetric part $\frac{1}{2}(A - A^{\top})$.
   # - |-
-  #    $A = H + i K$ with $H$ and $K$ Hermitian, then $H = \frac{1}{2}(A + A^*)$ and $K = \frac{1}{2 i}(A - A^*)$.
+  #    $A = H + i K$ with $H$ and $K$ Hermitian, then $H = \frac{1}{2}(A + A^{\ast})$ and $K = \frac{1}{2 i}(A - A^{\ast})$.
   # - |-
-  #   For every vector $x$, the numbers $x^* H x$ and $x^* K x$ are real, so $x^* A x = x^* H x + i \, x^* K x$ splits $x^* A x$ into its real and imaginary parts.
-  #   In particular, $\operatorname{Re}(x^* A x) < 0$ for every $x \neq 0$ exactly when $H$ is negative definite.
+  #   For every vector $x$, the numbers $x^{\ast} H x$ and $x^{\ast} K x$ are real, so $x^{\ast} A x = x^{\ast} H x + i \, x^{\ast} K x$ splits $x^{\ast} A x$ into its real and imaginary parts.
+  #   In particular, $\operatorname{Re}(x^{\ast} A x) < 0$ for every $x \neq 0$ exactly when $H$ is negative definite.
   - |-
     The matrix $A$ is normal ($A A^\top = A^\top A$) exactly when $H$ and $K$ commute.
 
