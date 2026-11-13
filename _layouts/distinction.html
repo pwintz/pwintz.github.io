@@ -89,8 +89,7 @@ layout: single
             </span>
           </div>
           {% include definition-levels.html definition=definition switchable=true %}
-          {% assign term_related = site.distinctions | where_exp: "d", "d.terms contains slug" %}
-          {% include definition-examples.html definition=definition related=term_related collapsible=true %}
+          {% include definition-examples.html definition=definition related=definition.related_distinctions collapsible=true %}
           {% include definition-properties.html definition=definition collapsible=true %}
         </div>
       {% else %}

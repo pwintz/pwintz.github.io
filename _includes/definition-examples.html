@@ -12,9 +12,10 @@
                  Otherwise, render separate lists of worked examples, examples, and non-examples, with level badges.
 {% endcomment %}
 {% assign term = include.definition.slug %}
-{% assign worked = site.examples | where_exp: "e", "e.values contains term" %}
-{% assign positive = site.examples | where_exp: "e", "e.is contains term" %}
-{% assign negative = site.examples | where_exp: "e", "e.is_not contains term" %}
+{% comment %} Precomputed by _plugins/dictionary_index.rb. {% endcomment %}
+{% assign worked = include.definition.worked_examples %}
+{% assign positive = include.definition.positive_examples %}
+{% assign negative = include.definition.negative_examples %}
 {% assign total = worked.size | plus: positive.size | plus: negative.size %}
 
 {% if total > 0 %}

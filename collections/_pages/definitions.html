@@ -29,7 +29,7 @@ excerpt: "Definitions of mathematical terms at several levels, from elementary t
     {% assign current_letter = letter %}
   {% endif %}
 
-  {% assign related = site.distinctions | where_exp: "d", "d.terms contains def.slug" %}
+  {% assign related = def.related_distinctions %}
   {% capture subjects %}{% for d in related %}{{ d.areas | join: " " }} {% endfor %}{% endcapture %}
   {% assign subjects = subjects | split: " " | uniq | join: " " %}
   {% comment %} A definition matches a level filter if it has a definition at that level or a lower one. {% endcomment %}

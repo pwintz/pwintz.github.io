@@ -13,7 +13,7 @@ layout: single
 
   {% include definition-levels.html definition=page %}
 
-  {% assign related = site.distinctions | where_exp: "d", "d.terms contains page.slug" %}
+  {% assign related = page.related_distinctions %}
 
   {% include definition-examples.html definition=page related=related %}
 
