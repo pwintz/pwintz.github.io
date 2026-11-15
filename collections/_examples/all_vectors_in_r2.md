@@ -1,11 +1,10 @@
 ---
-published: false
 title: 'The set of all vectors in $\reals^2$'
 level: high-school
 is: [spanning_set]
 is_not: [
+  linearly_independent,
   vector_basis,
-  linearly_independent
 ]
 why:
   spanning_set: >-

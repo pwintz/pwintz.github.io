@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'Cartesian coordinates $(x, y)$ on a plane, given by an origin $O$ and two perpendicular unit vectors $e_1$ and $e_2$'
 level: high-school
 is: [coordinate_system]

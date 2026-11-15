@@ -21,10 +21,11 @@ see_also:
   - units_vs_dimension
   - types_of_array_quantities
   - types_of_size
+  - dimension_manifold_vs_vector_space
 ---
 ## Other meanings
 
-- The dimension of a manifold is the dimension of the space it locally looks like.
+- The [dimension of a manifold](/dictionary/definitions/dimension-manifold) is the dimension of the space it locally looks like.
   For example, a [sphere](/dictionary/definitions/sphere) in $\reals^3$ is two-dimensional.
 - The [Hausdorff dimension](/dictionary/definitions/hausdorff-dimension) of a fractal, such as the Cantor set, need not be an [integer](/dictionary/definitions/integer).
 - The "dimensions" of an $m \times n$ matrix are $m$ and $n$, which is its shape.

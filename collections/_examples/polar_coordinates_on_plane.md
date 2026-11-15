@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'Polar coordinates $(r, \theta)$ on the plane without the origin, such that $r > 0$ and $0 \leq \theta < 2 \pi$'
 level: high-school
 is: [coordinate_system]

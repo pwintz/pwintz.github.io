@@ -1,5 +1,4 @@
 ---
-published: false
 title: Bijective Function
 term: bijective
 applies_to: functions

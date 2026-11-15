@@ -1,5 +1,4 @@
 ---
-published: false
 title: Codomain of a Function
 term: codomain
 applies_to: functions

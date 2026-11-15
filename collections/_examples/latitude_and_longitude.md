@@ -1,5 +1,4 @@
 ---
-published: false
 title: "Latitude and longitude on the surface of the Earth, without the poles"
 level: high-school
 is: [coordinate_system]

@@ -1,5 +1,4 @@
 ---
-published: false
 title: Basis for a Topology
 term: basis (of a topology)
 applies_to: collections of open sets

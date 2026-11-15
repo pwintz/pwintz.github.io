@@ -1,5 +1,4 @@
 ---
-published: false
 title: Linearly Independent Vectors
 term: linearly independent
 applies_to: sets of vectors
@@ -7,7 +6,8 @@ levels:
   high-school:
     text: |-
       Consider a list of [vectors](/dictionary/definitions/vector) $v_1, \dots, v_k$.
-      The vectors are _linearly independent_ if none of them can be built from the others by stretching and adding.
+      The vectors are _linearly independent_ if none of them can be built from the others by stretching and adding. 
+      That is, none of the vectors are a [linear combination](/dictionary/definitions/linear-combination) of the other vectors.
   undergraduate:
     text: |-
       Consider vectors $v_1, \dots, v_k$ in a vector space.

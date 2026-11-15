@@ -1,5 +1,4 @@
 ---
-published: false
 title: Spanning Set
 term: spanning set
 applies_to: sets of vectors
@@ -9,6 +8,7 @@ levels:
     text: |-
       Consider a space of [vectors](/dictionary/definitions/vector), such as the plane, in which vectors can be added and stretched.
       A _spanning set_ of the space is a set of vectors from which every vector in the space can be built by stretching each of them and adding the results.
+      That is, $v_1$, $v_2$, ..., $v_n$ is a spanning set of $V$ if every vector in $V$ is a [linear combination](/dictionary/definitions/linear-combination) of $v_1$, $v_2$, ..., $v_n$.
   undergraduate:
     text: |-
       Consider a [vector space](/dictionary/definitions/vector-space) $V$.

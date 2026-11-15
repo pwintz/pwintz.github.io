@@ -1,6 +1,6 @@
 ---
 title: Basis of a Vector Space
-term: basis
+term: basis (of a vector space)
 applies_to: vector spaces
 synonyms: [vector basis, Hamel basis]
 levels:
