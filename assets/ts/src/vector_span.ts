@@ -11,7 +11,8 @@ import { enableDragReorder } from './common/drag_reorder';
 // c₁v₁ + c₂v₂ + c₃v₃ is drawn tip to tail, so it is visible that every combination lands in the span.
 //
 // In 2D, the tips of the vectors can be dragged. In 3D, dragging the canvas rotates the view, and the
-// vectors are edited in the number fields; a fling keeps the view spinning until it is clicked.
+// vectors are edited in the number fields. A fling keeps the view spinning about the vertical axis
+// until it is clicked, while its up-and-down tilt slows to a stop.
 // Three small side views look along the coordinate axes. The scene uses an orthographic projection.
 
 type Vec = [number, number, number];
@@ -1183,7 +1184,10 @@ canvas.addEventListener('pointermove', e => {
 
 // ── Momentum ───────────────────────────────────────────────────────
 // After a fling, the view keeps rotating with the release velocity until the canvas is touched again.
+// The pitch (vertical) part slows to a stop, while the yaw (horizontal) part keeps its speed.
 const spin = { yaw: 0, pitch: 0 }; // Radians per millisecond.
+/** Time for the pitch speed of a fling to fall by a factor of e, in milliseconds. */
+const PITCH_DAMPING_TIME = 500;
 let spinFrame = 0;
 
 function rotateBy(dyaw: number, dpitch: number) {
@@ -1195,6 +1199,7 @@ function coast(prev: number) {
   spinFrame = requestAnimationFrame(now => {
     const dt = Math.min(50, now - prev);
     rotateBy(spin.yaw * dt, spin.pitch * dt);
+    spin.pitch *= Math.exp(-dt / PITCH_DAMPING_TIME);
     // Stop pitching at the limits instead of pushing against them.
     if (Math.abs(state.pitch) >= 1.5) spin.pitch = 0;
     draw();
