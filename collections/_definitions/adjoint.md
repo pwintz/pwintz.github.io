@@ -1,5 +1,5 @@
 ---
-title: Adjoint of a linear map
+title: Adjoint of a Linear Map
 term: adjoint
 applies_to: linear maps between inner product spaces
 synonyms: [adjoint operator, '$T^{\ast}$']

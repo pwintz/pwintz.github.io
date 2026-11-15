@@ -1,6 +1,6 @@
 ---
 published: false
-title: Probability vs. likelihood
+title: Probability vs. Likelihood
 kind: siblings
 areas: [statistics]
 summary: >

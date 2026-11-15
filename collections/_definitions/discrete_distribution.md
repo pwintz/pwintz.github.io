@@ -1,6 +1,6 @@
 ---
 published: false
-title: Discrete distribution
+title: Discrete Distribution
 term: discrete distribution
 applies_to: probability distributions
 synonyms: [discrete random variable]

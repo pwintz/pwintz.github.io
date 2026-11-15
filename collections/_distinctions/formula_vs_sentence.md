@@ -1,5 +1,5 @@
 ---
-title: Formula vs. sentence
+title: Formula vs. Sentence
 kind: hierarchy
 areas: [sets]
 summary: >

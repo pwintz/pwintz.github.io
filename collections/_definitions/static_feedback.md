@@ -1,5 +1,5 @@
 ---
-title: Static feedback
+title: Static Feedback
 term: static feedback
 applies_to: control laws
 synonyms: [memoryless feedback]

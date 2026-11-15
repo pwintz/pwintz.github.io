@@ -1,5 +1,5 @@
 ---
-title: Conjecture vs. hypothesis vs. law vs. theory
+title: Conjecture vs. Hypothesis vs. Law vs. Theory
 kind: siblings
 areas: [language]
 summary: >

@@ -1,11 +1,15 @@
 ---
 title: '$\mathbb{Q}$, as a subset of $\reals$'
 level: undergraduate
-is: [dense_set]
+is: [
+  dense_set,
+  borel_set
+]
 is_not: [
   open_set,
   closed_set,
-  almost_everywhere
+  almost_everywhere,
+  full_measure
 ]
 values:
   interior: '$\operatorname{int} \mathbb{Q} = \emptyset$'
@@ -23,8 +27,12 @@ why:
     Every interval contains both rational and irrational numbers, so every real number is a boundary point.
   dense_set: >-
     $\mathbb{Q}$ is dense in $\reals$ because every interval contains a rational number.
+  borel_set: >-
+    $\mathbb{Q}$ is a Borel set, because $\mathbb{Q}$ is the union of countably many one-point sets $\setdef{q}$, each of which is closed.
   almost_everywhere: >-
     $\mathbb{Q}$ does not hold almost everywhere, because $\mathbb{Q}$ has measure zero.
+  full_measure: >-
+    $\mathbb{Q}$ does not have full measure in $\reals$, because its complement $\reals \setminus \mathbb{Q}$ does not have measure zero.
   interior: >-
     Every interval contains rational and irrational numbers, so $\mathbb{Q}$ has an empty interior and an empty exterior.
 ---

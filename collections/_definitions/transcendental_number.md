@@ -1,5 +1,5 @@
 ---
-title: Transcendental number
+title: Transcendental Number
 term: transcendental number
 applies_to: numbers
 levels:

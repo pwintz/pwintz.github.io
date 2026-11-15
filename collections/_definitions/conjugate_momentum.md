@@ -1,6 +1,6 @@
 ---
 published: false
-title: Conjugate momentum
+title: Conjugate Momentum
 term: conjugate momentum
 applies_to: mechanical systems
 synonyms: [canonical momentum, generalized momentum]

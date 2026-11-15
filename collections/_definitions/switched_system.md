@@ -1,5 +1,5 @@
 ---
-title: Switched system
+title: Switched System
 term: switched system
 applies_to: dynamical systems
 levels:

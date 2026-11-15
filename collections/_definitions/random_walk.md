@@ -1,6 +1,6 @@
 ---
 published: false
-title: Random walk
+title: Random Walk
 term: random walk
 applies_to: random processes
 levels:

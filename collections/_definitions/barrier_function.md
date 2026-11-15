@@ -1,6 +1,6 @@
 ---
 published: false
-title: Barrier function (control theory)
+title: Barrier Function (Control Theory)
 term: barrier function (control)
 applies_to: sets and dynamical systems
 synonyms: [zeroing barrier function]

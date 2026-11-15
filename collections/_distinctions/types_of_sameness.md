@@ -1,5 +1,5 @@
 ---
-title: Types of sameness
+title: Types of Sameness
 kind: family
 areas: [sets]
 summary: >

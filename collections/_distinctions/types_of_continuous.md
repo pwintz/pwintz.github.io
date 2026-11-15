@@ -3,7 +3,7 @@
 # Other types of continuity to add:
 # - left/right continuous. 
 # - upper/lower continuous.
-title: Types of continuity
+title: Types of Continuity
 kind: siblings
 areas: [analysis]
 summary: >

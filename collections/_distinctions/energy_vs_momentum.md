@@ -1,6 +1,6 @@
 ---
 published: false
-title: Energy vs. momentum
+title: Energy vs. Momentum
 kind: siblings
 areas: [physics]
 summary: >

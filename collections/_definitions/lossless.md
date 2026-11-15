@@ -1,6 +1,6 @@
 ---
 published: false
-title: Lossless system
+title: Lossless System
 term: lossless
 applies_to: input-output systems
 levels:

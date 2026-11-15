@@ -1,6 +1,6 @@
 ---
 published: false
-title: Polynomial equation
+title: Polynomial Equation
 term: polynomial equation
 applies_to: equations
 synonyms: [algebraic equation]

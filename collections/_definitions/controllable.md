@@ -1,6 +1,6 @@
 ---
 published: false
-title: Controllable system
+title: Controllable System
 term: controllable
 applies_to: control systems
 levels:

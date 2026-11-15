@@ -1,5 +1,5 @@
 ---
-title: Banach space
+title: Banach Space
 term: Banach space
 applies_to: spaces
 levels:

@@ -1,5 +1,5 @@
 ---
-title: Reachable system
+title: Reachable System
 term: reachable
 applies_to: control systems
 levels:

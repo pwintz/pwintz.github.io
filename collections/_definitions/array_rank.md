@@ -1,6 +1,6 @@
 ---
 published: false
-title: Number of axes of an array
+title: Number of Axes of an Array
 term: number of axes
 applies_to: arrays
 synonyms: [rank (of an array or tensor), ndim, order, number of dimensions]

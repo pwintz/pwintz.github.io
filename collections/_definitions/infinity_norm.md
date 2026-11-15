@@ -1,5 +1,5 @@
 ---
-title: Infinity norm
+title: Infinity Norm
 term: infinity norm
 applies_to: vectors in $\reals^n$
 synonyms: ['$\norm{x}_{\infty}$', max norm, maximum norm, supremum norm, Chebyshev norm, '$\ell^{\infty}$ norm']

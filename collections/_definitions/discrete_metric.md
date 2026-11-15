@@ -1,5 +1,5 @@
 ---
-title: Discrete metric
+title: Discrete Metric
 term: discrete metric
 applies_to: points
 synonyms: []

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Stratonovich integral
+title: Stratonovich Integral
 term: Stratonovich integral
 applies_to: random processes
 levels:

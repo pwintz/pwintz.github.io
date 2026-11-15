@@ -1,5 +1,5 @@
 ---
-title: Moment vs. central moment
+title: Moment vs. Central Moment
 kind: siblings
 areas: [statistics]
 summary: >

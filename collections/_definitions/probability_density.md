@@ -1,5 +1,5 @@
 ---
-title: Probability density function
+title: Probability Density Function
 term: probability density
 applies_to: continuous random variables
 synonyms: [probability density function, PDF, density]

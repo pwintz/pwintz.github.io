@@ -1,5 +1,5 @@
 ---
-title: Jacobian determinant
+title: Jacobian Determinant
 term: Jacobian determinant
 applies_to: functions with as many outputs as inputs
 synonyms: [Jacobian, '$\det Df(x)$', '$\frac{\partial(y_1, \dots, y_n)}{\partial(x_1, \dots, x_n)}$']

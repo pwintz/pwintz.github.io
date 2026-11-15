@@ -1,5 +1,5 @@
 ---
-title: Limit of a function
+title: Limit of a Function
 term: limit (of a function)
 applies_to: functions
 synonyms: [two-sided limit, '$\lim_{x \to a} f(x)$']

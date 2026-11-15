@@ -1,6 +1,6 @@
 ---
 published: false
-title: Metric space vs. normed space vs. inner product space vs. Banach space vs. Hilbert space
+title: Metric Space vs. Normed Space vs. Inner Product Space vs. Banach Space vs. Hilbert Space
 kind: hierarchy
 areas: [linear-algebra, analysis, topology]
 summary: >

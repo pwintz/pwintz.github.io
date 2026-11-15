@@ -1,6 +1,6 @@
 ---
 published: false
-title: Element of
+title: Element Of
 term: element of
 applies_to: an object and a set
 synonyms: [member of, $\in$]

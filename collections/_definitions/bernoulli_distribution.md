@@ -1,5 +1,5 @@
 ---
-title: Bernoulli distribution
+title: Bernoulli Distribution
 term: Bernoulli distribution
 applies_to: random variables
 levels:

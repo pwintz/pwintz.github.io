@@ -1,5 +1,5 @@
 ---
-title: Closed set
+title: Closed Set
 term: closed set
 applies_to: subsets of a space
 levels:

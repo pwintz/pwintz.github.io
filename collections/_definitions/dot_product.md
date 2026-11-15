@@ -1,5 +1,5 @@
 ---
-title: Dot product
+title: Dot Product
 term: dot product
 applies_to: vectors in $\reals^n$
 synonyms: [scalar product, $x \cdot y$]

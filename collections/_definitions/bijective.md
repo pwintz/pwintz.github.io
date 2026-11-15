@@ -1,6 +1,6 @@
 ---
 published: false
-title: Bijective function
+title: Bijective Function
 term: bijective
 applies_to: functions
 synonyms: [bijection, one-to-one correspondence, invertible function]

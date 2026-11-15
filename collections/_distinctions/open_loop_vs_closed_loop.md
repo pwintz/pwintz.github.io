@@ -1,5 +1,5 @@
 ---
-title: Types of control
+title: Types of Control
 kind: siblings
 areas: [control]
 summary: >

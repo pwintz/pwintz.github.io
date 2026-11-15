@@ -1,6 +1,6 @@
 ---
 published: false
-title: Topological circle
+title: Topological Circle
 term: topological circle
 applies_to: topological spaces
 synonyms: [simple closed curve (in the plane)]

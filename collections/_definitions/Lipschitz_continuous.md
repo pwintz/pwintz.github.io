@@ -1,5 +1,5 @@
 ---
-title: Lipschitz continuous function
+title: Lipschitz Continuous Function
 term: Lipschitz continuous
 applies_to: functions
 synonyms: [globally Lipschitz continuous, Lipschitz]

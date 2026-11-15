@@ -1,6 +1,6 @@
 ---
 published: false
-title: Inner semicontinuous set-valued map
+title: Inner Semicontinuous Set-Valued Map
 term: inner semicontinuous
 applies_to: set-valued maps
 levels:

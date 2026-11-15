@@ -1,6 +1,6 @@
 ---
 published: false
-title: Bayesian probability
+title: Bayesian Probability
 term: Bayesian probability
 applies_to: interpretations of probability
 synonyms: [Bayesianism, Bayesian]

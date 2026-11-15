@@ -1,5 +1,5 @@
 ---
-title: Arc length
+title: Arc Length
 term: arc length
 applies_to: curves
 synonyms: [length (of a curve)]

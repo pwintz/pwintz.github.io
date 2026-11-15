@@ -1,6 +1,6 @@
 ---
 published: false
-title: Separated sets
+title: Separated Sets
 term: separated
 applies_to: pairs of sets
 levels:

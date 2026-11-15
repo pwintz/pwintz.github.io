@@ -1,5 +1,5 @@
 ---
-title: Unit vector
+title: Unit Vector
 term: unit vector
 applies_to: vectors in a normed space
 levels:

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Geometric mean
+title: Geometric Mean
 term: geometric mean
 applies_to: lists of positive numbers
 levels:

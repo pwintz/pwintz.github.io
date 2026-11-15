@@ -1,6 +1,6 @@
 ---
 published: false
-title: Riemann–Stieltjes integral
+title: Riemann–Stieltjes Integral
 term: Riemann–Stieltjes integral
 applies_to: pairs of functions on intervals
 levels:

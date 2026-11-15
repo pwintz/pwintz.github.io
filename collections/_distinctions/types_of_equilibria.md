@@ -1,6 +1,6 @@
 ---
 published: false
-title: Equilibrium vs. fixed point vs. steady state vs. set point vs. operating point
+title: Equilibrium vs. Fixed Point vs. Steady State vs. Set Point vs. Operating Point
 kind: siblings
 areas: [dynamics, control]
 summary: >

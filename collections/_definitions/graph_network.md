@@ -1,6 +1,6 @@
 ---
 published: false
-title: Graph (network)
+title: Graph (Network)
 term: graph (network)
 applies_to: networks
 levels:

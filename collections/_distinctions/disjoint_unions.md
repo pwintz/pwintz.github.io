@@ -1,5 +1,5 @@
 ---
-title: "Disjoint union: union of disjoint sets vs. tagged union"
+title: "Disjoint Union: Union of Disjoint Sets vs. Tagged Union"
 kind: conflicting
 areas: [sets]
 summary: >

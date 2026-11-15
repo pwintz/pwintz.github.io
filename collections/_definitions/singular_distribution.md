@@ -1,6 +1,6 @@
 ---
 published: false
-title: Singular distribution
+title: Singular Distribution
 term: singular distribution
 applies_to: probability distributions
 synonyms: [singular continuous distribution]

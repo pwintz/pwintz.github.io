@@ -1,6 +1,6 @@
 ---
 published: false
-title: Riemann integral
+title: Riemann Integral
 term: Riemann integral
 applies_to: bounded functions on intervals
 levels:

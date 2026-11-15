@@ -1,5 +1,5 @@
 ---
-title: Module (algebra)
+title: Module (Algebra)
 term: module
 applies_to: algebraic structures
 levels:

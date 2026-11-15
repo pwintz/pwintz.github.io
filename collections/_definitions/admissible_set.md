@@ -1,5 +1,5 @@
 ---
-title: Admissible set 
+title: Admissible Set
 term: admissible set
 applies_to: control system
 synonyms: [constraint set]

@@ -1,6 +1,6 @@
 ---
 published: false
-title: "Rank: number of axes vs. rank of a matrix"
+title: "Rank: Number of Axes vs. Rank of a Matrix"
 kind: conflicting
 areas: [linear-algebra, computing]
 summary: >
@@ -17,7 +17,7 @@ examples:
   - example: identity_3_by_3
 see_also:
   - types_of_array_quantities
-  - types_of_everything
+  - types_of_set_density
 ---
 ## Notes
 

@@ -1,5 +1,5 @@
 ---
-title: Positive definite matrix
+title: Positive Definite Matrix
 term: positive definite matrix
 applies_to: symmetric matrices
 levels:

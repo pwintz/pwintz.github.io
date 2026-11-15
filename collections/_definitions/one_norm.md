@@ -1,5 +1,5 @@
 ---
-title: 1-norm
+title: 1-Norm
 term: 1-norm
 applies_to: vectors in $\reals^n$
 synonyms: ['$\norm{x}_1$', taxicab norm, Manhattan norm, $\ell^1$ norm]

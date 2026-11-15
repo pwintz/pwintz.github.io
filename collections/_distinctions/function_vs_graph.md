@@ -1,6 +1,6 @@
 ---
 published: false
-title: Function vs. graph vs. curve
+title: Function vs. Graph vs. Curve
 kind: siblings
 areas: [sets]
 summary: >

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Dini derivative
+title: Dini Derivative
 term: Dini derivative
 applies_to: functions of one variable
 synonyms: ["$D^{+} f$"]

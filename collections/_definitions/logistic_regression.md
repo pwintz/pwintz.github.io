@@ -1,6 +1,6 @@
 ---
 published: false
-title: Logistic regression
+title: Logistic Regression
 term: logistic regression
 applies_to: data
 levels:

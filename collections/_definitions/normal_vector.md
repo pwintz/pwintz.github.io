@@ -1,5 +1,5 @@
 ---
-title: Normal vector
+title: Normal Vector
 term: normal vector
 applies_to: curves and surfaces
 synonyms: [normal line, normal to]

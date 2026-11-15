@@ -1,5 +1,5 @@
 ---
-title: Calculus of variations
+title: Calculus of Variations
 term: calculus of variations
 applies_to: optimization problems
 levels:

@@ -1,5 +1,5 @@
 ---
-title: Basis of a vector space
+title: Basis of a Vector Space
 term: basis
 applies_to: vector spaces
 synonyms: [vector basis, Hamel basis]

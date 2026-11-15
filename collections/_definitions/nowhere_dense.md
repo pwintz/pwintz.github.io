@@ -1,5 +1,5 @@
 ---
-title: Nowhere dense set
+title: Nowhere Dense Set
 term: nowhere dense
 applies_to: sets
 levels:

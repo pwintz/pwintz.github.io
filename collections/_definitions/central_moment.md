@@ -1,6 +1,6 @@
 ---
 published: false
-title: Central moment
+title: Central Moment
 term: central moment
 applies_to: random variables
 synonyms: [moment about the mean]

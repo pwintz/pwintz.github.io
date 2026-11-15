@@ -1,6 +1,6 @@
 ---
 published: false
-title: Boundary vs. edge
+title: Boundary vs. Edge
 kind: siblings
 areas: [geometry, topology]
 summary: >

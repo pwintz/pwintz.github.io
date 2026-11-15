@@ -1,6 +1,6 @@
 ---
 published: false
-title: Meager set
+title: Meager Set
 term: meager set
 applies_to: subsets of a topological space
 synonyms: [first category set, set of first category]

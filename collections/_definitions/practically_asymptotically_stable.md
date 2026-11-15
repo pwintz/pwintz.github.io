@@ -1,6 +1,6 @@
 ---
 published: false
-title: Practically asymptotically stable
+title: Practically Asymptotically Stable
 term: practically asymptotically stable
 applies_to: equilibria of systems with a tuning parameter
 synonyms: [semiglobally practically asymptotically stable, SPAS, practical stability]

@@ -1,5 +1,5 @@
 ---
-title: Vector vs. covector
+title: Vector vs. Covector
 kind: siblings
 areas: [linear-algebra]
 summary: >

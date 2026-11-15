@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of results
+title: Types of Results
 kind: siblings
 areas: [language]
 summary: >

@@ -1,5 +1,5 @@
 ---
-title: Irrational number
+title: Irrational Number
 term: irrational number
 applies_to: numbers
 levels:

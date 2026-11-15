@@ -1,6 +1,6 @@
 ---
 published: false
-title: Lyapunov function vs. barrier function
+title: Lyapunov Function vs. Barrier Function
 kind: siblings
 areas: [dynamics, control]
 summary: >

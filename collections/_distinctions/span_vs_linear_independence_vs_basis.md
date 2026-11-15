@@ -1,6 +1,6 @@
 ---
 published: false
-title: Linearly independent vs. spanning vs. basis
+title: Linearly Independent vs. Spanning vs. Basis
 kind: siblings
 areas: [linear-algebra]
 summary: >

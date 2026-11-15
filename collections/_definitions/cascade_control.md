@@ -1,5 +1,5 @@
 ---
-title: Cascade control
+title: Cascade Control
 term: cascade control
 applies_to: control architectures
 synonyms: [inner-outer loop control, nested loop control]

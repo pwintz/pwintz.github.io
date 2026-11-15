@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of integrals
+title: Types of Integrals
 kind: family
 areas: [analysis]
 summary: >

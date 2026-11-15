@@ -1,6 +1,6 @@
 ---
 published: false
-title: Linear combination
+title: Linear Combination
 term: linear combination
 applies_to: vectors
 levels:

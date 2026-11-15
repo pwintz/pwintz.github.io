@@ -1,5 +1,5 @@
 ---
-title: Asymptotically stable equilibrium
+title: Asymptotically Stable Equilibrium
 term: asymptotically stable
 applies_to: equilibria
 levels:

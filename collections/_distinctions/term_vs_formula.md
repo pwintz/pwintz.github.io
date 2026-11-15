@@ -1,5 +1,5 @@
 ---
-title: Term vs. formula
+title: Term vs. Formula
 kind: siblings
 areas: [sets]
 summary: >

@@ -1,5 +1,5 @@
 ---
-title: Binomial coefficient
+title: Binomial Coefficient
 term: binomial coefficient
 applies_to: counting
 synonyms: ['$\binom{n}{k}$', '${}_n C_k$', '$C(n, k)$']

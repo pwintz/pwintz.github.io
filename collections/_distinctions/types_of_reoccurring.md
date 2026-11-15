@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of recurrence
+title: Types of Recurrence
 kind: family
 areas: [dynamics, computing]
 summary: >

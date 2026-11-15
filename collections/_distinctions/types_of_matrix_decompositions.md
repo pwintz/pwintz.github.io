@@ -1,5 +1,5 @@
 ---
-title: Types of matrix decompositions
+title: Types of Matrix Decompositions
 kind: siblings
 areas: [linear-algebra, computing]
 summary: >

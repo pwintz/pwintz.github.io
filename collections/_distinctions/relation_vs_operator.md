@@ -1,5 +1,5 @@
 ---
-title: Operation vs. relation
+title: Operation vs. Relation
 kind: siblings
 areas: [sets]
 summary: >

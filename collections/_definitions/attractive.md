@@ -1,6 +1,6 @@
 ---
 published: false
-title: Attractive equilibrium or set
+title: Attractive Equilibrium or Set
 term: attractive
 applies_to: equilibria and sets
 synonyms: [convergent, attracting]

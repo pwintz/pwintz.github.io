@@ -1,5 +1,5 @@
 ---
-title: Positive definite vs. positive semidefinite
+title: Positive Definite vs. Positive Semidefinite
 kind: hierarchy
 areas: [linear-algebra]
 summary: >

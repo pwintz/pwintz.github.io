@@ -1,6 +1,6 @@
 ---
 published: false
-title: Cauchy sequence
+title: Cauchy Sequence
 term: Cauchy sequence
 applies_to: sequences
 levels:

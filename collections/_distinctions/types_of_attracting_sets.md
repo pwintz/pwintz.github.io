@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of attracting sets
+title: Types of Attracting Sets
 kind: family
 areas: [dynamics]
 summary: >

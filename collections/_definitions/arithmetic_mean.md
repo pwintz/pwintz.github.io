@@ -1,6 +1,6 @@
 ---
 published: false
-title: Arithmetic mean
+title: Arithmetic Mean
 term: mean
 applies_to: data
 synonyms: [arithmetic mean, average]

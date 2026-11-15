@@ -1,5 +1,5 @@
 ---
-title: Types of exogenous inputs
+title: Types of Exogenous Inputs
 kind: family
 areas: [control]
 summary: >

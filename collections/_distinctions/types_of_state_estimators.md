@@ -1,5 +1,5 @@
 ---
-title: Types of estimators
+title: Types of Estimators
 kind: family
 areas: [control]
 summary: >

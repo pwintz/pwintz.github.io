@@ -1,5 +1,5 @@
 ---
-title: Sentence vs. proposition
+title: Sentence vs. Proposition
 kind: siblings
 areas: [sets]
 summary: >

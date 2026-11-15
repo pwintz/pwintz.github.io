@@ -1,5 +1,5 @@
 ---
-title: Uniform distribution
+title: Uniform Distribution
 term: uniform distribution
 applies_to: random variables
 levels:

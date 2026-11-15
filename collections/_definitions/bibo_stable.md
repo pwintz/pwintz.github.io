@@ -1,6 +1,6 @@
 ---
 published: false
-title: BIBO stability
+title: BIBO Stability
 term: BIBO stable
 applies_to: input-output systems
 synonyms: [bounded-input bounded-output stable]

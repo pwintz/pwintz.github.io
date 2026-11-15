@@ -1,5 +1,5 @@
 ---
-title: Disjoint union
+title: Disjoint Union
 term: disjoint union (tagged)
 applies_to: sets
 synonyms: [tagged union, coproduct of sets, $\bigsqcup$]

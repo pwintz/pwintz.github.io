@@ -1,5 +1,5 @@
 ---
-title: Cardinal number
+title: Cardinal Number
 term: cardinal number
 applies_to: numbers
 levels:

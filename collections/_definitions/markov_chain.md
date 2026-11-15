@@ -1,6 +1,6 @@
 ---
 published: false
-title: Markov chain
+title: Markov Chain
 term: Markov chain
 applies_to: random processes
 levels:

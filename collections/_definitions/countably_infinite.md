@@ -1,5 +1,5 @@
 ---
-title: Countably infinite set
+title: Countably Infinite Set
 term: countably infinite
 applies_to: sets
 synonyms: [denumerable]

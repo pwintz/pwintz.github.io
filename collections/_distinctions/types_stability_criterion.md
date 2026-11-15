@@ -1,6 +1,6 @@
 ---
 published: false
-title: Stability criteria and which systems they apply to
+title: Stability Criteria and Which Systems They Apply To
 kind: family
 areas: [control, dynamics]
 summary: >

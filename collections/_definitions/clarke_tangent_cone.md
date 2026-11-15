@@ -1,6 +1,6 @@
 ---
 published: false
-title: Clarke tangent cone
+title: Clarke Tangent Cone
 term: Clarke tangent cone
 applies_to: sets
 synonyms: [regular tangent cone (in Rockafellar and Wets)]

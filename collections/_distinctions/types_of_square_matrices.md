@@ -1,6 +1,6 @@
 ---
 published: false
-title: Symmetric vs. skew-symmetric vs. orthogonal vs. invertible matrices
+title: Symmetric vs. Skew-Symmetric vs. Orthogonal vs. Invertible Matrices
 kind: siblings
 areas: [linear-algebra]
 summary: >

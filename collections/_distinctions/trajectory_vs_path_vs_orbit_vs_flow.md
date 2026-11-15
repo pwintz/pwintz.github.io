@@ -1,6 +1,6 @@
 ---
 published: false
-title: Trajectory vs. path vs. orbit vs. flow
+title: Trajectory vs. Path vs. Orbit vs. Flow
 kind: family
 areas: [dynamics, topology]
 summary: >

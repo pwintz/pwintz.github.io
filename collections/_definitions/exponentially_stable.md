@@ -1,6 +1,6 @@
 ---
 published: false
-title: Exponentially stable equilibrium
+title: Exponentially Stable Equilibrium
 term: exponentially stable
 applies_to: equilibria
 levels:

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Class-L function
+title: Class-L Function
 term: "class-$\\mathcal{L}$"
 applies_to: scalar functions
 levels:

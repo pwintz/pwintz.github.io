@@ -1,6 +1,6 @@
 ---
 published: false
-title: Barrier function (optimization)
+title: Barrier Function (Optimization)
 term: barrier function (optimization)
 applies_to: optimization problems
 levels:

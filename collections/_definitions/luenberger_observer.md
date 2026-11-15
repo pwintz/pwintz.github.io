@@ -1,5 +1,5 @@
 ---
-title: Luenberger observer
+title: Luenberger Observer
 term: Luenberger observer
 applies_to: linear systems
 levels:

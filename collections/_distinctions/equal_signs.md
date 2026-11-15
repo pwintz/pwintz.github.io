@@ -1,7 +1,7 @@
 ---
 published: false
 # TODO: Equal Sign Usage: 
-title: "Expression vs. equation vs. inequality vs. formula vs. identity"
+title: "Expression vs. Equation vs. Inequality vs. Formula vs. Identity"
 kind: siblings
 areas: [language]
 summary: >

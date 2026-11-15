@@ -1,5 +1,5 @@
 ---
-title: Dot product vs. inner product vs. bilinear form
+title: Dot Product vs. Inner Product vs. Bilinear Form
 kind: hierarchy
 areas: [linear-algebra]
 summary: >

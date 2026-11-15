@@ -1,6 +1,6 @@
 ---
 published: false
-title: T₁ vs. Hausdorff vs. normal vs. metrizable spaces
+title: T₁ vs. Hausdorff vs. Normal vs. Metrizable Spaces
 kind: hierarchy
 areas: [topology]
 summary: >

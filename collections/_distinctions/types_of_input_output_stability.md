@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of input-output stability
+title: Types of Input-Output Stability
 kind: family
 areas: [control, dynamics]
 summary: >

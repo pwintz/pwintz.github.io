@@ -1,6 +1,6 @@
 ---
 published: false
-title: Eigenvalues vs. poles vs. zeros
+title: Eigenvalues vs. Poles vs. Zeros
 kind: siblings
 areas: [control, linear-algebra]
 summary: >

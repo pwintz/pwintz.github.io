@@ -3,7 +3,10 @@ title: 'The Borel sets of $\reals$'
 level: graduate
 description: >-
   The smallest σ-algebra on $\reals$ that contains every open interval.
-is: [sigma_algebra]
+is: [
+  sigma_algebra,
+  borel_sigma_algebra
+]
 is_not: [topology]
 why:
   topology: >-
@@ -11,4 +14,6 @@ why:
     So the Borel sets are not closed under arbitrary unions.
   sigma_algebra: >-
     The Borel sets of $\reals$ form a σ-algebra: the smallest σ-algebra that contains the open sets.
+  borel_sigma_algebra: >-
+    The Borel sets of $\reals$ form the Borel σ-algebra of $\reals$, because the Borel σ-algebra of $\reals$ is the smallest σ-algebra that contains every open interval, and every open set of $\reals$ is a countable union of open intervals.
 ---

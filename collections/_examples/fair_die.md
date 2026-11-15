@@ -14,6 +14,7 @@ values:
   mode: 'Every outcome, $1$ through $6$'
   variance: '$\operatorname{Var}(X) = \mathbb{E}[X^2] - 3.5^2 = \frac{91}{6} - \frac{49}{4} = \frac{35}{12} \approx 2.92$'
   standard_deviation: '$\sqrt{35 / 12} \approx 1.71$'
+  probability_measure: '$P(A) = \abs{A} / 6$ for every set $A \subseteq \setdef{1, 2, 3, 4, 5, 6}$'
 why:
   expected_value: >-
     $\mathbb{E}[X] = \frac{1 + 2 + 3 + 4 + 5 + 6}{6} = 3.5$. Note: The expected value is not a possible outcome.
@@ -35,4 +36,6 @@ why:
     The roll of a fair die does not have a mixed distribution, because all of its probability is on single values.
   singular_distribution: >-
     The roll of a fair die does not have a singular distribution, because single values have positive probability.
+  probability_measure: >-
+    The probability measure of a fair die roll assigns to each event $A$ the number of outcomes in $A$ divided by $6$, because each of the $6$ outcomes has probability $\frac{1}{6}$, and the probabilities of events with no outcomes in common add.
 ---

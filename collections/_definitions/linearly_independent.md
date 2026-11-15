@@ -1,6 +1,6 @@
 ---
 published: false
-title: Linearly independent vectors
+title: Linearly Independent Vectors
 term: linearly independent
 applies_to: sets of vectors
 levels:

@@ -1,6 +1,6 @@
 ---
 published: false
-title: "Size of an array: number of elements vs. shape"
+title: "Size of an Array: Number of Elements vs. Shape"
 kind: conflicting
 areas: [computing]
 summary: >

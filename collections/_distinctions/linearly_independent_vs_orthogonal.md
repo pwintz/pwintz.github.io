@@ -1,5 +1,5 @@
 ---
-title: Linearly independent vs. orthogonal
+title: Linearly Independent vs. Orthogonal
 kind: hierarchy
 areas: [linear-algebra]
 summary: >

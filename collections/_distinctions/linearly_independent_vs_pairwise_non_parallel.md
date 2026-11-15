@@ -1,5 +1,5 @@
 ---
-title: Linearly independent vs. pairwise non-parallel
+title: Linearly Independent vs. Pairwise Non-Parallel
 kind: hierarchy
 areas: [linear-algebra]
 summary: >

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Zeroth-order (propositional) vs. first-order logic
+title: Zeroth-Order (Propositional) vs. First-Order Logic
 kind: hierarchy
 areas: [sets]
 summary: >

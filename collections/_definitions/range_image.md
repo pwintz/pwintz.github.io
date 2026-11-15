@@ -1,6 +1,6 @@
 ---
 published: false
-title: Range (image)
+title: Range (Image)
 term: range (image)
 applies_to: functions
 levels:

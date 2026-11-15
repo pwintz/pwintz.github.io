@@ -1,5 +1,5 @@
 ---
-title: Proposition vs. predicate
+title: Proposition vs. Predicate
 kind: siblings
 areas: [sets]
 summary: >

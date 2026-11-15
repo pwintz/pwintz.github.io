@@ -1,5 +1,5 @@
 ---
-title: Symmetric matrix
+title: Symmetric Matrix
 term: symmetric matrix
 applies_to: matrices
 levels:

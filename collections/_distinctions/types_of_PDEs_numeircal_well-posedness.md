@@ -1,6 +1,6 @@
 ---
 published: false
-title: Well-posed vs. consistent vs. stable vs. convergent
+title: Well-Posed vs. Consistent vs. Stable vs. Convergent
 kind: siblings
 areas: [differential-equations, computing]
 summary: >

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Feedback linearizable system
+title: Feedback Linearizable System
 term: feedback linearizable
 applies_to: control systems
 levels:

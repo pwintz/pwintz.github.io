@@ -1,5 +1,5 @@
 ---
-title: LU decomposition
+title: LU Decomposition
 term: LU decomposition
 applies_to: square matrices
 synonyms: [LU factorization]

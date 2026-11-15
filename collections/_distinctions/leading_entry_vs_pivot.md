@@ -1,6 +1,6 @@
 ---
 published: false
-title: Leading entry vs. pivot
+title: Leading Entry vs. Pivot
 kind: siblings
 areas: [linear-algebra]
 summary: >

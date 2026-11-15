@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of set operations
+title: Types of Set Operations
 kind: siblings
 areas: [sets]
 summary: >

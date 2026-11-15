@@ -1,5 +1,5 @@
 ---
-title: Union of sets
+title: Union of Sets
 term: union
 applies_to: sets
 synonyms: [$\cup$]

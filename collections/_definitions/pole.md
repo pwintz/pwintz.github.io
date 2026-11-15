@@ -1,5 +1,5 @@
 ---
-title: Pole of a transfer function
+title: Pole of a Transfer Function
 term: pole
 applies_to: transfer functions
 levels:

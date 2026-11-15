@@ -1,5 +1,5 @@
 ---
-title: Propositional formula
+title: Propositional Formula
 term: propositional formula
 applies_to: statements
 levels:

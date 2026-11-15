@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of passivity
+title: Types of Passivity
 kind: family
 areas: [control]
 summary: >

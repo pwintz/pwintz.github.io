@@ -1,6 +1,6 @@
 ---
 published: false
-title: Propositional logic
+title: Propositional Logic
 term: propositional logic
 synonyms: [zeroth-order logic, zero-order logic, sentential logic]
 applies_to: logical systems

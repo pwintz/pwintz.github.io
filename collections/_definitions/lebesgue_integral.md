@@ -1,6 +1,6 @@
 ---
 published: false
-title: Lebesgue integral
+title: Lebesgue Integral
 term: Lebesgue integral
 applies_to: measurable functions
 levels:

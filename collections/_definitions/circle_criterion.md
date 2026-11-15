@@ -1,6 +1,6 @@
 ---
 published: false
-title: Circle criterion
+title: Circle Criterion
 term: circle criterion
 applies_to: "Lur'e systems"
 levels:

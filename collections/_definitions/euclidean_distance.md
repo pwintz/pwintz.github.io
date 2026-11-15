@@ -1,5 +1,5 @@
 ---
-title: Euclidean distance
+title: Euclidean Distance
 term: Euclidean distance
 applies_to: points
 synonyms: [straight-line distance, '$d_2(p, q)$']

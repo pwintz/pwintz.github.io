@@ -1,6 +1,6 @@
 ---
 published: false
-title: Identity (equation)
+title: Identity (Equation)
 term: identity
 applies_to: equations
 synonyms: [$\equiv$]

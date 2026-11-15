@@ -1,6 +1,6 @@
 ---
 published: false
-title: Lyapunov function
+title: Lyapunov Function
 term: Lyapunov function
 applies_to: equilibria
 levels:

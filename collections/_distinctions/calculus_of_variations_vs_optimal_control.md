@@ -1,5 +1,5 @@
 ---
-title: Calculus of variations vs. optimal control
+title: Calculus of Variations vs. Optimal Control
 kind: hierarchy
 areas: [control, analysis]
 summary: >

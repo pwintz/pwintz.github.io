@@ -1,6 +1,6 @@
 ---
 published: false
-title: Fréchet derivative
+title: Fréchet Derivative
 term: Fréchet derivative
 applies_to: maps between normed spaces
 levels:

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Reachable set
+title: Reachable Set
 term: reachable set
 applies_to: dynamical and control systems
 synonyms: [reach set, attainable set]

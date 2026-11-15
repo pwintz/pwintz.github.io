@@ -1,6 +1,6 @@
 ---
 published: false
-title: Measurable map
+title: Measurable Map
 term: measurable map
 applies_to: functions between measurable spaces
 synonyms: [measurable function]

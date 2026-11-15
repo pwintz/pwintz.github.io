@@ -1,5 +1,5 @@
 ---
-title: Types of set sparsity
+title: Types of Set Sparsity
 kind: family
 areas: [analysis, topology]
 summary: >
@@ -20,7 +20,7 @@ examples:
   - example: a_fat_cantor_set
   - example: a_uniform_random_number_on_0_1_is_rational
 see_also:
-  - types_of_everything
+  - types_of_set_density
   - types_of_nothing
 ---
 ## Notes

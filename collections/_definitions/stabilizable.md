@@ -1,6 +1,6 @@
 ---
 published: false
-title: Stabilizable system
+title: Stabilizable System
 term: stabilizable
 applies_to: control systems
 levels:

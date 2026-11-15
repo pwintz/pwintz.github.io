@@ -1,6 +1,6 @@
 ---
 published: false
-title: Mixed distribution
+title: Mixed Distribution
 term: mixed distribution
 applies_to: probability distributions
 levels:

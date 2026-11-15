@@ -1,5 +1,5 @@
 ---
-title: Output feedback
+title: Output Feedback
 term: output feedback
 applies_to: control laws
 levels:

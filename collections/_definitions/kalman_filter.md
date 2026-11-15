@@ -1,5 +1,5 @@
 ---
-title: Kalman filter
+title: Kalman Filter
 term: Kalman filter
 applies_to: state estimation
 levels:

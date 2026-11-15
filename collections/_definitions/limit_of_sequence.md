@@ -1,6 +1,6 @@
 ---
 published: false
-title: Limit of a sequence
+title: Limit of a Sequence
 term: limit
 applies_to: sequences
 levels:

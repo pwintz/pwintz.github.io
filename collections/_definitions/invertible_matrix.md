@@ -1,6 +1,6 @@
 ---
 published: false
-title: Invertible matrix
+title: Invertible Matrix
 term: invertible
 applies_to: square matrices
 synonyms: [nonsingular]

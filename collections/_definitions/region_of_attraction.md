@@ -1,6 +1,6 @@
 ---
 published: false
-title: Region of attraction
+title: Region of Attraction
 term: region of attraction
 applies_to: equilibria
 synonyms: [domain of attraction]

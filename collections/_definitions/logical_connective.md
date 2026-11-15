@@ -1,6 +1,6 @@
 ---
 published: false
-title: Logical connective
+title: Logical Connective
 term: logical connective
 applies_to: statements
 synonyms: [connective, connectives, logical operator]

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Proposition (result)
+title: Proposition (Result)
 term: proposition (result)
 applies_to: mathematical results
 levels:

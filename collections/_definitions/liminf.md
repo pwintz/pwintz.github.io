@@ -1,6 +1,6 @@
 ---
 published: false
-title: Limit inferior
+title: Limit Inferior
 term: limit inferior
 applies_to: sequences
 synonyms: [$\liminf$]

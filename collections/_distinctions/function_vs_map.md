@@ -1,5 +1,5 @@
 ---
-title: Function vs. map
+title: Function vs. Map
 kind: synonyms
 areas: [sets]
 summary: >

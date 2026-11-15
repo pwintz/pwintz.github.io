@@ -1,5 +1,5 @@
 ---
-title: Jacobian matrix
+title: Jacobian Matrix
 term: Jacobian
 applies_to: vector-valued functions
 synonyms: [$Df(x)$, "$\\frac{\\partial f}{\\partial x}$"]

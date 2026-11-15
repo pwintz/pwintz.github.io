@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of Lyapunov functions
+title: Types of Lyapunov Functions
 kind: siblings
 areas: [dynamics, control]
 summary: >

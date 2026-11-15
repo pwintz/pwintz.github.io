@@ -1,5 +1,5 @@
 ---
-title: Equivalence relation
+title: Equivalence Relation
 term: equivalence relation
 applies_to: relations
 levels:

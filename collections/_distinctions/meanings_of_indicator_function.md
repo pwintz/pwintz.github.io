@@ -1,6 +1,6 @@
 ---
 published: false
-title: "Indicator function: 0 and 1 vs. 0 and ∞"
+title: "Indicator Function: 0 and 1 vs. 0 and ∞"
 kind: conflicting
 areas: [sets, analysis, statistics]
 summary: >

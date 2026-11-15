@@ -1,6 +1,6 @@
 ---
 published: false
-title: Well-posed problem
+title: Well-Posed Problem
 term: well-posed
 applies_to: problems (such as PDEs with boundary or initial conditions)
 levels:

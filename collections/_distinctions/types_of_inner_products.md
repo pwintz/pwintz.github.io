@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of inner products
+title: Types of Inner Products
 kind: siblings
 areas: [linear-algebra]
 summary: >

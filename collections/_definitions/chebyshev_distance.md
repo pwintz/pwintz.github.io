@@ -1,5 +1,5 @@
 ---
-title: Chebyshev distance
+title: Chebyshev Distance
 term: Chebyshev distance
 applies_to: points
 synonyms: [chessboard distance, maximum metric, '$d_{\infty}(p, q)$']

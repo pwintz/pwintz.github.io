@@ -1,5 +1,5 @@
 ---
-title: Term (of a sum)
+title: Term (of a Sum)
 term: term
 applies_to: sums
 synonyms: [summand]

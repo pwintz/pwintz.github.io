@@ -1,5 +1,5 @@
 ---
-title: Vector space
+title: Vector Space
 term: vector space
 applies_to: algebraic structures
 synonyms: [linear space]

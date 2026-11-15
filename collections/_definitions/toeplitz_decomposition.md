@@ -1,5 +1,5 @@
 ---
-title: Toeplitz decomposition
+title: Toeplitz Decomposition
 term: Toeplitz decomposition
 applies_to: square matrices
 synonyms: [Cartesian decomposition, Hermitian decomposition]

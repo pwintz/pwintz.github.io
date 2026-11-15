@@ -1,6 +1,6 @@
 ---
 published: false
-title: Metrizable space
+title: Metrizable Space
 term: metrizable
 applies_to: topological spaces
 levels:

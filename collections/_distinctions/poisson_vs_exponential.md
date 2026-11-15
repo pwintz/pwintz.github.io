@@ -1,5 +1,5 @@
 ---
-title: Poisson vs. exponential distribution
+title: Poisson vs. Exponential Distribution
 kind: siblings
 areas: [statistics]
 summary: >

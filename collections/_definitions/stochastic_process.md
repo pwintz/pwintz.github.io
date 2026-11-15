@@ -1,6 +1,6 @@
 ---
 published: false
-title: Stochastic process
+title: Stochastic Process
 term: stochastic process
 applies_to: probability
 synonyms: [random process]

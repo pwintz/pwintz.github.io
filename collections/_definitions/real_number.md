@@ -1,5 +1,5 @@
 ---
-title: Real number
+title: Real Number
 term: real number
 applies_to: numbers
 levels:

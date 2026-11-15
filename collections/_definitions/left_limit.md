@@ -1,5 +1,5 @@
 ---
-title: Left limit
+title: Left Limit
 term: left limit
 applies_to: functions of a real variable
 synonyms: [left-hand limit, limit from the left, '$\lim_{x \to a^{-}} f(x)$']

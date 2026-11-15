@@ -1,5 +1,5 @@
 ---
-title: Symmetric relation
+title: Symmetric Relation
 term: symmetric relation
 applies_to: relations
 levels:

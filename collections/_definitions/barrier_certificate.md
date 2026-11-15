@@ -1,6 +1,6 @@
 ---
 published: false
-title: Barrier certificate
+title: Barrier Certificate
 term: barrier certificate
 applies_to: safety problems
 levels:

@@ -1,5 +1,5 @@
 ---
-title: Types of multivariable derivatives
+title: Types of Multivariable Derivatives
 kind: siblings
 areas: [analysis]
 summary: >

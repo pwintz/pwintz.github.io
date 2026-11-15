@@ -1,6 +1,6 @@
 ---
 published: false
-title: Controlled invariant set
+title: Controlled Invariant Set
 term: controlled invariant
 applies_to: sets and control systems
 synonyms: [viable set]

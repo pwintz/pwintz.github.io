@@ -1,5 +1,5 @@
 ---
-title: Cardinal vs. ordinal vs. nominal numbers
+title: Cardinal vs. Ordinal vs. Nominal Numbers
 kind: siblings
 areas: [numbers]
 summary: >

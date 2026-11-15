@@ -1,6 +1,6 @@
 ---
 published: false
-title: Input strictly passive system
+title: Input Strictly Passive System
 term: input strictly passive
 applies_to: input-output systems
 levels:

@@ -1,5 +1,5 @@
 ---
-title: Types of norms
+title: Types of Norms
 kind: siblings
 areas: [linear-algebra]
 summary: >

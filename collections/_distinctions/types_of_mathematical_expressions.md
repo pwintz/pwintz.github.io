@@ -1,6 +1,6 @@
 ---
 published: false
-title: Parts of an expression
+title: Parts of an Expression
 kind: siblings
 areas: [language]
 summary: >

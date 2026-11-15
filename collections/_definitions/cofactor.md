@@ -1,5 +1,5 @@
 ---
-title: Cofactor of a matrix
+title: Cofactor of a Matrix
 term: cofactor
 applies_to: square matrices
 synonyms: ['$C_{ij}$']

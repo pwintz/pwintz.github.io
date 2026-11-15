@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of asymptotic comparison
+title: Types of Asymptotic Comparison
 kind: family
 areas: [analysis, computing]
 summary: >

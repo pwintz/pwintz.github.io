@@ -1,5 +1,5 @@
 ---
-title: Observable vs. reconstructible vs. detectable
+title: Observable vs. Reconstructible vs. Detectable
 kind: hierarchy
 areas: [control]
 summary: >

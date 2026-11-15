@@ -1,6 +1,6 @@
 ---
 published: false
-title: Finite L2 gain
+title: Finite L2 Gain
 term: finite $L_2$ gain
 applies_to: input-output systems
 levels:

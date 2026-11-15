@@ -1,6 +1,6 @@
 ---
 published: false
-title: Uniformly globally asymptotically stable equilibrium
+title: Uniformly Globally Asymptotically Stable Equilibrium
 term: uniformly globally asymptotically stable
 applies_to: equilibria of time-varying systems
 synonyms: [UGAS]

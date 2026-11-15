@@ -1,5 +1,5 @@
 ---
-title: Rational vs. irrational vs. algebraic vs. transcendental numbers
+title: Rational vs. Irrational vs. Algebraic vs. Transcendental Numbers
 kind: hierarchy
 areas: [numbers]
 summary: >

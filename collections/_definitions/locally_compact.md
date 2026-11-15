@@ -1,6 +1,6 @@
 ---
 published: false
-title: Locally compact
+title: Locally Compact
 term: locally compact
 applies_to: topological spaces
 levels:

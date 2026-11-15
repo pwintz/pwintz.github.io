@@ -1,5 +1,5 @@
 ---
-title: Positive definite function
+title: Positive Definite Function
 term: positive definite function
 applies_to: functions
 levels:

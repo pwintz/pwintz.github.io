@@ -1,6 +1,6 @@
 ---
 published: false
-title: Oscillating discontinuity
+title: Oscillating Discontinuity
 term: oscillating discontinuity
 applies_to: functions
 synonyms: [oscillatory discontinuity]

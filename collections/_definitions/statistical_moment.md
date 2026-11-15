@@ -1,5 +1,5 @@
 ---
-title: Statistical moment
+title: Statistical Moment
 term: statistical moment
 applies_to: random variables
 synonyms: [moment]

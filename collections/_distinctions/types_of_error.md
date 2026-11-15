@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of errors
+title: Types of Errors
 kind: siblings
 areas: [computing]
 summary: >

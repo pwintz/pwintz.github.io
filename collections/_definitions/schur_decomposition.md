@@ -1,5 +1,5 @@
 ---
-title: Schur decomposition
+title: Schur Decomposition
 term: Schur decomposition
 applies_to: square matrices
 levels:

@@ -1,5 +1,5 @@
 ---
-title: Array vs. matrix vs. linear map
+title: Array vs. Matrix vs. Linear Map
 kind: siblings
 areas: [linear-algebra, computing]
 summary: >

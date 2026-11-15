@@ -1,5 +1,5 @@
 ---
-title: Reconstructible system
+title: Reconstructible System
 term: reconstructible
 applies_to: control systems
 synonyms: [constructible]

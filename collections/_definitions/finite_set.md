@@ -1,5 +1,5 @@
 ---
-title: Finite set
+title: Finite Set
 term: finite
 applies_to: sets
 levels:

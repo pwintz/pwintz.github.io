@@ -1,6 +1,6 @@
 ---
 published: false
-title: Domain vs. codomain vs. column space vs. null space of a matrix
+title: Domain vs. Codomain vs. Column Space vs. Null Space of a Matrix
 kind: siblings
 areas: [linear-algebra]
 summary: >

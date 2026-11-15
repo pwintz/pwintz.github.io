@@ -1,6 +1,6 @@
 ---
 published: false
-title: Event vs. random variable
+title: Event vs. Random Variable
 kind: siblings
 areas: [statistics]
 summary: >

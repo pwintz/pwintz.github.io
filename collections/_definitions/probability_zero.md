@@ -1,5 +1,5 @@
 ---
-title: Probability zero
+title: Probability Zero
 term: probability zero
 applies_to: events
 synonyms: [almost never]

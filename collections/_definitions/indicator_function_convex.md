@@ -1,6 +1,6 @@
 ---
 published: false
-title: Indicator function (convex analysis)
+title: Indicator Function (Convex Analysis)
 term: indicator function (convex analysis)
 applies_to: sets
 synonyms: ['$\delta_C$', '$\iota_C$']

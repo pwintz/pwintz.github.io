@@ -1,5 +1,5 @@
 ---
-title: Types of distances
+title: Types of Distances
 kind: siblings
 areas: [geometry, topology]
 summary: >

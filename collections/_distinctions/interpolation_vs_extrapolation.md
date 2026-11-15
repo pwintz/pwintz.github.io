@@ -1,6 +1,6 @@
 ---
 published: false
-title: Interpolation vs. extrapolation
+title: Interpolation vs. Extrapolation
 kind: siblings
 areas: [analysis, statistics]
 summary: >

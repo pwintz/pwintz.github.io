@@ -1,5 +1,5 @@
 ---
-title: Class-K function
+title: Class-K Function
 term: "class-$\\mathcal{K}$"
 applies_to: scalar functions
 levels:

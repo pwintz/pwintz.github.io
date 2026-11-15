@@ -1,5 +1,5 @@
 ---
-title: Poisson distribution
+title: Poisson Distribution
 term: Poisson distribution
 applies_to: random variables
 levels:

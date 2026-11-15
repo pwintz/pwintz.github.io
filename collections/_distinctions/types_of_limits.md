@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of limits
+title: Types of Limits
 kind: family
 areas: [analysis]
 summary: >

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Constant vs. fixed point vs. invariant vs. idempotent vs. uniform
+title: Constant vs. Fixed Point vs. Invariant vs. Idempotent vs. Uniform
 kind: family
 areas: [language]
 summary: >

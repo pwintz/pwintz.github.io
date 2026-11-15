@@ -1,5 +1,5 @@
 ---
-title: Orthogonal vectors
+title: Orthogonal Vectors
 term: orthogonal
 applies_to: vectors in an inner product space
 synonyms: [orthogonal vectors]

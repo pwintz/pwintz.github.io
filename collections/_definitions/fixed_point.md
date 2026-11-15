@@ -1,5 +1,5 @@
 ---
-title: Fixed point
+title: Fixed Point
 term: fixed point
 applies_to: functions
 levels:

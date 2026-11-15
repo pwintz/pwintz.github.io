@@ -1,5 +1,5 @@
 ---
-title: Vector field
+title: Vector Field
 term: vector field
 applies_to: regions of space and manifolds
 levels:

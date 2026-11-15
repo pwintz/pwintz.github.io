@@ -1,6 +1,6 @@
 ---
 published: false
-title: Lower semicontinuous set-valued map
+title: Lower Semicontinuous Set-Valued Map
 term: lower semicontinuous
 applies_to: set-valued maps
 synonyms: [lower hemicontinuous]

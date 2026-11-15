@@ -1,5 +1,5 @@
 ---
-title: Identity element
+title: Identity Element
 term: identity element
 applies_to: binary operations
 synonyms: [neutral element]

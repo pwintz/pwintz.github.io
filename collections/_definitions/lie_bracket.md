@@ -1,5 +1,5 @@
 ---
-title: Lie bracket
+title: Lie Bracket
 term: Lie bracket
 applies_to: vector fields and Lie algebras
 synonyms: ['$[f, g]$']

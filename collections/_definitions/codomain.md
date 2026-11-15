@@ -1,6 +1,6 @@
 ---
 published: false
-title: Codomain of a function
+title: Codomain of a Function
 term: codomain
 applies_to: functions
 synonyms: [target]

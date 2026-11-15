@@ -1,5 +1,5 @@
 ---
-title: Sentence (logic)
+title: Sentence (Logic)
 term: sentence
 applies_to: formulas in logic
 synonyms: [closed formula]

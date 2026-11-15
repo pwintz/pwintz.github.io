@@ -1,6 +1,6 @@
 ---
 published: false
-title: Lower bound
+title: Lower Bound
 term: lower bound
 applies_to: ordered sets
 levels:

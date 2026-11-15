@@ -1,5 +1,5 @@
 ---
-title: Term (logic)
+title: Term (Logic)
 term: term
 applies_to: formal languages
 levels:

@@ -1,5 +1,5 @@
 ---
-title: Singular value
+title: Singular Value
 term: singular value
 applies_to: matrices
 levels:

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of adding
+title: Types of Adding
 kind: family
 areas: [sets]
 summary: >

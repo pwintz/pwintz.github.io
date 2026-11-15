@@ -1,5 +1,5 @@
 ---
-title: Differentiable function
+title: Differentiable Function
 term: differentiable
 applies_to: functions
 levels:

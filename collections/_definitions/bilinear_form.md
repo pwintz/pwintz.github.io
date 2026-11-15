@@ -1,5 +1,5 @@
 ---
-title: Bilinear form
+title: Bilinear Form
 term: bilinear form
 applies_to: vector spaces
 levels:

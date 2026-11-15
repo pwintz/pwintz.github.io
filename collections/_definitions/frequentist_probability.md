@@ -1,6 +1,6 @@
 ---
 published: false
-title: Frequentist probability
+title: Frequentist Probability
 term: frequentist probability
 applies_to: interpretations of probability
 synonyms: [frequentism, frequentist]

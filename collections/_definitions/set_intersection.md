@@ -1,5 +1,5 @@
 ---
-title: Intersection of sets
+title: Intersection of Sets
 term: intersection
 applies_to: sets
 synonyms: [$\cap$]

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Isolated point
+title: Isolated Point
 term: isolated point
 applies_to: sets
 levels:

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Limit point of a set
+title: Limit Point of a Set
 term: limit point
 applies_to: sets
 synonyms: [point of accumulation, accumulation point, cluster point]

@@ -1,5 +1,5 @@
 ---
-title: Conservative system
+title: Conservative System
 term: conservative system
 applies_to: mechanical systems
 levels:

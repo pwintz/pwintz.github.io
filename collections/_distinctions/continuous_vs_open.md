@@ -1,6 +1,6 @@
 ---
 published: false
-title: Continuous vs. open vs. closed maps
+title: Continuous vs. Open vs. Closed Maps
 kind: siblings
 areas: [topology]
 summary: >

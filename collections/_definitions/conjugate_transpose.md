@@ -1,6 +1,6 @@
 ---
 published: false
-title: Conjugate transpose
+title: Conjugate Transpose
 term: conjugate transpose
 applies_to: matrices
 synonyms: [Hermitian transpose, '$A^{\ast}$', '$A^{\mathsf{H}}$', '$A^{\dagger}$']

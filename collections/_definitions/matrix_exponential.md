@@ -1,6 +1,6 @@
 ---
 published: false
-title: Matrix exponential
+title: Matrix Exponential
 term: matrix exponential
 applies_to: square matrices
 synonyms: ['$e^{A}$', '$\exp(A)$', expm]

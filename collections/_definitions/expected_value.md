@@ -1,6 +1,6 @@
 ---
 published: false
-title: Expected value
+title: Expected Value
 term: expected value
 applies_to: random variables
 synonyms: [expectation, "$\\mathbb{E}[X]$", population mean]

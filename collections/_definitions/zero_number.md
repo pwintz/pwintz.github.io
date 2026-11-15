@@ -1,5 +1,5 @@
 ---
-title: Zero (the number)
+title: Zero (the Number)
 term: zero
 applies_to: numbers
 synonyms: [$0$]

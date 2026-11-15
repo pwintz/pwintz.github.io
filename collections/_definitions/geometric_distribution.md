@@ -1,5 +1,5 @@
 ---
-title: Geometric distribution
+title: Geometric Distribution
 term: geometric distribution
 applies_to: random variables
 levels:

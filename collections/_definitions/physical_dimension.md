@@ -1,6 +1,6 @@
 ---
 published: false
-title: Dimension (of a physical quantity)
+title: Dimension (of a Physical Quantity)
 term: dimension (physical)
 applies_to: physical quantities
 levels:

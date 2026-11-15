@@ -1,6 +1,6 @@
 ---
 published: false
-title: Topological sphere
+title: Topological Sphere
 term: topological sphere
 applies_to: topological spaces
 levels:

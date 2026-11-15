@@ -1,6 +1,6 @@
 ---
 published: false
-title: Sparse matrix
+title: Sparse Matrix
 term: sparse (matrix)
 applies_to: matrices
 levels:

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Gain margin
+title: Gain Margin
 term: gain margin
 applies_to: feedback loops
 levels:

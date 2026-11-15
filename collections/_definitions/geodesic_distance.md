@@ -1,5 +1,5 @@
 ---
-title: Geodesic distance
+title: Geodesic Distance
 term: geodesic distance
 applies_to: points on a surface or in a space
 synonyms: [intrinsic distance, path-length distance]

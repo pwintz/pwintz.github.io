@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of symmetry
+title: Types of Symmetry
 kind: family
 areas: [geometry, linear-algebra]
 summary: >

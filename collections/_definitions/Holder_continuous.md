@@ -1,6 +1,6 @@
 ---
 published: false
-title: Hölder continuous function
+title: Hölder Continuous Function
 term: Hölder continuous
 applies_to: functions
 levels:

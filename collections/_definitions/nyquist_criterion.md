@@ -1,6 +1,6 @@
 ---
 published: false
-title: Nyquist stability criterion
+title: Nyquist Stability Criterion
 term: Nyquist
 applies_to: feedback loops
 levels:

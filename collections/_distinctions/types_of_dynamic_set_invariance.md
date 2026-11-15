@@ -1,6 +1,6 @@
 ---
 published: false
-title: Forward invariant vs. safe vs. admissible vs. controlled invariant
+title: Forward Invariant vs. Safe vs. Admissible vs. Controlled Invariant
 kind: siblings
 areas: [dynamics, control]
 summary: >

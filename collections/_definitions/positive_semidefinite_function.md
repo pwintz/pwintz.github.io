@@ -1,6 +1,6 @@
 ---
 published: false
-title: Positive semidefinite function
+title: Positive Semidefinite Function
 term: positive semidefinite function
 applies_to: functions
 levels:

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Partition of an interval
+title: Partition of an Interval
 term: partition (of an interval)
 applies_to: intervals
 synonyms: [mesh, grid]

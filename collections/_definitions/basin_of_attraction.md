@@ -1,6 +1,6 @@
 ---
 published: false
-title: Basin of attraction
+title: Basin of Attraction
 term: basin of attraction
 applies_to: attractors
 levels:

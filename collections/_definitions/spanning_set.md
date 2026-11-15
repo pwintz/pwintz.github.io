@@ -1,6 +1,6 @@
 ---
 published: false
-title: Spanning set
+title: Spanning Set
 term: spanning set
 applies_to: sets of vectors
 synonyms: [generating set]

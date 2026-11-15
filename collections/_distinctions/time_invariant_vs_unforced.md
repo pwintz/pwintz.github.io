@@ -1,6 +1,6 @@
 ---
 published: false
-title: Time-invariant vs. unforced
+title: Time-Invariant vs. Unforced
 kind: siblings
 areas: [dynamics, control]
 summary: >

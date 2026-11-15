@@ -1,5 +1,5 @@
 ---
-title: Total derivative (along a path)
+title: Total Derivative (Along a Path)
 term: total derivative (along a path)
 applies_to: functions along paths
 synonyms: [material derivative (in fluid mechanics)]

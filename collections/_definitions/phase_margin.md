@@ -1,6 +1,6 @@
 ---
 published: false
-title: Phase margin
+title: Phase Margin
 term: phase margin
 applies_to: feedback loops
 levels:

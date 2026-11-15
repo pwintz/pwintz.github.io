@@ -1,6 +1,6 @@
 ---
 published: false
-title: Removable vs. jump vs. infinite vs. oscillating discontinuities
+title: Removable vs. Jump vs. Infinite vs. Oscillating Discontinuities
 kind: siblings
 areas: [analysis]
 summary: >

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Connected vs. path-connected vs. simply connected
+title: Connected vs. Path-Connected vs. Simply Connected
 kind: hierarchy
 areas: [topology, analysis]
 summary: >

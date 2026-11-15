@@ -1,6 +1,6 @@
 ---
 published: false
-title: Autonomous system (time-invariant)
+title: Autonomous System (Time-Invariant)
 term: autonomous (time-invariant)
 applies_to: dynamical systems
 levels:

@@ -1,5 +1,5 @@
 ---
-title: Unit of measurement
+title: Unit of Measurement
 term: unit
 applies_to: physical quantities
 levels:

@@ -1,5 +1,5 @@
 ---
-title: Periodic orbit vs. limit cycle
+title: Periodic Orbit vs. Limit Cycle
 kind: hierarchy
 areas: [dynamics]
 summary: >

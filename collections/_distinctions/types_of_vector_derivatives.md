@@ -1,5 +1,5 @@
 ---
-title: Types of derivatives in vector calculus
+title: Types of Derivatives in Vector Calculus
 kind: siblings
 areas: [analysis]
 summary: >

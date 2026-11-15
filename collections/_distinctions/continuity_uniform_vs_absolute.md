@@ -1,6 +1,6 @@
 ---
 published: false
-title: Uniformly continuous vs. absolutely continuous
+title: Uniformly Continuous vs. Absolutely Continuous
 kind: hierarchy
 areas: [analysis]
 summary: >

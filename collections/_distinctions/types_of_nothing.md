@@ -1,6 +1,6 @@
 ---
 published: false
-title: Zero vs. empty set vs. zero vector vs. identity element vs. root
+title: Zero vs. Empty Set vs. Zero Vector vs. Identity Element vs. Root
 kind: family
 areas: [language, sets]
 summary: >
@@ -20,8 +20,8 @@ examples:
   - example: one_for_multiplication
   - example: 2_for_f_x_eq_x_squared_minus_4
 see_also:
-  - types_of_sparsity
-  - types_of_everything
+  - types_of_set_sparsity
+  - types_of_set_density
 ---
 ## Other kinds of nothing
 
@@ -29,4 +29,4 @@ see_also:
 - **"Does not exist" vs. "is zero."** $\lim_{x \to 0} \sin(1/x)$ does not exist, while $\lim_{x \to 0} x \sin(1/x) = 0$.
   A limit that does not exist is not zero.
 - **Measure zero and nowhere dense** describe sets that are small but not empty.
-  See [types of sparsity](/dictionary/distinctions/types-of-sparsity).
+  See [types of set sparsity](/dictionary/distinctions/types-of-set-sparsity).

@@ -1,5 +1,5 @@
 ---
-title: Commutative operation
+title: Commutative Operation
 term: commutative
 applies_to: binary operations
 synonyms: [commutativity]

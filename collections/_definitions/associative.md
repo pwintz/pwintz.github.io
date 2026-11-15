@@ -1,5 +1,5 @@
 ---
-title: Associative operation
+title: Associative Operation
 term: associative
 applies_to: binary operations
 synonyms: [associativity]

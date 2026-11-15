@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of comparison functions
+title: Types of Comparison Functions
 kind: family
 areas: [dynamics, control]
 summary: >

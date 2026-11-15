@@ -1,6 +1,6 @@
 ---
 published: false
-title: Linear vs. logistic regression
+title: Linear vs. Logistic Regression
 kind: siblings
 areas: [statistics]
 summary: >

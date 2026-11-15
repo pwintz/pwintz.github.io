@@ -1,6 +1,6 @@
 ---
 published: false
-title: Graph of a function
+title: Graph of a Function
 term: graph (of a function)
 applies_to: functions
 levels:

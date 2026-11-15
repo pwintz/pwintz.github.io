@@ -1,5 +1,5 @@
 ---
-title: Tangent space
+title: Tangent Space
 term: tangent space
 applies_to: smooth manifolds
 levels:

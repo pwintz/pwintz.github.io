@@ -1,5 +1,5 @@
 ---
-title: Jordan normal form
+title: Jordan Normal Form
 term: Jordan normal form
 applies_to: square matrices
 synonyms: [Jordan canonical form, Jordan decomposition]

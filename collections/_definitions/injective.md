@@ -1,5 +1,5 @@
 ---
-title: Injective function
+title: Injective Function
 term: injective
 applies_to: functions
 synonyms: [injection, one-to-one]

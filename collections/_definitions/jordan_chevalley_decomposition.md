@@ -1,5 +1,5 @@
 ---
-title: Jordan–Chevalley decomposition
+title: Jordan–Chevalley Decomposition
 term: Jordan–Chevalley decomposition
 applies_to: square matrices and linear maps
 synonyms: [additive Jordan decomposition, SN decomposition]

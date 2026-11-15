@@ -1,6 +1,6 @@
 ---
 published: false
-title: Upper semicontinuous set-valued map
+title: Upper Semicontinuous Set-Valued Map
 term: upper semicontinuous
 applies_to: set-valued maps
 synonyms: [upper hemicontinuous]

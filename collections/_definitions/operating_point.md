@@ -1,6 +1,6 @@
 ---
 published: false
-title: Operating point
+title: Operating Point
 term: operating point
 applies_to: control systems
 synonyms: [trim point (in aerospace)]

@@ -1,5 +1,5 @@
 ---
-title: Open set
+title: Open Set
 term: open set
 applies_to: subsets of a space
 levels:

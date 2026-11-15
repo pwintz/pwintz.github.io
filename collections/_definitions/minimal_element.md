@@ -1,6 +1,6 @@
 ---
 published: false
-title: Minimal element
+title: Minimal Element
 term: minimal element
 applies_to: partially ordered sets
 levels:

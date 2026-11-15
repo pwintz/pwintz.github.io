@@ -1,5 +1,5 @@
 ---
-title: Uniform (in space)
+title: Uniform (in Space)
 term: uniform (in space)
 applies_to: fields, materials, and densities
 synonyms: [homogeneous]

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of boundary conditions
+title: Types of Boundary Conditions
 kind: siblings
 areas: [differential-equations]
 summary: >

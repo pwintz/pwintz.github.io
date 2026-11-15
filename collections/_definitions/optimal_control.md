@@ -1,5 +1,5 @@
 ---
-title: Optimal control
+title: Optimal Control
 term: optimal control
 applies_to: control problems
 levels:

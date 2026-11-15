@@ -1,6 +1,6 @@
 ---
 published: false
-title: Singular matrix
+title: Singular Matrix
 term: singular (matrix)
 applies_to: square matrices
 synonyms: [non-invertible matrix, degenerate matrix]

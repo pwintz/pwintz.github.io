@@ -1,6 +1,6 @@
 ---
 published: false
-title: ISS-Lyapunov function
+title: ISS-Lyapunov Function
 term: ISS-Lyapunov function
 applies_to: systems with inputs
 levels:

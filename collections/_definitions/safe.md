@@ -1,6 +1,6 @@
 ---
 published: false
-title: Safe system
+title: Safe System
 term: safe
 applies_to: dynamical systems with initial and unsafe sets
 levels:

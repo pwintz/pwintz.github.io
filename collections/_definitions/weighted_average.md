@@ -1,5 +1,5 @@
 ---
-title: Weighted average
+title: Weighted Average
 term: weighted average
 applies_to: data
 synonyms: [weighted mean]

@@ -1,6 +1,6 @@
 ---
 published: false
-title: "Continuity Definitions: metric vs. sequential vs. topological"
+title: "Continuity Definitions: Metric vs. Sequential vs. Topological"
 kind: hierarchy
 areas: [topology, analysis]
 summary: >

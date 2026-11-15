@@ -1,5 +1,5 @@
 ---
-title: Union of disjoint sets
+title: Union of Disjoint Sets
 term: disjoint union (of disjoint sets)
 applies_to: sets
 synonyms: [$A \sqcup B$ (in some texts)]

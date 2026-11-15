@@ -1,6 +1,6 @@
 ---
 published: false
-title: Sequentially continuous function
+title: Sequentially Continuous Function
 term: sequentially continuous
 applies_to: functions
 levels:

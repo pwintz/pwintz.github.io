@@ -1,6 +1,6 @@
 ---
 published: false
-title: Maximal solution (hybrid systems)
+title: Maximal Solution (Hybrid Systems)
 term: maximal (solution)
 applies_to: solutions of hybrid systems
 levels:

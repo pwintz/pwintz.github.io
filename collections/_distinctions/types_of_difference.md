@@ -1,5 +1,5 @@
 ---
-title: Types of difference
+title: Types of Difference
 kind: family
 areas: [language]
 summary: >

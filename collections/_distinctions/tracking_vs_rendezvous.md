@@ -1,6 +1,6 @@
 ---
 published: false
-title: Tracking vs. rendezvous
+title: Tracking vs. Rendezvous
 kind: siblings
 areas: [control]
 summary: >

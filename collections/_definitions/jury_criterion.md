@@ -1,6 +1,6 @@
 ---
 published: false
-title: Jury stability criterion
+title: Jury Stability Criterion
 term: Jury
 applies_to: polynomials
 levels:

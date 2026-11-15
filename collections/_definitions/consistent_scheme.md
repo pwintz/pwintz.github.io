@@ -1,6 +1,6 @@
 ---
 published: false
-title: Consistent numerical scheme
+title: Consistent Numerical Scheme
 term: consistent
 applies_to: numerical schemes
 levels:

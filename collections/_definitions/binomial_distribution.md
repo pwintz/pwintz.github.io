@@ -1,5 +1,5 @@
 ---
-title: Binomial distribution
+title: Binomial Distribution
 term: binomial distribution
 applies_to: discrete random variables
 levels:

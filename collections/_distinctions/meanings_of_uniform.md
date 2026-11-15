@@ -1,6 +1,6 @@
 ---
 published: false
-title: 'Meanings of "uniform"'
+title: 'Meanings of "Uniform"'
 kind: conflicting
 areas: [language, analysis]
 summary: >

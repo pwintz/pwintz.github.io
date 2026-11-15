@@ -1,5 +1,5 @@
 ---
-title: Positive semidefinite matrix
+title: Positive Semidefinite Matrix
 term: positive semidefinite
 applies_to: symmetric matrices
 levels:

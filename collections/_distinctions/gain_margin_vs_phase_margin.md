@@ -1,6 +1,6 @@
 ---
 published: false
-title: Gain margin vs. phase margin
+title: Gain Margin vs. Phase Margin
 kind: siblings
 areas: [control]
 summary: >

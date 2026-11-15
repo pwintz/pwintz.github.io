@@ -1,5 +1,5 @@
 ---
-title: Algebraic number
+title: Algebraic Number
 term: algebraic number
 applies_to: numbers
 levels:

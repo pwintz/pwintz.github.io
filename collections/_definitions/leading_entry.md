@@ -1,6 +1,6 @@
 ---
 published: false
-title: Leading entry
+title: Leading Entry
 term: leading entry
 applies_to: rows of a matrix
 synonyms: [leading coefficient]

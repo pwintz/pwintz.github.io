@@ -1,5 +1,5 @@
 ---
-title: Taxicab distance
+title: Taxicab Distance
 term: Taxicab distance
 applies_to: points
 synonyms: [Manhattan distance, '$\ell^1$ distance', '$d_1(p, q)$']

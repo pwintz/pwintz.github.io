@@ -1,6 +1,6 @@
 ---
 published: false
-title: Hermes solution
+title: Hermes Solution
 term: Hermes solution
 applies_to: differential equations
 levels:

@@ -1,5 +1,5 @@
 ---
-title: Small gain theorem
+title: Small Gain Theorem
 term: small gain theorem
 applies_to: feedback interconnections
 synonyms: [small-gain theorem]

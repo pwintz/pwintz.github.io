@@ -1,5 +1,5 @@
 ---
-title: Measures of center
+title: Measures of Center
 kind: siblings
 areas: [statistics]
 summary: >

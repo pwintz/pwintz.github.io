@@ -1,6 +1,6 @@
 ---
 published: false
-title: Lipschitz continuous vs. absolutely continuous
+title: Lipschitz Continuous vs. Absolutely Continuous
 kind: hierarchy
 areas: [analysis]
 summary: >

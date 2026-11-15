@@ -1,6 +1,6 @@
 ---
 published: false
-title: Time-invariant system
+title: Time-Invariant System
 term: time-invariant
 applies_to: dynamical systems
 synonyms: [shift-invariant, stationary]

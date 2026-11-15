@@ -1,5 +1,5 @@
 ---
-title: Zero of a transfer function
+title: Zero of a Transfer Function
 term: zero (of a transfer function)
 applies_to: transfer functions
 synonyms: [transmission zero]

@@ -1,5 +1,5 @@
 ---
-title: Uniformly continuous function
+title: Uniformly Continuous Function
 term: uniformly continuous
 applies_to: functions
 levels:

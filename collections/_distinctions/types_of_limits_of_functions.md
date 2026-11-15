@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of limits of functions
+title: Types of Limits of Functions
 kind: siblings
 areas: [analysis]
 summary: >

@@ -1,5 +1,5 @@
 ---
-title: Lebesgue measure
+title: Lebesgue Measure
 term: measure
 applies_to: sets
 levels:

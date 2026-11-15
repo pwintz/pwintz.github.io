@@ -1,6 +1,6 @@
 ---
 published: false
-title: Domain vs. image vs. codomain vs. preimage
+title: Domain vs. Image vs. Codomain vs. Preimage
 kind: siblings
 areas: [sets]
 summary: >

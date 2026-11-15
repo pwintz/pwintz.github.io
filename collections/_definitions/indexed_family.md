@@ -1,5 +1,5 @@
 ---
-title: Indexed family
+title: Indexed Family
 term: indexed family
 applies_to: collections
 levels:

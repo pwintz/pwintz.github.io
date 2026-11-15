@@ -1,6 +1,6 @@
 ---
 published: false
-title: Hausdorff space
+title: Hausdorff Space
 term: Hausdorff
 applies_to: topological spaces
 synonyms: [T₂]

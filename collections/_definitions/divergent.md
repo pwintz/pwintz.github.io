@@ -1,6 +1,6 @@
 ---
 published: false
-title: Divergent sequence
+title: Divergent Sequence
 term: divergent
 applies_to: sequences and series
 levels:

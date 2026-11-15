@@ -1,5 +1,5 @@
 ---
-title: Error (of an approximation)
+title: Error (of an Approximation)
 term: error
 applies_to: approximations and measurements
 levels:

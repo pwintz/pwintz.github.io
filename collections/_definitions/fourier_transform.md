@@ -1,6 +1,6 @@
 ---
 published: false
-title: Fourier transform
+title: Fourier Transform
 term: Fourier transform
 applies_to: functions
 synonyms: ["$\\hat{f}$", "$\\mathcal{F}f$"]

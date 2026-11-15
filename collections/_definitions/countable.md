@@ -1,5 +1,5 @@
 ---
-title: Countable set
+title: Countable Set
 term: countable
 applies_to: sets
 synonyms: [at most countable]

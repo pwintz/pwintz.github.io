@@ -1,5 +1,5 @@
 ---
-title: Coordinate vector
+title: Coordinate Vector
 term: coordinate vector
 applies_to: vectors and bases
 synonyms: [coordinates, components]

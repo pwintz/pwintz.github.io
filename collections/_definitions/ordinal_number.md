@@ -1,5 +1,5 @@
 ---
-title: Ordinal number
+title: Ordinal Number
 term: ordinal number
 applies_to: numbers
 levels:

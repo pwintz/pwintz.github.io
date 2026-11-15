@@ -1,5 +1,5 @@
 ---
-title: Cholesky decomposition
+title: Cholesky Decomposition
 term: Cholesky decomposition
 applies_to: symmetric positive definite matrices
 synonyms: [Cholesky factorization]

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of extreme values
+title: Types of Extreme Values
 kind: family
 areas: [analysis]
 summary: >

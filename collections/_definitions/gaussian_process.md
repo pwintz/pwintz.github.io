@@ -1,5 +1,5 @@
 ---
-title: Gaussian process
+title: Gaussian Process
 term: Gaussian process
 applies_to: random processes
 levels:

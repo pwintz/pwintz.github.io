@@ -1,6 +1,6 @@
 ---
 published: false
-title: Weighted inner product
+title: Weighted Inner Product
 term: weighted inner product
 applies_to: vectors in $\reals^n$
 synonyms: ['$\ip{x}{y}_W$', $W$-inner product]

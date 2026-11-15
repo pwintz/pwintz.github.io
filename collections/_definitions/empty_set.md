@@ -1,5 +1,5 @@
 ---
-title: Empty set
+title: Empty Set
 term: empty set
 applies_to: sets
 synonyms: ['$\emptyset$', '$\setdef{}$']

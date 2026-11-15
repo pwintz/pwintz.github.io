@@ -1,6 +1,6 @@
 ---
 published: false
-title: Size, length, area, volume, diameter, cardinality, dimension, and measure
+title: Size, Length, Area, Volume, Diameter, Cardinality, Dimension, and Measure
 kind: family
 areas: [geometry, analysis]
 summary: >
@@ -38,7 +38,7 @@ examples:
 see_also:
   - types_of_infinity
   - norm_vs_metric_vs_inner_product
-  - types_of_sparsity
+  - types_of_set_sparsity
   - units_vs_dimension
 ---
 ## Notes

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Improper integral
+title: Improper Integral
 term: improper integral
 applies_to: functions on unbounded intervals or with unbounded values
 levels:

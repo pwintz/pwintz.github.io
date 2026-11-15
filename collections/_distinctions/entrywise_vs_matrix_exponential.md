@@ -1,6 +1,6 @@
 ---
 published: false
-title: Entrywise exponential vs. matrix exponential
+title: Entrywise Exponential vs. Matrix Exponential
 kind: siblings
 areas: [linear-algebra, computing]
 summary: >

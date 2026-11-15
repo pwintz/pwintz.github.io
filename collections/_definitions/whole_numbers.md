@@ -1,5 +1,5 @@
 ---
-title: Whole numbers
+title: Whole Numbers
 term: whole numbers
 applies_to: numbers
 levels:

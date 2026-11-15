@@ -1,5 +1,5 @@
 ---
-title: Permutation vs. combination
+title: Permutation vs. Combination
 kind: siblings
 areas: [statistics, sets]
 summary: >

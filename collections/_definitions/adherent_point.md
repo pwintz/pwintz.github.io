@@ -1,6 +1,6 @@
 ---
 published: false
-title: Adherent point
+title: Adherent Point
 term: adherent point
 applies_to: sets
 synonyms: [closure point, point of closure, contact point]

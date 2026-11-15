@@ -1,6 +1,6 @@
 ---
 published: false
-title: Markov chain vs. Markov decision process
+title: Markov Chain vs. Markov Decision Process
 kind: hierarchy
 areas: [statistics, control]
 summary: >

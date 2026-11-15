@@ -1,5 +1,5 @@
 ---
-title: Open ball
+title: Open Ball
 term: open ball
 applies_to: sets of points
 levels:

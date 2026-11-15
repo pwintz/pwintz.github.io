@@ -1,5 +1,5 @@
 ---
-title: Statistical independence
+title: Statistical Independence
 term: statistical independence
 applies_to: events and random variables
 synonyms: [independent, independence, independent random variables, independent events]

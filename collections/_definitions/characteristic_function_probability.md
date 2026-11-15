@@ -1,6 +1,6 @@
 ---
 published: false
-title: Characteristic function (probability)
+title: Characteristic Function (Probability)
 term: characteristic function (probability)
 applies_to: random variables
 synonyms: ['$\varphi_X$']

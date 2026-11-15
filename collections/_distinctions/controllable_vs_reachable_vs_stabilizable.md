@@ -1,6 +1,6 @@
 ---
 published: false
-title: Controllable vs. reachable vs. stabilizable
+title: Controllable vs. Reachable vs. Stabilizable
 kind: hierarchy
 areas: [control]
 summary: >

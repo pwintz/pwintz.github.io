@@ -1,6 +1,6 @@
 ---
 published: false
-title: Full rank
+title: Full Rank
 term: full rank
 applies_to: matrices
 levels:

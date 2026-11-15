@@ -1,5 +1,5 @@
 ---
-title: Open-loop control
+title: Open-Loop Control
 term: open loop
 applies_to: control systems
 synonyms: [feedforward control (in some texts)]

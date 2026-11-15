@@ -1,5 +1,5 @@
 ---
-title: Zeno solution
+title: Zeno Solution
 term: Zeno (solution)
 applies_to: solutions of hybrid systems
 levels:

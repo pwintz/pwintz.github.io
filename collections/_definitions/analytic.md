@@ -1,6 +1,6 @@
 ---
 published: false
-title: Analytic function
+title: Analytic Function
 term: analytic
 applies_to: functions
 synonyms: [real analytic, "$C^{\\omega}$"]

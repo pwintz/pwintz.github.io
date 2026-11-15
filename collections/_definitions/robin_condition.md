@@ -1,6 +1,6 @@
 ---
 published: false
-title: Robin boundary condition
+title: Robin Boundary Condition
 term: Robin
 applies_to: boundary value problems
 synonyms: [impedance condition, convective condition]

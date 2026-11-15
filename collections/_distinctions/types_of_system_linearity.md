@@ -1,6 +1,6 @@
 ---
 published: false
-title: Linear vs. affine vs. control-affine vs. feedback linearizable systems
+title: Linear vs. Affine vs. Control-Affine vs. Feedback Linearizable Systems
 kind: hierarchy
 areas: [control, dynamics]
 summary: >

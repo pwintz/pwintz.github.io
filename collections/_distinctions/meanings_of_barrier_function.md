@@ -1,6 +1,6 @@
 ---
 published: false
-title: "Barrier function: optimization vs. control theory"
+title: "Barrier Function: Optimization vs. Control Theory"
 kind: conflicting
 areas: [control, analysis]
 summary: >

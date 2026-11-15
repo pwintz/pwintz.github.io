@@ -1,5 +1,5 @@
 ---
-title: Filter (estimation)
+title: Filter (Estimation)
 term: filter (estimation)
 applies_to: state estimation
 levels:

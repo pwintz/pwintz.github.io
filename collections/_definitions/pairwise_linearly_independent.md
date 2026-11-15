@@ -1,5 +1,5 @@
 ---
-title: Pairwise linearly independent vectors
+title: Pairwise Linearly Independent Vectors
 term: pairwise linearly independent
 applies_to: lists of vectors
 synonyms: [pairwise non-parallel]

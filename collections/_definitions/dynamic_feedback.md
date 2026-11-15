@@ -1,6 +1,6 @@
 ---
 published: false
-title: Dynamic feedback
+title: Dynamic Feedback
 term: dynamic feedback
 applies_to: control laws
 levels:

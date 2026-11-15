@@ -1,5 +1,5 @@
 ---
-title: Topology on a set
+title: Topology on a Set
 term: topology
 applies_to: sets
 levels:

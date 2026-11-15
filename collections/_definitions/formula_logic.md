@@ -1,6 +1,6 @@
 ---
 published: false
-title: Formula (logic)
+title: Formula (Logic)
 term: formula
 applies_to: formal languages
 synonyms: [well-formed formula, wff]

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Lie bracket vs. derivation
+title: Lie Bracket vs. Derivation
 kind: siblings
 areas: [geometry, algebra, control]
 summary: >

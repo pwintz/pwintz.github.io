@@ -1,6 +1,6 @@
 ---
 published: false
-title: Limit cycle
+title: Limit Cycle
 term: limit cycle
 applies_to: dynamical systems
 levels:

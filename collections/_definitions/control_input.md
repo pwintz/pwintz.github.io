@@ -1,5 +1,5 @@
 ---
-title: Control input
+title: Control Input
 term: control input
 applies_to: control systems
 levels:

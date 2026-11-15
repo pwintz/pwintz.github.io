@@ -1,5 +1,5 @@
 ---
-title: Group vs. ring vs. field
+title: Group vs. Ring vs. Field
 kind: hierarchy
 areas: [algebra]
 summary: >

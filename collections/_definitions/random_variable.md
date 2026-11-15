@@ -1,5 +1,5 @@
 ---
-title: Random variable
+title: Random Variable
 term: random variable
 applies_to: probability
 levels:

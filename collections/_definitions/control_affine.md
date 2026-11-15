@@ -1,6 +1,6 @@
 ---
 published: false
-title: Control-affine system
+title: Control-Affine System
 term: control-affine
 applies_to: control systems
 synonyms: [input-affine, affine in the control]

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Rank vs. nullity
+title: Rank vs. Nullity
 kind: siblings
 areas: [linear-algebra]
 summary: >

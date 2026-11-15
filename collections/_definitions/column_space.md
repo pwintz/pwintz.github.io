@@ -1,6 +1,6 @@
 ---
 published: false
-title: Column space of a matrix
+title: Column Space of a Matrix
 term: column space
 applies_to: matrices
 synonyms: [column spaces]

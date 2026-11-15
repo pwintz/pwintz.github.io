@@ -1,6 +1,6 @@
 ---
 published: false
-title: Locally Lipschitz continuous vs. (globally) Lipschitz continuous
+title: Locally Lipschitz Continuous vs. (Globally) Lipschitz Continuous
 kind: hierarchy
 areas: [analysis]
 summary: >

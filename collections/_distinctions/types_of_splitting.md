@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of splitting
+title: Types of Splitting
 kind: family
 areas: [sets]
 summary: >

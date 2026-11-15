@@ -1,6 +1,6 @@
 ---
 published: false
-title: Skew-symmetric matrix
+title: Skew-Symmetric Matrix
 term: skew-symmetric
 applies_to: square matrices
 synonyms: [antisymmetric]

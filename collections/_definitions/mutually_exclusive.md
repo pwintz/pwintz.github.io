@@ -1,6 +1,6 @@
 ---
 published: false
-title: Mutually exclusive events
+title: Mutually Exclusive Events
 term: mutually exclusive
 applies_to: events
 synonyms: [disjoint events, incompatible events]

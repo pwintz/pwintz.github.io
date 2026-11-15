@@ -1,5 +1,5 @@
 ---
-title: Proper subset
+title: Proper Subset
 term: proper subset
 applies_to: pairs of sets
 synonyms: [$\subsetneq$]

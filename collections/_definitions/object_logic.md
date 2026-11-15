@@ -1,6 +1,6 @@
 ---
 published: false
-title: Object (logic)
+title: Object (Logic)
 term: object
 applies_to: first-order logic
 synonyms: [individual, element of the domain of discourse]

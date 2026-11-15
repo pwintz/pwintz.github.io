@@ -1,5 +1,5 @@
 ---
-title: Compact set
+title: Compact Set
 term: compact
 applies_to: sets and spaces
 levels:

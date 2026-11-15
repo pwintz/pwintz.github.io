@@ -1,5 +1,5 @@
 ---
-title: σ-algebra
+title: σ-Algebra
 term: σ-algebra
 applies_to: sets
 synonyms: [sigma-algebra, σ-field]
@@ -20,6 +20,6 @@ properties:
   - |-
     A σ-algebra also contains $\emptyset$ and is closed under [countable](/dictionary/definitions/countable) [intersections](/dictionary/definitions/set-intersection), by De Morgan's laws.
   - |-
-    The [open sets](/dictionary/definitions/open-set) of a [topology](/dictionary/definitions/topology) generate a σ-algebra, the _Borel σ-algebra_: the smallest σ-algebra that contains every open set.
+    The [open sets](/dictionary/definitions/open-set) of a [topology](/dictionary/definitions/topology) generate a σ-algebra, the [Borel σ-algebra](/dictionary/definitions/borel-sigma-algebra): the smallest σ-algebra that contains every open set.
 ---
 In [probability](/dictionary/definitions/probability), the sets in the σ-algebra are called _events_, and the "σ" refers to [countable](/dictionary/definitions/countable) [unions](/dictionary/definitions/set-union) (sums).

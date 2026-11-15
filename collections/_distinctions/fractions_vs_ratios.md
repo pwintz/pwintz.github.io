@@ -1,6 +1,6 @@
 ---
 published: false
-title: Fraction vs. ratio vs. rational number
+title: Fraction vs. Ratio vs. Rational Number
 kind: siblings
 areas: [numbers]
 summary: >

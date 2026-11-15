@@ -1,6 +1,6 @@
 ---
 published: false
-title: Unforced system
+title: Unforced System
 term: unforced
 applies_to: dynamical systems
 synonyms: [free, homogeneous (for linear systems)]

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Minimum vs. lower bound vs. minimizer vs. infimum vs. minimal element
+title: Minimum vs. Lower Bound vs. Minimizer vs. Infimum vs. Minimal Element
 kind: family
 areas: [analysis]
 summary: >

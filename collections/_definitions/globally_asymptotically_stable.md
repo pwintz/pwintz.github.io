@@ -1,6 +1,6 @@
 ---
 published: false
-title: Globally asymptotically stable equilibrium
+title: Globally Asymptotically Stable Equilibrium
 term: globally asymptotically stable
 applies_to: equilibria
 synonyms: [GAS]

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Finite vs. countable vs. uncountable
+title: Finite vs. Countable vs. Uncountable
 kind: siblings
 areas: [sets, numbers]
 summary: >

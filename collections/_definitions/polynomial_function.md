@@ -1,5 +1,5 @@
 ---
-title: Polynomial function
+title: Polynomial Function
 term: polynomial function
 applies_to: functions
 levels:

@@ -1,5 +1,5 @@
 ---
-title: Metric space
+title: Metric Space
 term: metric space
 applies_to: spaces
 levels:

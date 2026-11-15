@@ -1,6 +1,6 @@
 ---
 published: false
-title: Infinite discontinuity
+title: Infinite Discontinuity
 term: infinite discontinuity
 applies_to: functions
 levels:

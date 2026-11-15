@@ -1,5 +1,5 @@
 ---
-title: Smooth function
+title: Smooth Function
 term: smooth
 applies_to: functions
 synonyms: ["$C^{\\infty}$", infinitely differentiable]

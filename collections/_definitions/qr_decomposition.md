@@ -1,5 +1,5 @@
 ---
-title: QR decomposition
+title: QR Decomposition
 term: QR decomposition
 applies_to: matrices
 synonyms: [QR factorization]

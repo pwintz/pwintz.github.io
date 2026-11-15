@@ -1,5 +1,5 @@
 ---
-title: Inverse element
+title: Inverse Element
 term: inverse element
 applies_to: binary operations
 synonyms: [inverse]

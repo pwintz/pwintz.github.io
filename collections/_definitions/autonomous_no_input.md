@@ -1,6 +1,6 @@
 ---
 published: false
-title: Autonomous system (no input)
+title: Autonomous System (No Input)
 term: autonomous (no input)
 applies_to: dynamical systems
 levels:

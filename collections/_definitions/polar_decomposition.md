@@ -1,6 +1,6 @@
 ---
 published: false
-title: Polar decomposition
+title: Polar Decomposition
 term: polar decomposition
 applies_to: square matrices
 levels:

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Continuous distribution
+title: Continuous Distribution
 term: continuous distribution
 applies_to: probability distributions
 synonyms: [absolutely continuous distribution, continuous random variable]

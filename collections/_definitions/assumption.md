@@ -1,6 +1,6 @@
 ---
 published: false
-title: Assumption (of a result)
+title: Assumption (of a Result)
 term: assumption
 applies_to: mathematical results
 synonyms: [hypothesis (of a theorem)]

@@ -1,5 +1,5 @@
 ---
-title: Field (algebra)
+title: Field (Algebra)
 term: field
 applies_to: algebraic structures
 levels:

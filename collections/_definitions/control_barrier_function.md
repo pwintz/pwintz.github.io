@@ -1,6 +1,6 @@
 ---
 published: false
-title: Control barrier function
+title: Control Barrier Function
 term: control barrier function
 applies_to: control systems
 synonyms: [CBF]

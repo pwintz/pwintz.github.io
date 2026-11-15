@@ -1,5 +1,5 @@
 ---
-title: Exponential distribution
+title: Exponential Distribution
 term: exponential distribution
 applies_to: random variables
 levels:

@@ -1,5 +1,5 @@
 ---
-title: Lie algebra
+title: Lie Algebra
 term: Lie algebra
 applies_to: algebraic structures
 synonyms: ['$\mathfrak{g}$']

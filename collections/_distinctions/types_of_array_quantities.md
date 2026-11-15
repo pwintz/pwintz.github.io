@@ -1,6 +1,6 @@
 ---
 published: false
-title: Number of elements vs. shape vs. number of axes
+title: Number of Elements vs. Shape vs. Number of Axes
 kind: siblings
 areas: [computing, linear-algebra]
 summary: >

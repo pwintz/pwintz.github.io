@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of barrier functions
+title: Types of Barrier Functions
 kind: siblings
 areas: [control, dynamics]
 summary: >

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Input-to-state stability
+title: Input-to-State Stability
 term: input-to-state stable
 applies_to: systems with inputs
 synonyms: [ISS]

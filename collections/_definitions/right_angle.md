@@ -1,5 +1,5 @@
 ---
-title: Right angle
+title: Right Angle
 term: right angle
 applies_to: angles
 levels:

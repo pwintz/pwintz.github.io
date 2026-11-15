@@ -1,6 +1,6 @@
 ---
 published: false
-title: Lyapunov stable equilibrium
+title: Lyapunov Stable Equilibrium
 term: stable
 applies_to: equilibria
 synonyms: [Lyapunov stable, stable in the sense of Lyapunov]

@@ -1,5 +1,5 @@
 ---
-title: Types of collections
+title: Types of Collections
 kind: siblings
 areas: [sets]
 summary: >

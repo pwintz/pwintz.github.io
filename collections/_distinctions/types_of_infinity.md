@@ -1,5 +1,5 @@
 ---
-title: Types of infinity
+title: Types of Infinity
 kind: family
 areas: [sets, analysis]
 

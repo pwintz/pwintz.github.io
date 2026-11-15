@@ -1,6 +1,6 @@
 ---
 published: false
-title: Probability measure vs. distribution vs. mass function vs. density vs. CDF
+title: Probability Measure vs. Distribution vs. Mass Function vs. Density vs. CDF
 kind: siblings
 areas: [statistics]
 summary: >

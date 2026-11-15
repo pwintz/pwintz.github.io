@@ -1,6 +1,6 @@
 ---
 published: false
-title: Complete metric space
+title: Complete Metric Space
 term: complete
 applies_to: metric spaces
 levels:

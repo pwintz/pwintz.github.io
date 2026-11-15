@@ -1,6 +1,6 @@
 ---
 published: false
-title: Differential form
+title: Differential Form
 term: differential form
 applies_to: open sets and manifolds
 synonyms: ['$k$-form']

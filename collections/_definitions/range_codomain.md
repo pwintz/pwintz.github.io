@@ -1,6 +1,6 @@
 ---
 published: false
-title: Range (codomain)
+title: Range (Codomain)
 term: range (codomain)
 applies_to: functions
 levels:

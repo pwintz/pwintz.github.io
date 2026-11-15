@@ -1,5 +1,5 @@
 ---
-title: Continuously differentiable function
+title: Continuously Differentiable Function
 term: continuously differentiable
 applies_to: functions
 synonyms: [$C^1$]

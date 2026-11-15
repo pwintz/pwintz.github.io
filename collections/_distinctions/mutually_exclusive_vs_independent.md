@@ -1,6 +1,6 @@
 ---
 published: false
-title: Mutually exclusive vs. independent events
+title: Mutually Exclusive vs. Independent Events
 kind: siblings
 areas: [statistics]
 summary: >

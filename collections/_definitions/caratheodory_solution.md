@@ -1,6 +1,6 @@
 ---
 published: false
-title: Carathéodory solution
+title: Carathéodory Solution
 term: Carathéodory solution
 applies_to: differential equations
 levels:

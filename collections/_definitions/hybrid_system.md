@@ -1,6 +1,6 @@
 ---
 published: false
-title: Hybrid system
+title: Hybrid System
 term: hybrid system
 applies_to: dynamical systems
 levels:

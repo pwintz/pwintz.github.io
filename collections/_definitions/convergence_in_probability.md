@@ -1,6 +1,6 @@
 ---
 published: false
-title: Convergence in probability
+title: Convergence in Probability
 term: convergence in probability
 applies_to: sequences of random variables
 levels:

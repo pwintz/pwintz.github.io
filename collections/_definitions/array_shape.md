@@ -1,5 +1,5 @@
 ---
-title: Shape of an array
+title: Shape of an Array
 term: shape
 applies_to: arrays
 synonyms: [size (in MATLAB)]

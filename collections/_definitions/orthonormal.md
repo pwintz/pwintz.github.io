@@ -1,6 +1,6 @@
 ---
 published: false
-title: Orthonormal vectors
+title: Orthonormal Vectors
 term: orthonormal
 applies_to: lists of vectors in an inner product space
 synonyms: [orthonormal vectors, orthonormal list, orthonormal set]

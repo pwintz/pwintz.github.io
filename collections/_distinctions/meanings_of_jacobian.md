@@ -1,6 +1,6 @@
 ---
 published: false
-title: 'Jacobian: matrix vs. determinant'
+title: 'Jacobian: Matrix vs. Determinant'
 kind: conflicting
 areas: [analysis, linear-algebra]
 summary: >

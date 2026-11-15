@@ -1,6 +1,6 @@
 ---
 published: false
-title: Omega-limit set
+title: Omega-Limit Set
 term: "ω-limit set"
 applies_to: solutions of dynamical systems
 synonyms: [$\omega(x)$]

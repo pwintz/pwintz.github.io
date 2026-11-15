@@ -1,5 +1,5 @@
 ---
-title: Feedforward control
+title: Feedforward Control
 term: feedforward
 applies_to: control systems
 levels:

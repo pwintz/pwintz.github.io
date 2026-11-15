@@ -1,6 +1,6 @@
 ---
 published: false
-title: Trace vs. determinant vs. transpose vs. inverse
+title: Trace vs. Determinant vs. Transpose vs. Inverse
 kind: siblings
 areas: [linear-algebra]
 summary: >

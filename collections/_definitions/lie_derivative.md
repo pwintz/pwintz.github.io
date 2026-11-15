@@ -1,5 +1,5 @@
 ---
-title: Lie derivative
+title: Lie Derivative
 term: Lie derivative
 applies_to: functions along vector fields
 synonyms: [$L_F V$, "$\\dot{V}$"]

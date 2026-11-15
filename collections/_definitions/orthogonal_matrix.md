@@ -1,6 +1,6 @@
 ---
 published: false
-title: Orthogonal matrix
+title: Orthogonal Matrix
 term: orthogonal matrix
 applies_to: square matrices
 levels:

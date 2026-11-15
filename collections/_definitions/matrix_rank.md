@@ -1,6 +1,6 @@
 ---
 published: false
-title: Rank of a matrix
+title: Rank of a Matrix
 term: rank (of a matrix)
 applies_to: matrices
 levels:

@@ -1,6 +1,6 @@
 ---
 published: false
-title: "Graph: chart vs. graph of a function vs. network"
+title: "Graph: Chart vs. Graph of a Function vs. Network"
 kind: conflicting
 areas: [language, sets]
 summary: >

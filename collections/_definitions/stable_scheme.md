@@ -1,6 +1,6 @@
 ---
 published: false
-title: Stable numerical scheme
+title: Stable Numerical Scheme
 term: stable (scheme)
 applies_to: numerical schemes
 levels:

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Inner product space
+title: Inner Product Space
 term: inner product space
 applies_to: spaces
 synonyms: [pre-Hilbert space]

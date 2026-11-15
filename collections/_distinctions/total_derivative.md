@@ -1,6 +1,6 @@
 ---
 published: false
-title: "Total derivative: along a path vs. linear map"
+title: "Total Derivative: Along a Path vs. Linear Map"
 kind: conflicting
 areas: [analysis]
 summary: >

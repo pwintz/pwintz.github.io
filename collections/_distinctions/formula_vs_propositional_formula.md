@@ -1,6 +1,6 @@
 ---
 published: false
-title: Formula (first-order logic) vs. propositional formula
+title: Formula (First-Order Logic) vs. Propositional Formula
 kind: siblings
 areas: [sets]
 summary: >

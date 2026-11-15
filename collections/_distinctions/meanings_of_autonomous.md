@@ -1,6 +1,6 @@
 ---
 published: false
-title: "Autonomous: time-invariant vs. no input"
+title: "Autonomous: Time-Invariant vs. No Input"
 kind: conflicting
 areas: [dynamics, control]
 summary: >

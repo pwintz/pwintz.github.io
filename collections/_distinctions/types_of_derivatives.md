@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of derivatives
+title: Types of Derivatives
 kind: siblings
 areas: [analysis]
 summary: >

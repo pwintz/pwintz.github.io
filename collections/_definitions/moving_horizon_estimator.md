@@ -1,6 +1,6 @@
 ---
 published: false
-title: Moving horizon estimator
+title: Moving Horizon Estimator
 term: moving horizon estimator
 applies_to: state estimation
 synonyms: [moving horizon estimation, MHE]

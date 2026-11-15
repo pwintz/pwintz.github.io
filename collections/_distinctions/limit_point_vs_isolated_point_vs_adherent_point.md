@@ -1,6 +1,6 @@
 ---
 published: false
-title: Limit point vs. isolated point vs. adherent point
+title: Limit Point vs. Isolated Point vs. Adherent Point
 kind: siblings
 areas: [topology, analysis]
 summary: >

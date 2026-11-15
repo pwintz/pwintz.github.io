@@ -1,6 +1,6 @@
 ---
 published: false
-title: Partition of a set
+title: Partition of a Set
 term: partition (of a set)
 applies_to: sets
 levels:

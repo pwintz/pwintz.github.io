@@ -1,5 +1,5 @@
 ---
-title: Euclidean norm
+title: Euclidean Norm
 term: Euclidean norm
 applies_to: vectors in $\reals^n$
 synonyms: ['$\norm{x}_2$', 2-norm, $\ell^2$ norm, length]

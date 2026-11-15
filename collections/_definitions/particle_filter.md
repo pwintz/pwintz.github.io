@@ -1,5 +1,5 @@
 ---
-title: Particle filter
+title: Particle Filter
 term: particle filter
 applies_to: state estimation
 synonyms: [sequential Monte Carlo]

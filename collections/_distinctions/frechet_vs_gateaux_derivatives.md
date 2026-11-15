@@ -1,6 +1,6 @@
 ---
 published: false
-title: Directional vs. Fréchet vs. Gâteaux derivative
+title: Directional vs. Fréchet vs. Gâteaux Derivative
 kind: hierarchy
 areas: [analysis]
 summary: >

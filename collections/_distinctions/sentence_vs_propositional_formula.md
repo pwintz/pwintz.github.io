@@ -1,5 +1,5 @@
 ---
-title: Sentence vs. propositional formula
+title: Sentence vs. Propositional Formula
 kind: siblings
 areas: [sets]
 summary: >

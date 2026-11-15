@@ -1,6 +1,6 @@
 ---
 published: false
-title: Array vs. tensor
+title: Array vs. Tensor
 kind: siblings
 areas: [linear-algebra, computing]
 summary: >

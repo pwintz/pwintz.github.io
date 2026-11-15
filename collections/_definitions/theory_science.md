@@ -1,5 +1,5 @@
 ---
-title: Theory (in science)
+title: Theory (in Science)
 term: theory (in science)
 applies_to: scientific explanations
 levels:

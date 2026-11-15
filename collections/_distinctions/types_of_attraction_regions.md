@@ -1,6 +1,6 @@
 ---
 published: false
-title: Region of attraction vs. basin of attraction vs. invariant set vs. reachable set vs. viability kernel
+title: Region of Attraction vs. Basin of Attraction vs. Invariant Set vs. Reachable Set vs. Viability Kernel
 kind: family
 areas: [dynamics, control]
 summary: >

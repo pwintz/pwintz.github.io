@@ -1,6 +1,6 @@
 ---
 published: false
-title: Static vs. dynamic feedback
+title: Static vs. Dynamic Feedback
 kind: siblings
 areas: [control]
 summary: >

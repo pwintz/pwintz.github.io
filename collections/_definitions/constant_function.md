@@ -1,6 +1,6 @@
 ---
 published: false
-title: Constant function
+title: Constant Function
 term: constant
 applies_to: functions
 levels:

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Cumulative distribution function
+title: Cumulative Distribution Function
 term: cumulative distribution function
 applies_to: random variables
 synonyms: [CDF, distribution function]

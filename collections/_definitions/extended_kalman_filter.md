@@ -1,5 +1,5 @@
 ---
-title: Extended Kalman filter
+title: Extended Kalman Filter
 term: extended Kalman filter
 applies_to: state estimation
 synonyms: [EKF]

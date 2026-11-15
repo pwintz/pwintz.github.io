@@ -1,6 +1,6 @@
 ---
 published: false
-title: Itô integral
+title: Itô Integral
 term: Itô integral
 applies_to: random processes
 levels:

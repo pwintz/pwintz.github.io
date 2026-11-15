@@ -1,5 +1,5 @@
 ---
-title: Normal distribution
+title: Normal Distribution
 term: normal distribution
 applies_to: random variables
 synonyms: [Gaussian distribution, bell curve]

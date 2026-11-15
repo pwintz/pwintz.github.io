@@ -1,6 +1,6 @@
 ---
 published: false
-title: Convergent sequence
+title: Convergent Sequence
 term: convergent
 applies_to: sequences
 levels:

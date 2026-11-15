@@ -1,6 +1,6 @@
 ---
 published: false
-title: Defective matrix
+title: Defective Matrix
 term: defective (matrix)
 applies_to: square matrices
 levels:

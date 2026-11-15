@@ -1,5 +1,5 @@
 ---
-title: Edge of a graph
+title: Edge of a Graph
 term: edge (of a graph)
 applies_to: graphs (networks)
 levels:

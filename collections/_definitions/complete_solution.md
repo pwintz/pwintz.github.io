@@ -1,6 +1,6 @@
 ---
 published: false
-title: Complete solution (hybrid systems)
+title: Complete Solution (Hybrid Systems)
 term: complete (solution)
 applies_to: solutions of hybrid systems
 levels:

@@ -1,5 +1,5 @@
 ---
-title: Right limit
+title: Right Limit
 term: right limit
 applies_to: functions of a real variable
 synonyms: [right-hand limit, limit from the right, '$\lim_{x \to a^{+}} f(x)$']

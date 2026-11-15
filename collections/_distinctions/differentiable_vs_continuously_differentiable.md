@@ -1,5 +1,5 @@
 ---
-title: Differentiable vs. continuously differentiable
+title: Differentiable vs. Continuously Differentiable
 kind: hierarchy
 areas: [analysis]
 summary: >

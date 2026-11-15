@@ -1,6 +1,6 @@
 ---
 published: false
-title: Number of elements of an array
+title: Number of Elements of an Array
 term: number of elements
 applies_to: arrays
 synonyms: [size (in NumPy), numel (in MATLAB)]

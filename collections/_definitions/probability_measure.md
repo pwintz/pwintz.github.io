@@ -1,9 +1,17 @@
 ---
-published: false
-title: Probability measure
+title: Probability Measure
 term: probability measure
 applies_to: σ-algebras
 levels:
+  high-school:
+    context: experiments with finitely many outcomes
+    text: |-
+      Consider a random experiment whose set $\Omega$ of possible [outcomes](/dictionary/definitions/outcome) is finite.
+      A _probability measure_ $P$ assigns to each [event](/dictionary/definitions/event) $A$, which is a set of outcomes, a number $P(A)$, called the [probability](/dictionary/definitions/probability) of $A$, such that
+
+      1. $0 \leq P(A) \leq 1$ for every event $A$,
+      2. $P(\Omega) = 1$, and
+      3. if two events $A$ and $B$ have no outcomes in common, then $P(A \cup B) = P(A) + P(B)$.
   undergraduate:
     context: measure-theoretic probability
     text: |-

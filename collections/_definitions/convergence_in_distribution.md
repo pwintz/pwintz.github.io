@@ -1,6 +1,6 @@
 ---
 published: false
-title: Convergence in distribution
+title: Convergence in Distribution
 term: convergence in distribution
 applies_to: sequences of random variables
 synonyms: [weak convergence, convergence in law]

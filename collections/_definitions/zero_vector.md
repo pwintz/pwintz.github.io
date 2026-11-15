@@ -1,5 +1,5 @@
 ---
-title: Zero vector
+title: Zero Vector
 term: zero vector
 applies_to: vector spaces
 synonyms: ["$\\mathbf{0}$"]

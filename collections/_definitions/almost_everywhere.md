@@ -1,6 +1,5 @@
 ---
-published: false
-title: Almost everywhere
+title: Almost Everywhere
 term: almost everywhere
 applies_to: properties of points
 synonyms: [a.e., almost all, almost surely (in probability)]

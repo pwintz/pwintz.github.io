@@ -1,5 +1,5 @@
 ---
-title: Directional derivative
+title: Directional Derivative
 term: directional derivative
 applies_to: functions
 levels:

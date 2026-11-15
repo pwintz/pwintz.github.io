@@ -1,5 +1,5 @@
 ---
-title: Rational number
+title: Rational Number
 term: rational number
 applies_to: numbers
 levels:

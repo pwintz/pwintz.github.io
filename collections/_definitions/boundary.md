@@ -1,5 +1,5 @@
 ---
-title: Boundary of a set
+title: Boundary of a Set
 term: boundary
 applies_to: sets
 synonyms: [frontier, $\partial A$]

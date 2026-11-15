@@ -1,5 +1,5 @@
 ---
-title: Eigenvalue vs. singular value
+title: Eigenvalue vs. Singular Value
 kind: siblings
 areas: [linear-algebra]
 summary: >

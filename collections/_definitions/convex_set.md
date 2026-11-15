@@ -1,6 +1,6 @@
 ---
 published: false
-title: Convex set
+title: Convex Set
 term: convex set
 applies_to: subsets of a vector space
 levels:

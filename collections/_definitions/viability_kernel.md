@@ -1,5 +1,5 @@
 ---
-title: Viability kernel
+title: Viability Kernel
 term: viability kernel
 applies_to: control system
 levels:

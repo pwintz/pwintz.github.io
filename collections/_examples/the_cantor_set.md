@@ -11,7 +11,8 @@ is: [
   nowhere_dense,
   measure_zero,
   uncountable,
-  meager_set
+  meager_set,
+  borel_set
 ]
 is_not: [
   open_set,
@@ -41,4 +42,6 @@ why:
     The Cantor set is not finite, because it is uncountable.
   meager_set: >-
     The Cantor set is meager, because it is nowhere dense, and every nowhere dense set is meager.
+  borel_set: >-
+    The Cantor set is a Borel set, because it is closed.
 ---

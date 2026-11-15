@@ -1,6 +1,6 @@
 ---
 published: false
-title: Differentiable vs. continuously differentiable vs. smooth vs. analytic
+title: Differentiable vs. Continuously Differentiable vs. Smooth vs. Analytic
 kind: hierarchy
 areas: [analysis]
 summary: >

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Coordinate system
+title: Coordinate System
 term: coordinate system
 applies_to: sets of points
 synonyms: [coordinate chart, local coordinates]

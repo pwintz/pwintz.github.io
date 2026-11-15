@@ -1,5 +1,5 @@
 ---
-title: Set difference
+title: Set Difference
 term: set difference
 applies_to: sets
 synonyms: [$A \setminus B$, relative complement]

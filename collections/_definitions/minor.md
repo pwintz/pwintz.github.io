@@ -1,5 +1,5 @@
 ---
-title: Minor of a matrix
+title: Minor of a Matrix
 term: minor
 applies_to: square matrices
 synonyms: ['$M_{ij}$']

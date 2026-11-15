@@ -1,6 +1,6 @@
 ---
 published: false
-title: Hilbert space
+title: Hilbert Space
 term: Hilbert space
 applies_to: spaces
 levels:

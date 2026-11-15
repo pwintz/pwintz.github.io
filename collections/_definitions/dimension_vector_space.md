@@ -1,5 +1,5 @@
 ---
-title: Dimension (of a vector space)
+title: Dimension (of a Vector Space)
 term: dimension (of a vector space)
 applies_to: vector spaces
 levels:

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Inclusion map
+title: Inclusion Map
 term: inclusion map
 applies_to: subsets
 synonyms: [inclusion function, canonical injection, '$\iota$']

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Basis vs. coordinate system
+title: Basis vs. Coordinate System
 kind: siblings
 areas: [linear-algebra, geometry]
 summary: >

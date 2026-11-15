@@ -1,6 +1,6 @@
 ---
 published: false
-title: Domain of a function
+title: Domain of a Function
 term: domain
 applies_to: functions
 levels:

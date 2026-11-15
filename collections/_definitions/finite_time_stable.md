@@ -1,6 +1,6 @@
 ---
 published: false
-title: Finite-time stable equilibrium
+title: Finite-Time Stable Equilibrium
 term: finite-time stable
 applies_to: equilibria
 levels:

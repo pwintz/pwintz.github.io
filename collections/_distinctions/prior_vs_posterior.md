@@ -1,6 +1,6 @@
 ---
 published: false
-title: Prior vs. posterior
+title: Prior vs. Posterior
 kind: siblings
 areas: [statistics]
 summary: >

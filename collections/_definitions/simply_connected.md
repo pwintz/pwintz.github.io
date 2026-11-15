@@ -1,6 +1,6 @@
 ---
 published: false
-title: Simply connected space
+title: Simply Connected Space
 term: simply connected
 applies_to: sets and topological spaces
 levels:

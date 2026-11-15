@@ -1,5 +1,5 @@
 ---
-title: Continuous function
+title: Continuous Function
 term: continuous
 applies_to: functions
 levels:

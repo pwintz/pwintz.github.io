@@ -1,6 +1,6 @@
 ---
 published: false
-title: Convergence in probability vs. in distribution
+title: Convergence in Probability vs. in Distribution
 kind: hierarchy
 areas: [statistics]
 summary: >

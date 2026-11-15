@@ -1,6 +1,6 @@
 ---
 published: false
-title: Markov decision process
+title: Markov Decision Process
 term: Markov decision process
 applies_to: decision problems
 synonyms: [MDP]

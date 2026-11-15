@@ -1,6 +1,6 @@
 ---
 published: false
-title: Switched system vs. hybrid system vs. hybrid automaton
+title: Switched System vs. Hybrid System vs. Hybrid Automaton
 kind: family
 areas: [dynamics, control]
 summary: >

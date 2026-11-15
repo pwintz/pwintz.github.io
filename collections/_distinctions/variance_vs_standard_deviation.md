@@ -1,5 +1,5 @@
 ---
-title: Variance vs. standard deviation
+title: Variance vs. Standard Deviation
 kind: siblings
 areas: [statistics]
 summary: >

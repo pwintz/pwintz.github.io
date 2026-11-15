@@ -1,6 +1,6 @@
 ---
 published: false
-title: Krasovskii solution
+title: Krasovskii Solution
 term: Krasovskii solution
 applies_to: differential equations
 levels:

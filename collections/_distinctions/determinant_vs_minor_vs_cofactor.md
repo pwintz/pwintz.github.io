@@ -1,6 +1,6 @@
 ---
 published: false
-title: Determinant vs. minor vs. cofactor
+title: Determinant vs. Minor vs. Cofactor
 kind: siblings
 areas: [linear-algebra]
 summary: >

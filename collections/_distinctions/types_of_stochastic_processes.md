@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of stochastic processes
+title: Types of Stochastic Processes
 kind: family
 areas: [statistics]
 summary: >

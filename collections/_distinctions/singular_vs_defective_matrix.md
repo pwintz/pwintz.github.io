@@ -1,6 +1,6 @@
 ---
 published: false
-title: Singular matrix vs. defective matrix
+title: Singular Matrix vs. Defective Matrix
 kind: siblings
 areas: [linear-algebra]
 summary: >

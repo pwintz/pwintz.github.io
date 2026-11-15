@@ -1,5 +1,5 @@
 ---
-title: Linear map
+title: Linear Map
 term: linear map
 applies_to: functions between vector spaces
 synonyms: [linear transformation, linear operator (for maps from a space to itself)]

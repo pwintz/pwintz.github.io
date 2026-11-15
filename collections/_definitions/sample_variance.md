@@ -1,6 +1,6 @@
 ---
 published: false
-title: Sample variance
+title: Sample Variance
 term: sample variance
 applies_to: data sampled from a population
 synonyms: [unbiased sample variance]

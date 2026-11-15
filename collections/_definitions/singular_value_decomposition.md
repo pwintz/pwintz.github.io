@@ -1,5 +1,5 @@
 ---
-title: Singular value decomposition
+title: Singular Value Decomposition
 term: singular value decomposition
 applies_to: matrices
 synonyms: [SVD]

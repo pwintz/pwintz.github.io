@@ -1,5 +1,5 @@
 ---
-title: PLU decomposition
+title: PLU Decomposition
 term: PLU decomposition
 applies_to: square matrices
 synonyms: [LU decomposition with partial pivoting, LUP decomposition]

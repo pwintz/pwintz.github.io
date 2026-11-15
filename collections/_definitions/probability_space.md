@@ -1,6 +1,6 @@
 ---
 published: false
-title: Probability space
+title: Probability Space
 term: probability space
 applies_to: random experiments
 levels:

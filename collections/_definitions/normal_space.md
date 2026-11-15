@@ -1,6 +1,6 @@
 ---
 published: false
-title: Normal space
+title: Normal Space
 term: normal
 applies_to: topological spaces
 synonyms: [T₄]

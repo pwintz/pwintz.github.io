@@ -1,5 +1,5 @@
 ---
-title: Open map
+title: Open Map
 term: open map
 applies_to: functions
 levels:

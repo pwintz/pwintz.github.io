@@ -1,6 +1,6 @@
 ---
 published: false
-title: Neumann boundary condition
+title: Neumann Boundary Condition
 term: Neumann
 applies_to: boundary value problems
 levels:

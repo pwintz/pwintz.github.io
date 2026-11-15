@@ -1,6 +1,6 @@
 ---
 published: false
-title: Probability mass function
+title: Probability Mass Function
 term: probability mass function
 applies_to: discrete random variables
 synonyms: [PMF]

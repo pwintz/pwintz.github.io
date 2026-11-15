@@ -1,5 +1,5 @@
 ---
-title: Surjective function
+title: Surjective Function
 term: surjective
 applies_to: functions
 synonyms: [surjection, onto]

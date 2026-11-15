@@ -1,5 +1,5 @@
 ---
-title: Convex set vs. convex function
+title: Convex Set vs. Convex Function
 kind: siblings
 areas: [analysis, geometry]
 summary: >

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Brownian motion
+title: Brownian Motion
 term: Brownian motion
 applies_to: random processes
 synonyms: [Wiener process, '$W_t$']

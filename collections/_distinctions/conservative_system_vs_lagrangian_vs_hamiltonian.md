@@ -1,6 +1,6 @@
 ---
 published: false
-title: Conservative system vs. Lagrangian vs. Hamiltonian
+title: Conservative System vs. Lagrangian vs. Hamiltonian
 kind: family
 areas: [dynamics]
 summary: >

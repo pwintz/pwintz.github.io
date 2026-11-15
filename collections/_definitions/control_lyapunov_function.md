@@ -1,6 +1,6 @@
 ---
 published: false
-title: Control Lyapunov function
+title: Control Lyapunov Function
 term: control Lyapunov function
 applies_to: control systems
 synonyms: [CLF]

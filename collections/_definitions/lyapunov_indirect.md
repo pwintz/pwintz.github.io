@@ -1,6 +1,6 @@
 ---
 published: false
-title: "Lyapunov's indirect method"
+title: "Lyapunov's Indirect Method"
 term: Lyapunov (indirect)
 applies_to: nonlinear systems
 synonyms: [linearization, "Lyapunov's first method"]

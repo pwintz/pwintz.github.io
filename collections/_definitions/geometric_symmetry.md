@@ -1,6 +1,6 @@
 ---
 published: false
-title: Symmetry (of a shape)
+title: Symmetry (of a Shape)
 term: symmetry (of a shape)
 applies_to: shapes and objects
 levels:

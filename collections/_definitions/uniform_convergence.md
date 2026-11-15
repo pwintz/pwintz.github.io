@@ -1,5 +1,5 @@
 ---
-title: Uniform convergence
+title: Uniform Convergence
 term: uniform convergence
 applies_to: sequences of functions
 levels:

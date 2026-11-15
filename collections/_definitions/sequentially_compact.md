@@ -1,5 +1,5 @@
 ---
-title: Sequentially compact
+title: Sequentially Compact
 term: sequentially compact
 applies_to: topological spaces
 levels:

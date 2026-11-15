@@ -1,6 +1,6 @@
 ---
 published: false
-title: Standard deviation
+title: Standard Deviation
 term: standard deviation
 applies_to: random variables and data
 levels:

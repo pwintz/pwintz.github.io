@@ -1,5 +1,5 @@
 ---
-title: Types of control objectives
+title: Types of Control Objectives
 kind: siblings
 areas: [control]
 summary: >

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Contingent cone
+title: Contingent Cone
 term: contingent cone
 applies_to: sets
 synonyms: [Bouligand tangent cone, tangent cone (in Rockafellar and Wets)]

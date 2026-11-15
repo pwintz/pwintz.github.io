@@ -1,6 +1,6 @@
 ---
 published: false
-title: Discrete vs. continuous vs. mixed vs. singular distributions
+title: Discrete vs. Continuous vs. Mixed vs. Singular Distributions
 kind: siblings
 areas: [statistics]
 summary: >

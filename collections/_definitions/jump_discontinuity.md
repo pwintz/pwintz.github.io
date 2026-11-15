@@ -1,6 +1,6 @@
 ---
 published: false
-title: Jump discontinuity
+title: Jump Discontinuity
 term: jump discontinuity
 applies_to: functions
 levels:

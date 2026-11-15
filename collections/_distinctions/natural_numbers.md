@@ -1,5 +1,5 @@
 ---
-title: "Natural numbers: starting at 0 or at 1"
+title: "Natural Numbers: Starting at 0 or at 1"
 kind: conflicting
 areas: [numbers]
 summary: >

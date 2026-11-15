@@ -1,6 +1,6 @@
 ---
 published: false
-title: Limit superior
+title: Limit Superior
 term: limit superior
 applies_to: sequences
 synonyms: [$\limsup$]

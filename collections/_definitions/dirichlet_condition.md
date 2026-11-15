@@ -1,6 +1,6 @@
 ---
 published: false
-title: Dirichlet boundary condition
+title: Dirichlet Boundary Condition
 term: Dirichlet
 applies_to: boundary value problems
 levels:

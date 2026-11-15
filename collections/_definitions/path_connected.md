@@ -1,6 +1,6 @@
 ---
 published: false
-title: Path-connected space
+title: Path-Connected Space
 term: path-connected
 applies_to: sets and topological spaces
 synonyms: [arcwise connected]

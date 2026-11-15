@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of second-order PDEs
+title: Types of Second-Order PDEs
 kind: siblings
 areas: [differential-equations]
 summary: >

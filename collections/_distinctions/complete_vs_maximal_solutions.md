@@ -1,6 +1,6 @@
 ---
 published: false
-title: Complete vs. maximal vs. Zeno solutions of hybrid systems
+title: Complete vs. Maximal vs. Zeno Solutions of Hybrid Systems
 kind: hierarchy
 areas: [dynamics]
 summary: >

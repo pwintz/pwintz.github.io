@@ -1,6 +1,6 @@
 ---
 published: false
-title: Circle vs. sphere vs. ball vs. open and closed balls
+title: Circle vs. Sphere vs. Ball vs. Open and Closed Balls
 kind: family
 areas: [geometry, topology]
 summary: >

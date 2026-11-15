@@ -1,5 +1,5 @@
 ---
-title: Interior of a set
+title: Interior of a Set
 term: interior
 applies_to: sets
 synonyms: ['$\operatorname{int} A$', '$A^{\circ}$']

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Linear system
+title: Linear System
 term: linear (system)
 applies_to: dynamical systems
 levels:

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Kernel of a linear map
+title: Kernel of a Linear Map
 term: kernel
 applies_to: linear maps and matrices
 synonyms: [null space, nullspace]

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of semicontinuity of set-valued maps
+title: Types of Semicontinuity of Set-Valued Maps
 kind: family
 areas: [set-valued-analysis]
 summary: >

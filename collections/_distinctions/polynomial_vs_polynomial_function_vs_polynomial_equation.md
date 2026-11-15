@@ -1,6 +1,6 @@
 ---
 published: false
-title: Polynomial vs. polynomial function vs. polynomial equation
+title: Polynomial vs. Polynomial Function vs. Polynomial Equation
 kind: siblings
 areas: [numbers, language]
 summary: >

@@ -1,5 +1,5 @@
 ---
-title: Absolutely continuous function
+title: Absolutely Continuous Function
 term: absolutely continuous
 applies_to: functions
 levels:

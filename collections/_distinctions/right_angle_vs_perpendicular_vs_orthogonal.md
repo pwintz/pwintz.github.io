@@ -1,5 +1,5 @@
 ---
-title: Right angle vs. perpendicular vs. orthogonal vs. normal
+title: Right Angle vs. Perpendicular vs. Orthogonal vs. Normal
 kind: siblings
 areas: [geometry, linear-algebra]
 summary: >

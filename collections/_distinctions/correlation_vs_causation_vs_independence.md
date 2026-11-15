@@ -1,6 +1,6 @@
 ---
 published: false
-title: Correlation vs. causation vs. statistical independence
+title: Correlation vs. Causation vs. Statistical Independence
 kind: siblings
 areas: [statistics]
 summary: >

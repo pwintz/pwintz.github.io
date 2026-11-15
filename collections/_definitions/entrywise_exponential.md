@@ -1,6 +1,6 @@
 ---
 published: false
-title: Entrywise exponential
+title: Entrywise Exponential
 term: entrywise exponential
 applies_to: matrices and arrays
 synonyms: [elementwise exponential]

@@ -1,5 +1,5 @@
 ---
-title: Algebra over a field
+title: Algebra over a Field
 term: algebra (over a field)
 applies_to: algebraic structures
 levels:

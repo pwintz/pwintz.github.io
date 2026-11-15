@@ -1,5 +1,5 @@
 ---
-title: Detectable system
+title: Detectable System
 term: detectable
 applies_to: control systems
 levels:

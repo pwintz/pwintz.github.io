@@ -1,5 +1,5 @@
 ---
-title: Hausdorff dimension
+title: Hausdorff Dimension
 term: Hausdorff dimension
 applies_to: subsets of $\reals^n$ and metric spaces
 synonyms: [fractal dimension]

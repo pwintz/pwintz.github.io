@@ -1,5 +1,5 @@
 ---
-title: Uniformly stable equilibrium
+title: Uniformly Stable Equilibrium
 term: uniformly stable
 applies_to: equilibria of time-varying systems
 levels:

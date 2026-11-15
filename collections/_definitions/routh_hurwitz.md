@@ -1,6 +1,6 @@
 ---
 published: false
-title: Routh–Hurwitz criterion
+title: Routh–Hurwitz Criterion
 term: Routh–Hurwitz
 applies_to: polynomials
 levels:

@@ -1,5 +1,5 @@
 ---
-title: Locally Lipschitz continuous function
+title: Locally Lipschitz Continuous Function
 term: locally Lipschitz continuous
 applies_to: functions
 synonyms: [locally Lipschitz]

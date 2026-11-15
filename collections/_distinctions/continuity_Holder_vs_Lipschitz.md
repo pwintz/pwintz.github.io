@@ -1,6 +1,6 @@
 ---
 published: false
-title: Lipschitz continuous vs. Hölder continuous
+title: Lipschitz Continuous vs. Hölder Continuous
 kind: hierarchy
 areas: [analysis]
 summary: >

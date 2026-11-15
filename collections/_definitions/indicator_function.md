@@ -1,6 +1,6 @@
 ---
 published: false
-title: Indicator function
+title: Indicator Function
 term: indicator function
 applies_to: sets
 synonyms: [characteristic function, '$\mathbf{1}_A$']

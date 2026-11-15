@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of tangent cones
+title: Types of Tangent Cones
 kind: family
 areas: [set-valued-analysis, geometry]
 summary: >

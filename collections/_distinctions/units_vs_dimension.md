@@ -1,6 +1,6 @@
 ---
 published: false
-title: Unit vs. physical dimension
+title: Unit vs. Physical Dimension
 kind: siblings
 areas: [language]
 summary: >
@@ -20,7 +20,7 @@ see_also:
 ---
 ## Notes
 
-- An equation is dimensionally [consistent](/dictionary/definitions/consistent-scheme) if both sides have the same physical dimension.
+- An equation is dimensionally consistent if both sides have the same physical dimension.
   This is independent of the choice of units, and checking it (dimensional analysis) catches many errors.
 - Quantities with the same dimension can be added after converting units ($1~\mathrm{m} + 1~\mathrm{ft}$).
   Quantities with different dimensions cannot be added at all ($1~\mathrm{m} + 1~\mathrm{s}$).

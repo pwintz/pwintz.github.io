@@ -1,5 +1,5 @@
 ---
-title: Variance vs. sample variance
+title: Variance vs. Sample Variance
 kind: siblings
 areas: [statistics]
 summary: >

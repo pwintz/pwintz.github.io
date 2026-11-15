@@ -1,5 +1,5 @@
 ---
-title: Event (probability)
+title: Event (Probability)
 term: event
 applies_to: random experiments
 levels:

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of compactness
+title: Types of Compactness
 kind: family
 areas: [topology, analysis]
 summary: >

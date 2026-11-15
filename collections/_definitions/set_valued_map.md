@@ -1,6 +1,6 @@
 ---
 published: false
-title: Set-valued map
+title: Set-Valued Map
 term: set-valued map
 applies_to: functions
 synonyms: [multifunction, correspondence, set-valued function, multivalued map, '$F : X \rightrightarrows Y$']

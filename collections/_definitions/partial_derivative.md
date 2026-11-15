@@ -1,5 +1,5 @@
 ---
-title: Partial derivative
+title: Partial Derivative
 term: partial derivative
 applies_to: functions of several variables
 synonyms: ["$\\frac{\\partial f}{\\partial x_i}$"]

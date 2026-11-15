@@ -1,5 +1,5 @@
 ---
-title: Exterior of a set
+title: Exterior of a Set
 term: exterior
 applies_to: sets
 synonyms: ['$\operatorname{ext} A$']

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Class-KL function
+title: Class-KL Function
 term: "class-$\\mathcal{KL}$"
 applies_to: scalar functions of two variables
 levels:

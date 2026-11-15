@@ -1,5 +1,5 @@
 ---
-title: State feedback
+title: State Feedback
 term: state feedback
 applies_to: control laws
 levels:

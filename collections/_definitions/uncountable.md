@@ -1,5 +1,5 @@
 ---
-title: Uncountable set
+title: Uncountable Set
 term: uncountable
 applies_to: sets
 synonyms: [uncountably infinite]

@@ -1,6 +1,6 @@
 ---
 published: false
-title: $L^2$ inner product
+title: $L^2$ Inner Product
 term: L² inner product
 applies_to: functions
 synonyms: ['$\ip{f}{g}_{L^2}$', '$L^2$ inner product']

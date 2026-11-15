@@ -1,6 +1,6 @@
 ---
 published: false
-title: Set point
+title: Set Point
 term: set point
 applies_to: control systems
 synonyms: [setpoint, reference value]

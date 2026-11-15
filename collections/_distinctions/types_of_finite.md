@@ -1,6 +1,6 @@
 ---
 published: false
-title: Finite vs. bounded vs. convergent vs. compact
+title: Finite vs. Bounded vs. Convergent vs. Compact
 kind: siblings
 areas: [analysis, sets]
 summary: >

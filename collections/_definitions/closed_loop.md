@@ -1,5 +1,5 @@
 ---
-title: Closed-loop control
+title: Closed-Loop Control
 term: closed loop
 applies_to: control systems
 levels:

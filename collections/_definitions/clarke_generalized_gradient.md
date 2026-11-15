@@ -1,6 +1,6 @@
 ---
 published: false
-title: Clarke generalized gradient
+title: Clarke Generalized Gradient
 term: Clarke generalized gradient
 applies_to: locally Lipschitz functions
 synonyms: [Clarke subdifferential, $\partial f(x)$]

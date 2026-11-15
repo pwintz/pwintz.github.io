@@ -1,6 +1,6 @@
 ---
 published: false
-title: Laplace transform
+title: Laplace Transform
 term: Laplace transform
 applies_to: functions
 synonyms: ["$\\mathcal{L}f$", $F(s)$]

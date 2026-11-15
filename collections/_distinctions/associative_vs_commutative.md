@@ -1,5 +1,5 @@
 ---
-title: Associative vs. commutative
+title: Associative vs. Commutative
 kind: siblings
 areas: [algebra]
 summary: >

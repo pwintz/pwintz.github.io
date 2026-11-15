@@ -1,5 +1,5 @@
 ---
-title: Exogenous input
+title: Exogenous Input
 term: exogenous input
 applies_to: control systems
 synonyms: [external input]

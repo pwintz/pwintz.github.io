@@ -1,6 +1,6 @@
 ---
 published: false
-title: Normed space
+title: Normed Space
 term: normed space
 applies_to: spaces
 synonyms: [normed vector space]

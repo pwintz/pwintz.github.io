@@ -1,6 +1,6 @@
 ---
 published: false
-title: Periodic orbit
+title: Periodic Orbit
 term: periodic orbit
 applies_to: dynamical systems
 synonyms: [closed orbit, cycle]

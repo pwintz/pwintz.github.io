@@ -1,6 +1,6 @@
 ---
 published: false
-title: Gâteaux derivative
+title: Gâteaux Derivative
 term: Gâteaux derivative
 applies_to: maps between normed spaces
 levels:

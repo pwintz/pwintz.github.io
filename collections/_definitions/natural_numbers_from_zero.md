@@ -1,5 +1,5 @@
 ---
-title: Natural numbers (starting at 0)
+title: Natural Numbers (Starting at 0)
 term: natural numbers (from 0)
 applies_to: numbers
 synonyms: ["nonnegative integers", "$\\nats$", "$\\nats_0$", "$\\mathbb{Z}_{\\geq 0}$"]

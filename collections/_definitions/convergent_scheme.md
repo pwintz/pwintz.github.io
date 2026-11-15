@@ -1,6 +1,6 @@
 ---
 published: false
-title: Convergent numerical scheme
+title: Convergent Numerical Scheme
 term: convergent (scheme)
 applies_to: numerical schemes
 levels:

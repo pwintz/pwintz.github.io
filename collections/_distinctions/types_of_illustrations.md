@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of illustrations
+title: Types of Illustrations
 kind: siblings
 areas: [language]
 summary: >

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Derive vs. differentiate
+title: Derive vs. Differentiate
 kind: siblings
 areas: [language]
 summary: >

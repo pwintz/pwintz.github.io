@@ -1,6 +1,6 @@
 ---
 published: false
-title: Convex function
+title: Convex Function
 term: convex function
 applies_to: real-valued functions
 levels:

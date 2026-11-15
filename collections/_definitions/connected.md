@@ -1,6 +1,6 @@
 ---
 published: false
-title: Connected space
+title: Connected Space
 term: connected
 applies_to: sets and topological spaces
 levels:

@@ -1,5 +1,5 @@
 ---
-title: Norm vs. metric vs. inner product
+title: Norm vs. Metric vs. Inner Product
 kind: siblings
 areas: [linear-algebra, analysis]
 summary: >

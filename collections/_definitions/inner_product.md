@@ -1,5 +1,5 @@
 ---
-title: Inner product
+title: Inner Product
 term: inner product
 applies_to: vector spaces
 synonyms: ["$\\ip{x}{y}$"]

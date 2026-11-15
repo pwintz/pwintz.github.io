@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of nonsmooth derivatives
+title: Types of Nonsmooth Derivatives
 kind: family
 areas: [analysis, set-valued-analysis]
 summary: >

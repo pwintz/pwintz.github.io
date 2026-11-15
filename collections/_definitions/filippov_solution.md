@@ -1,6 +1,6 @@
 ---
 published: false
-title: Filippov solution
+title: Filippov Solution
 term: Filippov solution
 applies_to: differential equations
 levels:

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Root (zero) of a function
+title: Root (Zero) of a Function
 term: root
 applies_to: functions and equations
 synonyms: [zero of a function]

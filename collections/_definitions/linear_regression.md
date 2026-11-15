@@ -1,6 +1,6 @@
 ---
 published: false
-title: Linear regression
+title: Linear Regression
 term: linear regression
 applies_to: data
 synonyms: [least squares regression]

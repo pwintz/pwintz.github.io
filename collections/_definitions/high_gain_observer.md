@@ -1,6 +1,6 @@
 ---
 published: false
-title: High-gain observer
+title: High-Gain Observer
 term: high-gain observer
 applies_to: nonlinear systems
 levels:

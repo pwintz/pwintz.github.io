@@ -1,6 +1,6 @@
 ---
 published: false
-title: Interpretation (logic)
+title: Interpretation (Logic)
 term: interpretation
 applies_to: formal languages
 levels:

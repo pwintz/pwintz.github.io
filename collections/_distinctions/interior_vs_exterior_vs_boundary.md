@@ -1,6 +1,6 @@
 ---
 published: false
-title: Interior vs. exterior vs. boundary
+title: Interior vs. Exterior vs. Boundary
 kind: siblings
 areas: [topology, analysis, geometry]
 summary: >

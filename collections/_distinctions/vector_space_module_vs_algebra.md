@@ -1,6 +1,6 @@
 ---
 # TODO: Make this vector space vs. module vs. algebra.
-title: Vector Space vs. Module vs. algebra
+title: Vector Space vs. Module vs. Algebra
 kind: siblings
 areas: [algebra, linear-algebra]
 summary: >

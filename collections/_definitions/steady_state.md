@@ -1,5 +1,5 @@
 ---
-title: Steady state
+title: Steady State
 term: steady state
 applies_to: dynamical systems
 synonyms: [steady-state response]

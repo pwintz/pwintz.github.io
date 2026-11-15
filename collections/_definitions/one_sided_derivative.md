@@ -1,6 +1,6 @@
 ---
 published: false
-title: One-sided derivative
+title: One-Sided Derivative
 term: one-sided derivative
 applies_to: functions of one variable
 synonyms: [left derivative, right derivative]

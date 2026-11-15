@@ -1,6 +1,6 @@
 ---
 published: false
-title: Derivation (algebra)
+title: Derivation (Algebra)
 term: derivation
 applies_to: algebras
 levels:

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Minkowski sum
+title: Minkowski Sum
 term: Minkowski sum
 applies_to: subsets of vector spaces
 levels:

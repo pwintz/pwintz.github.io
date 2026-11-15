@@ -1,5 +1,5 @@
 ---
-title: Edge of a polygon or polyhedron
+title: Edge of a Polygon or Polyhedron
 term: edge (of a polygon or polyhedron)
 applies_to: polygons and polyhedra
 levels:

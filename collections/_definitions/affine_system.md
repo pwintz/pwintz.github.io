@@ -1,6 +1,6 @@
 ---
 published: false
-title: Affine system
+title: Affine System
 # TODO: Might be better to talk about an affine function. No need to include dynamics.
 term: affine (system)
 applies_to: dynamical systems

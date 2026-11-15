@@ -1,5 +1,5 @@
 ---
-title: Law (in science)
+title: Law (in Science)
 term: law (in science)
 applies_to: scientific explanations
 levels:

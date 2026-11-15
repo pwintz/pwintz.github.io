@@ -1,6 +1,6 @@
 ---
 published: false
-title: Maximum likelihood estimator
+title: Maximum Likelihood Estimator
 term: maximum likelihood estimator
 applies_to: statistical models
 synonyms: [MLE, maximum likelihood estimate]

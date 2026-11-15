@@ -1,6 +1,6 @@
 ---
 published: false
-title: Probability distribution
+title: Probability Distribution
 term: probability distribution
 applies_to: random variables
 synonyms: [distribution, law]

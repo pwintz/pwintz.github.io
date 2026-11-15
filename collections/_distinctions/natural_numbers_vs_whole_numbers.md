@@ -1,5 +1,5 @@
 ---
-title: Whole numbers vs. natural numbers
+title: Whole Numbers vs. Natural Numbers
 kind: synonyms
 areas: [numbers]
 summary: >

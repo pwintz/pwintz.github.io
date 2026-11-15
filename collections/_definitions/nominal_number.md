@@ -1,5 +1,5 @@
 ---
-title: Nominal number
+title: Nominal Number
 term: nominal number
 applies_to: numbers
 levels:

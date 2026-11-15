@@ -1,5 +1,5 @@
 ---
-title: Number of permutations
+title: Number of Permutations
 term: number of permutations
 applies_to: counting
 synonyms: ['$P(n, k)$', '${}_n P_k$', falling factorial]

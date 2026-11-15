@@ -1,5 +1,5 @@
 ---
-title: Vector vs. coordinate vector
+title: Vector vs. Coordinate Vector
 kind: siblings
 areas: [linear-algebra]
 summary: >

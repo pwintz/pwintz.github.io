@@ -1,6 +1,6 @@
 ---
 # published: false
-title: Observable system
+title: Observable System
 term: observable
 applies_to: control systems
 levels:

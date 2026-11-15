@@ -1,6 +1,6 @@
 ---
 published: false
-title: Outer semicontinuous set-valued map
+title: Outer Semicontinuous Set-Valued Map
 term: outer semicontinuous
 applies_to: set-valued maps
 levels:

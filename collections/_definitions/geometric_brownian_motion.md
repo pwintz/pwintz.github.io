@@ -1,6 +1,6 @@
 ---
 published: false
-title: Geometric Brownian motion
+title: Geometric Brownian Motion
 term: geometric Brownian motion
 applies_to: random processes
 levels:

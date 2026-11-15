@@ -1,6 +1,6 @@
 ---
 published: false
-title: Cauchy sequence vs. convergent sequence
+title: Cauchy Sequence vs. Convergent Sequence
 kind: hierarchy
 areas: [analysis]
 summary: >

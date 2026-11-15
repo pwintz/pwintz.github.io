@@ -1,6 +1,6 @@
 ---
 published: false
-title: "Dimension: physical quantity vs. vector space vs. number of axes"
+title: "Dimension: Physical Quantity vs. Vector Space vs. Number of Axes"
 kind: conflicting
 areas: [linear-algebra, language, computing]
 summary: >

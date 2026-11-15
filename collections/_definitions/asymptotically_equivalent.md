@@ -1,5 +1,5 @@
 ---
-title: Asymptotically equivalent
+title: Asymptotically Equivalent
 term: asymptotically equivalent
 applies_to: functions
 synonyms: [$f \sim g$]

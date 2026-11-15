@@ -1,6 +1,5 @@
 ---
-published: false
-title: Outcome (probability)
+title: Outcome (Probability)
 term: outcome
 applies_to: random experiments
 synonyms: [elementary outcome, sample point]
@@ -17,4 +16,7 @@ levels:
 properties:
   - >-
     Exactly one outcome occurs each time the experiment is performed.
+  - >- 
+    A collection of possible outcomes is called an [event](/dictionary/definitions/event) 
+
 ---

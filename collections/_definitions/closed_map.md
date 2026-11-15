@@ -1,6 +1,6 @@
 ---
 published: false
-title: Closed map
+title: Closed Map
 term: closed map
 applies_to: functions
 levels:

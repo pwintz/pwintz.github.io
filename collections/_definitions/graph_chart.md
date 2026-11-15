@@ -1,6 +1,6 @@
 ---
 published: false
-title: Graph (chart)
+title: Graph (Chart)
 term: graph (chart)
 applies_to: visualizations
 levels:

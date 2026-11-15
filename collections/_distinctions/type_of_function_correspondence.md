@@ -1,6 +1,6 @@
 ---
 published: false
-title: Injective vs. surjective vs. bijective vs. endomorphism vs. automorphism
+title: Injective vs. Surjective vs. Bijective vs. Endomorphism vs. Automorphism
 kind: family
 areas: [sets]
 summary: >

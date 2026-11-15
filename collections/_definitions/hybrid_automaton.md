@@ -1,6 +1,6 @@
 ---
 published: false
-title: Hybrid automaton
+title: Hybrid Automaton
 term: hybrid automaton
 applies_to: hybrid systems
 levels:

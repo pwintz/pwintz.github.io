@@ -1,6 +1,6 @@
 ---
 published: false
-title: Weak derivative
+title: Weak Derivative
 term: weak derivative
 applies_to: locally integrable functions
 levels:

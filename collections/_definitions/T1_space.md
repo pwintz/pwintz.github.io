@@ -1,5 +1,5 @@
 ---
-title: T1 space
+title: T1 Space
 term: T₁
 applies_to: topological spaces
 synonyms: [Fréchet space (in some texts), accessible space]

@@ -1,5 +1,5 @@
 ---
-title: Binary operation
+title: Binary Operation
 term: binary operation
 applies_to: sets
 levels:

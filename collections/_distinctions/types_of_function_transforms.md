@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of transforms
+title: Types of Transforms
 kind: siblings
 areas: [analysis, control, differential-equations]
 summary: >

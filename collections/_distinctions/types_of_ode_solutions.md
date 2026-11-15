@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of ODE solutions
+title: Types of ODE Solutions
 kind: family
 areas: [differential-equations, dynamics]
 summary: >

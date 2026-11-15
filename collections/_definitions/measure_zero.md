@@ -1,5 +1,5 @@
 ---
-title: Measure zero
+title: Measure Zero
 term: measure zero
 applies_to: sets
 synonyms: [null set, negligible set]

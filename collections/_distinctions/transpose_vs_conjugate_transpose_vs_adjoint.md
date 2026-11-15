@@ -1,6 +1,6 @@
 ---
 published: false
-title: Transpose vs. conjugate transpose vs. adjoint
+title: Transpose vs. Conjugate Transpose vs. Adjoint
 kind: siblings
 areas: [linear-algebra]
 summary: >

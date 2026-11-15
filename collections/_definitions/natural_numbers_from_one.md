@@ -1,5 +1,5 @@
 ---
-title: Natural numbers (starting at 1)
+title: Natural Numbers (Starting at 1)
 term: natural numbers (from 1)
 applies_to: numbers
 synonyms: [positive integers, counting numbers, "$\\nats$", "$\\nats_+$", "$\\mathbb{Z}_{> 0}$"]

@@ -1,5 +1,5 @@
 ---
-title: Vector vs. point
+title: Vector vs. Point
 kind: siblings
 areas: [linear-algebra, geometry]
 summary: >

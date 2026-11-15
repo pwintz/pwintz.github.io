@@ -1,5 +1,5 @@
 ---
-title: Infinite set
+title: Infinite Set
 term: infinite
 applies_to: sets
 synonyms: [infinitely many elements]

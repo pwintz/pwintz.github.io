@@ -1,6 +1,6 @@
 ---
 published: false
-title: Uniform (in a parameter)
+title: Uniform (in a Parameter)
 term: uniform (in a parameter)
 applies_to: properties that depend on a parameter
 levels:

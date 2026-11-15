@@ -1,6 +1,6 @@
 ---
 published: false
-title: Classical solution
+title: Classical Solution
 term: classical solution
 applies_to: differential equations
 levels:

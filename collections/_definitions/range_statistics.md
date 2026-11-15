@@ -1,6 +1,6 @@
 ---
 published: false
-title: Range (statistics)
+title: Range (Statistics)
 term: range (statistics)
 applies_to: data
 levels:

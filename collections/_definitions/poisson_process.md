@@ -1,6 +1,6 @@
 ---
 published: false
-title: Poisson process
+title: Poisson Process
 term: Poisson process
 applies_to: random processes
 levels:

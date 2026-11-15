@@ -1,5 +1,5 @@
 ---
-title: 'Number of permutations vs. binomial coefficient'
+title: 'Number of Permutations vs. Binomial Coefficient'
 kind: siblings
 areas: [statistics, sets]
 summary: |

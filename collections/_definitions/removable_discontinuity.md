@@ -1,6 +1,6 @@
 ---
 published: false
-title: Removable discontinuity
+title: Removable Discontinuity
 term: removable discontinuity
 applies_to: functions
 levels:

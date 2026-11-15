@@ -1,5 +1,5 @@
 ---
-title: Lipschitz continuous vs. continuously differentiable
+title: Lipschitz Continuous vs. Continuously Differentiable
 kind: hierarchy
 areas: [analysis]
 summary: >

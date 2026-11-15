@@ -1,5 +1,5 @@
 ---
-title: State feedback vs. output feedback
+title: State Feedback vs. Output Feedback
 kind: siblings
 areas: [control]
 summary: >

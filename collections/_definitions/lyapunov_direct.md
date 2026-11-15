@@ -1,6 +1,6 @@
 ---
 published: false
-title: "Lyapunov's direct method"
+title: "Lyapunov's Direct Method"
 term: Lyapunov (direct)
 applies_to: nonlinear systems
 synonyms: ["Lyapunov's second method"]

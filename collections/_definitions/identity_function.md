@@ -1,5 +1,5 @@
 ---
-title: Identity function
+title: Identity Function
 term: identity function
 applies_to: sets
 synonyms: [identity map, '$\operatorname{id}_X$']

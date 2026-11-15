@@ -1,5 +1,5 @@
 ---
-title: Total derivative (linear map)
+title: Total Derivative (Linear Map)
 term: total derivative (linear map)
 applies_to: functions of several variables
 synonyms: [differential, Fréchet derivative, $Df(x)$]

@@ -1,6 +1,6 @@
 ---
 published: false
-title: First-order logic
+title: First-Order Logic
 term: first-order logic
 synonyms: [predicate logic, predicate calculus, first-order predicate logic]
 applies_to: logical systems

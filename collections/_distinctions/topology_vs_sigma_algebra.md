@@ -1,5 +1,5 @@
 ---
-title: Topology vs. σ-algebra
+title: Topology vs. σ-Algebra
 kind: siblings
 areas: [topology, analysis, statistics]
 summary: >
@@ -25,7 +25,7 @@ examples:
       The indicator function of $\mathbb{Q}$ shows that a measurable map need not be continuous: a σ-algebra has many more sets than a topology, so measurability is a much weaker condition.
 see_also:
   - interior_vs_exterior_vs_boundary
-  - types_of_sparsity
+  - types_of_set_sparsity
 ---
 ## Notes
 

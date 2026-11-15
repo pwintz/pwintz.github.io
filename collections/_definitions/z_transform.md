@@ -1,5 +1,5 @@
 ---
-title: Z-transform
+title: Z-Transform
 term: Z-transform
 applies_to: sequences
 levels:

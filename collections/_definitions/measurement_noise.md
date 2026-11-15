@@ -1,6 +1,6 @@
 ---
 published: false
-title: Measurement noise
+title: Measurement Noise
 term: measurement noise
 applies_to: control systems
 synonyms: [sensor noise]

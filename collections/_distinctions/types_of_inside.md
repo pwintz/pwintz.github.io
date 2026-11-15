@@ -1,6 +1,6 @@
 ---
 published: false
-title: Element of vs. subset vs. proper subset
+title: Element of vs. Subset vs. Proper Subset
 kind: siblings
 areas: [sets]
 summary: >

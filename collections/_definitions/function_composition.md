@@ -1,6 +1,6 @@
 ---
 published: false
-title: Function composition
+title: Function Composition
 term: composition
 applies_to: functions
 synonyms: [function composition, composite function, '$f \circ g$']

@@ -1,6 +1,6 @@
 ---
 published: false
-title: Forward invariant set
+title: Forward Invariant Set
 term: forward invariant
 applies_to: sets and dynamical systems
 synonyms: [positively invariant]

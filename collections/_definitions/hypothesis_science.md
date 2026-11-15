@@ -1,5 +1,5 @@
 ---
-title: Hypothesis (in science)
+title: Hypothesis (in Science)
 term: hypothesis (in science)
 applies_to: scientific explanations
 levels:

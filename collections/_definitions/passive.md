@@ -1,6 +1,6 @@
 ---
 published: false
-title: Passive system
+title: Passive System
 term: passive
 applies_to: input-output systems
 levels:

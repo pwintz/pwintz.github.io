@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of stability
+title: Types of Stability
 kind: family
 areas: [dynamics, control]
 summary: >

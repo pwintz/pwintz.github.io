@@ -1,6 +1,6 @@
 ---
 published: false
-title: Types of maps
+title: Types of Maps
 kind: family
 areas: [sets, analysis]
 summary: >

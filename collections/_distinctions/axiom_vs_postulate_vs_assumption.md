@@ -1,6 +1,6 @@
 ---
 published: false
-title: Assumption vs. postulate vs. axiom
+title: Assumption vs. Postulate vs. Axiom
 kind: family
 areas: [language]
 summary: >

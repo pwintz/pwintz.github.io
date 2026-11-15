@@ -1,6 +1,6 @@
 ---
 published: false
-title: Even function
+title: Even Function
 term: even function
 applies_to: functions
 levels:

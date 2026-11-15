@@ -1,5 +1,5 @@
 ---
-title: Unscented Kalman filter
+title: Unscented Kalman Filter
 term: unscented Kalman filter
 applies_to: state estimation
 synonyms: [UKF]
