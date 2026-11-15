@@ -7,6 +7,8 @@ tool_categories: [Linear Algebra, Math]
 date_added: 2026-10-20
 ---
 
+{% include practice-styles.html %}
+
 <style>
   .gauss button,
   .gauss select {
@@ -47,6 +49,50 @@ date_added: 2026-10-20
 
   /* Controls: size, augmented, new matrix, and the goal and mode choices. */
   /* The settings, in two sections side by side (stacked on narrow screens). */
+  .gauss .ge-custom { display: flex; flex-direction: column; gap: 0.55rem; margin: 0.6rem 0 0; }
+  .gauss .ge-custom[hidden] { display: none !important; }
+  /* Previous and Next, below the matrix (and in the by-hand section). */
+  .ge-problem-nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.5rem; margin: -0.6rem 0 0.8rem; font-size: 0.9em; }
+  .gauss .ge-problem-nav button:disabled { opacity: 0.45; cursor: not-allowed; }
+  .gauss .ge-level-box { display: flex; flex-direction: column; gap: 0.55rem; }
+  /* Level 5, by hand: the starting matrix, then boxes for the final matrix. */
+  .ge-hand {
+    margin: 0 0 1.2rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 8px;
+    background: rgba(128, 128, 128, 0.04);
+  }
+  .gauss .ge-hand h2 { margin: 0 0 0.4rem; border: none; font-size: 1.05em; }
+  .gauss .ge-hand-intro { margin: 0 0 0.6rem; font-size: 0.92em; }
+  .ge-hand-matrices { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1.4rem; }
+  .gauss .ge-hand-caption { margin: 0 0 0.2rem; font-size: 0.85em; font-weight: bold; color: #5f6368; }
+  .ge-hand-tilde { font-size: 1.3em; color: #5f6368; }
+  .ge-hand-grid {
+    position: relative;
+    display: inline-grid;
+    gap: 0.3rem 0.35rem;
+    align-items: center;
+    padding: 0.3rem 0.55rem;
+  }
+  .ge-hand-grid::before, .ge-hand-grid::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 0.35rem;
+    border: 2px solid currentColor;
+  }
+  .ge-hand-grid::before { left: 0; border-right: none; }
+  .ge-hand-grid::after { right: 0; border-left: none; }
+  .ge-hand-bar { align-self: stretch; border-left: 2px solid currentColor; }
+  .gauss .ge-hand .ge-entry { width: 3.4rem; flex: none; }
+  .gauss .ge-hand .ge-entry.ge-shown { border: 2px solid #f9ab00; background: #fef7e0; }
+  .ge-hand-feedback { margin: 0.6rem 0 0; font-size: 0.92em; }
+  .ge-hand-feedback:empty { display: none; }
+  .gauss .ge-hand-feedback p { margin: 0 0 0.35rem; }
+  .ge-hand-right { color: #188038; font-weight: bold; }
+  .ge-hand-wrong { color: #c5221f; font-weight: bold; }
   .ge-sections { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 0.8rem 0 0; font-size: 0.9em; }
   .ge-section {
     flex: 1 1 18rem;
@@ -392,18 +438,18 @@ date_added: 2026-10-20
       <li>Compute the new rows (the page gives each row operation).</li>
       <li>Choose the row operations and compute the new rows.</li>
       <li>Do both, and also recognize when the matrix is in RREF.</li>
+      <li>Do the whole reduction by hand, and enter only the final matrix.</li>
     </ol>
     <p>
-      Or, under <strong>Practice tasks</strong>, choose what to practice: choosing the row operations,
-      computing the new rows, or both. If you don't choose the operations, the page gives each one,
-      and you compute the new row. With <strong>Recognize when it's in RREF</strong>, the page
-      doesn't tell you whether the matrix is in REF or RREF: say so yourself when you think it is
-      (saying so too early counts as a hint). Rows you compute aren't checked automatically, so a mistake
-      carries forward as it would on paper. To check
-      your work, use <strong>Check</strong> (before applying a step) or <strong>Check all
-      steps</strong>; each counts as a hint. Stuck? <strong>Hint</strong> suggests what to aim for
-      next, and you can then ask for a more specific hint. Your work is saved in this page's
-      address, so you can reload the page or share a link.
+      At Levels 2 to 4, you compute the new rows. At Level 4, the page doesn't tell you whether the
+      matrix is in REF or RREF: say so yourself when you think it is (saying so too early counts as
+      a hint). At Level 5, you row reduce the whole matrix on paper and enter only the matrix you
+      end with; the page checks it, but gives no guidance along the way. If you're stuck, go back
+      to Level 4 with the same matrix. Rows you compute aren't checked automatically, so a mistake carries forward as it
+      would on paper. To check your work, use <strong>Check</strong> (before applying a step) or <strong>Check all steps</strong>; a check that finds a mistake counts as a hint. Stuck? <strong>Hint</strong> suggests what to aim for next, and you can then ask for a more specific hint. Your work is saved in this page's address, so you can reload the page or share a link.
+    </p>
+    <p>
+      The <strong>Practice path</strong> chooses the matrices for you, in stages from easy to hard: small systems to REF first, up to 4 × 5 systems to RREF. After two matrices at a stage with no hints, the page suggests the next stage, and after three at a level, the next level. To pick the size and goal yourself, or to type in your own matrix, choose <strong>Choose problems</strong>. <strong>Your progress</strong>, at the bottom of the page, shows your mastery of each stage and a log of recent matrices.
     </p>
   </details>
   <p class="ge-related">
@@ -411,38 +457,16 @@ date_added: 2026-10-20
     <a href="{{ '/tools/rref_study_tool/' | relative_url }}">REF/RREF Study Tool</a>.
   </p>
 
-  <div class="ge-sections">
-    <section class="ge-section" aria-labelledby="ge-matrix-title">
-      <h2 id="ge-matrix-title" class="ge-section-title">Matrix Selection</h2>
+  <!-- Which matrices: the practice path's stage (controls added by common/practice.ts) or the
+       student's own choices, then the level and tasks. -->
+  <section class="pr-box" aria-labelledby="ge-practice-title">
+    <h2 id="ge-practice-title" class="pr-box-title">Practice</h2>
+    <div id="ge-practice"></div>
+    <div id="ge-custom" class="ge-custom" hidden>
       <div class="ge-section-row">
         <label class="ge-control">Size <select id="ge-size"></select></label>
         <label class="ge-checkbox"><input id="ge-augmented" type="checkbox" checked><span>Augmented</span></label>
-      </div>
-      <div class="ge-section-row">
-        <button id="ge-new" type="button">New matrix</button>
         <button id="ge-own-open" type="button" aria-haspopup="dialog">Enter your own…</button>
-      </div>
-    </section>
-
-    <section class="ge-section" aria-labelledby="ge-practice-title">
-      <h2 id="ge-practice-title" class="ge-section-title">Practice Options</h2>
-      <div class="ge-section-row">
-        <span class="ge-option-label">Level</span>
-        <span class="ge-pills" role="radiogroup" aria-label="Level" aria-describedby="ge-level-note">
-          <label class="ge-pill" title="Choose row operations"><input type="radio" name="ge-level" value="1"><span>1</span></label>
-          <label class="ge-pill" title="Compute row operations"><input type="radio" name="ge-level" value="2"><span>2</span></label>
-          <label class="ge-pill" title="Choose and compute row operations"><input type="radio" name="ge-level" value="3"><span>3</span></label>
-          <label class="ge-pill" title="Choose and compute row operations, and recognize the goal"><input type="radio" name="ge-level" value="4"><span>4</span></label>
-        </span>
-        <span id="ge-level-note" class="ge-level-note"></span>
-      </div>
-      <div class="ge-section-row ge-tasks" role="group" aria-labelledby="ge-tasks-label">
-        <span id="ge-tasks-label" class="ge-option-label">Practice tasks</span>
-        <span class="ge-task-list">
-          <label class="ge-checkbox"><input id="ge-task-choose" type="checkbox" checked><span>Choose row operations</span></label>
-          <label class="ge-checkbox"><input id="ge-task-compute" type="checkbox"><span>Compute row operations</span></label>
-          <label class="ge-checkbox"><input id="ge-task-recognize" type="checkbox"><span id="ge-task-recognize-label">Recognize when it's in RREF</span></label>
-        </span>
       </div>
       <div class="ge-section-row">
         <span class="ge-option-label">Goal</span>
@@ -451,8 +475,19 @@ date_added: 2026-10-20
           <label class="ge-pill"><input type="radio" name="ge-goal" value="RREF" checked><span>RREF</span></label>
         </span>
       </div>
-    </section>
-  </div>
+    </div>
+    <hr class="pr-divider">
+    <div class="pr-levels">
+      <span class="pr-levels-label">Level</span>
+      <span class="pr-level-list" role="radiogroup" aria-label="Level">
+        <label class="pr-level"><input type="radio" name="ge-level" value="1"><span class="pr-pill">Level 1</span><span>Choose the row operations (the page computes the new rows)</span></label>
+        <label class="pr-level"><input type="radio" name="ge-level" value="2"><span class="pr-pill">Level 2</span><span>Compute the new rows (the page gives each row operation)</span></label>
+        <label class="pr-level"><input type="radio" name="ge-level" value="3"><span class="pr-pill">Level 3</span><span>Choose the row operations and compute the new rows</span></label>
+        <label class="pr-level"><input type="radio" name="ge-level" value="4"><span class="pr-pill">Level 4</span><span>Choose and compute the row operations, and recognize when it's in <span class="ge-goal-name">RREF</span></span></label>
+        <label class="pr-level"><input type="radio" name="ge-level" value="5"><span class="pr-pill">Level 5</span><span>Row reduce by hand, then enter only the final matrix</span></label>
+      </span>
+    </div>
+  </section>
 
   <dialog id="ge-own-dialog" class="ge-dialog" aria-labelledby="ge-own-title">
     <form method="dialog" id="ge-own-form">
@@ -469,6 +504,32 @@ date_added: 2026-10-20
       </div>
     </form>
   </dialog>
+
+  {% include by-hand-note.html %}
+
+  <!-- Level 5: the whole reduction on paper. Only the final matrix is entered and checked. -->
+  <section id="ge-hand" class="ge-hand" aria-labelledby="ge-hand-title" hidden>
+    <h2 id="ge-hand-title">Row reduce by hand</h2>
+    <p class="ge-hand-intro">
+      Row reduce this matrix to <span class="ge-goal-name">RREF</span> on paper, then enter the matrix you end with.
+      The page doesn't guide or check the steps along the way.
+    </p>
+    <div class="ge-hand-matrices">
+      <div><p class="ge-hand-caption">Start</p><div id="ge-hand-start"></div></div>
+      <span class="ge-hand-tilde" aria-hidden="true">∼ ⋯ ∼</span>
+      <div><p class="ge-hand-caption">Your <span class="ge-goal-name">RREF</span></p><div id="ge-hand-grid" class="ge-hand-grid"></div></div>
+    </div>
+    <div class="ge-actions">
+      <button id="ge-hand-check" class="ge-primary" type="button" title="A wrong answer counts as a hint">Check</button>
+      <button id="ge-hand-show" type="button" title="Show the answer (counts as a hint)">Show</button>
+      <button id="ge-hand-stuck" type="button">Stuck? Go back to Level 4, one step at a time</button>
+    </div>
+    <div id="ge-hand-feedback" class="ge-hand-feedback" role="status"></div>
+    <div class="ge-problem-nav">
+      <button type="button" data-nav="prev">← Previous matrix</button>
+      <button type="button" class="ge-primary" data-nav="next">Next matrix →</button>
+    </div>
+  </section>
 
   <!-- The steps so far, then the current matrix (sticky) and the form for the next step. -->
   <div class="ge-steps-header">
@@ -487,8 +548,14 @@ date_added: 2026-10-20
       </div>
       <!-- Whether this matrix is in REF or RREF; expands to the conditions. -->
       <div id="ge-status" class="ge-status" role="status" aria-live="polite">
-        <button id="ge-check-all" type="button" title="Mark each row you computed right or wrong (counts as a hint)" hidden>Check all steps</button>
+        <button id="ge-check-all" type="button" title="Mark each row you computed right or wrong (counts as a hint if a row is wrong)" hidden>Check all steps</button>
       </div>
+    </div>
+    <!-- Previous and next matrices (see the script's "Previous and next matrices"): below the
+         current matrix, outside it, so the matrix stuck to the top of the window stays small. -->
+    <div class="ge-problem-nav">
+      <button type="button" data-nav="prev">← Previous matrix</button>
+      <button type="button" class="ge-primary" data-nav="next">Next matrix →</button>
     </div>
 
   <form id="ge-form" class="ge-form" autocomplete="off">
@@ -550,7 +617,7 @@ date_added: 2026-10-20
     <div id="ge-row-entry" class="ge-row-entry" hidden>
       <div id="ge-row-entry-cells" class="ge-row-entry-cells"></div>
       <span class="ge-row-entry-actions">
-        <button id="ge-check-step" type="button" title="Check the new row (counts as a hint)">Check</button>
+        <button id="ge-check-step" type="button" title="Check the new row (a wrong answer counts as a hint)">Check</button>
         <button id="ge-reveal" type="button" title="Show the new row (counts as a hint)">Show</button>
       </span>
     </div>
@@ -578,6 +645,7 @@ date_added: 2026-10-20
     </div>
   </div>
 
+  <section id="ge-progress" aria-label="Your progress"></section>
 </div>
 
 <script>window.REF_STUDY_TOOL_URL = "{{ '/tools/rref_study_tool/' | relative_url }}";</script>

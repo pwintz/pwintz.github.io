@@ -13,11 +13,11 @@
 // When the student doesn't choose, the page gives each step (the standard algorithm's next one).
 // Optionally, the student also has to recognize when the goal is reached: the page doesn't say
 // whether the matrix is in REF or RREF until the student declares it.
-// Four levels set these tasks in order of difficulty (see LEVELS); the checkboxes can also be set
-// directly, and a combination that isn't a level selects no level.
+// Four levels set these tasks in order of difficulty (see LEVELS; each is described on the page). A
+// link whose tasks match no level selects no level.
 // When the student computes the new rows, their rows aren't checked automatically: a mistake carries
 // forward, as on paper. "Check" checks a row before it's applied, "Check all steps" checks the
-// rows so far, and "Show" fills a row in; each counts as a hint. Hints come in two
+// rows so far (each counts as a hint if it finds a mistake), and "Show" fills a row in (a hint). Hints come in two
 // levels: a subgoal, then (on request) a more specific hint.
 //
 // A completed step can be edited: its operation (and entered row) is loaded into the form, and
@@ -36,6 +36,7 @@ import {
   Fraction, add, div, equals, formatFraction, fraction, isOne, isZero, mul, neg, parseEntry, reduce,
 } from "./matrix/fraction";
 import { CONDITIONS, REF_CONDITIONS, analyze, joinAnd } from "./matrix/echelon";
+import { setupPractice } from "./common/practice";
 
 // ⋘──────── Types and constants ────────⋙
 
@@ -55,14 +56,51 @@ const MAX_SIZE  = 8;   // Largest matrix a student can type in
 // Whether to offer "Share result" after finishing (see shareBox). Hidden for now.
 const SHOW_SHARE_BUTTON = false;
 
-// The practice tasks of each level, from easiest to hardest, and what the level asks for.
-interface Tasks { choose: boolean; compute: boolean; recognize: boolean }
-const LEVELS: (Tasks & { note: string })[] = [
-  { choose: true,  compute: false, recognize: false, note: "Choose the row operations; the page computes the new rows." },
-  { choose: false, compute: true,  recognize: false, note: "The page gives each row operation; you compute the new row." },
-  { choose: true,  compute: true,  recognize: false, note: "Choose the row operations and compute the new rows." },
-  { choose: true,  compute: true,  recognize: true,  note: "Choose and compute the row operations, and say when the matrix is in {goal}." },
+// The practice path (see common/practice.ts): stages from easy to hard, each giving random matrices
+// of one size, augmented or not, to reduce to REF or RREF.
+interface Stage { id: string; title: string; note: string; rows: number; cols: number; augmented: boolean; goal: Goal }
+const STAGES: Stage[] = [
+  { id: "2x3-ref", title: "2 × 3 systems to REF", rows: 2, cols: 3, augmented: true, goal: "REF",
+    note: "Two equations in two unknowns: make the entry below the first leading entry 0." },
+  { id: "2x3-rref", title: "2 × 3 systems to RREF", rows: 2, cols: 3, augmented: true, goal: "RREF",
+    note: "Go on to RREF: scale each leading entry to 1 and clear the entries above it too." },
+  { id: "3x4-ref", title: "3 × 4 systems to REF", rows: 3, cols: 4, augmented: true, goal: "REF",
+    note: "Three equations in three unknowns, to REF: work down the columns, one leading entry at a time." },
+  { id: "3x4-rref", title: "3 × 4 systems to RREF", rows: 3, cols: 4, augmented: true, goal: "RREF",
+    note: "Three equations in three unknowns, all the way to RREF." },
+  { id: "3x3-rref", title: "3 × 3 matrices to RREF", rows: 3, cols: 3, augmented: false, goal: "RREF",
+    note: "A matrix that isn't augmented, to RREF. Some have a zero row or a column without a leading entry." },
+  { id: "4x4-rref", title: "4 × 4 matrices to RREF", rows: 4, cols: 4, augmented: false, goal: "RREF",
+    note: "Larger matrices: more steps, so keep track of which column you're working on." },
+  { id: "4x5-rref", title: "4 × 5 systems to RREF", rows: 4, cols: 5, augmented: true, goal: "RREF",
+    note: "The largest systems: four equations in four unknowns, all the way to RREF." },
 ];
+const CLEAN_TO_ADVANCE_STAGE = 2;  // Matrices with no hints before suggesting the next stage
+const CLEAN_TO_ADVANCE_LEVEL = 3;  // Matrices with no hints before suggesting the next level
+
+// The practice tasks of each level, from easiest to hardest (each level is described on the page).
+// At the last level (`hand`), the student row reduces on paper and enters only the final matrix.
+interface Tasks { choose: boolean; compute: boolean; recognize: boolean; hand?: boolean }
+const LEVELS: Tasks[] = [
+  { choose: true,  compute: false, recognize: false },
+  { choose: false, compute: true,  recognize: false },
+  { choose: true,  compute: true,  recognize: false },
+  { choose: true,  compute: true,  recognize: true  },
+  { choose: true,  compute: true,  recognize: true, hand: true },
+];
+const matchesLevel = (l: Tasks, t: Tasks) =>
+  l.choose === t.choose && l.compute === t.compute && l.recognize === t.recognize && (l.hand ?? false) === (t.hand ?? false);
+
+// The matrix that the standard algorithm reduces `m` to: its RREF (which is unique), or a REF.
+export function reduceFully(m: Matrix, goal: Goal): Matrix {
+  let out = m;
+  for (let i = 0; i < 500; i++) {
+    const step = nextStep(out, goal);
+    if (!step) break;
+    out = applyOp(out, step.op);
+  }
+  return out;
+}
 
 // ⋘──────── Row operations ────────⋙
 
@@ -419,12 +457,23 @@ function initPage(): void {
   const ownText      = byId<HTMLTextAreaElement>("ge-own-text");
   const ownError     = byId<HTMLParagraphElement>("ge-own-error");
   const ownDialog    = byId<HTMLDialogElement>("ge-own-dialog");
-  const chooseBox    = byId<HTMLInputElement>("ge-task-choose");
-  const computeBox   = byId<HTMLInputElement>("ge-task-compute");
-  const recognizeBox = byId<HTMLInputElement>("ge-task-recognize");
-  const recognizeLabel = byId<HTMLSpanElement>("ge-task-recognize-label");
   const levelButtons = [...document.querySelectorAll<HTMLInputElement>("input[name=ge-level]")];
-  const levelNote    = byId<HTMLSpanElement>("ge-level-note");
+  // The level (1-based) whose tasks are on, or null for another combination of tasks.
+  const currentLevel = () => {
+    const i = LEVELS.findIndex(l => matchesLevel(l, { choose: chooseOps, compute: computeRows, recognize, hand: byHand }));
+    return i < 0 ? null : i + 1;
+  };
+  const practice = setupPractice({
+    key: "gaussian_elimination",
+    stages: STAGES,
+    cleanToAdvanceStage: CLEAN_TO_ADVANCE_STAGE,
+    levels: { count: LEVELS.length, cleanToAdvance: CLEAN_TO_ADVANCE_LEVEL, current: currentLevel, set: lv => setTasks(LEVELS[lv - 1]) },
+    box: byId<HTMLDivElement>("ge-practice"),
+    customControls: [byId<HTMLDivElement>("ge-custom")],
+    progress: byId<HTMLElement>("ge-progress"),
+    newProblem: () => newRandomMatrix(),
+    stageStyle: "list",
+  });
   const rowEntry     = byId<HTMLDivElement>("ge-row-entry");
   const rowEntryCells = byId<HTMLDivElement>("ge-row-entry-cells");
   const revealButton = byId<HTMLButtonElement>("ge-reveal");
@@ -473,6 +522,8 @@ function initPage(): void {
   // matrix is in REF or RREF until the student declares it is ("It's in RREF"). It needs the
   // student to choose the operations: if the page gave them, running out would give it away.
   let recognize = false;
+  // Level 5: the whole reduction by hand (see the "By hand" section below).
+  let byHand = false;
   let declaredAt = "";      // The state (see workKey) in which the student correctly declared the goal
   let notYetAt = "";        // The state in which the student declared too early, to say "Not yet"
   let hintsUsed = 0;        // For the current matrix
@@ -492,8 +543,11 @@ function initPage(): void {
     if (computeRows) params.set("compute", "1");
     if (!chooseOps) params.set("choose", "0");
     if (recognize) params.set("recognize", "1");
+    if (byHand) params.set("hand", "1");
     if (hintsUsed > 0) params.set("hints", `${hintsUsed}`);
     if (steps.length > 0) params.set("ops", steps.map(encodeStep).join(","));
+    const st = practice.problemStage();
+    if (st !== null) params.set("st", `${st + 1}`);
     // URLSearchParams escapes these, but they're legal in a query and easier to read.
     const query = params.toString().replace(/%2C/g, ",").replace(/%3B/g, ";").replace(/%2F/g, "/").replace(/%3A/g, ":");
     history.replaceState(null, "", `${location.pathname}?${query}`);
@@ -505,6 +559,7 @@ function initPage(): void {
     goal = params.get("goal") === "REF" ? "REF" : "RREF";
     computeRows = params.get("compute") === "1";
     recognize = params.get("recognize") === "1";
+    byHand = params.get("hand") === "1";
     chooseOps = params.get("choose") !== "0" || !computeRows;  // At least one task is on
     if (!chooseOps) recognize = false;
     hintsUsed = Math.max(0, Math.floor(Number(params.get("hints")) || 0));
@@ -621,7 +676,7 @@ function initPage(): void {
     setApplyReady(entriesReady ? null : "Enter every entry of the new row.");
     // "Check" also needs the whole row ("Show" doesn't).
     checkStepButton.disabled = !entriesReady;
-    checkStepButton.title = entriesReady ? "Check the new row (counts as a hint)" : "Enter every entry of the new row to check it.";
+    checkStepButton.title = entriesReady ? "Check the new row (a wrong answer counts as a hint)" : "Enter every entry of the new row to check it.";
     renderCurrent();
     renderNext();
   }
@@ -951,7 +1006,15 @@ function initPage(): void {
     // After finishing with the page doing the arithmetic, suggest computing the rows next time.
     const a = analyze(matrix());
     const finished = editing === null && (a.form === "RREF" || (goal === "REF" && a.form === "REF"));
-    if (finished && !computeRows && steps.length > 0) {
+    const next = finished && steps.length > 0 ? practice.suggestion() : null;
+    if (next) {
+      const suggestion = element("p", "ge-suggestion", `${next.text} `);
+      const button = element("button", "", next.label);
+      button.type = "button";
+      button.addEventListener("click", next.action);
+      suggestion.append(button);
+      status.append(suggestion);
+    } else if (finished && !computeRows && steps.length > 0) {
       const suggestion = element("p", "ge-suggestion", "Ready for more? Try computing each new row yourself. ");
       const button = element("button", "", "New matrix, computing the rows myself");
       button.type = "button";
@@ -1027,7 +1090,8 @@ function initPage(): void {
   function studyToolLink(emphasized: boolean): HTMLAnchorElement {
     const base = (globalThis as { REF_STUDY_TOOL_URL?: string }).REF_STUDY_TOOL_URL ?? "/tools/rref_study_tool/";
     const m = formBase();
-    const query = `m=${m.map(row => row.map(plain).join(",")).join(";")}${augmented ? "" : "&aug=0"}`;
+    // After "Not yet", the link opens the quiz on this matrix, to work through the conditions.
+    const query = `m=${m.map(row => row.map(plain).join(",")).join(";")}${augmented ? "" : "&aug=0"}${emphasized ? "&quiz=1" : ""}`;
     const link = element("a", `ge-study-link${emphasized ? " ge-emphasized" : ""}`,
       // (Non-breaking spaces keep "Tool ↗" together.)
       emphasized ? "Work through the conditions in the REF/RREF Study\u00a0Tool\u00a0↗"
@@ -1105,7 +1169,7 @@ function initPage(): void {
     });
     checkAllButton.hidden = !steps.some(step => step.entered);
     stepsList.replaceChildren(...items);
-    stepsHeader.hidden = steps.length === 0;
+    stepsHeader.hidden = steps.length === 0 || byHand;
     stepCount.textContent = steps.length === 0 ? "" : `(${steps.length})`;
   }
 
@@ -1149,24 +1213,16 @@ function initPage(): void {
 
   function refresh(): void {
     saveToUrl();
+    renderHand();
     if (editing !== null && editing >= steps.length) editing = null;
     undoButton.disabled = restartButton.disabled = steps.length === 0 || editing !== null;
     hintButton.disabled = editing !== null;
     applyButton.textContent = editing === null ? "Apply" : `Update step ${editing + 1}`;
     cancelEditButton.hidden = editing === null;
     for (const radio of goalButtons) radio.checked = radio.value === goal;
-    chooseBox.checked = chooseOps;
-    computeBox.checked = computeRows;
-    // The last task that's on can't be turned off.
-    chooseBox.disabled = chooseOps && !computeRows;
-    recognizeBox.checked = recognize;
-    recognizeBox.disabled = !chooseOps;  // Needs the student to choose the operations
-    recognizeBox.title = chooseOps ? "" : "Needs “Choose row operations”";
-    recognizeLabel.textContent = `Recognize when it's in ${goal}`;
-    computeBox.disabled = computeRows && !chooseOps;
-    const level = LEVELS.findIndex(l => l.choose === chooseOps && l.compute === computeRows && l.recognize === recognize);
+    const level = LEVELS.findIndex(l => matchesLevel(l, { choose: chooseOps, compute: computeRows, recognize, hand: byHand }));
     levelButtons.forEach((radio, n) => { radio.checked = n === level; });
-    levelNote.textContent = level < 0 ? "Custom practice tasks (not one of the levels)." : LEVELS[level].note.replace("{goal}", goal);
+    for (const name of document.querySelectorAll(".ge-goal-name")) name.textContent = goal;
     // When the page chooses the operations, the form shows the next one, locked.
     if (!chooseOps) fillGivenOp();
     for (const control of form.querySelectorAll<HTMLInputElement | HTMLSelectElement>(".ge-kinds input, .ge-fields select, .ge-fields input")) {
@@ -1181,6 +1237,12 @@ function initPage(): void {
     hintButton.hidden = finished || !chooseOps;  // No hints needed when the operation is given
     if (finished) hintBox.hidden = true;
     hintButton.setAttribute("aria-expanded", `${!hintBox.hidden}`);
+    // A finished matrix is recorded in the progress (see common/practice.ts). It's "clean" if no
+    // hints were used (wrong checks count as hints) and every computed row is right.
+    if (editing === null && steps.length > 0 && finished) {
+      const problemKey = [start.map(row => row.map(plain).join(",")).join(";"), augmented ? "aug" : "", goal].join("|");
+      practice.record(problemKey, hintsUsed, cleanFinish() && hintsUsed === 0, true);
+    }
     renderStatus();
     renderSteps();
     updateForm();
@@ -1201,8 +1263,142 @@ function initPage(): void {
     if (op.kind !== "swap") multiplier(op.kind).value = plain(op.c);
   }
 
+  // ⋘──────── By hand (Level 5) ────────⋙
+  // The student row reduces on paper and enters only the final matrix; the steps, form, hints, and
+  // status are hidden. A final matrix is right if it's in the goal's form and has the same RREF as
+  // the starting matrix (so any REF of it is accepted). A wrong check counts as a hint; "Show"
+  // fills in the standard algorithm's answer (also a hint). "Stuck?" goes back to Level 4.
+  const handSection  = byId<HTMLElement>("ge-hand");
+  const handStart    = byId<HTMLDivElement>("ge-hand-start");
+  const handGrid     = byId<HTMLDivElement>("ge-hand-grid");
+  const handCheck    = byId<HTMLButtonElement>("ge-hand-check");
+  const handShow     = byId<HTMLButtonElement>("ge-hand-show");
+  const handFeedback = byId<HTMLDivElement>("ge-hand-feedback");
+  const workBox      = document.querySelector<HTMLDivElement>(".ge-work")!;
+  let handInputs: HTMLInputElement[] = [];
+  let handKey = "";                              // The matrix and goal the boxes are for
+  let handStatus: "" | "right" | "shown" = "";
+
+  const handValues = () => handInputs.map(input => parseEntry(input.value));
+  const handFilled = () => handInputs.every(input => input.value.trim() !== "");
+
+  function renderHand(): void {
+    handSection.hidden = !byHand;
+    workBox.hidden = byHand;
+    stepsList.hidden = byHand;
+    if (byHand) stepsHeader.hidden = true;
+    if (!byHand) return;
+    const key = [start.map(row => row.map(plain).join(",")).join(";"), augmented, goal].join("|");
+    if (key !== handKey) {
+      handKey = key;
+      handStatus = "";
+      handFeedback.replaceChildren();
+      handStart.replaceChildren(matrixElement(start, { augmented }));
+      const cols = start[0].length;
+      handGrid.style.gridTemplateColumns = augmented ? `repeat(${cols - 1}, auto) auto auto` : `repeat(${cols}, auto)`;
+      handInputs = [];
+      const cells: HTMLElement[] = [];
+      start.forEach((row, r) => row.forEach((_, c) => {
+        if (augmented && c === cols - 1) cells.push(element("span", "ge-hand-bar"));
+        const input = element("input", "ge-entry");
+        input.type = "text";
+        input.inputMode = "decimal";
+        input.autocomplete = "off";
+        input.spellcheck = false;
+        input.setAttribute("aria-label", `Final matrix, row ${r + 1}, column ${c + 1}`);
+        input.addEventListener("input", () => {
+          input.classList.remove("ge-right", "ge-wrong", "ge-shown");
+          updateHandButtons();
+        });
+        input.addEventListener("keydown", event => {
+          if (event.key === "Enter" && handFilled()) { event.preventDefault(); checkHand(); }
+        });
+        handInputs.push(input);
+        cells.push(input);
+      }));
+      handGrid.replaceChildren(...cells);
+    }
+    updateHandButtons();
+  }
+
+  function updateHandButtons(): void {
+    handCheck.disabled = !handFilled() || handStatus !== "";
+    handCheck.title = handFilled() ? "A wrong answer counts as a hint" : "Fill in every entry to check your answer";
+    handShow.disabled = handStatus !== "";
+  }
+
+  // Finishing: the result, recorded in the progress, and what to try next.
+  function finishHand(): void {
+    const problemKey = [start.map(row => row.map(plain).join(",")).join(";"), augmented ? "aug" : "", goal].join("|");
+    const clean = handStatus === "right" && hintsUsed === 0;
+    practice.record(problemKey, hintsUsed, clean, true);
+    const next = practice.suggestion();
+    if (next) {
+      const suggestion = element("p", "ge-suggestion", `${next.text} `);
+      const button = element("button", "", next.label);
+      button.type = "button";
+      button.addEventListener("click", next.action);
+      suggestion.append(button);
+      handFeedback.append(suggestion);
+    }
+    const again = element("button", "ge-primary", "Next matrix");
+    again.type = "button";
+    again.addEventListener("click", goNextMatrix);
+    handFeedback.append(again);
+    updateHandButtons();
+  }
+
+  function checkHand(): void {
+    const values = handValues();
+    if (values.some(x => x === null)) {
+      handFeedback.replaceChildren(element("p", "ge-hand-wrong", "Each entry has to be a number, like −3, 0.5, or 1/2."));
+      return;
+    }
+    const cols = start[0].length;
+    const m: Matrix = start.map((_, r) => (values.slice(r * cols, (r + 1) * cols) as Fraction[]).map(reduce));
+    const form = analyze(m).form;
+    const inForm = form === "RREF" || (goal === "REF" && form === "REF");
+    const startRref = reduceFully(start, "RREF");
+    const sameSystem = reduceFully(m, "RREF").every((row, r) => row.every((x, c) => equals(x, startRref[r][c])));
+    if (inForm && sameSystem) {
+      handInputs.forEach(input => input.classList.add("ge-right"));
+      handStatus = "right";
+      handFeedback.replaceChildren(element("p", "ge-hand-right",
+        hintsUsed === 0 ? `Right! That's ${goal === "RREF" ? "the RREF" : "a REF"} of the matrix, with no hints.` : `Right! (Hints used: ${hintsUsed}.)`));
+      finishHand();
+      return;
+    }
+    // Not right: say why, without saying which entries are wrong (one wrong entry usually means a
+    // wrong step). A wrong check counts as a hint (once for each answer checked).
+    countHint("hand check", ...handInputs.map(input => input.value.trim()));
+    const why = !inForm
+      ? `Not quite: this matrix isn't in ${goal} yet. Check the conditions for ${goal}, or keep row reducing.`
+      : `Not quite: this matrix is in ${goal}, but it isn't row equivalent to the starting matrix, so a step went wrong along the way. Check your arithmetic.`;
+    handFeedback.replaceChildren(element("p", "ge-hand-wrong", why),
+      element("p", "", "Stuck? “Go back to Level 4” lets you work one step at a time on the same matrix."));
+  }
+
+  handCheck.addEventListener("click", checkHand);
+  handShow.addEventListener("click", () => {
+    const answer = reduceFully(start, goal);
+    answer.flat().forEach((x, i) => {
+      handInputs[i].value = plain(x);
+      handInputs[i].classList.remove("ge-right", "ge-wrong");
+      handInputs[i].classList.add("ge-shown");
+    });
+    countHint("hand show");
+    handStatus = "shown";
+    handFeedback.replaceChildren(element("p", "", goal === "RREF"
+      ? "This is the RREF of the matrix (it's the same however you row reduce)."
+      : "This is the REF that the standard algorithm gives; other REFs are also right."));
+    finishHand();
+  });
+  // Back to Level 4 with the same matrix, for a student who's stuck.
+  byId("ge-hand-stuck").addEventListener("click", () => setTasks(LEVELS[3]));
+
   // Starts over with a new starting matrix.
   function setStart(m: Matrix, isAugmented: boolean): void {
+    if (seenIndex >= seen.length) seen.push("");  // A new matrix (see rememberNew)
     start = m;
     augmented = isAugmented;
     steps = [];
@@ -1210,13 +1406,68 @@ function initPage(): void {
     editing = null;
     hintsUsed = 0;
     declaredAt = notYetAt = "";
+    handStatus = "";
+    handKey = "";
     augmentedBox.checked = augmented;
     hintBox.hidden = true;
     fillRowSelects();
     refresh();
+    seen[seenIndex] = location.search;
+    updateNav();
+  }
+
+  // ⋘──────── Previous and next matrices ────────⋙
+  // The matrices seen in this visit, as URL queries (which hold the steps and hints too), so
+  // Previous and Next can go back and forth. Next goes forward through them, then to a new matrix.
+  const seen: string[] = [];
+  let seenIndex = -1;
+  const navButtons = [...document.querySelectorAll<HTMLButtonElement>(".ge-problem-nav button")];
+  const updateNav = () => navButtons.forEach(b => { if (b.dataset.nav === "prev") b.disabled = seenIndex <= 0; });
+  // Remembers the current matrix (as it is now) and adds a new one after it.
+  function rememberNew(): void {
+    if (seenIndex >= 0) seen[seenIndex] = location.search;
+    seen.splice(seenIndex + 1);
+    seenIndex = seen.length;
+  }
+  function goTo(index: number): void {
+    seen[seenIndex] = location.search;
+    seenIndex = index;
+    history.replaceState(null, "", `${location.pathname}${seen[index]}`);
+    if (!loadFromUrl()) return;
+    const st = Number(new URLSearchParams(seen[index]).get("st"));
+    practice.setProblemStage(Number.isInteger(st) && st >= 1 && st <= STAGES.length ? st - 1 : null);
+    checkedThrough = 0;
+    editing = null;
+    declaredAt = notYetAt = "";
+    handKey = "";
+    hintBox.hidden = true;
+    augmentedBox.checked = augmented;
+    fillRowSelects();
+    refresh();
+    seen[seenIndex] = location.search;
+    updateNav();
+  }
+  function goNextMatrix(): void {
+    if (seenIndex < seen.length - 1) goTo(seenIndex + 1);
+    else newRandomMatrix();
+  }
+  for (const b of navButtons) {
+    b.addEventListener("click", () => {
+      if (b.dataset.nav === "prev") { if (seenIndex > 0) goTo(seenIndex - 1); }
+      else goNextMatrix();
+    });
   }
 
   function newRandomMatrix(): void {
+    rememberNew();
+    if (practice.mode() === "path") {
+      const st = STAGES[practice.stage()];
+      practice.setProblemStage(practice.stage());
+      goal = st.goal;
+      setStart(randomProblem(st.rows, st.cols, st.augmented), st.augmented);
+      return;
+    }
+    practice.setProblemStage(null);
     const [rows, cols] = sizeSelect.value.split("x").map(Number);
     setStart(randomProblem(rows, cols, augmentedBox.checked), augmentedBox.checked);
   }
@@ -1230,7 +1481,6 @@ function initPage(): void {
   }));
   sizeSelect.value = DEFAULT_SIZE;
 
-  byId("ge-new").addEventListener("click", newRandomMatrix);
   sizeSelect.addEventListener("change", newRandomMatrix);
   // For a typed matrix, the bar only changes how it's drawn; for a random one, it also changes
   // what kind of matrix to make next, so it takes effect right away only by redrawing.
@@ -1257,11 +1507,10 @@ function initPage(): void {
       pickedKind = radio.value;
     }
   });
-  byId("ge-choose-myself").addEventListener("click", () => {
-    chooseBox.checked = true;
-    chooseBox.dispatchEvent(new Event("change"));
-  });
-  function setTasks({ choose, compute, recognize: recognizeGoal }: Tasks): void {
+  // "Choose them myself": from Level 2 (the page gives each operation) to Level 3.
+  byId("ge-choose-myself").addEventListener("click", () => setTasks(LEVELS[2]));
+  function setTasks({ choose, compute, recognize: recognizeGoal, hand }: Tasks): void {
+    byHand = hand ?? false;
     chooseOps = choose || !compute;  // At least one task is on
     computeRows = compute;
     recognize = recognizeGoal && chooseOps;
@@ -1271,11 +1520,7 @@ function initPage(): void {
     for (const k of ["replace", "scale"]) multiplier(k).value = "";
     hintBox.hidden = true;
     refresh();
-  }
-  for (const box of [chooseBox, computeBox, recognizeBox]) {
-    box.addEventListener("change", () => setTasks({
-      choose: chooseBox.checked, compute: computeBox.checked, recognize: recognizeBox.checked,
-    }));
+    practice.levelChanged();
   }
   levelButtons.forEach((radio, n) => radio.addEventListener("change", () => setTasks(LEVELS[n])));
   revealButton.addEventListener("click", () => {
@@ -1395,22 +1640,24 @@ function initPage(): void {
     hintBox.replaceChildren(element("p", "", `Next goal: ${hint.subgoal}`), more);
   });
 
-  // "Check" marks the entered row right or wrong before it's applied; it counts as a hint
+  // "Check" marks the entered row right or wrong before it's applied; a wrong check counts as a hint
   // (once for each set of entries checked).
   checkStepButton.addEventListener("click", () => {
     const op = formOp();
     if (typeof op === "string" || opProblem(op, start.length) || op.kind === "swap") return;
-    countHint("check", ...steps.map(encodeStep), encodeOp(op), ...rowInputs.map(input => input.value.trim()));
     const wrong = checkRowEntry(op).map(c => c + 1);
+    // A wrong check counts as a hint (once for each set of entries checked); a right one doesn't.
+    if (wrong.length > 0) countHint("check", ...steps.map(encodeStep), encodeOp(op), ...rowInputs.map(input => input.value.trim()));
     errorText.classList.toggle("ge-ok", wrong.length === 0);
     errorText.textContent = wrong.length === 0 ? "✓ All the entries are right."
       : wrong.length === 1 ? `Entry ${wrong[0]} is incorrect.`
       : `Entries ${joinAnd(wrong)} are incorrect.`;
   });
 
-  // "Check all steps" marks every computed row so far right or wrong; it also counts as a hint.
+  // "Check all steps" marks every computed row so far right or wrong.
   checkAllButton.addEventListener("click", () => {
-    countHint("check all", ...steps.map(encodeStep));
+    // It counts as a hint only if it finds a wrong row.
+    if (steps.some((step, n) => step.entered !== undefined && !stepIsRight(n))) countHint("check all", ...steps.map(encodeStep));
     checkedThrough = steps.length;
     renderSteps();
     updateForm();
@@ -1423,6 +1670,8 @@ function initPage(): void {
       return;
     }
     ownError.textContent = "";
+    practice.setProblemStage(null);
+    rememberNew();
     setStart(result.m, result.augmented);
     ownDialog.close();
   });
@@ -1435,12 +1684,17 @@ function initPage(): void {
   });
 
   if (loadFromUrl()) {
+    practice.setProblemStage(practice.urlStage);
     augmentedBox.checked = augmented;
     fillRowSelects();
     refresh();
+    seen.push(location.search);
+    seenIndex = 0;
+    updateNav();
   } else {
     newRandomMatrix();
   }
+  practice.render();
 }
 
 if (typeof document !== "undefined") {

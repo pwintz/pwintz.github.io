@@ -1,0 +1,156 @@
+<!-- Styles for the practice path and progress (assets/ts/src/common/practice.ts), shared by the
+     linear algebra practice pages. -->
+<style>
+  /* The settings box that groups the practice path (mode, stage) with the page's level. */
+  .pr-box {
+    position: relative;
+    margin: 0.9rem 0 0.4rem;
+    padding: 1rem 1rem 0.7rem;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 8px;
+    font-size: 0.92em;
+  }
+  .pr-box > .pr-box-title {
+    position: absolute;
+    top: 0;
+    left: 0.8rem;
+    transform: translateY(-50%);
+    margin: 0;
+    padding: 0 0.4rem;
+    border: none;
+    background: #fff;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #5f6368;
+  }
+  .pr-box .pr-divider { margin: 0.6rem 0; border: none; border-top: 1px solid rgba(128, 128, 128, 0.25); }
+
+  /* Level: a vertical list of pill-shaped radio buttons, each followed by what the level asks
+     for. The "Level" label lines up with the first one. */
+  .pr-levels { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1rem; }
+  .pr-levels-label { display: inline-flex; align-items: center; gap: 0.4rem; color: #5f6368; }
+  .pr-level-list { display: inline-flex; flex: 1 1 16rem; min-width: 0; flex-direction: column; gap: 0.3rem; }
+  .pr-levels-label { min-width: 3.2rem; }
+  .pr-row.pr-levels { align-items: baseline; }
+  .pr-box .pr-level { position: relative; display: inline-flex; align-items: baseline; gap: 0.6rem; margin: 0; cursor: pointer; }
+  .pr-box .pr-level input { position: absolute; width: 1px; height: 1px; margin: 0; opacity: 0; }
+  .pr-pill {
+    display: inline-block;
+    flex: none;
+    padding: 0.15rem 0.75rem;
+    border: 1px solid rgba(128, 128, 128, 0.45);
+    border-radius: 999px;
+    background: #fff;
+    white-space: nowrap;
+  }
+  .pr-level:hover .pr-pill { border-color: #1a73e8; }
+  .pr-level input:checked + .pr-pill { background: #1a73e8; border-color: #1a73e8; color: #fff; }
+  .pr-level input:focus-visible + .pr-pill { outline: 2px solid #1a73e8; outline-offset: 2px; }
+  /* A stage in the list, with an "i" button that shows what the stage is about. */
+  .pr-stage-item { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.5rem; }
+  .pr-box .pr-info {
+    flex: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin: 0;
+    padding: 0;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 50%;
+    background: #fff;
+    color: #6b6b6b;
+    font: italic bold 0.75rem/1 Georgia, "Times New Roman", serif;
+    cursor: pointer;
+  }
+  .pr-box .pr-info[aria-expanded="true"] { background: #1a73e8; border-color: #1a73e8; color: #fff; }
+  .pr-box .pr-stage-info { flex-basis: 100%; margin: 0 0 0.3rem; padding-left: 0.6rem; border-left: 3px solid rgba(26, 115, 232, 0.4); font-size: 0.92em; color: #3d4144; }
+  .pr-stage-info[hidden] { display: none !important; }
+  .pr-box .pr-continue { margin: 0; padding: 0.1rem 0.55rem; border: 1px solid #1a73e8; border-radius: 6px; background: #fff; color: #1558d6; font: inherit; font-size: 0.85em; cursor: pointer; }
+  .pr-controls { display: flex; flex-direction: column; gap: 0.45rem; }
+  .pr-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.8rem; }
+  .pr-row[hidden], .pr-note[hidden], .pr-resume[hidden], .pr-suggest[hidden] { display: none !important; }
+  .pr-modes { display: inline-flex; border: 1px solid rgba(128, 128, 128, 0.4); border-radius: 8px; overflow: hidden; }
+  .pr-modes button {
+    margin: 0;
+    padding: 0.35rem 0.9rem;
+    border: none;
+    border-radius: 0;
+    background: #fff;
+    font: inherit;
+    cursor: pointer;
+  }
+  .pr-modes button + button { border-left: 1px solid rgba(128, 128, 128, 0.4); }
+  .pr-modes button[aria-pressed="true"] { background: #1a73e8; color: #fff; }
+  .pr-field { display: inline-flex; align-items: center; gap: 0.4rem; margin: 0; color: #5f6368; }
+  .pr-field select {
+    width: auto;
+    max-width: 100%;
+    margin: 0;
+    padding: 0.3rem 0.5rem;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 6px;
+    background: #fff;
+    color: #202124;
+    font: inherit;
+  }
+  .pr-nav, .pr-resume button, .pr-small, .pr-suggest button {
+    margin: 0;
+    padding: 0.25rem 0.6rem;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 6px;
+    background: #fff;
+    font: inherit;
+    cursor: pointer;
+  }
+  .pr-nav:disabled { opacity: 0.4; cursor: not-allowed; }
+  .pr-navs { display: inline-flex; gap: 0.3rem; }
+  .pr-box .pr-note { margin: 0; font-size: 0.95em; color: #5f6368; }
+  .pr-box .pr-resume { margin: 0; }
+  .pr-resume button { border-color: #1a73e8; color: #1558d6; font-size: 0.95em; }
+
+  /* "Your progress", at the bottom of the page. */
+  .pr-progress { margin: 2rem 0 1rem; padding-top: 0.8rem; border-top: 1px solid rgba(128, 128, 128, 0.3); }
+  .pr-progress-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.4rem 1rem; }
+  .pr-progress h2 { margin: 0; border: none; font-size: 1.15em; }
+  .pr-progress h3 { margin: 1rem 0 0; font-size: 0.95em; color: #5f6368; }
+  .pr-small { font-size: 0.85em; }
+  .pr-scroll { overflow-x: auto; }
+  .pr-progress table.pr-table { display: table; width: auto; margin: 0.5rem 0 0; border-collapse: collapse; font-size: 0.9em; }
+  .pr-progress .pr-table th,
+  .pr-progress .pr-table td { padding: 0.3rem 0.9rem 0.3rem 0; border: none; border-bottom: 1px solid rgba(128, 128, 128, 0.2); background: none; text-align: left; }
+  .pr-progress .pr-table thead th { font-size: 0.9em; color: #5f6368; }
+  .pr-current td:first-child { font-weight: bold; }
+  .pr-clean { color: #188038; font-weight: bold; }
+  .pr-summary { margin: 0.4rem 0 0; font-size: 0.92em; }
+  /* Mastery of a stage: not tried, finished with hints, no hints with help, mastered. */
+  .pr-mastery { display: inline-block; padding: 0.05rem 0.5rem; border-radius: 999px; font-size: 0.92em; white-space: nowrap; }
+  .pr-mastery-0 { color: #5f6368; }
+  .pr-mastery-1 { background: #fef7e0; color: #6d4c00; }
+  .pr-mastery-2 { background: rgba(26, 115, 232, 0.1); color: #1558d6; }
+  .pr-mastery-3 { background: rgba(24, 128, 56, 0.12); color: #137333; font-weight: bold; }
+  .pr-empty { margin: 0.5rem 0 0; font-size: 0.9em; color: #5f6368; }
+  .pr-suggest {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 0.8rem;
+    margin: 0.8rem 0 0;
+    padding: 0.4rem 0.7rem;
+    border-left: 4px solid #188038;
+    border-radius: 6px;
+    background: rgba(24, 128, 56, 0.08);
+    font-size: 0.9em;
+  }
+
+  /* The warning above the work: these calculations are for paper. */
+  .pr-by-hand {
+    margin: 0 0 0.9rem;
+    padding: 0.55rem 0.8rem;
+    border: 1px solid #c5221f;
+    border-left-width: 5px;
+    border-radius: 6px;
+    background: rgba(197, 34, 31, 0.07);
+    font-size: 0.92em;
+  }
+  .pr-by-hand strong { color: #c5221f; }
+</style>

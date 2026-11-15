@@ -39,6 +39,7 @@
 // (by clicking row labels), and these marks are graded along with the answers. If the matrix is
 // in REF, a second part then asks for the rank, nullity, and number of solutions.
 
+import { setupPractice } from "./common/practice";
 import { Fraction, formatFraction, parseEntry } from "./matrix/fraction";
 import {
   Analysis, CONDITIONS, Cell, Form, REF_CONDITIONS, ambiguityNote, analyze, joinAnd, systemInfo,
@@ -76,6 +77,21 @@ const FORM_CHOICES: [Form, string][] = [["neither", "Neither"], ["REF", "REF, bu
 
 const MIN_SIZE = 1;
 const MAX_SIZE = 8;
+// The quiz's practice path (see common/practice.ts): stages from small matrices to large augmented
+// ones, where part 2 also asks how many solutions the system has. Sizes are [min, max].
+interface QuizStage { id: string; title: string; note: string; rows: [number, number]; cols: [number, number]; augmented: boolean }
+const QUIZ_STAGES: QuizStage[] = [
+  { id: "small", title: "Small matrices", rows: [2, 2], cols: [2, 3], augmented: false,
+    note: "Decide whether each matrix is in REF, RREF, or neither, and why." },
+  { id: "medium", title: "3 × 3 and 3 × 4 matrices", rows: [3, 3], cols: [3, 4], augmented: false,
+    note: "More rows: watch for zero rows and for leading entries that don't move to the right." },
+  { id: "augmented", title: "Augmented matrices", rows: [2, 3], cols: [3, 4], augmented: true,
+    note: "The last column holds the constants. For a matrix in REF, part 2 asks how many solutions the system has." },
+  { id: "larger", title: "Larger augmented matrices", rows: [3, 5], cols: [4, 6], augmented: true,
+    note: "Larger systems: find the rank, the nullity, and the number of solutions from the leading entries." },
+];
+const CLEAN_TO_ADVANCE_STAGE = 2;  // Matrices with no mistakes before suggesting the next stage
+
 // Sizes of new quiz matrices: rows and columns (including the constants column).
 const QUIZ_ROWS: [number, number] = [2, 4];
 const QUIZ_COLS: [number, number] = [3, 5];
@@ -254,7 +270,9 @@ const clampSize = (n: number) => Math.min(MAX_SIZE, Math.max(MIN_SIZE, n));
 // page; this does nothing if it hasn't loaded).
 function typeset(el: Element): void {
   const mathJax = (globalThis as { MathJax?: { typesetPromise?: (els: Element[]) => Promise<void> } }).MathJax;
-  mathJax?.typesetPromise?.([el]).catch(() => { /* Leave the TeX source showing */ });
+  mathJax?.typesetPromise?.([el])
+    .then(() => el.querySelectorAll<HTMLElement>("mjx-container[tabindex]").forEach(m => { m.tabIndex = -1; }))
+    .catch(() => { /* Leave the TeX source showing */ });
 }
 
 // ⋘──────── Grading the quiz marks ────────⋙
@@ -315,6 +333,28 @@ function initPage(): void {
   const quizPart2     = byId<HTMLDivElement>("mx-quiz-part2");
   const quizList2     = byId<HTMLOListElement>("mx-quiz-list2");
   const quizCheck2    = byId<HTMLButtonElement>("mx-quiz-check2");
+  const quizReady2    = byId<HTMLSpanElement>("mx-quiz-ready2");
+  const quizSuggest   = byId<HTMLParagraphElement>("mx-quiz-suggest");
+  const sizeControls  = byId<HTMLDivElement>("mx-controls");
+  const practiceBox   = byId<HTMLElement>("mx-practice-box");
+  const progressBox   = byId<HTMLElement>("mx-progress");
+  // In quiz mode, matrices come from the practice path's stage, or from the size controls.
+  const practice = setupPractice({
+    key: "rref_quiz",
+    stages: QUIZ_STAGES,
+    cleanToAdvanceStage: CLEAN_TO_ADVANCE_STAGE,
+    hintWords: ["mistake", "mistakes"],
+    box: byId<HTMLDivElement>("mx-practice"),
+    customControls: [],
+    progress: progressBox,
+    newProblem: () => newQuizMatrix(),
+    helpText: "The practice path is a series of stages, from small matrices to large augmented ones. Each gives a new random matrix each time. After two matrices at a stage with no mistakes, the page suggests the next stage. To choose the size yourself, choose “Choose problems”.",
+  });
+  // The practice box and progress appear only in quiz mode; the size controls, except on the path.
+  function showPracticeControls(): void {
+    practiceBox.hidden = progressBox.hidden = mode !== "quiz";
+    sizeControls.hidden = mode === "quiz" && practice.mode() === "path";
+  }
 
   // Entries are kept for the full maximum size, so shrinking and regrowing the matrix keeps them.
   const entries: string[][] = Array.from({ length: MAX_SIZE }, () => new Array<string>(MAX_SIZE).fill(""));
@@ -345,8 +385,17 @@ function initPage(): void {
     const m = params.get("m");
     setMatrix(m ? m.split(";").map(row => row.split(",")) : DEFAULT_MATRIX);
     augmentedBox.checked = params.get("aug") !== "0";
-    // A quiz link without a matrix starts with a random one.
-    if (params.get("quiz") === "1") setMode("quiz", !m);
+    // The page opens in quiz mode, unless a link gives a matrix to explore (a matrix without
+    // &quiz=1, as from Gaussian Elimination Practice). A quiz without a matrix starts with a
+    // random one.
+    if (params.get("quiz") === "1" || !m) {
+      if (m) practice.setProblemStage(practice.urlStage);
+      setMode("quiz", !m);
+    } else {
+      // Explore mode (the page's HTML marks Quiz as pressed, since it's the default).
+      modeCheck.setAttribute("aria-pressed", "true");
+      modeQuiz.setAttribute("aria-pressed", "false");
+    }
   }
 
   function saveToUrl(): void {
@@ -354,6 +403,8 @@ function initPage(): void {
     params.set("m", entries.slice(0, rows).map(row => row.slice(0, cols).join(",")).join(";"));
     if (augmentedBox.checked) params.delete("aug"); else params.set("aug", "0");
     if (mode === "quiz") params.set("quiz", "1"); else params.delete("quiz");
+    const st = mode === "quiz" ? practice.problemStage() : null;
+    if (st !== null) params.set("st", `${st + 1}`); else params.delete("st");
     // URLSearchParams escapes "," and ";", but they're legal in a query and easier to read.
     const query = params.toString().replace(/%2C/g, ",").replace(/%3B/g, ";").replace(/%2F/g, "/");
     history.replaceState(null, "", `${location.pathname}?${query}`);
@@ -873,7 +924,8 @@ function initPage(): void {
   }
 
   // Marks each answer right or wrong and locks it.
-  function grade(questions: Question[], a: Analysis): void {
+  function grade(questions: Question[], a: Analysis): { wrong: number; skipped: number } {
+    let wrong = 0, skipped = 0;
     for (const q of questions) {
       const key = q.key(a);
       const answer = q.answer();
@@ -882,6 +934,8 @@ function initPage(): void {
       const right = answer !== undefined && accepted.includes(answer);
       const result: Result = answer === undefined ? "skipped" : right ? "right" : "wrong";
       q.item.classList.add(`mx-q-${result}`);
+      if (result === "wrong") wrong++;
+      if (result === "skipped") skipped++;
       const mark = q.item.querySelector(".mx-quiz-mark")!;
       const reason = q.describe ? ` ${q.describe(key)}` : "";
       mark.innerHTML = ambiguity ? `${right ? "✓ Correct. " : ""}${ambiguity.note}`
@@ -890,6 +944,24 @@ function initPage(): void {
         : `✗ Incorrect. The correct answer is ${q.label(key)}.${reason}`;
       if (!right) typeset(mark);
       q.lock(accepted, result);
+    }
+    return { wrong, skipped };
+  }
+
+  // ⋘──────── Recording a finished matrix ────────⋙
+  // A matrix is finished once part 1 is checked (if it's in neither form) or part 2 is. Each wrong
+  // answer counts as a mistake; it's "clean" with no mistakes and every part 2 question answered.
+  let part1Wrong = 0;
+  function finishQuiz(wrong: number, cleanExtra = true): void {
+    const key = [entries.slice(0, rows).map(row => row.slice(0, cols).join(",")).join(";"), augmentedBox.checked ? "aug" : ""].join("|");
+    practice.record(key, wrong, wrong === 0 && cleanExtra, true);
+    const next = practice.suggestion();
+    quizSuggest.hidden = next === null;
+    if (next) {
+      const button = element("button", "", next.label);
+      button.type = "button";
+      button.addEventListener("click", next.action);
+      quizSuggest.replaceChildren(element("span", "", next.text), button);
     }
   }
 
@@ -961,7 +1033,16 @@ function initPage(): void {
         "mx-quiz-form"));
     }
     quizCheck2.hidden = false;
+    updateQuizCheck2();
   }
+  function updateQuizCheck2(): void {
+    const ready = part2.every(q => q.answer() !== undefined);
+    quizCheck2.disabled = !ready;
+    quizCheck2.title = ready ? "" : "Answer every question in part 2 first";
+    quizReady2.hidden = ready || quizCheck2.hidden;
+  }
+  quizList2.addEventListener("click", updateQuizCheck2);
+  quizList2.addEventListener("input", updateQuizCheck2);
 
   // Clears the answers and hides the explanations, e.g., for a new matrix.
   function resetQuiz(): void {
@@ -975,6 +1056,7 @@ function initPage(): void {
     quizList2.replaceChildren();
     quizPart2.hidden = true;
     quizScore.textContent = "";
+    quizSuggest.hidden = true;
     quizMarks.replaceChildren();
     markedLeading.clear();
     markedZero.clear();
@@ -985,7 +1067,7 @@ function initPage(): void {
 
   function checkQuiz(): void {
     if (!analysis || quizChecked) return;
-    grade(part1, analysis);
+    part1Wrong = grade(part1, analysis).wrong;
     // If the form is wrong, highlight the skipped conditions that show the right form.
     const pickedForm = part1[CONDITIONS.length].answer() as Form | undefined;
     if (pickedForm && pickedForm !== analysis.form) {
@@ -1007,6 +1089,7 @@ function initPage(): void {
     if (analysis.form === "neither") {
       quizNext.classList.add("mx-primary");
       quizNext.focus({ preventScroll: true });
+      finishQuiz(part1Wrong);
     } else {
       buildPart2();
       quizPart2.hidden = false;
@@ -1017,9 +1100,11 @@ function initPage(): void {
 
   function checkPart2(): void {
     if (!analysis || part2Checked) return;
-    grade(part2, analysis);
+    const result = grade(part2, analysis);
+    finishQuiz(part1Wrong + result.wrong, result.skipped === 0);
     part2Checked = true;
     quizCheck2.hidden = true;
+    quizReady2.hidden = true;
     quizNext.classList.add("mx-primary");
     update();
     quizNext.focus({ preventScroll: true });
@@ -1038,6 +1123,7 @@ function initPage(): void {
     zero     : number[];
     checked  : boolean;
     checked2 : boolean;
+    stage    : number | null;  // Its practice-path stage, if any
   }
   let quizHistory: QuizState[] = [];
   let historyIndex = -1;  // The current matrix's place in the history
@@ -1051,10 +1137,12 @@ function initPage(): void {
       zero    : [...markedZero],
       checked : quizChecked,
       checked2: part2Checked,
+      stage   : practice.problemStage(),
     };
   }
 
   function restoreState(state: QuizState): void {
+    practice.setProblemStage(state.stage);
     setMatrix(state.matrix);
     resetQuiz();
     state.leading.forEach(key => markedLeading.add(key));
@@ -1101,14 +1189,30 @@ function initPage(): void {
   // after the current matrix in the history, replacing any matrices after it.
   function newQuizMatrix(randomSize = true): void {
     if (historyIndex >= 0) quizHistory[historyIndex] = currentState();
-    const [r, c] = randomSize ? [randomInt(...QUIZ_ROWS), randomInt(...QUIZ_COLS)] : [rows, cols];
-    setMatrix(randomMatrix(r, c).map(row => row.map(String)));
+    setMatrix(randomQuizMatrix(randomSize));
     resetQuiz();
     rebuild();
     quizHistory = quizHistory.slice(0, historyIndex + 1);
     quizHistory.push(currentState());
     historyIndex = quizHistory.length - 1;
     updateHistoryButtons();
+  }
+
+  // A random matrix for the quiz: from the practice path's stage (which also sets whether it's
+  // augmented), or of a random size (or the current size, if the student just chose it).
+  function randomQuizMatrix(randomSize = true): string[][] {
+    let r: number, c: number;
+    if (practice.mode() === "path") {
+      const st = QUIZ_STAGES[practice.stage()];
+      practice.setProblemStage(practice.stage());
+      augmentedBox.checked = st.augmented;
+      [r, c] = [randomInt(...st.rows), randomInt(...st.cols)];
+    } else {
+      practice.setProblemStage(null);
+      [r, c] = randomSize ? [randomInt(...QUIZ_ROWS), randomInt(...QUIZ_COLS)] : [rows, cols];
+    }
+    showPracticeControls();
+    return randomMatrix(r, c).map(row => row.map(String));
   }
 
   // Switches between checking the student's own matrix and quizzing them on random ones. A new
@@ -1120,9 +1224,10 @@ function initPage(): void {
     quizPanel.hidden = mode !== "quiz";
     checkButtons.hidden = mode === "quiz";
     quizNav.hidden = mode !== "quiz";
+    showPracticeControls();
     resetQuiz();
     if (mode === "quiz" && fresh) {
-      setMatrix(randomMatrix(randomInt(...QUIZ_ROWS), randomInt(...QUIZ_COLS)).map(row => row.map(String)));
+      setMatrix(randomQuizMatrix());
     }
     rebuild();
     startHistory();
@@ -1180,6 +1285,8 @@ function initPage(): void {
 
   loadFromUrl();
   rebuild();
+  showPracticeControls();
+  practice.render();
 }
 
 if (typeof document !== "undefined") {

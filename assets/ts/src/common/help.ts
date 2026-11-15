@@ -5,7 +5,8 @@
 
 // Each label with a `data-help` explanation (inside the element with the class `prefix`) gets a
 // "?" button after it that shows the explanation in a popup (the element "<prefix>-help-popup")
-// below the button.
+// below the button. An explanation that needs formatting (such as a list) can instead be written
+// in a <template>, with `data-help="#template-id"` on the label.
 
 export function setupHelp(prefix: string): void {
   const helpPopup = document.getElementById(`${prefix}-help-popup`) as HTMLDivElement;
@@ -21,7 +22,9 @@ export function setupHelp(prefix: string): void {
     closeHelp();
     openHelp = button;
     button.setAttribute("aria-expanded", "true");
-    helpPopup.textContent = text;
+    const template = text.startsWith("#") ? document.querySelector<HTMLTemplateElement>(`template${text}`) : null;
+    if (template) helpPopup.replaceChildren(template.content.cloneNode(true));
+    else helpPopup.textContent = text;
     helpPopup.hidden = false;
     // Below the button, kept within the window.
     const r = button.getBoundingClientRect();

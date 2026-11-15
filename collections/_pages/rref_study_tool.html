@@ -7,6 +7,8 @@ tool_categories: [Linear Algebra, Math]
 date_added: 2026-10-20
 ---
 
+{% include practice-styles.html %}
+
 <style>
   .echelon-form button {
     font: inherit;
@@ -283,7 +285,7 @@ date_added: 2026-10-20
 
   .echelon-form [hidden] { display: none !important; }
 
-  /* Mode tabs: "Checker | Quiz". */
+  /* Mode tabs: "Quiz | Explore". */
   .mx-modes {
     display: inline-flex;
     margin: 0.4rem 0 0;
@@ -405,6 +407,9 @@ date_added: 2026-10-20
     <p>
       To practice, switch to <strong>Quiz</strong>: the page shows a random matrix, and you decide
       which conditions it satisfies and which form it's in, then check your answers.
+      The quiz's <strong>Practice path</strong> goes in stages from small matrices to large augmented ones; after two matrices at a stage with no mistakes, the page suggests the next stage.
+      To choose the size yourself, choose <strong>Choose problems</strong>.
+      <strong>Your progress</strong>, at the bottom of the page, shows your mastery of each stage and a log of recent matrices.
     </p>
     <p>
       Entries can be integers, decimals, or fractions such as <code>-2</code>, <code>0.5</code>, or
@@ -418,11 +423,18 @@ date_added: 2026-10-20
   </p>
 
   <div class="mx-modes" role="group" aria-label="Mode">
-    <button id="mx-mode-check" type="button" aria-pressed="true">Explore</button>
-    <button id="mx-mode-quiz" type="button" aria-pressed="false">Quiz</button>
+    <button id="mx-mode-quiz" type="button" aria-pressed="true">Quiz</button>
+    <button id="mx-mode-check" type="button" aria-pressed="false">Explore</button>
   </div>
 
-  <div class="mx-controls">
+  <!-- In quiz mode: the practice path's stage (controls added by common/practice.ts), or the
+       student's own choice of size (the controls below). -->
+  <section id="mx-practice-box" class="pr-box" aria-labelledby="mx-practice-title" hidden>
+    <h2 id="mx-practice-title" class="pr-box-title">Practice</h2>
+    <div id="mx-practice"></div>
+  </section>
+
+  <div id="mx-controls" class="mx-controls">
     <span class="mx-stepper">
       Rows
       <button id="mx-rows-minus" type="button" aria-label="Remove a row">−</button>
@@ -498,8 +510,11 @@ date_added: 2026-10-20
       <ol id="mx-quiz-list2" class="mx-quiz-list"></ol>
       <div class="mx-quiz-actions">
         <button id="mx-quiz-check2" class="mx-primary" type="button">Check part 2</button>
+        <span id="mx-quiz-ready2" class="mx-quiz-ready">Answer every question in part 2 to check it.</span>
       </div>
     </div>
+    <!-- After finishing a matrix: the next stage of the practice path, when this one is mastered. -->
+    <p id="mx-quiz-suggest" class="pr-suggest" hidden></p>
   </section>
 
   <div id="mx-results">
@@ -508,6 +523,8 @@ date_added: 2026-10-20
     <div id="mx-conditions" class="mx-conditions"></div>
     <div id="mx-system" class="mx-system mx-conditions"></div>
   </div>
+
+  <section id="mx-progress" aria-label="Your progress" hidden></section>
 </div>
 
 <script src="/assets/ts/out/echelon_form.js" type="module"></script>

@@ -1,0 +1,467 @@
+---
+layout: single
+permalink: /tools/matrix_of_linear_map/
+title: Matrix of a Linear Map Practice
+excerpt: "Practice finding the matrix of a linear map relative to bases, step by step: apply the map to each basis vector, find coordinates, and assemble the matrix. Includes maps on ℝⁿ and on polynomials, with hints and checks."
+tool_categories: [Linear Algebra, Math]
+full_width: true
+date_added: 2026-11-13
+---
+
+{% include practice-styles.html %}
+
+<style>
+  .mm button,
+  .mm select {
+    font: inherit;
+    width: auto;
+    margin: 0;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+  }
+  .mm button:hover { background: rgba(128, 128, 128, 0.1); }
+  /* The theme adds bottom margins to inputs and labels, which pushes them off-center in a row. */
+  .mm input,
+  .mm label { margin: 0; }
+  .mm [hidden] { display: none !important; }
+  .mm .mm-primary { background: #1a73e8; border-color: #1a73e8; color: #fff; }
+  .mm .mm-primary:hover { background: #1765cc; }
+
+  .mm-instructions { margin: 0 0 0.6rem; }
+  .mm-instructions summary { cursor: pointer; font-weight: bold; font-size: 0.95em; }
+  .mm-instructions[open] summary { margin-bottom: 0.4rem; }
+  .mm .mm-related { margin: 0 0 0.8rem; font-size: 0.85em; color: #5f6368; }
+
+  /* Pinnable panels (see common/panels.ts): the settings and the problem. */
+  .mm-panel { position: relative; padding: 0.4rem 2.4rem 0.4rem 0; margin-bottom: 0.6rem; background: #fff; }
+  .mm-panel.mm-pinned { position: sticky; z-index: 10; border-bottom: 1px solid rgba(128, 128, 128, 0.35); }
+  .mm .mm-pin {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.35rem;
+    width: auto;
+    padding: 0.25rem;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: #8a919c;
+    line-height: 0;
+    opacity: 0.6;
+  }
+  .mm .mm-pin:hover { background: rgba(128, 128, 128, 0.1); opacity: 1; }
+  .mm .mm-pin svg { width: 18px; height: 18px; transform: rotate(45deg); transition: transform 150ms; }
+  .mm .mm-pinned .mm-pin { color: #1a73e8; opacity: 1; }
+  .mm .mm-pinned .mm-pin svg { transform: none; }
+  /* A pinned problem is kept short, so the steps stay in view. */
+  .mm-problem.mm-pinned .mm-statement { max-height: 40vh; overflow-y: auto; }
+
+  /* The menus for choosing problems, and the New problem button, inside the Practice box. */
+  .mm-custom { margin: 0.5rem 0 0; }
+  /* Previous and Next, just below the problem (outside it, so a pinned problem stays small). */
+  .mm-problem-nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.5rem; margin: 0 0 0.4rem; }
+  .mm .mm-problem-nav button:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  /* Settings: a toolbar of menus (left) and actions (right), then the steps to practice. */
+  .mm-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem 1.5rem;
+    padding-bottom: 0.6rem;
+    margin-bottom: 0.6rem;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.25);
+  }
+  .mm-toolbar-group { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.1rem; }
+  /* Labels sit beside their menus rather than above them. */
+  .mm .mm-field { display: flex; align-items: center; gap: 0.4rem; font-size: 0.9em; color: #5f6368; }
+  .mm .mm-field select { color: #202124; }
+  .mm .mm-help {
+    width: 1.25rem;
+    height: 1.25rem;
+    padding: 0;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: bold;
+    line-height: 1;
+    color: #6b6b6b;
+    flex: none;
+  }
+  .mm .mm-help[aria-expanded="true"] { background: #1a73e8; border-color: #1a73e8; color: #fff; }
+  .mm-help-popup {
+    position: absolute;
+    z-index: 30;
+    max-width: min(22rem, calc(100vw - 16px));
+    padding: 0.6rem 0.8rem;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+    font-size: 0.85em;
+    line-height: 1.45;
+  }
+  .mm-help-popup p { margin: 0 0 0.4rem; }
+  .mm-help-popup p:last-child { margin: 0; }
+  .mm-help-popup ul { margin: 0 0 0.4rem; padding-left: 1.2rem; }
+  .mm-help-popup li { margin: 0 0 0.25rem; }
+
+  /* The problem, in a box with its label on the top border. When pinned, the statement scrolls
+     inside the box, so the label stays in view. */
+  .mm-problem-box {
+    flex: 1 1 24rem;
+    min-width: 0;
+    position: relative;
+    margin: 0.9rem 0 0.2rem;
+    padding: 1.1rem 1.2rem 0.6rem;
+    border: 1px solid rgba(128, 128, 128, 0.45);
+    border-radius: 8px;
+  }
+  .mm .mm-problem-title {
+    position: absolute;
+    top: 0;
+    left: 0.9rem;
+    transform: translateY(-50%);
+    margin: 0;
+    padding: 0 0.4rem;
+    border: none;
+    background: #fff;
+    font-size: 1.05em;
+  }
+  @media (max-width: 600px) {
+    .mm-problem-box { padding: 1rem 0.6rem 0.5rem; }
+  }
+  /* The parts of the problem: (a), (b). */
+  .mm .mm-parts { margin: 0.2rem 0 0.5rem; padding-left: 2.2rem; list-style: none; counter-reset: mm-part; }
+  .mm .mm-parts li { position: relative; margin: 0 0 0.35rem; counter-increment: mm-part; }
+  .mm .mm-parts li::before { content: "(" counter(mm-part, lower-alpha) ")"; position: absolute; left: -2rem; }
+  .mm-problem-body { display: flex; }
+  .mm-statement { overflow-x: auto; overflow-y: hidden; }
+  .mm-statement p { margin: 0 0 0.5rem; }
+
+  /* The picture of the bases (ℝ² → ℝ² only), near the end, beside an explanation. */
+  .mm-picture { margin: 2rem 0 0; padding-top: 0.8rem; border-top: 1px solid rgba(128, 128, 128, 0.3); }
+  .mm .mm-picture h2 { margin: 0 0 0.6rem; border: none; font-size: 1.15em; }
+  .mm-picture-body { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 1rem 2rem; }
+  .mm-picture-text { flex: 1 1 22rem; min-width: 0; overflow-x: auto; overflow-y: hidden; }
+  .mm-picture-text p { margin: 0 0 0.6rem; }
+  .mm-figure { flex: 0 1 20rem; margin: 0; }
+  /* The theme lays figures out as flex rows with serif captions; centered titles go above. */
+  .mm .mm-figure { display: block; }
+  .mm .mm-figure figcaption { margin: 0 0 0.25rem; text-align: center; font-family: inherit; font-size: 0.85em; font-weight: bold; color: #5f6368; }
+  .mm-figure svg { display: block; width: 100%; height: auto; border: 1px solid rgba(128, 128, 128, 0.35); border-radius: 6px; background: #fff; }
+  .mm .mm-figure-note { margin: 0.25rem 0 0; font-size: 0.8rem; line-height: 1.35; color: #5f6368; text-align: center; }
+
+  /* The steps: one card each. */
+  .mm-progress { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.4rem 1rem; margin: 1rem 0 0.4rem; }
+  .mm .mm-progress h2 { margin: 0; border: none; font-size: 1.15em; }
+  .mm-hint-count { font-size: 0.85em; color: #5f6368; }
+  .mm .mm-part-heading { margin: 1.2rem 0 0.6rem; font-size: 1.05em; }
+  .mm-step {
+    margin: 0 0 1rem;
+    padding: 0.8rem 1rem;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-left-width: 4px;
+    border-radius: 8px;
+    background: rgba(128, 128, 128, 0.04);
+  }
+  .mm-step.mm-step-right { border-left-color: #188038; }
+  .mm-step.mm-step-shown { border-left-color: #f9ab00; }
+  .mm-step.mm-step-given { background: transparent; border-style: dashed; border-left-style: solid; }
+  /* A step waiting on an earlier one: its boxes and buttons fade, and a note says which step. */
+  .mm-step-locked .mm-entries,
+  .mm-step-locked .mm-step-actions { opacity: 0.45; }
+  /* Check, before every box in the step is filled in. */
+  .mm .mm-step-actions .mm-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+  .mm .mm-step-actions .mm-primary:disabled:hover { background: #1a73e8; }
+  .mm .mm-step-locked button:disabled { cursor: not-allowed; }
+  .mm .mm-step-locked button:disabled:hover { background: #fff; }
+  .mm .mm-step-locked .mm-primary:disabled:hover { background: #1a73e8; }
+  .mm-step-locked .mm-entry { background: rgba(128, 128, 128, 0.08); }
+  .mm .mm-lock-note { margin: 0 0 0.6rem; font-size: 0.88em; font-style: italic; color: #5f6368; }
+  .mm .mm-step h3 { margin: 0 0 0.5rem; font-size: 1em; }
+  .mm-step-given h3 .mm-given-tag { margin-left: 0.5rem; font-size: 0.8em; font-weight: normal; color: #5f6368; }
+  .mm-step-intro { margin: 0 0 0.6rem; font-size: 0.92em; }
+  /* In step 5, the answers it uses (A and the coordinates of x), repeated from steps 3 and 4. */
+  .mm-uses { margin: 0 0 0.4rem; overflow-x: auto; overflow-y: hidden; }
+  .mm-uses:empty { display: none; }
+  .mm .mm-uses-title { margin: 0; font-size: 0.85em; color: #5f6368; }
+  .mm-entries { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem 2.2rem; }
+  .mm-entry-group { display: inline-flex; align-items: center; gap: 0.5rem; }
+  .mm-entry-label { white-space: nowrap; }
+  /* A column vector or matrix of entries in square brackets, drawn by ::before and ::after. */
+  .mm-bracket {
+    position: relative;
+    display: inline-grid;
+    gap: 0.25rem 0.35rem;
+    padding: 0.3rem 0.55rem;
+  }
+  .mm-bracket::before, .mm-bracket::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 0.35rem;
+    border: 2px solid #3c4043;
+  }
+  .mm-bracket::before { left: 0; border-right: none; }
+  .mm-bracket::after { right: 0; border-left: none; }
+  /* A polynomial's coefficients: [ ] + [ ]x + [ ]x². */
+  .mm-poly { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.3rem; }
+  .mm .mm-entry {
+    width: 3.4rem;
+    padding: 0.25rem 0.2rem;
+    border: 1px solid rgba(128, 128, 128, 0.45);
+    border-radius: 6px;
+    background: #fff;
+    color: #000;
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+  }
+  .mm .mm-entry.mm-right { border: 2px solid #188038; background: rgba(24, 128, 56, 0.08); }
+  .mm .mm-entry.mm-wrong { border: 2px solid #c5221f; background: rgba(197, 34, 31, 0.07); }
+  .mm .mm-entry.mm-shown { border: 2px solid #f9ab00; background: #fef7e0; }
+  /* Entries keep their color on the left edge (see `v` in the script), even when marked. */
+  .mm .mm-entry.mm-tinted { border-left: 4px solid var(--mm-color); }
+  .mm-step-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-top: 0.8rem; }
+  .mm .mm-step-actions button { font-size: 0.9em; }
+  .mm-feedback { margin: 0.6rem 0 0; font-size: 0.92em; }
+  .mm-feedback:empty { display: none; }
+  .mm-feedback p { margin: 0 0 0.35rem; }
+  .mm-feedback p:last-child { margin: 0; }
+  .mm-feedback-right { color: #188038; font-weight: bold; }
+  .mm-feedback-wrong { color: #c5221f; font-weight: bold; }
+  .mm-feedback-note { color: #3d4144; }
+  .mm-hint-box {
+    margin: 0.6rem 0 0;
+    padding: 0.6rem 0.8rem;
+    border-left: 4px solid #f9ab00;
+    border-radius: 6px;
+    background: #fef7e0;
+    font-size: 0.92em;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  .mm-hint-box p { margin: 0 0 0.4rem; }
+  .mm-hint-box p:last-child { margin: 0; }
+  /* The worked answer, for steps the page does and after a step is right or shown. */
+  .mm-worked { margin: 0.6rem 0 0; font-size: 0.95em; overflow-x: auto; overflow-y: hidden; }
+  .mm-worked:empty { display: none; }
+  .mm-worked p { margin: 0 0 0.4rem; }
+  .mm-done {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1rem;
+    margin: 0 0 1.5rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid #188038;
+    border-left-width: 5px;
+    border-radius: 6px;
+    background: rgba(24, 128, 56, 0.08);
+  }
+  .mm-done strong { font-size: 1.05em; }
+  .mm .mm-done-suggest { flex-basis: 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.8rem; margin: 0; }
+
+</style>
+
+<div class="mm">
+  <details class="mm-instructions">
+    <summary>Instructions</summary>
+    <p>
+      Let \(V\) be a vector space with a basis \(\mathcal{V} = \{\mathbf{v}_1, \ldots, \mathbf{v}_n\}\), and let \(W\) be a vector space with a basis \(\mathcal{W} = \{\mathbf{w}_1, \ldots, \mathbf{w}_m\}\).
+      For a linear map \(T : V \to W\), the <em>matrix of \(T\) relative to \(\mathcal{V}\) and \(\mathcal{W}\)</em> is the \(m \times n\) matrix
+      \[
+        A = \begin{bmatrix} [T(\mathbf{v}_1)]_{\mathcal{W}} & [T(\mathbf{v}_2)]_{\mathcal{W}} & \cdots & [T(\mathbf{v}_n)]_{\mathcal{W}} \end{bmatrix}.
+      \]
+      It transforms coordinates: \([T(\mathbf{x})]_{\mathcal{W}} = A[\mathbf{x}]_{\mathcal{V}}\) for every \(\mathbf{x}\) in \(V\).
+    </p>
+    <p>Each problem is worked in these steps:</p>
+    <ol>
+      <li>Apply \(T\) to each basis vector \(\mathbf{v}_j\) in \(\mathcal{V}\).</li>
+      <li>Find the coordinates \([T(\mathbf{v}_j)]_{\mathcal{W}}\) of each result relative to \(\mathcal{W}\).</li>
+      <li>Place the coordinate vectors into the columns of \(A\).</li>
+      <li>Find the coordinate vector \([\mathbf{x}]_{\mathcal{V}}\) of a vector \(\mathbf{x}\) relative to \(\mathcal{V}\).</li>
+      <li>Use \(A\) to find the coordinates \([T(\mathbf{x})]_{\mathcal{W}} = A[\mathbf{x}]_{\mathcal{V}}\).</li>
+    </ol>
+    <p>
+      The <strong>Practice path</strong> chooses the problems for you, in stages from easy to hard.
+      Each stage adds one new idea, such as a nonstandard basis or a map on polynomials, and gives a new random problem of that kind each time.
+      After two problems at a stage with no hints, the page suggests the next stage.
+      To pick the spaces, bases, and kind of map yourself, or to load an example from lecture, choose <strong>Choose problems</strong>.
+    </p>
+    <p>
+      Separately, choose a <strong>Level</strong> for how much of each problem you do, from easiest to hardest:
+    </p>
+    <ol>
+      <li>Assemble \(A\) from given coordinates; the page does steps 1, 2, and 4.</li>
+      <li>Find coordinates and assemble \(A\); the page does step 1.</li>
+      <li>Apply \(T\), find coordinates, and assemble \(A\): every step.</li>
+      <li>Solve the whole problem by hand: work on paper, then enter only \(A\) and the answer to part (b).</li>
+    </ol>
+    <p>
+      <strong>Your progress</strong>, at the bottom of the page, shows how many problems you've finished at each stage of the practice path, and a log of your recent problems with each one's stage, level, and hints.
+      If you go back to an earlier stage, <strong>Continue where you left off</strong> returns you to the furthest stage you've reached, at the level you were using there.
+      After three problems at a level with no hints, the page suggests the next level.
+    </p>
+    <p>
+      Fill in the boxes and click <strong>Check</strong> (or press Enter); Tab moves between the boxes.
+      For coordinates and the matrix \(A\), a check doesn't say which entries are wrong, since one wrong entry usually means the method went wrong.
+      Click <strong>Hint</strong> after a wrong check to see what's wrong with your answer.
+      Each step uses the answers of the steps before it, so a step opens once the steps before it are right (or shown).
+      Entries can be integers, decimals, or fractions such as <code>-3</code>, <code>0.5</code>, or <code>1/2</code>.
+      <strong>Check</strong> turns on once every box in the step is filled in (enter 0 for zeros).
+      Stuck? <strong>Hint</strong> suggests what to do, and clicking it again gives a more specific hint.
+      <strong>Show</strong> fills in the answer.
+      The page counts the hints you use for each problem; shown answers and wrong checks count as hints too (checking the same wrong answer again doesn't count twice).
+      The problem is saved in this page's address, so you can reload the page or share a link.
+    </p>
+  </details>
+  <p class="mm-related">
+    Finding coordinates relative to a basis means solving a linear system; to practice row reducing, try
+    <a href="{{ '/tools/gaussian_elimination_practice/' | relative_url }}">Gaussian Elimination Practice</a>.
+    {%- comment -%} The matrix-of-a-linear-map entry is linked once it's published (or with --unpublished). {%- endcomment -%}
+    {%- assign matrix_def = site.definitions | where: "term", "matrix of a linear map" | first %}
+    See the definitions of a <a href="{{ '/dictionary/definitions/linear-map' | relative_url }}">linear map</a>,
+    {% if matrix_def %}the <a href="{{ matrix_def.url | relative_url }}">matrix of a linear map</a>,{% endif %}
+    and a <a href="{{ '/dictionary/definitions/coordinate-vector' | relative_url }}">coordinate vector</a>.
+  </p>
+
+  <div class="mm-settings mm-panel" data-fullscreen="false">
+    <!-- Which problems: the practice path's stage (controls added by common/practice.ts) or the
+         student's own choices, then the level. -->
+    <section class="pr-box" aria-labelledby="mm-practice-title">
+      <h2 id="mm-practice-title" class="pr-box-title">Practice</h2>
+      <div id="mm-practice"></div>
+      <div id="mm-custom-controls" class="mm-toolbar-group mm-custom" hidden>
+        <label class="mm-field"><span data-help="The domain V and the target W of the map T. ℝⁿ is the space of column vectors with n entries, and 𝒫ₙ is the space of polynomials of degree at most n, such as 3 − x + 2x² in 𝒫₂. When W is a plane or a line in ℝ³, W has fewer basis vectors than ℝ³ has entries, so A has fewer rows. &quot;Mixed&quot; picks one at random for each problem.">Spaces</span>
+          <select id="mm-spaces">
+            <option value="any">Mixed</option>
+            <optgroup label="Column vectors">
+              <option value="r2r2" selected>ℝ² → ℝ²</option>
+              <option value="r3r3">ℝ³ → ℝ³</option>
+              <option value="r3r2">ℝ³ → ℝ²</option>
+              <option value="r2r3">ℝ² → ℝ³</option>
+              <option value="r3plane">ℝ³ → a plane in ℝ³</option>
+              <option value="r3line">ℝ³ → a line in ℝ³</option>
+            </optgroup>
+            <optgroup label="Polynomials">
+              <option value="p2p2">𝒫₂ → 𝒫₂</option>
+              <option value="p2p1">𝒫₂ → 𝒫₁</option>
+              <option value="p1p2">𝒫₁ → 𝒫₂</option>
+            </optgroup>
+          </select>
+        </label>
+        <label class="mm-field"><span data-help="Which bases are the standard ones. With a standard target basis 𝒲, the coordinates of T(vⱼ) are just its entries (or coefficients), so step 2 is easy. With a standard domain basis 𝒱, step 1 is easy, but step 2 needs a linear system for each column. &quot;One basis ℬ&quot; uses the same basis for V and W, as in &quot;the matrix of T relative to ℬ.&quot; Options that don't fit the spaces (such as one basis for ℝ³ → ℝ²) are replaced by &quot;Neither standard.&quot;">Bases</span>
+          <select id="mm-bases">
+            <option value="any">Mixed</option>
+            <option value="wstd">Standard 𝒲</option>
+            <option value="vstd">Standard 𝒱</option>
+            <option value="both" selected>Neither standard</option>
+            <option value="same">One basis ℬ</option>
+          </select>
+        </label>
+        <label class="mm-field"><span data-help="#mm-help-form">Map given by</span>
+          <select id="mm-form">
+            <option value="any" selected>Mixed</option>
+            <option value="formula">Formula</option>
+            <option value="matrix">Matrix</option>
+            <option value="named">Description</option>
+            <option value="basis">Action on a basis</option>
+          </select>
+        </label>
+        <label class="mm-field">
+          <select id="mm-example" aria-label="Load an example">
+            <option value="" selected>Examples</option>
+            <optgroup label="From lecture">
+              <option value="rotation">Rotation by 90°</option>
+              <option value="derivative">Derivative on 𝒫₂</option>
+              <option value="line">ℝ³ → a line</option>
+            </optgroup>
+            <optgroup label="More">
+              <option value="skewed">Rotation, skewed basis</option>
+              <option value="shift">Shift on 𝒫₂</option>
+              <option value="projection">Projection, two bases</option>
+            </optgroup>
+          </select>
+        </label>
+      </div>
+      <hr class="pr-divider">
+    <div class="pr-levels">
+      <span class="pr-levels-label"><span data-help="Levels go from easiest to hardest. Level 1: the page applies T and finds the coordinates (of each T(vⱼ) and of x); you assemble A and use it. Level 2: you also find the coordinates. Level 3: you do every step. Level 4: you do the whole problem by hand, on paper, and enter only the matrix A and the answer to part (b); the page shows the steps after you finish.">Level</span></span>
+      <span class="pr-level-list" role="radiogroup" aria-label="Level">
+        <label class="pr-level"><input type="radio" name="mm-level" value="1"><span class="pr-pill">Level 1</span><span>Assemble \(A\) from given coordinates</span></label>
+        <label class="pr-level"><input type="radio" name="mm-level" value="2"><span class="pr-pill">Level 2</span><span>Find coordinates and assemble \(A\)</span></label>
+        <label class="pr-level"><input type="radio" name="mm-level" value="3" checked><span class="pr-pill">Level 3</span><span>Apply \(T\), find coordinates, and assemble \(A\)</span></label>
+        <label class="pr-level"><input type="radio" name="mm-level" value="4"><span class="pr-pill">Level 4</span><span>Solve the whole problem by hand</span></label>
+      </span>
+    </div>
+    </section>
+  </div>
+
+  <section class="mm-problem mm-panel" data-fullscreen="false" aria-labelledby="mm-problem-title">
+    <div class="mm-problem-body">
+      <div class="mm-problem-box">
+        <h2 id="mm-problem-title" class="mm-problem-title">Problem</h2>
+        <div id="mm-statement" class="mm-statement" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Previous and next problems: below the problem rather than in it, so a pinned problem
+       stays small. -->
+  <div class="mm-problem-nav">
+    <button id="mm-prev" type="button">← Previous problem</button>
+    <button id="mm-next" class="mm-primary" type="button">Next problem →</button>
+  </div>
+
+  <div class="mm-progress">
+    <h2>Solution</h2>
+    <span id="mm-hint-count" class="mm-hint-count" role="status"></span>
+  </div>
+  {% include by-hand-note.html %}
+  <div id="mm-steps"></div>
+  <div id="mm-done" class="mm-done" role="status" hidden>
+    <strong id="mm-done-text"></strong>
+    <button id="mm-done-new" class="mm-primary" type="button">Next problem</button>
+    <p id="mm-done-suggest" class="mm-done-suggest" hidden>
+      <span id="mm-done-suggest-text"></span>
+      <button id="mm-done-next-level" type="button"></button>
+    </p>
+  </div>
+
+  <!-- For maps from ℝ² to ℝ² only: the bases drawn, with how to read coordinates from the picture. -->
+  <section id="mm-picture" class="mm-picture" aria-labelledby="mm-picture-title" hidden>
+    <h2 id="mm-picture-title">The process in a picture</h2>
+    <div class="mm-picture-body">
+      <figure id="mm-figure" class="mm-figure">
+        <figcaption id="mm-figure-title">The bases</figcaption>
+        <div id="mm-figure-svg"></div>
+        <p id="mm-figure-note" class="mm-figure-note"></p>
+      </figure>
+      <div id="mm-picture-text" class="mm-picture-text"></div>
+    </div>
+  </section>
+
+  <section id="mm-progress" aria-label="Your progress"></section>
+
+  <template id="mm-help-form">
+    <p>How the problem describes <em>T</em>:</p>
+    <ul>
+      <li><strong>Formula:</strong> <em>T</em>(<strong>x</strong>) in terms of the entries of <strong>x</strong> (or the coefficients of a polynomial).</li>
+      <li><strong>Matrix:</strong> <em>T</em>(<strong>x</strong>) = <em>M</em><strong>x</strong>, where <em>M</em> is the matrix of <em>T</em> relative to the standard bases. Only for column vectors.</li>
+      <li><strong>Description:</strong> a named map, such as a rotation, a reflection, or the derivative. Only for ℝ² → ℝ², ℝ³ → ℝ³, and the polynomial spaces.</li>
+      <li><strong>Action on a basis:</strong> what <em>T</em> does to each standard basis vector (or to 1, <em>x</em>, <em>x</em>², … for polynomials). By linearity, that determines <em>T</em>.</li>
+      <li><strong>Mixed:</strong> one of these at random for each problem.</li>
+    </ul>
+    <p>When a choice isn't available for the spaces, the page uses a formula.</p>
+  </template>
+  <div id="mm-help-popup" class="mm-help-popup" role="note" hidden></div>
+</div>
+
+<script>window.GAUSSIAN_PRACTICE_URL = "{{ '/tools/gaussian_elimination_practice/' | relative_url }}";</script>
+<script src="/assets/ts/out/matrix_of_linear_map.js" type="module"></script>
