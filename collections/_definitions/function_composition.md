@@ -1,5 +1,4 @@
 ---
-published: false
 title: Function Composition
 term: composition
 applies_to: functions

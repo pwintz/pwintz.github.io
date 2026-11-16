@@ -1,6 +1,8 @@
 ---
 published: false
-title: 'The matrix $$\begin{bmatrix} 1 & 2 \\ 2 & 3 \end{bmatrix}$$'
+title: 'The matrix $[1, 2; 2, 3]$'
+detail: |-
+  $$A = \begin{bmatrix} 1 & 2 \\ 2 & 3 \end{bmatrix}.$$
 level: high-school
 values:
   transpose: '$A^{\top} = A$'

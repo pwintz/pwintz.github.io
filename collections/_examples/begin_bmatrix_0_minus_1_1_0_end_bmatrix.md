@@ -1,5 +1,7 @@
 ---
-title: 'The matrix $$\begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}$$'
+title: 'The matrix $[0, -1; 1, 0]$'
+detail: |-
+  $$A = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}.$$
 level: high-school
 values:
   eigenvalue: '$i$ and $-i$'

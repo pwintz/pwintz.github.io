@@ -1,6 +1,6 @@
 ---
 published: false
-title: Zeroth-Order (Propositional) vs. First-Order Logic
+title: Propositional Logic vs. Predict Logic (Zeroth-Order vs. First-Order)
 kind: hierarchy
 areas: [sets]
 summary: >

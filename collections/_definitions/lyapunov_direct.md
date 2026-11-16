@@ -13,6 +13,6 @@ levels:
     context: nonlinear systems
     text: |-
       Consider a nonlinear system $\dot{x} = f(x)$ with an [equilibrium](/dictionary/definitions/equilibrium).
-      _Lyapunov's direct method_ shows that the equilibrium is [asymptotically stable](/dictionary/definitions/asymptotically-stable) by finding a [positive definite](/dictionary/definitions/positive-definite-function) function $V$ (a [Lyapunov function](/dictionary/definitions/lyapunov-function)) whose derivative $\dot{V} = \nabla V \cdot f$ along solutions is negative definite.
+      _Lyapunov's direct method_ shows that the equilibrium is [asymptotically stable](/dictionary/definitions/asymptotically-stable) by finding a [positive definite](/dictionary/definitions/positive-definite-function) function $V$ (a [Lyapunov function](/dictionary/definitions/lyapunov-function)) whose derivative $\dot{V} = \ip{\nabla V}{f}$ along solutions is negative definite.
       It requires no solutions of the system.
 ---

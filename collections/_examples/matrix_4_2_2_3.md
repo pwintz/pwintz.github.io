@@ -1,5 +1,7 @@
 ---
-title: 'The matrix $$\begin{bmatrix} 4 & 2 \\ 2 & 3 \end{bmatrix}$$'
+title: 'The matrix $[4, 2; 2, 3]$'
+detail: |-
+  $$A = \begin{bmatrix} 4 & 2 \\ 2 & 3 \end{bmatrix}.$$
 level: undergraduate
 is: [
   symmetric_matrix,

@@ -1,6 +1,8 @@
 ---
 published: false
-title: 'The matrix $$\begin{bmatrix} 1 & 0 \\ 0 & 2 \end{bmatrix}$$'
+title: 'The matrix $[1, 0; 0, 2]$'
+detail: |-
+  $$A = \begin{bmatrix} 1 & 0 \\ 0 & 2 \end{bmatrix}.$$
 level: undergraduate
 values:
   entrywise_exponential: '$$\begin{bmatrix} e & 1 \\ 1 & e^2 \end{bmatrix}$$'

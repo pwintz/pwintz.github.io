@@ -18,7 +18,7 @@ examples:
   - example: t_x_squared
   - example: t_x_squared_on_path
 see_also:
-  - total_derivative
+  - total_derivative_along_path_vs_linear_map
   - types_of_scalar_derivatives
   - frechet_vs_gateaux_derivatives
   - types_of_nonsmooth_derivatives
@@ -26,4 +26,4 @@ see_also:
 ## Notes
 
 - "Total derivative" is not listed here because it has two conflicting meanings: the derivative along a path, such as $g^{\prime}(t)$ above, and the differential.
-  See [the meanings of "total derivative"](/dictionary/distinctions/total-derivative).
+  See [the meanings of "total derivative"](/dictionary/distinctions/total-derivative-along-path-vs-linear-map).

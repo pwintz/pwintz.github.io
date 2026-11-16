@@ -1,6 +1,8 @@
 ---
 published: false
-title: 'The linear map $T(x) = A x$ on $\reals^2$ with the dot product, where $$A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$$'
+title: 'The linear map $T(x) = A x$ on $\reals^2$ with the dot product, where $A = [1, 2; 3, 4]$'
+detail: |-
+  $$A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}.$$
 level: undergraduate
 values:
   transpose: '$$A^{\top} = \begin{bmatrix} 1 & 3 \\ 2 & 4 \end{bmatrix}$$'

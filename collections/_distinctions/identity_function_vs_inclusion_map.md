@@ -1,5 +1,4 @@
 ---
-published: false
 title: Identity Function vs. Inclusion Map
 kind: hierarchy
 areas: [sets]

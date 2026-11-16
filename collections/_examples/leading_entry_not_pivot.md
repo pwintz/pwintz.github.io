@@ -1,6 +1,8 @@
 ---
 published: false
-title: 'The $2$ in row $1$ of $$\begin{bmatrix} 0 & 2 & 4 \\ 1 & 3 & 5 \end{bmatrix}$$'
+title: 'The $2$ in row $1$ of the matrix $[0, 2, 4; 1, 3, 5]$'
+detail: |-
+  $$A = \begin{bmatrix} 0 & 2 & 4 \\ 1 & 3 & 5 \end{bmatrix}.$$
 level: high-school
 is: [leading_entry]
 is_not: [pivot]

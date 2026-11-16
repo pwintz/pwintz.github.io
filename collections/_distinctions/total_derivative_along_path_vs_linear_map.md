@@ -1,12 +1,11 @@
 ---
-published: false
 title: "Total Derivative: Along a Path vs. Linear Map"
 kind: conflicting
 areas: [analysis]
 summary: >
   "Total derivative" has two meanings.
-  It can mean the derivative of $f(t, x(t))$ with respect to $t$ along a path, including the change that comes through $x(t)$.
-  It can also mean the [linear map](/dictionary/definitions/linear-map) $Df(x)$ of multivariable calculus, also called the differential.
+  It can mean the derivative of $f(t, x(t))$ with respect to $t$ along a [path](/dictionary/definitions/path-continuous), including the change that comes through $x(t)$.
+  It can also mean the [linear map](/dictionary/definitions/linear-map) $Df(x)$ of multivariable calculus, also called the [differential](/dictionary/definitions/differential).
 terms:
   - total_derivative
   - total_derivative_linear_map
@@ -23,7 +22,7 @@ see_also:
 
 The total derivative along a path is the [linear map](/dictionary/definitions/linear-map) applied to the velocity of the path:
 
-$$\frac{\mathrm{d}}{\mathrm{d}t} f(t, x(t)) = Df(t, x(t))~(1, \dot{x}(t)).$$
+$$\frac{\mathrm{d}}{\mathrm{d}t} f(t, x(t)) = Df(t, x(t))~(1, x^{\prime}(t)).$$
 
 ## Notes
 

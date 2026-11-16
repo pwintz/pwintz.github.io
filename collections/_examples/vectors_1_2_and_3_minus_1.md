@@ -1,6 +1,8 @@
 ---
 published: false
-title: 'The vectors $$x = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$$ and $$y = \begin{bmatrix} 3 \\ -1 \end{bmatrix}$$, with the weight $$W = \begin{bmatrix} 2 & 0 \\ 0 & 1 \end{bmatrix}$$'
+title: 'The vectors $x = (1, 2)$ and $y = (3, -1)$, with the weight matrix $W = [2, 0; 0, 1]$'
+detail: |-
+  $$x = \begin{bmatrix} 1 \\ 2 \end{bmatrix}, \quad y = \begin{bmatrix} 3 \\ -1 \end{bmatrix}, \quad W = \begin{bmatrix} 2 & 0 \\ 0 & 1 \end{bmatrix}.$$
 level: high-school
 values:
   dot_product: '$x \cdot y = 1 \cdot 3 + 2 \cdot (-1) = 1$'

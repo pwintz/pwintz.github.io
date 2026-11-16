@@ -1,5 +1,7 @@
 ---
-title: 'The matrix $$\begin{bmatrix} 2 & 1 \\ 4 & 3 \end{bmatrix}$$'
+title: 'The matrix $[2, 1; 4, 3]$'
+detail: |-
+  $$A = \begin{bmatrix} 2 & 1 \\ 4 & 3 \end{bmatrix}.$$
 level: undergraduate
 is_not: [
   orthogonal_matrix,

@@ -1,5 +1,4 @@
 ---
-published: false
 title: Inclusion Map
 term: inclusion map
 applies_to: subsets
@@ -18,7 +17,7 @@ properties:
     The inclusion map of $A$ into $Y$ is [injective](/dictionary/definitions/injective).
     The inclusion map is [surjective](/dictionary/definitions/surjective) only when $A = Y$, and then it is the [identity function](/dictionary/definitions/identity-function) on $Y$.
   - >-
-    For a function $f : Y \to Z$, the [composition](/dictionary/definitions/function-composition) $f \circ \iota$ is the restriction of $f$ to $A$.
+    For a function $f : Y \to Z$ and inclusion map $\iota : A \hookrightarrow Y$, the [composition](/dictionary/definitions/function-composition) $f \circ \iota$ is the [restriction](/dictionary/definitions/restriction-of-function) of $f$ to $A$.
   - >-
-    If $Y$ is a topological space and $A$ has the subspace [topology](/dictionary/definitions/topology), then the inclusion map of $A$ into $Y$ is [continuous](/dictionary/definitions/continuous); in fact, the inclusion map is a topological embedding.
+    If $Y$ is a topological space and $A$ has the [subspace topology](/dictionary/definitions/subspace-topology), then the inclusion map of $A$ into $Y$ is [continuous](/dictionary/definitions/continuous); in fact, the inclusion map is a [topological embedding](/dictionary/definitions/topological-embedding).
 ---

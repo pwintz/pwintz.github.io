@@ -1,12 +1,11 @@
 ---
-published: false
 title: Graph (Network)
 term: graph (network)
 applies_to: networks
 levels:
   elementary:
     text: |-
-      A _graph_ is a set of dots (vertices) [connected](/dictionary/definitions/connected) by lines (edges).
+      A _graph_ is a set of dots (vertices) joined by lines (edges).
   undergraduate:
     context: graph theory
     text: |-

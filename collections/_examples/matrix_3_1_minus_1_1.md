@@ -1,5 +1,7 @@
 ---
-title: 'The matrix $$\begin{bmatrix} 3 & 1 \\ -1 & 1 \end{bmatrix}$$'
+title: 'The matrix $[3, 1; -1, 1]$'
+detail: |-
+  $$A = \begin{bmatrix} 3 & 1 \\ -1 & 1 \end{bmatrix}.$$
 level: undergraduate
 values:
   jordan_normal_form: '$$P = \begin{bmatrix} 1 & 1 \\ -1 & 0 \end{bmatrix}$$, $$J = \begin{bmatrix} 2 & 1 \\ 0 & 2 \end{bmatrix}$$'

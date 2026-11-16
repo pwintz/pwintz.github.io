@@ -1,5 +1,7 @@
 ---
-title: 'The row vector $\begin{bmatrix} 1 & 2 & 3 \end{bmatrix}$'
+title: 'The row vector $[1, 2, 3]$'
+detail: |-
+  $$\begin{bmatrix} 1 & 2 & 3 \end{bmatrix}.$$
 level: high-school
 is: [covector]
 why:

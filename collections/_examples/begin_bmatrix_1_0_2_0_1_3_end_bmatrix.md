@@ -1,5 +1,7 @@
 ---
-title: 'The matrix $$\begin{bmatrix} 1 & 0 & 2 \\ 0 & 1 & 3 \end{bmatrix}$$'
+title: 'The matrix $[1, 0, 2; 0, 1, 3]$'
+detail: |-
+  $$A = \begin{bmatrix} 1 & 0 & 2 \\ 0 & 1 & 3 \end{bmatrix}.$$
 level: undergraduate
 values:
   domain: '$\reals^3$'

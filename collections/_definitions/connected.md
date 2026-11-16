@@ -20,3 +20,5 @@ properties:
     The image of a connected space under a [continuous](/dictionary/definitions/continuous) map is connected.
     This is the intermediate value theorem in disguise.
 ---
+
+In graph theory, a [connected graph](/dictionary/definitions/connected-graph) is a graph in which every two vertices are joined by a path, which is a different definition.

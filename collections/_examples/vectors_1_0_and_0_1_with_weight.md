@@ -1,6 +1,8 @@
 ---
 published: false
-title: 'The vectors $$x = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$$ and $$y = \begin{bmatrix} 0 \\ 1 \end{bmatrix}$$, with the weight $$W = \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$$'
+title: 'The vectors $x = (1, 0)$ and $y = (0, 1)$, with the weight matrix $W = [2, 1; 1, 2]$'
+detail: |-
+  $$x = \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \quad y = \begin{bmatrix} 0 \\ 1 \end{bmatrix}, \quad W = \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}.$$
 level: undergraduate
 values:
   dot_product: '$x \cdot y = 0$'

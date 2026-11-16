@@ -1,6 +1,8 @@
 ---
 published: false
-title: 'The matrix $$\begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}$$'
+title: 'The matrix $[1, 2; 2, 4]$'
+detail: |-
+  $$A = \begin{bmatrix} 1 & 2 \\ 2 & 4 \end{bmatrix}.$$
 level: undergraduate
 values:
   domain: '$\reals^2$'

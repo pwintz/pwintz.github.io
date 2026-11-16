@@ -1,6 +1,6 @@
 ---
 title: '$\nats$'
-details: The set of natural numbers.
+detail: The set of natural numbers.
 level: high-school
 is: [
   infinite_set,

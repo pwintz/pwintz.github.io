@@ -283,13 +283,20 @@
     text-align: center;
   }
 
+  // The ✓, ✗, and – in the table body, enlarged to fill the cell (not the term headings, which share the class).
+  td.distinction__check {
+    font-size: 1.6em;
+    line-height: 1;
+    vertical-align: middle;
+  }
+
   .distinction__check--yes {
-    color: color.adjust($success-color, $lightness: -10%);
+    color: $dictionary-example-color;
     font-weight: bold;
   }
 
   .distinction__check--no {
-    color: $danger-color;
+    color: $dictionary-nonexample-color;
     font-weight: bold;
   }
 
@@ -316,44 +323,124 @@
 
   /* Examples on a definition's page */
 
-  .example-list {
-    margin-bottom: 1em;
-  }
-
-  .definition-examples {
-    ul {
-      list-style: none;
-    }
-
+  .example-list,
+  .definition-examples ul {
+    margin: 0 0 1em;
+    padding-left: 0;
+    list-style: none;
   }
 
   .example-list__item {
-    margin-bottom: 1em;
+    --example-accent: #{$border-color};
+    margin-bottom: 0.6em;
+    padding-left: 1.6em;
     line-height: 1.6;
+  }
+
+  .example-list__item--worked { --example-accent: #{$dictionary-worked-example-color}; }
+  .example-list__item--example { --example-accent: #{$dictionary-example-color}; }
+  .example-list__item--nonexample { --example-accent: #{$dictionary-nonexample-color}; }
+
+  // The marker (calculator icon, ✓, ✗) hangs in the left padding, so wrapped titles line up with the first line.
+  .example-list__head {
+    position: relative;
 
     .level-badge {
-      margin-left: 0.5em;
+      margin-left: 0.4em;
       vertical-align: 0.15em;
     }
   }
 
-  .example-list__intro {
-    font-size: $type-size-6;
-    font-style: italic;
+  .example-list__marker {
+    position: absolute;
+    left: -1.6em;
+    width: 1.2em;
+    text-align: center;
+    font-weight: bold;
+    color: var(--example-accent);
+
+    .fa-calculator {
+      font-size: 0.85em;
+    }
+  }
+
+  // A worked example's value, on its own line below the title.
+  // The label sits beside the value, which may hold several paragraphs or display math.
+  .example-list__value {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4em;
+    margin-top: 0.1em;
+
+    p {
+      margin: 0;
+    }
+
+    p + p {
+      margin-top: 0.4em;
+    }
+  }
+
+  .example-list__value-label {
+    flex: none;
     color: $muted-text-color;
+  }
+
+  .example-list__value-body {
+    min-width: 0;
+  }
+
+  // The "?" after the "Non-examples" heading, and its popup (see definition-examples.html).
+  .example-help {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-left: 0.4em;
+    padding: 0;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 50%;
+    background: transparent;
+    font-family: inherit;
+    font-size: 0.75rem;
+    font-weight: bold;
+    line-height: 1;
+    color: $muted-text-color;
+    vertical-align: 0.2em;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      border-color: $primary-color;
+      color: $primary-color;
+    }
+  }
+
+  .example-help__popup {
+    position: fixed;
+    inset: auto;
+    margin: 0;
+    max-width: min(22rem, calc(100vw - 16px));
+    padding: 0.6rem 0.8rem;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    background: $background-color;
+    color: $text-color;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+    font-size: $type-size-6;
+    font-weight: normal;
+    line-height: 1.45;
   }
 
   .example__definition-link {
+    margin-left: 0.3em;
     font-size: $type-size-6;
     color: $muted-text-color;
   }
 
-  // The explanation below an example's title, set off by a rule on its left.
+  // The explanation below an example's title, set off by a rule on its left in the example's accent color.
   .example-list__why {
-    margin-top: 0.35em;
-    padding: 0.1em 0 0.1em 0.75em;
-    border-left: 3px solid $border-color;
-    font-size: $type-size-6;
+    margin-top: 0.2em;
+    padding: 0 0 0 0.75em;
+    border-left: 3px solid var(--example-accent);
     line-height: 1.6;
     color: $muted-text-color;
   }

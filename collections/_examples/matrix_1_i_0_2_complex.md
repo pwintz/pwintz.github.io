@@ -1,6 +1,8 @@
 ---
 published: false
-title: 'The linear map $T(x) = A x$ on $\mathbb{C}^2$ with the standard inner product, where $$A = \begin{bmatrix} 1 & i \\ 0 & 2 \end{bmatrix}$$'
+title: 'The linear map $T(x) = A x$ on $\mathbb{C}^2$ with the standard inner product, where $A = [1, i; 0, 2]$'
+detail: |-
+  $$A = \begin{bmatrix} 1 & i \\ 0 & 2 \end{bmatrix}.$$
 level: undergraduate
 values:
   transpose: '$$A^{\top} = \begin{bmatrix} 1 & 0 \\ i & 2 \end{bmatrix}$$'

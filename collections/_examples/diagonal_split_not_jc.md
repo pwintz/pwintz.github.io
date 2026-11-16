@@ -1,6 +1,8 @@
 ---
 published: false
-title: 'Splitting $$\begin{bmatrix} 1 & 1 \\ 0 & 2 \end{bmatrix}$$ into its diagonal and the part above the diagonal'
+title: 'Splitting the matrix $[1, 1; 0, 2]$ into its diagonal and the part above the diagonal'
+detail: |-
+  $$A = \begin{bmatrix} 1 & 1 \\ 0 & 2 \end{bmatrix}.$$
 level: undergraduate
 is_not: [jordan_chevalley_decomposition]
 why:

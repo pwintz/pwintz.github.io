@@ -1,7 +1,6 @@
 ---
-published: false
-title: Path
-term: path
+title: Continuous Path
+term: path (continuous)
 applies_to: topological spaces
 levels:
   high-school:
@@ -22,6 +21,6 @@ properties:
   - >-
     A space is [path connected](/dictionary/definitions/path-connected) if every two points of the space are joined by a path.
 ---
-In graph theory, a _path_ is a sequence of edges that joins a sequence of distinct vertices.
+In graph theory, a [path](/dictionary/definitions/path-graph) is a sequence of distinct vertices joined by edges, which is a different object; see [continuous path vs. path in a graph](/dictionary/distinctions/path-continuous-vs-path-graph).
 
 In physics and everyday speech, the "path" of a moving object usually means the set of points that the object passes through, which is the [orbit](/dictionary/definitions/orbit) in the language of dynamical systems.

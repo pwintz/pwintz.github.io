@@ -1,5 +1,7 @@
 ---
-title: 'The matrix $$\begin{bmatrix} 2 & 0 \\ 0 & -3 \end{bmatrix}$$'
+title: 'The matrix $[2, 0; 0, -3]$'
+detail: |-
+  $$A = \begin{bmatrix} 2 & 0 \\ 0 & -3 \end{bmatrix}.$$
 level: undergraduate
 values:
   eigenvalue: '$2$ and $-3$'

@@ -1,5 +1,7 @@
 ---
-title: 'The matrix $$\begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$$'
+title: 'The matrix $[1, 1; 0, 1]$'
+detail: |-
+  $$A = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}.$$
 level: undergraduate
 values:
   eigenvalue: '$1$ (twice)'

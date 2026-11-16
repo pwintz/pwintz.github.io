@@ -5,7 +5,7 @@
 #
 # Sets these fields on each definition (in the same order as site.examples and site.distinctions):
 #   worked_examples:      Examples whose "values" give a value for the term.
-#   positive_examples:    Examples whose "is" lists the term.
+#   positive_examples:    Examples whose "is" lists the term, other than worked examples.
 #   negative_examples:    Examples whose "is_not" lists the term.
 #   related_distinctions: Distinctions whose "terms" list the term.
 #
@@ -28,7 +28,8 @@ module DictionaryIndex
       definitions.each do |definition|
         term = definition.data["slug"]
         definition.data["worked_examples"] = examples.select { |e| DictionaryIndex.contains?(e.data["values"], term) }
-        definition.data["positive_examples"] = examples.select { |e| DictionaryIndex.contains?(e.data["is"], term) }
+        # An example that both "is" the term and gives its value is listed once, as a worked example.
+        definition.data["positive_examples"] = examples.select { |e| DictionaryIndex.contains?(e.data["is"], term) } - definition.data["worked_examples"]
         definition.data["negative_examples"] = examples.select { |e| DictionaryIndex.contains?(e.data["is_not"], term) }
         definition.data["related_distinctions"] = distinctions.select { |d| DictionaryIndex.contains?(d.data["terms"], term) }
       end

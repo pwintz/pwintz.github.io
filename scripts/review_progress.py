@@ -3,7 +3,7 @@
 
 An item (definition, distinction, or example) counts as reviewed once its front matter no longer
 has `published: false`. For each commit that touched the dictionary, and for the working tree, the
-script counts reviewed and remaining items and writes a self-contained HTML chart.
+script counts reviewed and remaining items and writes a self-contained HTML chart, then opens it in the default web browser.
 
 Usage:
   python3 scripts/review_progress.py [OUTPUT.html]   # default: dev/review_progress.html
@@ -13,6 +13,7 @@ import json
 import os
 import subprocess
 import sys
+import webbrowser
 from datetime import datetime
 
 DIRS = ["collections/_definitions", "collections/_distinctions", "collections/_examples"]
@@ -65,6 +66,7 @@ def main():
         fh.write(TEMPLATE.replace("__DATA__", json.dumps(points)))
     last = points[-1]
     print(f"{out}: {len(points)} points; now {last['reviewed']} reviewed, {last['remaining']} remaining, {last['total']} total")
+    webbrowser.open("file://" + os.path.abspath(out))
 
 
 TEMPLATE = r"""<!doctype html>
