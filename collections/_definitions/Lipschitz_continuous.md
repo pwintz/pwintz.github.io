@@ -9,6 +9,14 @@ levels:
       Consider a function $f$ and the lines through pairs of points on its graph.
       The function $f$ is _Lipschitz continuous_ if there is a number $L$ such that every one of those lines has a slope between $-L$ and $L$.
   undergraduate:
+    context: $\reals^n$
+    text: |-
+      A function $f : \reals^m \to \reals^n$ is _Lipschitz continuous_ if there exists $L \geq 0$ such that
+
+      $$\norm{f(x) - f(y)} \leq L \norm{x - y} \quad \text{for all } x, y \in \reals^m.$$
+
+      The smallest such $L$ is the _Lipschitz constant_ of $f$.
+  graduate:
     context: metric spaces
     text: |-
       Consider a function $f : X \to Y$ between [metric spaces](/dictionary/definitions/metric-space).

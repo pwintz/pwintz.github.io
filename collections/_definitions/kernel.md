@@ -13,7 +13,9 @@ levels:
       $$\nullspace{T} = \setdef{\vect{v} \in V \suchthat T \vect{v} = \vect{0}}.$$
 properties:
   - >-
+    The kernel of $T$ is a subspace of $V$, and its dimension is the [nullity](/dictionary/definitions/nullity-linear-map) of $T$.
+  - >-
     $T$ is [injective](/dictionary/definitions/injective) if and only if $\nullspace{T} = \setdef{\vect{0}}$.
   - >-
-    For an $m \times n$ matrix, $\dim \nullspace{A} + \rank{A} = n$ (the rank–nullity theorem).
+    For an $m \times n$ matrix, $\dim(\nullspace{A}) + \rank{A} = n$ (the rank–nullity theorem).
 ---

@@ -18,7 +18,7 @@ examples:
   - example: the_unit_circle_x_squared_plus_y_squared_eq_1
   - example: t_to_cos_t_sin_t
 see_also:
-  - domain_vs_codomain_vs_image
+  - domain_vs_range_vs_codomain_vs_image_vs_preimage
   - types_of_illustrations
 ---
 ## Fine print

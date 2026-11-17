@@ -20,7 +20,7 @@ examples:
   - example: inclusion_of_integers_into_reals
   - example: inclusion_of_circle_into_plane
 see_also:
-  - domain_vs_codomain_vs_image
+  - domain_vs_range_vs_codomain_vs_image_vs_preimage
   - function_vs_map
 ---
 ## Notes

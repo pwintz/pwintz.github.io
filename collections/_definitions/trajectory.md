@@ -18,7 +18,7 @@ levels:
       $$\dot{x}(t) = f\bigl(x(t)\bigr) \quad \text{for all } t \in I.$$
 properties:
   - >-
-    The image of a trajectory $x$, without the times, is the [orbit](/dictionary/definitions/orbit) of the starting point (if $x$ is a maximal solution).
+    The [range](/dictionary/definitions/range-image) of a trajectory $x$, without the times, is the [orbit](/dictionary/definitions/orbit) of the starting point (if $x$ is a maximal solution).
   - >-
     If $f$ is [locally Lipschitz continuous](/dictionary/definitions/locally-lipschitz-continuous), then two trajectories that pass through the same state at the same time are equal on their common interval.
 ---

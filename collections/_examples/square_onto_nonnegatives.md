@@ -7,7 +7,8 @@ is_not: [injective]
 values:
   domain: '$\reals$'
   codomain: '$[0, \infty)$'
-  image: '$f(\reals) = [0, \infty)$'
+  range_image: '$f(\reals) = [0, \infty)$'
+  image: '$f([-1, 2]) = [0, 4]$'
   preimage: '$f^{-1}(\setdef{4}) = \setdef{-2, 2}$'
 why:
   surjective: >-
@@ -15,5 +16,5 @@ why:
   injective: >-
     $f(-2) = f(2)$.
   codomain: >-
-    Now the image equals the codomain, so $f$ is surjective.
+    Now the range equals the codomain, so $f$ is surjective.
 ---

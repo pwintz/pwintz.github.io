@@ -20,6 +20,6 @@ properties:
   - >-
     A flow satisfies $\varphi(s + t, x_0) = \varphi\bigl(s, \varphi(t, x_0)\bigr)$ whenever both sides are defined.
   - >-
-    If $f$ is [continuously differentiable](/dictionary/definitions/continuously-differentiable), then each time-$t$ map is a diffeomorphism onto its image.
+    If $f$ is [continuously differentiable](/dictionary/definitions/continuously-differentiable), then each time-$t$ map is a diffeomorphism onto its range.
 ---
 In fluid dynamics, the "flow" is the motion of the fluid itself, which is described by a velocity field, and the flow map of the velocity field is the flow in the sense of this page.

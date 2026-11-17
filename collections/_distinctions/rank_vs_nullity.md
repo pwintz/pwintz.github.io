@@ -25,3 +25,7 @@ see_also:
   - meanings_of_rank
   - leading_entry_vs_pivot
 ---
+## Notes
+
+- The same two numbers are defined for a [linear map](/dictionary/definitions/linear-map) $T : V \to W$: the [rank of $T$](/dictionary/definitions/rank-linear-map) is the dimension of the [range](/dictionary/definitions/range-image) of $T$, and the [nullity of $T$](/dictionary/definitions/nullity-linear-map) is the dimension of the kernel of $T$.
+  For the map $x \mapsto A x$, these equal the rank and the nullity of the matrix $A$.

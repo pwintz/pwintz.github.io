@@ -14,7 +14,7 @@ levels:
     context: topological spaces
     text: |-
       Consider topological spaces $X$ and $Y$ and a function $f : X \to Y$.
-      Give the [image](/dictionary/definitions/image) $f(X)$ the [subspace topology](/dictionary/definitions/subspace-topology) from $Y$.
+      Give the [range](/dictionary/definitions/range-image) $f(X)$ the [subspace topology](/dictionary/definitions/subspace-topology) from $Y$.
       The function $f$ is a _topological embedding_ if $f$ is a [homeomorphism](/dictionary/definitions/homeomorphism) from $X$ onto $f(X)$.
 properties:
   - >-

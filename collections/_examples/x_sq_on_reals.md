@@ -24,7 +24,7 @@ is_not: [
 values:
   domain: '$\reals$'
   codomain: '$\reals$'
-  image: '$f(\reals) = [0, \infty)$'
+  image: '$f([-1, 2]) = [0, 4]$'
   preimage: '$f^{-1}(\setdef{4}) = \setdef{-2, 2}$ and $f^{-1}(\setdef{-1}) = \emptyset$'
   range_image: '$f(\reals) = [0, \infty)$'
   range_codomain: '$\reals$'
@@ -36,7 +36,11 @@ why:
   codomain: >-
     $f$ is declared as a function $\reals \to \reals$.
   image: >-
-    Squares of real numbers are exactly the nonnegative numbers.
+    The squares of the numbers in $[-1, 2]$ are exactly the numbers in $[0, 4]$: the smallest is $0^2 = 0$, and the largest is $2^2 = 4$.
+  range_image: >-
+    The range of $f$ is $[0, \infty)$, because squares of real numbers are exactly the nonnegative numbers.
+  range_codomain: >-
+    In the sense of the codomain, the range of $f$ is $\reals$, the set where outputs are allowed to land.
   preimage: >-
     The preimage $f^{-1}(\setdef{4})$ exists even though $f$ has no inverse. No real number squares to $-1$, so $f^{-1}(\setdef{-1})$ is empty.
   uniformly_continuous: >-
@@ -51,8 +55,6 @@ why:
     $x \mapsto x^2$ is continuous.
   function: >-
     $f(x) = x^2$ is a function and a map, as is every function. "Function" is the more common word here, because the inputs and outputs are numbers.
-  range_statistics: >-
-    The range of $f$, in the sense of its image, is $[0, \infty)$, because those are the outputs that actually occur. The range of $f$, in the sense of its codomain, is $\reals$, the set where outputs are allowed to land.
   positive_definite_function: >-
     $x \mapsto x^2$ on $\reals$ is positive definite because it is positive away from $0$ and zero at $0$. 
 

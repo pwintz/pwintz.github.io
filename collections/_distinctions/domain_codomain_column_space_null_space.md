@@ -7,7 +7,7 @@ summary: >
   An $m \times n$ matrix $A$ defines the [linear map](/dictionary/definitions/linear-map) $x \mapsto A x$, and four subspaces describe the inputs and outputs of the map.
   The [domain](/dictionary/definitions/domain) is $\reals^n$, the space of inputs, whose dimension is the number of columns.
   The [codomain](/dictionary/definitions/codomain) (or target) is $\reals^m$, the space where outputs land, whose dimension is the number of rows.
-  The [column space](/dictionary/definitions/column-space), which is the [image](/dictionary/definitions/image) of the map, is the set of outputs $A x$ that actually occur, a subspace of the codomain.
+  The [column space](/dictionary/definitions/column-space), which is the [range](/dictionary/definitions/range-image) of the map, is the set of outputs $A x$ that actually occur, a subspace of the codomain.
   The [null space](/dictionary/definitions/kernel), also called the kernel, is the set of inputs $x$ such that $A x = 0$, a subspace of the domain.
 relation: |-
   null space ⊆ domain $= \reals^n$, and column space ⊆ codomain $= \reals^m$.
@@ -24,11 +24,11 @@ examples:
     why: >-
       For the $2 \times 3$ matrix with rows $(1, 0, 2)$ and $(0, 1, 3)$, the null space is a line in the domain $\reals^3$, and the column space is the whole codomain $\reals^2$.
 see_also:
-  - domain_vs_codomain_vs_image
+  - domain_vs_range_vs_codomain_vs_image_vs_preimage
   - meanings_of_range
   - meanings_of_rank
 ---
 ## Notes
 
-- The rank–nullity theorem relates the dimensions: $\dim \colspace{A} + \dim \nullspace{A} = n$, the dimension of the domain.
-- "Range" sometimes means the [column space](/dictionary/definitions/column-space) and sometimes the [codomain](/dictionary/definitions/codomain); see [meanings of range](/dictionary/distinctions/meanings-of-range).
+- The rank–nullity theorem relates the dimensions: $\dim(\colspace{A}) + \dim(\nullspace{A}) = n$, the dimension of the domain.
+- The column space of $A$ is the range of the map $x \mapsto A x$, but some texts use "range" for the [codomain](/dictionary/definitions/codomain); see [meanings of range](/dictionary/distinctions/meanings-of-range).

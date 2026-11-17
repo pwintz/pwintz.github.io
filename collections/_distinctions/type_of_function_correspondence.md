@@ -23,7 +23,7 @@ examples:
   - example: x_y_to_x_0_as_a_linear_map_R2_to_R
   - example: differentiation_p_to_p_prime_as_a_linear_map_from
 see_also:
-  - domain_vs_codomain_vs_image
+  - domain_vs_range_vs_codomain_vs_image_vs_preimage
   - types_of_sameness
 ---
 ## Notes
