@@ -1001,10 +1001,10 @@ function initPage(): void {
     // "There are 2 leading entries in A (to the left of the line), so rank(A) = 2."
     const rankReason = (rank: number, where: string, name: string) =>
       String.raw`There ${rank === 1 ? "is 1 leading entry" : `are ${rank} leading entries`} in ${where}, so
-       \(\operatorname{rank}(${name}) = ${rank}\).`;
+       \(\rankOf{${name}} = ${rank}\).`;
     // null(A) = n − rank(A) = 4 − 2 = 2, where n = 4 is the number of columns of A.
     const nullityReason = (columns: number, rank: number, name: string) =>
-      String.raw`$$\operatorname{null}(${name}) = n - \operatorname{rank}(${name}) = ${columns} - ${rank} = ${columns - rank},$$
+      String.raw`$$\nullityOf{${name}} = n - \rankOf{${name}} = ${columns} - ${rank} = ${columns - rank},$$
        where \(n = ${columns}\) is the number of columns of \(${name}\).`;
     const A = "A", Ab = String.raw`[A \mid b]`;
     part2.push(

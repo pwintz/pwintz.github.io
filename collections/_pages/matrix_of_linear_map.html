@@ -302,29 +302,30 @@ date_added: 2026-11-13
 </style>
 
 <div class="mm">
+  {% include notation-note.html examples="vectors, ranges, and ranks" %}
   <details class="mm-instructions">
     <summary>Instructions</summary>
     <p>
-      Let \(V\) be a vector space with a basis \(\mathcal{V} = \{\mathbf{v}_1, \ldots, \mathbf{v}_n\}\), and let \(W\) be a vector space with a basis \(\mathcal{W} = \{\mathbf{w}_1, \ldots, \mathbf{w}_m\}\).
+      Let \(V\) be a vector space with a basis \(\mathcal{V} = \setdef{\vect{v}_1, \ldots, \vect{v}_n}\), and let \(W\) be a vector space with a basis \(\mathcal{W} = \setdef{\vect{w}_1, \ldots, \vect{w}_m}\).
       For a linear map \(T : V \to W\), the <em>matrix of \(T\) relative to \(\mathcal{V}\) and \(\mathcal{W}\)</em> is the \(m \times n\) matrix
       \[
-        A = \begin{bmatrix} [T(\mathbf{v}_1)]_{\mathcal{W}} & [T(\mathbf{v}_2)]_{\mathcal{W}} & \cdots & [T(\mathbf{v}_n)]_{\mathcal{W}} \end{bmatrix}.
+        A = \begin{bmatrix} [T(\vect{v}_1)]_{\mathcal{W}} & [T(\vect{v}_2)]_{\mathcal{W}} & \cdots & [T(\vect{v}_n)]_{\mathcal{W}} \end{bmatrix}.
       \]
-      It transforms coordinates: \([T(\mathbf{x})]_{\mathcal{W}} = A[\mathbf{x}]_{\mathcal{V}}\) for every \(\mathbf{x}\) in \(V\).
+      It transforms coordinates: \([T(\vect{x})]_{\mathcal{W}} = A[\vect{x}]_{\mathcal{V}}\) for every \(\vect{x}\) in \(V\).
     </p>
     <p>Each problem has three parts, each worked in steps:</p>
     <ol>
       <li>Find the matrix \(A\) of \(T\).
         <ol type="a">
-          <li>Apply \(T\) to each basis vector \(\mathbf{v}_j\) in \(\mathcal{V}\).</li>
-          <li>Find the coordinates \([T(\mathbf{v}_j)]_{\mathcal{W}}\) of each result relative to \(\mathcal{W}\).</li>
+          <li>Apply \(T\) to each basis vector \(\vect{v}_j\) in \(\mathcal{V}\).</li>
+          <li>Find the coordinates \([T(\vect{v}_j)]_{\mathcal{W}}\) of each result relative to \(\mathcal{W}\).</li>
           <li>Place the coordinate vectors into the columns of \(A\).</li>
         </ol>
       </li>
-      <li>Use \(A\) to find \([T(\mathbf{x})]_{\mathcal{W}}\) for a vector \(\mathbf{x}\).
+      <li>Use \(A\) to find \([T(\vect{x})]_{\mathcal{W}}\) for a vector \(\vect{x}\).
         <ol type="a">
-          <li>Find the coordinate vector \([\mathbf{x}]_{\mathcal{V}}\) of \(\mathbf{x}\) relative to \(\mathcal{V}\).</li>
-          <li>Use \(A\) to find the coordinates \([T(\mathbf{x})]_{\mathcal{W}} = A[\mathbf{x}]_{\mathcal{V}}\).</li>
+          <li>Find the coordinate vector \([\vect{x}]_{\mathcal{V}}\) of \(\vect{x}\) relative to \(\mathcal{V}\).</li>
+          <li>Use \(A\) to find the coordinates \([T(\vect{x})]_{\mathcal{W}} = A[\vect{x}]_{\mathcal{V}}\).</li>
         </ol>
       </li>
       <li>Determine whether \(T\) is onto and whether \(T\) is one-to-one.
@@ -338,9 +339,9 @@ date_added: 2026-11-13
       Part 3 uses two theorems from lecture (Module C, “Onto Functions and Rank” and “One-to-One Functions and Nullity”).
       For a linear map \(T : V \to W\) with matrix \(A_T\) relative to any bases,
       \[
-        T \text{ is onto} \iff \operatorname{rank} A_T = \dim W,
+        T \text{ is onto} \iff \rank{A_T} = \dim W,
         \qquad
-        T \text{ is one-to-one} \iff \operatorname{null} A_T = 0.
+        T \text{ is one-to-one} \iff \nullity{A_T} = 0.
       \]
     </p>
     <p>

@@ -157,7 +157,7 @@ type SpaceId = keyof typeof SPACES;
 const isSubspace = (s: Space) => s.dim < s.ambient;
 function spaceTex(s: Space): string {
   if (isSubspace(s)) return "W";
-  return s.kind === "R" ? `\\mathbb{R}^{${s.ambient}}` : `\\mathcal{P}_{${s.ambient - 1}}`;
+  return s.kind === "R" ? `\\reals^{${s.ambient}}` : `\\mathcal{P}_{${s.ambient - 1}}`;
 }
 
 // Maps described in words. `text` finishes the sentence "Let T : V → W be …", and `hint` is the
@@ -201,7 +201,7 @@ const NAMED: Record<string, NamedMap> = {
   },
   stretch2: {
     spaces: "r2r2", M: [[2, 0], [0, 2]],
-    text: "the stretch by a factor of 2 (so \\(T(\\mathbf{x}) = 2\\mathbf{x}\\))",
+    text: "the stretch by a factor of 2 (so \\(T(\\vect{x}) = 2\\vect{x}\\))",
     hint: "Stretching by a factor of 2 doubles every entry.",
   },
   rotz: {
@@ -694,9 +694,9 @@ function initPage(): void {
   // [T(vⱼ)]_𝒲, and column j of A. A coordinate vector relative to a basis has each entry in the
   // color of the basis vector it multiplies. With one basis ℬ, both use the colors of 𝒱.
   const wColors = () => (problem.same ? V_COLORS : W_COLORS);
-  const v = (j: number) => colorTex(V_COLORS[j], `\\mathbf{${problem.same ? "b" : "v"}}_{${j + 1}}`);
-  const w = (j: number) => colorTex(wColors()[j], `\\mathbf{${problem.same ? "b" : "w"}}_{${j + 1}}`);
-  const xName = () => (V().kind === "P" ? "p" : "\\mathbf{x}");
+  const v = (j: number) => colorTex(V_COLORS[j], `\\vect{${problem.same ? "b" : "v"}}_{${j + 1}}`);
+  const w = (j: number) => colorTex(wColors()[j], `\\vect{${problem.same ? "b" : "w"}}_{${j + 1}}`);
+  const xName = () => (V().kind === "P" ? "p" : "\\vect{x}");
   const coordTex = (inner: string, set: string) => `\\left[${inner}\\right]_{${set}}`;
   const TvTex = (j: number) => `T(${v(j)})`;  // Only the basis vector is colored
   const elementTex = (space: Space, entries: Vec) => (space.kind === "P" ? polyTex(entries) : vecTex(entries));
@@ -727,7 +727,7 @@ function initPage(): void {
     Array.from({ length: k }, (_, i) => `${cName(i, colors)}${name(i)}`).join(" + ");
   const xCombo = () => coordCombo(problem.x, v, V_COLORS);
   const xTex = () => elementTex(V(), sol.xVec);  // The vector x itself
-  const vj = () => `\\mathbf{${problem.same ? "b" : "v"}}_j`;  // A generic basis vector, uncolored
+  const vj = () => `\\vect{${problem.same ? "b" : "v"}}_j`;  // A generic basis vector, uncolored
   const TvjTex = () => `T(${vj()})`;
   // Whether a step's answer is known: the page works it, or the student got it right or shown.
   const isDone = (s: number) => !tasks()[s] || work.status[s] !== "";
@@ -756,14 +756,14 @@ function initPage(): void {
     const { V: sv } = SPACES[problem.spaces];
     if (problem.form === "named") return `${NAMED[problem.named].text}.`;
     if (problem.form === "matrix") {
-      return `defined by ${$$(`T(\\mathbf{x}) = ${matTex(problem.M)}\\mathbf{x}.`)}`;
+      return `defined by ${$$(`T(\\vect{x}) = ${matTex(problem.M)}\\vect{x}.`)}`;
     }
     if (problem.form === "basis") return `the linear map such that ${$$(actionTex())}${actionWhere()}`;
     return `defined by ${$$(`${formulaTex(sv)}.`)}`;
   }
 
   // The standard basis vectors of V: e₁, e₂, … for column vectors, or 1, x, x², … for polynomials.
-  const stdName = (k: number) => (V().kind === "P" ? (POWERS[k] || "1") : `\\mathbf{e}_{${k + 1}}`);
+  const stdName = (k: number) => (V().kind === "P" ? (POWERS[k] || "1") : `\\vect{e}_{${k + 1}}`);
 
   // What T does to the standard basis of V, one line each: T(e₁) = …, or T(1) = ….
   // When 𝒱 (or ℬ) is the standard basis, each input is in the color of its basis vector, as in the bases.
@@ -815,7 +815,7 @@ function initPage(): void {
     const parts: string[] = [];
     if (isSubspace(sw)) {
       const kind = sw.dim === 2 ? "plane" : "line";
-      parts.push(`<p>Let \\(W\\) be the ${kind} in \\(\\mathbb{R}^{${sw.ambient}}\\) with basis ${$$(`\\mathcal{W} := ${basisTex(sw, problem.C, wColors(), w)}.`)}</p>`);
+      parts.push(`<p>Let \\(W\\) be the ${kind} in \\(\\reals^{${sw.ambient}}\\) with basis ${$$(`\\mathcal{W} := ${basisTex(sw, problem.C, wColors(), w)}.`)}</p>`);
     }
     const mapPart = `<p>Let ${$(`T : ${spaceTex(sv)} \\to ${spaceTex(sw)}`)} be ${mapTex()}</p>`;
     // A map given by its values on basis vectors comes after the bases, so the reader has the bases first.
@@ -1094,8 +1094,8 @@ function initPage(): void {
     } else if (step === 4) {
       box.append(group(`${coordTex(`T(${xName()})`, Wset())} =`, columnEntry(m(), 4, i => `Coordinate ${i + 1} of T(x)`, i => wColors()[i])));
     } else if (step === 5) {
-      box.append(group("\\operatorname{rank} A =", entryInput("Rank of A", 5)));
-      box.append(group("\\operatorname{null} A =", entryInput("Nullity of A", 5)));
+      box.append(group("\\rank{A} =", entryInput("Rank of A", 5)));
+      box.append(group("\\nullity{A} =", entryInput("Nullity of A", 5)));
     } else {
       // One question per line, so a question and its Yes/No pill stay together.
       box.classList.add("mm-yes-no-list");
@@ -1271,8 +1271,8 @@ function initPage(): void {
         const { r, pivots } = rref(sol.A);
         const pivotWord = pivots.length === 1 ? "pivot" : "pivots";
         const rrefText = isIdentity(sol.A) || matEq(r, sol.A) ? `\\(A\\) is in reduced row echelon form` : `Row reducing \\(A\\) gives ${$$(`A \\sim ${matTex(r)}.`)} The reduced row echelon form`;
-        return `<p>${rrefText} has ${pivots.length} ${pivotWord}, so ${$(`\\operatorname{rank} A = ${rankA()}`)}.
-          Since \\(A\\) has ${n()} column${n() === 1 ? "" : "s"}, ${$(`\\operatorname{null} A = ${n()} - ${rankA()} = ${nullA()}`)}.</p>`;
+        return `<p>${rrefText} has ${pivots.length} ${pivotWord}, so ${$(`\\rank{A} = ${rankA()}`)}.
+          Since \\(A\\) has ${n()} column${n() === 1 ? "" : "s"}, ${$(`\\nullity{A} = ${n()} - ${rankA()} = ${nullA()}`)}.</p>`;
       }
       case 6: {
         // As in lecture: the definition, the theorem that turns it into a question about A, the
@@ -1281,10 +1281,10 @@ function initPage(): void {
         const rk = rankA(), nl = nullA();
         const parts: string[] = [];
         // Onto.
-        parts.push(`<p><strong>Onto.</strong> \\(T\\) is onto if every vector in ${$(spaceTex(sw))} is ${$(`T(${xName()})`)} for some ${$(xName())} in ${$(spaceTex(sv))}, that is, if ${$(`\\operatorname{range} T = ${spaceTex(sw)}`)}.
-          Since ${$(`\\dim(\\operatorname{range} T) = \\operatorname{rank} A`)}, \\(T\\) is onto exactly when ${$(`\\operatorname{rank} A = ${dimTex(sw)}`)}.</p>`);
+        parts.push(`<p><strong>Onto.</strong> \\(T\\) is onto if every vector in ${$(spaceTex(sw))} is ${$(`T(${xName()})`)} for some ${$(xName())} in ${$(spaceTex(sv))}, that is, if ${$(`\\range{T} = ${spaceTex(sw)}`)}.
+          Since ${$(`\\dim(\\range{T}) = \\rank{A}`)}, \\(T\\) is onto exactly when ${$(`\\rank{A} = ${dimTex(sw)}`)}.</p>`);
         if (isOnto()) {
-          parts.push(`<p>Here, ${$(`\\operatorname{rank} A = ${rk} = ${dimTex(sw)}`)}, so \\(T\\) is <strong>onto</strong>: its range is all of ${$(spaceTex(sw))}.</p>`);
+          parts.push(`<p>Here, ${$(`\\rank{A} = ${rk} = ${dimTex(sw)}`)}, so \\(T\\) is <strong>onto</strong>: its range is all of ${$(spaceTex(sw))}.</p>`);
         } else {
           // A basis vector of 𝒲 outside the range: its coordinates eᵢ aren't a combination of the columns of A.
           const e = (i: number) => Array.from({ length: m() }, (_, k) => F(k === i ? 1 : 0));
@@ -1292,13 +1292,13 @@ function initPage(): void {
           const example = missing === undefined ? ""
             : ` For example, ${$(w(missing))} isn't ${$(`T(${xName()})`)} for any ${$(xName())}: its coordinates ${$(`${coordTex(w(missing), Wset())} = ${vecTex(e(missing))}`)} aren't a combination of the columns of \\(A\\), so ${$(`A${coordTex(xName(), Vset())} = ${vecTex(e(missing))}`)} has no solution.`;
           const why = n() < m() ? ` (In fact, \\(A\\) has only ${n()} column${n() === 1 ? "" : "s"}, so its rank is at most ${n()}, and no linear map from ${$(spaceTex(sv))} to ${$(spaceTex(sw))} is onto.)` : "";
-          parts.push(`<p>Here, ${$(`\\operatorname{rank} A = ${rk} < ${m()} = ${dimTex(sw)}`)}, so \\(T\\) is <strong>not onto</strong>: its range is only ${rk === 0 ? $("\\{\\mathbf{0}\\}") : `${rk}-dimensional`}.${example}${why}</p>`);
+          parts.push(`<p>Here, ${$(`\\rank{A} = ${rk} < ${m()} = ${dimTex(sw)}`)}, so \\(T\\) is <strong>not onto</strong>: its range is only ${rk === 0 ? $("\\{\\vect{0}\\}") : `${rk}-dimensional`}.${example}${why}</p>`);
         }
         // One-to-one.
-        parts.push(`<p><strong>One-to-one.</strong> \\(T\\) is one-to-one if different vectors in ${$(spaceTex(sv))} have different images. For a linear map, that happens exactly when only ${$("\\mathbf{0}")} maps to ${$("\\mathbf{0}")}, that is, when ${$("\\ker T = \\{\\mathbf{0}\\}")}.
-          Since ${$("\\dim(\\ker T) = \\operatorname{null} A")}, \\(T\\) is one-to-one exactly when ${$("\\operatorname{null} A = 0")}.</p>`);
+        parts.push(`<p><strong>One-to-one.</strong> \\(T\\) is one-to-one if different vectors in ${$(spaceTex(sv))} have different images. For a linear map, that happens exactly when only ${$("\\vect{0}")} maps to ${$("\\vect{0}")}, that is, when ${$("\\ker T = \\{\\vect{0}\\}")}.
+          Since ${$("\\dim(\\nullspace{T}) = \\nullity{A}")}, \\(T\\) is one-to-one exactly when ${$("\\nullity{A} = 0")}.</p>`);
         if (isOneToOne()) {
-          parts.push(`<p>Here, ${$("\\operatorname{null} A = 0")}: every column of the reduced row echelon form of \\(A\\) has a pivot, so ${$(`A${coordTex(xName(), Vset())} = \\mathbf{0}`)} only when ${$(`${coordTex(xName(), Vset())} = \\mathbf{0}`)}. So \\(T\\) is <strong>one-to-one</strong>.</p>`);
+          parts.push(`<p>Here, ${$("\\nullity{A} = 0")}: every column of the reduced row echelon form of \\(A\\) has a pivot, so ${$(`A${coordTex(xName(), Vset())} = \\vect{0}`)} only when ${$(`${coordTex(xName(), Vset())} = \\vect{0}`)}. So \\(T\\) is <strong>one-to-one</strong>.</p>`);
         } else {
           // A nonzero vector in the kernel: the first free variable is 1, and each pivot variable comes from the RREF.
           const { r, pivots } = rref(sol.A);
@@ -1309,10 +1309,10 @@ function initPage(): void {
           const gcd = (a: bigint, b: bigint): bigint => (b === 0n ? a : gcd(b, a % b));
           const lcd = c.reduce((l, x) => (l * x.den) / gcd(l, x.den), 1n);
           c.forEach((x, j) => { c[j] = mul(x, fraction(Number(lcd))); });
-          const u = sv.kind === "P" ? "q" : "\\mathbf{u}";
+          const u = sv.kind === "P" ? "q" : "\\vect{u}";
           const why = n() > m() ? ` (In fact, \\(A\\) has more columns than rows, so some column has no pivot, and no linear map from ${$(spaceTex(sv))} to ${$(spaceTex(sw))} is one-to-one.)` : "";
-          parts.push(`<p>Here, ${$(`\\operatorname{null} A = ${nl} > 0`)}: column ${free + 1} of the reduced row echelon form of \\(A\\) has no pivot. So \\(T\\) is <strong>not one-to-one</strong>.
-            For example, setting the free variable ${$(cName(free, V_COLORS))} to ${tex(c[free])} gives ${$(`${coordTex(u, Vset())} = ${coordVecTex(c, V_COLORS)}`)}, with ${$(`A${coordTex(u, Vset())} = \\mathbf{0}`)}. So the nonzero vector ${$$(`${u} = ${coordCombo(c, v, V_COLORS)} = ${elementTex(sv, matVec(problem.B, c))}`)} has ${$(`T(${u}) = \\mathbf{0} = T(\\mathbf{0})`)}: two different vectors with the same image.${why}</p>`);
+          parts.push(`<p>Here, ${$(`\\nullity{A} = ${nl} > 0`)}: column ${free + 1} of the reduced row echelon form of \\(A\\) has no pivot. So \\(T\\) is <strong>not one-to-one</strong>.
+            For example, setting the free variable ${$(cName(free, V_COLORS))} to ${tex(c[free])} gives ${$(`${coordTex(u, Vset())} = ${coordVecTex(c, V_COLORS)}`)}, with ${$(`A${coordTex(u, Vset())} = \\vect{0}`)}. So the nonzero vector ${$$(`${u} = ${coordCombo(c, v, V_COLORS)} = ${elementTex(sv, matVec(problem.B, c))}`)} has ${$(`T(${u}) = \\vect{0} = T(\\vect{0})`)}: two different vectors with the same image.${why}</p>`);
         }
         return parts.join("");
       }
@@ -1567,11 +1567,11 @@ function initPage(): void {
       if (onto !== isOnto()) {
         if (mine && (r !== rankA()) && onto === (r === m())) note("Your answer for onto fits the rank you found in step 3(a), but that rank isn't right.");
         else if (onto === (rankA() === n()) && m() !== n()) note(`For onto, compare the rank with the dimension of the <em>target</em> ${$(spaceTex(W()))}, which is ${m()}, not the dimension of the domain.`);
-        else note(`For onto, compare ${$("\\operatorname{rank} A")} with ${$(dimTex(W()))}.`);
+        else note(`For onto, compare ${$("\\rank{A}")} with ${$(dimTex(W()))}.`);
       }
       if (one !== isOneToOne()) {
         if (mine && k !== nullA() && one === (k === 0)) note("Your answer for one-to-one fits the nullity you found in step 3(a), but that nullity isn't right.");
-        else note(`For one-to-one, look at the nullity: \\(T\\) is one-to-one exactly when ${$("\\operatorname{null} A = 0")}, that is, when only ${$("\\mathbf{0}")} maps to ${$("\\mathbf{0}")}.`);
+        else note(`For one-to-one, look at the nullity: \\(T\\) is one-to-one exactly when ${$("\\nullity{A} = 0")}, that is, when only ${$("\\vect{0}")} maps to ${$("\\vect{0}")}.`);
       }
     } else {
       // Mistakes carried forward from A (step 1(c)) or [x]_𝒱 (step 2(a)), as the student entered them.
@@ -1724,14 +1724,14 @@ function initPage(): void {
       case 5: {
         const { r, pivots } = rref(sol.A);
         return [
-          "Row reduce \\(A\\). The rank is the number of pivots (leading entries) in its reduced row echelon form, and the nullity is the number of columns without a pivot: " + $$(`\\operatorname{rank} A + \\operatorname{null} A = \\text{number of columns} = ${n()}.`),
+          "Row reduce \\(A\\). The rank is the number of pivots (leading entries) in its reduced row echelon form, and the nullity is the number of columns without a pivot: " + $$(`\\rank{A} + \\nullity{A} = \\text{number of columns} = ${n()}.`),
           `The reduced row echelon form of \\(A\\)${rankPracticeLink()} is ${$$(`${matTex(r)},`)} with pivots in column${pivots.length === 1 ? "" : "s"} ${pivots.map(j => j + 1).join(" and ") || "(none)"}.`,
         ];
       }
       case 6: {
         const sw = W();
         return [
-          `From lecture (with ${$("A_T")} the matrix of \\(T\\) relative to any bases): ${$$(`T \\text{ is onto} \\iff \\operatorname{rank} A_T = \\dim W, \\qquad T \\text{ is one-to-one} \\iff \\operatorname{null} A_T = 0.`)}`,
+          `From lecture (with ${$("A_T")} the matrix of \\(T\\) relative to any bases): ${$$(`T \\text{ is onto} \\iff \\rank{A_T} = \\dim W, \\qquad T \\text{ is one-to-one} \\iff \\nullity{A_T} = 0.`)}`,
           `Here, \\(W = ${spaceTex(sw)}\\)${isSubspace(sw) ? ` (the ${sw.dim === 2 ? "plane" : "line"})` : ""}, so ${$(`${dimTex(sw)} = ${m()}`)}. Compare this with the rank from step 3(a), and check whether the nullity is 0.`,
         ];
       }
