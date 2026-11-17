@@ -6,9 +6,9 @@ level: high-school
 values:
   eigenvalue: '$i$ and $-i$'
   singular_value: '$1$ and $1$'
-  transpose: '$$A^{\top} = \begin{bmatrix} 0 & 1 \\ -1 & 0 \end{bmatrix}$$'
+  transpose: '$$A\trans = \begin{bmatrix} 0 & 1 \\ -1 & 0 \end{bmatrix}$$'
   determinant: '$\det A = 0 \cdot 0 - (-1) \cdot 1 = 1$'
-  trace: '$\operatorname{tr} A = 0 + 0 = 0$'
+  trace: '$\trace{A} = 0 + 0 = 0$'
   invertible_matrix: '$$A^{-1} = \begin{bmatrix} 0 & 1 \\ -1 & 0 \end{bmatrix}$$'
   entrywise_exponential: '$$\begin{bmatrix} 1 & 1/e \\ e & 1 \end{bmatrix}$$'
   matrix_exponential: '$$\begin{bmatrix} \cos 1 & -\sin 1 \\ \sin 1 & \cos 1 \end{bmatrix}$$'
@@ -27,12 +27,12 @@ why:
   orthogonal_matrix: >-
     The rotation $$A = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}$$ is orthogonal, because its inverse, the rotation by $-90°$, is its transpose.
   skew_symmetric_matrix: >-
-    The rotation $$A = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}$$ is skew-symmetric, because $A^{\top} = -A$.
+    The rotation $$A = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}$$ is skew-symmetric, because $A\trans = -A$.
   eigenvalue: >-
     The eigenvalues of $$A = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}$$ are $i$ and $-i$, because $$A \begin{bmatrix} 1 \\ -i \end{bmatrix} = \begin{bmatrix} i \\ 1 \end{bmatrix} = i \begin{bmatrix} 1 \\ -i \end{bmatrix}$$ and $$A \begin{bmatrix} 1 \\ i \end{bmatrix} = \begin{bmatrix} -i \\ 1 \end{bmatrix} = -i \begin{bmatrix} 1 \\ i \end{bmatrix}$$.
     $A$ rotates every nonzero real vector by $90°$, so it has no real eigenvalues.
   singular_value: >-
-    The singular values of $$A = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}$$ are $1$ and $1$, because $A^{\top} A = I$, whose eigenvalues are $1$ and $1$.
+    The singular values of $$A = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}$$ are $1$ and $1$, because $A\trans A = I$, whose eigenvalues are $1$ and $1$.
     A rotation does not change the length of any vector.
   transpose: >-
     For the rotation by $90°$, the transpose and the inverse are the same matrix, because the rotation is orthogonal.

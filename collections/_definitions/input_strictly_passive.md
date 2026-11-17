@@ -10,8 +10,8 @@ levels:
       Consider a system with input $u$, output $y$, and a storage function $V$.
       The system is _input strictly passive_ if
 
-      $$u^{\top} y \geq \dot{V} + u^{\top} \varphi(u)$$
+      $$u\trans y \geq \dot{V} + u\trans \varphi(u)$$
 
-      for some function $\varphi$ such that $u^{\top} \varphi(u) > 0$ for all $u \neq 0$.
-      If only $u^{\top} y \geq \dot{V} + u^{\top} \varphi(u)$ holds, without the sign condition, then the system is _input-feedforward passive_.
+      for some function $\varphi$ such that $u\trans \varphi(u) > 0$ for all $u \neq 0$.
+      If only $u\trans y \geq \dot{V} + u\trans \varphi(u)$ holds, without the sign condition, then the system is _input-feedforward passive_.
 ---

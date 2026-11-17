@@ -1,0 +1,188 @@
+# Reader-selectable notation.
+#
+# Each item is a MathJax macro whose expansion the reader picks on the Notation page (/dictionary/notation/).
+# assets/js/mathjax_config.js reads this file (through Liquid) and the reader's saved choices, and defines each
+# macro before MathJax starts, so every page renders in the reader's notation.
+#
+# Fields:
+#   id:      Key in the saved choices (localStorage "notation.choices"). Don't rename it, or saved choices are lost.
+#   name:    Shown on the Notation page.
+#   group:   Heading on the Notation page. Items in the same group must be listed together.
+#   macro:   Macro name, without the backslash. Content uses \macro{arg} (args: 1) or \macro (args: 0).
+#   args:    Number of arguments (0 or 1).
+#   default: id of the option used when the reader hasn't chosen one.
+#   help:    Explanation shown by the "?" button.
+#   sample:  TeX for the sample beside each option on the Notation page. Each "@{x}" is replaced by the option's TeX
+#            with #1 replaced by x. Defaults to "@{T}".
+#   options: id, tex, and used_by (who uses the notation, shown beside it).
+#            For an operator written without parentheses ("\ker #1"), a second macro \<macro>Of puts the argument in
+#            parentheses, for compound arguments: \nullspaceOf{A - \lambda I} gives ker(A − λI) or N(A − λI).
+#            Give `tex_of` to override that.
+#
+# Use a macro when the text uses the notation, and literal TeX when the text is about a particular notation
+# (for example, "Some books write $\operatorname{im} T$").
+
+- id: vector
+  name: Vectors
+  group: Linear algebra
+  macro: vect
+  args: 1
+  sample: 'A @{x} = @{b}'
+  default: plain
+  help: How vectors are written, to tell them apart from numbers (scalars).
+  options:
+    - {id: plain, tex: '#1', used_by: most advanced texts; this dictionary}
+    - {id: bf, tex: '\mathbf{#1}', used_by: physics and engineering texts}
+    - {id: bsym, tex: '\boldsymbol{#1}', used_by: some texts (bold italic)}
+    - {id: arrow, tex: '\vec{#1}', used_by: high-school and physics texts}
+    - {id: overarrow, tex: '\overrightarrow{#1}', used_by: geometry texts}
+    - {id: underline, tex: '\underline{#1}', used_by: handwriting}
+
+- id: range
+  name: Range of a linear map
+  group: Linear algebra
+  macro: range
+  args: 1
+  default: range
+  help: The set of all outputs of a function or linear map T, which is the image of its whole domain.
+  options:
+    - {id: range, tex: '\operatorname{range} #1', used_by: Axler; this dictionary}
+    - {id: im, tex: '\operatorname{im} #1', used_by: most algebra texts}
+    - {id: Im, tex: '\operatorname{Im} #1', used_by: some algebra texts}
+    - {id: ran, tex: '\operatorname{ran} #1', used_by: some analysis texts}
+    - {id: R, tex: 'R(#1)', used_by: some texts}
+    - {id: calR, tex: '\mathcal{R}(#1)', used_by: engineering and control texts}
+
+- id: nullspace
+  name: Null space (kernel)
+  group: Linear algebra
+  macro: nullspace
+  args: 1
+  default: ker
+  help: The set of inputs that a linear map T sends to 0.
+  options:
+    - {id: ker, tex: '\ker #1', used_by: most texts; this dictionary}
+    - {id: 'null', tex: '\operatorname{null} #1', used_by: Axler}
+    - {id: Nul, tex: '\operatorname{Nul} #1', used_by: Lay}
+    - {id: N, tex: 'N(#1)', used_by: Strang}
+    - {id: calN, tex: '\mathcal{N}(#1)', used_by: engineering and control texts}
+
+- id: colspace
+  name: Column space
+  group: Linear algebra
+  macro: colspace
+  args: 1
+  sample: '@{A}'
+  default: col
+  help: The span of the columns of a matrix A, which is the range of the map x ↦ Ax.
+  options:
+    - {id: col, tex: '\operatorname{col} #1', used_by: some texts; this dictionary}
+    - {id: Col, tex: '\operatorname{Col} #1', used_by: Lay}
+    - {id: C, tex: 'C(#1)', used_by: Strang}
+    - {id: calC, tex: '\mathcal{C}(#1)', used_by: some engineering texts}
+    - {id: range, tex: '\range{#1}', used_by: texts that treat a matrix as a map}
+
+- id: rowspace
+  name: Row space
+  group: Linear algebra
+  macro: rowspace
+  args: 1
+  sample: '@{A}'
+  default: row
+  help: The span of the rows of a matrix A.
+  options:
+    - {id: row, tex: '\operatorname{row} #1', used_by: some texts; this dictionary}
+    - {id: Row, tex: '\operatorname{Row} #1', used_by: Lay}
+    # The column space of the transpose, in the reader's notation for both.
+    - {id: CT, tex: '\colspace{#1\trans}', tex_of: '\colspace{(#1)\trans}', used_by: Strang}
+
+- id: rank
+  name: Rank
+  group: Linear algebra
+  macro: rank
+  args: 1
+  sample: '@{A}'
+  default: rank
+  help: The dimension of the range of a matrix or linear map A.
+  options:
+    - {id: rank, tex: '\operatorname{rank} #1', used_by: most texts; this dictionary}
+    - {id: rk, tex: '\operatorname{rk} #1', used_by: some texts}
+    - {id: r, tex: 'r(#1)', used_by: some texts}
+
+- id: nullity
+  name: Nullity
+  group: Linear algebra
+  macro: nullity
+  args: 1
+  sample: '@{A}'
+  default: nullity
+  help: The dimension of the null space of a matrix or linear map A.
+  options:
+    - {id: nullity, tex: '\operatorname{nullity} #1', used_by: most texts; this dictionary}
+    - {id: nu, tex: '\nu(#1)', used_by: some texts}
+
+- id: transpose
+  name: Transpose
+  group: Linear algebra
+  macro: trans
+  args: 0
+  sample: 'A@{}'
+  default: top
+  help: The transpose of a matrix A, written in content as A\trans.
+  options:
+    - {id: top, tex: '^{\top}', used_by: this dictionary}
+    - {id: T, tex: '^{T}', used_by: many textbooks}
+    - {id: sfT, tex: '^{\mathsf{T}}', used_by: some texts}
+    - {id: t, tex: '^{t}', used_by: some texts}
+
+- id: span
+  name: Span
+  group: Linear algebra
+  macro: Span
+  args: 1
+  sample: '@{v_1, \dots, v_k}'
+  default: spanset
+  help: The set of all linear combinations of the vectors v₁, …, vₖ.
+  options:
+    - {id: spanset, tex: '\operatorname{span}\setdef{#1}', used_by: many texts; this dictionary}
+    - {id: span, tex: '\operatorname{span}(#1)', used_by: many texts}
+    - {id: angle, tex: '\langle #1 \rangle', used_by: algebra texts}
+    - {id: lin, tex: '\operatorname{lin}(#1)', used_by: some texts}
+
+- id: trace
+  name: Trace
+  group: Linear algebra
+  macro: trace
+  args: 1
+  sample: '@{A}'
+  default: tr
+  help: The sum of the diagonal entries of a square matrix A.
+  options:
+    - {id: tr, tex: '\operatorname{tr} #1', used_by: most texts; this dictionary}
+    - {id: Tr, tex: '\operatorname{Tr} #1', used_by: physics texts}
+    - {id: trace, tex: '\operatorname{trace} #1', used_by: some texts}
+
+- id: suchthat
+  name: Set-builder separator
+  group: Sets
+  macro: suchthat
+  args: 0
+  sample: '\setdef{x \in \reals @{} x > 0}'
+  default: bar
+  help: The symbol between the variable and the condition in set-builder notation, read "such that." Content writes \setdef{x \suchthat x > 0}.
+  options:
+    # \middle needs the enclosing \left ... \right that \setdef provides, so \suchthat works only inside \setdef.
+    - {id: bar, tex: '\mathrel{}\middle|\mathrel{}', used_by: most texts; this dictionary}
+    - {id: colon, tex: '\mathrel{}:\mathrel{}', used_by: many analysis and logic texts}
+
+- id: numberset
+  name: Number sets
+  group: Sets
+  macro: numberset
+  args: 1
+  sample: '@{N} \subseteq @{Z} \subseteq @{Q} \subseteq @{R} \subseteq @{C}'
+  default: bb
+  help: The typeface for the number sets (natural numbers, integers, rationals, reals, and complex numbers), which content writes as \nats, \integers, \rationals, \reals, and \complexes.
+  options:
+    - {id: bb, tex: '\mathbb{#1}', used_by: most texts; this dictionary}
+    - {id: bf, tex: '\mathbf{#1}', used_by: some older texts}

@@ -26,4 +26,4 @@ properties:
   - >-
     A system has many Lagrangians: adding the total time derivative of a function $F(q, t)$ to a Lagrangian gives the same Euler–Lagrange equations.
 ---
-In optimization, the _Lagrangian_ of the problem "minimize $f(x)$ subject to $g(x) = 0$" is the different function $f(x) + \lambda^\top g(x)$, with Lagrange multipliers $\lambda$.
+In optimization, the _Lagrangian_ of the problem "minimize $f(x)$ subject to $g(x) = 0$" is the different function $f(x) + \lambda\trans g(x)$, with Lagrange multipliers $\lambda$.

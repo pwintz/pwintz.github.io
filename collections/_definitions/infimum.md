@@ -20,7 +20,7 @@ levels:
 properties:
   - >-
     Every nonempty set of [real numbers](/dictionary/definitions/real-number) that is [bounded](/dictionary/definitions/bounded) below has an infimum.
-    This is the completeness of $\reals$, and it fails in $\mathbb{Q}$.
+    This is the completeness of $\reals$, and it fails in $\rationals$.
   - >-
     If the infimum of $S$ belongs to $S$, then it is the minimum of $S$.
 ---

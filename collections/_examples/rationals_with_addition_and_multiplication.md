@@ -1,5 +1,5 @@
 ---
-title: 'The rational numbers $\mathbb{Q}$, with addition and multiplication'
+title: 'The rational numbers $\rationals$, with addition and multiplication'
 level: high-school
 is: [
   group,

@@ -19,7 +19,7 @@ levels:
       Consider a system $\dot{x} = f(x, u)$ with output $y = h(x, u)$.
       The system is _passive_ if there is a [continuously differentiable](/dictionary/definitions/continuously-differentiable) storage function $V \geq 0$ with
 
-      $$u^{\top} y \geq \dot{V}$$
+      $$u\trans y \geq \dot{V}$$
 
       along all solutions.
 properties:

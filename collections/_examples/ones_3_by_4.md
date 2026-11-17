@@ -7,7 +7,7 @@ values:
   array_shape: '$(3, 4)$'
   array_size: '$3 \cdot 4 = 12$'
   matrix_rank: '$1$'
-  nullity: '$\operatorname{nullity} = 3$'
+  nullity: '$3$'
 why:
   array_rank: >-
     The $3 \times 4$ matrix of ones has array rank $2$, because it takes two indices (row and column) to pick out an entry.

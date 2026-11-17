@@ -22,9 +22,9 @@ values:
   schur_decomposition: '$$T = \begin{bmatrix} \frac{5 + \sqrt{17}}{2} & -3 \\ 0 & \frac{5 - \sqrt{17}}{2} \end{bmatrix}$$'
   jordan_normal_form: '$J = D$, as in the eigendecomposition'
   toeplitz_decomposition: '$$H = \begin{bmatrix} 2 & 5/2 \\ 5/2 & 3 \end{bmatrix}$$, $$K = \begin{bmatrix} 0 & -3/2 \\ 3/2 & 0 \end{bmatrix}$$'
-  transpose: '$$A^{\top} = \begin{bmatrix} 2 & 4 \\ 1 & 3 \end{bmatrix}$$'
+  transpose: '$$A\trans = \begin{bmatrix} 2 & 4 \\ 1 & 3 \end{bmatrix}$$'
   determinant: '$\det A = 2 \cdot 3 - 1 \cdot 4 = 2$'
-  trace: '$\operatorname{tr} A = 2 + 3 = 5$'
+  trace: '$\trace{A} = 2 + 3 = 5$'
   invertible_matrix: '$$A^{-1} = \frac{1}{2} \begin{bmatrix} 3 & -1 \\ -4 & 2 \end{bmatrix}$$'
   minor: '$M_{11} = 3$, $M_{12} = 4$, $M_{21} = 1$, $M_{22} = 2$'
   cofactor: '$C_{11} = 3$, $C_{12} = -4$, $C_{21} = -1$, $C_{22} = 2$'
@@ -46,10 +46,10 @@ why:
     The matrix $$A = \begin{bmatrix} 2 & 1 \\ 4 & 3 \end{bmatrix}$$ has an LU decomposition, so $P = I$ works.
     With partial pivoting, the rows are exchanged first instead, because $4$ is larger than $2$.
   singular_value_decomposition: >-
-    The singular values of $$A = \begin{bmatrix} 2 & 1 \\ 4 & 3 \end{bmatrix}$$ are the square roots of the eigenvalues $15 \pm \sqrt{221}$ of $$A^{\top} A = \begin{bmatrix} 20 & 14 \\ 14 & 10 \end{bmatrix}$$.
+    The singular values of $$A = \begin{bmatrix} 2 & 1 \\ 4 & 3 \end{bmatrix}$$ are the square roots of the eigenvalues $15 \pm \sqrt{221}$ of $$A\trans A = \begin{bmatrix} 20 & 14 \\ 14 & 10 \end{bmatrix}$$.
     Their product is $\abs{\det A} = 2$.
   polar_decomposition: >-
-    The polar factor $S$ of $$A = \begin{bmatrix} 2 & 1 \\ 4 & 3 \end{bmatrix}$$ is the positive semidefinite square root of $$A^{\top} A = \begin{bmatrix} 20 & 14 \\ 14 & 10 \end{bmatrix}$$, and $Q = A S^{-1}$ is a rotation.
+    The polar factor $S$ of $$A = \begin{bmatrix} 2 & 1 \\ 4 & 3 \end{bmatrix}$$ is the positive semidefinite square root of $$A\trans A = \begin{bmatrix} 20 & 14 \\ 14 & 10 \end{bmatrix}$$, and $Q = A S^{-1}$ is a rotation.
   eigendecomposition: >-
     The matrix $$A = \begin{bmatrix} 2 & 1 \\ 4 & 3 \end{bmatrix}$$ has the distinct eigenvalues $\lambda = \frac{5 \pm \sqrt{17}}{2}$, with eigenvectors $(1, \lambda - 2)$, so it has an eigendecomposition.
     The eigenvectors are not perpendicular, because $A$ is not symmetric.
@@ -57,7 +57,7 @@ why:
     In the Schur decomposition of $$A = \begin{bmatrix} 2 & 1 \\ 4 & 3 \end{bmatrix}$$, the first column of $Q$ is a unit eigenvector for $\frac{5 + \sqrt{17}}{2}$, and the second column is perpendicular to it.
     The entry $-3$ above the diagonal is nonzero because $A$ is not normal.
   toeplitz_decomposition: >-
-    The Toeplitz decomposition of $$A = \begin{bmatrix} 2 & 1 \\ 4 & 3 \end{bmatrix}$$ splits $A$ into its symmetric part $H = \frac{1}{2}(A + A^{\top})$ and its skew-symmetric part $K = \frac{1}{2}(A - A^{\top})$, which average and split the off-diagonal entries $1$ and $4$.
+    The Toeplitz decomposition of $$A = \begin{bmatrix} 2 & 1 \\ 4 & 3 \end{bmatrix}$$ splits $A$ into its symmetric part $H = \frac{1}{2}(A + A\trans)$ and its skew-symmetric part $K = \frac{1}{2}(A - A\trans)$, which average and split the off-diagonal entries $1$ and $4$.
   singular_matrix: >-
     The matrix $$A = \begin{bmatrix} 2 & 1 \\ 4 & 3 \end{bmatrix}$$ is not singular, because $\det A = 2 \neq 0$.
   defective_matrix: >-

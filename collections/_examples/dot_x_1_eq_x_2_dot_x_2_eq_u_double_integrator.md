@@ -9,7 +9,7 @@ is: [
 ]
 why:
   controllable: >-
-    The double integrator is controllable and reachable because, with $B = (0, 1)^{\top}$, the matrix $\begin{bmatrix} B & A B \end{bmatrix}$ has rank $2$.
+    The double integrator is controllable and reachable because, with $B = (0, 1)\trans$, the matrix $\begin{bmatrix} B & A B \end{bmatrix}$ has rank $2$.
   stabilizable: >-
     The double integrator is stabilizable, because it is controllable.
 ---

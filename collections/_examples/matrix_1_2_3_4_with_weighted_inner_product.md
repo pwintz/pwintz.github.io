@@ -5,7 +5,7 @@ detail: |-
   $$A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}.$$
 level: undergraduate
 values:
-  transpose: '$$A^{\top} = \begin{bmatrix} 1 & 3 \\ 2 & 4 \end{bmatrix}$$'
+  transpose: '$$A\trans = \begin{bmatrix} 1 & 3 \\ 2 & 4 \end{bmatrix}$$'
   conjugate_transpose: '$$A^{\ast} = \begin{bmatrix} 1 & 3 \\ 2 & 4 \end{bmatrix}$$'
   adjoint: '$$T^{\ast}(y) = \begin{bmatrix} 1 & 6 \\ 1 & 4 \end{bmatrix} y$$'
 why:
@@ -14,9 +14,9 @@ why:
   conjugate_transpose: >-
     The conjugate transpose of the matrix $$A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$$ is its transpose, because the entries of $A$ are real.
   adjoint: |-
-    The inner product $\ip{x}{y} = x_1 y_1 + 2 x_2 y_2$ is $x^{\top} W y$ with $W = \operatorname{diag}(1, 2)$, so the adjoint of the linear map $T(x) = A x$ is $T^{\ast}(y) = W^{-1} A^{\top} W y$, where
+    The inner product $\ip{x}{y} = x_1 y_1 + 2 x_2 y_2$ is $x\trans W y$ with $W = \operatorname{diag}(1, 2)$, so the adjoint of the linear map $T(x) = A x$ is $T^{\ast}(y) = W^{-1} A\trans W y$, where
 
-    $$W^{-1} A^{\top} W = \begin{bmatrix} 1 & 0 \\ 0 & 1/2 \end{bmatrix} \begin{bmatrix} 1 & 3 \\ 2 & 4 \end{bmatrix} \begin{bmatrix} 1 & 0 \\ 0 & 2 \end{bmatrix} = \begin{bmatrix} 1 & 6 \\ 1 & 4 \end{bmatrix}.$$
+    $$W^{-1} A\trans W = \begin{bmatrix} 1 & 0 \\ 0 & 1/2 \end{bmatrix} \begin{bmatrix} 1 & 3 \\ 2 & 4 \end{bmatrix} \begin{bmatrix} 1 & 0 \\ 0 & 2 \end{bmatrix} = \begin{bmatrix} 1 & 6 \\ 1 & 4 \end{bmatrix}.$$
 
-    This choice satisfies $\ip{T x}{y} = x^{\top} A^{\top} W y = x^{\top} W (W^{-1} A^{\top} W y) = \ip{x}{T^{\ast} y}$.
+    This choice satisfies $\ip{T x}{y} = x\trans A\trans W y = x\trans W (W^{-1} A\trans W y) = \ip{x}{T^{\ast} y}$.
 ---

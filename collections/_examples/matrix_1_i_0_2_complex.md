@@ -1,11 +1,11 @@
 ---
 published: false
-title: 'The linear map $T(x) = A x$ on $\mathbb{C}^2$ with the standard inner product, where $A = [1, i; 0, 2]$'
+title: 'The linear map $T(x) = A x$ on $\complexes^2$ with the standard inner product, where $A = [1, i; 0, 2]$'
 detail: |-
   $$A = \begin{bmatrix} 1 & i \\ 0 & 2 \end{bmatrix}.$$
 level: undergraduate
 values:
-  transpose: '$$A^{\top} = \begin{bmatrix} 1 & 0 \\ i & 2 \end{bmatrix}$$'
+  transpose: '$$A\trans = \begin{bmatrix} 1 & 0 \\ i & 2 \end{bmatrix}$$'
   conjugate_transpose: '$$A^{\ast} = \begin{bmatrix} 1 & 0 \\ -i & 2 \end{bmatrix}$$'
   adjoint: '$$T^{\ast}(y) = \begin{bmatrix} 1 & 0 \\ -i & 2 \end{bmatrix} y$$'
 why:

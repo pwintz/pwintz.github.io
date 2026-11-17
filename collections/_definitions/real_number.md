@@ -28,7 +28,7 @@ properties:
   - >-
     Some real numbers have two decimal expansions: a decimal that ends, such as $1.0$, equals the decimal that instead ends with repeating $9$s, such as $0.999\ldots$, because $\sum_{k = 1}^{\infty} \frac{9}{10^k} = 1$.
   - >-
-    $\reals$ can be constructed from $\mathbb{Q}$ using Dedekind cuts or Cauchy [sequences](/dictionary/definitions/sequence).
+    $\reals$ can be constructed from $\rationals$ using Dedekind cuts or Cauchy [sequences](/dictionary/definitions/sequence).
   - >-
     Every nonempty set of real numbers that is [bounded](/dictionary/definitions/bounded) above has a [least upper bound](/dictionary/definitions/supremum) (the completeness of $\reals$).
 ---

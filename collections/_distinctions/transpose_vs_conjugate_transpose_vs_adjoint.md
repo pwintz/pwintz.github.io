@@ -4,8 +4,8 @@ title: Transpose vs. Conjugate Transpose vs. Adjoint
 kind: siblings
 areas: [linear-algebra]
 summary: >
-  The transpose and the conjugate transpose of a matrix and the adjoint of a linear map are closely related: for a real matrix $A$ and the [dot product](/dictionary/definitions/dot-product), the adjoint of the linear map $x \mapsto A x$ is the linear map $y \mapsto A^{\top} y$, and the conjugate transpose of $A$ is $A^{\top}$.
-  The [transpose](/dictionary/definitions/transpose) $A^{\top}$ of a matrix swaps its rows and columns.
+  The transpose and the conjugate transpose of a matrix and the adjoint of a linear map are closely related: for a real matrix $A$ and the [dot product](/dictionary/definitions/dot-product), the adjoint of the linear map $x \mapsto A x$ is the linear map $y \mapsto A\trans y$, and the conjugate transpose of $A$ is $A\trans$.
+  The [transpose](/dictionary/definitions/transpose) $A\trans$ of a matrix swaps its rows and columns.
   The [conjugate transpose](/dictionary/definitions/conjugate-transpose) $A^{\ast}$ also replaces each entry by its complex conjugate, so the conjugate transpose differs from the transpose only for matrices with non-real entries.
   The [adjoint](/dictionary/definitions/adjoint) $T^{\ast}$ of a [linear map](/dictionary/definitions/linear-map) is defined by [inner products](/dictionary/definitions/inner-product), $\ip{T v}{w} = \ip{v}{T^{\ast} w}$, so the adjoint depends on the inner products and also applies to maps without matrices, such as differential [operators](/dictionary/definitions/operator).
 terms:

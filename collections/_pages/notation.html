@@ -1,0 +1,165 @@
+---
+# Reads _data/notation.yml, which `jekyll serve --incremental` does not track, so always rebuild it.
+regenerate: true
+layout: single
+permalink: /dictionary/notation/
+title: Notation
+excerpt: "Choose the notation that the site's math uses, such as how the range, null space, and transpose are written."
+---
+
+<style>
+  .notation fieldset.notation__item {
+    margin: 0 0 0.75rem;
+    padding: 0.5rem 0.75rem 0.75rem;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 6px;
+  }
+  .notation legend {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0 0.25rem;
+    font-weight: bold;
+    font-size: 0.9em;
+  }
+  .notation__options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .notation__option {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    min-width: 6rem;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9em;
+  }
+  .notation__option:hover { background: rgba(128, 128, 128, 0.08); }
+  .notation__option:has(input:checked) {
+    border-color: #1a73e8;
+    box-shadow: inset 0 0 0 1px #1a73e8;
+    background: rgba(26, 115, 232, 0.08);
+  }
+  .notation__option:has(input:focus-visible) { outline: 2px solid #1a73e8; outline-offset: 2px; }
+  /* The radio button is replaced by the highlighted box, but stays focusable for the keyboard. */
+  .notation__option input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .notation__used-by {
+    font-size: 0.75em;
+    color: #6b6b6b;
+    text-align: center;
+  }
+  .notation__toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .notation button {
+    font: inherit;
+    font-size: 0.9em;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+  }
+  .notation button:hover { background: rgba(128, 128, 128, 0.1); }
+  #notation-status { font-size: 0.9em; color: #6b6b6b; }
+  .notation__preview {
+    margin: 0 0 1.5rem;
+    padding-left: 1.25rem;
+  }
+  .notation__preview li { margin: 0.25rem 0; }
+  .notation pre#notation-latex {
+    font-size: 0.75em;
+    overflow-x: auto;
+  }
+  .notation .notation-help {
+    width: 1.25rem;
+    height: 1.25rem;
+    padding: 0;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: bold;
+    line-height: 1;
+    color: #6b6b6b;
+    flex: none;
+  }
+  .notation .notation-help[aria-expanded="true"] { background: #1a73e8; border-color: #1a73e8; color: #fff; }
+  .notation-help-popup {
+    position: absolute;
+    z-index: 30;
+    max-width: min(22rem, calc(100vw - 16px));
+    padding: 0.6rem 0.8rem;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+    font-size: 0.85em;
+    line-height: 1.45;
+  }
+</style>
+
+<div class="notation">
+  <p>
+    Mathematicians write the same idea in different ways.
+    Pick the notation you are used to, and the math in the <a href="{{ '/dictionary/' | relative_url }}">dictionary</a> and on the rest of this site will use it.
+    Your choices are saved in this browser and apply to the pages you open next (reload a page that is already open).
+  </p>
+
+  <div class="notation__toolbar">
+    <span id="notation-status" aria-live="polite"></span>
+    <button type="button" id="notation-reset">Reset to defaults</button>
+  </div>
+
+  <h2>Preview</h2>
+  <ul class="notation__preview">
+    <li><span data-tex="\vect{v} = c_1 \vect{u} + c_2 \vect{w}">\(\vect{v} = c_1 \vect{u} + c_2 \vect{w}\)</span>, a linear combination of the vectors <span data-tex="\vect{u}">\(\vect{u}\)</span> and <span data-tex="\vect{w}">\(\vect{w}\)</span>.</li>
+    <li><span data-tex="\rank{A} + \nullity{A} = n">\(\rank{A} + \nullity{A} = n\)</span> for an \(m \times n\) matrix \(A\).</li>
+    <li><span data-tex="\range{T} = \setdef{T v \suchthat v \in V}">\(\range{T} = \setdef{T v \suchthat v \in V}\)</span> and <span data-tex="\nullspace{T} = \setdef{v \in V \suchthat T v = 0}">\(\nullspace{T} = \setdef{v \in V \suchthat T v = 0}\)</span>.</li>
+    <li><span data-tex="\colspace{A} = \Span{a_1, \dots, a_n}">\(\colspace{A} = \Span{a_1, \dots, a_n}\)</span> and <span data-tex="\rowspace{A} = \colspace{A\trans}">\(\rowspace{A} = \colspace{A\trans}\)</span>.</li>
+    <li><span data-tex="\trace{A\trans} = \trace{A}">\(\trace{A\trans} = \trace{A}\)</span> and <span data-tex="\nullspaceOf{A - \lambda I}">\(\nullspaceOf{A - \lambda I}\)</span>.</li>
+    <li><span data-tex="\nats \subseteq \integers \subseteq \rationals \subseteq \reals \subseteq \complexes">\(\nats \subseteq \integers \subseteq \rationals \subseteq \reals \subseteq \complexes\)</span>.</li>
+  </ul>
+
+  <div id="notation-items"></div>
+  <div id="notation-help-popup" class="notation-help-popup" role="note" hidden></div>
+
+  <h2>Use this notation in LaTeX</h2>
+  <p>
+    This site writes its math with macros that name what each symbol means, such as <code>\range{T}</code> for the range of \(T\), rather than with a fixed notation, so that your choices above can change how the macros are displayed.
+    You can use the same approach in your own LaTeX documents: copy the definitions below, which match your current choices, into your preamble.
+    Then, in your document, write, for example, <code>\range{T}</code>, <code>\nullspace{A}</code>, and <code>A\trans</code>.
+    For a compound argument, use the <code>Of</code> version, which adds parentheses where they're needed: <code>\nullspaceOf{A - \lambda I}</code>.
+  </p>
+  <div class="notation__toolbar">
+    <span></span>
+    <button type="button" id="notation-copy">Copy</button>
+  </div>
+  <pre id="notation-latex"></pre>
+
+  <h2>What these notation settings change</h2>
+  <ul>
+    <li>Only the math changes. Words in the text, such as "range" and "null space," stay as they are.</li>
+    <li>
+      Only notation can be chosen, not conventions that change what a statement means,
+      such as whether \(0\) is a natural number or whether \(\subset\) allows equality.
+    </li>
+    <li>When the text compares notations (for example, "some books write \(\operatorname{im} T\)"), those notations are shown as written.</li>
+  </ul>
+</div>
+
+<script type="application/json" id="notation-data">{{ site.data.notation | jsonify }}</script>
+<script src="{{ '/assets/ts/out/notation_settings.js' | relative_url }}" type="module"></script>

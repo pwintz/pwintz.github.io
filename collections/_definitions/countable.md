@@ -16,7 +16,7 @@ properties:
   - |-
     Every [subset](/dictionary/definitions/subset) of a countable set is countable.
   - |-
-    A countable [union](/dictionary/definitions/set-union) of countable sets is countable (assuming the axiom of countable choice), so $\mathbb{Z}$ and $\mathbb{Q}$ are countable.
+    A countable [union](/dictionary/definitions/set-union) of countable sets is countable (assuming the axiom of countable choice), so $\integers$ and $\rationals$ are countable.
 ---
 "Countable" is ambiguous: some authors use it to mean [countably infinite](/dictionary/definitions/countably-infinite), excluding finite sets.
 When it matters, say "finite or countably infinite" or "at most countable."

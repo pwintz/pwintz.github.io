@@ -160,6 +160,11 @@
     font-weight: bold;
   }
 
+  // Link to the Notation page, at the right end of the switcher.
+  .level-switcher__notation {
+    margin-left: auto;
+  }
+
   .level-switcher__button {
     padding: 0.3em 0.75em;
     border: 1px solid $border-color;

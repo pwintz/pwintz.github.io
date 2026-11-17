@@ -58,5 +58,5 @@ see_also:
 
 - **Jordan–Chevalley:** separating the diagonalizable part of a matrix from its nilpotent part, as in computing $e^{A t} = e^{D t} e^{N t}$.
 
-- **Toeplitz:** separating the symmetric part $H$ of a matrix $A$, which alone determines the quadratic form $x^{\top} A x = x^{\top} H x$, as in energy and stability arguments.
+- **Toeplitz:** separating the symmetric part $H$ of a matrix $A$, which alone determines the quadratic form $x\trans A x = x\trans H x$, as in energy and stability arguments.
 

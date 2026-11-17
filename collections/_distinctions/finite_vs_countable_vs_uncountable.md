@@ -37,4 +37,4 @@ see_also:
 - "Countable" is used in two ways.
   In this dictionary it means finite or countably infinite, but some authors use it only for [countably infinite](/dictionary/definitions/countably-infinite) sets.
   This makes a statement like, "[at most countable](/dictionary/definitions/countable)" unambiguous.
-- Size and countability are different: the Cantor set has length $0$ but is [uncountable](/dictionary/definitions/uncountable), while $\mathbb{Q}$ is [dense](/dictionary/definitions/dense-set) in $\reals$ but countable.
+- Size and countability are different: the Cantor set has length $0$ but is [uncountable](/dictionary/definitions/uncountable), while $\rationals$ is [dense](/dictionary/definitions/dense-set) in $\reals$ but countable.

@@ -9,10 +9,10 @@ levels:
       Consider an $n \times n$ [matrix](/dictionary/definitions/matrix) $A = [a_{ij}]$.
       The _trace_ of $A$ is the sum of its diagonal entries:
 
-      $$\operatorname{tr} A = a_{11} + a_{22} + \dots + a_{nn}.$$
+      $$\trace{A} = a_{11} + a_{22} + \dots + a_{nn}.$$
 properties:
   - >-
     The trace of $A$ is the sum of its [eigenvalues](/dictionary/definitions/eigenvalue), counted with multiplicity.
   - >-
-    $\operatorname{tr}(A B) = \operatorname{tr}(B A)$, even though $A B \neq B A$ in general.
+    $\traceOf{A B} = \traceOf{B A}$, even though $A B \neq B A$ in general.
 ---

@@ -11,5 +11,5 @@ levels:
 properties:
   # TODO: Clarify that this property is for the coordinates with respect to a particular basis. 
   - >-
-    Every bilinear form on $\reals^n$ has the form $B(x, y) = x^{\top} A y$ for a unique [matrix](/dictionary/definitions/matrix) $A$, and $B$ is symmetric if and only if $A$ is.
+    Every bilinear form on $\reals^n$ has the form $B(x, y) = x\trans A y$ for a unique [matrix](/dictionary/definitions/matrix) $A$, and $B$ is symmetric if and only if $A$ is.
 ---

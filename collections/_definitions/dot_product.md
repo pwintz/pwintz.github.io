@@ -15,7 +15,7 @@ levels:
       Consider the vector space $\reals^n$, with vectors written as columns.
       The _dot product_ is the standard [inner product](/dictionary/definitions/inner-product) on $\reals^n$,
 
-      $$x \cdot y = x^{\top} y.$$
+      $$x \cdot y = x\trans y.$$
 properties:
   - >-
     $x \cdot y = \norm{x} \norm{y} \cos \theta$, where $\theta$ is the angle between $x$ and $y$.

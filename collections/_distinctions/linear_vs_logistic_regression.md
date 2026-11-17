@@ -4,9 +4,9 @@ title: Linear vs. Logistic Regression
 kind: siblings
 areas: [statistics]
 summary: >
-  Linear regression and logistic regression fit a model to data $(x_i, y_i)$ using a [linear combination](/dictionary/definitions/linear-combination) $\beta_0 + \beta^\top x$ of the inputs.
-  [Linear regression](/dictionary/definitions/linear-regression) predicts a [real number](/dictionary/definitions/real-number) $y$ directly as $\beta_0 + \beta^\top x$, and chooses $\beta$ by least squares.
-  [Logistic regression](/dictionary/definitions/logistic-regression) predicts the [probability](/dictionary/definitions/probability) that a yes-or-no outcome is "yes" by passing $\beta_0 + \beta^\top x$ through the S-shaped logistic function, and chooses $\beta$ by [maximum likelihood](/dictionary/definitions/maximum-likelihood-estimator).
+  Linear regression and logistic regression fit a model to data $(x_i, y_i)$ using a [linear combination](/dictionary/definitions/linear-combination) $\beta_0 + \beta\trans x$ of the inputs.
+  [Linear regression](/dictionary/definitions/linear-regression) predicts a [real number](/dictionary/definitions/real-number) $y$ directly as $\beta_0 + \beta\trans x$, and chooses $\beta$ by least squares.
+  [Logistic regression](/dictionary/definitions/logistic-regression) predicts the [probability](/dictionary/definitions/probability) that a yes-or-no outcome is "yes" by passing $\beta_0 + \beta\trans x$ through the S-shaped logistic function, and chooses $\beta$ by [maximum likelihood](/dictionary/definitions/maximum-likelihood-estimator).
 terms:
   - linear_regression
   - logistic_regression

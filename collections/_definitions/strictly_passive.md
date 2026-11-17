@@ -13,7 +13,7 @@ levels:
       Consider a system with input $u$, output $y$, state $x$, and a storage function $V$.
       The system is _strictly passive_ if
 
-      $$u^{\top} y \geq \dot{V} + \psi(x)$$
+      $$u\trans y \geq \dot{V} + \psi(x)$$
 
       for some [positive definite](/dictionary/definitions/positive-definite-function) function $\psi$ of the state.
 ---

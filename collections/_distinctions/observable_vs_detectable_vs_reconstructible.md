@@ -25,7 +25,7 @@ see_also:
 ## Duality
 
 Each notion is dual to one on the [controllability page](/dictionary/distinctions/controllable-vs-reachable-vs-stabilizable).
-With $(A, C)$ paired with $(A^{\top}, C^{\top})$:
+With $(A, C)$ paired with $(A\trans, C\trans)$:
 
 - observability is dual to reachability,
 - reconstructibility is dual to controllability (to the origin), and

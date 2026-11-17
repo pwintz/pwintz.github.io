@@ -24,4 +24,4 @@ see_also:
 - The two names are synonyms only when the natural numbers start at $0$.
   Many authors start them at $1$; see [natural numbers: starting at 0 or at 1](/dictionary/distinctions/natural-numbers).
 - "[Whole numbers](/dictionary/definitions/whole-numbers)" also has rival meanings: some authors use it for all [integers](/dictionary/definitions/integer), or for the [positive integers](/dictionary/definitions/natural-numbers-from-one).
-  In technical writing, "[nonnegative integers](/dictionary/definitions/natural-numbers-from-zero)" or $$\mathbb{Z}_{\geq 0}$$ is unambiguous.
+  In technical writing, "[nonnegative integers](/dictionary/definitions/natural-numbers-from-zero)" or $$\integers_{\geq 0}$$ is unambiguous.

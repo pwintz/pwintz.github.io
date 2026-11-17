@@ -26,7 +26,7 @@ levels:
 properties:
   - >-
     Every nonzero multiple of an eigenvector is an eigenvector with the same [eigenvalue](/dictionary/definitions/eigenvalue).
-    The eigenvectors for an eigenvalue $\lambda$, together with $0$, form a subspace, the _eigenspace_ $\ker(A - \lambda I)$.
+    The eigenvectors for an eigenvalue $\lambda$, together with $0$, form a subspace, the _eigenspace_ $\nullspaceOf{A - \lambda I}$.
   - >-
     Eigenvectors with different [eigenvalues](/dictionary/definitions/eigenvalue) are [linearly independent](/dictionary/definitions/linearly-independent).
   - >-

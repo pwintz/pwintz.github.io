@@ -6,7 +6,7 @@ detail: |-
 level: high-school
 values:
   dot_product: '$x \cdot y = 1 \cdot 3 + 2 \cdot (-1) = 1$'
-  weighted_inner_product: '$$\ip{x}{y}_W = x^{\top} W y = 2 \cdot 1 \cdot 3 + 1 \cdot 2 \cdot (-1) = 4$$'
+  weighted_inner_product: '$$\ip{x}{y}_W = x\trans W y = 2 \cdot 1 \cdot 3 + 1 \cdot 2 \cdot (-1) = 4$$'
   l2_inner_product: 'None'
 why:
   l2_inner_product: >-

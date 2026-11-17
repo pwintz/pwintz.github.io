@@ -1,5 +1,5 @@
 ---
-title: 'The integers $\mathbb{Z}$'
+title: 'The integers $\integers$'
 level: high-school
 is: [
   countably_infinite,
@@ -17,7 +17,7 @@ why:
   dense_set: >-
     The integers are not dense in $\reals$, because there is no integer between $1$ and $2$.
   countable: >-
-    $\mathbb{Z}$ is countable because the list $0, 1, -1, 2, -2, \dots$ reaches every integer.
+    $\integers$ is countable because the list $0, 1, -1, 2, -2, \dots$ reaches every integer.
   finite_set: >-
-    $\mathbb{Z}$ is not finite, because the list does not end.
+    $\integers$ is not finite, because the list does not end.
 ---

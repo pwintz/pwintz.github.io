@@ -10,7 +10,7 @@ levels:
       Consider a symmetric [positive definite](/dictionary/definitions/positive-definite-matrix) $n \times n$ matrix $W$.
       The _weighted inner product_ with weight $W$ is the [inner product](/dictionary/definitions/inner-product) on $\reals^n$ given by
 
-      $$\ip{x}{y}_W = x^{\top} W y.$$
+      $$\ip{x}{y}_W = x\trans W y.$$
 properties:
   - >-
     With $W = I$, the weighted inner product is the [dot product](/dictionary/definitions/dot-product).

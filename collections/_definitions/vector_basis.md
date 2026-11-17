@@ -14,8 +14,8 @@ levels:
       A _basis_ of $V$ is a set of vectors in $V$ that is [linearly independent](/dictionary/definitions/linearly-independent) and spans $V$.
 properties:
   - |-
-    Every vector $v$ in $V$ can be written in exactly one way as a [linear combination](/dictionary/definitions/linear-combination) $v = c_1 b_1 + \dots + c_n b_n$ of the basis vectors.
-    The numbers $c_1, \dots, c_n$ form the [coordinate vector](/dictionary/definitions/coordinate-vector) of $v$.
+    Every vector $\vect{v}$ in $V$ can be written in exactly one way as a [linear combination](/dictionary/definitions/linear-combination) $\vect{v} = c_1 \vect{b}_1 + \dots + c_n \vect{b}_n$ of the basis vectors.
+    The numbers $c_1, \dots, c_n$ form the [coordinate vector](/dictionary/definitions/coordinate-vector) of $\vect{v}$.
   - |-
     Every vector space has a basis (assuming the axiom of choice), and all bases of the same space have the same number of vectors: its [dimension](/dictionary/definitions/dimension-vector-space).
   - |-

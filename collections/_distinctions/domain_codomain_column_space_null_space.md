@@ -30,5 +30,5 @@ see_also:
 ---
 ## Notes
 
-- The rank–nullity theorem relates the dimensions: $\dim \operatorname{col} A + \dim \ker A = n$, the dimension of the domain.
+- The rank–nullity theorem relates the dimensions: $\dim \colspace{A} + \dim \nullspace{A} = n$, the dimension of the domain.
 - "Range" sometimes means the [column space](/dictionary/definitions/column-space) and sometimes the [codomain](/dictionary/definitions/codomain); see [meanings of range](/dictionary/distinctions/meanings-of-range).

@@ -9,7 +9,7 @@ levels:
     context: probability
     text: |-
       Consider a real [random variable](/dictionary/definitions/random-variable) $X$.
-      The _characteristic function_ of $X$ is the function $\varphi_X : \reals \to \mathbb{C}$ defined by
+      The _characteristic function_ of $X$ is the function $\varphi_X : \reals \to \complexes$ defined by
 
       $$\varphi_X(t) = \mathbb{E}\bigl[e^{i t X}\bigr].$$
 properties:

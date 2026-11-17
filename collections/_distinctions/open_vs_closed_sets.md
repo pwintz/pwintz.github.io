@@ -23,7 +23,7 @@ examples:
   - example: empty_set_example
   - example: rationals_as_a_subset_of_reals
     why: >-
-      Every real number is a boundary point of $\mathbb{Q}$, so $\mathbb{Q}$ contains some of its boundary points (the rational ones) but not all, and it is neither open nor closed.
+      Every real number is a boundary point of $\rationals$, so $\rationals$ contains some of its boundary points (the rational ones) but not all, and it is neither open nor closed.
 see_also:
   - interior_vs_exterior_vs_boundary
   - types_of_compactness

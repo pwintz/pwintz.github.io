@@ -14,5 +14,5 @@ levels:
       Consider a [passive](/dictionary/definitions/passive) system with input $u$, output $y$, and storage function $V$.
       The system is _lossless_ if all supplied energy is stored, and none is dissipated:
 
-      $$u^{\top} y = \dot{V}.$$
+      $$u\trans y = \dot{V}.$$
 ---

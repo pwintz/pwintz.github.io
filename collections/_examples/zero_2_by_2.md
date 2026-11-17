@@ -4,8 +4,8 @@ level: undergraduate
 values:
   entrywise_exponential: '$$\begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}$$'
   matrix_exponential: '$$e^{0} = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$$'
-  matrix_rank: '$\operatorname{rank} 0 = 0$'
-  nullity: '$\operatorname{nullity} 0 = 2$'
+  matrix_rank: '$\rank{0} = 0$'
+  nullity: '$\nullity{0} = 2$'
 is: [singular_matrix]
 is_not: [defective_matrix]
 why:

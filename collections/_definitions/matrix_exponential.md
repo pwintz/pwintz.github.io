@@ -20,7 +20,7 @@ properties:
     If $A B = B A$, then $e^{A + B} = e^{A} e^{B}$.
     For matrices that do not commute, this equation can fail.
   - >-
-    $\det e^{A} = e^{\operatorname{tr} A}$, so $e^{A}$ is [invertible](/dictionary/definitions/invertible-matrix), and its inverse is $e^{-A}$.
+    $\det e^{A} = e^{\trace{A}}$, so $e^{A}$ is [invertible](/dictionary/definitions/invertible-matrix), and its inverse is $e^{-A}$.
   - >-
     If $A = P D P^{-1}$, then $e^{A} = P e^{D} P^{-1}$, and if $D$ is diagonal, then $e^{D}$ is the diagonal matrix whose entries are $e$ raised to the entries of $D$.
 ---

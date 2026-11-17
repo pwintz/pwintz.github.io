@@ -33,4 +33,4 @@ see_also:
 
 - The [Lagrangian](/dictionary/definitions/lagrangian) $T - V$ and the [Hamiltonian](/dictionary/definitions/hamiltonian) $T + V$ differ by the sign of $V$, because $H = p \cdot \dot{q} - L$ and $p \cdot \dot{q} = 2T$ when $T$ is quadratic in the velocities.
 - The Euler–Lagrange equations are $n$ second-order equations, whereas Hamilton's equations are $2n$ first-order equations.
-- "Lagrangian" also names the function $f(x) + \lambda^\top g(x)$ in constrained optimization, and "Hamiltonian" also names the function $\ell(x, u) + \lambda^\top f(x, u)$ in Pontryagin's maximum principle.
+- "Lagrangian" also names the function $f(x) + \lambda\trans g(x)$ in constrained optimization, and "Hamiltonian" also names the function $\ell(x, u) + \lambda\trans f(x, u)$ in Pontryagin's maximum principle.

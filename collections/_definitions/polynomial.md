@@ -10,7 +10,7 @@ levels:
   undergraduate:
     context: algebra
     text: |-
-      Consider a ring $R$, such as $\reals$ or $\mathbb{Z}$, and a variable $x$.
+      Consider a ring $R$, such as $\reals$ or $\integers$, and a variable $x$.
       A _polynomial_ in $x$ with [coefficients](/dictionary/definitions/coefficient) in $R$ is a formal sum
 
       $$a_0 + a_1 x + \dots + a_n x^n$$

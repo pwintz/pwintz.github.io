@@ -10,8 +10,8 @@ levels:
       Consider a system with input $u$, output $y$, and a storage function $V$.
       The system is _output strictly passive_ if
 
-      $$u^{\top} y \geq \dot{V} + y^{\top} \rho(y)$$
+      $$u\trans y \geq \dot{V} + y\trans \rho(y)$$
 
-      for some function $\rho$ such that $y^{\top} \rho(y) > 0$ for all $y \neq 0$.
-      If only $u^{\top} y \geq \dot{V} + y^{\top} \rho(y)$ holds, without the sign condition, then the system is _output-feedback passive_.
+      for some function $\rho$ such that $y\trans \rho(y) > 0$ for all $y \neq 0$.
+      If only $u\trans y \geq \dot{V} + y\trans \rho(y)$ holds, without the sign condition, then the system is _output-feedback passive_.
 ---

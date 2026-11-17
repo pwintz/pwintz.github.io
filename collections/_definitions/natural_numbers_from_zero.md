@@ -2,14 +2,14 @@
 title: Natural Numbers (Starting at 0)
 term: natural numbers (from 0)
 applies_to: numbers
-synonyms: ["nonnegative integers", "$\\nats$", "$\\nats_0$", "$\\mathbb{Z}_{\\geq 0}$"]
+synonyms: ["nonnegative integers", "$\\nats$", "$\\nats_0$", "$\\integers_{\\geq 0}$"]
 levels:
   elementary:
     text: |-
       The _natural numbers_ are the numbers $0, 1, 2, 3, \dots$ that can be used to answer questions about "how many?" objects there are.
   undergraduate:
     text: |-
-      The _natural numbers_ are the set $\setdef{0, 1, 2, 3, \dots}$ of nonnegative [integers](/dictionary/definitions/integer), often written $\nats$, $$\nats_0$$, or $$\mathbb{Z}_{\geq 0}$$.
+      The _natural numbers_ are the set $\setdef{0, 1, 2, 3, \dots}$ of nonnegative [integers](/dictionary/definitions/integer), often written $\nats$, $$\nats_0$$, or $$\integers_{\geq 0}$$.
   graduate:
     context: set theory
     text: |-

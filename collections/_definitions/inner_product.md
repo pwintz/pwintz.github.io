@@ -21,7 +21,7 @@ levels:
   graduate:
     context: real or complex vector spaces
     text: |-
-      Consider a vector space $V$ over $\mathbb{F}$, where $\mathbb{F}$ is $\reals$ or $\mathbb{C}$, and a sesquilinear form $\ip{\cdot}{\cdot}$ on $V$: a function $V \times V \to \mathbb{F}$ that is linear in its first argument and conjugate-linear in its second.
+      Consider a vector space $V$ over $\mathbb{F}$, where $\mathbb{F}$ is $\reals$ or $\complexes$, and a sesquilinear form $\ip{\cdot}{\cdot}$ on $V$: a function $V \times V \to \mathbb{F}$ that is linear in its first argument and conjugate-linear in its second.
       The form is an _inner product_ if, for all $x, y \in V$,
 
       1. it is Hermitian: $\ip{x}{y} = \overline{\ip{y}{x}}$, and

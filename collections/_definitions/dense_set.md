@@ -22,5 +22,5 @@ levels:
       Equivalently: $A$ is dense if every nonempty [open set](/dictionary/definitions/open-set) intersects $A$.
 properties:
   - >-
-    Both $\mathbb{Q}$ and $\reals \setminus \mathbb{Q}$ are dense in $\reals$.
+    Both $\rationals$ and $\reals \setminus \rationals$ are dense in $\reals$.
 ---

@@ -25,5 +25,5 @@ see_also:
 ---
 ## Notes
 
-- Over $\reals$ and $\mathbb{C}$, a [polynomial](/dictionary/definitions/polynomial) and its [polynomial function](/dictionary/definitions/polynomial-function) determine each other, so "polynomial" is often used for both.
+- Over $\reals$ and $\complexes$, a [polynomial](/dictionary/definitions/polynomial) and its [polynomial function](/dictionary/definitions/polynomial-function) determine each other, so "polynomial" is often used for both.
 - "Solve the polynomial $x^2 - 1$" is shorthand for "find the roots of $x^2 - 1$," that is, solve the [polynomial equation](/dictionary/definitions/polynomial-equation) $x^2 - 1 = 0$.

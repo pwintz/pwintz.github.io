@@ -29,17 +29,17 @@ properties:
   - |-
     The Toeplitz decomposition of a square matrix $A$ is 
     
-    $$A = \frac{1}{2}(A + A^{\top}) + \frac{1}{2}(A - A^{\top})$$
+    $$A = \frac{1}{2}(A + A\trans) + \frac{1}{2}(A - A\trans)$$
     
   # - |-
-  #   For a real matrix $A$, $H$ is the symmetric part $\frac{1}{2}(A + A^{\top})$ and $i K$ is the skew-symmetric part $\frac{1}{2}(A - A^{\top})$.
+  #   For a real matrix $A$, $H$ is the symmetric part $\frac{1}{2}(A + A\trans)$ and $i K$ is the skew-symmetric part $\frac{1}{2}(A - A\trans)$.
   # - |-
   #    $A = H + i K$ with $H$ and $K$ Hermitian, then $H = \frac{1}{2}(A + A^{\ast})$ and $K = \frac{1}{2 i}(A - A^{\ast})$.
   # - |-
   #   For every vector $x$, the numbers $x^{\ast} H x$ and $x^{\ast} K x$ are real, so $x^{\ast} A x = x^{\ast} H x + i \, x^{\ast} K x$ splits $x^{\ast} A x$ into its real and imaginary parts.
   #   In particular, $\operatorname{Re}(x^{\ast} A x) < 0$ for every $x \neq 0$ exactly when $H$ is negative definite.
   - |-
-    The matrix $A$ is normal ($A A^\top = A^\top A$) exactly when $H$ and $K$ commute.
+    The matrix $A$ is normal ($A A\trans = A\trans A$) exactly when $H$ and $K$ commute.
 
 ---
 <!-- The Toeplitz decomposition is the matrix version of writing a complex number as $z = x + i y$ with $x$ and $y$ real: $H$ and $K$ play the roles of the real and imaginary parts, and Hermitian matrices play the role of real numbers. -->

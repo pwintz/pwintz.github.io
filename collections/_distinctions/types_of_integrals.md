@@ -24,7 +24,7 @@ examples:
       The function $1 / \sqrt{x}$ is unbounded, so it has no Riemann integral, but its improper and Lebesgue integrals agree.
   - example: dirichlet_function_on_0_1
     why: >-
-      The indicator function of $\mathbb{Q}$ is the standard example of a function with a Lebesgue integral but no Riemann integral.
+      The indicator function of $\rationals$ is the standard example of a function with a Lebesgue integral but no Riemann integral.
   - example: sin_x_over_x_on_0_infinity
     why: >-
       The function $\frac{\sin x}{x}$ is the standard example of the reverse: it has an improper integral but no Lebesgue integral, because the improper integral relies on cancellation.

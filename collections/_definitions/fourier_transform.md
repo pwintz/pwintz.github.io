@@ -11,7 +11,7 @@ levels:
       The _Fourier transform_ of the signal breaks it into sine waves of different frequencies, and finds how much of each frequency it contains.
   undergraduate:
     text: |-
-      Consider an integrable function $f : \reals \to \mathbb{C}$.
+      Consider an integrable function $f : \reals \to \complexes$.
       The _Fourier transform_ of $f$ is
 
       $$\hat{f}(\omega) = \int_{-\infty}^{\infty} f(t) e^{-i \omega t} \mathrm{d}t.$$

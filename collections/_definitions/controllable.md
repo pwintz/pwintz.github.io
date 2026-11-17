@@ -20,7 +20,7 @@ properties:
   - |-
     For $\dot{x} = A x + B u$ with $n$ states, controllability holds exactly when
 
-    $$\operatorname{rank} \begin{bmatrix} B & A B & \cdots & A^{n-1} B \end{bmatrix} = n$$
+    $$\rank{\begin{bmatrix} B & A B & \cdots & A^{n-1} B \end{bmatrix}} = n$$
 
     (the Kalman [rank](/dictionary/definitions/matrix-rank) condition).
   - >-

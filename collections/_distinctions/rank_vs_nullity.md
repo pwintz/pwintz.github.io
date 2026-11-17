@@ -7,7 +7,7 @@ summary: >
   The rank and the nullity of a matrix count two complementary kinds of directions, so the two numbers are easy to mix up.
   The [rank](/dictionary/definitions/matrix-rank) of a matrix $A$ is the dimension of its [column space](/dictionary/definitions/column-space): the number of [independent](/dictionary/definitions/linearly_independent) directions that $A x$ can reach.
   The [nullity](/dictionary/definitions/nullity) of $A$ is the dimension of its [kernel](/dictionary/definitions/kernel): the number of independent directions that $A$ sends to $0$.
-  In the reduced row echelon form of $A$, the rank counts the columns with a [leading entry](/dictionary/definitions/leading-entry) and the nullity counts the columns without one, so for an $m \times n$ matrix, $\operatorname{rank} A + \operatorname{nullity} A = n$ (the rank–nullity theorem).
+  In the reduced row echelon form of $A$, the rank counts the columns with a [leading entry](/dictionary/definitions/leading-entry) and the nullity counts the columns without one, so for an $m \times n$ matrix, $\rank{A} + \nullity{A} = n$ (the rank–nullity theorem).
 examples_note: >-
   Each cell is the ___ of the matrix in that row.
 terms:

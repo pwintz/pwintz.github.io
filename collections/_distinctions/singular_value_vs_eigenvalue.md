@@ -7,7 +7,7 @@ summary: >
   An eigenvalue of a square matrix $A$ is a factor $\lambda$ by which $A$ scales a particular nonzero vector $x$, called an eigenvector: $Ax = \lambda x$.
   A singular value of a matrix $A$, square or not, is a factor $\sigma$ by which $A$ stretches vectors along some direction, allowing them to turn.
   [Singular values](/dictionary/definitions/singular-value) are real and nonnegative, but [eigenvalues](/dictionary/definitions/eigenvalue) can be negative or complex.
-# Singular values are the square roots of the eigenvalues of $A^{\top} A$.D
+# Singular values are the square roots of the eigenvalues of $A\trans A$.D
 # An eigenvalue of a square matrix $A$ is a factor by which $A$ stretches some nonzero vector without turning it off its line.
 terms:
   - eigenvalue
@@ -24,5 +24,5 @@ see_also:
 ---
 ## Notes
 
-- For a normal matrix ($A^{\top} A = A A^{\top}$, such as a symmetric or [orthogonal matrix](/dictionary/definitions/orthogonal-matrix)), the [singular values](/dictionary/definitions/singular-value) are the absolute values of the [eigenvalues](/dictionary/definitions/eigenvalue).
+- For a normal matrix ($A\trans A = A A\trans$, such as a symmetric or [orthogonal matrix](/dictionary/definitions/orthogonal-matrix)), the [singular values](/dictionary/definitions/singular-value) are the absolute values of the [eigenvalues](/dictionary/definitions/eigenvalue).
 - For a square matrix, the product of the singular values is $\abs{\det A}$, the absolute value of the product of the eigenvalues.

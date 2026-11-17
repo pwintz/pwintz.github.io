@@ -23,7 +23,7 @@ levels:
       Consider a random vector $X$ in $\reals^n$ with expected value $\mu = \mathbb{E}[X]$.
       The _covariance matrix_ of $X$ is the $n \times n$ matrix
 
-      $$\Sigma = \mathbb{E}[(X - \mu)(X - \mu)^\top],$$
+      $$\Sigma = \mathbb{E}[(X - \mu)(X - \mu)\trans],$$
 
       whose $(i, j)$ entry is $\operatorname{Cov}(X_i, X_j)$.
 properties:

@@ -5,7 +5,7 @@ detail: |-
   $$A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}.$$
 level: undergraduate
 values:
-  transpose: '$$A^{\top} = \begin{bmatrix} 1 & 3 \\ 2 & 4 \end{bmatrix}$$'
+  transpose: '$$A\trans = \begin{bmatrix} 1 & 3 \\ 2 & 4 \end{bmatrix}$$'
   conjugate_transpose: '$$A^{\ast} = \begin{bmatrix} 1 & 3 \\ 2 & 4 \end{bmatrix}$$'
   adjoint: '$$T^{\ast}(y) = \begin{bmatrix} 1 & 3 \\ 2 & 4 \end{bmatrix} y$$'
 why:
@@ -14,5 +14,5 @@ why:
   conjugate_transpose: >-
     The conjugate transpose of the matrix $$A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$$ is its transpose, because the entries of $A$ are real, so conjugating them changes nothing.
   adjoint: >-
-    The adjoint of the linear map $T(x) = A x$ with the dot product is $T^{\ast}(y) = A^{\top} y$, because $(A x) \cdot y = (A x)^{\top} y = x^{\top} (A^{\top} y) = x \cdot (A^{\top} y)$.
+    The adjoint of the linear map $T(x) = A x$ with the dot product is $T^{\ast}(y) = A\trans y$, because $(A x) \cdot y = (A x)\trans y = x\trans (A\trans y) = x \cdot (A\trans y)$.
 ---

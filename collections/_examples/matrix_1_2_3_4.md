@@ -8,8 +8,8 @@ is_not: [symmetric_matrix]
 values:
   leading_entry: '$1$ (row $1$) and $3$ (row $2$)'
   pivot: '$1$ and $-2$, in positions $(1, 1)$ and $(2, 2)$'
-  matrix_rank: '$\operatorname{rank} A = 2$'
-  nullity: '$\operatorname{nullity} A = 0$'
+  matrix_rank: '$\rank{A} = 2$'
+  nullity: '$\nullity{A} = 0$'
 why:
   symmetric_matrix: >-
     The entries $2$ and $3$, across the diagonal from each other, differ.

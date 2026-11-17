@@ -34,6 +34,6 @@ see_also:
 
 - For linear systems, the [eigenvalue](/dictionary/definitions/eigenvalue) test (Hurwitz or Schur) is exact.
   A repeated eigenvalue on the imaginary axis with a nontrivial Jordan block makes $\dot{x} = A x$ unstable, while a simple one gives marginal stability.
-- Krasovskii's method constructs a [Lyapunov function](/dictionary/definitions/lyapunov-function) from $f$ itself, such as $V(x) = f(x)^{\top} f(x)$.
+- Krasovskii's method constructs a [Lyapunov function](/dictionary/definitions/lyapunov-function) from $f$ itself, such as $V(x) = f(x)\trans f(x)$.
 - The negative feedback connection of two [passive](/dictionary/definitions/passive) systems is passive, and under additional conditions (such as strict passivity of one of them, or zero-state observability), its [equilibrium](/dictionary/definitions/equilibrium) is [asymptotically stable](/dictionary/definitions/asymptotically-stable).
   This is another way to prove stability without solving the system.

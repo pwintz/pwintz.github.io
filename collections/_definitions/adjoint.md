@@ -53,4 +53,4 @@ If $\dom D$ has no boundary conditions, then $D^{\ast} g = -g^{\prime}$ only for
 ### Other meanings of "adjoint"
 
 "Adjoint" has an unrelated meaning for matrices: the _adjugate_ (or _classical adjoint_) $\operatorname{adj} A$ is the transpose of the matrix of [cofactors](/dictionary/definitions/cofactor) of $A$, which satisfies $A \operatorname{adj} A = (\det A) I$.
-The _dual map_ $T^{\top} : W^{\ast} \to V^{\ast}$, defined by $(T^{\top} \omega)(v) = \omega(T v)$ for [covectors](/dictionary/definitions/covector) $\omega$, is also sometimes written $T^{\ast}$, but the dual map needs no [inner products](/dictionary/definitions/inner-product).
+The _dual map_ $T\trans : W^{\ast} \to V^{\ast}$, defined by $(T\trans \omega)(v) = \omega(T v)$ for [covectors](/dictionary/definitions/covector) $\omega$, is also sometimes written $T^{\ast}$, but the dual map needs no [inner products](/dictionary/definitions/inner-product).

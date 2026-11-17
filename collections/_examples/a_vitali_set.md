@@ -17,7 +17,7 @@ why:
     These countably many shifted sets are disjoint, and their union $U$ satisfies $[0, 1] \subseteq U \subseteq [-1, 2]$.
     If $V$ had a Lebesgue measure $m$, then each shifted set would also have measure $m$, and countable additivity would give
 
-    $$1 \leq \sum_{q \in \mathbb{Q} \cap [-1, 1]} m \leq 3.$$
+    $$1 \leq \sum_{q \in \rationals \cap [-1, 1]} m \leq 3.$$
 
     The sum is $0$ if $m = 0$ and $\infty$ if $m > 0$, so no value of $m$ satisfies these inequalities.
   borel_set: >-

@@ -19,14 +19,14 @@ levels:
       The _extended Kalman filter_ for this system is the [filter](/dictionary/definitions/filter-estimation) that computes a state estimate $\hat{x}_k$ and an approximate error covariance $P_k$ by repeating two steps.
       First, it predicts
 
-      $$\hat{x}_k^- = f(\hat{x}_{k-1}, u_{k-1}), \qquad P_k^- = F_{k-1} P_{k-1} F_{k-1}^\top + Q,$$
+      $$\hat{x}_k^- = f(\hat{x}_{k-1}, u_{k-1}), \qquad P_k^- = F_{k-1} P_{k-1} F_{k-1}\trans + Q,$$
 
       where $F_{k-1}$ is the [Jacobian](/dictionary/definitions/jacobian) of $f$ with respect to $x$ at $(\hat{x}_{k-1}, u_{k-1})$.
       Then, it corrects the prediction using the measurement $y_k$:
 
       $$\hat{x}_k = \hat{x}_k^- + K_k \bigl(y_k - h(\hat{x}_k^-)\bigr), \qquad P_k = (I - K_k H_k) P_k^-,$$
 
-      where $H_k$ is the Jacobian of $h$ at $\hat{x}_k^-$ and $K_k = P_k^- H_k^\top (H_k P_k^- H_k^\top + R)^{-1}$.
+      where $H_k$ is the Jacobian of $h$ at $\hat{x}_k^-$ and $K_k = P_k^- H_k\trans (H_k P_k^- H_k\trans + R)^{-1}$.
 properties:
   - >-
     If $f$ and $h$ are linear, then the extended Kalman filter is the [Kalman filter](/dictionary/definitions/kalman-filter).

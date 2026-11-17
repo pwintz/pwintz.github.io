@@ -30,4 +30,4 @@ properties:
 ---
 The passage from $L(q, \dot{q}, t)$ to $H(q, p, t)$ is the Legendre transform in the velocities.
 
-In [optimal control](/dictionary/definitions/optimal-control), the _Hamiltonian_ $H(x, u, \lambda) = \ell(x, u) + \lambda^\top f(x, u)$ of Pontryagin's maximum principle generalizes the Hamiltonian of mechanics, with the costate $\lambda$ in place of the momenta.
+In [optimal control](/dictionary/definitions/optimal-control), the _Hamiltonian_ $H(x, u, \lambda) = \ell(x, u) + \lambda\trans f(x, u)$ of Pontryagin's maximum principle generalizes the Hamiltonian of mechanics, with the costate $\lambda$ in place of the momenta.

@@ -15,9 +15,9 @@ levels:
   undergraduate:
     text: |-
       Consider a [vector](/dictionary/definitions/vector) space $V$, with its vector addition.
-      The _zero vector_ of $V$ is its additive identity: the vector $\mathbf{0}$ with
+      The _zero vector_ of $V$ is its additive identity: the vector $\vect{0}$ such that
 
-      $$v + \mathbf{0} = v \quad \text{for every } v \in V.$$
+      $$\vect{v} + \vect{0} = \vect{v} \quad \text{for every } \vect{v} \in V.$$
 
       In a space of functions, it is the function that is $0$ everywhere.
 properties:

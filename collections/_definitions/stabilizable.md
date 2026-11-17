@@ -17,7 +17,7 @@ properties:
   - |-
     A linear system is stabilizable if and only if every uncontrollable mode is [asymptotically stable](/dictionary/definitions/asymptotically-stable):
 
-    $$\operatorname{rank} \begin{bmatrix} \lambda I - A & B \end{bmatrix} = n$$
+    $$\rank{\begin{bmatrix} \lambda I - A & B \end{bmatrix}} = n$$
 
     for every [eigenvalue](/dictionary/definitions/eigenvalue) $\lambda$ of $A$ such that $\operatorname{Re} \lambda \geq 0$ (the PBH test).
   - >-

@@ -3,7 +3,7 @@ published: false
 title: Nullity
 term: nullity
 applies_to: matrices and linear maps
-synonyms: ['$\operatorname{nullity} A$']
+synonyms: ['$\nullity{A}$']
 levels:
   high-school:
     text: |-
@@ -14,10 +14,10 @@ levels:
       Consider a [linear map](/dictionary/definitions/linear-map) $T$ (or a matrix).
       The _nullity_ of $T$ is the dimension of its [kernel](/dictionary/definitions/kernel):
 
-      $$\operatorname{nullity} T = \dim \ker T.$$
+      $$\nullity{T} = \dim \nullspace{T}.$$
 properties:
   - >-
-    For an $m \times n$ matrix $A$, $\operatorname{rank} A + \operatorname{nullity} A = n$ (the rank–nullity theorem).
+    For an $m \times n$ matrix $A$, $\rank{A} + \nullity{A} = n$ (the rank–nullity theorem).
   - >-
     The nullity of a matrix $A$ is the number of free variables in the solutions of $A x = 0$.
   - >-

@@ -6,7 +6,7 @@ levels:
   undergraduate:
     text: |-
       Consider an $m \times n$ real [matrix](/dictionary/definitions/matrix) $A$.
-      The _singular values_ of $A$ are the square roots of the [eigenvalues](/dictionary/definitions/eigenvalue) of the $n \times n$ matrix $A^{\top} A$, which are nonnegative.
+      The _singular values_ of $A$ are the square roots of the [eigenvalues](/dictionary/definitions/eigenvalue) of the $n \times n$ matrix $A\trans A$, which are nonnegative.
 properties:
   - >-
     Geometrically, $A$ maps the unit [sphere](/dictionary/definitions/sphere) to an ellipsoid, and the lengths of the ellipsoid's semi-axes are the singular values of $A$.

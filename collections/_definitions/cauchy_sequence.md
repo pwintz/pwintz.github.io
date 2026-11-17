@@ -13,7 +13,7 @@ levels:
       $$d(a_m, a_n) < \varepsilon \quad \text{for all } m, n \geq N.$$
 properties:
   - >-
-    Every [convergent](/dictionary/definitions/convergent) sequence is Cauchy, but a Cauchy sequence need not converge: in $\mathbb{Q}$, the decimal approximations $1, 1.4, 1.41, \dots$ of $\sqrt{2}$ are Cauchy but have no limit in $\mathbb{Q}$.
+    Every [convergent](/dictionary/definitions/convergent) sequence is Cauchy, but a Cauchy sequence need not converge: in $\rationals$, the decimal approximations $1, 1.4, 1.41, \dots$ of $\sqrt{2}$ are Cauchy but have no limit in $\rationals$.
   - >-
     Unlike convergence, the Cauchy condition does not mention the limit, so it can be checked without knowing the limit in advance.
 ---

@@ -9,7 +9,7 @@ levels:
       Consider a real $n \times n$ [matrix](/dictionary/definitions/matrix) $Q$.
       The matrix $Q$ is _orthogonal_ if its [transpose](/dictionary/definitions/transpose) is its inverse:
 
-      $$Q^{\top} Q = Q Q^{\top} = I.$$
+      $$Q\trans Q = Q Q\trans = I.$$
 properties:
   - >-
     A matrix is orthogonal if and only if its columns are [unit vectors](/dictionary/definitions/unit-vector) that are perpendicular to each other (an [orthonormal](/dictionary/definitions/orthonormal) [basis](/dictionary/definitions/vector-basis)).

@@ -10,17 +10,17 @@ levels:
   undergraduate:
     context: vector spaces
     text: |-
-      Consider [vectors](/dictionary/definitions/vector) $v_1, \dots, v_n$ in a [vector space](/dictionary/definitions/vector-space) $V$ over a [field](/dictionary/definitions/field) $\mathbb{F}$.
-      A _linear combination_ of $v_1, \dots, v_n$ is a vector of the form
+      Consider [vectors](/dictionary/definitions/vector) $\vect{v}_1, \dots, \vect{v}_n$ in a [vector space](/dictionary/definitions/vector-space) $V$ over a [field](/dictionary/definitions/field) $\mathbb{F}$.
+      A _linear combination_ of $\vect{v}_1, \dots, \vect{v}_n$ is a vector of the form
 
-      $$c_1 v_1 + c_2 v_2 + \cdots + c_n v_n,$$
+      $$c_1 \vect{v}_1 + c_2 \vect{v}_2 + \cdots + c_n \vect{v}_n,$$
 
       where $c_1, \dots, c_n \in \mathbb{F}$ are scalars, called the _coefficients_.
 properties:
   - >-
-    The set of all linear combinations of $v_1, \dots, v_n$ is the [span](/dictionary/definitions/span) of $v_1, \dots, v_n$.
+    The set of all linear combinations of $\vect{v}_1, \dots, \vect{v}_n$ is the [span](/dictionary/definitions/span) of $\vect{v}_1, \dots, \vect{v}_n$.
   - >-
-    The vectors $v_1, \dots, v_n$ are [linearly independent](/dictionary/definitions/linearly-independent) exactly when the only linear combination equal to the [zero vector](/dictionary/definitions/zero-vector) has all coefficients equal to $0$.
+    The vectors $\vect{v}_1, \dots, \vect{v}_n$ are [linearly independent](/dictionary/definitions/linearly-independent) exactly when the only linear combination equal to the [zero vector](/dictionary/definitions/zero-vector) has all coefficients equal to $0$.
   - >-
     A linear combination must have finitely many terms, even in an infinite-dimensional vector space.
 ---

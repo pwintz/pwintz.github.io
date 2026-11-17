@@ -22,7 +22,7 @@ examples:
   - example: finite_or_cofinite_subsets
   - example: indicator_of_rationals_borel
     why: >-
-      The indicator function of $\mathbb{Q}$ shows that a measurable map need not be continuous: a σ-algebra has many more sets than a topology, so measurability is a much weaker condition.
+      The indicator function of $\rationals$ shows that a measurable map need not be continuous: a σ-algebra has many more sets than a topology, so measurability is a much weaker condition.
 see_also:
   - interior_vs_exterior_vs_boundary
   - types_of_set_sparsity

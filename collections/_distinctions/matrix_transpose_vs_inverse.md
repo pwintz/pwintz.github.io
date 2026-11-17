@@ -4,7 +4,7 @@ title: Trace vs. Determinant vs. Transpose vs. Inverse
 kind: siblings
 areas: [linear-algebra]
 summary: >
-  Square matrices come with several standard derived quantities, which are often confused because of similar notation, such as $A^{\top}$ and $A^{-1}$.
+  Square matrices come with several standard derived quantities, which are often confused because of similar notation, such as $A\trans$ and $A^{-1}$.
   The trace and the [determinant](/dictionary/definitions/determinant) are numbers: the sum and the product of the [eigenvalues](/dictionary/definitions/eigenvalue).
   The transpose and the inverse are matrices, and they are equal exactly for orthogonal matrices.
 terms:

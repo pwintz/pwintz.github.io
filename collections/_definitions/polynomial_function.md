@@ -16,7 +16,7 @@ levels:
       Two polynomial functions are equal when they give the same output for every input.
 properties:
   - |-
-    Over an infinite field, such as $\reals$ or $\mathbb{C}$, different [polynomials](/dictionary/definitions/polynomial) give different functions, so polynomials and polynomial functions are usually identified.
+    Over an infinite field, such as $\reals$ or $\complexes$, different [polynomials](/dictionary/definitions/polynomial) give different functions, so polynomials and polynomial functions are usually identified.
   - |-
     Over a finite field, different [polynomials](/dictionary/definitions/polynomial) can give the same function.
     Over $\setdef{0, 1}$ with arithmetic modulo $2$, the polynomial $x^2 + x$ gives the zero function.

@@ -26,6 +26,6 @@ properties:
     _Partial pivoting_, which brings the entry of largest absolute value in each column to the pivot position, makes the multipliers in $L$ at most $1$ in absolute value, which limits the growth of rounding errors.
 ---
 Some authors write $P A = L U$ instead of $A = P L U$.
-The two conventions use inverse permutation matrices, since $P^{-1} = P^{\top}$.
+The two conventions use inverse permutation matrices, since $P^{-1} = P\trans$.
 
 Numerical libraries (for example, `lu` in MATLAB and `scipy.linalg.lu` in Python) compute a PLU decomposition with partial pivoting, not a plain [LU decomposition](/dictionary/definitions/lu-decomposition).

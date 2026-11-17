@@ -18,9 +18,9 @@ properties:
     A square matrix $A$ has an eigendecomposition exactly when $A$ is diagonalizable, that is, when $A$ has $n$ [linearly independent](/dictionary/definitions/linearly-independent) [eigenvectors](/dictionary/definitions/eigenvector), where $A$ is $n \times n$.
     If the $n$ [eigenvalues](/dictionary/definitions/eigenvalue) of $A$ are distinct, then $A$ is diagonalizable.
   - |-
-    If $A$ is real and [symmetric](/dictionary/definitions/symmetric-matrix), then $A$ has an eigendecomposition $A = Q \Lambda Q^{\top}$ with $Q$ orthogonal and $\Lambda$ real (the spectral theorem).
+    If $A$ is real and [symmetric](/dictionary/definitions/symmetric-matrix), then $A$ has an eigendecomposition $A = Q \Lambda Q\trans$ with $Q$ orthogonal and $\Lambda$ real (the spectral theorem).
   - |-
     An eigendecomposition turns powers and functions of $A$ into powers and functions of numbers: $A^k = P D^k P^{-1}$ and $e^{A t} = P e^{D t} P^{-1}$.
 ---
-For a symmetric [positive semidefinite](/dictionary/definitions/positive-semidefinite-matrix) matrix, the eigendecomposition $A = Q \Lambda Q^{\top}$ is also a [singular value decomposition](/dictionary/definitions/singular-value-decomposition).
+For a symmetric [positive semidefinite](/dictionary/definitions/positive-semidefinite-matrix) matrix, the eigendecomposition $A = Q \Lambda Q\trans$ is also a [singular value decomposition](/dictionary/definitions/singular-value-decomposition).
 For other matrices, the two differ: $P$ need not be orthogonal, and the entries of $D$ can be negative or complex.

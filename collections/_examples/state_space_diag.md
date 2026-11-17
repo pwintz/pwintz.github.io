@@ -1,6 +1,6 @@
 ---
 published: false
-title: '$\dot{x} = A x + B u$, $y = C x$, with $A = \operatorname{diag}(-1, 2)$, $B = (1, 0)^{\top}$, $C = (1, 1)$'
+title: '$\dot{x} = A x + B u$, $y = C x$, with $A = \operatorname{diag}(-1, 2)$, $B = (1, 0)\trans$, $C = (1, 1)$'
 level: undergraduate
 values:
   eigenvalue: 'The eigenvalues of $A$, $-1$ and $2$'

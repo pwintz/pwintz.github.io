@@ -11,5 +11,5 @@ levels:
       
   undergraduate:
     text: |-
-      An _integer_ is an element of $\mathbb{Z}$, which can be constructed from the natural numbers as equivalence classes of pairs $(a, b)$ of natural numbers, where $(a, b)$ represents $a - b$ and $(a, b) \sim (c, d)$ if $a + d = b + c$.
+      An _integer_ is an element of $\integers$, which can be constructed from the natural numbers as equivalence classes of pairs $(a, b)$ of natural numbers, where $(a, b)$ represents $a - b$ and $(a, b) \sim (c, d)$ if $a + d = b + c$.
 ---

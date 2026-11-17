@@ -1,5 +1,5 @@
 ---
-title: '$\mathbb{Z}$ with addition'
+title: '$\integers$ with addition'
 level: high-school
 is: [group]
 why:

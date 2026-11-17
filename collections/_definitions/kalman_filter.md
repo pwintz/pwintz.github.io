@@ -18,13 +18,13 @@ levels:
       The _Kalman filter_ for this system is the [filter](/dictionary/definitions/filter-estimation) that computes a state estimate $\hat{x}_k$ and its error covariance $P_k$ by repeating two steps.
       First, it predicts
 
-      $$\hat{x}_k^- = A \hat{x}_{k-1} + B u_{k-1}, \qquad P_k^- = A P_{k-1} A^\top + Q.$$
+      $$\hat{x}_k^- = A \hat{x}_{k-1} + B u_{k-1}, \qquad P_k^- = A P_{k-1} A\trans + Q.$$
 
       Then, it corrects the prediction using the measurement $y_k$:
 
       $$\hat{x}_k = \hat{x}_k^- + K_k (y_k - C \hat{x}_k^-), \qquad P_k = (I - K_k C) P_k^-,$$
 
-      where $K_k = P_k^- C^\top (C P_k^- C^\top + R)^{-1}$ is the _Kalman gain_.
+      where $K_k = P_k^- C\trans (C P_k^- C\trans + R)^{-1}$ is the _Kalman gain_.
 properties:
   - >-
     For a linear system with Gaussian noise, the Kalman filter's estimate $\hat{x}_k$ is the conditional mean of $x_k$ given the measurements $y_1, \dots, y_k$, so it has the smallest mean-square error of every [estimator](/dictionary/definitions/estimator) of $x_k$ from those measurements.

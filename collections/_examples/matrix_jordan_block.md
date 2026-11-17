@@ -31,11 +31,11 @@ why:
     $I$ commutes with every matrix, so $D = I$ and $N$ commute.
   singular_value_decomposition: >-
     Here $\varphi = \frac{1 + \sqrt{5}}{2}$ is the golden ratio.
-    The singular values of $$A = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$$ are the golden ratio $\varphi$ and $1 / \varphi$, the square roots of the eigenvalues $\frac{3 \pm \sqrt{5}}{2}$ of $$A^{\top} A = \begin{bmatrix} 1 & 1 \\ 1 & 2 \end{bmatrix}$$.
+    The singular values of $$A = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$$ are the golden ratio $\varphi$ and $1 / \varphi$, the square roots of the eigenvalues $\frac{3 \pm \sqrt{5}}{2}$ of $$A\trans A = \begin{bmatrix} 1 & 1 \\ 1 & 2 \end{bmatrix}$$.
     Both eigenvalues of $A$ are $1$, so the singular values differ from the eigenvalues.
     # TODO: Check the singular values.
   polar_decomposition: >-
-    The polar factor $S$ of $$A = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$$ is the positive semidefinite square root of $$A^{\top} A = \begin{bmatrix} 1 & 1 \\ 1 & 2 \end{bmatrix}$$, and $Q = A S^{-1}$ is a rotation.
+    The polar factor $S$ of $$A = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$$ is the positive semidefinite square root of $$A\trans A = \begin{bmatrix} 1 & 1 \\ 1 & 2 \end{bmatrix}$$, and $Q = A S^{-1}$ is a rotation.
     The eigenvalues of $S$ are the singular values $\varphi$ and $1 / \varphi$ of $A$.
   eigendecomposition: >-
     The matrix $$A = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$$ has no eigendecomposition, because its only eigenvalue is $1$ and its eigenvectors are the multiples of $(1, 0)$, so it does not have two independent eigenvectors.

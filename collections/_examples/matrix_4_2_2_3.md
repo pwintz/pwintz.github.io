@@ -21,12 +21,12 @@ values:
   toeplitz_decomposition: '$H = A$, $K = 0$'
 why:
   positive_definite_matrix: >-
-    The matrix $$A = \begin{bmatrix} 4 & 2 \\ 2 & 3 \end{bmatrix}$$ is positive definite, because it is symmetric and $$x^{\top} A x = 4 x_1^2 + 4 x_1 x_2 + 3 x_2^2 = (2 x_1 + x_2)^2 + 2 x_2^2,$$ which is positive unless $x_2 = 0$ and $2 x_1 + x_2 = 0$, that is, unless $x = 0$.
+    The matrix $$A = \begin{bmatrix} 4 & 2 \\ 2 & 3 \end{bmatrix}$$ is positive definite, because it is symmetric and $$x\trans A x = 4 x_1^2 + 4 x_1 x_2 + 3 x_2^2 = (2 x_1 + x_2)^2 + 2 x_2^2,$$ which is positive unless $x_2 = 0$ and $2 x_1 + x_2 = 0$, that is, unless $x = 0$.
   cholesky_decomposition: >-
     The matrix $$A = \begin{bmatrix} 4 & 2 \\ 2 & 3 \end{bmatrix}$$ is symmetric with positive eigenvalues $\frac{7 \pm \sqrt{17}}{2}$, so it has a Cholesky decomposition.
     Its factor $L$ is the LU factor $U$ with each row divided by the square root of its diagonal entry, transposed.
   singular_value_decomposition: >-
-    The matrix $$A = \begin{bmatrix} 4 & 2 \\ 2 & 3 \end{bmatrix}$$ is symmetric positive definite, so its eigendecomposition $A = Q \Lambda Q^{\top}$ is also a singular value decomposition.
+    The matrix $$A = \begin{bmatrix} 4 & 2 \\ 2 & 3 \end{bmatrix}$$ is symmetric positive definite, so its eigendecomposition $A = Q \Lambda Q\trans$ is also a singular value decomposition.
   polar_decomposition: >-
     The matrix $$A = \begin{bmatrix} 4 & 2 \\ 2 & 3 \end{bmatrix}$$ is already symmetric positive definite, so its polar decomposition is $A = I \cdot A$.
 ---
