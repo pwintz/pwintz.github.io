@@ -1,0 +1,549 @@
+---
+layout: single
+permalink: /tools/stable_pairing/
+title: "Dating Simulator: Stable Pairings and Endless Breakups"
+excerpt: "People drift around as boids, drawn to the people they find attractive, and leave their partners when they meet someone they like more who likes them back. With some attractions, the breakups never stop: no pairing is stable. Add loyalty or boredom and see how the couples change."
+tool_categories: [Math]
+full_width: true
+date_added: 2026-11-16
+---
+
+<style>
+  .sp button,
+  .sp select {
+    font: inherit;
+    width: auto;
+    margin: 0;
+    padding: 0.3rem 0.65rem;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+  }
+  .sp button:hover { background: rgba(128, 128, 128, 0.1); }
+  .sp button[aria-pressed="true"] { background: #e8f0fe; border-color: #1a73e8; }
+  .sp label, .sp input { margin: 0; }
+  .sp canvas { display: block; width: 100%; }
+
+  /* A pinned panel stays at the top of the window while scrolling, below any pinned above it. */
+  .sp-panel { position: relative; padding: 0.4rem 2.2rem 0.4rem 0; margin-bottom: 0.6rem; background: #fff; }
+  .sp-panel.sp-pinned { position: sticky; z-index: 9; border-bottom: 1px solid rgba(128, 128, 128, 0.35); }
+  .sp .sp-pin,
+  .sp .sp-full {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.35rem;
+    padding: 0.25rem;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: #8a919c;
+    line-height: 0;
+    opacity: 0.6;
+  }
+  .sp .sp-pin:hover,
+  .sp .sp-full:hover { background: rgba(128, 128, 128, 0.1); opacity: 1; }
+  .sp .sp-full { top: 2.6rem; }
+  .sp .sp-full svg { width: 18px; height: 18px; }
+  .sp .sp-pin svg { width: 18px; height: 18px; transform: rotate(45deg); transition: transform 150ms; }
+  .sp .sp-pinned .sp-pin { color: #1a73e8; opacity: 1; }
+  .sp .sp-pinned .sp-pin svg { transform: none; }
+  /* In full screen, the people fill the screen, without the pin. */
+  .sp .sp-panel:fullscreen { padding: 12px 44px 12px 12px; overflow: auto; }
+  .sp .sp-panel:fullscreen .sp-pin { display: none; }
+  .sp .sp-panel:fullscreen .sp-full { top: 0.6rem; }
+  .sp .sp-panel:fullscreen #sp-canvas { aspect-ratio: auto; height: calc(100vh - 5rem); max-height: none; }
+
+  /* Settings: a toolbar of menus (left) and playback (right), then loyalty and view options, with
+     each label beside its control. */
+  .sp-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem 1.5rem;
+    padding-bottom: 0.6rem;
+    margin-bottom: 0.6rem;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.25);
+  }
+  /* A "?" button sits next to the button it explains. */
+  .sp-toolbar-group > button + .sp-help { margin-left: -0.7rem; }
+  /* Pushed to the right end of its row (its "?" follows it). */
+  .sp-toolbar-group > .sp-end { margin-left: auto; }
+  /* Settings groups: a label column (People, Attraction, Loyalty) beside each group's row. */
+  .sp-settings { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 0.5rem 1.2rem; align-items: center; }
+  .sp-settings > .sp-group-label { font-weight: 600; color: #3c4043; }
+  @media (max-width: 700px) {
+    .sp-settings { grid-template-columns: minmax(0, 1fr); gap: 0.3rem; }
+    .sp-settings > .sp-group-label { margin-top: 0.4rem; }
+  }
+  .sp-toolbar-group { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.1rem; }
+  .sp-group-label { font-size: 0.9em; color: #5f6368; }
+  .sp .sp-field { display: flex; align-items: center; gap: 0.4rem; font-size: 0.9em; color: #5f6368; }
+  .sp .sp-field[hidden] { display: none; }
+  .sp .sp-field select { color: #202124; }
+  .sp .sp-field input[type=range] { width: 7rem; }
+  .sp .sp-field output { min-width: 5.2rem; color: #202124; font-variant-numeric: tabular-nums; }
+  .sp .sp-check { display: flex; align-items: center; gap: 0.3rem; font-size: 0.9em; }
+
+  /* "?" buttons that explain a setting (see common/help.ts), as in the other tools. */
+  .sp .sp-help {
+    width: 1.25rem;
+    height: 1.25rem;
+    padding: 0;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: bold;
+    line-height: 1;
+    color: #6b6b6b;
+    flex: none;
+  }
+  .sp .sp-help[aria-expanded="true"] { background: #1a73e8; border-color: #1a73e8; color: #fff; }
+  .sp-help-popup {
+    position: absolute;
+    z-index: 30;
+    max-width: min(22rem, calc(100vw - 16px));
+    padding: 0.6rem 0.8rem;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+    font-size: 0.85em;
+    line-height: 1.45;
+  }
+
+  #sp-canvas {
+    aspect-ratio: 2 / 1;
+    max-height: 60vh;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 8px;
+    touch-action: none;
+  }
+  @media (max-width: 700px) { #sp-canvas { aspect-ratio: 1 / 1; } }
+  .sp-status {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.3rem 1.4rem;
+    margin: 0.5rem 0 0;
+    font-size: 0.9em;
+    color: #5f6368;
+    contain: content;
+  }
+  .sp-status > span { display: inline-flex; align-items: center; gap: 0.35rem; }
+  .sp-status b { color: #202124; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .sp-stable {
+    padding: 0.1rem 0.55rem;
+    border: 1px solid #009E73;
+    border-radius: 999px;
+    color: #00664a;
+    background: rgba(0, 158, 115, 0.08);
+  }
+  .sp-stable[hidden] { display: none !important; }
+  /* Info about the person or couple under the pointer (or followed), in the plot's top-right
+     corner. On small screens it sits below the plot instead, so it doesn't cover the people. */
+  .sp-tooltip {
+    position: absolute;
+    top: 0.9rem;
+    right: 2.7rem;
+    z-index: 8;
+    max-width: 20rem;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    font-size: 0.8em;
+    line-height: 1.4;
+    font-variant-numeric: tabular-nums;
+    pointer-events: none;
+  }
+  @media (max-width: 700px) {
+    .sp-tooltip { position: static; width: auto; max-width: none; margin-top: 0.4rem; box-shadow: none; }
+  }
+  .sp-tooltip-title { font-weight: bold; margin-bottom: 0.15rem; }
+  .sp-tooltip-note { margin-top: 0.2rem; color: #5f6368; font-style: italic; }
+  /* Fixed rows and columns, and lines that never wrap, so changing values don't move anything. */
+  .sp-tooltip { width: 19rem; }
+  .sp-info-grid { display: grid; grid-template-columns: 6.2rem 1fr 1fr; gap: 0 0.6rem; margin-bottom: 0.2rem; }
+  .sp-info-label { color: #5f6368; }
+  .sp-info-value, .sp-info-line, .sp-tooltip-title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sp-hint { font-size: 0.85em; color: #5f6368; margin: 0.3rem 0 0; }
+  .sp-existence { margin: 0.6rem 0 0; }
+  .sp-existence button { margin-left: 0.3rem; font-size: 0.9em; padding: 0.15rem 0.55rem; }
+
+  /* Graph titles are centered above their graphs, in the page font (the theme's captions are serif
+     and its figures are flex rows). */
+  .sp figure { display: block; margin: 0.8rem 0 0; }
+  .sp figcaption { font-family: inherit; font-size: 0.9em; font-weight: bold; color: #3c4043; margin-bottom: 0.25rem; text-align: center; }
+  #sp-graph, #sp-happy-graph { height: 160px; }
+  .sp-happy-settings { margin: 1rem 0 0; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(128, 128, 128, 0.25); }
+  .sp-graphs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 1.2rem; }
+  @media (max-width: 700px) { .sp-graphs { grid-template-columns: 1fr; } }
+
+  .sp .sp-section-title { margin: 1.8rem 0 0.4rem; }
+  .sp h3.sp-section-title { margin-top: 1.4rem; }
+  .sp-tex { overflow-x: auto; }
+
+  /* The attraction table: rows feel the attraction, columns receive it. */
+  /* The table can have 10,000 cells; keep it out of the layout work done as the status changes,
+     and skip rendering it while it's off screen. */
+  .sp-matrix-wrap { overflow-x: auto; margin: 0.6rem 0 0; contain: content; content-visibility: auto; contain-intrinsic-size: auto 20rem; }
+  .sp table.sp-matrix { display: table; width: auto; margin: 0; border-collapse: separate; border-spacing: 2px; font-size: 0.9em; }
+  .sp .sp-matrix thead, .sp .sp-matrix tbody, .sp .sp-matrix tr { border: none !important; background: none !important; }
+  .sp .sp-matrix th, .sp .sp-matrix td { border: none !important; padding: 0; text-align: center; }
+  .sp .sp-matrix th { padding: 0.15rem 0.4rem; font-weight: bold; }
+  .sp .sp-matrix td { border-radius: 4px; }
+  .sp .sp-matrix td.sp-none { color: #b0b4ba; }
+  .sp .sp-matrix td.sp-partner { outline: 2.5px solid #D55E00; outline-offset: -2px; }
+  .sp .sp-matrix input {
+    width: 3.2rem;
+    padding: 0.2rem 0.25rem;
+    border: none;
+    background: transparent;
+    text-align: center;
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+  }
+  .sp .sp-matrix th.sp-corner { font-weight: normal; font-size: 0.75em; color: #5f6368; line-height: 1.2; }
+  .sp .sp-matrix th.sp-corner span { display: block; white-space: nowrap; }
+</style>
+
+<div class="sp">
+  <p>
+    Each dot below is a person looking for a partner.
+    People drift toward the people they find attractive, and when two people meet who would each rather be with the other than with their current partners, they leave their partners and pair up.
+    A pairing of people is <em>stable</em> if no two people would rather be with each other than with their partners.
+    With some attractions, no pairing is stable, so the breakups never stop.
+  </p>
+
+  <div class="sp-panel" data-fullscreen="false">
+    <!-- Examples (left) and playback and view options (right), then the settings in groups: who the people are,
+         how attraction works, and loyalty. -->
+    <div class="sp-toolbar">
+      <div class="sp-toolbar-group">
+        <select id="sp-example" aria-label="Load an example">
+          <option value="" selected>Examples</option>
+          <optgroup label="No stable pairing">
+            <option value="classic">Love triangle plus D</option>
+            <option value="randomNone">Ten random people</option>
+          </optgroup>
+          <optgroup label="A stable pairing exists">
+            <option value="groups">Two groups of five</option>
+            <option value="mutual">Mutual attraction</option>
+            <option value="shared">Shared ranking</option>
+            <option value="randomStable">Ten random people</option>
+          </optgroup>
+          <optgroup label="Loyalty">
+            <option value="classicAbsolute">Love triangle, never leave</option>
+            <option value="classicBoost">Love triangle, fixed boost</option>
+            <option value="classicGrowing">Love triangle, growing loyalty</option>
+            <option value="mutualBoredom">Mutual attraction, boredom</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="sp-toolbar-group">
+        <button type="button" id="sp-play" aria-pressed="false">Pause</button>
+        <button type="button" id="sp-restart" data-help="Starts the simulation over: everyone becomes single and is placed at random, and the breakup count and graphs are cleared. The attractions stay the same. To change the attractions instead, use New attractions.">Restart</button>
+        <label class="sp-field"><span data-help="How fast time passes in the simulation. Speed it up to see whether the breakups ever stop.">Speed</span>
+          <select id="sp-speed"></select>
+        </label>
+        <span class="sp-group-label">View</span>
+        <label class="sp-check"><input type="checkbox" id="sp-show-blocking"><span data-help="Draw a dashed line between each two people who would leave their partners for each other if they met (a “blocking pair”). A pairing is stable when there are no blocking pairs.">Blocking pairs</span></label>
+        <label class="sp-check"><input type="checkbox" id="sp-show-crushes"><span data-help="Draw an arrow from each person toward the person they are pulled toward most: someone they would rather be with than their partner. The arrow is darker when the pull is stronger. A crush that isn't returned doesn't lead to a breakup.">Crushes</span></label>
+      </div>
+    </div>
+    <div class="sp-settings">
+      <span class="sp-group-label">People</span>
+      <div class="sp-toolbar-group">
+        <label class="sp-field"><span data-help="How many people there are. The number is even, so that everyone can have a partner.">Number</span>
+          <select id="sp-count"></select>
+        </label>
+        <label class="sp-field"><span data-help="#sp-pairing-help">Who can pair</span>
+          <select id="sp-pairing">
+            <option value="anyone">Anyone with anyone</option>
+            <option value="groups">Two groups</option>
+          </select>
+        </label>
+      </div>
+      <span class="sp-group-label">Attraction</span>
+      <div class="sp-toolbar-group">
+        <label class="sp-field"><span data-help="#sp-kind-help">Kind</span>
+          <select id="sp-kind">
+            <option value="random">Random</option>
+            <option value="mutual">Mutual</option>
+            <option value="shared">Shared ranking</option>
+            <option value="custom">Custom</option>
+          </select>
+        </label>
+        <label class="sp-field"><span data-help="How many of the others each person is attracted to, chosen at random. Everyone else gets an attraction of 0, which means no interest: people pair only with people they are attracted to, so some people may stay single. With fewer interests, people have fewer people to switch to, so there are fewer breakups, and large crowds run faster.">Attracted to</span>
+          <select id="sp-interest"></select>
+        </label>
+        <label class="sp-field"><span data-help="#sp-fluctuation-help">Fluctuation</span>
+        <select id="sp-fluctuation">
+          <option value="0">Off</option>
+          <option value="0.1">Small</option>
+          <option value="0.2">Medium</option>
+          <option value="0.35">Large</option>
+        </select>
+      </label>
+        <!-- Proximity is hidden for now (the code still supports it). -->
+        <label class="sp-field" hidden><span data-help="#sp-proximity-help">Proximity</span>
+        <select id="sp-proximity">
+          <option value="0">Off</option>
+          <option value="0.1">Small</option>
+          <option value="0.2">Medium</option>
+          <option value="0.4">Large</option>
+        </select>
+      </label>
+        <button type="button" id="sp-new" class="sp-end" data-help="Chooses new random attractions of the selected kind. Everyone stays where they are, with their current partners, so you can watch how the couples respond to the change; the breakup count and graphs start over. To start over with everyone single, use Restart.">New attractions</button>
+      </div>
+      <span class="sp-group-label">Loyalty</span>
+      <div class="sp-toolbar-group">
+        <label class="sp-field"><span data-help="#sp-loyalty-help">Type</span>
+        <select id="sp-loyalty">
+          <option value="none">None</option>
+          <option value="absolute">Never leave</option>
+          <option value="boost">Fixed boost</option>
+          <option value="growing">Grows over time</option>
+          <option value="boredom">Boredom</option>
+          <option value="mixed">Mixed</option>
+        </select>
+      </label>
+        <label class="sp-field" id="sp-boost-field" hidden><span data-help="Added to each person's attraction to their partner. A person leaves their partner only for someone more attractive than the partner plus this boost. In the “Love triangle plus D” example, a boost greater than 0.30 stops the breakups.">Boost</span>
+        <input type="range" id="sp-boost" min="0" max="0.6" step="0.01">
+        <output id="sp-boost-out"></output>
+      </label>
+        <label class="sp-field" id="sp-growth-field" hidden><span data-help="How fast loyalty grows: each second a couple is together adds this much to each partner's attraction to the other. With 0.1 per second, a couple together for 3 seconds has a boost of 0.3. New couples break up easily, and couples that last become hard to break up. In the “Love triangle plus D” example, 0.1 per second lets a few couples last long enough to stay together for good.">Growth</span>
+        <input type="range" id="sp-growth" min="0" max="0.3" step="0.005">
+        <output id="sp-growth-out"></output>
+      </label>
+        <label class="sp-field" id="sp-growth-max-field" hidden><span data-help="The most that loyalty can grow to. Once a couple's loyalty reaches this, it stops growing, so a partner can still be left for someone attractive enough: with a maximum of 0.3, a person leaves a partner they're attracted to at 0.5 only for someone above 0.8. With a maximum of 1, a long-lasting couple never breaks up, since every attraction is at most 1.">Maximum</span>
+        <input type="range" id="sp-growth-max" min="0.05" max="1" step="0.05">
+        <output id="sp-growth-max-out"></output>
+      </label>
+        <label class="sp-field" id="sp-boredom-field" hidden><span data-help="How fast people tire of their partners: each second a couple is together subtracts this much from each partner's attraction to the other. With 0.05 per second, after 10 seconds a partner seems 0.5 less attractive. Eventually everyone else seems better than one's partner, so couples break up even when a stable pairing exists.">Boredom</span>
+        <input type="range" id="sp-boredom" min="0" max="0.2" step="0.005">
+        <output id="sp-boredom-out"></output>
+      </label>
+      </div>
+    </div>
+    <template id="sp-pairing-help">
+      <p style="margin: 0 0 0.4rem">Who can be a couple:</p>
+      <ul style="margin: 0; padding-left: 1.1rem">
+        <li><b>Anyone with anyone:</b> every two people can be a couple (the “stable roommates problem”).</li>
+        <li><b>Two groups:</b> each person can pair only with someone from the other group, shown in the other color (the “stable marriage problem”). With two groups of the same size, a stable pairing exists for every choice of attractions.</li>
+      </ul>
+    </template>
+    <template id="sp-kind-help">
+      <p style="margin: 0 0 0.4rem">How the attraction of each person to each other person is chosen, from 0 to 1:</p>
+      <ul style="margin: 0; padding-left: 1.1rem">
+        <li><b>Random:</b> chosen independently, so attraction is often one-sided.</li>
+        <li><b>Mutual:</b> each two people are equally attracted to each other.</li>
+        <li><b>Shared ranking:</b> everyone agrees how attractive each person is.</li>
+        <li><b>Custom:</b> values you entered in the table below the plot.</li>
+      </ul>
+      <p style="margin: 0.4rem 0 0">“New attractions” chooses new random values of the same kind.</p>
+    </template>
+    <template id="sp-fluctuation-help">
+      <p style="margin: 0 0 0.4rem">How much each attraction rises and falls over time around its usual value (the value in the table), like the ebb and flow of real relationships. Each attraction drifts on its own, slowly (over tens of seconds), so a partner can become less attractive for a while, or someone new more attractive, and couples that were stable can break up. An attraction of 0 stays 0.</p>
+      <ul style="margin: 0; padding-left: 1.1rem">
+        <li><b>Off:</b> attractions stay fixed.</li>
+        <li><b>Small:</b> swings of up to about ±0.1.</li>
+        <li><b>Medium:</b> swings of up to about ±0.2.</li>
+        <li><b>Large:</b> swings of up to about ±0.35.</li>
+      </ul>
+    </template>
+    <template id="sp-proximity-help">
+      <p style="margin: 0 0 0.4rem">How much attraction grows for people who are near each other, like the familiarity that comes from spending time together. The increase is largest for people who are touching and fades to nothing at about eight body widths apart. Partners stay close, so their attraction to each other grows too, which works like loyalty. An attraction of 0 stays 0.</p>
+      <ul style="margin: 0; padding-left: 1.1rem">
+        <li><b>Off:</b> distance doesn't change attraction.</li>
+        <li><b>Small:</b> increases of up to 0.1.</li>
+        <li><b>Medium:</b> increases of up to 0.2.</li>
+        <li><b>Large:</b> increases of up to 0.4.</li>
+      </ul>
+    </template>
+    <template id="sp-loyalty-help">
+      <p style="margin: 0 0 0.4rem">How much a person's own partner is worth to them, beyond their attraction:</p>
+      <ul style="margin: 0; padding-left: 1.1rem">
+        <li><b>None:</b> a person leaves their partner for anyone more attractive who wants them back.</li>
+        <li><b>Never leave:</b> once paired, a person stays with their partner.</li>
+        <li><b>Fixed boost:</b> each person's attraction to their partner is increased by a fixed amount.</li>
+        <li><b>Grows over time:</b> the boost grows with the time the couple has been together.</li>
+        <li><b>Boredom:</b> the attraction to a partner shrinks with the time the couple has been together.</li>
+        <li><b>Mixed:</b> half of the people (A, C, E, …) grow more loyal over time, and the other half (B, D, F, …) grow bored.</li>
+      </ul>
+    </template>
+  </div>
+
+  <div class="sp-panel" id="sp-plot-panel">
+    <canvas id="sp-canvas" aria-label="People moving around; partners are joined by a line with a heart"></canvas>
+    <div class="sp-tooltip" id="sp-tooltip" role="status" hidden></div>
+    <div class="sp-status" aria-live="off">
+      <span>Breakups: <b id="sp-breakups">0</b></span>
+      <span>Since the last breakup: <b id="sp-since">—</b></span>
+      <span>Blocking pairs: <b id="sp-blocking">none</b></span>
+      <span class="sp-stable" id="sp-stable" hidden>Stable pairing</span>
+    </div>
+  </div>
+  <p class="sp-hint">Hover over a person to see their attractions and their couple's, or click a person to keep following them. Drag a person to introduce them to someone. Filled dots have partners; hollow dots are single. A couple's heart is larger when the partners are more attracted to each other. With fluctuation on, a black heart outline shows the partners' usual attraction, and the solid heart behind it grows and shrinks with their attraction right now. People who were just left by a partner are grayed out while their heartbreak fades.</p>
+  <p class="sp-existence" id="sp-existence"></p>
+
+  <div class="sp-happy-settings sp-toolbar-group" aria-label="Happiness settings">
+    <span class="sp-group-label">Happiness</span>
+    <label class="sp-field"><span data-help="#sp-hurt-help">Heartbreak</span>
+      <select id="sp-hurt-cost"></select>
+    </label>
+    <label class="sp-field"><span data-help="#sp-single-help">Being single</span>
+      <select id="sp-single-joy"></select>
+    </label>
+    <label class="sp-check"><input type="checkbox" id="sp-count-loyalty"><span data-help="Whether loyalty counts toward happiness: each partnered person adds what loyalty adds to their attraction to their partner (for “Never leave,” 1). With boredom, this lowers happiness. Only the graph changes, not the people's motion.">Count loyalty</span></label>
+    <template id="sp-hurt-help">
+      <p style="margin: 0 0 0.4rem">How much a fresh heartbreak subtracts from the total happiness. Heartbreak fades to about a third every 8 seconds, so its cost fades too. Only the graph changes, not the people's motion.</p>
+      <ul style="margin: 0; padding-left: 1.1rem">
+        <li><b>None:</b> heartbreak doesn't count.</li>
+        <li><b>0.25, 0.50, 1.00:</b> a person who was just left subtracts this much.</li>
+      </ul>
+    </template>
+    <template id="sp-single-help">
+      <p style="margin: 0 0 0.4rem">How much each single person adds to the total happiness, for comparison with a partner's attraction (from 0 to 1). Only the graph changes, not the people's motion: people still pair with anyone they're attracted to.</p>
+      <ul style="margin: 0; padding-left: 1.1rem">
+        <li><b>0.0:</b> being single adds nothing.</li>
+        <li><b>0.2, 0.4:</b> being single is worth as much as a partner with this attraction.</li>
+      </ul>
+    </template>
+  </div>
+  <div class="sp-graphs">
+    <figure>
+      <figcaption>Breakups per minute</figcaption>
+      <canvas id="sp-graph" aria-label="Breakups per minute in each 5-second interval, against time"></canvas>
+    </figure>
+    <figure>
+      <figcaption>Total happiness</figcaption>
+      <canvas id="sp-happy-graph" aria-label="Total happiness, against time"></canvas>
+    </figure>
+  </div>
+  <p class="sp-hint">
+    <em>Breakups per minute</em> counts the breakups in each 5-second interval (0–5 s, 5–10 s, and so on), so it falls to 0 when the pairing settles; the current interval, drawn dashed, steps up with each breakup in it.
+    <em>Total happiness</em> adds up each partnered person's attraction to their partner, plus the happiness of each single person (0 unless set above).
+    Each person who was just left by a partner subtracts the heartbreak cost (0.5 unless set above), which fades exponentially, to about a third after 8 seconds.
+    The happiness settings change only the graph, including its history, not the people's motion.
+    The dashed line is the total happiness of the stable pairing reported above, when one exists, with no heartbreak or loyalty.
+  </p>
+
+  <h2 class="sp-section-title">Attractions</h2>
+  <p>
+    Each row lists how attracted one person is to each other person, from 0 to 1.
+    Attraction is not necessarily mutual: A's attraction to B is in row A, and B's attraction to A is in row B.
+    The outlined cells are each person's attraction to their current partner.
+    Edit a value to change the attraction.
+    With fluctuation on, the table shows each person's usual attraction, and the attraction at each moment differs from it.
+  </p>
+  <p class="sp-hint" id="sp-matrix-hidden" hidden>The table is hidden for more than 26 people. Choose 26 or fewer people to see and edit the attractions.</p>
+  <div class="sp-matrix-wrap" id="sp-matrix-wrap"><table class="sp-matrix" id="sp-matrix"></table></div>
+
+  <h2 class="sp-section-title">How it works</h2>
+  <p>
+    Each person is a <em>boid</em>, an agent that steers by simple rules, like a bird in a flock.
+    Each person is pulled toward the people they would rather be with than their current partner, and the pull is stronger toward people who are more attractive to them than their partner.
+    The pull is also stronger toward people who want them back.
+    A single person is pulled toward everyone, in proportion to their attraction.
+    People also keep out of the plot's top-right corner, where the info box appears, wander a little, drift slightly toward the middle (unless they are happily paired), keep their distance from people they don't want, and keep from bumping into each other.
+    Partners stay a short distance apart and move together, and a couple in which both partners want someone else follows the partner who is pulled more strongly.
+  </p>
+  <p>
+    Let $a_{ij}$ be the attraction of person $i$ to person $j$, and let $p(i)$ be the partner of person $i$.
+    Two people $i$ and $j$ who are not partners form a <em>blocking pair</em> if each would rather be with the other than with their partner:
+  </p>
+  <div class="sp-tex">
+  $$a_{ij} > a_{i\,p(i)} \quad \text{and} \quad a_{ji} > a_{j\,p(j)}.$$
+  </div>
+  <p>
+    An attraction of 0 means no interest, so people pair only with people they are attracted to.
+    A single person would rather be with anyone they are attracted to than be single.
+    When the two people in a blocking pair meet, they pair up, and their former partners become single.
+    A person who is left by their partner is heartbroken: they are drawn grayed out, they are pulled more weakly toward other people, and their heartbreak counts against the total happiness.
+    The heartbreak decays exponentially, falling to about a third every 8 seconds, and a second heartbreak adds to what remains of the first.
+    After a change of partner, the people involved wait 1.5 seconds before they can change partners again, so that each breakup is visible.
+    A crush that isn't returned doesn't lead to a breakup.
+    A pairing is <em>stable</em> if it has no blocking pairs.
+  </p>
+
+  <h3 class="sp-section-title">Four people with no stable pairing</h3>
+  <p>
+    Load the example “Love triangle plus D.”
+    A likes B best, B likes C best, and C likes A best, and every person likes D least.
+    Every pairing has a blocking pair:
+  </p>
+  <ul>
+    <li>If A is with B and C is with D, then B and C prefer each other (B likes C best, and C prefers B to D).</li>
+    <li>If B is with C and A is with D, then A and C prefer each other (C likes A best, and A prefers C to D).</li>
+    <li>If A is with C and B is with D, then A and B prefer each other (A likes B best, and B prefers A to D).</li>
+  </ul>
+  <p>
+    Whoever is with D wants to leave, and someone in the other couple wants them back.
+    So the couples cycle through the three pairings forever, and D is left in each round.
+    This example is from David Gale and Lloyd Shapley's 1962 paper “College Admissions and the Stability of Marriage.”
+    This page was inspired by the discussion of stable pairings in <em>Algorithms to Live By</em>, by Brian Christian and Tom Griffiths.
+  </p>
+
+  <h3 class="sp-section-title">When a stable pairing exists</h3>
+  <p>
+    For people who can pair with anyone, Robert Irving's algorithm (1985) decides whether a stable pairing exists and finds one if it does.
+    This page uses it to report, below the plot, whether the current attractions have a stable pairing.
+    Some kinds of attraction have a stable pairing for every choice of values:
+  </p>
+  <ul>
+    <li>
+      <b>Two groups.</b>
+      Gale and Shapley proved that if each person can pair only with someone from the other group, and the groups are the same size, then a stable pairing exists.
+      Their <em>deferred acceptance</em> algorithm finds one.
+      Breakups in an unlucky order can cycle, but if each breakup is by a blocking pair chosen at random, then the pairing becomes stable with probability 1 (Roth and Vande Vate, 1990).
+    </li>
+    <li>
+      <b>Mutual attraction.</b>
+      If $a_{ij} = a_{ji}$ for every two people, then the two people in each new couple are more attracted to each other than the people in the couples they broke up were.
+      So the pairing never returns to an earlier pairing, and it becomes stable after finitely many breakups.
+    </li>
+    <li>
+      <b>Shared ranking.</b>
+      If everyone agrees how attractive each person is, then the two most attractive people like each other best, so they form a couple that no one can break up.
+      The next two form the next couple, and so on.
+    </li>
+  </ul>
+
+  <h3 class="sp-section-title">Fluctuating attraction</h3>
+  <p>
+    With the Fluctuation setting on, each attraction $a_{ij}$ rises and falls slowly around its usual value, and each person's attraction to each other person changes on its own schedule.
+    A pairing that is stable at one moment can have blocking pairs a little later, so couples keep breaking up and forming, even when a stable pairing exists for the usual attractions.
+    Loyalty can hold couples together through the ebbs.
+  </p>
+
+  <!-- Hidden with the Proximity setting:
+  <h3 class="sp-section-title">Attraction to people nearby</h3>
+  <p>
+    With the Proximity setting on, each attraction $a_{ij}$ grows while $i$ and $j$ are near each other, by an amount that is largest when they touch and fades to nothing at a distance.
+    Partners stay close, so their attraction to each other grows, which holds couples together like loyalty.
+    People who are near each other also become more attracted to each other, so who meets whom depends more on where people happen to be.
+  </p>
+  -->
+
+  <h3 class="sp-section-title">Loyalty</h3>
+  <p>
+    Loyalty changes how attractive each person's own partner seems to them.
+    In the plot, more loyal couples are drawn more merged together, and bored couples barely touch.
+    With loyalty, $a_{i\,p(i)}$ in the blocking-pair condition is replaced by
+  </p>
+  <ul>
+    <li>$\infty$ for “Never leave,” so nobody leaves a partner, and each person keeps the first partner they meet, even if a better pairing is possible;</li>
+    <li>$a_{i\,p(i)} + b$ for a fixed boost $b$, so small differences in attraction no longer cause breakups (in the love-triangle example, a boost greater than $0.3$ makes every pairing stable);</li>
+    <li>$a_{i\,p(i)} + \min(r t, m)$ for loyalty that grows at rate $r$ up to a maximum $m$, where $t$ is the time the couple has been together, so new couples are fragile and lasting couples become hard to break up (permanent, for $m = 1$);</li>
+    <li>$a_{i\,p(i)} - r t$ for boredom at rate $r$, so each couple eventually breaks up, even when a stable pairing exists;</li>
+    <li>$a_{i\,p(i)} + r t$ for half of the people and $a_{i\,p(i)} - r t$ for the other half with “Mixed,” so a loyal person can be left by a bored partner.</li>
+  </ul>
+
+  <div id="sp-help-popup" class="sp-help-popup" role="note" hidden></div>
+</div>
+
+<script src="/assets/ts/out/stable_pairing.js" type="module"></script>
