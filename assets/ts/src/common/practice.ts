@@ -14,6 +14,11 @@
 // (or level), the page suggests the next one. The progress section shows a table of the stages and
 // a log of recent problems. "Continue where you left off" returns to the furthest stage reached, at
 // the level last used there.
+//
+// Names on the page: what this code calls a "stage" is shown to students as a "Level" (Level 1,
+// Level 2, …, under the label "Difficulty"), and what it calls a "level" is shown as "Support" (Full, Partial, …, None), named by
+// LevelOptions.names. Only the words on the page changed: the saved keys, the saved values (stage
+// ids and level numbers), and the URL parameter (&st=N) are the same, so saved progress still loads.
 
 import { loadJSON, saveJSON } from "./storage";
 
@@ -24,6 +29,9 @@ export interface Attempt { problem: string; stage?: string; level?: number; hint
 
 export interface LevelOptions {
   count: number;
+  // The name of each level as shown on the page, as "Support", from the most to the least, such
+  // as ["Full", "Partial", "Minimal", "None"]. "None" is shown as "no support".
+  names: string[];
   cleanToAdvance: number;
   current: () => number | null;   // 1-based, or null for a custom combination
   set: (level: number) => void;   // Selects a level (without making a new problem)
@@ -39,9 +47,9 @@ export interface PracticeOptions {
   customControls: HTMLElement[];   // Shown only when choosing problems
   progress: HTMLElement;           // Where the "Your progress" section goes
   newProblem: () => void;          // Makes a new problem for the current mode and stage
-  helpText?: string;               // For the "?" beside "Stage" (with the page's setupHelp)
-  // "list" (the default, used by every page): a vertical list of "Stage N" pills with the stages' titles,
-  // like the levels. "menu": a drop-down menu with ← and → buttons.
+  helpText?: string;               // For the "?" beside "Difficulty" (with the page's setupHelp)
+  // "list" (the default, used by every page): a vertical list of "Level N" pills with the stages'
+  // titles, like the support options. "menu": a drop-down menu with ← and → buttons.
   stageStyle?: "menu" | "list";
 }
 
@@ -73,6 +81,13 @@ export function setupPractice(o: PracticeOptions): Practice {
   const LOG_KEY = `${o.key}_practice_log`;
   const LEFT_OFF_KEY = `${o.key}_practice_left_off`;
   const stageIndex = (id: string | undefined) => o.stages.findIndex(s => s.id === id);
+  // A level (1-based) as shown on the page: its support name ("Partial"), and in a sentence
+  // ("partial support", or "no support").
+  const supportName = (lv: number) => o.levels?.names[lv - 1] ?? `${lv}`;
+  const support = (lv: number) => {
+    const name = supportName(lv);
+    return name === "None" ? "no support" : `${name.toLowerCase()} support`;
+  };
 
   // ⋘──────── State ────────⋙
   const saved = loadJSON<{ mode?: string; stageId?: string }>(SETTINGS_KEY) ?? {};
@@ -106,23 +121,23 @@ export function setupPractice(o: PracticeOptions): Practice {
 
   const stageRow = el("div", "pr-row pr-stage-row");
   const stageLabel = el("label", "pr-field");
-  const stageText = el("span", "", "Stage");
+  const stageText = el("span", "", "Difficulty");  // Beside the "Level N" pills
   if (o.helpText) stageText.dataset.help = o.helpText;
   const stageSelect = el("select");
   stageLabel.append(stageText, stageSelect);
   const prev = el("button", "pr-nav", "←");
   const next = el("button", "pr-nav", "→");
   prev.type = next.type = "button";
-  prev.setAttribute("aria-label", "Previous stage"); prev.title = "Previous stage";
-  next.setAttribute("aria-label", "Next stage"); next.title = "Next stage";
+  prev.setAttribute("aria-label", "Previous level"); prev.title = "Previous level";
+  next.setAttribute("aria-label", "Next level"); next.title = "Next level";
   const navs = el("span", "pr-navs");
   navs.append(prev, next);
-  // As a list: "Stage" beside a vertical list of radio buttons, styled like the levels.
+  // As a list: "Difficulty" beside a vertical list of radio buttons, styled like the levels.
   const asList = (o.stageStyle ?? "list") === "list";
   const openInfo = new Set<number>();  // The stages whose explanations are shown
   const stageList = el("span", "pr-level-list");
   stageList.setAttribute("role", "radiogroup");
-  stageList.setAttribute("aria-label", "Stage");
+  stageList.setAttribute("aria-label", "Difficulty");
   if (asList) {
     stageRow.classList.add("pr-levels");
     const listLabel = el("span", "pr-levels-label");
@@ -168,11 +183,11 @@ export function setupPractice(o: PracticeOptions): Practice {
         radio.value = `${i}`;
         radio.checked = i === stage;
         const done = cleanAt(i) >= o.cleanToAdvanceStage;
-        label.append(radio, el("span", "pr-pill", `Stage ${i + 1}`),
+        label.append(radio, el("span", "pr-pill", `Level ${i + 1}`),
           el("span", "", `${s.title}${done ? ` <span class="pr-clean" title="Mastered">✓</span>` : ""}`));
         const info = el("button", "pr-info", "i");
         info.type = "button";
-        info.setAttribute("aria-label", `About stage ${i + 1}`);
+        info.setAttribute("aria-label", `About level ${i + 1}`);
         const about = el("p", "pr-stage-info");
         about.id = `${o.key}-stage-info-${i}`;
         about.textContent = s.note;
@@ -187,9 +202,9 @@ export function setupPractice(o: PracticeOptions): Practice {
         item.append(label, info);
         // Beside the furthest stage reached, when the student is at another one: a button back.
         if (leftOff && leftOff.stage === i && stage !== i) {
-          const back = el("button", "pr-continue", `↩ Continue${leftOff.level !== undefined && o.levels ? ` at Level ${leftOff.level}` : ""}`);
+          const back = el("button", "pr-continue", `↩ Continue${leftOff.level !== undefined && o.levels ? ` with ${support(leftOff.level)}` : ""}`);
           back.type = "button";
-          back.title = "Go back to where you left off: your furthest stage, at the level you were using";
+          back.title = "Go back to where you left off: your furthest level, with the support you were using";
           back.addEventListener("click", resumeLeftOff);
           item.append(back);
         }
@@ -199,13 +214,13 @@ export function setupPractice(o: PracticeOptions): Practice {
     }
     prev.disabled = stage === 0;
     next.disabled = stage === o.stages.length - 1;
-    note.textContent = asList ? o.stages[stage].note : `Stage ${stage + 1} of ${o.stages.length}: ${o.stages[stage].note}`;
+    note.textContent = asList ? o.stages[stage].note : `Level ${stage + 1} of ${o.stages.length}: ${o.stages[stage].note}`;
     // Where the student left off: beside that stage in the list (see above), or else here.
     const away = leftOff !== null && (mode !== "path" || stage !== leftOff.stage);
     resume.hidden = !away || (asList && mode === "path");
     if (away) {
-      const lv = leftOff!.level !== undefined && o.levels ? `, Level ${leftOff!.level}` : "";
-      resumeButton.textContent = `↩ Continue the path: stage ${leftOff!.stage + 1}${lv}`;
+      const lv = leftOff!.level !== undefined && o.levels ? `, ${support(leftOff!.level)}` : "";
+      resumeButton.textContent = `↩ Continue the path: level ${leftOff!.stage + 1}${lv}`;
     }
   }
 
@@ -245,21 +260,21 @@ export function setupPractice(o: PracticeOptions): Practice {
     }
     const top = o.levels.count;
     const best = Math.max(0, ...clean.map(a => a.level ?? 0));
-    if (best === top) return { rank: 3, label: `Mastered: no ${hintsWord}, no help (Level ${top})` };
-    if (best > 0) return { rank: 2, label: `No ${hintsWord}, with help (Level ${best})` };
+    if (best === top) return { rank: 3, label: `Mastered: no ${hintsWord}, ${support(top)}` };
+    if (best > 0) return { rank: 2, label: `No ${hintsWord}, with ${support(best)}` };
     const highest = Math.max(0, ...at.map(a => a.level ?? 0));
-    return { rank: 1, label: `Finished, with ${hintsWord}${highest > 0 ? ` (up to Level ${highest})` : ""}` };
+    return { rank: 1, label: `Finished, with ${hintsWord}${highest > 0 ? ` (least support: ${supportName(highest)})` : ""}` };
   }
 
-  // One sentence for the whole path, like "Mastered 2 of 9 stages; 1 more with no hints, with help."
+  // One sentence for the whole path, like "Mastered 2 of 9 levels; 1 more with no hints, with support."
   function masterySummary(): string {
     const ranks = o.stages.map((_, i) => mastery(i).rank);
     const n = (r: number) => ranks.filter(x => x === r).length;
-    const parts = [`<strong>Mastered ${n(3)} of ${o.stages.length} stages</strong>${o.levels ? ` (no ${hintsWord}, no help)` : ""}`];
-    if (n(2) > 0) parts.push(`${n(2)} more with no ${hintsWord}${o.levels ? ", with help" : " once"}`);
+    const parts = [`<strong>Mastered ${n(3)} of ${o.stages.length} levels</strong>${o.levels ? ` (no ${hintsWord}, no support)` : ""}`];
+    if (n(2) > 0) parts.push(`${n(2)} more with no ${hintsWord}${o.levels ? ", with support" : " once"}`);
     if (n(1) > 0) parts.push(`${n(1)} finished with ${hintsWord}`);
     const nextUp = ranks.findIndex(r => r < 3);
-    const next = nextUp < 0 ? " You've mastered every stage!" : ` Next to master: stage ${nextUp + 1}, ${o.stages[nextUp].title}.`;
+    const next = nextUp < 0 ? " You've mastered every level!" : ` Next to master: level ${nextUp + 1}, ${o.stages[nextUp].title}.`;
     return `${parts.join("; ")}.${next}`;
   }
 
@@ -278,24 +293,24 @@ export function setupPractice(o: PracticeOptions): Practice {
       const LOG_LENGTH = 15;
       const logRows = log.slice(-LOG_LENGTH).reverse().map(a => {
         const i = stageIndex(a.stage);
-        const name = i >= 0 ? `${i + 1}. ${o.stages[i].title}` : a.stage === undefined ? "Your choice" : "An earlier stage";
-        return row([when(a.time), name, ...(o.levels ? [a.level === undefined ? "Custom" : `Level ${a.level}`] : []), mark(a)]);
+        const name = i >= 0 ? `${i + 1}. ${o.stages[i].title}` : a.stage === undefined ? "Your choice" : "An earlier level";
+        return row([when(a.time), name, ...(o.levels ? [a.level === undefined ? "Custom" : supportName(a.level)] : []), mark(a)]);
       }).join("");
       progressBody.innerHTML =
         `<h3>Mastery</h3><p class="pr-summary">${masterySummary()}</p>`
-        + `<div class="pr-scroll"><table class="pr-table">${head(["Stage", "Mastery", "Finished", `With no ${hintsWord}`, `${hintsWord[0].toUpperCase()}${hintsWord.slice(1)} per problem (oldest first; ✓ = none)`])}<tbody>${stageRows}</tbody></table></div>`
-        + `<h3>Recent problems</h3><div class="pr-scroll"><table class="pr-table">${head(["Finished", "Stage", ...(o.levels ? ["Level"] : []), hintsWord[0].toUpperCase() + hintsWord.slice(1)])}<tbody>${logRows}</tbody></table></div>`
+        + `<div class="pr-scroll"><table class="pr-table">${head(["Level", "Mastery", "Finished", `With no ${hintsWord}`, `${hintsWord[0].toUpperCase()}${hintsWord.slice(1)} per problem (oldest first; ✓ = none)`])}<tbody>${stageRows}</tbody></table></div>`
+        + `<h3>Recent problems</h3><div class="pr-scroll"><table class="pr-table">${head(["Finished", "Level", ...(o.levels ? ["Support"] : []), hintsWord[0].toUpperCase() + hintsWord.slice(1)])}<tbody>${logRows}</tbody></table></div>`
         + (log.length > LOG_LENGTH ? `<p class="pr-empty">Showing the last ${LOG_LENGTH} of ${log.length} problems.</p>` : "");
     }
-    // The next level, after enough clean problems at this one.
+    // Less support (the next level, in this code's terms), after enough clean problems with this one.
     const lv = o.levels?.current() ?? null;
     const levelReady = o.levels && lv !== null && lv < o.levels.count && cleanAtLevel(lv) >= o.levels.cleanToAdvance;
     levelSuggest.hidden = !levelReady;
     if (levelReady) {
-      const button = el("button", "", `Go to Level ${lv! + 1}`);
+      const button = el("button", "", `Try ${support(lv! + 1)}`);
       button.type = "button";
       button.addEventListener("click", () => goToLevel(lv! + 1));
-      levelSuggest.replaceChildren(el("span", "", `You've solved ${cleanAtLevel(lv!)} problems at Level ${lv} with no ${hintsWord}. Ready for Level ${lv! + 1}?`), button);
+      levelSuggest.replaceChildren(el("span", "", `You've solved ${cleanAtLevel(lv!)} problems with ${support(lv!)} and no ${hintsWord}. Ready for ${support(lv! + 1)}?`), button);
     }
   }
 
@@ -339,7 +354,7 @@ export function setupPractice(o: PracticeOptions): Practice {
   }
   resumeButton.addEventListener("click", resumeLeftOff);
   reset.addEventListener("click", () => {
-    if (!window.confirm("Erase your progress at every stage and level? This can't be undone.")) return;
+    if (!window.confirm("Erase your progress at every level? This can't be undone.")) return;
     log = [];
     leftOff = null;
     saveJSON(LOG_KEY, log);
@@ -379,16 +394,16 @@ export function setupPractice(o: PracticeOptions): Practice {
       const st = problemStage;
       if (st !== null && st < o.stages.length - 1 && cleanAt(st) >= o.cleanToAdvanceStage) {
         return {
-          text: `You've solved ${cleanAt(st)} problems at this stage with no ${hintsWord}. Ready for stage ${st + 2}: ${o.stages[st + 1].title}?`,
-          label: `Go to stage ${st + 2}`,
+          text: `You've solved ${cleanAt(st)} problems at this level with no ${hintsWord}. Ready for level ${st + 2}: ${o.stages[st + 1].title}?`,
+          label: `Go to level ${st + 2}`,
           action: () => { noteStage(st + 1); goToStage(st + 1); },
         };
       }
       const lv = o.levels?.current() ?? null;
       if (o.levels && lv !== null && lv < o.levels.count && cleanAtLevel(lv) >= o.levels.cleanToAdvance) {
         return {
-          text: `You've solved ${cleanAtLevel(lv)} problems at Level ${lv} with no ${hintsWord}. Ready for Level ${lv + 1}?`,
-          label: `Go to Level ${lv + 1}`,
+          text: `You've solved ${cleanAtLevel(lv)} problems with ${support(lv)} and no ${hintsWord}. Ready for ${support(lv + 1)}?`,
+          label: `Try ${support(lv + 1)}`,
           action: () => goToLevel(lv + 1),
         };
       }

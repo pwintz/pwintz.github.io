@@ -467,7 +467,13 @@ function initPage(): void {
     key: "gaussian_elimination",
     stages: STAGES,
     cleanToAdvanceStage: CLEAN_TO_ADVANCE_STAGE,
-    levels: { count: LEVELS.length, cleanToAdvance: CLEAN_TO_ADVANCE_LEVEL, current: currentLevel, set: lv => setTasks(LEVELS[lv - 1]) },
+    levels: {
+      count: LEVELS.length,
+      names: ["Full", "High", "Partial", "Minimal", "None"],  // Shown as "Support" (see common/practice.ts)
+      cleanToAdvance: CLEAN_TO_ADVANCE_LEVEL,
+      current: currentLevel,
+      set: lv => setTasks(LEVELS[lv - 1]),
+    },
     box: byId<HTMLDivElement>("ge-practice"),
     customControls: [byId<HTMLDivElement>("ge-custom")],
     progress: byId<HTMLElement>("ge-progress"),
@@ -1375,7 +1381,7 @@ function initPage(): void {
       ? `Not quite: this matrix isn't in ${goal} yet. Check the conditions for ${goal}, or keep row reducing.`
       : `Not quite: this matrix is in ${goal}, but it isn't row equivalent to the starting matrix, so a step went wrong along the way. Check your arithmetic.`;
     handFeedback.replaceChildren(element("p", "ge-hand-wrong", why),
-      element("p", "", "Stuck? “Go back to Level 4” lets you work one step at a time on the same matrix."));
+      element("p", "", "Stuck? “Go back to minimal support” lets you work one step at a time on the same matrix."));
   }
 
   handCheck.addEventListener("click", checkHand);

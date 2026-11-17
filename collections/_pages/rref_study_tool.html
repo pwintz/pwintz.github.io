@@ -407,9 +407,9 @@ date_added: 2026-10-20
     <p>
       To practice, switch to <strong>Quiz</strong>: the page shows a random matrix, and you decide
       which conditions it satisfies and which form it's in, then check your answers.
-      The quiz's <strong>Practice path</strong> goes in stages from small matrices to large augmented ones; after two matrices at a stage with no mistakes, the page suggests the next stage.
+      The quiz's <strong>Practice path</strong> goes in levels from small matrices to large augmented ones; after two matrices at a level with no mistakes, the page suggests the next level.
       To choose the size yourself, choose <strong>Choose problems</strong>.
-      <strong>Your progress</strong>, at the bottom of the page, shows your mastery of each stage and a log of recent matrices.
+      <strong>Your progress</strong>, at the bottom of the page, shows your mastery of each level and a log of recent matrices.
     </p>
     <p>
       Entries can be integers, decimals, or fractions such as <code>-2</code>, <code>0.5</code>, or
@@ -427,7 +427,7 @@ date_added: 2026-10-20
     <button id="mx-mode-check" type="button" aria-pressed="false">Explore</button>
   </div>
 
-  <!-- In quiz mode: the practice path's stage (controls added by common/practice.ts), or the
+  <!-- In quiz mode: the practice path's level (controls added by common/practice.ts), or the
        student's own choice of size (the controls below). -->
   <section id="mx-practice-box" class="pr-box" aria-labelledby="mx-practice-title" hidden>
     <h2 id="mx-practice-title" class="pr-box-title">Practice</h2>
@@ -513,7 +513,7 @@ date_added: 2026-10-20
         <span id="mx-quiz-ready2" class="mx-quiz-ready">Answer every question in part 2 to check it.</span>
       </div>
     </div>
-    <!-- After finishing a matrix: the next stage of the practice path, when this one is mastered. -->
+    <!-- After finishing a matrix: the next level of the practice path, when this one is mastered. -->
     <p id="mx-quiz-suggest" class="pr-suggest" hidden></p>
   </section>
 

@@ -36,13 +36,46 @@ export function mathJaxReady(): Promise<boolean> {
   });
 }
 
+// ⋘──────── Hiding TeX until it's typeset ────────⋙
+// While an element waits to be typeset (MathJax may still be loading), it's hidden, keeping its
+// space, so raw TeX like "\color[RGB]{…}" doesn't flash on the page. `pending` counts the typesets
+// waiting on each element, so it's shown again only after the last one. If MathJax doesn't load or
+// fails, the element is shown anyway, with its TeX source.
+
+const HIDDEN_CLASS = "mathjax-typesetting";
+const pending = new WeakMap<Element, number>();
+let styleAdded = false;
+
+function hideUntilTypeset(els: Element[]): () => void {
+  if (!styleAdded && typeof document !== "undefined") {
+    const style = document.createElement("style");
+    style.textContent = `.${HIDDEN_CLASS} { visibility: hidden; }`;
+    document.head.append(style);
+    styleAdded = true;
+  }
+  for (const el of els) {
+    pending.set(el, (pending.get(el) ?? 0) + 1);
+    el.classList.add(HIDDEN_CLASS);
+  }
+  return () => {
+    for (const el of els) {
+      const left = (pending.get(el) ?? 1) - 1;
+      pending.set(el, left);
+      if (left <= 0) el.classList.remove(HIDDEN_CLASS);
+    }
+  };
+}
+
 export function typeset(els: Element[]): Promise<void> {
+  const reveal = hideUntilTypeset(els);
   mathQueue = mathQueue.catch(() => undefined).then(async () => {
     if (!(await mathJaxReady())) return;
     window.MathJax!.typesetClear?.(els);
     await window.MathJax!.typesetPromise!(els).catch(() => { /* Leave the TeX source visible */ });
   });
-  return mathQueue;
+  const done = mathQueue.finally(reveal);
+  mathQueue = done;
+  return done;
 }
 
 /** Runs `task` in the MathJax queue, after any typesetting already queued. */

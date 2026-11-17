@@ -1,7 +1,7 @@
 <!-- Styles for the practice path and progress (assets/ts/src/common/practice.ts), shared by the
      linear algebra practice pages. -->
 <style>
-  /* The settings box that groups the practice path (mode, stage) with the page's level. */
+  /* The settings box that groups the practice path (mode, and the stage, shown as "Level") with the page's levels (shown as "Support"). */
   .pr-box {
     position: relative;
     margin: 0.9rem 0 0.4rem;
@@ -26,8 +26,8 @@
   }
   .pr-box .pr-divider { margin: 0.6rem 0; border: none; border-top: 1px solid rgba(128, 128, 128, 0.25); }
 
-  /* Level: a vertical list of pill-shaped radio buttons, each followed by what the level asks
-     for. The "Level" label lines up with the first one. */
+  /* Support (and the path's levels): a vertical list of pill-shaped radio buttons, each followed by what the level asks
+     for. The label lines up with the first one. */
   .pr-levels { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1rem; }
   .pr-levels-label { display: inline-flex; align-items: center; gap: 0.4rem; color: #5f6368; }
   .pr-level-list { display: inline-flex; flex: 1 1 16rem; min-width: 0; flex-direction: column; gap: 0.3rem; }
@@ -43,6 +43,9 @@
     border-radius: 999px;
     background: #fff;
     white-space: nowrap;
+    /* One width for every pill (as wide as "Minimal" or "Level 10"), so the descriptions line up. */
+    min-width: 5.6rem;
+    text-align: center;
   }
   .pr-level:hover .pr-pill { border-color: #1a73e8; }
   .pr-level input:checked + .pr-pill { background: #1a73e8; border-color: #1a73e8; color: #fff; }

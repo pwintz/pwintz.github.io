@@ -108,6 +108,12 @@ date_added: 2026-11-13
   .mm-help-popup p:last-child { margin: 0; }
   .mm-help-popup ul { margin: 0 0 0.4rem; padding-left: 1.2rem; }
   .mm-help-popup li { margin: 0 0 0.25rem; }
+  /* A list of options: each name in bold, its description indented below it. */
+  .mm-help-popup dl { margin: 0 0 0.4rem; }
+  .mm-help-popup dl:last-child { margin: 0; }
+  .mm-help-popup dt { margin: 0.35rem 0 0; font-weight: bold; }
+  .mm-help-popup dt:first-child { margin-top: 0; }
+  .mm-help-popup dd { margin: 0 0 0 0.9rem; }
 
   /* The problem, in a box with its label on the top border. When pinned, the statement scrolls
      inside the box, so the label stays in view. */
@@ -134,10 +140,10 @@ date_added: 2026-11-13
   @media (max-width: 600px) {
     .mm-problem-box { padding: 1rem 0.6rem 0.5rem; }
   }
-  /* The parts of the problem: (a), (b). */
+  /* The parts of the problem: 1, 2, 3. */
   .mm .mm-parts { margin: 0.2rem 0 0.5rem; padding-left: 2.2rem; list-style: none; counter-reset: mm-part; }
   .mm .mm-parts li { position: relative; margin: 0 0 0.35rem; counter-increment: mm-part; }
-  .mm .mm-parts li::before { content: "(" counter(mm-part, lower-alpha) ")"; position: absolute; left: -2rem; }
+  .mm .mm-parts li::before { content: counter(mm-part) "."; position: absolute; left: -2rem; }
   .mm-problem-body { display: flex; }
   .mm-statement { overflow-x: auto; overflow-y: hidden; }
   .mm-statement p { margin: 0 0 0.5rem; }
@@ -185,7 +191,7 @@ date_added: 2026-11-13
   .mm .mm-step h3 { margin: 0 0 0.5rem; font-size: 1em; }
   .mm-step-given h3 .mm-given-tag { margin-left: 0.5rem; font-size: 0.8em; font-weight: normal; color: #5f6368; }
   .mm-step-intro { margin: 0 0 0.6rem; font-size: 0.92em; }
-  /* In step 5, the answers it uses (A and the coordinates of x), repeated from steps 3 and 4. */
+  /* In step 2(b), the answers it uses (A and the coordinates of x), repeated from steps 1(c) and 2(a). */
   .mm-uses { margin: 0 0 0.4rem; overflow-x: auto; overflow-y: hidden; }
   .mm-uses:empty { display: none; }
   .mm .mm-uses-title { margin: 0; font-size: 0.85em; color: #5f6368; }
@@ -225,6 +231,32 @@ date_added: 2026-11-13
   .mm .mm-entry.mm-right { border: 2px solid #188038; background: rgba(24, 128, 56, 0.08); }
   .mm .mm-entry.mm-wrong { border: 2px solid #c5221f; background: rgba(197, 34, 31, 0.07); }
   .mm .mm-entry.mm-shown { border: 2px solid #f9ab00; background: #fef7e0; }
+  /* Yes/No questions (part 3): a split pill of two radio buttons, outlined like an entry box
+     once checked or shown. */
+  .mm-entries.mm-yes-no-list { flex-direction: column; align-items: flex-start; gap: 0.6rem; }
+  .mm-yes-no-row { display: grid; grid-template-columns: 9rem auto; align-items: center; gap: 0.8rem; }
+  .mm-yes-no {
+    display: inline-flex;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 999px;
+    overflow: hidden;
+    background: #fff;
+  }
+  .mm .mm-yn-option { position: relative; display: inline-flex; cursor: pointer; }
+  .mm .mm-yn-option + .mm-yn-option { border-left: 1px solid rgba(128, 128, 128, 0.5); }
+  .mm .mm-yn-option input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; }
+  .mm .mm-yn-option span { padding: 0.3rem 1rem; min-width: 3.2rem; text-align: center; color: #3c4043; }
+  .mm .mm-yn-option:hover span { background: rgba(128, 128, 128, 0.1); }
+  .mm .mm-yn-option input:checked + span { background: #1a73e8; color: #fff; }
+  .mm .mm-yn-option input:focus-visible + span { outline: 2px solid #1a73e8; outline-offset: -4px; }
+  .mm .mm-yn-option input:checked:focus-visible + span { outline-color: #fff; }
+  .mm .mm-yn-option:has(input:disabled) { cursor: not-allowed; opacity: 0.6; }
+  .mm-yes-no:has(.mm-right) { border: 2px solid #188038; }
+  .mm-yes-no:has(.mm-wrong) { border: 2px solid #c5221f; }
+  .mm-yes-no:has(.mm-shown) { border: 2px solid #f9ab00; }
+  /* Buttons that can't do anything right now (see updateButtons in the script). */
+  .mm .mm-step-actions button:disabled { opacity: 0.45; cursor: not-allowed; }
+  .mm .mm-step-actions button:not(.mm-primary):disabled:hover { background: #fff; }
   /* Entries keep their color on the left edge (see `v` in the script), even when marked. */
   .mm .mm-entry.mm-tinted { border-left: 4px solid var(--mm-color); }
   .mm-step-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-top: 0.8rem; }
@@ -280,33 +312,57 @@ date_added: 2026-11-13
       \]
       It transforms coordinates: \([T(\mathbf{x})]_{\mathcal{W}} = A[\mathbf{x}]_{\mathcal{V}}\) for every \(\mathbf{x}\) in \(V\).
     </p>
-    <p>Each problem is worked in these steps:</p>
+    <p>Each problem has three parts, each worked in steps:</p>
     <ol>
-      <li>Apply \(T\) to each basis vector \(\mathbf{v}_j\) in \(\mathcal{V}\).</li>
-      <li>Find the coordinates \([T(\mathbf{v}_j)]_{\mathcal{W}}\) of each result relative to \(\mathcal{W}\).</li>
-      <li>Place the coordinate vectors into the columns of \(A\).</li>
-      <li>Find the coordinate vector \([\mathbf{x}]_{\mathcal{V}}\) of a vector \(\mathbf{x}\) relative to \(\mathcal{V}\).</li>
-      <li>Use \(A\) to find the coordinates \([T(\mathbf{x})]_{\mathcal{W}} = A[\mathbf{x}]_{\mathcal{V}}\).</li>
+      <li>Find the matrix \(A\) of \(T\).
+        <ol type="a">
+          <li>Apply \(T\) to each basis vector \(\mathbf{v}_j\) in \(\mathcal{V}\).</li>
+          <li>Find the coordinates \([T(\mathbf{v}_j)]_{\mathcal{W}}\) of each result relative to \(\mathcal{W}\).</li>
+          <li>Place the coordinate vectors into the columns of \(A\).</li>
+        </ol>
+      </li>
+      <li>Use \(A\) to find \([T(\mathbf{x})]_{\mathcal{W}}\) for a vector \(\mathbf{x}\).
+        <ol type="a">
+          <li>Find the coordinate vector \([\mathbf{x}]_{\mathcal{V}}\) of \(\mathbf{x}\) relative to \(\mathcal{V}\).</li>
+          <li>Use \(A\) to find the coordinates \([T(\mathbf{x})]_{\mathcal{W}} = A[\mathbf{x}]_{\mathcal{V}}\).</li>
+        </ol>
+      </li>
+      <li>Determine whether \(T\) is onto and whether \(T\) is one-to-one.
+        <ol type="a">
+          <li>Find the rank and the nullity of \(A\).</li>
+          <li>Use them to determine whether \(T\) is onto and whether \(T\) is one-to-one.</li>
+        </ol>
+      </li>
     </ol>
     <p>
-      The <strong>Practice path</strong> chooses the problems for you, in stages from easy to hard.
-      Each stage adds one new idea, such as a nonstandard basis or a map on polynomials, and gives a new random problem of that kind each time.
-      After two problems at a stage with no hints, the page suggests the next stage.
+      Part 3 uses two theorems from lecture (Module C, “Onto Functions and Rank” and “One-to-One Functions and Nullity”).
+      For a linear map \(T : V \to W\) with matrix \(A_T\) relative to any bases,
+      \[
+        T \text{ is onto} \iff \operatorname{rank} A_T = \dim W,
+        \qquad
+        T \text{ is one-to-one} \iff \operatorname{null} A_T = 0.
+      \]
+    </p>
+    <p>
+      The <strong>Practice path</strong> chooses the problems for you, in levels from easy to hard.
+      Each level adds one new idea, such as a nonstandard basis or a map on polynomials, and gives a new random problem of that kind each time.
+      After two problems at a level with no hints, the page suggests the next level.
       To pick the spaces, bases, and kind of map yourself, or to load an example from lecture, choose <strong>Choose problems</strong>.
     </p>
     <p>
-      Separately, choose a <strong>Level</strong> for how much of each problem you do, from easiest to hardest:
+      Separately, choose how much <strong>Support</strong> the page gives, from the most to the least:
     </p>
-    <ol>
-      <li>Assemble \(A\) from given coordinates; the page does steps 1, 2, and 4.</li>
-      <li>Find coordinates and assemble \(A\); the page does step 1.</li>
-      <li>Apply \(T\), find coordinates, and assemble \(A\): every step.</li>
-      <li>Solve the whole problem by hand: work on paper, then enter only \(A\) and the answer to part (b).</li>
-    </ol>
+    <ul>
+      <li><strong>Full:</strong> assemble \(A\) from given coordinates; the page does steps 1(a), 1(b), and 2(a).</li>
+      <li><strong>Partial:</strong> find coordinates and assemble \(A\); the page does step 1(a).</li>
+      <li><strong>Minimal:</strong> apply \(T\), find coordinates, and assemble \(A\): every step.</li>
+      <li><strong>None:</strong> solve the whole problem by hand: work on paper, then enter only \(A\) and the answers to parts 2 and 3.</li>
+    </ul>
+    <p>With every kind of support, you do part 3.</p>
     <p>
-      <strong>Your progress</strong>, at the bottom of the page, shows how many problems you've finished at each stage of the practice path, and a log of your recent problems with each one's stage, level, and hints.
-      If you go back to an earlier stage, <strong>Continue where you left off</strong> returns you to the furthest stage you've reached, at the level you were using there.
-      After three problems at a level with no hints, the page suggests the next level.
+      <strong>Your progress</strong>, at the bottom of the page, shows how many problems you've finished at each level of the practice path, and a log of your recent problems with each one's level, support, and hints.
+      If you go back to an earlier level, <strong>Continue where you left off</strong> returns you to the furthest level you've reached, with the support you were using there.
+      After three problems with the same support and no hints, the page suggests less support.
     </p>
     <p>
       Fill in the boxes and click <strong>Check</strong> (or press Enter); Tab moves between the boxes.
@@ -328,12 +384,14 @@ date_added: 2026-11-13
     {%- assign matrix_def = site.definitions | where: "term", "matrix of a linear map" | first %}
     See the definitions of a <a href="{{ '/dictionary/definitions/linear-map' | relative_url }}">linear map</a>,
     {% if matrix_def %}the <a href="{{ matrix_def.url | relative_url }}">matrix of a linear map</a>,{% endif %}
-    and a <a href="{{ '/dictionary/definitions/coordinate-vector' | relative_url }}">coordinate vector</a>.
+    a <a href="{{ '/dictionary/definitions/coordinate-vector' | relative_url }}">coordinate vector</a>,
+    the <a href="{{ '/dictionary/definitions/matrix-rank' | relative_url }}">rank</a> and <a href="{{ '/dictionary/definitions/nullity' | relative_url }}">nullity</a> of a matrix,
+    and <a href="{{ '/dictionary/definitions/surjective' | relative_url }}">onto (surjective)</a> and <a href="{{ '/dictionary/definitions/injective' | relative_url }}">one-to-one (injective)</a> maps.
   </p>
 
   <div class="mm-settings mm-panel" data-fullscreen="false">
-    <!-- Which problems: the practice path's stage (controls added by common/practice.ts) or the
-         student's own choices, then the level. -->
+    <!-- Which problems: the practice path's level (controls added by common/practice.ts) or the
+         student's own choices, then the support. -->
     <section class="pr-box" aria-labelledby="mm-practice-title">
       <h2 id="mm-practice-title" class="pr-box-title">Practice</h2>
       <div id="mm-practice"></div>
@@ -356,7 +414,7 @@ date_added: 2026-11-13
             </optgroup>
           </select>
         </label>
-        <label class="mm-field"><span data-help="Which bases are the standard ones. With a standard target basis 𝒲, the coordinates of T(vⱼ) are just its entries (or coefficients), so step 2 is easy. With a standard domain basis 𝒱, step 1 is easy, but step 2 needs a linear system for each column. &quot;One basis ℬ&quot; uses the same basis for V and W, as in &quot;the matrix of T relative to ℬ.&quot; Options that don't fit the spaces (such as one basis for ℝ³ → ℝ²) are replaced by &quot;Neither standard.&quot;">Bases</span>
+        <label class="mm-field"><span data-help="#mm-help-bases">Bases</span>
           <select id="mm-bases">
             <option value="any">Mixed</option>
             <option value="wstd">Standard 𝒲</option>
@@ -392,12 +450,12 @@ date_added: 2026-11-13
       </div>
       <hr class="pr-divider">
     <div class="pr-levels">
-      <span class="pr-levels-label"><span data-help="Levels go from easiest to hardest. Level 1: the page applies T and finds the coordinates (of each T(vⱼ) and of x); you assemble A and use it. Level 2: you also find the coordinates. Level 3: you do every step. Level 4: you do the whole problem by hand, on paper, and enter only the matrix A and the answer to part (b); the page shows the steps after you finish.">Level</span></span>
-      <span class="pr-level-list" role="radiogroup" aria-label="Level">
-        <label class="pr-level"><input type="radio" name="mm-level" value="1"><span class="pr-pill">Level 1</span><span>Assemble \(A\) from given coordinates</span></label>
-        <label class="pr-level"><input type="radio" name="mm-level" value="2"><span class="pr-pill">Level 2</span><span>Find coordinates and assemble \(A\)</span></label>
-        <label class="pr-level"><input type="radio" name="mm-level" value="3" checked><span class="pr-pill">Level 3</span><span>Apply \(T\), find coordinates, and assemble \(A\)</span></label>
-        <label class="pr-level"><input type="radio" name="mm-level" value="4"><span class="pr-pill">Level 4</span><span>Solve the whole problem by hand</span></label>
+      <span class="pr-levels-label"><span data-help="#mm-help-support">Support</span></span>
+      <span class="pr-level-list" role="radiogroup" aria-label="Support">
+        <label class="pr-level"><input type="radio" name="mm-level" value="1"><span class="pr-pill">Full</span><span>Assemble \(A\) from given coordinates</span></label>
+        <label class="pr-level"><input type="radio" name="mm-level" value="2"><span class="pr-pill">Partial</span><span>Find coordinates and assemble \(A\)</span></label>
+        <label class="pr-level"><input type="radio" name="mm-level" value="3" checked><span class="pr-pill">Minimal</span><span>Apply \(T\), find coordinates, and assemble \(A\)</span></label>
+        <label class="pr-level"><input type="radio" name="mm-level" value="4"><span class="pr-pill">None</span><span>Solve the whole problem by hand</span></label>
       </span>
     </div>
     </section>
@@ -451,14 +509,48 @@ date_added: 2026-11-13
 
   <template id="mm-help-form">
     <p>How the problem describes <em>T</em>:</p>
-    <ul>
-      <li><strong>Formula:</strong> <em>T</em>(<strong>x</strong>) in terms of the entries of <strong>x</strong> (or the coefficients of a polynomial).</li>
-      <li><strong>Matrix:</strong> <em>T</em>(<strong>x</strong>) = <em>M</em><strong>x</strong>, where <em>M</em> is the matrix of <em>T</em> relative to the standard bases. Only for column vectors.</li>
-      <li><strong>Description:</strong> a named map, such as a rotation, a reflection, or the derivative. Only for ℝ² → ℝ², ℝ³ → ℝ³, and the polynomial spaces.</li>
-      <li><strong>Action on a basis:</strong> what <em>T</em> does to each standard basis vector (or to 1, <em>x</em>, <em>x</em>², … for polynomials). By linearity, that determines <em>T</em>.</li>
-      <li><strong>Mixed:</strong> one of these at random for each problem.</li>
-    </ul>
+    <dl>
+      <dt>Formula</dt>
+      <dd><em>T</em>(<strong>x</strong>) in terms of the entries of <strong>x</strong> (or the coefficients of a polynomial).</dd>
+      <dt>Matrix</dt>
+      <dd><em>T</em>(<strong>x</strong>) = <em>M</em><strong>x</strong>, where <em>M</em> is the matrix of <em>T</em> relative to the standard bases. Only for column vectors.</dd>
+      <dt>Description</dt>
+      <dd>A named map, such as a rotation, a reflection, or the derivative. Only for ℝ² → ℝ², ℝ³ → ℝ³, and the polynomial spaces.</dd>
+      <dt>Action on a basis</dt>
+      <dd>What <em>T</em> does to each standard basis vector (or to 1, <em>x</em>, <em>x</em>², … for polynomials). By linearity, that determines <em>T</em>.</dd>
+      <dt>Mixed</dt>
+      <dd>One of these at random for each problem.</dd>
+    </dl>
     <p>When a choice isn't available for the spaces, the page uses a formula.</p>
+  </template>
+  <template id="mm-help-bases">
+    <p>Which bases are the standard ones:</p>
+    <dl>
+      <dt>Mixed</dt>
+      <dd>One of the choices below at random for each problem.</dd>
+      <dt>Standard 𝒲</dt>
+      <dd>The coordinates of <em>T</em>(<strong>v</strong><sub><em>j</em></sub>) are just its entries (or coefficients), so step 1(b) is easy.</dd>
+      <dt>Standard 𝒱</dt>
+      <dd>Step 1(a) is easy, but step 1(b) needs a linear system for each column.</dd>
+      <dt>Neither standard</dt>
+      <dd>Both steps take work.</dd>
+      <dt>One basis ℬ</dt>
+      <dd>The same basis for <em>V</em> and <em>W</em>, as in “the matrix of <em>T</em> relative to ℬ.”</dd>
+    </dl>
+    <p>Options that don't fit the spaces (such as one basis for ℝ³ → ℝ²) are replaced by “Neither standard.”</p>
+  </template>
+  <template id="mm-help-support">
+    <p>How much of each problem the page does for you, from the most to the least:</p>
+    <dl>
+      <dt>Full</dt>
+      <dd>The page applies <em>T</em> and finds the coordinates (of each <em>T</em>(<strong>v</strong><sub><em>j</em></sub>) and of <strong>x</strong>); you assemble <em>A</em> and use it.</dd>
+      <dt>Partial</dt>
+      <dd>You also find the coordinates.</dd>
+      <dt>Minimal</dt>
+      <dd>You do every step.</dd>
+      <dt>None</dt>
+      <dd>You do the whole problem by hand, on paper, and enter only the matrix <em>A</em> and the answers to parts 2 and 3. The page shows the steps after you finish.</dd>
+    </dl>
   </template>
   <div id="mm-help-popup" class="mm-help-popup" role="note" hidden></div>
 </div>

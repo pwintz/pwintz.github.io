@@ -348,7 +348,7 @@ function initPage(): void {
     customControls: [],
     progress: progressBox,
     newProblem: () => newQuizMatrix(),
-    helpText: "The practice path is a series of stages, from small matrices to large augmented ones. Each gives a new random matrix each time. After two matrices at a stage with no mistakes, the page suggests the next stage. To choose the size yourself, choose “Choose problems”.",
+    helpText: "The practice path is a series of levels, from small matrices to large augmented ones. Each gives a new random matrix each time. After two matrices at a level with no mistakes, the page suggests the next level. To choose the size yourself, choose “Choose problems”.",
   });
   // The practice box and progress appear only in quiz mode; the size controls, except on the path.
   function showPracticeControls(): void {

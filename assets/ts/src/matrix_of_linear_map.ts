@@ -7,6 +7,9 @@
 //   2. Find the coordinates [T(vⱼ)]_𝒲 relative to 𝒲.
 //   3. Place the coordinate vectors into the columns of A.
 //   4. Use A to find [T(x)]_𝒲 = A[x]_𝒱 for a vector x.
+// Then, following "Onto Functions and Rank" and "One-to-One Functions and Nullity" (LTC5 and LTC6),
+// part 3 asks for the rank and nullity of A, and whether T is onto (rank A = dim W) and
+// one-to-one (null A = 0).
 // The student chooses which steps to do; the page works the others and shows its work. Each step
 // has Check, Hint (two levels), and Show buttons, and the page counts hints and shown answers.
 //
@@ -158,7 +161,7 @@ function spaceTex(s: Space): string {
 }
 
 // Maps described in words. `text` finishes the sentence "Let T : V → W be …", and `hint` is the
-// first hint for step 1.
+// first hint for step 1(a).
 interface NamedMap { spaces: SpaceId; M: number[][]; text: string; hint: string }
 const NAMED: Record<string, NamedMap> = {
   rot90: {
@@ -273,7 +276,7 @@ interface Problem {
   B: Mat;          // Columns: the basis 𝒱
   C: Mat;          // Columns: the basis 𝒲
   same: boolean;   // One basis ℬ for V and W
-  x: Vec;          // [x]_𝒱, for step 4
+  x: Vec;          // [x]_𝒱, for step 2(a)
 }
 
 // T(vⱼ), [T(vⱼ)]_𝒲, A, the vector x itself (from [x]_𝒱 = p.x), and [T(x)]_𝒲.
@@ -422,18 +425,25 @@ function problemSettings(settings: Settings): Settings {
   return { ...settings, spaces: pick(stage.spaces), bases: stage.bases, form: stage.form };
 }
 
-// The steps: 0 apply T to each vⱼ, 1 find [T(vⱼ)]_𝒲, 2 assemble A, 3 find [x]_𝒱, and 4 find
-// [T(x)]_𝒲 = A[x]_𝒱. Each step opens once the steps it uses (PREREQS) are done.
-const STEPS = [0, 1, 2, 3, 4] as const;
-const PREREQS: number[][] = [[], [0], [1], [], [2, 3]];
+// The steps: 0 apply T to each vⱼ, 1 find [T(vⱼ)]_𝒲, 2 assemble A, 3 find [x]_𝒱, 4 find
+// [T(x)]_𝒲 = A[x]_𝒱, 5 find rank A and null A, and 6 decide whether T is onto and one-to-one.
+// Each step opens once the steps it uses (PREREQS) are done.
+const STEPS = [0, 1, 2, 3, 4, 5, 6] as const;
+const PREREQS: number[][] = [[], [0], [1], [], [2, 3], [2], [5]];
+// Step 3(b)'s answers are "yes" or "no", stored as 1 or 0.
+const YES_NO_STEP = 6;
+// The parts of the problem are numbered 1, 2, 3, and the steps of each part are lettered: 1(a),
+// 1(b), 1(c) find A; 2(a), 2(b) use it; 3(a), 3(b) decide onto and one-to-one.
+const STEP_PART = [0, 0, 0, 1, 1, 2, 2];
+const STEP_LABELS = ["1(a)", "1(b)", "1(c)", "2(a)", "2(b)", "3(a)", "3(b)"];
 
 // The levels, from easiest to hardest (each labeled on the page): the steps the student does; the
 // page works the others. At the last level, the whole problem is done by hand (see byHand).
 const LEVELS: { tasks: boolean[] }[] = [
-  { tasks: [false, false, true, false, true] },  // Assemble A from given coordinates
-  { tasks: [false, true, true, true, true] },    // Find coordinates and assemble A
-  { tasks: [true, true, true, true, true] },     // Apply T, find coordinates, and assemble A
-  { tasks: [false, false, true, false, true] },  // Solve the whole problem by hand
+  { tasks: [false, false, true, false, true, true, true] },  // Assemble A from given coordinates
+  { tasks: [false, true, true, true, true, true, true] },    // Find coordinates and assemble A
+  { tasks: [true, true, true, true, true, true, true] },     // Apply T, find coordinates, and assemble A
+  { tasks: [false, false, true, false, true, true, true] },  // Solve the whole problem by hand
 ];
 
 export function randomProblem(settings: Settings): Problem {
@@ -461,14 +471,20 @@ export function randomProblem(settings: Settings): Problem {
       case "std": B = I(V.dim); C = I(W.dim); break;
       default: B = smallBasis(V.dim); C = sub ? subspaceBasis(W.ambient, W.dim) : unimodularBasis(W.dim);
     }
+    // About half of the random maps have less than full rank, so that, in part 3, some maps
+    // aren't onto or one-to-one even when dim V = dim W. Such a map is a product of a tall
+    // matrix and a wide one, through a space of dimension `inner`.
+    const intMul = (a: number[][], b: number[][]) => a.map(row => b[0].map((_, j) => row.reduce((s, x, k) => s + x * b[k][j], 0)));
+    const fullRank = Math.min(V.dim, W.dim);
+    const inner = fullRank > 1 && Math.random() < 0.5 ? randomInt(1, fullRank - 1) : 0;
     let M: number[][];
     if (named) {
       M = NAMED[named].M;
     } else if (sub) {
-      const N = randomInts(W.dim, V.ambient, -2, 2);
-      M = C.map(row => N[0].map((_, j) => row.reduce((s, x, k) => s + x * N[k][j], 0)));
+      const N = inner ? intMul(randomInts(W.dim, inner, -1, 2), randomInts(inner, V.ambient, -2, 2)) : randomInts(W.dim, V.ambient, -2, 2);
+      M = intMul(C, N);
     } else {
-      M = randomInts(W.ambient, V.ambient, -3, 3);
+      M = inner ? intMul(randomInts(W.ambient, inner, -2, 2), randomInts(inner, V.ambient, -2, 2)) : randomInts(W.ambient, V.ambient, -3, 3);
     }
     const x = randomInts(1, V.dim, -2, 3)[0];
     const problem: Problem = {
@@ -581,6 +597,7 @@ function initPage(): void {
     cleanToAdvanceStage: CLEAN_TO_ADVANCE_STAGE,
     levels: {
       count: LEVELS.length,
+      names: ["Full", "Partial", "Minimal", "None"],  // Shown as "Support" (see common/practice.ts)
       cleanToAdvance: CLEAN_TO_ADVANCE,
       current: () => level(),
       set: (lv: number) => {
@@ -593,7 +610,7 @@ function initPage(): void {
     customControls: [byId<HTMLDivElement>("mm-custom-controls")],
     progress: byId<HTMLElement>("mm-progress"),
     newProblem: () => newProblem(),
-    helpText: "The practice path is a series of stages, from easy to hard. Each stage adds one new idea, such as a nonstandard basis, a map on polynomials, or a target that is a plane in ℝ³, and gives a new random problem of that kind each time. After two problems at a stage with no hints, the page suggests the next stage. To pick the spaces, bases, and kind of map yourself, choose “Choose problems” instead.",
+    helpText: "The practice path is a series of levels, from easy to hard. Each level adds one new idea, such as a nonstandard basis, a map on polynomials, or a target that is a plane in ℝ³, and gives a new random problem of that kind each time. After two problems at a level with no hints, the page suggests the next level. To pick the spaces, bases, and kind of map yourself, choose “Choose problems” instead.",
   });
 
   const settings = (): Settings => ({
@@ -603,8 +620,9 @@ function initPage(): void {
   const saveSettings = () => saveJSON(SETTINGS_KEY, settings());
   // The steps the student does at this level; the page works the others.
   const tasks = () => LEVELS[level() - 1].tasks;
-  // At the last level, the student works the whole problem on paper, and enters only A (step 3)
-  // and the answer to part (b) (step 5). Steps 1, 2, and 4 are hidden rather than worked by the page.
+  // At the last level, the student works the whole problem on paper, and enters only A (step 1(c)),
+  // the answer to part 2 (step 2(b)), and part 3. Steps 1(a), 1(b), and 2(a) are hidden rather than
+  // worked by the page.
   const byHand = () => level() === LEVELS.length;
   const hiddenByHand = (s: number) => byHand() && (s === 0 || s === 1 || s === 3);
 
@@ -619,23 +637,47 @@ function initPage(): void {
   const workedBoxes: HTMLDivElement[] = [];
   const cards: HTMLElement[] = [];
   const lockNotes: HTMLParagraphElement[] = [];
-  // In step 5: the answers it uses, A and [x]_𝒱, repeated so the student doesn't have to scroll.
-  let usesBox: HTMLDivElement | null = null;
+  // In step 2(b): the answers it uses, A and [x]_𝒱, repeated so the student doesn't have to scroll.
+  // In step 3(a), A is repeated the same way.
+  const usesBoxes: (HTMLDivElement | undefined)[] = [];
   // For each step: notes on the student's last wrong answer (shown by Hint, not by Check), and the
   // notes the hint box is showing.
   let answerNotes: string[] = STEPS.map(() => "");
   let shownNotes: string[] = STEPS.map(() => "");
 
-  // Each step's Check button is disabled until every one of its boxes is filled in (and the step
-  // is open; see updateWorked).
+  // Each step's Check button (see updateButtons).
   const checkButtons: (HTMLButtonElement | undefined)[] = [];
   const isFilled = (s: number) => inputs[s].length > 0 && inputs[s].every(i => i.value.trim() !== "");
-  function updateCheckButton(s: number): void {
-    const button = checkButtons[s];
-    if (!button || !button.isConnected) return;
-    const locked = cards[s]?.classList.contains("mm-step-locked") ?? false;
-    button.disabled = locked || !isFilled(s);
-    button.title = !locked && !isFilled(s) ? "Fill in every box to check your answer" : "";
+  // A step's buttons are enabled only while they can do something:
+  //   Check: hidden once the answer is shown; disabled until every box is filled in, and once right.
+  //   Hint:  disabled once the step is answered (right or shown), and when no hints are left.
+  //   Show:  disabled once the step is answered.
+  // Every button is disabled while the step is locked (waiting on an earlier step).
+  function updateButtons(s: number): void {
+    const card = cards[s];
+    if (!card || !card.isConnected) return;
+    const locked = card.classList.contains("mm-step-locked");
+    const status = work.status[s];
+    const answered = status !== "";
+    const checkButton = checkButtons[s];
+    if (checkButton) {
+      checkButton.hidden = status === "shown";
+      checkButton.disabled = locked || status === "right" || !isFilled(s);
+      checkButton.title = locked ? "" : status === "right" ? "This step is right"
+        : !isFilled(s) ? "Fill in every box to check your answer" : "";
+    }
+    const hintButton = card.querySelector<HTMLButtonElement>(".mm-hint-button");
+    if (hintButton) {
+      const noteWaiting = answerNotes[s] !== "" && shownNotes[s] !== answerNotes[s];
+      const hintsLeft = work.hintLevel[s] < hintLevels(s).length;
+      hintButton.disabled = locked || answered || (!noteWaiting && !hintsLeft);
+      hintButton.title = locked ? "" : answered ? "This step is answered" : !noteWaiting && !hintsLeft ? "No more hints for this step" : "";
+    }
+    const showButton = card.querySelector<HTMLButtonElement>(".mm-show-button");
+    if (showButton) {
+      showButton.disabled = locked || answered;
+      showButton.title = locked ? "" : answered ? "This step is answered" : "Fill in the answer (counts as a hint)";
+    }
   }
 
   const V = () => SPACES[problem.spaces].V;
@@ -689,6 +731,13 @@ function initPage(): void {
   const TvjTex = () => `T(${vj()})`;
   // Whether a step's answer is known: the page works it, or the student got it right or shown.
   const isDone = (s: number) => !tasks()[s] || work.status[s] !== "";
+  // Part 3: the rank and nullity of A, and whether T is onto and one-to-one (LTC5 and LTC6).
+  const rankA = () => rank(sol.A);
+  const nullA = () => n() - rankA();
+  const isOnto = () => rankA() === m();
+  const isOneToOne = () => nullA() === 0;
+  const dimTex = (space: Space) => `\\dim ${spaceTex(space)}`;
+  const yesNo = (b: boolean) => (b ? "yes" : "no");
 
   // ⋘──────── Saving the work ────────⋙
   const saveWork = () => {
@@ -755,6 +804,7 @@ function initPage(): void {
   // The two parts of the problem, (a) and (b), as worded in the statement and above their steps.
   function partQuestion(part: number): string {
     const relative = problem.same ? "\\(\\mathcal{B}\\)" : "\\(\\mathcal{V}\\) and \\(\\mathcal{W}\\)";
+    if (part === 2) return "Use the rank and nullity of \\(A\\) to determine whether \\(T\\) is onto and whether \\(T\\) is one-to-one";
     return part === 0
       ? `Find the matrix \\(A\\) of \\(T\\) relative to ${relative}`
       : `Use \\(A\\) to find ${$(coordTex(`T(${xName()})`, Wset()))}`;
@@ -783,8 +833,8 @@ function initPage(): void {
         \\end{aligned}`)}</p>`);
     }
     if (basesFirst) parts.push(mapPart);
-    // The questions: (a) find A, and (b) use it.
-    const questions = [`${partQuestion(0)}.`, `${partQuestion(1)} for ${$$(`${xName()} := ${xTex()}.`)}`];
+    // The questions: (a) find A, (b) use it, and (c) decide whether T is onto and one-to-one.
+    const questions = [`${partQuestion(0)}.`, `${partQuestion(1)} for ${$$(`${xName()} := ${xTex()}.`)}`, `${partQuestion(2)}.`];
     parts.push(`<ol class="mm-parts">${questions.map(q => `<li>${q}</li>`).join("")}</ol>`);
     statement.innerHTML = parts.join("");
   }
@@ -792,7 +842,7 @@ function initPage(): void {
   // ⋘──────── The picture (ℝ² → ℝ² only) ────────⋙
 
   // Beside the picture: how the steps look in it. Each step's numbers appear once the step is done
-  // (or, by hand, once part (a) is), so the picture doesn't give answers away.
+  // (or, by hand, once part 1 is), so the picture doesn't give answers away.
   function renderPictureText(): void {
     const Wn = Wset(), Vn = Vset();
     const wName = problem.same ? "basis vectors" : `basis vectors of ${$(Wn)}`;
@@ -802,12 +852,12 @@ function initPage(): void {
     parts.push(`<p>The gray lines form the <strong>grid of ${$(Wn)}</strong>: they meet at the points ${$(cSum(2, w, wColors()))} for whole numbers ${$(cName(0, wColors()))} and ${$(cName(1, wColors()))}.
       To find the coordinates of a vector relative to ${$(Wn)}, count how many steps along ${$(w(0))} and along ${$(w(1))} it takes to reach its tip.
       Each line of the grid is parallel to one of the ${wName}.</p>`);
-    parts.push(`<p><strong>1. Apply \\(T\\).</strong> The solid arrows ${$(`${v(0)}, ${v(1)}`)} are the basis ${$(Vn)}.
+    parts.push(`<p><strong>1(a). Apply \\(T\\).</strong> The solid arrows ${$(`${v(0)}, ${v(1)}`)} are the basis ${$(Vn)}.
       ${revealT ? `The dashed arrows are their images ${$(`${TvTex(0)}, ${TvTex(1)}`)}.` : "Their images under \\(T\\) appear as dashed arrows once you find them."}</p>`);
     const coordLine = (j: number) => `${$(`${TvTex(j)} = ${coordCombo(sol.coords[j], w, wColors())}`)}, so ${$(`${coordTex(TvTex(j), Wn)} = ${coordVecTex(sol.coords[j], wColors())}`)}`;
-    parts.push(`<p><strong>2. Find coordinates.</strong> Count the grid steps from the origin to the tip of each ${$(TvjTex())}.
+    parts.push(`<p><strong>1(b). Find coordinates.</strong> Count the grid steps from the origin to the tip of each ${$(TvjTex())}.
       ${revealA ? `${coordLine(0)}; and ${coordLine(1)}.` : ""}</p>`);
-    parts.push(`<p><strong>3. Assemble \\(A\\).</strong> These coordinate vectors are the columns of \\(A\\)${revealA ? `: ${$$(`A = ${colorColsTex(sol.A)}.`)}` : "."}</p>`);
+    parts.push(`<p><strong>1(c). Assemble \\(A\\).</strong> These coordinate vectors are the columns of \\(A\\)${revealA ? `: ${$$(`A = ${colorColsTex(sol.A)}.`)}` : "."}</p>`);
     const html = parts.join("");
     if (pictureText.dataset.html !== html) {
       pictureText.dataset.html = html;
@@ -824,7 +874,7 @@ function initPage(): void {
     renderPictureText();
     const num = (x: Fraction) => Number(x.num) / Number(x.den);
     const pt = (vec: Vec): [number, number] => [num(vec[0]), num(vec[1])];
-    // By hand, the images would give away step 1, so they wait until part (a) is finished.
+    // By hand, the images would give away step 1(a), so they wait until part 1 is finished.
     const showImages = byHand() ? work.status[2] !== "" : isDone(0);
     const vName = problem.same ? "b" : "v", wName = problem.same ? "b" : "w";
     interface Arrow { p: [number, number]; color: string; label: string; dashed: boolean }
@@ -905,7 +955,7 @@ function initPage(): void {
     figureSvg.innerHTML = svg.join("");
     const gridName = problem.same ? "ℬ" : "𝒲";
     figureNote.textContent = `Gray lines: the grid of ${gridName}.`
-      + (showImages ? " Dashed: the images under T." : byHand() ? " The images under T appear after part (a)." : " The images under T appear after step 1.");
+      + (showImages ? " Dashed: the images under T." : byHand() ? " The images under T appear after part 1." : " The images under T appear after step 1(a).");
   }
 
   // ⋘──────── Steps ────────⋙
@@ -916,6 +966,8 @@ function initPage(): void {
     "Place the coordinate vectors into the columns of \\(A\\)",
     `Find the coordinate vector of \\(${xName()}\\) relative to \\(${Vset()}\\)`,
     `Use \\(A\\) and \\(${coordTex(xName(), Vset())}\\) to find the coordinate vector of \\(T(${xName()})\\) relative to \\(${Wset()}\\)`,
+    "Find the rank and the nullity of \\(A\\)",
+    "Determine whether \\(T\\) is onto and whether \\(T\\) is one-to-one",
   ];
 
   function entryInput(label: string, step: number): HTMLInputElement {
@@ -928,7 +980,7 @@ function initPage(): void {
     input.addEventListener("input", () => {
       input.classList.remove("mm-right", "mm-wrong", "mm-shown");
       answerNotes[step] = "";  // About the answer before this change
-      updateCheckButton(step);
+      updateButtons(step);
       saveWork();
     });
     input.addEventListener("keydown", e => {
@@ -972,6 +1024,50 @@ function initPage(): void {
     return g;
   }
 
+  // A Yes/No question: a split pill of two radio buttons (one group per question, so each question
+  // keeps its own answer) that set a hidden entry box to "yes" or "no". The box keeps the answer
+  // (and is marked right, wrong, or shown), so checking and saving work as for numbers.
+  const yesNoSyncs: (() => void)[] = [];
+  function yesNoEntry(label: string): HTMLElement {
+    const box = element("span", "mm-yes-no");
+    box.setAttribute("role", "radiogroup");
+    box.setAttribute("aria-label", label);
+    const input = entryInput(label, YES_NO_STEP);
+    input.type = "hidden";
+    const name = `mm-yn-${yesNoSyncs.length}`;
+    const radios = (["yes", "no"] as const).map(value => {
+      const option = element("label", "mm-yn-option");
+      const radio = element("input");
+      radio.type = "radio";
+      radio.name = name;
+      radio.value = value;
+      radio.addEventListener("change", () => {
+        if (!radio.checked) return;
+        input.value = value;
+        input.dispatchEvent(new Event("input"));
+        sync();
+      });
+      option.append(radio, element("span", "", value === "yes" ? "Yes" : "No"));
+      box.append(option);
+      return radio;
+    });
+    const sync = () => radios.forEach(r => {
+      r.checked = input.value === r.value;
+      r.disabled = input.disabled;
+    });
+    yesNoSyncs.push(sync);
+    box.prepend(input);
+    return box;
+  }
+  const syncYesNo = () => yesNoSyncs.forEach(f => f());
+  // A step's entry as a number: step 3(b)'s "yes" and "no" are 1 and 0.
+  const parseFor = (s: number, text: string): Fraction | null => {
+    if (s !== YES_NO_STEP) return parseEntry(text);
+    const t = text.trim().toLowerCase();
+    return t === "yes" ? F(1) : t === "no" ? F(0) : null;
+  };
+  const formatFor = (s: number, x: Fraction) => (s === YES_NO_STEP ? yesNo(!isZero(x)) : formatFraction(x).replace("−", "-"));
+
   function buildEntries(step: number): HTMLElement {
     const box = element("div", "mm-entries");
     const sw = W();
@@ -995,8 +1091,19 @@ function initPage(): void {
       box.append(group("A =", grid));
     } else if (step === 3) {
       box.append(group(`${coordTex(xName(), Vset())} =`, columnEntry(n(), 3, i => `Coordinate ${i + 1} of x`, i => V_COLORS[i])));
-    } else {
+    } else if (step === 4) {
       box.append(group(`${coordTex(`T(${xName()})`, Wset())} =`, columnEntry(m(), 4, i => `Coordinate ${i + 1} of T(x)`, i => wColors()[i])));
+    } else if (step === 5) {
+      box.append(group("\\operatorname{rank} A =", entryInput("Rank of A", 5)));
+      box.append(group("\\operatorname{null} A =", entryInput("Nullity of A", 5)));
+    } else {
+      // One question per line, so a question and its Yes/No pill stay together.
+      box.classList.add("mm-yes-no-list");
+      for (const [question, label] of [["Is \\(T\\) onto?", "Is T onto?"], ["Is \\(T\\) one-to-one?", "Is T one-to-one?"]]) {
+        const row = element("div", "mm-yes-no-row");
+        row.append(element("span", "mm-entry-label", question), yesNoEntry(label));
+        box.append(row);
+      }
     }
     return box;
   }
@@ -1008,37 +1115,41 @@ function initPage(): void {
       case 1: return sol.coords.flat();
       case 2: return sol.A.flat();
       case 3: return problem.x;
-      default: return sol.Tx;
+      case 4: return sol.Tx;
+      case 5: return [F(rankA()), F(nullA())];
+      default: return [F(isOnto() ? 1 : 0), F(isOneToOne() ? 1 : 0)];
     }
   };
 
   function renderSteps(): void {
     stepsBox.innerHTML = "";
     inputs = STEPS.map(() => []);
+    yesNoSyncs.length = 0;
     const titles = STEP_TITLES();
     const doing = tasks();
     for (const s of STEPS) {
-      // Steps 1–3 work part (a), and steps 4–5 work part (b). By hand, the cards themselves are the parts.
-      if (!byHand() && (s === 0 || s === 3)) {
-        const part = s === 0 ? 0 : 1;
-        stepsBox.append(element("h3", "mm-part-heading", `(${"ab"[part]}) ${partQuestion(part)}`));
+      // Each part's heading comes before its first step. By hand, the cards for A and [T(x)]_𝒲 are
+      // themselves parts 1 and 2.
+      if ((!byHand() && (s === 0 || s === 3)) || s === 5) {
+        const part = STEP_PART[s];
+        stepsBox.append(element("h3", "mm-part-heading", `${part + 1}. ${partQuestion(part)}`));
       }
       const card = element("section", "mm-step");
       cards[s] = card;
-      // By hand, only the answers are entered: A for part (a) and [T(x)]_𝒲 for part (b).
+      // By hand, only the answers are entered: A for part 1, [T(x)]_𝒲 for part 2, and part 3.
       card.hidden = hiddenByHand(s);
       const given = !doing[s];
       card.classList.toggle("mm-step-given", given);
-      const title = !byHand() ? `${s + 1}. ${titles[s]}`
-        : s === 2 ? `(a) The matrix \\(A\\) of \\(T\\) relative to \\(${problem.same ? Vset() : `${Vset()}\\) and \\(${Wset()}`}\\)`
-        : `(b) ${titles[4]}`;
+      const title = !byHand() || s >= 5 ? `${STEP_LABELS[s]} ${titles[s]}`
+        : s === 2 ? `1. The matrix \\(A\\) of \\(T\\) relative to \\(${problem.same ? Vset() : `${Vset()}\\) and \\(${Wset()}`}\\)`
+        : `2. ${titles[4]}`;
       card.append(element("h3", "", `${title}${given ? `<span class="mm-given-tag">(worked by the page)</span>` : ""}`));
       lockNotes[s] = element("p", "mm-lock-note");
       lockNotes[s].hidden = true;
       card.append(lockNotes[s]);
-      if (s === 4) {
-        usesBox = element("div", "mm-uses");
-        card.append(usesBox);
+      if (s === 4 || s === 5) {
+        usesBoxes[s] = element("div", "mm-uses");
+        card.append(usesBoxes[s]!);
       }
       if (!given) {
         card.append(buildEntries(s));
@@ -1047,10 +1158,10 @@ function initPage(): void {
         checkButton.type = "button";
         checkButton.addEventListener("click", () => check(s));
         checkButtons[s] = checkButton;
-        const hintButton = element("button", "", "Hint");
+        const hintButton = element("button", "mm-hint-button", "Hint");
         hintButton.type = "button";
         hintButton.addEventListener("click", () => hint(s));
-        const showButton = element("button", "", "Show");
+        const showButton = element("button", "mm-show-button", "Show");
         showButton.type = "button";
         showButton.title = "Fill in the answer (counts as a hint)";
         showButton.addEventListener("click", () => show(s));
@@ -1073,6 +1184,7 @@ function initPage(): void {
       if (work.hintLevel[s] > 0) renderHint(s);
     }
     updateWorked();
+    syncYesNo();
   }
 
   const markAll = (s: number, cls: string) => inputs[s].forEach(i => i.classList.add(cls));
@@ -1149,18 +1261,67 @@ function initPage(): void {
         if (!byHand()) return assemble;
         // By hand, the whole solution, step by step.
         const titles = STEP_TITLES();
-        return `<p><strong>1. ${titles[0]}.</strong></p>${workedHtml(0)}`
-          + `<p><strong>2. ${titles[1]}.</strong></p>${workedHtml(1)}`
-          + `<p><strong>3. ${titles[2]}.</strong></p>${assemble}`;
+        return `<p><strong>1(a). ${titles[0]}.</strong></p>${workedHtml(0)}`
+          + `<p><strong>1(b). ${titles[1]}.</strong></p>${workedHtml(1)}`
+          + `<p><strong>1(c). ${titles[2]}.</strong></p>${assemble}`;
       }
       case 3:
         return `<p>${$(`${xName()} = ${xTex()} = ${xCombo()}`)}, so ${$(`${coordTex(xName(), Vset())} = ${coordVecTex(problem.x, V_COLORS)}`)}.</p>`;
+      case 5: {
+        const { r, pivots } = rref(sol.A);
+        const pivotWord = pivots.length === 1 ? "pivot" : "pivots";
+        const rrefText = isIdentity(sol.A) || matEq(r, sol.A) ? `\\(A\\) is in reduced row echelon form` : `Row reducing \\(A\\) gives ${$$(`A \\sim ${matTex(r)}.`)} The reduced row echelon form`;
+        return `<p>${rrefText} has ${pivots.length} ${pivotWord}, so ${$(`\\operatorname{rank} A = ${rankA()}`)}.
+          Since \\(A\\) has ${n()} column${n() === 1 ? "" : "s"}, ${$(`\\operatorname{null} A = ${n()} - ${rankA()} = ${nullA()}`)}.</p>`;
+      }
+      case 6: {
+        // As in lecture: the definition, the theorem that turns it into a question about A, the
+        // numbers, and, when the answer is no, an example that shows why.
+        const sv = V(), sw = W();
+        const rk = rankA(), nl = nullA();
+        const parts: string[] = [];
+        // Onto.
+        parts.push(`<p><strong>Onto.</strong> \\(T\\) is onto if every vector in ${$(spaceTex(sw))} is ${$(`T(${xName()})`)} for some ${$(xName())} in ${$(spaceTex(sv))}, that is, if ${$(`\\operatorname{range} T = ${spaceTex(sw)}`)}.
+          Since ${$(`\\dim(\\operatorname{range} T) = \\operatorname{rank} A`)}, \\(T\\) is onto exactly when ${$(`\\operatorname{rank} A = ${dimTex(sw)}`)}.</p>`);
+        if (isOnto()) {
+          parts.push(`<p>Here, ${$(`\\operatorname{rank} A = ${rk} = ${dimTex(sw)}`)}, so \\(T\\) is <strong>onto</strong>: its range is all of ${$(spaceTex(sw))}.</p>`);
+        } else {
+          // A basis vector of 𝒲 outside the range: its coordinates eᵢ aren't a combination of the columns of A.
+          const e = (i: number) => Array.from({ length: m() }, (_, k) => F(k === i ? 1 : 0));
+          const missing = Array.from({ length: m() }, (_, i) => i).find(i => rank(sol.A.map((row, k) => [...row, e(i)[k]])) > rk);
+          const example = missing === undefined ? ""
+            : ` For example, ${$(w(missing))} isn't ${$(`T(${xName()})`)} for any ${$(xName())}: its coordinates ${$(`${coordTex(w(missing), Wset())} = ${vecTex(e(missing))}`)} aren't a combination of the columns of \\(A\\), so ${$(`A${coordTex(xName(), Vset())} = ${vecTex(e(missing))}`)} has no solution.`;
+          const why = n() < m() ? ` (In fact, \\(A\\) has only ${n()} column${n() === 1 ? "" : "s"}, so its rank is at most ${n()}, and no linear map from ${$(spaceTex(sv))} to ${$(spaceTex(sw))} is onto.)` : "";
+          parts.push(`<p>Here, ${$(`\\operatorname{rank} A = ${rk} < ${m()} = ${dimTex(sw)}`)}, so \\(T\\) is <strong>not onto</strong>: its range is only ${rk === 0 ? $("\\{\\mathbf{0}\\}") : `${rk}-dimensional`}.${example}${why}</p>`);
+        }
+        // One-to-one.
+        parts.push(`<p><strong>One-to-one.</strong> \\(T\\) is one-to-one if different vectors in ${$(spaceTex(sv))} have different images. For a linear map, that happens exactly when only ${$("\\mathbf{0}")} maps to ${$("\\mathbf{0}")}, that is, when ${$("\\ker T = \\{\\mathbf{0}\\}")}.
+          Since ${$("\\dim(\\ker T) = \\operatorname{null} A")}, \\(T\\) is one-to-one exactly when ${$("\\operatorname{null} A = 0")}.</p>`);
+        if (isOneToOne()) {
+          parts.push(`<p>Here, ${$("\\operatorname{null} A = 0")}: every column of the reduced row echelon form of \\(A\\) has a pivot, so ${$(`A${coordTex(xName(), Vset())} = \\mathbf{0}`)} only when ${$(`${coordTex(xName(), Vset())} = \\mathbf{0}`)}. So \\(T\\) is <strong>one-to-one</strong>.</p>`);
+        } else {
+          // A nonzero vector in the kernel: the first free variable is 1, and each pivot variable comes from the RREF.
+          const { r, pivots } = rref(sol.A);
+          const free = Array.from({ length: n() }, (_, j) => j).find(j => !pivots.includes(j))!;
+          const c: Vec = Array.from({ length: n() }, (_, j) => F(j === free ? 1 : 0));
+          pivots.forEach((pj, i) => { c[pj] = neg(r[i][free]); });
+          // Scaled to whole numbers: the free variable is the least common denominator instead of 1.
+          const gcd = (a: bigint, b: bigint): bigint => (b === 0n ? a : gcd(b, a % b));
+          const lcd = c.reduce((l, x) => (l * x.den) / gcd(l, x.den), 1n);
+          c.forEach((x, j) => { c[j] = mul(x, fraction(Number(lcd))); });
+          const u = sv.kind === "P" ? "q" : "\\mathbf{u}";
+          const why = n() > m() ? ` (In fact, \\(A\\) has more columns than rows, so some column has no pivot, and no linear map from ${$(spaceTex(sv))} to ${$(spaceTex(sw))} is one-to-one.)` : "";
+          parts.push(`<p>Here, ${$(`\\operatorname{null} A = ${nl} > 0`)}: column ${free + 1} of the reduced row echelon form of \\(A\\) has no pivot. So \\(T\\) is <strong>not one-to-one</strong>.
+            For example, setting the free variable ${$(cName(free, V_COLORS))} to ${tex(c[free])} gives ${$(`${coordTex(u, Vset())} = ${coordVecTex(c, V_COLORS)}`)}, with ${$(`A${coordTex(u, Vset())} = \\mathbf{0}`)}. So the nonzero vector ${$$(`${u} = ${coordCombo(c, v, V_COLORS)} = ${elementTex(sv, matVec(problem.B, c))}`)} has ${$(`T(${u}) = \\mathbf{0} = T(\\mathbf{0})`)}: two different vectors with the same image.${why}</p>`);
+        }
+        return parts.join("");
+      }
       default: {
         const use = $$(`${coordTex(`T(${xName()})`, Wset())} = A${coordTex(xName(), Vset())} = ${colorColsTex(sol.A)}${coordVecTex(problem.x, V_COLORS)} = ${coordVecTex(sol.Tx, wColors())}.`);
         if (!byHand()) return use;
-        // By hand, part (b) step by step: the coordinates of x, then A times them.
+        // By hand, part 2 step by step: the coordinates of x, then A times them.
         const titles = STEP_TITLES();
-        return `<p><strong>4. ${titles[3]}.</strong></p>${workedHtml(3)}<p><strong>5. ${titles[4]}.</strong></p>${use}`;
+        return `<p><strong>2(a). ${titles[3]}.</strong></p>${workedHtml(3)}<p><strong>2(b). ${titles[4]}.</strong></p>${use}`;
       }
     }
   }
@@ -1185,15 +1346,26 @@ function initPage(): void {
       const locked = doing[s] && blocker !== undefined;
       cards[s].classList.toggle("mm-step-locked", locked);
       inputs[s].forEach(input => { input.disabled = locked; });
-      cards[s].querySelectorAll<HTMLButtonElement>(".mm-step-actions button").forEach(b => { b.disabled = locked; });
-      updateCheckButton(s);
+      updateButtons(s);
       lockNotes[s].hidden = !locked;
+      const usesBox = usesBoxes[s];
+      if (s === 5 && usesBox) {
+        const html = isDone(2) && !locked
+          ? `<p class="mm-uses-title">From ${byHand() ? "part 1" : "step 1(c)"}:</p>${$$(`A = ${colorColsTex(sol.A)}`)}`
+            + (byHand() ? "" : `<p class="mm-uses-title">Row reduce \\(A\\) to find its rank and nullity${rankPracticeLink()}.</p>`)
+          : "";
+        if (usesBox.dataset.html !== html) {
+          usesBox.dataset.html = html;
+          usesBox.innerHTML = html;
+          changed.push(usesBox);
+        }
+      }
       if (s === 4 && usesBox) {
         // Once they're found (or given): A, and [x]_𝒱 unless the student finds it on paper (by hand).
         const parts: string[] = [];
         if (isDone(2) && !locked) parts.push(`A = ${colorColsTex(sol.A)}`);
         if (isDone(3) && !locked && !byHand()) parts.push(`${coordTex(xName(), Vset())} = ${coordVecTex(problem.x, V_COLORS)}`);
-        const html = parts.length === 0 ? "" : `<p class="mm-uses-title">From ${byHand() ? "part (a)" : "steps 3 and 4"}:</p>${$$(parts.join(", \\qquad "))}`;
+        const html = parts.length === 0 ? "" : `<p class="mm-uses-title">From ${byHand() ? "part 1" : "steps 1(c) and 2(a)"}:</p>${$$(parts.join(", \\qquad "))}`;
         if (usesBox.dataset.html !== html) {
           usesBox.dataset.html = html;
           usesBox.innerHTML = html;
@@ -1202,11 +1374,12 @@ function initPage(): void {
       }
       if (locked) {
         const waiting = PREREQS[s].filter(p => !isDone(p) && !hiddenByHand(p));
-        const names = byHand() ? "part (a)" : waiting.length > 1 ? `steps ${waiting.map(p => p + 1).join(" and ")}` : `step ${blocker + 1}`;
+        const names = byHand() && s <= 5 ? "part 1" : waiting.length > 1 ? `steps ${waiting.map(p => STEP_LABELS[p]).join(" and ")}` : `step ${STEP_LABELS[blocker]}`;
         lockNotes[s].textContent = `Finish ${names} first (check, or click Show).`;
       }
     }
     if (changed.length) void typeset(changed);
+    syncYesNo();
     renderFigure();
     const wrong = work.wrongChecks ?? 0;
     hintCount.textContent = work.hintsUsed === 0 ? "No hints used"
@@ -1237,7 +1410,7 @@ function initPage(): void {
   function read(s: number): Fraction[] | null {
     let ok = true;
     const values = inputs[s].map(input => {
-      const x = parseEntry(input.value);
+      const x = parseFor(s, input.value);
       if (!x) { input.classList.add("mm-wrong"); ok = false; }
       return x ?? F(0);
     });
@@ -1248,7 +1421,7 @@ function initPage(): void {
   // The student's answers to a step, if they're filled in, numbers, and the step is one they do.
   function studentValues(s: number): Fraction[] | null {
     if (!tasks()[s] || inputs[s].every(i => i.value.trim() === "")) return null;
-    const values = inputs[s].map(i => parseEntry(i.value));
+    const values = inputs[s].map(i => parseFor(s, i.value));
     return values.some(x => x === null) ? null : (values as Fraction[]);
   }
 
@@ -1261,7 +1434,8 @@ function initPage(): void {
     }
     const values = read(s);
     if (!values) {
-      showFeedback(s, `<p class="mm-feedback-wrong">Each entry has to be a number, like -3, 0.5, or 1/2.</p>`);
+      showFeedback(s, s === YES_NO_STEP ? `<p class="mm-feedback-wrong">Answer both questions.</p>`
+        : `<p class="mm-feedback-wrong">Each entry has to be a number, like -3, 0.5, or 1/2.</p>`);
       return;
     }
     const key = answers(s);
@@ -1301,6 +1475,11 @@ function initPage(): void {
   // aren't right (each as a whole).
   function wrongSummary(s: number, values: Fraction[]): string {
     if (s === 3 || s === 4) return "Not quite: these coordinates aren't right.";
+    if (s === 5) {
+      const [r, k] = [equals(values[0], F(rankA())), equals(values[1], F(nullA()))];
+      return r ? "Not quite: the nullity isn't right." : k ? "Not quite: the rank isn't right." : "Not quite: the rank and the nullity aren't right.";
+    }
+    if (s === YES_NO_STEP) return "Not quite: at least one answer isn't right.";
     const size = s === 1 ? m() : 0;
     const wrong = Array.from({ length: n() }, (_, j) => j).filter(j => s === 1
       ? !vecEq(values.slice(j * size, (j + 1) * size), sol.coords[j])
@@ -1313,7 +1492,7 @@ function initPage(): void {
     return `Not quite: ${names} ${wrong.length === 1 ? "isn't" : "aren't"} right.`;
   }
 
-  // Explains likely mistakes: after "Not quite" for step 1, and through Hint for the other steps.
+  // Explains likely mistakes: after "Not quite" for step 1(a), and through Hint for the other steps.
   function diagnose(s: number, values: Fraction[]): string {
     const notes: string[] = [];
     const sw = W();
@@ -1337,7 +1516,7 @@ function initPage(): void {
         const theirCoords = theirT && !vecEq(theirT, sol.TV[j]) ? solve(problem.C, theirT) : null;
         const lhs = coordTex(TvTex(j), Wset());
         if (theirCoords && vecEq(c, theirCoords)) {
-          note(`${$(lhs)} is right for the ${$(TvTex(j))} you found in step 1, but that ${$(TvTex(j))} isn't right.`);
+          note(`${$(lhs)} is right for the ${$(TvTex(j))} you found in step 1(a), but that ${$(TvTex(j))} isn't right.`);
         } else if (!wStd() && c.length === sol.TV[j].length && vecEq(c, sol.TV[j])) {
           note(`For ${$(lhs)}, you entered the entries of ${$(TvTex(j))} itself. Its coordinates relative to ${$(Wset())} are the numbers ${$(cList(m(), wColors()))} such that ${$(`${TvTex(j)} = ${cSum(m(), w, wColors())}`)}.`);
         } else {
@@ -1354,7 +1533,7 @@ function initPage(): void {
       if (m() === n() && matEq(S, transpose(sol.A))) {
         note(`Each coordinate vector ${$(coordTex(TvjTex(), Wset()))} goes in a <em>column</em> of \\(A\\), not a row.`);
       } else if (mineA && matEq(S, mineA)) {
-        note("Your matrix matches your coordinate vectors from step 2, but some of those aren't right.");
+        note("Your matrix matches your coordinate vectors from step 1(b), but some of those aren't right.");
       } else if (!wStd() && MB.length === m() && matEq(S, MB)) {
         note(`The columns you entered are the vectors ${$(TvjTex())} themselves. The columns of \\(A\\) are their <em>coordinates</em> relative to ${$(Wset())}.`);
       } else if ((!vStd() || !wStd()) && problem.M.length === m() && problem.M[0].length === n() && matEq(S, problem.M)) {
@@ -1372,8 +1551,30 @@ function initPage(): void {
         const comboTex = coordCombo(values, v, V_COLORS);
         note(`Your coordinates give ${$(`${comboTex} = ${elementTex(V(), matVec(problem.B, values))}`)}, but ${$(`${xName()} = ${xTex()}`)}. Check ${$(xc)}.`);
       }
+    } else if (s === 5) {
+      const [r, k] = values.map(x => Number(x.num) / Number(x.den));
+      if (r === nullA() && k === rankA() && r !== k) {
+        note("It looks like the rank and the nullity are swapped. The rank is the number of pivots; the nullity is the number of columns without a pivot.");
+      } else if (r + k !== n()) {
+        note(`The rank and the nullity add up to the number of columns of \\(A\\), which is ${n()} (the dimension of ${$(spaceTex(V()))}). Yours add up to ${r + k}.`);
+      } else if (r === m() && m() !== rankA()) {
+        note(`The rank is the number of pivots in the reduced row echelon form of \\(A\\), which can be less than the number of rows.`);
+      }
+    } else if (s === YES_NO_STEP) {
+      const [onto, one] = values.map(x => !isZero(x));
+      const mine = studentValues(5);
+      const [r, k] = mine ? mine.map(x => Number(x.num) / Number(x.den)) : [rankA(), nullA()];
+      if (onto !== isOnto()) {
+        if (mine && (r !== rankA()) && onto === (r === m())) note("Your answer for onto fits the rank you found in step 3(a), but that rank isn't right.");
+        else if (onto === (rankA() === n()) && m() !== n()) note(`For onto, compare the rank with the dimension of the <em>target</em> ${$(spaceTex(W()))}, which is ${m()}, not the dimension of the domain.`);
+        else note(`For onto, compare ${$("\\operatorname{rank} A")} with ${$(dimTex(W()))}.`);
+      }
+      if (one !== isOneToOne()) {
+        if (mine && k !== nullA() && one === (k === 0)) note("Your answer for one-to-one fits the nullity you found in step 3(a), but that nullity isn't right.");
+        else note(`For one-to-one, look at the nullity: \\(T\\) is one-to-one exactly when ${$("\\operatorname{null} A = 0")}, that is, when only ${$("\\mathbf{0}")} maps to ${$("\\mathbf{0}")}.`);
+      }
     } else {
-      // Mistakes carried forward from A (step 3) or [x]_𝒱 (step 4), as the student entered them.
+      // Mistakes carried forward from A (step 1(c)) or [x]_𝒱 (step 2(a)), as the student entered them.
       const mine = studentValues(2);
       const mineA = mine ? chunks(mine, n()) : sol.A;
       const mineX = studentValues(3) ?? problem.x;
@@ -1399,7 +1600,7 @@ function initPage(): void {
   function show(s: number): void {
     const key = answers(s);
     inputs[s].forEach((input, i) => {
-      input.value = formatFraction(key[i]).replace("−", "-");
+      input.value = formatFor(s, key[i]);
       input.classList.remove("mm-right", "mm-wrong");
       input.classList.add("mm-shown");
     });
@@ -1416,6 +1617,12 @@ function initPage(): void {
 
   const gaussUrl = (C: Mat, y: Vec) =>
     `${window.GAUSSIAN_PRACTICE_URL ?? "/tools/gaussian_elimination_practice/"}?m=${C.map((row, i) => [...row, y[i]].map(plain).join(",")).join(";")}`;
+  // The same page for a matrix that isn't augmented (such as A, to find its rank and nullity).
+  const gaussMatUrl = (a: Mat) =>
+    `${window.GAUSSIAN_PRACTICE_URL ?? "/tools/gaussian_elimination_practice/"}?m=${a.map(row => row.map(plain).join(",")).join(";")}&aug=0`;
+  // A link to row reduce A there; left out by hand (level 4), where the work is on paper.
+  const rankPracticeLink = () => (byHand() ? ""
+    : ` (<a href="${gaussMatUrl(sol.A)}" target="_blank" rel="noopener">practice this row reduction</a>)`);
 
   function hintLevels(s: number): string[] {
     const sv = V(), sw = W();
@@ -1480,24 +1687,24 @@ function initPage(): void {
           if (n() > 1) second += `<p>Since the left side is the same for every column, you can also row reduce all of them at once, with ${$(`${TvTex(0)}, \\ldots, ${TvTex(n() - 1)}`)} all to the right of the bar.</p>`;
         } else {
           const cols = Array.from({ length: m() }, (_, i) => w(i)).join(" & ");
-          second = `Row reduce ${$(`\\left[\\begin{array}{${"c".repeat(m())}|c} ${cols} & ${TvjTex()} \\end{array}\\right]`)} for each \\(j\\). Finish step 1 first to fill in the numbers.`;
+          second = `Row reduce ${$(`\\left[\\begin{array}{${"c".repeat(m())}|c} ${cols} & ${TvjTex()} \\end{array}\\right]`)} for each \\(j\\). Finish step 1(a) first to fill in the numbers.`;
         }
         return [first, second];
       }
       case 2: {
         const cols = Array.from({ length: n() }, (_, j) => coordTex(TvTex(j), Wn)).join(" & ");
         if (byHand()) {
-          // One hint at a time, through the steps, starting with the plan. (Step 2's second hint
-          // would give away the answers to step 1, so it's left out.)
+          // One hint at a time, through the steps, starting with the plan. (Step 1(b)'s second hint
+          // would give away the answers to step 1(a), so it's left out.)
           const [apply, applyMore] = hintLevels(0);
           return [
             `Work in three steps: apply \\(T\\) to each basis vector in ${$(Vn)}, find the coordinates of each result relative to ${$(Wn)}, and place those coordinate vectors into the columns of \\(A\\): ${$$(`A = \\begin{bmatrix} ${cols} \\end{bmatrix}.`)}`,
-            `<strong>Step 1.</strong> ${apply}`,
-            `<strong>Step 1, more specifically.</strong> ${applyMore}`,
-            `<strong>Step 2.</strong> ${hintLevels(1)[0]}`,
+            `<strong>Step 1(a).</strong> ${apply}`,
+            `<strong>Step 1(a), more specifically.</strong> ${applyMore}`,
+            `<strong>Step 1(b).</strong> ${hintLevels(1)[0]}`,
           ];
         }
-        return [`Column \\(j\\) of \\(A\\) is the coordinate vector ${$(coordTex(TvjTex(), Wn))} from step 2: ${$$(`A = \\begin{bmatrix} ${cols} \\end{bmatrix}.`)}
+        return [`Column \\(j\\) of \\(A\\) is the coordinate vector ${$(coordTex(TvjTex(), Wn))} from step 1(b): ${$$(`A = \\begin{bmatrix} ${cols} \\end{bmatrix}.`)}
           So \\(A\\) has ${m()} row${m() > 1 ? "s" : ""} (the dimension of \\(${spaceTex(sw)}\\)) and ${n()} column${n() > 1 ? "s" : ""} (the dimension of \\(${spaceTex(sv)}\\)).`];
       }
       case 3: {
@@ -1514,12 +1721,26 @@ function initPage(): void {
           (<a href="${gaussUrl(problem.B, sol.xVec)}" target="_blank" rel="noopener">practice this row reduction</a>).`;
         return [first, second];
       }
+      case 5: {
+        const { r, pivots } = rref(sol.A);
+        return [
+          "Row reduce \\(A\\). The rank is the number of pivots (leading entries) in its reduced row echelon form, and the nullity is the number of columns without a pivot: " + $$(`\\operatorname{rank} A + \\operatorname{null} A = \\text{number of columns} = ${n()}.`),
+          `The reduced row echelon form of \\(A\\)${rankPracticeLink()} is ${$$(`${matTex(r)},`)} with pivots in column${pivots.length === 1 ? "" : "s"} ${pivots.map(j => j + 1).join(" and ") || "(none)"}.`,
+        ];
+      }
+      case 6: {
+        const sw = W();
+        return [
+          `From lecture (with ${$("A_T")} the matrix of \\(T\\) relative to any bases): ${$$(`T \\text{ is onto} \\iff \\operatorname{rank} A_T = \\dim W, \\qquad T \\text{ is one-to-one} \\iff \\operatorname{null} A_T = 0.`)}`,
+          `Here, \\(W = ${spaceTex(sw)}\\)${isSubspace(sw) ? ` (the ${sw.dim === 2 ? "plane" : "line"})` : ""}, so ${$(`${dimTex(sw)} = ${m()}`)}. Compare this with the rank from step 3(a), and check whether the nullity is 0.`,
+        ];
+      }
       default: {
-        const first = `Multiply the matrix \\(A\\) from step 3 by the coordinate vector from step 4: ${$(`${coordTex(`T(${xName()})`, Wn)} = A${coordTex(xName(), Vn)}`)}.`;
+        const first = `Multiply the matrix \\(A\\) from step 1(c) by the coordinate vector from step 2(a): ${$(`${coordTex(`T(${xName()})`, Wn)} = A${coordTex(xName(), Vn)}`)}.`;
         const columnsTex = coordCombo(problem.x, j => `\\text{(column ${j + 1} of } A)`, V_COLORS);
         const second = `By linearity, since ${$(`${xName()} = ${xCombo()}`)}, we have ${$(`T(${xName()}) = ${coordCombo(problem.x, TvTex, V_COLORS)}`)}, so ${$(`${coordTex(`T(${xName()})`, Wn)}`)} is ${$(columnsTex)}.`;
         if (byHand()) {
-          // By hand, part (b) includes finding [x]_𝒱 (step 4), so its hints come first.
+          // By hand, part 2 includes finding [x]_𝒱 (step 2(a)), so its hints come first.
           return [`Work in two steps: find the coordinate vector ${$(coordTex(xName(), Vn))}, then multiply: ${$(`${coordTex(`T(${xName()})`, Wn)} = A${coordTex(xName(), Vn)}`)}.`,
             ...hintLevels(3).map((h, i) => `<strong>Finding ${$(coordTex(xName(), Vn))}${i > 0 ? ", more specifically" : ""}.</strong> ${h}`)];
         }

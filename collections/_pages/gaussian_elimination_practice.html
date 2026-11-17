@@ -55,7 +55,7 @@ date_added: 2026-10-20
   .ge-problem-nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.5rem; margin: -0.6rem 0 0.8rem; font-size: 0.9em; }
   .gauss .ge-problem-nav button:disabled { opacity: 0.45; cursor: not-allowed; }
   .gauss .ge-level-box { display: flex; flex-direction: column; gap: 0.55rem; }
-  /* Level 5, by hand: the starting matrix, then boxes for the final matrix. */
+  /* No support, by hand: the starting matrix, then boxes for the final matrix. */
   .ge-hand {
     margin: 0 0 1.2rem;
     padding: 0.9rem 1rem;
@@ -431,25 +431,25 @@ date_added: 2026-10-20
       or <strong>Edit</strong> to change any step (the steps after it are redone).
     </p>
     <p>
-      Choose a <strong>Level</strong> to practice one skill at a time:
+      Choose how much <strong>Support</strong> the page gives, to practice one skill at a time:
     </p>
-    <ol>
-      <li>Choose the row operations (the page computes the new rows).</li>
-      <li>Compute the new rows (the page gives each row operation).</li>
-      <li>Choose the row operations and compute the new rows.</li>
-      <li>Do both, and also recognize when the matrix is in RREF.</li>
-      <li>Do the whole reduction by hand, and enter only the final matrix.</li>
-    </ol>
+    <ul>
+      <li><strong>Full:</strong> choose the row operations (the page computes the new rows).</li>
+      <li><strong>High:</strong> compute the new rows (the page gives each row operation).</li>
+      <li><strong>Partial:</strong> choose the row operations and compute the new rows.</li>
+      <li><strong>Minimal:</strong> do both, and also recognize when the matrix is in RREF.</li>
+      <li><strong>None:</strong> do the whole reduction by hand, and enter only the final matrix.</li>
+    </ul>
     <p>
-      At Levels 2 to 4, you compute the new rows. At Level 4, the page doesn't tell you whether the
+      With high, partial, and minimal support, you compute the new rows. With minimal support, the page doesn't tell you whether the
       matrix is in REF or RREF: say so yourself when you think it is (saying so too early counts as
-      a hint). At Level 5, you row reduce the whole matrix on paper and enter only the matrix you
+      a hint). With no support, you row reduce the whole matrix on paper and enter only the matrix you
       end with; the page checks it, but gives no guidance along the way. If you're stuck, go back
-      to Level 4 with the same matrix. Rows you compute aren't checked automatically, so a mistake carries forward as it
+      to minimal support with the same matrix. Rows you compute aren't checked automatically, so a mistake carries forward as it
       would on paper. To check your work, use <strong>Check</strong> (before applying a step) or <strong>Check all steps</strong>; a check that finds a mistake counts as a hint. Stuck? <strong>Hint</strong> suggests what to aim for next, and you can then ask for a more specific hint. Your work is saved in this page's address, so you can reload the page or share a link.
     </p>
     <p>
-      The <strong>Practice path</strong> chooses the matrices for you, in stages from easy to hard: small systems to REF first, up to 4 × 5 systems to RREF. After two matrices at a stage with no hints, the page suggests the next stage, and after three at a level, the next level. To pick the size and goal yourself, or to type in your own matrix, choose <strong>Choose problems</strong>. <strong>Your progress</strong>, at the bottom of the page, shows your mastery of each stage and a log of recent matrices.
+      The <strong>Practice path</strong> chooses the matrices for you, in levels from easy to hard: small systems to REF first, up to 4 × 5 systems to RREF. After two matrices at a level with no hints, the page suggests the next level, and after three with the same support, less support. To pick the size and goal yourself, or to type in your own matrix, choose <strong>Choose problems</strong>. <strong>Your progress</strong>, at the bottom of the page, shows your mastery of each level and a log of recent matrices.
     </p>
   </details>
   <p class="ge-related">
@@ -457,8 +457,8 @@ date_added: 2026-10-20
     <a href="{{ '/tools/rref_study_tool/' | relative_url }}">REF/RREF Study Tool</a>.
   </p>
 
-  <!-- Which matrices: the practice path's stage (controls added by common/practice.ts) or the
-       student's own choices, then the level and tasks. -->
+  <!-- Which matrices: the practice path's level (controls added by common/practice.ts) or the
+       student's own choices, then the support and tasks. -->
   <section class="pr-box" aria-labelledby="ge-practice-title">
     <h2 id="ge-practice-title" class="pr-box-title">Practice</h2>
     <div id="ge-practice"></div>
@@ -478,13 +478,13 @@ date_added: 2026-10-20
     </div>
     <hr class="pr-divider">
     <div class="pr-levels">
-      <span class="pr-levels-label">Level</span>
-      <span class="pr-level-list" role="radiogroup" aria-label="Level">
-        <label class="pr-level"><input type="radio" name="ge-level" value="1"><span class="pr-pill">Level 1</span><span>Choose the row operations (the page computes the new rows)</span></label>
-        <label class="pr-level"><input type="radio" name="ge-level" value="2"><span class="pr-pill">Level 2</span><span>Compute the new rows (the page gives each row operation)</span></label>
-        <label class="pr-level"><input type="radio" name="ge-level" value="3"><span class="pr-pill">Level 3</span><span>Choose the row operations and compute the new rows</span></label>
-        <label class="pr-level"><input type="radio" name="ge-level" value="4"><span class="pr-pill">Level 4</span><span>Choose and compute the row operations, and recognize when it's in <span class="ge-goal-name">RREF</span></span></label>
-        <label class="pr-level"><input type="radio" name="ge-level" value="5"><span class="pr-pill">Level 5</span><span>Row reduce by hand, then enter only the final matrix</span></label>
+      <span class="pr-levels-label">Support</span>
+      <span class="pr-level-list" role="radiogroup" aria-label="Support">
+        <label class="pr-level"><input type="radio" name="ge-level" value="1"><span class="pr-pill">Full</span><span>Choose the row operations (the page computes the new rows)</span></label>
+        <label class="pr-level"><input type="radio" name="ge-level" value="2"><span class="pr-pill">High</span><span>Compute the new rows (the page gives each row operation)</span></label>
+        <label class="pr-level"><input type="radio" name="ge-level" value="3"><span class="pr-pill">Partial</span><span>Choose the row operations and compute the new rows</span></label>
+        <label class="pr-level"><input type="radio" name="ge-level" value="4"><span class="pr-pill">Minimal</span><span>Choose and compute the row operations, and recognize when it's in <span class="ge-goal-name">RREF</span></span></label>
+        <label class="pr-level"><input type="radio" name="ge-level" value="5"><span class="pr-pill">None</span><span>Row reduce by hand, then enter only the final matrix</span></label>
       </span>
     </div>
   </section>
@@ -507,7 +507,7 @@ date_added: 2026-10-20
 
   {% include by-hand-note.html %}
 
-  <!-- Level 5: the whole reduction on paper. Only the final matrix is entered and checked. -->
+  <!-- No support: the whole reduction on paper. Only the final matrix is entered and checked. -->
   <section id="ge-hand" class="ge-hand" aria-labelledby="ge-hand-title" hidden>
     <h2 id="ge-hand-title">Row reduce by hand</h2>
     <p class="ge-hand-intro">
@@ -522,7 +522,7 @@ date_added: 2026-10-20
     <div class="ge-actions">
       <button id="ge-hand-check" class="ge-primary" type="button" title="A wrong answer counts as a hint">Check</button>
       <button id="ge-hand-show" type="button" title="Show the answer (counts as a hint)">Show</button>
-      <button id="ge-hand-stuck" type="button">Stuck? Go back to Level 4, one step at a time</button>
+      <button id="ge-hand-stuck" type="button">Stuck? Go back to minimal support, one step at a time</button>
     </div>
     <div id="ge-hand-feedback" class="ge-hand-feedback" role="status"></div>
     <div class="ge-problem-nav">
