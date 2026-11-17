@@ -36,4 +36,13 @@
 			"[${1:$TM_SELECTED_TEXT}](${2:url})"
 		],
 	},
+	"Definition Link": {
+		"prefix": "definition link",
+		"body": [
+			"[$TM_SELECTED_TEXT](/dictionary/definitions/${1:${TM_SELECTED_TEXT/^[^A-Za-z0-9]+|[^A-Za-z0-9]+$|['’]|([A-Za-z0-9]+)|([^A-Za-z0-9]+)/${1:/downcase}${2:+-}/g}})"
+		],
+		// The link is the selected text as a slug: lowercase, apostrophes dropped, other runs of
+		// punctuation and spaces turned into one hyphen, and trimmed at both ends ("Rolle's Theorem" -> rolles-theorem).
+		"description": "Link the selected text to its dictionary definition"
+	}
 }
