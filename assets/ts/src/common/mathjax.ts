@@ -83,3 +83,49 @@ export function enqueueMath(task: () => Promise<void>): Promise<void> {
   mathQueue = mathQueue.catch(() => undefined).then(task);
   return mathQueue;
 }
+
+// ⋘──────── Math as HTML, right away ────────⋙
+// For math that changes while something is dragged (such as a readout of numbers), typesetting the
+// page each frame would be slow and flicker. `mathHTML` instead converts TeX straight to MathJax's
+// SVG markup, cached, so it can go in innerHTML like any other HTML. Until MathJax is ready it
+// gives a hidden placeholder, and calls `onReady` once MathJax is ready so the caller can redraw.
+
+const mathCache = new Map<string, string>();
+const readyCallbacks = new Set<() => void>();
+let mathIsReady = false;
+let waitingForMath = false;
+
+const escapeHTML = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+export function mathHTML(tex: string, onReady?: () => void): string {
+  const hit = mathCache.get(tex);
+  if (hit !== undefined) return hit;
+  const mj = window.MathJax as unknown as { tex2svg?: (t: string, o: object) => HTMLElement } | undefined;
+  if (!mathIsReady || !mj?.tex2svg) {
+    if (onReady) readyCallbacks.add(onReady);
+    if (!waitingForMath) {
+      waitingForMath = true;
+      void mathJaxReady().then(async ok => {
+        // tex2svg can't load TeX packages on demand, so load the ones used here (\color) first.
+        const mjp = window.MathJax as unknown as { tex2svgPromise?: (t: string) => Promise<unknown> } | undefined;
+        if (ok) await mjp?.tex2svgPromise?.('{\\color[RGB]{0,0,0}{x}}').catch(() => undefined);
+        mathIsReady = ok;
+        if (!ok) return;
+        const callbacks = [...readyCallbacks];
+        readyCallbacks.clear();
+        callbacks.forEach(f => f());
+      });
+    }
+    return `<span style="visibility:hidden">${escapeHTML(tex)}</span>`;
+  }
+  let html: string;
+  try {
+    html = mj.tex2svg(tex, { display: false }).outerHTML;
+  } catch {
+    html = `<span>${escapeHTML(tex)}</span>`;
+  }
+  // Numbers that change while dragging make many distinct strings; keep the cache bounded.
+  if (mathCache.size > 2000) mathCache.clear();
+  mathCache.set(tex, html);
+  return html;
+}
