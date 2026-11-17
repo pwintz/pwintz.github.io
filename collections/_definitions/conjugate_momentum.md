@@ -18,4 +18,4 @@ properties:
   - >-
     The conjugate momenta are the variables, besides the coordinates, of the [Hamiltonian](/dictionary/definitions/hamiltonian).
 ---
-The conjugate momentum depends on the choice of coordinates: conjugate to a position, it is often the ordinary momentum $m \dot{q}$, and conjugate to an angle, it is often an angular momentum.
+The conjugate momentum depends on the choice of coordinates: conjugate to a position, it is often the ordinary [momentum](/dictionary/definitions/momentum) $m \dot{q}$, and conjugate to an angle, it is often an angular momentum.

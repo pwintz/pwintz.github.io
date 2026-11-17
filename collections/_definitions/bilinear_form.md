@@ -5,7 +5,7 @@ applies_to: vector spaces
 levels:
   undergraduate:
     text: |-
-      Consider a [vector](/dictionary/definitions/vector) space $V$.
+      Consider a [vector space](/dictionary/definitions/vector-space) $V$.
       The function $B : V \times V \to \reals$  is a _bilinear form_ on $V$ if $B$ is linear in each argument when the other is held fixed.
       It need not be symmetric or positive.
 properties:

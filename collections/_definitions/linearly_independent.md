@@ -10,7 +10,7 @@ levels:
       That is, none of the vectors are a [linear combination](/dictionary/definitions/linear-combination) of the other vectors.
   undergraduate:
     text: |-
-      Consider vectors $\vect{v}_1, \dots, \vect{v}_k$ in a vector space.
+      Consider vectors $\vect{v}_1, \dots, \vect{v}_k$ in a [vector space](/dictionary/definitions/vector-space).
       The vectors are _linearly independent_ if the only solution of
 
       $$c_1 \vect{v}_1 + \dots + c_k \vect{v}_k = \vect{0}$$

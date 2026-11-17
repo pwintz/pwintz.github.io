@@ -22,5 +22,5 @@ properties:
   - >-
     The vectors $\vect{v}_1, \dots, \vect{v}_n$ are [linearly independent](/dictionary/definitions/linearly-independent) exactly when the only linear combination equal to the [zero vector](/dictionary/definitions/zero-vector) has all coefficients equal to $0$.
   - >-
-    A linear combination must have finitely many terms, even in an infinite-dimensional vector space.
+    A linear combination must have finitely many terms, even in an infinite-dimensional [vector space](/dictionary/definitions/vector-space).
 ---

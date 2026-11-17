@@ -7,7 +7,7 @@ summary: >
   In a dynamical system, several kinds of sets describe where solutions end up.
   An [ω-limit set](/dictionary/definitions/omega-limit-set) is where one particular solution ends up.
   An [attractive](/dictionary/definitions/attractive) set draws in all nearby solutions, and an [attractor](/dictionary/definitions/attractor) is a [compact](/dictionary/definitions/compact) invariant set that does.
-  A [limit cycle](/dictionary/definitions/limit-cycle) is an isolated [periodic](/dictionary/definitions/periodic) orbit, which may attract or repel.
+  A [limit cycle](/dictionary/definitions/limit-cycle) is an isolated [periodic orbit](/dictionary/definitions/periodic-orbit), which may attract or repel.
 terms:
   - omega_limit_set
   - attractive

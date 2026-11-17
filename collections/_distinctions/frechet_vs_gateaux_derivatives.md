@@ -26,5 +26,5 @@ see_also:
 ## Notes
 
 - In finite dimensions, the Fréchet derivative is the usual derivative of multivariable calculus.
-  The distinction matters most in infinite-dimensional spaces, such as in the calculus of variations, where the [Gâteaux derivative](/dictionary/definitions/gateaux-derivative) of a [functional](/dictionary/definitions/functional) is its _first variation_.
+  The distinction matters most in infinite-dimensional spaces, such as in the [calculus of variations](/dictionary/definitions/calculus-of-variations), where the [Gâteaux derivative](/dictionary/definitions/gateaux-derivative) of a [functional](/dictionary/definitions/functional) is its _first variation_.
 - Some authors do not require the Gâteaux derivative to be linear in the direction, which makes it the same as having all [directional derivatives](/dictionary/definitions/directional-derivative).

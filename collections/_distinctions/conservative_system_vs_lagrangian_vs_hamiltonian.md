@@ -5,7 +5,7 @@ kind: family
 areas: [dynamics]
 summary: >
   Classical mechanics describes the motion of a system in terms of generalized coordinates $q$, such as positions and angles.
-  A [conservative system](/dictionary/definitions/conservative-system) is a system whose forces come from a potential energy $V(q)$, so the total energy is constant.
+  A [conservative system](/dictionary/definitions/conservative-system) is a system whose forces come from a potential [energy](/dictionary/definitions/energy) $V(q)$, so the total energy is constant.
   The [Lagrangian](/dictionary/definitions/lagrangian) $L(q, \dot{q}, t)$ is a function of the positions and velocities whose Euler–Lagrange equations are the equations of motion; for a conservative system, $L = T - V$.
   The [conjugate momentum](/dictionary/definitions/conjugate-momentum) $p = \partial L / \partial \dot{q}$ is the variable that replaces the velocity $\dot{q}$.
   The [Hamiltonian](/dictionary/definitions/hamiltonian) $H(q, p, t) = \ip{p}{\dot{q}} - L$ is a function of the positions and the conjugate momenta; for a conservative system, $H = T + V$ is the total energy.

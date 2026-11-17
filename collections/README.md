@@ -340,7 +340,7 @@ Titles and `values` may keep such matrices inline.
 
 **Lists of conditions:** When a definition has two or more conditions, list them as a numbered list, one condition per item, ending all but the last with a comma and the second-to-last with ", and".
 
-**Math macros:** Write sets as `\setdef{1, 2, 3}` (not `\{ \}`, which kramdown turns into plain braces, or `\lbrace \rbrace`), the natural numbers and the real numbers as `\nats` and `\reals`, norms as `\norm{x}`, absolute values as `\abs{x}`, inner products as `\ip{x}{y}`, and the domain of an operator as `\dom D` (defined in `assets/js/mathjax_config.js`).
+**Math macros:** Write sets as `\setdef{1, 2, 3}` (not `\{ \}`, which kramdown turns into plain braces, or `\lbrace \rbrace`), the natural numbers and the real numbers as `\nats` and `\reals`, norms as `\norm{x}`, absolute values as `\abs{x}`, inner products as `\ip{x}{y}`, differentials as `\dx`, `\dy`, `\dz`, `\dt`, or `\diff{u}` (for other variables, such as `\diff{\mu}`) with no `\,` before them, since the macro adds that space, complex conjugates as `\conj{z}` (or `\conjOf{z + w}` for a compound argument), closures as `\closure{A}` (or `\closureOf{[0, 1)}`), set differences as `A \setdiff B`, and the domain of an operator as `\dom D` (defined in `assets/js/mathjax_config.js`).
 Use `\norm` for vectors, such as the state $x \in \reals^n$, and `\abs` only for numbers.
 In a YAML flow list, quote a value that contains braces, e.g., `synonyms: ['$\abs{A}$']`.
 

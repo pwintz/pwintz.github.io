@@ -7,7 +7,7 @@ synonyms: [Clarke subdifferential, $\partial f(x)$]
 levels:
   graduate:
     text: |-
-      Consider a locally Lipschitz function $f : \reals^n \to \reals$, and let $\Omega$ be a set of [measure zero](/dictionary/definitions/measure-zero) that contains the points where $f$ is not [differentiable](/dictionary/definitions/differentiable).
+      Consider a [locally Lipschitz](/dictionary/definitions/locally-lipschitz-continuous) function $f : \reals^n \to \reals$, and let $\Omega$ be a set of [measure zero](/dictionary/definitions/measure-zero) that contains the points where $f$ is not [differentiable](/dictionary/definitions/differentiable).
       The _Clarke generalized gradient_ of $f$ at $x$ is
 
       $$\partial f(x) = \overline{\operatorname{co}} \setdef{\lim_{k \to \infty} \nabla f(x_k) \suchthat x_k \to x, x_k \notin \Omega}:$$

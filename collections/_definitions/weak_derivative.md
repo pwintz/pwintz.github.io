@@ -9,7 +9,7 @@ levels:
       Consider locally integrable functions $f$ and $g$ on an interval $I$, which may not be [differentiable](/dictionary/definitions/differentiable).
       The function $g$ is the _weak derivative_ of $f$ if
 
-      $$\int_I f \varphi^{\prime} \mathrm{d}x = -\int_I g \varphi \mathrm{d}x$$
+      $$\int_I f \varphi^{\prime} \dx = -\int_I g \varphi \dx$$
 
       for every [smooth](/dictionary/definitions/smooth) function $\varphi$ that vanishes outside a [compact](/dictionary/definitions/compact) [subset](/dictionary/definitions/subset) of $I$.
 properties:

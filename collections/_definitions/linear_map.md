@@ -11,7 +11,7 @@ levels:
       In high school algebra, $f(x) = m x + b$ is called a "linear function," but it is a linear map only when $b = 0$. With $b \neq 0$, it is called [affine](/dictionary/definitions/affine-system).
   undergraduate:
     text: |-
-      Consider [vector](/dictionary/definitions/vector) spaces $V$ and $W$, and a function $T : V \to W$. The function $T$ is called a _linear map_ if, for all vectors $u, v$ and scalars $c$,
+      Consider [vector spaces](/dictionary/definitions/vector-space) $V$ and $W$, and a function $T : V \to W$. The function $T$ is called a _linear map_ if, for all vectors $u, v$ and scalars $c$,
 
       1. $T(u + v) = T(u) + T(v)$ (additivity), and
       2. $T(c v) = c T(v)$ (homogeneity).

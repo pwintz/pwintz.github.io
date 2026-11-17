@@ -3,7 +3,7 @@ title: "Basis: Vector Space vs. Topology"
 kind: conflicting
 areas: [linear-algebra, topology]
 summary: >
-  In linear algebra and in topology, a basis is a collection of building blocks from which every object of interest can be built.
+  In linear algebra and in [topology](/dictionary/definitions/topology), a basis is a collection of building blocks from which every object of interest can be built.
   A [basis of a vector space](/dictionary/definitions/vector-basis) is a set of vectors from which every vector is built as a unique [linear combination](/dictionary/definitions/linear-combination).
   A [basis for a topology](/dictionary/definitions/topological-basis) is a collection of [open sets](/dictionary/definitions/open-set) from which every open set is built as a [union](/dictionary/definitions/set-union) (not necessarily unique).
   A basis of a [vector space](/dictionary/definitions/vector-space) has no redundant vectors, but a basis for a topology can contain sets that are unions of other sets in the basis.

@@ -20,14 +20,14 @@ levels:
       Consider a function $f : [a, b] \to \reals$.
       The function $f$ is _absolutely continuous_ if there is a Lebesgue integrable function $g$ such that
 
-      $$f(x) = f(a) + \int_a^x g(t) \mathrm{d}t$$
+      $$f(x) = f(a) + \int_a^x g(t) \dt$$
 
       for every $x \in [a, b]$.
 properties:
   - |-
     An absolutely continuous function $f$ is [differentiable](/dictionary/definitions/differentiable) [almost everywhere](/dictionary/definitions/almost-everywhere), and
 
-    $$f(x) = f(a) + \int_a^x f^{\prime}(t) \mathrm{d}t.$$
+    $$f(x) = f(a) + \int_a^x f^{\prime}(t) \dt.$$
   - >-
     Every absolutely continuous function is [uniformly continuous](/dictionary/definitions/uniformly-continuous) and has [bounded](/dictionary/definitions/bounded) variation.
 ---

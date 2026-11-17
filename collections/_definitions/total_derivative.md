@@ -8,7 +8,7 @@ levels:
     text: |-
       For a function $f(t, x)$ evaluated along a [path](/dictionary/definitions/path-continuous) $x(t)$, the _total derivative_ is
       
-      $$\frac{\mathrm{d}}{\mathrm{d}t} f(t, x(t)) = \frac{\partial f}{\partial t} + \ip{\nabla_x f}{\frac{\mathrm{d}x}{\mathrm{d}t}},$$
+      $$\frac{\diff{}}{\dt} f(t, x(t)) = \frac{\partial f}{\partial t} + \ip{\nabla_x f}{\frac{\dx}{\dt}},$$
       
       where $\nabla f$ is the [gradient](/dictionary/definitions/gradient) of $f$.
 ---

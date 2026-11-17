@@ -23,7 +23,7 @@ properties:
     Every algebra over $F$ is a [module](/dictionary/definitions/module) over $F$, because every algebra over $F$ is a [vector space](/dictionary/definitions/vector-space) over $F$.
 ---
 Many authors require an algebra to be [associative](/dictionary/definitions/associative) and to have an [identity element](/dictionary/definitions/identity-element) $1$ (to be _unital_).
-Others, as here, also allow nonassociative algebras, such as Lie algebras.
+Others, as here, also allow nonassociative algebras, such as [Lie algebras](/dictionary/definitions/lie-algebra).
 An _algebra over a ring_ $R$ is defined the same way, with a [module](/dictionary/definitions/module) over $R$ in place of the [vector space](/dictionary/definitions/vector-space).
 
 The word "algebra" has several other meanings: the branch of mathematics, a [σ-algebra](/dictionary/definitions/sigma-algebra) of sets, and, in universal algebra, every set with a collection of operations.

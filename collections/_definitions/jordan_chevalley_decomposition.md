@@ -11,7 +11,7 @@ levels:
   graduate:
     context: linear maps over a perfect field
     text: |-
-      The _Jordan–Chevalley decomposition_ of a [linear map](/dictionary/definitions/linear-map) $T$ on a finite-dimensional vector space writes it as $T = S + N$, where $S$ is semisimple, $N$ is nilpotent, and $S$ and $N$ commute.
+      The _Jordan–Chevalley decomposition_ of a [linear map](/dictionary/definitions/linear-map) $T$ on a finite-dimensional [vector space](/dictionary/definitions/vector-space) writes it as $T = S + N$, where $S$ is semisimple, $N$ is nilpotent, and $S$ and $N$ commute.
 properties:
   - |-
     The decomposition exists and is unique. Both $D$ and $N$ are [polynomials](/dictionary/definitions/polynomial) in $A$.

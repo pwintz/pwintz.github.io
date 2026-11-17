@@ -1,5 +1,4 @@
 ---
-published: false
 title: Idempotent
 term: idempotent
 applies_to: elements and functions
@@ -15,6 +14,12 @@ levels:
       The function $f$ is _idempotent_ if applying it twice is the same as applying it once:
 
       $$f \circ f = f.$$
-
-      Examples include projections, absolute value, and rounding.
+properties:
+  - >- 
+      A square matrix $P$ is _idempotent_ if $P^2 = P$, which means that the [linear map](/dictionary/definitions/linear-map) $\vect{x} \mapsto P \vect{x}$ is idempotent.
+  - >-
+    Every [orthogonal projection](/dictionary/definitions/orthogonal-projection) is idempotent, because projecting a vector that is already in the subspace does not change the vector.
+  - >-
+    Every [eigenvalue](/dictionary/definitions/eigenvalue) of an idempotent matrix is $0$ or $1$.
+  
 ---

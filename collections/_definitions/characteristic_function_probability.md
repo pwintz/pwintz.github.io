@@ -20,6 +20,6 @@ properties:
   - >-
     If $X$ and $Y$ are [independent](/dictionary/definitions/statistical-independence), then $\varphi_{X + Y} = \varphi_X \varphi_Y$.
   - >-
-    If $X$ has a [probability density](/dictionary/definitions/probability-density) $\rho$, then $\varphi_X$ is the [Fourier transform](/dictionary/definitions/fourier-transform) of $\rho$, up to the sign and scaling of the frequency variable: $\varphi_X(t) = \int e^{i t x} \rho(x) \, \mathrm{d}x$.
+    If $X$ has a [probability density](/dictionary/definitions/probability-density) $\rho$, then $\varphi_X$ is the [Fourier transform](/dictionary/definitions/fourier-transform) of $\rho$, up to the sign and scaling of the frequency variable: $\varphi_X(t) = \int e^{i t x} \rho(x) \dx$.
 ---
 In set theory and analysis, "characteristic function" means the [indicator function](/dictionary/definitions/indicator-function) of a set, which is a different object.

@@ -14,6 +14,6 @@ levels:
       Consider an integrable function $f : \reals \to \complexes$.
       The _Fourier transform_ of $f$ is
 
-      $$\hat{f}(\omega) = \int_{-\infty}^{\infty} f(t) e^{-i \omega t} \mathrm{d}t.$$
+      $$\hat{f}(\omega) = \int_{-\infty}^{\infty} f(t) e^{-i \omega t} \dt.$$
 ---
 Conventions differ in where the factor of $2\pi$ goes: some authors use $e^{-2\pi i \xi t}$, and others put $\frac{1}{\sqrt{2\pi}}$ in front.

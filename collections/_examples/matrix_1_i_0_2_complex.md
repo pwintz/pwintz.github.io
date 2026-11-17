@@ -14,5 +14,5 @@ why:
   conjugate_transpose: >-
     The conjugate transpose of the matrix $$A = \begin{bmatrix} 1 & i \\ 0 & 2 \end{bmatrix}$$ moves the entry $i$ to position $(2, 1)$ and replaces it by its conjugate $-i$.
   adjoint: >-
-    The adjoint of the linear map $T(x) = A x$ with the standard inner product $\ip{x}{y} = \sum_j x_j \overline{y_j}$ is $T^{\ast}(y) = A^{\ast} y$, where $A^{\ast}$ is the conjugate transpose of $A$, because $\ip{A x}{y} = y^{\ast} A x = (A^{\ast} y)^{\ast} x = \ip{x}{A^{\ast} y}$.
+    The adjoint of the linear map $T(x) = A x$ with the standard inner product $\ip{x}{y} = \sum_j x_j \conj{y_j}$ is $T^{\ast}(y) = A^{\ast} y$, where $A^{\ast}$ is the conjugate transpose of $A$, because $\ip{A x}{y} = y^{\ast} A x = (A^{\ast} y)^{\ast} x = \ip{x}{A^{\ast} y}$.
 ---

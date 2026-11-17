@@ -32,6 +32,6 @@ see_also:
   $$\norm{x + y}^2 + \norm{x - y}^2 = 2 \norm{x}^2 + 2 \norm{y}^2.$$
 - A [metric](/dictionary/definitions/metric) comes from a norm only if it is translation invariant ($d(x + z, y + z) = d(x, y)$) and scales ($d(c x, c y) = \abs{c} d(x, y)$).
 - Each structure needs a different setting.
-  An inner product and a norm are defined only on a (real or complex) vector space, because their definitions add vectors and multiply them by scalars.
+  An inner product and a norm are defined only on a (real or complex) [vector space](/dictionary/definitions/vector-space), because their definitions add vectors and multiply them by scalars.
   A metric needs only a set: the [discrete metric](/dictionary/definitions/discrete-metric) works on any set, and the great-circle distance works on a [sphere](/dictionary/definitions/sphere), which is not a vector space.
   So every [inner product space](/dictionary/definitions/inner-product-space) is a [normed space](/dictionary/definitions/normed-space), and every normed space is a [metric space](/dictionary/definitions/metric-space), but a metric space need not have a norm or an inner product.

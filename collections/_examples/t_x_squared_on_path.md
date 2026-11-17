@@ -5,7 +5,7 @@ description: >-
   The one-variable function $g(t) = f(t, e^t) = t e^{2t}$ is the composition of $f(x, t)$ and $x(t)$.
 values:
   ordinary_derivative: 'For $g(t) = f(t, e^t) = t e^{2t}$, $g^{\prime}(t) = e^{2t} + 2 t e^{2t}$'
-  total_derivative: '$\frac{\mathrm{d}}{\mathrm{d}t} f(t, e^t) = e^{2t} + 2 t e^{2t}$'
+  total_derivative: '$\frac{\diff{}}{\dt} f(t, e^t) = e^{2t} + 2 t e^{2t}$'
 why:
   total_derivative: >-
     By the chain rule, it equals $\frac{\partial f}{\partial t} + \frac{\partial f}{\partial x} x^{\prime}(t)$.

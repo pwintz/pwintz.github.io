@@ -14,7 +14,7 @@ levels:
       $$f(x) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp\left(-\frac{(x - \mu)^2}{2 \sigma^2}\right).$$
 properties:
   - >-
-    By the central limit theorem, the sum of many independent random variables with finite variance is approximately normal, which is why measurement errors are often modeled as normal.
+    By the central limit theorem, the sum of many [independent random variables](/dictionary/definitions/statistical-independence) with finite [variance](/dictionary/definitions/variance) is approximately normal, which is why measurement errors are often modeled as normal.
   - >-
-    About $68\%$ of the probability of a normal distribution lies within one standard deviation of the mean, and about $95\%$ lies within two.
+    About $68\%$ of the [probability](/dictionary/definitions/probability) of a normal distribution lies within one [standard deviation](/dictionary/definitions/standard-deviation) of the mean, and about $95\%$ lies within two.
 ---

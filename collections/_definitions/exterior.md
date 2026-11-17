@@ -24,7 +24,7 @@ properties:
   - |-
     The [interior](/dictionary/definitions/interior), [boundary](/dictionary/definitions/boundary), and exterior of a set are disjoint, and together they make up the whole space.
   - |-
-    The _exterior_ of $A$ is the [interior](/dictionary/definitions/interior) of its complement, $\operatorname{int}(X \setminus A)$.
+    The _exterior_ of $A$ is the [interior](/dictionary/definitions/interior) of its complement, $\operatorname{int}(X \setdiff A)$.
   - |-
     The _exterior_ of $A$ is not the complement of its [interior](/dictionary/definitions/interior).
 

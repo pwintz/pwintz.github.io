@@ -11,7 +11,7 @@ levels:
       $$P(X = k) = \binom{n}{k} p^k (1 - p)^{n - k} \quad \text{for } k = 0, 1, \dots, n.$$
 properties:
   - >-
-    A binomial random variable is the sum of $n$ independent [Bernoulli](/dictionary/definitions/bernoulli-distribution) random variables, so it has [mean](/dictionary/definitions/expected-value) $n p$ and [variance](/dictionary/definitions/variance) $n p (1 - p)$.
+    A binomial random variable is the sum of $n$ independent [Bernoulli](/dictionary/definitions/bernoulli-distribution) [random variables](/dictionary/definitions/random-variable), so it has [mean](/dictionary/definitions/expected-value) $n p$ and [variance](/dictionary/definitions/variance) $n p (1 - p)$.
   - >-
     For large $n$, the binomial distribution is approximately [normal](/dictionary/definitions/normal-distribution), and for large $n$ and small $p$, the binomial distribution is approximately [Poisson](/dictionary/definitions/poisson-distribution) with mean $n p$.
 ---

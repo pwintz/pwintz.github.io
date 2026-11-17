@@ -8,7 +8,7 @@ levels:
     text: |-
       Consider a differential equation $\dot{x} = f(x)$ whose right-hand side may be discontinuous, and replace $f$ by the [set-valued map](/dictionary/definitions/set-valued-map)
 
-      $$F(x) = \bigcap_{\delta > 0} \bigcap_{\mu(N) = 0} \overline{\operatorname{co}} f(B(x, \delta) \setminus N),$$
+      $$F(x) = \bigcap_{\delta > 0} \bigcap_{\mu(N) = 0} \overline{\operatorname{co}} f(B(x, \delta) \setdiff N),$$
 
       the closed convex hull of the values of $f$ near $x$, ignoring sets $N$ of [measure zero](/dictionary/definitions/measure-zero).
       A _Filippov solution_ of $\dot{x} = f(x)$ is an [absolutely continuous](/dictionary/definitions/absolutely-continuous) function $x(t)$ such that $\dot{x}(t) \in F(x(t))$ for almost every $t$.

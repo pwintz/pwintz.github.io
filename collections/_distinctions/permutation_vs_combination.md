@@ -23,6 +23,6 @@ see_also:
 ---
 ## Notes
 
-- The everyday word "combination," as in a "combination lock," usually means a [permutation](/dictionary/definitions/permutation), because the order of the numbers matters.
+- The everyday word "[combination](/dictionary/definitions/combination)," as in a "combination lock," usually means a [permutation](/dictionary/definitions/permutation), because the order of the numbers matters.
 
 A combination is written as a set, like $\{A, B, C\}$, because the order does not matter, whereas a permutation is written as a list or a tuple, like $(A, B, C)$ or $(C, B, A)$ because the order does matter.

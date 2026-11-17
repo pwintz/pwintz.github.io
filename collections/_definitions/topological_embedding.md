@@ -8,7 +8,7 @@ levels:
   high-school:
     text: |-
       A _topological embedding_ places one shape inside another without tearing or gluing it, so the copy inside has the same shape as the original.
-      For example, drawing a circle in the plane, or tying a loop of string into a knot in space, embeds a circle.
+      For example, drawing a [circle](/dictionary/definitions/circle) in the plane, or tying a loop of string into a knot in space, embeds a circle.
       Bending a line segment around until its two ends meet does not embed the segment, because the two ends get glued together.
   undergraduate:
     context: topological spaces
@@ -20,8 +20,8 @@ properties:
   - >-
     Every topological embedding is [continuous](/dictionary/definitions/continuous) and [injective](/dictionary/definitions/injective).
   - >-
-    For a subset $A$ of a topological space $Y$ with the subspace topology, the [inclusion map](/dictionary/definitions/inclusion-map) $\iota : A \hookrightarrow Y$ is a topological embedding.
+    For a [subset](/dictionary/definitions/subset) $A$ of a topological space $Y$ with the [subspace topology](/dictionary/definitions/subspace-topology), the [inclusion map](/dictionary/definitions/inclusion-map) $\iota : A \hookrightarrow Y$ is a topological embedding.
 ---
-A continuous injective function need not be a topological embedding, because the inverse of $f$ on $f(X)$ need not be continuous.
+A [continuous](/dictionary/definitions/continuous) [injective](/dictionary/definitions/injective) function need not be a topological embedding, because the inverse of $f$ on $f(X)$ need not be continuous.
 
 In differential geometry, a _smooth embedding_ is a topological embedding that is also a smooth immersion.

@@ -23,4 +23,4 @@ see_also:
 
 - A [bilinear form](/dictionary/definitions/bilinear-form) $B$ is _symmetric_ if $B(x, y) = B(y, x)$, and _positive definite_ if $B(x, x) > 0$ for every $x \neq 0$.
 
-- On a complex vector space, an [inner product](/dictionary/definitions/inner-product) is conjugate symmetric and linear in only one argument (sesquilinear), so it is not a bilinear form.
+- On a complex [vector space](/dictionary/definitions/vector-space), an [inner product](/dictionary/definitions/inner-product) is [conjugate symmetric](/dictionary/definitions/conjugate-symmetric) and linear in only one argument (sesquilinear), so it is not a bilinear form.

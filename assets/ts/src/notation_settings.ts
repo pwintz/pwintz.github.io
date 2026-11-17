@@ -1,5 +1,5 @@
 // ╭───────────────────────────────────────────────────────────────╮
-// │                Notation page (/dictionary/notation/)          │
+// │            Notation page (/settings/notation/)                │
 // ╰───────────────────────────────────────────────────────────────╯
 // Lets the reader pick their notation for the items in _data/notation.yml. The choices are saved in this browser
 // (localStorage "notation.choices", as {itemId: optionId}, listing only the items not at their defaults).
@@ -82,7 +82,7 @@ function retypeset(): Promise<void> {
 
 function latexMacros(): string {
   const lines = [
-    "% Notation chosen at https://paulwintz.com/dictionary/notation/",
+    "% Notation chosen at https://paulwintz.com/settings/notation/",
     "% Needs \\usepackage{amsmath, amssymb}.",
   ];
   for (const item of items) {
@@ -99,6 +99,10 @@ function latexMacros(): string {
     "\\newcommand{\\integers}{\\numberset{Z}}",
     "\\newcommand{\\rationals}{\\numberset{Q}}",
     "\\newcommand{\\complexes}{\\numberset{C}}",
+    "\\newcommand{\\dx}{\\diff{x}}",
+    "\\newcommand{\\dy}{\\diff{y}}",
+    "\\newcommand{\\dz}{\\diff{z}}",
+    "\\newcommand{\\dt}{\\diff{t}}",
   );
   return lines.join("\n");
 }
@@ -112,6 +116,8 @@ function buildItems(container: HTMLElement): void {
       group = item.group;
       const heading = document.createElement("h2");
       heading.textContent = group;
+      // The same id as Liquid's slugify gives the contents list on the page.
+      heading.id = group.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
       container.append(heading);
     }
     const fieldset = document.createElement("fieldset");

@@ -14,7 +14,7 @@ levels:
       The _zero vector_ is the [vector](/dictionary/definitions/vector) whose components are all zero.
   undergraduate:
     text: |-
-      Consider a [vector](/dictionary/definitions/vector) space $V$, with its vector addition.
+      Consider a [vector space](/dictionary/definitions/vector-space) $V$, with its vector addition.
       The _zero vector_ of $V$ is its additive identity: the vector $\vect{0}$ such that
 
       $$\vect{v} + \vect{0} = \vect{v} \quad \text{for every } \vect{v} \in V.$$

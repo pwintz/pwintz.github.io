@@ -17,5 +17,5 @@ properties:
   - >-
     A connected graph with $n$ vertices has at least $n - 1$ [edges](/dictionary/definitions/edge-graph).
 ---
-In topology, a [connected space](/dictionary/definitions/connected) is a space that cannot be split into two disjoint, nonempty open sets, which is a different definition.
-The two definitions agree on drawings: when a graph is drawn with each edge drawn as a curve, the graph is connected exactly when the drawing is connected as a subset of the plane.
+In [topology](/dictionary/definitions/topology), a [connected space](/dictionary/definitions/connected) is a space that cannot be split into two disjoint, nonempty [open sets](/dictionary/definitions/open-set), which is a different definition.
+The two definitions agree on drawings: when a graph is drawn with each edge drawn as a curve, the graph is connected exactly when the drawing is connected as a [subset](/dictionary/definitions/subset) of the plane.

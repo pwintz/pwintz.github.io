@@ -35,7 +35,7 @@ levels:
       The function $f$ is _continuous_ if the [preimage](/dictionary/definitions/preimage) $f^{-1}(V)$ is open in $X$ for every [open set](/dictionary/definitions/open-set) $V$ in $Y$.
 properties:
   - >-
-    Sums, products, and compositions of continuous functions are continuous.
+    Sums, products, and [compositions](/dictionary/definitions/function-composition) of continuous functions are continuous.
   - >-
     Continuous images of [compact](/dictionary/definitions/compact) sets are compact, and continuous images of [connected](/dictionary/definitions/connected) sets are connected.
   - >-

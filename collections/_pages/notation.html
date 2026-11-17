@@ -2,7 +2,7 @@
 # Reads _data/notation.yml, which `jekyll serve --incremental` does not track, so always rebuild it.
 regenerate: true
 layout: single
-permalink: /dictionary/notation/
+permalink: /settings/notation/
 title: Notation
 excerpt: "Choose the notation that the site's math uses, such as how the range, null space, and transpose are written."
 ---
@@ -14,6 +14,7 @@ excerpt: "Choose the notation that the site's math uses, such as how the range, 
     border: 1px solid rgba(128, 128, 128, 0.3);
     border-radius: 6px;
   }
+  .notation__contents { margin: 0 0 1rem; font-size: 0.9em; line-height: 1.6; }
   .notation legend {
     display: flex;
     align-items: center;
@@ -115,7 +116,7 @@ excerpt: "Choose the notation that the site's math uses, such as how the range, 
 <div class="notation">
   <p>
     Mathematicians write the same idea in different ways.
-    Pick the notation you are used to, and the math in the <a href="{{ '/dictionary/' | relative_url }}">dictionary</a> and on the rest of this site will use it.
+    Pick the notation you are used to, and the math on this site, such as in the <a href="{{ '/dictionary/' | relative_url }}">dictionary</a> and the <a href="{{ '/tools/' | relative_url }}">tools</a>, will use it.
     Your choices are saved in this browser and apply to the pages you open next (reload a page that is already open).
   </p>
 
@@ -124,7 +125,17 @@ excerpt: "Choose the notation that the site's math uses, such as how the range, 
     <button type="button" id="notation-reset">Reset to defaults</button>
   </div>
 
-  <h2>Preview</h2>
+  {%- comment -%} The topics are the groups in _data/notation.yml; notation_settings.ts gives their headings these ids. {%- endcomment -%}
+  {%- assign notation_groups = site.data.notation | map: "group" | uniq %}
+  <nav class="notation__contents" aria-label="Topics">
+    <strong>On this page:</strong>
+    <a href="#preview">Preview</a>
+    {%- for group in notation_groups %} · <a href="#{{ group | slugify }}">{{ group }}</a>{% endfor %}
+    · <a href="#what-these-notation-settings-change">What these settings change</a>
+    · <a href="#use-this-notation-in-latex">Use this notation in LaTeX</a>
+  </nav>
+
+  <h2 id="preview">Preview</h2>
   <ul class="notation__preview">
     <li><span data-tex="\vect{v} = c_1 \vect{u} + c_2 \vect{w}">\(\vect{v} = c_1 \vect{u} + c_2 \vect{w}\)</span>, a linear combination of the vectors <span data-tex="\vect{u}">\(\vect{u}\)</span> and <span data-tex="\vect{w}">\(\vect{w}\)</span>.</li>
     <li><span data-tex="\rank{A} + \nullity{A} = n">\(\rank{A} + \nullity{A} = n\)</span> for an \(m \times n\) matrix \(A\).</li>
@@ -132,12 +143,25 @@ excerpt: "Choose the notation that the site's math uses, such as how the range, 
     <li><span data-tex="\colspace{A} = \Span{a_1, \dots, a_n}">\(\colspace{A} = \Span{a_1, \dots, a_n}\)</span> and <span data-tex="\rowspace{A} = \colspace{A\trans}">\(\rowspace{A} = \colspace{A\trans}\)</span>.</li>
     <li><span data-tex="\trace{A\trans} = \trace{A}">\(\trace{A\trans} = \trace{A}\)</span> and <span data-tex="\nullspaceOf{A - \lambda I}">\(\nullspaceOf{A - \lambda I}\)</span>.</li>
     <li><span data-tex="\nats \subseteq \integers \subseteq \rationals \subseteq \reals \subseteq \complexes">\(\nats \subseteq \integers \subseteq \rationals \subseteq \reals \subseteq \complexes\)</span>.</li>
+    <li><span data-tex="\closure{A} = A \cup \partial A">\(\closure{A} = A \cup \partial A\)</span> and <span data-tex="\partial A = \closure{A} \setdiff \operatorname{int}(A)">\(\partial A = \closure{A} \setdiff \operatorname{int}(A)\)</span>.</li>
+    <li><span data-tex="\int_0^1 x^2 \dx = \frac{1}{3}">\(\int_0^1 x^2 \dx = \frac{1}{3}\)</span> and <span data-tex="\frac{\dy}{\dx} = 2x">\(\frac{\dy}{\dx} = 2x\)</span>.</li>
+    <li><span data-tex="z \conj{z} = \abs{z}^2">\(z \conj{z} = \abs{z}^2\)</span> and <span data-tex="\ip{x}{y} = \conj{\ip{y}{x}}">\(\ip{x}{y} = \conj{\ip{y}{x}}\)</span>.</li>
   </ul>
 
   <div id="notation-items"></div>
   <div id="notation-help-popup" class="notation-help-popup" role="note" hidden></div>
 
-  <h2>Use this notation in LaTeX</h2>
+  <h2 id="what-these-notation-settings-change">What these notation settings change</h2>
+  <ul>
+    <li>Only the math changes. Words in the text, such as "range" and "null space," stay as they are.</li>
+    <li>
+      Only notation can be chosen, not conventions that change what a statement means,
+      such as whether \(0\) is a natural number or whether \(\subset\) allows equality.
+    </li>
+    <li>When the text compares notations (for example, "some books write \(\operatorname{im} T\)"), those notations are shown as written.</li>
+  </ul>
+
+  <h2 id="use-this-notation-in-latex">Use this notation in LaTeX</h2>
   <p>
     This site writes its math with macros that name what each symbol means, such as <code>\range{T}</code> for the range of \(T\), rather than with a fixed notation, so that your choices above can change how the macros are displayed.
     You can use the same approach in your own LaTeX documents: copy the definitions below, which match your current choices, into your preamble.
@@ -150,15 +174,6 @@ excerpt: "Choose the notation that the site's math uses, such as how the range, 
   </div>
   <pre id="notation-latex"></pre>
 
-  <h2>What these notation settings change</h2>
-  <ul>
-    <li>Only the math changes. Words in the text, such as "range" and "null space," stay as they are.</li>
-    <li>
-      Only notation can be chosen, not conventions that change what a statement means,
-      such as whether \(0\) is a natural number or whether \(\subset\) allows equality.
-    </li>
-    <li>When the text compares notations (for example, "some books write \(\operatorname{im} T\)"), those notations are shown as written.</li>
-  </ul>
 </div>
 
 <script type="application/json" id="notation-data">{{ site.data.notation | jsonify }}</script>

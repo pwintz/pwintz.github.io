@@ -12,5 +12,5 @@ levels:
       Consider a region $R \subseteq \reals^n$.
       The _volume_ of $R$ is its three-dimensional (or $n$-dimensional) size:
 
-      $$\operatorname{vol}(R) = \int_R 1 \mathrm{d}x.$$
+      $$\operatorname{vol}(R) = \int_R 1 \dx.$$
 ---

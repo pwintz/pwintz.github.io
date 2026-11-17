@@ -6,7 +6,7 @@ values:
   gradient: '$\nabla f(x, y) = (2x, 3)$'
   jacobian: '$Df(x, y) = \begin{bmatrix} 2x & 3 \end{bmatrix}$'
   directional_derivative: '$D_v f(x, y) = \nabla f(x, y) \cdot v = 2x$, in the direction $v = (1, 0)$'
-  differential: '$\mathrm{d}f_{(x, y)} : (v_1, v_2) \mapsto 2x v_1 + 3 v_2$'
+  differential: '$\diff{f}_{(x, y)} : (v_1, v_2) \mapsto 2x v_1 + 3 v_2$'
   lie_derivative: '$L_F f(x, y) = \nabla f(x, y) \cdot F(x, y) = -2x^2$, along the vector field $F(x, y) = (-x, 0)$'
 why:
   gradient: >-

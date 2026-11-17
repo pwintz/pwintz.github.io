@@ -48,7 +48,7 @@ see_also:
   
 - **SVD:** rank, low-rank approximation, and the geometry of a [linear map](/dictionary/definitions/linear-map).
 
-- **Cholesky:** solving $A x = b$ when $A$ is symmetric positive definite, as in least squares and optimization, at half the cost of LU, and sampling from a multivariate normal distribution.
+- **Cholesky:** solving $A x = b$ when $A$ is symmetric positive definite, as in least squares and optimization, at half the cost of LU, and sampling from a multivariate [normal distribution](/dictionary/definitions/normal-distribution).
 
 - **Eigendecomposition:** computing powers and exponentials of a diagonalizable matrix, and decoupling linear systems into independent modes.
 
@@ -58,5 +58,5 @@ see_also:
 
 - **Jordan–Chevalley:** separating the diagonalizable part of a matrix from its nilpotent part, as in computing $e^{A t} = e^{D t} e^{N t}$.
 
-- **Toeplitz:** separating the symmetric part $H$ of a matrix $A$, which alone determines the quadratic form $x\trans A x = x\trans H x$, as in energy and stability arguments.
+- **Toeplitz:** separating the symmetric part $H$ of a matrix $A$, which alone determines the quadratic form $x\trans A x = x\trans H x$, as in [energy](/dictionary/definitions/energy) and stability arguments.
 

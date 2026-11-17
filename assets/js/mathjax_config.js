@@ -48,6 +48,11 @@ regenerate: true
         ip: ["\\langle #1, #2 \\rangle", 2],
         // Domain of an operator, as in "\dom D".
         dom: "\\operatorname{dom}",
+        // Differentials, with the reader's choice of "d" (the \diff macro, from _data/notation.yml).
+        dx: "{\\diff{x}}",
+        dy: "{\\diff{y}}",
+        dz: "{\\diff{z}}",
+        dt: "{\\diff{t}}",
     };
 
     // Define each selectable macro. A one-argument operator written without parentheses ("\ker #1") also gets a

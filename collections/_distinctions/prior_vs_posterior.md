@@ -4,7 +4,7 @@ title: Prior vs. Posterior
 kind: siblings
 areas: [statistics]
 summary: >
-  In Bayesian inference, a belief about an unknown parameter is described by a probability distribution.
+  In Bayesian inference, a belief about an unknown parameter is described by a [probability distribution](/dictionary/definitions/probability-distribution).
   The [prior](/dictionary/definitions/prior) (a priori) distribution is the belief before the data are observed, and the [posterior](/dictionary/definitions/posterior) (a posteriori) distribution is the belief after the data are observed.
 terms:
   - prior

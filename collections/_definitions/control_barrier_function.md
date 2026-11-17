@@ -15,7 +15,7 @@ levels:
       for some extended class-$\mathcal{K}$ function $\alpha$.
 properties:
   - >-
-    Every locally Lipschitz [feedback](/dictionary/definitions/feedback) law whose input satisfies this inequality at every $x$ renders $C$ [forward invariant](/dictionary/definitions/forward-invariant).
+    Every [locally Lipschitz](/dictionary/definitions/locally-lipschitz-continuous) [feedback](/dictionary/definitions/feedback) law whose input satisfies this inequality at every $x$ renders $C$ [forward invariant](/dictionary/definitions/forward-invariant).
   - >-
     Such inputs are often computed at each state by solving a quadratic program, which can also include a [control Lyapunov function](/dictionary/definitions/control-lyapunov-function) constraint.
 ---

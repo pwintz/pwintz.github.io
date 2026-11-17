@@ -14,7 +14,7 @@ levels:
 
       $$x_{k+1} = A x_k + B u_k + w_k, \qquad y_k = C x_k + v_k,$$
 
-      where the process noise $w_k$ and the [measurement noise](/dictionary/definitions/measurement-noise) $v_k$ are independent, zero-mean, Gaussian, and white, with covariances $Q$ and $R$, and the initial state $x_0$ has mean $\hat{x}_0$ and covariance $P_0$.
+      where the process noise $w_k$ and the [measurement noise](/dictionary/definitions/measurement-noise) $v_k$ are independent, zero-mean, Gaussian, and white, with [covariances](/dictionary/definitions/covariance) $Q$ and $R$, and the initial state $x_0$ has mean $\hat{x}_0$ and covariance $P_0$.
       The _Kalman filter_ for this system is the [filter](/dictionary/definitions/filter-estimation) that computes a state estimate $\hat{x}_k$ and its error covariance $P_k$ by repeating two steps.
       First, it predicts
 
@@ -29,7 +29,7 @@ properties:
   - >-
     For a linear system with Gaussian noise, the Kalman filter's estimate $\hat{x}_k$ is the conditional mean of $x_k$ given the measurements $y_1, \dots, y_k$, so it has the smallest mean-square error of every [estimator](/dictionary/definitions/estimator) of $x_k$ from those measurements.
   - >-
-    The Kalman filter is an [observer](/dictionary/definitions/observer) with the same structure as a [Luenberger observer](/dictionary/definitions/luenberger-observer), but with a time-varying gain $K_k$ chosen from the noise covariances $Q$ and $R$.
+    The Kalman filter is an [observer](/dictionary/definitions/observer) with the same structure as a [Luenberger observer](/dictionary/definitions/luenberger-observer), but with a time-varying gain $K_k$ chosen from the noise [covariances](/dictionary/definitions/covariance) $Q$ and $R$.
   - >-
     If $(A, C)$ is [detectable](/dictionary/definitions/detectable) and $(A, Q^{1/2})$ is [stabilizable](/dictionary/definitions/stabilizable), then the Kalman gain $K_k$ converges to a constant gain as $k \to \infty$.
 ---

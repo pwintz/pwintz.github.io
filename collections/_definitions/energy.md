@@ -7,7 +7,7 @@ levels:
   high-school:
   # TODO: Add a more verbose description. Start by describing work. 
     text: |-
-      Consider a physical system, such as a moving ball or a stretched spring.
+      Consider a physical system, such as a moving [ball](/dictionary/definitions/ball) or a stretched spring.
       The _energy_ of the system is a number that measures the system's capacity to do work, that is, to push something through a distance.
       Energy is measured in joules (J).
   undergraduate:
@@ -33,4 +33,4 @@ One joule is $1 \ \mathrm{kg} \cdot \mathrm{m}^2 / \mathrm{s}^2$, or one newton 
 For a [conservative system](/dictionary/definitions/conservative-system), the [Hamiltonian](/dictionary/definitions/hamiltonian) is the total energy.
 
 <!-- TODO: Describe how these are related. -->
-In signal processing, the "energy" of a signal $y$ is $\int \abs{y(t)}^2 \, \mathrm{d}t$, which is a different, though related, quantity.
+In signal processing, the "energy" of a signal $y$ is $\int \abs{y(t)}^2 \dt$, which is a different, though related, quantity.

@@ -18,7 +18,7 @@ properties:
   - |-
     Computing a Cholesky decomposition takes about half the work of an [LU decomposition](/dictionary/definitions/lu-decomposition), and it needs no row exchanges.
   - |-
-    If $z$ is a vector of independent standard normal [random variables](/dictionary/definitions/random-variable) and $\Sigma = L L\trans$, then $\mu + L z$ is normally distributed with mean $\mu$ and covariance $\Sigma$.
+    If $z$ is a vector of independent standard normal [random variables](/dictionary/definitions/random-variable) and $\Sigma = L L\trans$, then $\mu + L z$ is normally distributed with mean $\mu$ and [covariance](/dictionary/definitions/covariance) $\Sigma$.
 ---
 The related $L D L\trans$ decomposition, with $L$ lower triangular with ones on its diagonal and $D$ diagonal, avoids square roots and also applies to some symmetric matrices that are not positive definite.
 

@@ -7,7 +7,7 @@ summary: >
   A [stochastic process](/dictionary/definitions/stochastic-process) is a quantity that changes randomly over time, and a few kinds of stochastic processes appear again and again.
   A [random walk](/dictionary/definitions/random-walk) moves in discrete time by adding independent random steps.
   A [Poisson process](/dictionary/definitions/poisson-process) counts events that happen independently at a constant rate, so the Poisson process jumps up by $1$ at random times.
-  A [Brownian motion](/dictionary/definitions/brownian-motion) moves continuously in continuous time, with independent, normally distributed changes.
+  A [Brownian motion](/dictionary/definitions/brownian-motion) moves continuously in [continuous](/dictionary/definitions/continuous) time, with independent, normally distributed changes.
   A [geometric Brownian motion](/dictionary/definitions/geometric-brownian-motion) is the exponential of a Brownian motion with drift, so its changes are proportional to its value, and the value stays positive.
   A [Gaussian process](/dictionary/definitions/gaussian-process) is a process whose values at every finite list of times are jointly normal, which is a property that many processes share, not one particular process.
 terms:

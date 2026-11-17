@@ -11,4 +11,4 @@ levels:
       A _metric space_ is a set $X$ together with a [metric](/dictionary/definitions/metric) $d$ on $X$ that defines the distance between any two points.
 ---
 A metric space only requires a notion of distance, but does not require addition, or scaling, lengths of [vectors](/dictionary/definitions/vector), or angles.
-In other words, a metric space does not need to be a vector space (scaling+addition), a normed vector space (lengths), or an inner product space (angles).
+In other words, a metric space does not need to be a [vector space](/dictionary/definitions/vector-space) (scaling+addition), a [normed vector space](/dictionary/definitions/normed-space) (lengths), or an [inner product space](/dictionary/definitions/inner-product-space) (angles).

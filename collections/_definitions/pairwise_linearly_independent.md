@@ -10,7 +10,7 @@ levels:
   undergraduate:
     context: vector spaces
     text: |-
-      Consider a list $\vect{v}_1, \dots, \vect{v}_k$ of vectors in a vector space.
+      Consider a list $\vect{v}_1, \dots, \vect{v}_k$ of vectors in a [vector space](/dictionary/definitions/vector-space).
       The list is _pairwise linearly independent_ if, for every two different indices $i$ and $j$, the two vectors $\vect{v}_i$ and $\vect{v}_j$ are [linearly independent](/dictionary/definitions/linearly-independent).
 properties:
   - >-

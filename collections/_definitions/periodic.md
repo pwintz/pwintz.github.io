@@ -26,5 +26,5 @@ properties:
   - >-
     If $T$ is a period, then so is every positive [integer](/dictionary/definitions/integer) multiple of $T$.
   - >-
-    The trajectory of a nonconstant periodic solution is a closed curve, called a periodic orbit.
+    The [trajectory](/dictionary/definitions/trajectory) of a nonconstant periodic solution is a closed curve, called a [periodic orbit](/dictionary/definitions/periodic-orbit).
 ---

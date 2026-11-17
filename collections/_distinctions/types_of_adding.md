@@ -28,6 +28,6 @@ see_also:
 ---
 ## Notes
 
-- "Sum" usually means the result of addition, but also appears in "direct sum" of vector spaces and "[Minkowski sum](/dictionary/definitions/minkowski-sum)" of sets.
+- "Sum" usually means the result of addition, but also appears in "direct sum" of [vector spaces](/dictionary/definitions/vector-space) and "[Minkowski sum](/dictionary/definitions/minkowski-sum)" of sets.
 - To _refine_ a partition or cover is to split its pieces further, which adds pieces but is not addition.
   See [types of splitting](/dictionary/distinctions/types-of-splitting).

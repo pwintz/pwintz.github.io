@@ -16,10 +16,10 @@ levels:
   graduate:
     context: differential geometry
     text: |-
-      Consider a function $V$ and a [vector field](/dictionary/definitions/vector-field) $F$ on a manifold, where $\phi_t$ is the [flow](/dictionary/definitions/flow) of $F$.
+      Consider a function $V$ and a [vector field](/dictionary/definitions/vector-field) $F$ on a [manifold](/dictionary/definitions/manifold), where $\phi_t$ is the [flow](/dictionary/definitions/flow) of $F$.
       The _Lie derivative_ of $V$ along $F$ is
 
-      $$L_F V(x) = \frac{\mathrm{d}}{\mathrm{d}t} V(\phi_t(x)) \big\rvert_{t = 0}.$$
+      $$L_F V(x) = \frac{\diff{}}{\dt} V(\phi_t(x)) \big\rvert_{t = 0}.$$
 
       [Lie derivatives](/dictionary/definitions/lie-derivative) are also defined for [vector fields](/dictionary/definitions/vector-field) and [differential forms](/dictionary/definitions/differential-form).
 properties:

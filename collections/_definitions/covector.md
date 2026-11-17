@@ -10,13 +10,13 @@ levels:
       In coordinates, it is written as a row of numbers, which multiplies a column vector.
   undergraduate:
     text: |-
-      Consider a [vector](/dictionary/definitions/vector) space $V$ and its scalars.
+      Consider a [vector space](/dictionary/definitions/vector-space) $V$ and its scalars.
       A _covector_ on $V$ is a [linear map](/dictionary/definitions/linear-map) from $V$ to its scalars; an element of the dual space $V^{\ast}$.
       In coordinates, covectors are often written as row vectors, which act on column vectors by [matrix](/dictionary/definitions/matrix) multiplication.
   graduate:
     context: differential geometry
     text: |-
-      Consider a manifold $M$ and a point $x$ of $M$, with its cotangent space $T_x^{\ast} M$.
+      Consider a [manifold](/dictionary/definitions/manifold) $M$ and a point $x$ of $M$, with its cotangent space $T_x^{\ast} M$.
       A _covector_ at $x$ is an element of $T_x^{\ast} M$.
-      The [differential](/dictionary/definitions/differential) $\mathrm{d}f$ of a function is a covector field (a one-form).
+      The [differential](/dictionary/definitions/differential) $\diff{f}$ of a function is a covector field (a one-form).
 ---

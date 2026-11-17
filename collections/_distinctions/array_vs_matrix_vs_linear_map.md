@@ -5,7 +5,7 @@ areas: [linear-algebra, computing]
 summary: >
   Grids of numbers appear throughout linear algebra and computing, but a grid can be just data, a matrix with its own arithmetic, or a way of writing a linear map.
   An array is a grid of data. A matrix is a grid of numbers with matrix arithmetic.
-  A [linear map](/dictionary/definitions/linear-map) is a function between vector spaces. A matrix represents a linear map as an array of scalars with respect to a given [vector basis](/dictionary/definitions/vector-basis).
+  A [linear map](/dictionary/definitions/linear-map) is a function between [vector spaces](/dictionary/definitions/vector-space). A matrix represents a linear map as an array of scalars with respect to a given [vector basis](/dictionary/definitions/vector-basis).
 terms:
   - array
   - matrix

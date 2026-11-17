@@ -43,5 +43,5 @@ Each of these modifies the definitions above in a different direction.
   It is _marginally stable_ if it is stable but not asymptotically stable.
 - **Systems with inputs:** input-to-state stability (ISS), bounded-input bounded-output (BIBO) stability, and finite-gain $L_p$ stability describe how the state or output responds to inputs.
   See also [passivity](/dictionary/distinctions/types-of-dynamic-passivity).
-- **Robust and practical stability:** robust stability tolerates [perturbations](/dictionary/definitions/perturbation) of the system; practical stability allows convergence to a small [neighborhood](/dictionary/definitions/neighborhood) instead of a point.
+- **Robust and practical stability:** robust stability tolerates [perturbations](/dictionary/definitions/perturbation) of the system; [practical stability](/dictionary/definitions/practically-asymptotically-stable) allows convergence to a small [neighborhood](/dictionary/definitions/neighborhood) instead of a point.
 - **Hybrid systems:** _pre_-asymptotic stability allows solutions that are not complete (they stop), which is common in [hybrid systems](/dictionary/definitions/hybrid-system).

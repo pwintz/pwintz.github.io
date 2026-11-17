@@ -19,7 +19,7 @@ levels:
       Others include $\abs{x_1} + \dots + \abs{x_n}$ and $\max_i \abs{x_i}$.
   undergraduate:
     text: |-
-      Consider a [vector](/dictionary/definitions/vector) space $V$ and a function $\norm{\cdot} : V \to [0, \infty)$.
+      Consider a [vector space](/dictionary/definitions/vector-space) $V$ and a function $\norm{\cdot} : V \to [0, \infty)$.
       The function is a _norm_ on $V$ if 
       
       1. $\norm{x} = 0$ only for $x = 0$

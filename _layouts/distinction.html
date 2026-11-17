@@ -73,7 +73,7 @@ layout: single
         {% if level.id == min_level %}{% assign below_min = false %}{% endif %}
         <button type="button" class="level-switcher__button" data-level="{{ level.id }}"{% if below_min %} disabled title="None of these terms has a {{ level.name | downcase }}-level definition."{% endif %}>{{ level.name }}</button>
       {% endfor %}
-      <a class="level-switcher__notation" href="{{ '/dictionary/notation/' | relative_url }}">Notation</a>
+      <a class="level-switcher__notation" href="{{ '/settings/notation/' | relative_url }}">Notation</a>
     </div>
 
     {% for slug in page.terms %}
@@ -192,7 +192,7 @@ layout: single
     </ul>
   {% endif %}
 
-  <p class="distinction__back"><a href="{{ '/dictionary/distinctions/' | relative_url }}">All distinctions</a> · <a href="{{ '/dictionary/definitions/' | relative_url }}">All definitions</a> · <a href="{{ '/dictionary/notation/' | relative_url }}">Notation</a></p>
+  <p class="distinction__back"><a href="{{ '/dictionary/distinctions/' | relative_url }}">All distinctions</a> · <a href="{{ '/dictionary/definitions/' | relative_url }}">All definitions</a> · <a href="{{ '/settings/notation/' | relative_url }}">Notation</a></p>
 </div>
 
 {% if page.terms %}

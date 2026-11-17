@@ -23,5 +23,5 @@ see_also:
 ---
 ## Notes
 
-- An _algebra over a ring_ $R$ is a [module](/dictionary/definitions/module) over $R$ with a bilinear multiplication, so an algebra over a ring combines both generalizations.
-- Many authors require an algebra to be [associative](/dictionary/definitions/associative) and unital; a Lie algebra is an algebra only in the broader sense.
+- An _algebra over a ring_ $R$ is a [module](/dictionary/definitions/module) over $R$ with a bilinear multiplication, so an algebra over a [ring](/dictionary/definitions/ring) combines both generalizations.
+- Many authors require an algebra to be [associative](/dictionary/definitions/associative) and unital; a [Lie algebra](/dictionary/definitions/lie-algebra) is an algebra only in the broader sense.

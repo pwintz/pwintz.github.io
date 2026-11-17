@@ -11,6 +11,6 @@ levels:
   undergraduate:
     context: abstract algebra
     text: |-
-      Consider an algebraic object, such as a group or a vector space.
+      Consider an algebraic object, such as a group or a [vector space](/dictionary/definitions/vector-space).
       An _automorphism_ of the object is an isomorphism from the object to itself: a [bijective](/dictionary/definitions/bijective) [endomorphism](/dictionary/definitions/endomorphism) whose inverse is also structure preserving.
 ---

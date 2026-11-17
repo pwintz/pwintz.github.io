@@ -10,7 +10,7 @@ levels:
   high-school:
     context: Euclidean geometry
     text: |-
-      Two lines in a plane or in space are _perpendicular_ if the lines intersect and form a [right angle](/dictionary/definitions/right-angle) at their intersection.
+      Two lines in a plane or in space are _perpendicular_ if the lines intersect and form a [right angle](/dictionary/definitions/right-angle) at their [intersection](/dictionary/definitions/set-intersection).
   undergraduate:
     text: |-
       Shapes are _perpendicular_ at at a point $P$ if they intersect at $P$ at a [right angle](/dictionary/definitions/right-angle).

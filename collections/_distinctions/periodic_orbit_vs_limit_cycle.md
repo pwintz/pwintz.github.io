@@ -23,4 +23,4 @@ see_also:
 
 - A limit cycle can be stable, unstable, or semistable (attracting from one side and repelling from the other).
 - Linear systems have no [limit cycles](/dictionary/definitions/limit-cycle), because a multiple of a [periodic](/dictionary/definitions/periodic) solution of a linear system is another periodic solution, so [periodic orbits](/dictionary/definitions/periodic-orbit) of linear systems are never isolated.
-- [Conservative systems](/dictionary/definitions/conservative-system), such as the frictionless pendulum, have families of periodic orbits, and limit cycles arise in systems that gain and lose energy, such as the Van der Pol oscillator.
+- [Conservative systems](/dictionary/definitions/conservative-system), such as the frictionless pendulum, have families of periodic orbits, and limit cycles arise in systems that gain and lose [energy](/dictionary/definitions/energy), such as the Van der Pol oscillator.

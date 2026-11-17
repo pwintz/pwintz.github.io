@@ -25,4 +25,4 @@ properties:
 ---
 The discrete-time version is $\hat{x}_{k+1} = A \hat{x}_k + B u_k + L (y_k - C \hat{x}_k)$.
 
-The [Kalman filter](/dictionary/definitions/kalman-filter) has the same structure, with a time-varying gain chosen from the noise covariances.
+The [Kalman filter](/dictionary/definitions/kalman-filter) has the same structure, with a time-varying gain chosen from the noise [covariances](/dictionary/definitions/covariance).

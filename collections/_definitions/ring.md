@@ -6,7 +6,7 @@ levels:
 
   high-school:
   text: |-
-    A _ring_ is a set of objects that can be added, subtracted, and multiplied, following the same algebraic rules as integer addition, subtraction, and multiplication (but not division).
+    A _ring_ is a set of objects that can be added, subtracted, and multiplied, following the same algebraic rules as [integer](/dictionary/definitions/integer) addition, subtraction, and multiplication (but not division).
   undergraduate:
     context: abstract algebra
     text: |-

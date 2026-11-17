@@ -14,14 +14,14 @@ levels:
       Consider a set $S$ in a [metric space](/dictionary/definitions/metric-space) and a point $x$.
       The point $x$ is a _limit point_ of $S$ if every [open ball](/dictionary/definitions/open-ball) around $x$ contains a point of $S$ other than $x$:
 
-      $$B(x, \varepsilon) \cap (S \setminus \setdef{x}) \neq \emptyset \quad \text{for every } \varepsilon > 0.$$
+      $$B(x, \varepsilon) \cap (S \setdiff \setdef{x}) \neq \emptyset \quad \text{for every } \varepsilon > 0.$$
   graduate:
     context: topological spaces
     text: |-
       Consider a set $S$ in a topological space and a point $x$.
       The point $x$ is a _limit point_ of $S$ if every [neighborhood](/dictionary/definitions/neighborhood) $U$ of $x$ contains a point of $S$ other than $x$:
 
-      $$U \cap (S \setminus \setdef{x}) \neq \emptyset.$$
+      $$U \cap (S \setdiff \setdef{x}) \neq \emptyset.$$
 properties:
   - >-
     A limit point of $S$ need not belong to $S$.
@@ -29,7 +29,7 @@ properties:
   - >-
     The [closure](/dictionary/definitions/closure) of $S$ is the [union](/dictionary/definitions/set-union) of $S$ and its set of limit points, which is often written $S^{\prime}$.
   - >-
-    In a [metric space](/dictionary/definitions/metric-space), $x$ is a limit point of $S$ if and only if some sequence of points of $S \setminus \setdef{x}$ converges to $x$, and then every [open ball](/dictionary/definitions/open-ball) around $x$ contains infinitely many points of $S$.
+    In a [metric space](/dictionary/definitions/metric-space), $x$ is a limit point of $S$ if and only if some sequence of points of $S \setdiff \setdef{x}$ converges to $x$, and then every [open ball](/dictionary/definitions/open-ball) around $x$ contains infinitely many points of $S$.
   - >-
     Every [bounded](/dictionary/definitions/bounded) infinite [subset](/dictionary/definitions/subset) of $\reals^n$ has a limit point (the Bolzano–Weierstrass theorem).
 ---

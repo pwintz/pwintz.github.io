@@ -24,4 +24,4 @@ see_also:
 ## Notes
 
 - For two vectors, the two notions are the same; the difference appears only for lists of three or more vectors.
-- In $\reals^n$, a list of more than $n$ vectors is linearly dependent, but the list can still be pairwise non-parallel, as for every list of distinct directions in the plane.
+- In $\reals^n$, a list of more than $n$ vectors is linearly dependent, but the list can still be [pairwise non-parallel](/dictionary/definitions/pairwise-linearly-independent), as for every list of distinct directions in the plane.

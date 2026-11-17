@@ -6,7 +6,7 @@ summary: >
   A list of vectors can point in "different directions" in two senses.
   A set of [linearly independent](/dictionary/definitions/linearly-independent) vectors have no redundant vectors: no vector in the list is a [linear combination](/dictionary/definitions/linear-combination) of the others.
   [Orthogonal](/dictionary/definitions/orthogonal-vectors) vectors are pairwise at [right angles](/dictionary/definitions/right-angle): every two different vectors in the list have [inner product](/dictionary/definitions/inner-product) $0$.
-  Linear independence is defined in every vector space, but orthogonality requires an inner product.
+  Linear independence is defined in every [vector space](/dictionary/definitions/vector-space), but orthogonality requires an inner product.
 relation: orthogonal and nonzero ⊂ linearly independent
 terms:
   - linearly_independent

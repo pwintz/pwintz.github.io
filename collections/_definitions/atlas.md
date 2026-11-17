@@ -17,7 +17,7 @@ properties:
     The _transition map_ $\varphi_\beta \circ \varphi_\alpha^{-1}$ sends $\varphi_\alpha(U_\alpha \cap U_\beta)$ to $\varphi_\beta(U_\alpha \cap U_\beta)$.
   - >-
     An atlas is _smooth_ if all of its transition maps are [smooth](/dictionary/definitions/smooth).
-    A smooth atlas makes $M$ a smooth manifold.
+    A smooth atlas makes $M$ a smooth [manifold](/dictionary/definitions/manifold).
   - >-
     The [sphere](/dictionary/definitions/sphere) has an atlas with two charts, given by stereographic projection from the north pole and from the south pole.
 ---

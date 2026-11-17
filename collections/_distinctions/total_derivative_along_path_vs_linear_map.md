@@ -22,11 +22,11 @@ see_also:
 
 The total derivative along a path is the [linear map](/dictionary/definitions/linear-map) applied to the velocity of the path:
 
-$$\frac{\mathrm{d}}{\mathrm{d}t} f(t, x(t)) = Df(t, x(t))~(1, x^{\prime}(t)).$$
+$$\frac{\diff{}}{\dt} f(t, x(t)) = Df(t, x(t))~(1, x^{\prime}(t)).$$
 
 ## Notes
 
-- Writing $\frac{\mathrm{d}f}{\mathrm{d}t}$ for a function $f(t, x)$ is ambiguous unless it is clear whether $x$ depends on $t$.
-  Writing $\frac{\mathrm{d}}{\mathrm{d}t} f(t, x(t))$ removes the ambiguity.
+- Writing $\frac{\diff{f}}{\dt}$ for a function $f(t, x)$ is ambiguous unless it is clear whether $x$ depends on $t$.
+  Writing $\frac{\diff{}}{\dt} f(t, x(t))$ removes the ambiguity.
 - In fluid mechanics, the total derivative along the motion of a fluid particle is called the _material derivative_.
   In Lyapunov analysis, $\dot{V}$ is the total derivative of $V(x(t))$ along solutions.

@@ -24,7 +24,7 @@ levels:
     context: topological spaces
     text: |-
       Consider a set $X$ with a [topology](/dictionary/definitions/topology).
-      A set $F \subseteq X$ is _closed_ if its complement $X \setminus F$ is [open](/dictionary/definitions/open-set).
+      A set $F \subseteq X$ is _closed_ if its complement $X \setdiff F$ is [open](/dictionary/definitions/open-set).
 
 properties:
   - >-

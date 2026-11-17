@@ -13,5 +13,5 @@ properties:
     For continuous-time linear systems, reconstructibility and observability are equivalent.
   - >-
     For $x_{k+1} = A x_k + B u_k$, $y_k = C x_k$, observability implies reconstructibility.
-    The converse fails when $A$ is singular: if $A = 0$, the current state is always $0$ after one step, even if nothing can be learned about the initial state.
+    The converse fails when $A$ is [singular](/dictionary/definitions/singular-matrix): if $A = 0$, the current state is always $0$ after one step, even if nothing can be learned about the initial state.
 ---

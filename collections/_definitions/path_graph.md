@@ -23,4 +23,4 @@ properties:
 ---
 A sequence of vertices joined by edges that may visit a vertex more than once is called a _walk_.
 
-In topology, a [path](/dictionary/definitions/path-continuous) is a [continuous](/dictionary/definitions/continuous) function from $[0, 1]$ into a space, which is a different object; see [continuous path vs. path in a graph](/dictionary/distinctions/path-continuous-vs-path-graph).
+In [topology](/dictionary/definitions/topology), a [path](/dictionary/definitions/path-continuous) is a [continuous](/dictionary/definitions/continuous) function from $[0, 1]$ into a space, which is a different object; see [continuous path vs. path in a graph](/dictionary/distinctions/path-continuous-vs-path-graph).

@@ -7,10 +7,10 @@ levels:
   graduate:
     context: topology
     text: |-
-      Consider two sets $A$ and $B$ in a topological space, with closures $\overline{A}$ and $\overline{B}$.
+      Consider two sets $A$ and $B$ in a topological space, with closures $\closure{A}$ and $\closure{B}$.
       The sets are _separated_ if each is disjoint from the closure of the other:
 
-      $$A \cap \overline{B} = \emptyset \quad \text{and} \quad \overline{A} \cap B = \emptyset.$$
+      $$A \cap \closure{B} = \emptyset \quad \text{and} \quad \closure{A} \cap B = \emptyset.$$
 properties:
   - >-
     A space is disconnected exactly when it is the [union](/dictionary/definitions/set-union) of two nonempty separated sets.

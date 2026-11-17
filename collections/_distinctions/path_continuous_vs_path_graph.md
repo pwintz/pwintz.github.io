@@ -3,7 +3,7 @@ title: "Path: Continuous Path vs. Path in a Graph"
 kind: conflicting
 areas: [topology, sets]
 summary: >
-  "Path" has two common meanings, one in topology and one in graph theory.
+  "Path" has two common meanings, one in [topology](/dictionary/definitions/topology) and one in graph theory.
   A [continuous path](/dictionary/definitions/path-continuous) is a [continuous](/dictionary/definitions/continuous) function $\gamma : [0, 1] \to X$ into a topological space $X$, so a continuous path passes through infinitely many points, unless the path stays at one point.
   A [path in a graph](/dictionary/definitions/path-graph) is a finite sequence of distinct vertices such that each pair of consecutive vertices is joined by an edge.
 terms:
@@ -21,6 +21,6 @@ see_also:
 ---
 ## Notes
 
-- The two meanings share a picture: when a graph is drawn in the plane with each edge drawn as a curve, a path in the graph traces a continuous path through the drawing, from the first vertex to the last.
+- The two meanings share a picture: when a graph is drawn in the plane with each edge drawn as a curve, a path in the graph traces a [continuous](/dictionary/definitions/continuous) path through the drawing, from the first vertex to the last.
 - A continuous path may cross itself, but a path in a graph visits each vertex at most once.
   A sequence of vertices joined by edges that may repeat vertices is called a _walk_.

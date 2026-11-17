@@ -8,14 +8,14 @@ levels:
     context: subsets of $\reals$
     text: |-
       Consider a set $A \subseteq \reals$.
-      The set $A$ has _full measure_ if the complement $\reals \setminus A$ has [measure zero](/dictionary/definitions/measure-zero).
+      The set $A$ has _full measure_ if the complement $\reals \setdiff A$ has [measure zero](/dictionary/definitions/measure-zero).
   graduate:
     context: measure theory
     text: |-
       Consider a measure $\mu$ on a space $X$ and a [measurable set](/dictionary/definitions/measurable-set) $A \subseteq X$.
       The set $A$ has _full measure_ if the complement of $A$ has [measure zero](/dictionary/definitions/measure-zero):
 
-      $$\mu(X \setminus A) = 0.$$
+      $$\mu(X \setdiff A) = 0.$$
 properties:
   - >-
     A set $A$ has full measure if and only if [almost every](/dictionary/definitions/almost-everywhere) point of $X$ is in $A$.

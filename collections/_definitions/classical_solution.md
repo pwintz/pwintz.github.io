@@ -15,5 +15,5 @@ levels:
 properties:
   - >-
     If $f$ is [continuous](/dictionary/definitions/continuous), then classical solutions exist (Peano's theorem).
-    If $f$ is also locally Lipschitz in $x$, then they are unique.
+    If $f$ is also [locally Lipschitz](/dictionary/definitions/locally-lipschitz-continuous) in $x$, then they are unique.
 ---

@@ -8,7 +8,7 @@ levels:
   high-school:
     text: |-
       Consider a [random variable](/dictionary/definitions/random-variable) $X$.
-      The [distribution](/dictionary/definitions/probability-distribution) of $X$ is _discrete_ if $X$ takes values in a list of separate values, such as the integers, and each value in the list has a positive [probability](/dictionary/definitions/probability).
+      The [distribution](/dictionary/definitions/probability-distribution) of $X$ is _discrete_ if $X$ takes values in a list of separate values, such as the [integers](/dictionary/definitions/integer), and each value in the list has a positive [probability](/dictionary/definitions/probability).
   undergraduate:
     context: measure-theoretic probability
     text: |-

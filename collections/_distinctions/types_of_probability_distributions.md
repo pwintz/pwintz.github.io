@@ -4,9 +4,9 @@ title: Discrete vs. Continuous vs. Mixed vs. Singular Distributions
 kind: siblings
 areas: [statistics]
 summary: >
-  The [probability distribution](/dictionary/definitions/probability-distribution) of a real [random variable](/dictionary/definitions/random-variable) is classified by where the distribution puts its probability.
+  The [probability distribution](/dictionary/definitions/probability-distribution) of a real [random variable](/dictionary/definitions/random-variable) is classified by where the distribution puts its [probability](/dictionary/definitions/probability).
   A [discrete distribution](/dictionary/definitions/discrete-distribution) puts all of its probability on countably many single values, and a [continuous distribution](/dictionary/definitions/continuous-distribution) spreads all of its probability by a density, so that every single value has probability $0$.
-  A [mixed distribution](/dictionary/definitions/mixed-distribution) combines a discrete part and a continuous part.
+  A [mixed distribution](/dictionary/definitions/mixed-distribution) combines a discrete part and a [continuous](/dictionary/definitions/continuous) part.
   A [singular distribution](/dictionary/definitions/singular-distribution) gives every single value probability $0$ but has no density, because it puts all of its probability on a set of length $0$.
 terms:
   - discrete_distribution

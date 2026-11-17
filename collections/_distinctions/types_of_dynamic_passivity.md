@@ -4,7 +4,7 @@ title: Types of Passivity
 kind: family
 areas: [control]
 summary: >
-  Passivity describes systems that store and dissipate energy but cannot produce it.
+  Passivity describes systems that store and dissipate [energy](/dictionary/definitions/energy) but cannot produce it.
   A [passive](/dictionary/definitions/passive) system cannot generate energy.
   The variants say where energy is dissipated: in proportion to the input, the output, or the state.
   A [lossless](/dictionary/definitions/lossless) system dissipates none.
@@ -26,6 +26,6 @@ see_also:
 ---
 ## Notes
 
-- Strict passivity dissipates energy whenever the state is nonzero.
+- Strict passivity dissipates [energy](/dictionary/definitions/energy) whenever the state is nonzero.
   If the storage function $V$ is positive definite, it is then a [Lyapunov function](/dictionary/definitions/lyapunov-function), and the origin of the [unforced](/dictionary/definitions/unforced) system ($u = 0$) is [asymptotically stable](/dictionary/definitions/asymptotically-stable).
 - Output strict passivity implies finite $L_2$ gain, a form of input-output stability.

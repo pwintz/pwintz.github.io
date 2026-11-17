@@ -10,7 +10,7 @@ values:
   interior: '$\operatorname{int} [0, 1] = (0, 1)$'
   boundary: '$\partial [0, 1] = \setdef{0, 1}$'
   exterior: '$\operatorname{ext} [0, 1] = (-\infty, 0) \cup (1, \infty)$'
-  closure: '$\overline{[0, 1]} = [0, 1]$'
+  closure: '$\closureOf{[0, 1]} = [0, 1]$'
 is: [
   closed_set,
   compact,

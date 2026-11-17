@@ -16,5 +16,5 @@ properties:
   - >-
     For each outcome $\omega$, the function $t \mapsto X_t(\omega)$ is called a _sample path_ of the process.
   - >-
-    A stochastic process is in discrete time if $T$ is [countable](/dictionary/definitions/countable), such as $\nats$, and in continuous time if $T$ is an interval, such as $[0, \infty)$.
+    A stochastic process is in discrete time if $T$ is [countable](/dictionary/definitions/countable), such as $\nats$, and in [continuous](/dictionary/definitions/continuous) time if $T$ is an interval, such as $[0, \infty)$.
 ---

@@ -14,7 +14,7 @@ levels:
       Consider a function $f$ defined on $[0, \infty)$.
       The _Laplace transform_ of $f$ is
 
-      $$F(s) = \int_0^{\infty} f(t) e^{-s t} \mathrm{d}t,$$
+      $$F(s) = \int_0^{\infty} f(t) e^{-s t} \dt,$$
 
       for the complex numbers $s$ where the integral converges (its region of convergence).
 ---

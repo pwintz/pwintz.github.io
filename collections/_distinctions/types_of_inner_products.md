@@ -26,6 +26,6 @@ see_also:
 
 - Each [inner product](/dictionary/definitions/inner-product) gives a [norm](/dictionary/definitions/norm), $\norm{x} = \sqrt{\ip{x}{x}}$, and a distance, $\norm{x - y}$.
   The [dot product](/dictionary/definitions/dot-product) gives the [Euclidean norm](/dictionary/definitions/euclidean-norm).
-- For complex vectors, the standard inner product is $\ip{x}{y} = \sum_i x_i \overline{y_i}$, with a complex conjugate, so that $\ip{x}{x}$ is a nonnegative [real number](/dictionary/definitions/real-number).
-- An inner product is defined only on a vector space, because the definition requires it to be linear in each argument.
+- For complex vectors, the standard inner product is $\ip{x}{y} = \sum_i x_i \conj{y_i}$, with a [complex conjugate](/dictionary/definitions/complex-conjugate), so that $\ip{x}{x}$ is a nonnegative [real number](/dictionary/definitions/real-number).
+- An inner product is defined only on a [vector space](/dictionary/definitions/vector-space), because the definition requires it to be linear in each argument.
   The dot product and [weighted inner products](/dictionary/definitions/weighted-inner-product) need $\reals^n$ (or coordinates for a finite-dimensional space), and the $L^2$ inner product needs functions whose squares are integrable.

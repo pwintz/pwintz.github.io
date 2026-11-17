@@ -15,7 +15,7 @@ levels:
       Consider a [random variable](/dictionary/definitions/random-variable) $X$, either discrete or with a density $f$.
       The _expected value_ of $X$ is
 
-      $$\mathbb{E}[X] = \sum_x x P(X = x) \quad \text{(discrete)} \qquad \text{or} \qquad \mathbb{E}[X] = \int x f(x) \mathrm{d}x \quad \text{(with density } f\text{)}.$$
+      $$\mathbb{E}[X] = \sum_x x P(X = x) \quad \text{(discrete)} \qquad \text{or} \qquad \mathbb{E}[X] = \int x f(x) \dx \quad \text{(with density } f\text{)}.$$
 
       It is a [weighted average](/dictionary/definitions/weighted-average) of the possible values, weighted by their probabilities.
 properties:

@@ -10,7 +10,7 @@ levels:
       The set $C$ is _convex_ if, for every two points of $C$, the straight segment between them lies in $C$.
   undergraduate:
     text: |-
-      Consider a set $C$ in a real vector space.
+      Consider a set $C$ in a real [vector space](/dictionary/definitions/vector-space).
       The set $C$ is _convex_ if, for all $x, y \in C$ and every $\lambda \in [0, 1]$,
 
       $$\lambda x + (1 - \lambda) y \in C.$$

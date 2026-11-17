@@ -1,6 +1,6 @@
 ---
 published: false
-title: 'The area under a curve, $f \mapsto \int_0^1 f(x) \mathrm{d}x$'
+title: 'The area under a curve, $f \mapsto \int_0^1 f(x) \dx$'
 level: high-school
 is: [functional]
 ---

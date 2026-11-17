@@ -9,7 +9,7 @@ is: [
 is_not: [continuous]
 why:
   measurable_map: >-
-    The indicator function of $\rationals$ is measurable, because $\rationals$ is a countable union of points, so $\rationals$ and its complement are Borel sets, and the preimage of every set is $\emptyset$, $\rationals$, $\reals \setminus \rationals$, or $\reals$.
+    The indicator function of $\rationals$ is measurable, because $\rationals$ is a countable union of points, so $\rationals$ and its complement are Borel sets, and the preimage of every set is $\emptyset$, $\rationals$, $\reals \setdiff \rationals$, or $\reals$.
   continuous: >-
     The indicator function of $\rationals$ is not continuous at any point, because every interval contains rational and irrational numbers, where it takes the values $1$ and $0$.
   indicator_function: >-

@@ -30,4 +30,4 @@ see_also:
 - Negative definite and negative semidefinite matrices are defined the same way, with the inequalities reversed: $A$ is negative definite exactly when $-A$ is positive definite.
 - A matrix that is neither positive nor negative semidefinite is _indefinite_.
 - A [positive definite function](/dictionary/definitions/positive-definite-function), as used for [Lyapunov functions](/dictionary/definitions/lyapunov-function), is a different notion: a function with $V(0) = 0$ and $V(x) > 0$ for $x \neq 0$.
-  The quadratic form $V(x) = x\trans A x$ is a positive definite function exactly when $A$ is a positive definite matrix.
+  The quadratic form $V(x) = x\trans A x$ is a positive definite function exactly when $A$ is a [positive definite matrix](/dictionary/definitions/positive-definite-matrix).

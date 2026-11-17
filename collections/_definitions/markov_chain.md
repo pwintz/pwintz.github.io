@@ -23,4 +23,4 @@ properties:
   - >-
     The probabilities of being in each state after $n$ steps are the entries of $\pi_0 P^n$, where $\pi_0$ is the row vector of initial probabilities.
 ---
-Some authors use "Markov chain" only for discrete time, and "Markov process" for continuous time or for uncountably many states.
+Some authors use "Markov chain" only for discrete time, and "Markov process" for [continuous](/dictionary/definitions/continuous) time or for uncountably many states.

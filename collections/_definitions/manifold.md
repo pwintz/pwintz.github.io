@@ -16,7 +16,7 @@ levels:
       A _manifold_ of dimension $n$ is a topological space $M$ such that
 
       1. $M$ is [Hausdorff](/dictionary/definitions/hausdorff-space),
-      2. $M$ is second countable, and
+      2. $M$ is second [countable](/dictionary/definitions/countable), and
       3. every point of $M$ has an open [neighborhood](/dictionary/definitions/neighborhood) that is [homeomorphic](/dictionary/definitions/homeomorphism) to an open [subset](/dictionary/definitions/subset) of $\reals^n$.
 properties:
   - >-
@@ -24,5 +24,5 @@ properties:
   - >-
     The [circle](/dictionary/definitions/circle-topological) is a manifold of dimension $1$, and the [sphere](/dictionary/definitions/sphere-topological) is a manifold of dimension $2$.
   - >-
-    A figure-eight curve is not a manifold, because no neighborhood of its crossing point is homeomorphic to an open interval.
+    A figure-eight curve is not a manifold, because no [neighborhood](/dictionary/definitions/neighborhood) of its crossing point is homeomorphic to an open interval.
 ---

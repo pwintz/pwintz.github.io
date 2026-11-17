@@ -15,7 +15,7 @@ values:
   interior: '$\operatorname{int} \rationals = \emptyset$'
   boundary: '$\partial \rationals = \reals$'
   exterior: '$\operatorname{ext} \rationals = \emptyset$'
-  closure: '$\overline{\rationals} = \reals$'
+  closure: '$\closure{\rationals} = \reals$'
 why:
   closure: >-
     The closure of $\rationals$ is $\reals$, because every real number is a limit of rational numbers.
@@ -32,7 +32,7 @@ why:
   almost_everywhere: >-
     $\rationals$ does not hold almost everywhere, because $\rationals$ has measure zero.
   full_measure: >-
-    $\rationals$ does not have full measure in $\reals$, because its complement $\reals \setminus \rationals$ does not have measure zero.
+    $\rationals$ does not have full measure in $\reals$, because its complement $\reals \setdiff \rationals$ does not have measure zero.
   interior: >-
     Every interval contains rational and irrational numbers, so $\rationals$ has an empty interior and an empty exterior.
 ---

@@ -10,9 +10,9 @@ levels:
       Consider a [measurable function](/dictionary/definitions/measurable-map) $f \geq 0$ on a measure space, such as $\reals$ with [Lebesgue measure](/dictionary/definitions/lebesgue-measure) $\mu$.
       The _Lebesgue integral_ of $f$ slices the range of $f$ instead of its domain: it is the [supremum](/dictionary/definitions/supremum) of the integrals of simple functions $s = \sum_k c_k \mathbf{1}_{A_k}$ below $f$,
 
-      $$\int f \mathrm{d}\mu = \sup \setdef{\sum_k c_k \mu(A_k) \suchthat 0 \leq s \leq f}.$$
+      $$\int f \diff{\mu} = \sup \setdef{\sum_k c_k \mu(A_k) \suchthat 0 \leq s \leq f}.$$
 
-      A general $f$ is split as $f = f^{+} - f^{-}$ into its positive and negative parts, and $\int f \mathrm{d}\mu = \int f^{+} \mathrm{d}\mu - \int f^{-} \mathrm{d}\mu$ when both are finite.
+      A general $f$ is split as $f = f^{+} - f^{-}$ into its positive and negative parts, and $\int f \diff{\mu} = \int f^{+} \diff{\mu} - \int f^{-} \diff{\mu}$ when both are finite.
 properties:
   - >-
     Every Riemann integrable function on $[a, b]$ is Lebesgue integrable, with the same integral.

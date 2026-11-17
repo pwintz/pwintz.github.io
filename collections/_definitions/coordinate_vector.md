@@ -10,7 +10,7 @@ levels:
       The _coordinate vector_ of a vector [vector](/dictionary/definitions/vector) $v$ is the list of numbers saying how much of each basis direction is needed to equal $v$.
   undergraduate:
     text: |-
-      Consider a [vector](/dictionary/definitions/vector) space $V$ with a [basis](/dictionary/definitions/vector-basis) $B = (b_1, \dots, b_n)$, and a vector $v$ in $V$, written as $v = c_1 b_1 + \dots + c_n b_n$.
+      Consider a [vector space](/dictionary/definitions/vector-space) $V$ with a [basis](/dictionary/definitions/vector-basis) $B = (b_1, \dots, b_n)$, and a vector $v$ in $V$, written as $v = c_1 b_1 + \dots + c_n b_n$.
       The _coordinate vector_ of $v$ is 
       
       $$[v]_B = (c_1, c_2, \dots, c_n) \in \reals^n.$$

@@ -25,7 +25,7 @@ levels:
       3. $d(x, z) \leq d(x, y) + d(y, z)$ (the triangle inequality).
 
       The last condition is the _triangle inequality_.
-      The set $X$ need not be a [vector](/dictionary/definitions/vector) space.
+      The set $X$ need not be a [vector space](/dictionary/definitions/vector-space).
 ---
 In differential geometry, a "metric" (Riemannian metric) is an [inner product](/dictionary/definitions/inner-product) on each [tangent space](/dictionary/definitions/tangent-space), not a distance function, though it determines one.
 In everyday language, a "metric" is any measurement or performance indicator.

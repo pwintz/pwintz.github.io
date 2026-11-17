@@ -15,7 +15,7 @@ levels:
       Momentum is a [vector](/dictionary/definitions/vector), with the direction of the velocity, and is measured in kilogram meters per second (kg·m/s).
 properties:
   - >-
-    Force is the rate of change of momentum: $F = \frac{\mathrm{d}p}{\mathrm{d}t}$.
+    Force is the rate of change of momentum: $F = \frac{\diff{p}}{\dt}$.
     A change of momentum is called an _impulse_.
   - >-
     The total momentum of an isolated system is constant, so momentum is conserved in every collision, elastic or inelastic.

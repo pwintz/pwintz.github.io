@@ -22,10 +22,10 @@ levels:
       $$S^2 = \frac{1}{n - 1} \sum_{i = 1}^{n} (X_i - \bar{X})^2.$$
 properties:
   - >-
-    The sample variance is an unbiased estimator of the variance $\sigma^2$ of each $X_i$: $\mathbb{E}[S^2] = \sigma^2$.
+    The sample variance is an unbiased estimator of the [variance](/dictionary/definitions/variance) $\sigma^2$ of each $X_i$: $\mathbb{E}[S^2] = \sigma^2$.
   - >-
-    The data are closer, on average, to their own sample mean $\bar{x}$ than to the population mean $\mu$, because $\bar{x}$ is the number that minimizes the sum of squared distances to the data.
-    Dividing by $n$ would therefore underestimate the variance on average, and dividing by $n - 1$ instead (Bessel's correction) exactly compensates.
+    The data are closer, on average, to their own sample mean $\bar{x}$ than to the [population mean](/dictionary/definitions/expected-value) $\mu$, because $\bar{x}$ is the number that minimizes the sum of squared distances to the data.
+    Dividing by $n$ would therefore underestimate the [variance](/dictionary/definitions/variance) on average, and dividing by $n - 1$ instead (Bessel's correction) exactly compensates.
   - >-
     The sample variance of a single data point is undefined, because one data point carries no information about the spread of the population.
 ---

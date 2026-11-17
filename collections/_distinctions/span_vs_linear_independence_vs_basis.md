@@ -4,7 +4,7 @@ title: Linearly Independent vs. Spanning vs. Basis
 kind: siblings
 areas: [linear-algebra]
 summary: >
-  A list of vectors in a vector space can have too few vectors to reach everything, or too many to avoid redundancy.
+  A list of vectors in a [vector space](/dictionary/definitions/vector-space) can have too few vectors to reach everything, or too many to avoid redundancy.
   [Linearly independent](/dictionary/definitions/linearly-independent) vectors have no redundancy, and spanning vectors reach every vector by [linear combinations](/dictionary/definitions/linear-combination).
   A [basis](/dictionary/definitions/vector-basis) is both: linearly independent and spanning.
 terms:

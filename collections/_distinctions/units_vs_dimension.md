@@ -24,5 +24,5 @@ see_also:
   This is independent of the choice of units, and checking it (dimensional analysis) catches many errors.
 - Quantities with the same dimension can be added after converting units ($1~\mathrm{m} + 1~\mathrm{ft}$).
   Quantities with different dimensions cannot be added at all ($1~\mathrm{m} + 1~\mathrm{s}$).
-- "Dimension" also means the dimension of a vector space, which is unrelated.
+- "Dimension" also means the dimension of a [vector space](/dictionary/definitions/vector-space), which is unrelated.
   See [the meanings of "dimension"](/dictionary/distinctions/meanings-of-dimension).

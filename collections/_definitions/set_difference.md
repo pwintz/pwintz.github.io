@@ -7,15 +7,17 @@ levels:
   # elementary:
   #   text: |-
   #     Think of two sets $A$ and $B$.
-  #     The _set difference_ $A \setminus B$ is what is left of $A$ after removing everything that is also in $B$.
+  #     The _set difference_ $A \setdiff B$ is what is left of $A$ after removing everything that is also in $B$.
   high-school:
     text: |-
       Consider1 two sets $A$ and $B$.
-      The _set difference_ $A \setminus B$ is the set of elements of $A$ that are not in $B$.
+      The _set difference_ $A \setdiff B$ is the set of elements of $A$ that are not in $B$.
     undergraduate:
       text: |-
         Consider two sets $A$ and $B$.
         The _set difference_ of sets $A$ and $B$ is 
         
-        $$A \setminus B = \setdef{x \suchthat x \in A \text{ and } x \notin B}.$$
+        $$A \setdiff B = \setdef{x \suchthat x \in A \text{ and } x \notin B}.$$
 ---
+Most texts write the set difference as $A \setminus B$, and some write it as $A - B$.
+Readers can choose either one in the [notation settings](/settings/notation/).

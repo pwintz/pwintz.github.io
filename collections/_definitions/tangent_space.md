@@ -15,5 +15,5 @@ levels:
   # TODO: Add graduate version.
 properties:
   - >-
-    The tangent space is a [vector](/dictionary/definitions/vector) space whose dimension equals the dimension of $M$.
+    The tangent space is a [vector space](/dictionary/definitions/vector-space) whose dimension equals the dimension of $M$.
 ---

@@ -15,7 +15,7 @@ levels:
 
       $$x_{k+1} = f(x_k, u_k) + w_k, \qquad y_k = h(x_k) + v_k,$$
 
-      where $f$ and $h$ are [differentiable](/dictionary/definitions/differentiable), and the noises $w_k$ and $v_k$ are independent, zero-mean, and white, with covariances $Q$ and $R$.
+      where $f$ and $h$ are [differentiable](/dictionary/definitions/differentiable), and the noises $w_k$ and $v_k$ are independent, zero-mean, and white, with [covariances](/dictionary/definitions/covariance) $Q$ and $R$.
       The _extended Kalman filter_ for this system is the [filter](/dictionary/definitions/filter-estimation) that computes a state estimate $\hat{x}_k$ and an approximate error covariance $P_k$ by repeating two steps.
       First, it predicts
 

@@ -9,7 +9,7 @@ values:
   flow: '$\varphi(t, (x_0, y_0)) = (x_0 \cos t + y_0 \sin t, \, -x_0 \sin t + y_0 \cos t)$'
 why:
   trajectory: >-
-    The trajectory of the harmonic oscillator from $(1, 0)$ is $(\cos t, -\sin t)$, because $\frac{\mathrm{d}}{\mathrm{d}t} \cos t = -\sin t = y$ and $\frac{\mathrm{d}}{\mathrm{d}t}(-\sin t) = -\cos t = -x$, and the function starts at $(1, 0)$.
+    The trajectory of the harmonic oscillator from $(1, 0)$ is $(\cos t, -\sin t)$, because $\frac{\diff{}}{\dt} \cos t = -\sin t = y$ and $\frac{\diff{}}{\dt}(-\sin t) = -\cos t = -x$, and the function starts at $(1, 0)$.
   path_continuous: >-
     The path $\gamma(s) = (\cos 2 \pi s, -\sin 2 \pi s)$ follows the trajectory of the harmonic oscillator from $(1, 0)$ for one period, $2 \pi$, with the time $t = 2 \pi s$ rescaled to the parameter $s \in [0, 1]$.
   orbit: >-

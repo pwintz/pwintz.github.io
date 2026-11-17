@@ -26,7 +26,7 @@ properties:
     The coordinate systems that come from an origin and a [basis](/dictionary/definitions/vector-basis) are exactly the ones whose coordinate functions are affine, so their coordinate curves are straight lines.
     Curvilinear coordinate systems, whose coordinate curves bend, come from no basis.
   - >-
-    The surface of a [sphere](/dictionary/definitions/sphere) has no coordinate system that is a [homeomorphism](/dictionary/definitions/homeomorphism) onto an open [subset](/dictionary/definitions/subset) of $\reals^2$, so a manifold may need several charts, which form an [atlas](/dictionary/definitions/atlas), to cover it.
+    The surface of a [sphere](/dictionary/definitions/sphere) has no coordinate system that is a [homeomorphism](/dictionary/definitions/homeomorphism) onto an open [subset](/dictionary/definitions/subset) of $\reals^2$, so a [manifold](/dictionary/definitions/manifold) may need several charts, which form an [atlas](/dictionary/definitions/atlas), to cover it.
 ---
 Some linear algebra texts call a [basis](/dictionary/definitions/vector-basis) a "coordinate system," because a basis determines the coordinates of each vector.
 

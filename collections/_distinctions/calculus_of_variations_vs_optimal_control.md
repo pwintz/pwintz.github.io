@@ -17,7 +17,7 @@ examples:
       Moving a cart in minimum time is an optimal control problem but not a problem in the calculus of variations, because the input is bounded, and the optimal input jumps between its bounds.
   - example: minimizing_integral_of_x_sq_plus_u_sq_for_xdot_eq_x_plus_u
     why: >-
-      Minimizing $\int_0^\infty (x^2 + u^2) \, \mathrm{d}t$ for $\dot{x} = x + u$ is posed as an optimal control problem, but the input is unconstrained and can be solved for from the dynamics, so the problem is also a problem in the calculus of variations.
+      Minimizing $\int_0^\infty (x^2 + u^2) \dt$ for $\dot{x} = x + u$ is posed as an optimal control problem, but the input is unconstrained and can be solved for from the dynamics, so the problem is also a problem in the calculus of variations.
 ---
 ## Notes
 

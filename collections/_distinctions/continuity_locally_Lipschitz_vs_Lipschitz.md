@@ -28,5 +28,5 @@ see_also:
 ---
 ## Notes
 
-- On a [compact](/dictionary/definitions/compact) domain, such as $[0, 1]$, locally Lipschitz continuous and Lipschitz continuous are equivalent, so the difference appears only on domains that are unbounded or missing boundary points.
+- On a [compact](/dictionary/definitions/compact) domain, such as $[0, 1]$, [locally Lipschitz continuous](/dictionary/definitions/locally-lipschitz-continuous) and [Lipschitz continuous](/dictionary/definitions/lipschitz-continuous) are equivalent, so the difference appears only on domains that are unbounded or missing boundary points.
 - The difference matters for differential equations $\dot{x} = f(x)$: local Lipschitz continuity of $f$ gives unique solutions for a short time, and global Lipschitz continuity also rules out finite-time blow-up, as in $\dot{x} = x^2$, whose solution from $x(0) = 1$ is $x(t) = 1 / (1 - t)$.

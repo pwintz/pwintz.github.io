@@ -7,7 +7,7 @@ levels:
     context: mechanics
     text: |-
       Consider a mechanical system moving under forces.
-      The system is _conservative_ if the total energy of the system stays constant as the system moves.
+      The system is _conservative_ if the total [energy](/dictionary/definitions/energy) of the system stays constant as the system moves.
       
       More precisely, for a system with total energy  
 
@@ -24,7 +24,7 @@ levels:
     context: classical mechanics
     text: |-
       Consider a mechanical system with generalized coordinates $q = (q_1, \dots, q_n)$.
-      The system is _conservative_ if every force on the system comes from a potential energy $V(q)$ that depends only on the positions:
+      The system is _conservative_ if every force on the system comes from a potential [energy](/dictionary/definitions/energy) $V(q)$ that depends only on the positions:
 
       $$F = -\nabla V(q).$$
   graduate:
@@ -36,9 +36,9 @@ levels:
       
 properties:
   - >-
-    In a conservative system, the total energy $E = U + K$, the potential energy plus the kinetic energy, is constant along every motion.
+    In a conservative system, the total [energy](/dictionary/definitions/energy) $E = U + K$, the potential energy plus the kinetic energy, is constant along every motion.
   - >-
-    Friction, air resistance, and other damping forces make a system non-conservative, because these forces turn mechanical energy into heat.
+    Friction, air resistance, and other damping forces make a system non-conservative, because these forces turn mechanical [energy](/dictionary/definitions/energy) into heat.
   - >-
     A conservative system has the [Lagrangian](/dictionary/definitions/lagrangian) $L = T - V$.
 ---

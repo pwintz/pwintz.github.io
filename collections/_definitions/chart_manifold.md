@@ -21,4 +21,4 @@ properties:
   - >-
     The [sphere](/dictionary/definitions/sphere) has no chart whose domain is the whole sphere, so an [atlas](/dictionary/definitions/atlas) of the sphere needs at least two charts.
 ---
-A chart on a manifold is unrelated to a [chart](/dictionary/definitions/chart) that presents data.
+A chart on a [manifold](/dictionary/definitions/manifold) is unrelated to a [chart](/dictionary/definitions/chart) that presents data.

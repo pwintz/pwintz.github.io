@@ -9,7 +9,7 @@ levels:
   undergraduate:
     context: normed vector spaces
     text: |-
-      Consider a vector space $V$ with a [norm](/dictionary/definitions/norm) $\norm{\cdot}$.
+      Consider a [vector space](/dictionary/definitions/vector-space) $V$ with a [norm](/dictionary/definitions/norm) $\norm{\cdot}$.
       A _unit vector_ is a vector $u \in V$ such that
 
       $$\norm{u} = 1.$$

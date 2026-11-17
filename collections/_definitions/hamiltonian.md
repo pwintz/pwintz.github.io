@@ -7,7 +7,7 @@ levels:
   high-school:
     context: conservative mechanical systems
     text: |-
-      Consider a mechanical system whose forces come from a potential energy.
+      Consider a mechanical system whose forces come from a potential [energy](/dictionary/definitions/energy).
       The _Hamiltonian_ of the system is the total energy, kinetic plus potential, written as a function of the positions and the momenta, instead of the positions and the velocities:
 
       $$H = T + V.$$
@@ -26,8 +26,8 @@ properties:
   - >-
     If the Hamiltonian does not depend on $t$, then the value of the Hamiltonian is constant along every motion.
   - >-
-    If the kinetic energy $T$ is quadratic in the velocities and the potential energy $V$ depends only on the positions, then $H = T + V$ is the total energy.
+    If the kinetic [energy](/dictionary/definitions/energy) $T$ is quadratic in the velocities and the potential energy $V$ depends only on the positions, then $H = T + V$ is the total energy.
 ---
-The passage from $L(q, \dot{q}, t)$ to $H(q, p, t)$ is the Legendre transform in the velocities.
+The passage from $L(q, \dot{q}, t)$ to $H(q, p, t)$ is the Legendre [transform](/dictionary/definitions/transform) in the velocities.
 
 In [optimal control](/dictionary/definitions/optimal-control), the _Hamiltonian_ $H(x, u, \lambda) = \ell(x, u) + \lambda\trans f(x, u)$ of Pontryagin's maximum principle generalizes the Hamiltonian of mechanics, with the costate $\lambda$ in place of the momenta.

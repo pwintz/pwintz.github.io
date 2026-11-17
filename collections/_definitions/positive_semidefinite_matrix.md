@@ -17,7 +17,7 @@ properties:
   - >-
     A positive semidefinite matrix is [positive definite](/dictionary/definitions/positive-definite-matrix) if and only if it is [invertible](/dictionary/definitions/invertible-matrix).
   - >-
-    Sylvester's criterion with $\geq$ does not test positive semidefiniteness: all leading principal minors of $$\begin{bmatrix} 0 & 0 \\ 0 & -1 \end{bmatrix}$$ are $\geq 0$, but $x = (0, 1)$ gives $x\trans A x = -1$.
+    Sylvester's criterion with $\geq$ does not test positive semidefiniteness: all leading principal [minors](/dictionary/definitions/minor) of $$\begin{bmatrix} 0 & 0 \\ 0 & -1 \end{bmatrix}$$ are $\geq 0$, but $x = (0, 1)$ gives $x\trans A x = -1$.
     All principal minors (not only the leading ones) must be nonnegative.
 ---
 Writing $A \succeq 0$ means that $A$ is positive semidefinite, and $A \succ 0$ means that $A$ is positive definite.

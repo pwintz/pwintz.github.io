@@ -25,7 +25,7 @@ see_also:
 ---
 ## Notes
 
-- A [Lyapunov function](/dictionary/definitions/lyapunov-function) gives barrier functions for free: if $\dot{V} \leq 0$, each sublevel set $\setdef{x \suchthat V(x) \leq c}$ is [forward invariant](/dictionary/definitions/forward-invariant).
+- A [Lyapunov function](/dictionary/definitions/lyapunov-function) gives barrier functions for free: if $\dot{V} \leq 0$, each [sublevel set](/dictionary/definitions/sublevel-set) $\setdef{x \suchthat V(x) \leq c}$ is [forward invariant](/dictionary/definitions/forward-invariant).
   The converse fails, because a barrier function says nothing about convergence.
 - Stability is a property of an [equilibrium](/dictionary/definitions/equilibrium) (or set) and its [neighborhood](/dictionary/definitions/neighborhood).
   Safety is a property of where solutions go from a given initial set.

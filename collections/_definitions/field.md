@@ -5,7 +5,7 @@ applies_to: algebraic structures
 levels:
   high-school:
     text: |-
-      A _field_ is a set of numbers (or other objects) that can be added, subtracted, multiplied, and divided by every nonzero element, following the same rules as the arithmetic of real numbers.
+      A _field_ is a set of numbers (or other objects) that can be added, subtracted, multiplied, and divided by every nonzero element, following the same rules as the arithmetic of [real numbers](/dictionary/definitions/real-number).
   undergraduate:
     context: abstract algebra
     text: |-

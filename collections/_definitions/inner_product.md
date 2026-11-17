@@ -10,22 +10,22 @@ levels:
   undergraduate:
     context: real vector spaces
     text: |-
-      Consider a real [vector](/dictionary/definitions/vector) space $V$ and a function $\ip{\cdot}{\cdot} : V \times V \to \reals$.
+      Consider a real [vector space](/dictionary/definitions/vector-space) $V$ and a function $\ip{\cdot}{\cdot} : V \times V \to \reals$.
       The function is an _inner product_ if
 
       1. it is linear in its first argument: $\ip{a x + y}{z} = a \ip{x}{z} + \ip{y}{z}$ for all $x, y, z \in V$ and $a \in \reals$,
-      2. it is symmetric: $\ip{x}{y} = \ip{y}{x}$ for all $x, y \in V$, and
-      3. it is [positive definite](/dictionary/definitions/positive-definite-function): $\ip{x}{x} > 0$ for for all $x \neq 0 in $V$.
+      2. it is [symmetric](/dictionary/definitions/symmetric-operation): $\ip{x}{y} = \ip{y}{x}$ for all $x, y \in V$, and
+      3. it is [positive definite](/dictionary/definitions/positive-definite-function): $\ip{x}{x} > 0$ for all $x \neq 0$ in $V$.
     caveat: >-
-      For complex vector spaces, [symmetry](/dictionary/definitions/geometric-symmetry) is replaced by conjugate symmetry, $\ip{x}{y} = \overline{\ip{y}{x}}$, so the inner product is linear in one argument and conjugate-linear in the other.
+      For complex [vector spaces](/dictionary/definitions/vector-space), [symmetry](/dictionary/definitions/symmetric-operation) is replaced by [conjugate symmetry](/dictionary/definitions/conjugate-symmetric), $\ip{x}{y} = \conj{\ip{y}{x}}$, so the inner product is linear in one argument and conjugate-linear in the other.
   graduate:
     context: real or complex vector spaces
     text: |-
-      Consider a vector space $V$ over $\mathbb{F}$, where $\mathbb{F}$ is $\reals$ or $\complexes$, and a sesquilinear form $\ip{\cdot}{\cdot}$ on $V$: a function $V \times V \to \mathbb{F}$ that is linear in its first argument and conjugate-linear in its second.
+      Consider a [vector space](/dictionary/definitions/vector-space) $V$ over $\mathbb{F}$, where $\mathbb{F}$ is $\reals$ or $\complexes$, and a sesquilinear form $\ip{\cdot}{\cdot}$ on $V$: a function $V \times V \to \mathbb{F}$ that is linear in its first argument and conjugate-linear in its second.
       The form is an _inner product_ if, for all $x, y \in V$,
 
-      1. it is Hermitian: $\ip{x}{y} = \overline{\ip{y}{x}}$, and
+      1. it is Hermitian: $\ip{x}{y} = \conj{\ip{y}{x}}$, and
       2. it is positive definite: $\ip{x}{x} > 0$ for $x \neq 0$.
 
-      Over $\reals$, a sesquilinear form is a [bilinear form](/dictionary/definitions/bilinear-form), and Hermitian means symmetric.
+      Over $\reals$, a sesquilinear form is a [bilinear form](/dictionary/definitions/bilinear-form), and Hermitian means [symmetric](/dictionary/definitions/symmetric-operation).
 ---

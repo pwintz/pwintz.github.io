@@ -29,5 +29,5 @@ see_also:
 ## Notes
 
 - Whether a function is [surjective](/dictionary/definitions/surjective) depends on its [codomain](/dictionary/definitions/codomain), not just its rule.
-- For groups and vector spaces, every [bijective](/dictionary/definitions/bijective) homomorphism is an isomorphism.
+- For groups and [vector spaces](/dictionary/definitions/vector-space), every [bijective](/dictionary/definitions/bijective) homomorphism is an isomorphism.
   For topological spaces, this fails: $t \mapsto (\cos t, \sin t)$ is a [continuous](/dictionary/definitions/continuous) bijection from $[0, 2\pi)$ onto the unit [circle](/dictionary/definitions/circle), but its inverse is not continuous, so it is not a [homeomorphism](/dictionary/definitions/homeomorphism).

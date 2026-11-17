@@ -24,13 +24,13 @@ see_also:
 The denominator depends on the question being asked.
 
 - **Describing the data themselves.**
-  If the data are the whole population, such as the test scores of every student in a class, then the variance is the average squared distance from the mean, so the sum is divided by the number $n$ of data points.
+  If the data are the whole population, such as the test scores of every student in a class, then the [variance](/dictionary/definitions/variance) is the average squared distance from the mean, so the sum is divided by the number $n$ of data points.
 - **Estimating the spread of a larger population.**
   If the data are a random sample, then the goal is to estimate the population variance
 
   $$\sigma^2 = \mathbb{E}[(X - \mu)^2],$$
 
-  which measures distances from the population mean $\mu$.
+  which measures distances from the [population mean](/dictionary/definitions/expected-value) $\mu$.
   The population mean $\mu$ is unknown, so the formula uses the sample mean $\bar{x}$ in place of $\mu$.
   The sample mean is computed from the same data, so the sample mean is pulled toward the data: $\bar{x}$ is the number $c$ that minimizes $\sum_{i} (x_i - c)^2$.
   Therefore, the squared distances from $\bar{x}$ are smaller, on average, than the squared distances from $\mu$, and dividing their sum by $n$ underestimates $\sigma^2$.

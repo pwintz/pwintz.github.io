@@ -13,7 +13,7 @@ levels:
       $$S_t = S_0 \exp\left( \left(\mu - \tfrac{1}{2} \sigma^2\right) t + \sigma W_t \right).$$
 properties:
   - >-
-    A geometric Brownian motion solves the stochastic differential equation $\mathrm{d}S_t = \mu S_t \, \mathrm{d}t + \sigma S_t \, \mathrm{d}W_t$, so its changes are proportional to its current value.
+    A geometric Brownian motion solves the stochastic differential equation $\diff{S}_t = \mu S_t \dt + \sigma S_t \diff{W}_t$, so its changes are proportional to its current value.
   - >-
     Every value $S_t$ of a geometric Brownian motion is positive.
   - >-

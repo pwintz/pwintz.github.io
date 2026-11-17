@@ -12,7 +12,7 @@ levels:
       $$x \cdot y = x_1 y_1 + x_2 y_2 + \dots + x_n y_n.$$
   undergraduate:
     text: |-
-      Consider the vector space $\reals^n$, with vectors written as columns.
+      Consider the [vector space](/dictionary/definitions/vector-space) $\reals^n$, with vectors written as columns.
       The _dot product_ is the standard [inner product](/dictionary/definitions/inner-product) on $\reals^n$,
 
       $$x \cdot y = x\trans y.$$

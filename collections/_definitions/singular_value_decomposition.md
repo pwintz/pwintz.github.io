@@ -21,4 +21,4 @@ properties:
   - |-
     Geometrically, every [linear map](/dictionary/definitions/linear-map) is a rotation (or reflection), followed by stretching along perpendicular axes, followed by another rotation (or reflection).
 ---
-For complex matrices, $V\trans$ is replaced by the conjugate transpose $V^{\ast}$, and $U$ and $V$ are unitary.
+For complex matrices, $V\trans$ is replaced by the [conjugate transpose](/dictionary/definitions/conjugate-transpose) $V^{\ast}$, and $U$ and $V$ are unitary.

@@ -2,7 +2,7 @@
 title: '$x \mapsto x^2$ on $[0, 1]$'
 level: high-school
 values:
-  riemann_integral: '$\int_0^1 x^2 \mathrm{d}x = \frac{1}{3}$'
+  riemann_integral: '$\int_0^1 x^2 \dx = \frac{1}{3}$'
   lebesgue_integral: '$\frac{1}{3}$'
 is: [
   locally_Lipschitz_continuous,

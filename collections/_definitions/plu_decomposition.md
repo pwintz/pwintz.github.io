@@ -13,7 +13,7 @@ levels:
 
       where
 
-      1. $P$ is a permutation matrix (the identity matrix with its rows reordered),
+      1. $P$ is a [permutation](/dictionary/definitions/permutation) matrix (the identity matrix with its rows reordered),
       2. $L$ is lower triangular with ones on its diagonal, and
       3. $U$ is upper triangular.
 properties:
@@ -26,6 +26,6 @@ properties:
     _Partial pivoting_, which brings the entry of largest absolute value in each column to the pivot position, makes the multipliers in $L$ at most $1$ in absolute value, which limits the growth of rounding errors.
 ---
 Some authors write $P A = L U$ instead of $A = P L U$.
-The two conventions use inverse permutation matrices, since $P^{-1} = P\trans$.
+The two conventions use inverse [permutation](/dictionary/definitions/permutation) matrices, since $P^{-1} = P\trans$.
 
 Numerical libraries (for example, `lu` in MATLAB and `scipy.linalg.lu` in Python) compute a PLU decomposition with partial pivoting, not a plain [LU decomposition](/dictionary/definitions/lu-decomposition).

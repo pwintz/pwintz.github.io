@@ -4,7 +4,7 @@ level: elementary
 values:
   set_union: '$A \cup B = \setdef{1, 2, 3, 4}$'
   set_intersection: '$A \cap B = \emptyset$'
-  set_difference: '$A \setminus B = \setdef{1, 2}$'
+  set_difference: '$A \setdiff B = \setdef{1, 2}$'
   union_of_disjoint_sets: '$A \cup B = \setdef{1, 2, 3, 4}$'
 why:
   set_intersection: >-

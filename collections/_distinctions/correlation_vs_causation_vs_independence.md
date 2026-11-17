@@ -5,7 +5,7 @@ kind: siblings
 areas: [statistics]
 summary: >
   Two quantities that vary together can be related in different senses.
-  [Correlation](/dictionary/definitions/correlation) measures how closely two quantities follow a straight-line relationship in observed data or in a probability model.
+  [Correlation](/dictionary/definitions/correlation) measures how closely two quantities follow a straight-line relationship in observed data or in a [probability](/dictionary/definitions/probability) model.
   [Causation](/dictionary/definitions/causation) says that changing one quantity, while everything else is held fixed, changes the other quantity.
   [Statistical independence](/dictionary/definitions/statistical-independence) says that knowing the value of one quantity does not change the probabilities of the values of the other quantity.
 terms:
@@ -33,5 +33,5 @@ see_also:
 ---
 ## Notes
 
-- If two random variables with finite variances are independent, then the random variables are uncorrelated; the converse is false.
-- "Correlation does not imply causation," and causation does not imply correlation either.
+- If two [random variables](/dictionary/definitions/random-variable) with finite [variances](/dictionary/definitions/variance) are independent, then the random variables are uncorrelated; the converse is false.
+- "[Correlation](/dictionary/definitions/correlation) does not imply [causation](/dictionary/definitions/causation)," and causation does not imply correlation either.

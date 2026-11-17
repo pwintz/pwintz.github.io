@@ -16,9 +16,9 @@ levels:
       A set in $\mathcal{T}_A$ is called _relatively open_ in $A$.
 properties:
   - >-
-    The subspace topology on $A$ is the coarsest topology on $A$ such that the [inclusion map](/dictionary/definitions/inclusion-map) $\iota : A \hookrightarrow X$ is [continuous](/dictionary/definitions/continuous).
+    The subspace topology on $A$ is the coarsest [topology](/dictionary/definitions/topology) on $A$ such that the [inclusion map](/dictionary/definitions/inclusion-map) $\iota : A \hookrightarrow X$ is [continuous](/dictionary/definitions/continuous).
   - >-
-    If the topology on $X$ comes from a [metric](/dictionary/definitions/metric) $d$, then the subspace topology on $A$ comes from the metric $d$ restricted to $A \times A$.
+    If the [topology](/dictionary/definitions/topology) on $X$ comes from a [metric](/dictionary/definitions/metric) $d$, then the subspace topology on $A$ comes from the metric $d$ restricted to $A \times A$.
 ---
 A set that is relatively open in $A$ need not be open in $X$.
-A subset of a topological space is called [connected](/dictionary/definitions/connected) or [compact](/dictionary/definitions/compact) when the subset is connected or compact in the subspace topology.
+A [subset](/dictionary/definitions/subset) of a topological space is called [connected](/dictionary/definitions/connected) or [compact](/dictionary/definitions/compact) when the subset is connected or compact in the subspace topology.

@@ -7,7 +7,7 @@ summary: >
   For a system with inputs, stability can be required of the state or only of the output.
   Input-to-state stability bounds the state for every initial state and input.
   BIBO stability only requires [bounded](/dictionary/definitions/bounded) outputs for bounded inputs, starting from zero.
-  A finite $L_2$ gain bounds the energy of the output by the energy of the input.
+  A finite $L_2$ gain bounds the [energy](/dictionary/definitions/energy) of the output by the energy of the input.
 terms:
   - bibo_stable
   - input_to_state_stable

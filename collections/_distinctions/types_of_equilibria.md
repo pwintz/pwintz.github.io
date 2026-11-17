@@ -6,7 +6,7 @@ areas: [dynamics, control]
 summary: >
   Several terms describe states that a system rests at or aims for.
   An [equilibrium](/dictionary/definitions/equilibrium) is a state where the system stays put.
-  In discrete time it is a [fixed point](/dictionary/definitions/fixed-point) of the update map, but in [continuous](/dictionary/definitions/continuous) time it is a zero of the vector field.
+  In discrete time it is a [fixed point](/dictionary/definitions/fixed-point) of the update map, but in [continuous](/dictionary/definitions/continuous) time it is a zero of the [vector field](/dictionary/definitions/vector-field).
   A [steady state](/dictionary/definitions/steady-state) is what the system settles into, which need not be an equilibrium.
   A [set point](/dictionary/definitions/set-point) is a target, and an [operating point](/dictionary/definitions/operating-point) pairs an equilibrium with its input.
 terms:
@@ -31,4 +31,4 @@ see_also:
 
 - Equilibria are also called rest points, [stationary points](/dictionary/definitions/equilibrium), or (in some texts) critical points, which can be confused with the critical points of a function, where its [gradient](/dictionary/definitions/gradient) is zero.
 - An equilibrium is a special kind of [steady state](/dictionary/definitions/steady-state).
-  Others include [periodic](/dictionary/definitions/periodic) orbits and, in chaotic systems, strange [attractors](/dictionary/definitions/attractor).
+  Others include [periodic orbits](/dictionary/definitions/periodic-orbit) and, in chaotic systems, strange [attractors](/dictionary/definitions/attractor).

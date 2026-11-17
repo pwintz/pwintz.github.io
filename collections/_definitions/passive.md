@@ -6,12 +6,12 @@ applies_to: input-output systems
 levels:
   high-school:
     text: |-
-      Consider a system that can receive energy from outside, like a spring or a resistor.
+      Consider a system that can receive [energy](/dictionary/definitions/energy) from outside, like a spring or a resistor.
       The system is _passive_ if it cannot produce energy on its own: it can only store or lose the energy that is put into it.
   undergraduate:
     context: physical systems
     text: |-
-      Consider a physical system that stores energy and receives energy through its input.
+      Consider a physical system that stores [energy](/dictionary/definitions/energy) and receives energy through its input.
       The system is _passive_ if it cannot produce more energy than is supplied to it: the energy stored at every time is at most the initial stored energy plus the energy supplied through the input.
   graduate:
     context: nonlinear control

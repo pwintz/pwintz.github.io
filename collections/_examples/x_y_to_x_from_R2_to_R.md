@@ -9,7 +9,7 @@ is: [
 is_not: [closed_map]
 why:
   closed_map: >-
-    The projection $(x, y) \mapsto x$ is not a closed map, because the hyperbola $x y = 1$ is closed, but its image $\reals \setminus \setdef{0}$ is not.
+    The projection $(x, y) \mapsto x$ is not a closed map, because the hyperbola $x y = 1$ is closed, but its image $\reals \setdiff \setdef{0}$ is not.
   continuous: >-
     The projection $(x, y) \mapsto x$ is continuous, because it is linear.
   open_map: >-

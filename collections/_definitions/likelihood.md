@@ -15,5 +15,5 @@ properties:
   - >-
     A likelihood is not a [probability distribution](/dictionary/definitions/probability-distribution) over $\theta$: its values need not add up (or integrate) to $1$ over $\theta$.
   - >-
-    The maximum likelihood estimate of $\theta$ is the value that maximizes $L(\theta)$.
+    The [maximum likelihood estimate](/dictionary/definitions/maximum-likelihood-estimator) of $\theta$ is the value that maximizes $L(\theta)$.
 ---

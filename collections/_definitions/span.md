@@ -9,7 +9,7 @@ levels:
       The _span_ of the vectors is the set of all vectors that can be built from them by stretching and adding them.
   undergraduate:
     text: |-
-      Consider vectors $\vect{v}_1, \dots, \vect{v}_k$ in a vector space $V$.
+      Consider vectors $\vect{v}_1, \dots, \vect{v}_k$ in a [vector space](/dictionary/definitions/vector-space) $V$.
       The _span_ of the vectors is the set of their [linear combinations](/dictionary/definitions/linear-combination):
 
       $$\Span{\vect{v}_1, \dots, \vect{v}_k} = \setdef{c_1 \vect{v}_1 + \dots + c_k \vect{v}_k \suchthat c_1, \dots, c_k \text{ scalars}}.$$

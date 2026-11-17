@@ -14,7 +14,7 @@ properties:
   - |-
     Change of variables: if $f$ is a one-to-one, [continuously differentiable](/dictionary/definitions/continuously-differentiable) map from a region $U$ onto a region $V$, then
     
-    $$\int_V g(y) \mathrm{d}y = \int_U g(f(x)) \abs{\det Df(x)} \mathrm{d}x.$$
+    $$\int_V g(y) \dy = \int_U g(f(x)) \abs{\det Df(x)} \dx.$$
   - |-
     Inverse function theorem: if $\det Df(x) \neq 0$ and $f$ is [continuously differentiable](/dictionary/definitions/continuously-differentiable), then $f$ has a continuously differentiable inverse near $x$.
   - |-

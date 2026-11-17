@@ -16,7 +16,7 @@ levels:
 
       $$P(A) = \lim_{n \to \infty} \frac{\text{number of repetitions in which } A \text{ occurs}}{n}.$$
 
-      An unknown parameter $\theta$ is a fixed number, so it has no probability distribution.
+      An unknown parameter $\theta$ is a fixed number, so it has no [probability distribution](/dictionary/definitions/probability-distribution).
 properties:
   - >-
     Frequentist statistics describes uncertainty about $\theta$ by procedures, such as confidence intervals, whose guarantees hold over repetitions of the experiment.

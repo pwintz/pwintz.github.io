@@ -1,0 +1,8 @@
+{%- comment -%}
+  A note for pages whose math uses the reader-selectable notation in _data/notation.yml.
+  Usage: {% include notation-note.html examples="vectors and transposes" class="my-class" %}
+{%- endcomment -%}
+<p class="notation-note{% if include.class %} {{ include.class }}{% endif %}" style="font-size: 0.85em; color: #5f6368;">
+  The math here follows your <a href="{{ '/settings/notation/' | relative_url }}">notation settings</a>{% if include.examples %}, such as how {{ include.examples }} are written{% endif %}.
+  Change them there to match your textbook.
+</p>

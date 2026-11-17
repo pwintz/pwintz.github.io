@@ -15,7 +15,7 @@ levels:
       The _minimum_ of $S$ is the smallest number in $S$.
     caveat: >-
       If $S$ is infinite, then it might not have a smallest number.
-      The set $(0, 1]$ has no smallest element: for any $x$ in it, $x / 2$ is smaller.
+      The set $(0, 1]$ has no [smallest element](/dictionary/definitions/minimizer): for any $x$ in it, $x / 2$ is smaller.
   undergraduate:
     text: |-
       Consider an [ordered set](/dictionary/definitions/ordered-set) and a [subset](/dictionary/definitions/subset) $S$ of it.

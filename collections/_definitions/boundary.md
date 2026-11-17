@@ -19,13 +19,13 @@ levels:
   graduate:
     context: topological spaces
     text: |-
-      Consider a [subset](/dictionary/definitions/subset) $A$ of a topological space, with its closure $\overline{A}$ and its interior $\operatorname{int}(A)$.
+      Consider a [subset](/dictionary/definitions/subset) $A$ of a topological space, with its closure $\closure{A}$ and its interior $\operatorname{int}(A)$.
       The _boundary_ of $A$ is
 
-      $$\partial A = \overline{A} \setminus \operatorname{int}(A).$$
+      $$\partial A = \closure{A} \setdiff \operatorname{int}(A).$$
 properties:
   - >-
-    $\partial A = \overline{A} \cap \overline{X \setminus A}$, so a set and its complement have the same boundary.
+    $\partial A = \closure{A} \cap \closureOf{X \setdiff A}$, so a set and its complement have the same boundary.
   - >-
     The boundary of every set is closed.
   - >-

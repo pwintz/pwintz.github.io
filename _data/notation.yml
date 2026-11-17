@@ -1,6 +1,6 @@
 # Reader-selectable notation.
 #
-# Each item is a MathJax macro whose expansion the reader picks on the Notation page (/dictionary/notation/).
+# Each item is a MathJax macro whose expansion the reader picks on the Notation page (/settings/notation/).
 # assets/js/mathjax_config.js reads this file (through Liquid) and the reader's saved choices, and defines each
 # macro before MathJax starts, so every page renders in the reader's notation.
 #
@@ -13,7 +13,7 @@
 #   default: id of the option used when the reader hasn't chosen one.
 #   help:    Explanation shown by the "?" button.
 #   sample:  TeX for the sample beside each option on the Notation page. Each "@{x}" is replaced by the option's TeX
-#            with #1 replaced by x. Defaults to "@{T}".
+#            with #1 replaced by x (x cannot contain braces). Defaults to "@{T}".
 #   options: id, tex, and used_by (who uses the notation, shown beside it).
 #            For an operator written without parentheses ("\ker #1"), a second macro \<macro>Of puts the argument in
 #            parentheses, for compound arguments: \nullspaceOf{A - \lambda I} gives ker(A − λI) or N(A − λI).
@@ -24,7 +24,7 @@
 
 - id: vector
   name: Vectors
-  group: Linear algebra
+  group: Vectors and matrices
   macro: vect
   args: 1
   sample: 'A @{x} = @{b}'
@@ -35,12 +35,38 @@
     - {id: bf, tex: '\mathbf{#1}', used_by: physics and engineering texts}
     - {id: bsym, tex: '\boldsymbol{#1}', used_by: some texts (bold italic)}
     - {id: arrow, tex: '\vec{#1}', used_by: high-school and physics texts}
-    - {id: overarrow, tex: '\overrightarrow{#1}', used_by: geometry texts}
     - {id: underline, tex: '\underline{#1}', used_by: handwriting}
+
+- id: transpose
+  name: Transpose
+  group: Vectors and matrices
+  macro: trans
+  args: 0
+  sample: 'A@{}'
+  default: top
+  help: The transpose of a matrix A, written in content as A\trans.
+  options:
+    - {id: top, tex: '^{\top}', used_by: this dictionary}
+    - {id: T, tex: '^{T}', used_by: many textbooks}
+    - {id: sfT, tex: '^{\mathsf{T}}', used_by: some texts}
+    - {id: t, tex: '^{t}', used_by: some texts}
+
+- id: trace
+  name: Trace
+  group: Vectors and matrices
+  macro: trace
+  args: 1
+  sample: '@{A}'
+  default: tr
+  help: The sum of the diagonal entries of a square matrix A.
+  options:
+    - {id: tr, tex: '\operatorname{tr} #1', used_by: most texts; this dictionary}
+    - {id: Tr, tex: '\operatorname{Tr} #1', used_by: physics texts}
+    - {id: trace, tex: '\operatorname{trace} #1', used_by: some texts}
 
 - id: range
   name: Range of a linear map
-  group: Linear algebra
+  group: Linear maps and subspaces
   macro: range
   args: 1
   default: range
@@ -55,7 +81,7 @@
 
 - id: nullspace
   name: Null space (kernel)
-  group: Linear algebra
+  group: Linear maps and subspaces
   macro: nullspace
   args: 1
   default: ker
@@ -69,7 +95,7 @@
 
 - id: colspace
   name: Column space
-  group: Linear algebra
+  group: Linear maps and subspaces
   macro: colspace
   args: 1
   sample: '@{A}'
@@ -80,11 +106,11 @@
     - {id: Col, tex: '\operatorname{Col} #1', used_by: Lay}
     - {id: C, tex: 'C(#1)', used_by: Strang}
     - {id: calC, tex: '\mathcal{C}(#1)', used_by: some engineering texts}
-    - {id: range, tex: '\range{#1}', used_by: texts that treat a matrix as a map}
+    - {id: range, tex: '\range{#1}', tex_of: '\rangeOf{#1}', used_by: texts that treat a matrix as a map}
 
 - id: rowspace
   name: Row space
-  group: Linear algebra
+  group: Linear maps and subspaces
   macro: rowspace
   args: 1
   sample: '@{A}'
@@ -98,7 +124,7 @@
 
 - id: rank
   name: Rank
-  group: Linear algebra
+  group: Linear maps and subspaces
   macro: rank
   args: 1
   sample: '@{A}'
@@ -111,7 +137,7 @@
 
 - id: nullity
   name: Nullity
-  group: Linear algebra
+  group: Linear maps and subspaces
   macro: nullity
   args: 1
   sample: '@{A}'
@@ -121,23 +147,9 @@
     - {id: nullity, tex: '\operatorname{nullity} #1', used_by: most texts; this dictionary}
     - {id: nu, tex: '\nu(#1)', used_by: some texts}
 
-- id: transpose
-  name: Transpose
-  group: Linear algebra
-  macro: trans
-  args: 0
-  sample: 'A@{}'
-  default: top
-  help: The transpose of a matrix A, written in content as A\trans.
-  options:
-    - {id: top, tex: '^{\top}', used_by: this dictionary}
-    - {id: T, tex: '^{T}', used_by: many textbooks}
-    - {id: sfT, tex: '^{\mathsf{T}}', used_by: some texts}
-    - {id: t, tex: '^{t}', used_by: some texts}
-
 - id: span
   name: Span
-  group: Linear algebra
+  group: Linear maps and subspaces
   macro: Span
   args: 1
   sample: '@{v_1, \dots, v_k}'
@@ -149,18 +161,17 @@
     - {id: angle, tex: '\langle #1 \rangle', used_by: algebra texts}
     - {id: lin, tex: '\operatorname{lin}(#1)', used_by: some texts}
 
-- id: trace
-  name: Trace
-  group: Linear algebra
-  macro: trace
+- id: numberset
+  name: Number sets
+  group: Sets
+  macro: numberset
   args: 1
-  sample: '@{A}'
-  default: tr
-  help: The sum of the diagonal entries of a square matrix A.
+  sample: '@{N} \subseteq @{Z} \subseteq @{Q} \subseteq @{R} \subseteq @{C}'
+  default: bb
+  help: The typeface for the number sets (natural numbers, integers, rationals, reals, and complex numbers), which content writes as \nats, \integers, \rationals, \reals, and \complexes.
   options:
-    - {id: tr, tex: '\operatorname{tr} #1', used_by: most texts; this dictionary}
-    - {id: Tr, tex: '\operatorname{Tr} #1', used_by: physics texts}
-    - {id: trace, tex: '\operatorname{trace} #1', used_by: some texts}
+    - {id: bb, tex: '\mathbb{#1}', used_by: most texts; this dictionary}
+    - {id: bf, tex: '\mathbf{#1}', used_by: some older texts}
 
 - id: suchthat
   name: Set-builder separator
@@ -175,14 +186,52 @@
     - {id: bar, tex: '\mathrel{}\middle|\mathrel{}', used_by: most texts; this dictionary}
     - {id: colon, tex: '\mathrel{}:\mathrel{}', used_by: many analysis and logic texts}
 
-- id: numberset
-  name: Number sets
+- id: setdiff
+  name: Set difference
   group: Sets
-  macro: numberset
-  args: 1
-  sample: '@{N} \subseteq @{Z} \subseteq @{Q} \subseteq @{R} \subseteq @{C}'
-  default: bb
-  help: The typeface for the number sets (natural numbers, integers, rationals, reals, and complex numbers), which content writes as \nats, \integers, \rationals, \reals, and \complexes.
+  macro: setdiff
+  args: 0
+  sample: 'A @{} B'
+  default: backslash
+  help: The set of elements of A that are not in B. Content writes A \setdiff B.
   options:
-    - {id: bb, tex: '\mathbb{#1}', used_by: most texts; this dictionary}
-    - {id: bf, tex: '\mathbf{#1}', used_by: some older texts}
+    - {id: backslash, tex: '\setminus', used_by: most texts; this dictionary}
+    - {id: minus, tex: '-', used_by: some texts}
+
+- id: closure
+  name: Closure of a set
+  group: Sets
+  macro: closure
+  args: 1
+  sample: '@{A} \supseteq A, \qquad @{\rationals} = \reals'
+  default: bar
+  help: The closure of a set A, which is A together with its boundary points. Content writes \closure{A}, or \closureOf{[0, 1)} when the argument isn't a single symbol.
+  options:
+    - {id: bar, tex: '\overline{#1}', used_by: most analysis and topology texts; this dictionary}
+    - {id: cl, tex: '\operatorname{cl} #1', used_by: some topology texts}
+
+- id: differential
+  name: Differentials
+  group: Calculus
+  macro: diff
+  args: 1
+  sample: '\int_0^1 x^2 @{x} = \frac{1}{3}, \qquad \frac{@{y}}{@{x}} = 2x'
+  default: italic
+  help: The "d" in differentials such as dx in integrals and derivatives. Content writes \diff{x}, or the shorthands \dx, \dy, \dz, and \dt.
+  options:
+    # "\mathop{}\!" puts a thin space before the d, as before an operator, but none between the d and the variable
+    # (\operatorname{d} would put a space on both sides). Content doesn't write "\," before a differential.
+    - {id: italic, tex: '\mathop{}\!d#1', used_by: most mathematics texts; this dictionary}
+    - {id: upright, tex: '\mathop{}\!\mathrm{d}#1', used_by: ISO 80000-2 standard; many physics and engineering texts}
+
+- id: conjugate
+  name: Complex conjugate
+  group: Complex numbers
+  macro: conj
+  args: 1
+  sample: '@{z} = a - b i, \qquad z @{z} = \abs{z}^2'
+  default: bar
+  help: The complex conjugate of a complex number z = a + bi, which is a − bi. Content writes \conj{z}, or \conjOf{z + w} when the argument has more than one term.
+  options:
+    - {id: bar, tex: '\overline{#1}', used_by: most mathematics texts; this dictionary}
+    - {id: star, tex: '{#1}^{\ast}', tex_of: '(#1)^{\ast}', used_by: physics texts}

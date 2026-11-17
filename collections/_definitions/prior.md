@@ -7,7 +7,7 @@ levels:
   high-school:
     text: |-
       Consider an unknown quantity, such as the chance that a coin lands heads.
-      The _prior_ is a description of what you believe about the quantity _before_ you see the data, given by a probability for each possible value.
+      The _prior_ is a description of what you believe about the quantity _before_ you see the data, given by a [probability](/dictionary/definitions/probability) for each possible value.
       In the case of the coin, you may have a prior belief that the coin is fair: It lands on heads 50% of the time. 
   undergraduate:
     context: Bayesian inference

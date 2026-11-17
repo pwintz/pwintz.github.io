@@ -17,9 +17,9 @@ levels:
       $$\mathbf{1}_A(x) = \begin{cases} 1 & \text{if } x \in A, \\ 0 & \text{if } x \notin A. \end{cases}$$
 properties:
   - >-
-    For [subsets](/dictionary/definitions/subset) $A$ and $B$ of $X$, $\mathbf{1}_{A \cap B} = \mathbf{1}_A \mathbf{1}_B$ and $\mathbf{1}_{X \setminus A} = 1 - \mathbf{1}_A$.
+    For [subsets](/dictionary/definitions/subset) $A$ and $B$ of $X$, $\mathbf{1}_{A \cap B} = \mathbf{1}_A \mathbf{1}_B$ and $\mathbf{1}_{X \setdiff A} = 1 - \mathbf{1}_A$.
   - >-
-    The integral of the indicator function of a [measurable set](/dictionary/definitions/measurable-set) $A$ is the measure of $A$: $\int \mathbf{1}_A \, \mathrm{d}\mu = \mu(A)$.
+    The integral of the indicator function of a [measurable set](/dictionary/definitions/measurable-set) $A$ is the measure of $A$: $\int \mathbf{1}_A \diff{\mu} = \mu(A)$.
   - >-
     For an [event](/dictionary/definitions/event) $A$, the [expected value](/dictionary/definitions/expected-value) of the [random variable](/dictionary/definitions/random-variable) $\mathbf{1}_A$ is the [probability](/dictionary/definitions/probability) of $A$: $\mathbb{E}[\mathbf{1}_A] = P(A)$.
 ---

@@ -28,4 +28,4 @@ see_also:
 ## Notes
 
 - [Energy](/dictionary/definitions/energy) is measured in joules ($\mathrm{kg} \cdot \mathrm{m}^2 / \mathrm{s}^2$), and [momentum](/dictionary/definitions/momentum) in kilogram meters per second ($\mathrm{kg} \cdot \mathrm{m} / \mathrm{s}$), so the two quantities have different [physical dimensions](/dictionary/definitions/physical-dimension).
-- A force $F$ acting over a time changes the momentum by $\int F \, \mathrm{d}t$ (the impulse), and acting over a distance changes the kinetic energy by $\int F \cdot \mathrm{d}x$ (the work).
+- A force $F$ acting over a time changes the momentum by $\int F \dt$ (the impulse), and acting over a distance changes the kinetic energy by $\int F \cdot \dx$ (the work).

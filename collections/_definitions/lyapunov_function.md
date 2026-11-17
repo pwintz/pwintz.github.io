@@ -7,7 +7,7 @@ levels:
   elementary:
     text: |-
       Think of a system that moves and eventually comes to rest, like a swinging pendulum.
-      A _Lyapunov function_ is a measure, like energy, that keeps going down as the system moves, until the system comes to rest.
+      A _Lyapunov function_ is a measure, like [energy](/dictionary/definitions/energy), that keeps going down as the system moves, until the system comes to rest.
   high-school:
     text: |-
       Consider a system with an [equilibrium](/dictionary/definitions/equilibrium).
@@ -26,9 +26,9 @@ properties:
     If $\dot{V}$ is negative definite, then it is [asymptotically stable](/dictionary/definitions/asymptotically-stable).
     If, in addition, $V$ is radially unbounded and $\dot{V}(x) < 0$ for all $x \neq 0$, it is [globally asymptotically stable](/dictionary/definitions/globally-asymptotically-stable).
   - >-
-    Converse Lyapunov theorems: every [asymptotically stable](/dictionary/definitions/asymptotically-stable) [equilibrium](/dictionary/definitions/equilibrium) of a system with a locally Lipschitz $f$ has a Lyapunov function with $\dot{V}$ negative definite.
+    Converse Lyapunov theorems: every [asymptotically stable](/dictionary/definitions/asymptotically-stable) [equilibrium](/dictionary/definitions/equilibrium) of a system with a [locally Lipschitz](/dictionary/definitions/locally-lipschitz-continuous) $f$ has a Lyapunov function with $\dot{V}$ negative definite.
   - >-
-    Each sublevel set $\setdef{x \suchthat V(x) \leq c}$ of a Lyapunov function (within the region where $\dot{V} \leq 0$) is [forward invariant](/dictionary/definitions/forward-invariant).
+    Each [sublevel set](/dictionary/definitions/sublevel-set) $\setdef{x \suchthat V(x) \leq c}$ of a Lyapunov function (within the region where $\dot{V} \leq 0$) is [forward invariant](/dictionary/definitions/forward-invariant).
 ---
 Conventions vary on whether $\dot{V}$ must be negative semidefinite or negative definite.
 Some authors call the latter a _strict_ Lyapunov function.

@@ -4,7 +4,7 @@ title: "Dimension: Physical Quantity vs. Vector Space vs. Number of Axes"
 kind: conflicting
 areas: [linear-algebra, language, computing]
 summary: >
-  The dimension of a vector space counts independent directions.
+  The dimension of a [vector space](/dictionary/definitions/vector-space) counts independent directions.
   The dimension of a physical quantity is its kind, such as length or time.
   In programming, the "[number of dimensions](/dictionary/definitions/array-rank)" of an array is its number of axes.
 terms:

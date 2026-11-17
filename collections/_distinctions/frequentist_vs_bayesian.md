@@ -4,9 +4,9 @@ title: Frequentist vs. Bayesian
 kind: siblings
 areas: [statistics]
 summary: >
-  Statisticians disagree about what a probability means.
+  Statisticians disagree about what a [probability](/dictionary/definitions/probability) means.
   In [frequentist probability](/dictionary/definitions/frequentist-probability), a probability is a long-run frequency over repeated experiments, so an unknown parameter is a fixed number without a probability.
-  In [Bayesian probability](/dictionary/definitions/bayesian-probability), a probability is a degree of belief, so an unknown parameter has a probability distribution.
+  In [Bayesian probability](/dictionary/definitions/bayesian-probability), a probability is a degree of belief, so an unknown parameter has a [probability distribution](/dictionary/definitions/probability-distribution).
 terms:
   - frequentist probability
   - Bayesian probability

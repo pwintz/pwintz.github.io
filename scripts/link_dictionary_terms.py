@@ -8,7 +8,8 @@ distinction, and the Markdown body of a definition or distinction.
 
 The script does not link:
   - text inside math ($...$), code, existing links, italics, headings, or HTML comments,
-  - a term inside a longer defined term (e.g., "ball" inside "open ball"),
+  - a term inside a longer defined term (e.g., "ball" inside "open ball"); an existing link to the
+    shorter term, such as "[vector](...) space", is widened to the longer term,
   - a term on its own page, or a term that is already linked in the same unit,
   - the words in AMBIGUOUS, which are usually used in an everyday sense. Link those by hand.
 
@@ -28,6 +29,10 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "collectio
 
 # Terms that usually appear in an everyday sense. They are never linked automatically.
 AMBIGUOUS = {
+    # Words that the 2026-11-17 run linked in the wrong sense (a function's argument, the flow of water or of
+    # a hybrid system, "sound like", a combination of things, singular perturbations, the north pole, ...).
+    "argument", "flow", "sound", "valid", "combination", "singular", "symmetry", "prior", "pole", "affine",
+    "symmetric",  # Linked by hand: symmetric operation, relation, or matrix, or symmetry of a shape.
     "set", "sets", "function", "functions", "map", "maps", "point", "points", "number", "numbers",
     "value", "values", "equal", "term", "terms", "factor", "factors", "root", "roots", "area", "volume",
     "length", "size", "average", "mean", "mode", "range", "image", "domain", "graph", "group", "field",
@@ -51,7 +56,7 @@ AMBIGUOUS = {
 
 # Phrases that contain a defined term in a different sense. They are never linked.
 STOP_PHRASES = re.compile(
-    r"probability spaces?|(?:converges?|convergence) in probability|continuous (?:random variables?|ones?|distributions?)",
+    r"probability spaces?|(?:converges?|convergence) in probability|continuous (?:random variables?|ones?|distributions?)|exterior derivatives?|affine (?:coordinates?|coordinate systems?|functions?|combinations?)|transforms? coordinates",
     re.I,
 )
 
@@ -87,8 +92,31 @@ PROTECTED = re.compile(
 )
 
 
+# A link followed by one or two words, such as "[vector](/dictionary/definitions/vector) space".
+LINK_THEN_WORDS = re.compile(r"\[([^\]$]+)\]\((/dictionary/definitions/[a-z0-9-]+)\)((?: [A-Za-z-]+){1,2})")
+
+
+def extend_links(text, terms, log):
+    """Widen a link to a longer defined term that it starts, e.g. "[vector] space" -> "[vector space]"."""
+    def widen(m):
+        words = m.group(3).split()
+        for k in (2, 1):
+            if len(words) < k:
+                continue
+            phrase = m.group(1) + " " + " ".join(words[:k])
+            url = terms.get(phrase.lower())
+            if url and url != m.group(2):
+                log.append(f"{phrase!r} -> {url} (widened from {m.group(1)!r})")
+                rest = " ".join(words[k:])
+                return f"[{phrase}]({url})" + (" " + rest if rest else "")
+        return m.group(0)
+    return LINK_THEN_WORDS.sub(widen, text)
+
+
 def link_unit(text, terms, own_url, log):
     """Link the first unlinked mention of each term in one unit of prose."""
+    # Prefer the longer term: "[vector](…) space" becomes a link to "vector space".
+    text = extend_links(text, terms, log)
     linked = set(re.findall(r"\]\((/dictionary/definitions/[a-z0-9-]+)\)", text)) | {own_url}
     protected = [m.span() for m in PROTECTED.finditer(text)]
     taken = list(protected)

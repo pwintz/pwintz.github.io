@@ -31,4 +31,4 @@ see_also:
 ## Notes
 
 - The rank–nullity theorem relates the dimensions: $\dim(\colspace{A}) + \dim(\nullspace{A}) = n$, the dimension of the domain.
-- The column space of $A$ is the range of the map $x \mapsto A x$, but some texts use "range" for the [codomain](/dictionary/definitions/codomain); see [meanings of range](/dictionary/distinctions/meanings-of-range).
+- The [column space](/dictionary/definitions/column-space) of $A$ is the range of the map $x \mapsto A x$, but some texts use "range" for the [codomain](/dictionary/definitions/codomain); see [meanings of range](/dictionary/distinctions/meanings-of-range).

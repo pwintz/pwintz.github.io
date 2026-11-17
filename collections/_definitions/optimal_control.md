@@ -13,7 +13,7 @@ levels:
       _Optimal control_ is the study of problems of the form
 
       $$\begin{aligned}
-      \operatorname*{minimize}_{u(\cdot)} \quad & \varphi\bigl(x(T)\bigr) + \int_0^T \ell\bigl(x(t), u(t)\bigr) \, \mathrm{d}t \\
+      \operatorname*{minimize}_{u(\cdot)} \quad & \varphi\bigl(x(T)\bigr) + \int_0^T \ell\bigl(x(t), u(t)\bigr) \dt \\
       \text{subject to} \quad & \dot{x}(t) = f\bigl(x(t), u(t)\bigr) \\  
       & x(0) = x_0 \\
       & u(t) \in U \text{ for all } t,

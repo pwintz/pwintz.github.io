@@ -2,7 +2,7 @@
 title: Ordinary Derivative
 term: ordinary derivative
 applies_to: functions of one variable
-synonyms: ["$f^{\\prime}$", "$\\frac{\\mathrm{d}f}{\\mathrm{d}x}$"]
+synonyms: ["$f^{\\prime}$", "$\\frac{\\diff{f}}{\\dx}$"]
 levels:
   high-school:
     text: |-

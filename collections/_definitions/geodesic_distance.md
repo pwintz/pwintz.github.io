@@ -13,10 +13,10 @@ levels:
   graduate:
     context: Riemannian manifolds
     text: |-
-      Consider a [connected](/dictionary/definitions/connected) Riemannian manifold $M$ and two points $p, q \in M$.
+      Consider a [connected](/dictionary/definitions/connected) Riemannian [manifold](/dictionary/definitions/manifold) $M$ and two points $p, q \in M$.
       The _geodesic distance_ between $p$ and $q$ is the [infimum](/dictionary/definitions/infimum) of the lengths of the piecewise smooth curves in $M$ from $p$ to $q$:
 
-      $$d(p, q) = \inf \setdef{\int_0^1 \norm{\gamma^{\prime}(t)} \mathrm{d}t \suchthat \gamma(0) = p, \gamma(1) = q}.$$
+      $$d(p, q) = \inf \setdef{\int_0^1 \norm{\gamma^{\prime}(t)} \dt \suchthat \gamma(0) = p, \gamma(1) = q}.$$
 properties:
   - >-
     The geodesic distance is at least the [Euclidean distance](/dictionary/definitions/euclidean-distance) through the surrounding space, because a straight segment is the shortest of all paths, including those that leave the surface.

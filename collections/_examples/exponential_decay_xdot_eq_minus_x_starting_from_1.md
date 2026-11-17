@@ -8,7 +8,7 @@ values:
   flow: '$\varphi(t, x_0) = x_0 e^{-t}$'
 why:
   trajectory: >-
-    The trajectory of $\dot{x} = -x$ from $x_0 = 1$ is $x(t) = e^{-t}$, because $\frac{\mathrm{d}}{\mathrm{d}t} e^{-t} = -e^{-t}$ and $e^{0} = 1$.
+    The trajectory of $\dot{x} = -x$ from $x_0 = 1$ is $x(t) = e^{-t}$, because $\frac{\diff{}}{\dt} e^{-t} = -e^{-t}$ and $e^{0} = 1$.
   orbit: >-
     The orbit of $1$ for $\dot{x} = -x$ is the interval $(0, \infty)$, because $e^{-t}$ takes every positive value exactly once as $t$ runs over $\reals$.
     The forward orbit, for $t \geq 0$, is $(0, 1]$.

@@ -11,10 +11,10 @@ levels:
     text: |-
       _Calculus of variations_ is the study of problems of finding a function $y : [a, b] \to \reals^n$, with fixed end values $y(a) = y_a$ and $y(b) = y_b$, that minimizes (or maximizes) a [functional](/dictionary/definitions/functional) of the form
 
-      $$J[y] = \int_a^b L\bigl(t, y(t), y^{\prime}(t)\bigr) \, \mathrm{d}t.$$
+      $$J[y] = \int_a^b L\bigl(t, y(t), y^{\prime}(t)\bigr) \dt.$$
 properties:
   - >-
-    If a [continuously differentiable](/dictionary/definitions/continuously-differentiable) function $y$ minimizes $J$, then $y$ satisfies the Euler–Lagrange equation $\frac{\mathrm{d}}{\mathrm{d}t} \frac{\partial L}{\partial y^{\prime}} = \frac{\partial L}{\partial y}$.
+    If a [continuously differentiable](/dictionary/definitions/continuously-differentiable) function $y$ minimizes $J$, then $y$ satisfies the Euler–Lagrange equation $\frac{\diff{}}{\dt} \frac{\partial L}{\partial y^{\prime}} = \frac{\partial L}{\partial y}$.
   - >-
     A problem in the calculus of variations is the [optimal control](/dictionary/definitions/optimal-control) problem with the dynamics $\dot{x} = u$ and no constraints on the input $u$, where the state $x$ plays the role of $y$.
 ---
