@@ -1,0 +1,457 @@
+---
+layout: single
+permalink: /tools/syllabus_designer/
+title: "Syllabus Designer"
+excerpt: "Work through the decisions that go into a STEM course syllabus (attendance, exams, grading, late work, AI, and more), with the pros and cons of each option, and get a complete syllabus written from your answers, ready to paste into Canvas."
+tool_categories: [Teaching]
+full_width: true
+date_added: 2026-11-18
+---
+
+<style>
+  .syl input, .syl select, .syl textarea, .syl label { margin: 0; }
+  .syl input[type=text], .syl input[type=number], .syl select, .syl textarea {
+    font: inherit;
+    font-size: 0.9em;
+    padding: 0.3rem 0.5rem;
+    border: 1px solid rgba(128, 128, 128, 0.45);
+    border-radius: 6px;
+    background: #fff;
+    color: #202124;
+    box-shadow: none;
+  }
+  .syl textarea { width: 100%; resize: vertical; box-sizing: border-box; }
+  .syl select { width: auto; max-width: 100%; }
+  #syl-example { max-width: min(17rem, 100%); }
+  .syl input[type=radio], .syl input[type=checkbox] { width: auto; flex: none; }
+  .syl button {
+    font: inherit;
+    font-size: 0.9em;
+    width: auto;
+    margin: 0;
+    padding: 0.3rem 0.65rem;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 6px;
+    background: #fff;
+    color: #202124;
+    cursor: pointer;
+  }
+  .syl button:hover { background: rgba(128, 128, 128, 0.1); }
+  .syl button[aria-pressed="true"] { background: #e8f0fe; border-color: #1a73e8; }
+  .syl button.syl-ok { background: #188038; border-color: #188038; color: #fff; }
+  .syl button.syl-fail, .syl button.syl-confirm { background: #c5221f; border-color: #c5221f; color: #fff; }
+
+  /* A pinned panel stays at the top of the window while scrolling. */
+  .syl-panel { position: relative; padding: 0.4rem 2.2rem 0.4rem 0; margin-bottom: 0.6rem; background: #fff; }
+  .syl-panel.syl-pinned { position: sticky; z-index: 9; border-bottom: 1px solid rgba(128, 128, 128, 0.35); }
+  .syl .syl-pin {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.35rem;
+    padding: 0.25rem;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: #8a919c;
+    line-height: 0;
+    opacity: 0.6;
+  }
+  .syl .syl-pin:hover { background: rgba(128, 128, 128, 0.1); opacity: 1; }
+  .syl .syl-pin svg { width: 18px; height: 18px; transform: rotate(45deg); transition: transform 150ms; }
+  .syl .syl-pinned .syl-pin { color: #1a73e8; opacity: 1; }
+  .syl .syl-pinned .syl-pin svg { transform: none; }
+
+  /* Toolbar: examples and view options (left), progress and exports (right). */
+  .syl-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.25);
+  }
+  .syl-toolbar-group { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.8rem; }
+  .syl-toolbar-group > button + .syl-help { margin-left: -0.5rem; }
+  .syl .syl-check { display: flex; align-items: center; gap: 0.35rem; font-size: 0.9em; }
+  /* Fixed to the top of the window: the filled part is the decisions made; the marker is where
+     you are in the questions. */
+  .syl-progress-bar { position: fixed; top: 0; left: 0; right: 0; height: 6px; z-index: 1000; background: #e3e8ef; }
+  .syl-progress-fill { height: 100%; width: 0; background: #1e8e5a; transition: width 0.3s; }
+  .syl-progress-here { position: absolute; top: 0; width: 3px; height: 10px; margin-left: -1px; background: #1a5fb4; border-radius: 0 0 2px 2px; }
+  .syl-progress { font-size: 0.85em; color: #5f6368; font-variant-numeric: tabular-nums; }
+  .syl-views { display: none; }
+  @media (max-width: 1099px) { .syl-views { display: inline-flex; gap: 0.3rem; } }
+
+  /* Section links, with each section's progress. */
+  .syl-nav { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.5rem; }
+  .syl-nav-link {
+    padding: 0.1rem 0.6rem;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 999px;
+    font-size: 0.75em;
+    color: inherit;
+    text-decoration: none;
+    font-variant-numeric: tabular-nums;
+  }
+  .syl-nav-link:hover { background: rgba(128, 128, 128, 0.1); }
+  .syl-nav-link.syl-complete { border-color: #009E73; color: #00664a; background: rgba(0, 158, 115, 0.07); }
+
+  /* "?" buttons (see common/help.ts), as in the other tools. */
+  .syl .syl-help {
+    width: 1.25rem;
+    height: 1.25rem;
+    padding: 0;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: bold;
+    line-height: 1;
+    color: #6b6b6b;
+    flex: none;
+  }
+  .syl .syl-help[aria-expanded="true"] { background: #1a73e8; border-color: #1a73e8; color: #fff; }
+  .syl-help-popup {
+    position: absolute;
+    z-index: 30;
+    max-width: min(24rem, calc(100vw - 16px));
+    padding: 0.6rem 0.8rem;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+    font-size: 0.85em;
+    line-height: 1.45;
+  }
+  .syl-help-popup p { margin: 0 0 0.4rem; font-size: 1em; }
+  .syl-help-popup p:last-child { margin-bottom: 0; }
+  .syl-help-popup ul { margin: 0 0 0.4rem; padding-left: 1.1rem; font-size: 1em; }
+  .syl-help-popup li { margin: 0; }
+
+  /* Questions beside a preview that stays in view (stacked, with a toggle, on narrow screens). */
+  .syl-layout { --syl-top: 8px; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 1.5rem; align-items: start; }
+  .syl-preview-wrap {
+    position: sticky;
+    top: var(--syl-top);
+    max-height: calc(100vh - var(--syl-top) - 1rem);
+    overflow: auto;
+    overscroll-behavior: contain;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 8px;
+    background: #fff;
+  }
+  @media (max-width: 1099px) {
+    .syl-layout { grid-template-columns: minmax(0, 1fr); }
+    .syl-layout:not(.syl-show-preview) .syl-preview-wrap { display: none; }
+    .syl-layout.syl-show-preview .syl-questions { display: none; }
+    .syl-preview-wrap { position: static; max-height: none; }
+  }
+  .syl-preview-head {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.45rem 1rem;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.25);
+    background: #f8f9fa;
+    font-size: 0.8em;
+    color: #5f6368;
+  }
+  .syl-preview-head b { color: #202124; }
+  .syl-preview-head { flex-wrap: wrap; row-gap: 0.25rem; }
+  .syl-docs { display: inline-flex; flex-wrap: nowrap; align-items: center; gap: 0.3rem; }
+  .syl .syl-docs button { padding: 0.1rem 0.5rem; font-size: 1em; }
+  .syl-exports { flex-basis: 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.5rem; padding-top: 0.3rem; border-top: 1px solid rgba(128, 128, 128, 0.2); }
+  #syl-export-label { color: #202124; font-weight: 600; }
+  .syl .syl-exports button { padding: 0.1rem 0.5rem; font-size: 1em; }
+  .syl-preview-hint { flex-basis: 100%; }
+  .syl-sources { flex-basis: 100%; position: relative; padding: 0.45rem 2rem 0.45rem 0.6rem; border-radius: 6px; background: #fff7e0; border: 1px solid #f0d68a; font-size: 0.85em; line-height: 1.5; }
+  .syl-sources > .syl-remove { position: absolute; top: 0.3rem; right: 0.3rem; }
+  .syl-source-block { outline: 2px solid #e6b800; outline-offset: 2px; border-radius: 2px; }
+  .syl-q.syl-source { box-shadow: 0 0 0 3px #f0d68a; }
+  .syl-focus-note { flex-basis: 100%; font-size: 0.85em; font-style: italic; color: #555; }
+  .syl-edit-focus > :not(.syl-dep) { display: none !important; }
+  .syl-edit-away { display: none; }
+  .syl-elsewhere { margin: 1.5rem; padding: 1.25rem 1.5rem; border: 2px dashed #b9c6d8; border-radius: 8px; background: #f5f8fc; text-align: center; }
+  .syl-elsewhere p { font-size: 1.1em; margin: 0 0 0.9rem; }
+  .syl-elsewhere button { margin: 0.25rem; }
+  .syl #syl-import-file { display: none; }
+  .syl-nowrap { display: inline-flex; align-items: center; gap: 0.2rem; white-space: nowrap; }
+
+  /* Sections and question cards */
+  .syl-section { margin-bottom: 2rem; }
+  .syl-section > h2 { margin: 0.6rem 0 0.3rem; font-size: 1.25em; }
+  .syl-intro { font-size: 0.9em; color: #5f6368; margin: 0 0 0.8rem; }
+  .syl-q {
+    padding: 0.8rem 0.9rem;
+    margin-bottom: 0.9rem;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-left: 4px solid rgba(128, 128, 128, 0.3);
+    border-radius: 8px;
+    scroll-margin-top: calc(var(--syl-top, 8px) + 4rem);
+  }
+  .syl-q.syl-answered { border-left-color: #009E73; }
+  .syl-q.syl-current { box-shadow: 0 0 0 1px rgba(26, 115, 232, 0.45); }
+  .syl-q-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+  .syl-q h3 { margin: 0 0 0.3rem; font-size: 1em; }
+  .syl-q-num { color: #8a919c; font-weight: normal; margin-right: 0.45rem; font-variant-numeric: tabular-nums; }
+  .syl .syl-clear { padding: 0.05rem 0.5rem; font-size: 0.75em; color: #5f6368; flex: none; }
+  .syl-q:not(.syl-answered) .syl-clear { visibility: hidden; }
+  .syl-why { font-size: 0.85em; color: #5f6368; margin: 0 0 0.6rem; }
+  .syl-options { display: grid; grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr)); gap: 0.5rem; }
+  .syl-opt {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.5rem 0.65rem;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 6px;
+    font-size: 0.85em;
+    cursor: pointer;
+    transition: border-color 120ms, background-color 120ms;
+  }
+  .syl-opt:hover { background: rgba(128, 128, 128, 0.06); }
+  .syl-opt.syl-chosen { border-color: #1a73e8; background: #f1f6fe; box-shadow: 0 0 0 1px #1a73e8; }
+  .syl-opt-head { display: flex; align-items: baseline; gap: 0.45rem; }
+  .syl-opt-head input { position: relative; top: 0.1em; }
+  .syl-opt-label { font-weight: 600; color: #202124; }
+  .syl-opt-summary { color: #3c4043; }
+  .syl-pros, .syl-cons { list-style: none; margin: 0; padding: 0; font-size: 0.95em; }
+  .syl-pros li, .syl-cons li { position: relative; margin: 0.1rem 0 0; padding-left: 1rem; line-height: 1.35; }
+  .syl-pros li::before, .syl-cons li::before { position: absolute; left: 0; font-weight: bold; }
+  .syl-pros li::before { content: "+"; color: #009E73; }
+  .syl-cons li::before { content: "−"; color: #D55E00; }
+  .syl-hide-pros .syl-pros, .syl-hide-pros .syl-cons { display: none; }
+  .syl-term { font-size: 0.85em; line-height: 1.35; padding: 0.2rem 0.45rem; border-radius: 4px; background: rgba(230, 159, 0, 0.14); color: #6b4a00; }
+  .syl-term-q { margin: -0.3rem 0 0.6rem; }
+  .syl-context { font-size: 0.85em; line-height: 1.35; padding: 0.2rem 0.45rem; border-radius: 4px; background: rgba(128, 128, 128, 0.1); color: #3c4043; }
+  .syl-context-q { margin: 0 0 0.6rem; }
+  .syl-context.syl-context-good { background: rgba(0, 158, 115, 0.12); color: #00593f; }
+  .syl-context.syl-context-warn { background: rgba(213, 94, 0, 0.12); color: #8a3c00; }
+  .syl-holidays { margin: 0 0 0.6rem; }
+  .syl-holidays ul { margin: 0.2rem 0 0.3rem 1.2rem; padding: 0; }
+  .syl-holidays li, .syl-holidays p { margin: 0; font-size: 1em; }
+  .syl-term.syl-holiday-none { background: rgba(0, 158, 115, 0.12); color: #00593f; }
+  .syl-weight-row.syl-unused { opacity: 0.5; }
+  .syl input.syl-invalid { border-color: #c5221f; box-shadow: 0 0 0 1px #c5221f; }
+  .syl-error { display: block; font-size: 0.8em; color: #c5221f; }
+  .syl-date-warn { display: block; font-size: 0.8em; color: #a35200; }
+  .syl-date-warn::before { content: "⚠ "; }
+  /* Meeting days: a row of toggle buttons (the checkboxes are hidden but still focusable). */
+  .syl-weekdays { display: inline-flex; flex-wrap: wrap; width: fit-content; max-width: 100%; align-self: flex-start; border: 1px solid #c3cbd6; border-radius: 6px; overflow: hidden; }
+  .syl-weekday { position: relative; margin: 0; min-width: 3.2rem; padding: 0.35rem 0.6rem; text-align: center; cursor: pointer; font-weight: normal; font-size: 0.9em; background: #fff; color: #3c4043; user-select: none; }
+  .syl-weekday + .syl-weekday { border-left: 1px solid #c3cbd6; }
+  .syl-weekday:hover { background: #f1f5fa; }
+  .syl-weekday input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .syl-weekday:has(input:checked) { background: #1a5fb4; color: #fff; }
+  .syl-weekday:has(input:focus-visible) { outline: 2px solid #1a5fb4; outline-offset: -3px; }
+  .syl-link-box { display: flex; gap: 0.35rem; align-items: stretch; }
+  .syl-link-box > input { flex: 1; min-width: 0; margin: 0; }
+  .syl-link-btn { flex: none; font-size: 0.85em; padding: 0 0.6rem; }
+  .syl-rows { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .syl-row-card { position: relative; align-self: stretch; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.4rem 0.6rem; padding: 0.6rem 2.2rem 0.6rem 0.7rem; border: 1px solid #d5dbe3; border-radius: 6px; background: #fafbfd; }
+  .syl-row-box { display: flex; flex-direction: column; gap: 0.15rem; margin: 0; min-width: 0; }
+  .syl-row-box .syl-field-label { font-size: 0.8em; }
+  .syl-row-box input, .syl-row-box select, .syl-row-box textarea { width: 100%; margin: 0; }
+  .syl-span-2 { grid-column: span 2; }
+  .syl-span-3 { grid-column: span 3; }
+  .syl-row-card > .syl-remove { position: absolute; top: 0.4rem; right: 0.4rem; }
+  @media (max-width: 600px) { .syl-row-card { grid-template-columns: 1fr; } .syl-span-2, .syl-span-3 { grid-column: auto; } }
+  .syl-dates { display: flex; flex-direction: column; align-items: flex-start; gap: 0.35rem; }
+  .syl-date-row { display: grid; grid-template-columns: auto auto; gap: 0.4rem; align-items: center; }
+  .syl-dates-text, .syl-dates-text .syl-date-row { align-self: stretch; }
+  .syl-dates-text .syl-date-row { grid-template-columns: 9.5rem 9.5rem minmax(8rem, 1fr) auto; }
+  .syl-date-head { font-size: 0.8em; color: #5f6368; }
+  .syl-date-row input { width: auto; min-width: 0; margin: 0; }
+  @media (max-width: 600px) { .syl-dates-text .syl-date-row { grid-template-columns: 1fr 1fr auto; } .syl-date-text { grid-column: 1 / 3; } .syl-date-head { display: none; } }
+  .syl-na-note { display: none; font-size: 0.85em; margin: 0 0 0.6rem; padding: 0.2rem 0.45rem; border-radius: 4px; background: rgba(128, 128, 128, 0.1); color: #5f6368; }
+  .syl-q.syl-na .syl-na-note { display: block; }
+  .syl-q.syl-na .syl-options, .syl-q.syl-na .syl-why { opacity: 0.55; }
+  .syl-weight-row.syl-unused input[type="number"] { text-decoration: line-through; }
+  /* Fit with the class size (from the enrollment question) */
+  .syl-size { font-size: 0.85em; line-height: 1.35; padding: 0.2rem 0.45rem; border-radius: 4px; background: rgba(128, 128, 128, 0.1); color: #3c4043; }
+  .syl-fit-good .syl-size { background: rgba(0, 158, 115, 0.12); color: #00593f; }
+  .syl-fit-poor .syl-size { background: rgba(213, 94, 0, 0.12); color: #8a3c00; }
+  .syl-fit-poor:not(.syl-chosen) .syl-opt-label { color: #5f6368; }
+
+  /* Fields */
+  .syl-fields, .syl-followup {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    gap: 0.5rem 0.8rem;
+    margin-top: 0.6rem;
+  }
+  .syl-followup { padding: 0.5rem 0.65rem; border-radius: 6px; background: #f1f6fe; }
+  .syl-followup[hidden] { display: none; }
+  .syl-start-from { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; font-size: 0.85em; }
+  .syl-start-from select { width: auto; max-width: 100%; margin: 0; }
+  .syl-start-note { color: #8a3c00; }
+  .syl-opt-info { cursor: default; }
+  /* View settings above each pane. */
+  .syl-view-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 1.1rem; flex-basis: 100%; padding: 0.35rem 0.7rem; margin-bottom: 0.5rem; border: 1px solid #dde3ea; border-radius: 6px; background: #f6f8fb; font-size: 0.85rem; }
+  .syl-view-bar .syl-check { margin: 0; white-space: nowrap; }
+  .syl-view-title { font-weight: 600; color: #5f6368; text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.85em; }
+  /* Hide completed questions: a question stays while it is unanswered, while its text still has
+     highlighted placeholders, or while it is being answered. */
+  .syl-only-remaining .syl-q:is(.syl-answered, .syl-na, :not(.syl-decision)):not(.syl-keep, .syl-incomplete:not(.syl-na)) { display: none; }
+  .syl-only-remaining .syl-section:not(:has(.syl-q:not(.syl-answered, .syl-na):is(.syl-decision), .syl-q.syl-incomplete:not(.syl-na), .syl-q.syl-keep)) { display: none; }
+  .syl-role-table { overflow-x: auto; margin-top: 0.7rem; }
+  .syl-role-table table { border-collapse: collapse; font-size: 0.85em; width: 100%; }
+  .syl-role-table th, .syl-role-table td { padding: 0.4rem 0.5rem; border-bottom: 1px solid #e0e4ea; text-align: center; }
+  .syl-role-table tbody th { text-align: left; font-weight: 600; }
+  .syl-role-table thead th { font-weight: 600; color: #5f6368; }
+  .syl-role-table input { margin: 0; }
+  .syl-opt-group { display: flex; flex-direction: column; }
+  /* A chosen option with a text area (such as "Write my own") takes the full width. */
+  .syl-opt-group:has(.syl-followup:not([hidden]) textarea) { grid-column: 1 / -1; }
+  .syl-opt-group > .syl-opt { flex: 1; }
+  .syl-opt-group:has(.syl-followup:not([hidden])) > .syl-opt { flex: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+  .syl-opt-group > .syl-followup { margin-top: 0; grid-template-columns: 1fr; border: 1px solid #c9d7ee; border-top: none; border-top-left-radius: 0; border-top-right-radius: 0; }
+  .syl-field { display: flex; flex-direction: column; gap: 0.2rem; font-size: 0.85em; color: #5f6368; }
+  .syl-field-label { display: flex; align-items: center; gap: 0.35rem; }
+  .syl-field-wide { grid-column: 1 / -1; }
+  .syl-note { font-size: 0.85em; color: #5f6368; margin: 0.4rem 0; }
+
+  /* Grade components and scale */
+  .syl-weight-row, .syl-scale-row { display: grid; gap: 0.4rem; align-items: center; margin-top: 0.35rem; font-size: 0.9em; }
+  .syl-weight-row { grid-template-columns: 5rem minmax(7rem, 1fr) 9rem minmax(8rem, 1.4fr) 1.8rem; }
+  .syl-weight-head { font-size: 0.78em; color: #5f6368; }
+  .syl-scale-row { grid-template-columns: 4.5rem 7rem 1.8rem; }
+  .syl-scale-row.syl-scale-described { grid-template-columns: 4.5rem 7rem minmax(0, 1fr) 1.8rem; }
+  .syl-scale-row input[hidden] { display: none; }
+  .syl-pct { display: flex; align-items: center; gap: 0.2rem; white-space: nowrap; }
+  .syl-pct input { width: 100%; min-width: 0; }
+  .syl-weight-row input, .syl-weight-row select, .syl-weight-row textarea, .syl-scale-row input { width: 100%; min-width: 0; box-sizing: border-box; }
+  .syl .syl-remove { padding: 0.1rem 0; width: 1.8rem; color: #5f6368; }
+  .syl-weight-foot { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 0.5rem; }
+  .syl-total { font-size: 0.9em; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .syl-total.syl-warn, .syl-note.syl-warn { color: #c5221f; }
+  @media (max-width: 640px) {
+    .syl-weight-row { grid-template-columns: 5rem minmax(0, 1fr) 1.8rem; }
+    .syl-weight-row > select, .syl-weight-row > textarea { grid-column: 1 / -1; }
+    .syl-weight-head { display: none; }
+  }
+
+  /* The syllabus preview */
+  .syl-preview { padding: 0.5rem 1.2rem 1.5rem; font-size: 0.85em; line-height: 1.5; }
+  .syl-preview h1 { font-size: 1.5em; margin: 0.8rem 0 0.6rem; }
+  .syl-preview h2 { font-size: 1.3em; margin: 1.6rem 0 0.5rem; padding-bottom: 0.2rem; border-bottom: 1px solid rgba(128, 128, 128, 0.3); }
+  .syl-preview h3 { font-size: 1.08em; margin: 1.2rem 0 0.4rem; }
+  .syl-preview h4 { font-size: 1em; margin: 1rem 0 0.3rem; }
+  .syl-preview p, .syl-preview ul, .syl-preview ol { margin: 0 0 0.6rem; font-size: 1em; }
+  .syl-preview li { margin: 0.15rem 0; }
+  .syl-preview table { display: table; width: 100%; margin: 0.5rem 0 0.8rem; border-collapse: collapse; font-size: 1em; }
+  .syl-preview th, .syl-preview td { padding: 0.4rem 0.55rem; border: 1px solid #dddddd; vertical-align: top; text-align: left; }
+  .syl-preview th { background: #eeeeee; }
+  .syl-preview .syl-kv th { width: 30%; text-align: right; }
+  .syl-preview td > :last-child { margin-bottom: 0; }
+  .syl-preview [data-src] { cursor: pointer; border-radius: 3px; }
+  .syl-preview [data-src]:hover { background: rgba(26, 115, 232, 0.05); }
+  .syl-ph { padding: 0 0.25em; border-radius: 3px; background: #fff3a8; color: #6b5300; }
+  .syl-preview .syl-linked { box-shadow: -0.55rem 0 0 -0.3rem #1a73e8; background: rgba(26, 115, 232, 0.035); }
+  .syl-flash { animation: syl-flash 1.6s ease-out; }
+  @keyframes syl-flash {
+    0%, 30% { background-color: rgba(26, 115, 232, 0.2); }
+    100% { background-color: transparent; }
+  }
+  .syl-copy-holder { position: fixed; left: -9999px; top: 0; }
+</style>
+
+<div class="syl">
+  <p>
+    A syllabus records dozens of decisions about how a course runs, and most are made in a hurry or copied from the last syllabus.
+    This tool walks through those decisions for a STEM course, with the pros and cons of each option, and writes a syllabus from your answers as you go.
+    Start from an example to see a finished syllabus, then change what doesn't fit your course.
+    Your answers are saved in this browser.
+  </p>
+
+  <div class="syl-panel" data-fullscreen="false">
+    <div class="syl-progress-bar" id="syl-progress-bar" role="progressbar" aria-label="Decisions made" aria-valuemin="0">
+      <div class="syl-progress-fill" id="syl-progress-fill"></div>
+      <div class="syl-progress-here" id="syl-progress-here" title="Where you are in the questions"></div>
+    </div>
+    <div class="syl-toolbar">
+      <div class="syl-toolbar-group">
+        <select id="syl-example" aria-label="Load an example">
+          <option value="" selected>Examples</option>
+        </select>
+        <button type="button" id="syl-reset">Start over</button>
+        <button type="button" id="syl-export-json" data-help="Download all of your answers as a JSON file. Use it as a backup, to move your answers to another browser or computer, or to share a starting point with a colleague.">Save answers</button>
+        <button type="button" id="syl-import-json" data-help="Load answers from a JSON file saved with Save answers. This replaces your current answers.">Load answers</button>
+        <input type="file" id="syl-import-file" accept=".json,application/json" hidden>
+<label class="syl-field" id="syl-date-format-field"><span class="syl-field-label"><span data-help="#syl-date-help">How dates are written</span></span><select id="syl-date-format"></select></label>
+        <span class="syl-views" role="group" aria-label="Show">
+          <button type="button" data-view="questions">Questions</button>
+          <button type="button" data-view="preview">Syllabus</button>
+        </span>
+      </div>
+      <div class="syl-toolbar-group">
+        <span id="syl-progress" class="syl-progress" aria-live="polite"></span>
+      </div>
+    </div>
+    <nav id="syl-nav" class="syl-nav" aria-label="Sections"></nav>
+  </div>
+
+  <div id="syl-layout" class="syl-layout">
+    <div id="syl-questions" class="syl-questions"><div class="syl-view-bar" role="group" aria-label="Question view"><span class="syl-view-title">Questions</span><label class="syl-check"><input type="checkbox" id="syl-pros-cons" checked><span data-help="Show the pros and cons under each option. Hide them once you know the options, to see more questions at once.">Pros and cons</span></label><label class="syl-check"><input type="checkbox" id="syl-remaining"><span data-help="Hide the questions you have answered and the questions that don't apply to your course. A question stays visible while you answer it, and hides when you move on.">Hide Completed Questions</span></label></div></div>
+    <aside id="syl-preview-wrap" class="syl-preview-wrap" aria-label="Syllabus preview">
+      <div class="syl-preview-head"><div class="syl-view-bar" role="group" aria-label="Preview view"><span class="syl-view-title">Preview</span><label class="syl-check"><input type="checkbox" id="syl-focus" checked><span data-help="While you edit a question, the document shows only the text that depends on it, including text that changes because of it through other answers. Click outside the questions to see the whole document again.">Show only what you're editing</span></label><label class="syl-check"><input type="checkbox" id="syl-sync" checked><span data-help="As you scroll through the questions, the document scrolls to the text written from the question you're reading, and both are highlighted. Turn this off to scroll each pane on its own.">Scroll panes together</span></label></div><span class="syl-docs" role="group" aria-label="Document"><button type="button" data-doc="student">Student syllabus</button><button type="button" data-doc="team" data-help="A document for TAs, tutors, and readers, written from the Teaching team syllabus questions (the last section) and your other answers. Copy and download export the document shown here.">Teaching team syllabus</button><button type="button" data-doc="quiz" data-help="A multiple-choice quiz on the policies in the student syllabus, with an answer key at the end, written from your answers. Copy it into a quiz on your course website.">Syllabus quiz</button></span>
+        <div class="syl-exports">
+          <span id="syl-export-label">Export the student syllabus:</span>
+          <span class="syl-nowrap"><button type="button" id="syl-copy" data-help="#syl-copy-help">Copy formatted</button></span>
+          <span class="syl-nowrap"><button type="button" id="syl-download-html" data-help="Download the document shown below as a web page that you can open in a browser, print, or upload.">Download HTML</button></span>
+          <span class="syl-nowrap"><button type="button" id="syl-download-md" data-help="Download the document shown below as Markdown, a plain-text format that you can edit and convert to other formats (for example, with Pandoc).">Download Markdown</button></span>
+        </div>
+        <span class="syl-preview-hint">Click text to find its question. <mark class="syl-ph">Highlighted</mark> text needs filling in.</span>
+        <span class="syl-sources" id="syl-sources" role="status" hidden></span>
+        <span class="syl-focus-note" id="syl-focus-note" hidden>Showing only the text that depends on the question you're editing.</span></div>
+      <div id="syl-elsewhere" class="syl-elsewhere" role="status" hidden></div>
+      <div id="syl-preview" class="syl-preview"></div>
+    </aside>
+  </div>
+
+  <div id="syl-help-popup" class="syl-help-popup" role="note" hidden></div>
+  <template id="syl-copy-help">
+    <p>Copies the syllabus with its formatting, ready to paste into:</p>
+    <ul>
+      <li>the Canvas syllabus or page editor (or the rich-text editor of Moodle, Blackboard, or D2L),</li>
+      <li>Google Docs or Microsoft Word.</li>
+    </ul>
+    <p>Placeholders for missing information are pasted in brackets and highlighted, so that you can find and fill them in.</p>
+  </template>
+  <template id="syl-hours-help">
+    <p>The number of hours per week that students should expect to spend on the course, in and out of class. Saying it up front helps students plan their schedules.</p>
+    <ul>
+      <li><b>Semester credit hours:</b> in the US, one credit hour is about 1 hour of class plus 2 hours of work outside class per week, so a 4-credit course is about 12 hours per week.</li>
+      <li><b>Quarter units</b> (such as at the University of California): one unit is about 3 hours of work per week, so a 5-unit course is about 15 hours per week.</li>
+    </ul>
+  </template>
+  <template id="syl-outcomes-help">
+    <p>What students will be able to do by the end of the course. Accreditation bodies, such as ABET for engineering, often require them.</p>
+    <ul>
+      <li>Use verbs that you can observe on an exam or assignment: compute, solve, derive, model, explain, compare.</li>
+      <li>Avoid “understand” and “know”, which can't be observed directly.</li>
+      <li>Three to eight outcomes is typical.</li>
+    </ul>
+  </template>
+  <template id="syl-date-help">
+    <p>How dates are written in the syllabus, the teaching team syllabus, and the quiz. This setting is saved with your answers.</p>
+    <ul>
+      <li><b>Automatic</b> uses the order of day and month for your region (from your browser's language settings), with English names.</li>
+      <li>The date boxes where you enter dates follow your browser's settings, which the page can't change.</li>
+    </ul>
+  </template>
+  <template id="syl-custom-help">
+    <p>This text replaces the generated text for this question.</p>
+    <ul>
+      <li>Separate paragraphs with a blank line.</li>
+      <li>Start a line with “- ” for a bullet.</li>
+      <li>Write **bold**, *italic*, and [link text](https://…).</li>
+    </ul>
+  </template>
+</div>
+
+<script src="/assets/ts/out/syllabus_designer.js" type="module"></script>
