@@ -1,5 +1,4 @@
 ---
-published: false
 title: Weighted Inner Product
 term: weighted inner product
 applies_to: vectors in $\reals^n$

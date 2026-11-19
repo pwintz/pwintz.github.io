@@ -13,7 +13,7 @@ levels:
       1. no distance is negative, 
       2. the distance is zero only from a point to itself, 
       3. the distance is the same in both directions, and 
-      3. no distance is longer than a detour through a third point (the triangle inequality).
+      3. no distance is longer than a detour through a third point (the [triangle inequality](/dictionary/definitions/triangle-inequality)).
       
   undergraduate:
     text: |-
@@ -22,7 +22,7 @@ levels:
 
       1. $d(x, y) = 0$ if and only if $x = y$,
       2. $d(x, y) = d(y, x)$ ([symmetry](/dictionary/definitions/geometric-symmetry)), and
-      3. $d(x, z) \leq d(x, y) + d(y, z)$ (the triangle inequality).
+      3. $d(x, z) \leq d(x, y) + d(y, z)$ (the [triangle inequality](/dictionary/definitions/triangle-inequality)).
 
       The last condition is the _triangle inequality_.
       The set $X$ need not be a [vector space](/dictionary/definitions/vector-space).

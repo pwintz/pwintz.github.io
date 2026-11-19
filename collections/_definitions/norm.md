@@ -24,7 +24,7 @@ levels:
       
       1. $\norm{x} = 0$ only for $x = 0$
       2. $\norm{c x} = \abs{c} \norm{x}$, and 
-      3. $\norm{x + y} \leq \norm{x} + \norm{y}$ (the triangle inequality).
+      3. $\norm{x + y} \leq \norm{x} + \norm{y}$ (the [triangle inequality](/dictionary/definitions/triangle-inequality)).
 properties:
   - >-
     Every norm satisfies $\abs{\norm{x} - \norm{y}} \leq \norm{x - y}$, so it is a [continuous](/dictionary/definitions/continuous) function.

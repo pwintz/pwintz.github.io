@@ -1,12 +1,11 @@
 ---
-published: false
 title: Types of Inner Products
 kind: siblings
 areas: [linear-algebra]
 summary: >
   An [inner product](/dictionary/definitions/inner-product) multiplies two vectors to give a number, which determines lengths and angles, and different inner products give different geometries.
   The [dot product](/dictionary/definitions/dot-product) is the standard inner product on $\reals^n$.
-  A [weighted inner product](/dictionary/definitions/weighted-inner-product) $x\trans W y$ stretches some directions more than others, and the $L^2$ inner product does the same job for functions, with an integral in place of a sum.
+  A [weighted inner product](/dictionary/definitions/weighted-inner-product) $x\trans W y$ stretches some directions more than others, and the [$L^2$ inner product](/dictionary/definitions/l2-inner-product) does the same job for functions, with an integral in place of a sum.
 terms:
   - dot_product
   - weighted_inner_product
