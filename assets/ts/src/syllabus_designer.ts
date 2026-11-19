@@ -229,10 +229,9 @@ function linkButton(input: HTMLInputElement | HTMLTextAreaElement): HTMLButtonEl
       input.setSelectionRange(start, start + existing[1].length);
       return;
     }
-    input.value = `${value.slice(0, a)}[${text}](https://)${value.slice(b)}`;
+    replaceText(input, a, b, `[${text}](https://)`);
     const start = a + text.length + 3;
     input.setSelectionRange(start, start + "https://".length);
-    input.dispatchEvent(new Event("input", { bubbles: true }));
   });
   return button;
 }
@@ -343,6 +342,18 @@ function optionText(q: string, id: string): string {
   return "";
 }
 
+// Replaces text in a box as if it were typed, so that the browser's undo (Ctrl+Z or Cmd+Z) can
+// reverse it, which setting the value directly would not allow. The input event updates the answers.
+function replaceText(input: HTMLInputElement | HTMLTextAreaElement, start: number, end: number, text: string): void {
+  input.focus();
+  input.setSelectionRange(start, end);
+  // execCommand is deprecated but is still the only way to add to the browser's undo history.
+  if (!document.execCommand("insertText", false, text)) {
+    input.setRangeText(text, start, end, "end");
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+  }
+}
+
 function startFromEl(q: Question, options: Option[]): HTMLElement {
   const select = el("select", { ariaLabel: "Option to start from" },
     el("option", { value: "", textContent: "Start from an option…" }),
@@ -353,13 +364,13 @@ function startFromEl(q: Question, options: Option[]): HTMLElement {
     select.value = "";
     if (!id) return;
     const box = select.closest(".syl-followup")!.querySelector<HTMLTextAreaElement>(`textarea[data-field="${q.id}.custom"]`)!;
-    if (box.value.trim() && !confirm("Replace your text with the text from this option?")) return;
     const text = optionText(q.id, id);
     note.textContent = text ? "" : "That option doesn't write any text here.";
     if (!text) return;
-    box.value = text;
-    setField(box, text);
-    box.focus();
+    // Replaces the text as an edit, so that Ctrl+Z (Cmd+Z) brings back the previous text.
+    replaceText(box, 0, box.value.length, text);
+    box.setSelectionRange(0, 0);
+    box.scrollTop = 0;
   });
   return el("div", { className: "syl-start-from syl-field-wide" }, select, note);
 }
@@ -1032,6 +1043,8 @@ previewEl.addEventListener("click", e => {
 // it is far, since a long smooth scroll makes the browser paint the whole page on the way (which
 // can flash white).
 function scrollToCard(card: HTMLElement): void {
+  // A hidden (completed) question is shown while it is visited.
+  keepCard(card);
   const far = Math.abs(card.getBoundingClientRect().top - innerHeight / 2) > 1.5 * innerHeight;
   card.scrollIntoView({ behavior: far ? "auto" : "smooth", block: "center" });
 }

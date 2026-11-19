@@ -297,6 +297,9 @@ date_added: 2026-11-18
   /* Hide completed questions: a question stays while it is unanswered, while its text still has
      highlighted placeholders, or while it is being answered. */
   .syl-only-remaining .syl-q:is(.syl-answered, .syl-na, :not(.syl-decision)):not(.syl-keep, .syl-incomplete:not(.syl-na)) { display: none; }
+  /* A completed question shown only because it is being visited. */
+  .syl-only-remaining .syl-q.syl-keep:is(.syl-answered, .syl-na, :not(.syl-decision)):not(.syl-incomplete:not(.syl-na)) { border-style: dashed; opacity: 0.92; }
+  .syl-only-remaining .syl-q.syl-keep:is(.syl-answered, .syl-na, :not(.syl-decision)):not(.syl-incomplete:not(.syl-na))::before { content: "Completed · shown temporarily"; display: inline-block; margin-bottom: 0.4rem; padding: 0.1rem 0.5rem; border-radius: 999px; background: #e8eaed; color: #5f6368; font-size: 0.75em; font-weight: 600; }
   .syl-only-remaining .syl-section:not(:has(.syl-q:not(.syl-answered, .syl-na):is(.syl-decision), .syl-q.syl-incomplete:not(.syl-na), .syl-q.syl-keep)) { display: none; }
   .syl-role-table { overflow-x: auto; margin-top: 0.7rem; }
   .syl-role-table table { border-collapse: collapse; font-size: 0.85em; width: 100%; }
