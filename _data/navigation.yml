@@ -14,18 +14,18 @@ main:
 more:
     - title: Tools
       url: /tools/
-    - title: Dictionary of Fine Distinctions
+    - title: Dictionary
       url: /dictionary/
     - title: Writing Tips
       url: /writing-tips/
     - title: LaTeX Macros
       url: /latex-macros/
-    - title: UAW 4811 Resources
-      url: /uaw
-    - title: Photography
-      url: /photography/
-    - title: Art
-      url: /art/
+    # - title: UAW 4811 Resources
+    #   url: /uaw
+    # - title: Photography
+    #   url: /photography/
+    # - title: Art
+    #   url: /art/
     # - title: "LaTeX Macros"
     #   url: /latex-macros/
     # - title: "Writing Tips"
