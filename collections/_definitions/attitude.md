@@ -1,5 +1,6 @@
 ---
 published: false
+# Merge attitude as a synonym of orientation. 
 title: Attitude
 term: attitude
 applies_to: aircraft, spacecraft, and other vehicles

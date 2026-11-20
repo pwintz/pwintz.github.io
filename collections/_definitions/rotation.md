@@ -1,5 +1,4 @@
 ---
-published: false
 title: Rotation
 term: rotation
 applies_to: maps of the plane and of space
@@ -7,10 +6,12 @@ synonyms: [rotation map]
 levels:
   elementary:
     text: |-
-      A _rotation_ turns a shape around a fixed point, without sliding, stretching, or flipping the shape.
+      A _rotation_ is motion that turns a shape around a fixed point, without sliding, stretching, or flipping it.
   high-school:
     text: |-
-      A _rotation_ of the plane is a map that turns every point about a fixed point, called the center, by the same [angle](/dictionary/definitions/angle), counterclockwise for a positive angle.
+      A _rotation_ of the plane is a map that turns every point about a fixed point, called the center, by the same [angle](/dictionary/definitions/angle).  By
+      By contention, a positive angle indicates counterclockwise rotation.
+
       The rotation about the origin by the angle $\theta$ moves the point $(x, y)$ to
 
       $$(x \cos \theta - y \sin \theta, \; x \sin \theta + y \cos \theta).$$
@@ -22,6 +23,8 @@ levels:
     caveat: >-
       This definition covers rotations about the origin.
       The rotation about a point $\vect{p}$ that turns like $R$ is the affine map $\vect{x} \mapsto \vect{p} + R (\vect{x} - \vect{p})$.
+
+  # TODO: Add a graduate version based on SO(3).
 properties:
   - >-
     A rotation preserves distances, [angles](/dictionary/definitions/angle), and handedness.

@@ -1,5 +1,4 @@
 ---
-published: false
 title: Signed Angle
 term: signed angle
 applies_to: pairs of vectors in the plane
@@ -12,6 +11,9 @@ levels:
       So the signed angle is a number $\theta$ such that
 
       $$-180^\circ < \theta \le 180^\circ.$$
+
+
+  # TODO: maybe would be better to use the dot product and cross product. 
   undergraduate:
     text: |-
       Consider nonzero vectors $\vect{x} = (x_1, x_2)$ and $\vect{y} = (y_1, y_2)$ in $\reals^2$.

@@ -1,5 +1,4 @@
 ---
-published: false
 title: Orthogonal Matrix
 term: orthogonal matrix
 applies_to: square matrices

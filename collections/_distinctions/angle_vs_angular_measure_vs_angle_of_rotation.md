@@ -23,7 +23,6 @@ see_also:
   - angle_vs_signed_angle
   - rotation_vs_orientation_vs_attitude
 ---
-## Notes
 
 - Geometry texts often call the figure formed by two rays the [angle](/dictionary/definitions/angle), written $\angle ABC$, and write its measure as $m\angle ABC$.
   Most other texts use "angle" for the measure itself, as in "the angle $\theta = \pi/4$."

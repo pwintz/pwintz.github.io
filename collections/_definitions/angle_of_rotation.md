@@ -1,5 +1,4 @@
 ---
-published: false
 title: Angle of Rotation
 term: angle of rotation
 applies_to: rotations and turning motions
