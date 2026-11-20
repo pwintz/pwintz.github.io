@@ -83,7 +83,11 @@
     cursor: pointer;
   }
   .pr-modes button + button { border-left: 1px solid rgba(128, 128, 128, 0.4); }
-  .pr-modes button[aria-pressed="true"] { background: #1a73e8; color: #fff; }
+  /* The pages' own button:hover rules (such as ".pl button:hover") would otherwise turn the pressed
+     button pale gray, with white text on it; these are more specific. */
+  .pr-box .pr-modes button[aria-pressed="true"],
+  .pr-box .pr-modes button[aria-pressed="true"]:hover { background: #1a73e8; color: #fff; }
+  .pr-box .pr-modes button[aria-pressed="false"]:hover { background: rgba(128, 128, 128, 0.1); color: inherit; }
   .pr-field { display: inline-flex; align-items: center; gap: 0.4rem; margin: 0; color: #5f6368; }
   .pr-field select {
     width: auto;

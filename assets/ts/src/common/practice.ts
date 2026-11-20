@@ -5,8 +5,8 @@
 // and the REF/RREF quiz). The styles are in _includes/practice-styles.html.
 //
 // A practice path is a list of stages, from easy to hard, each giving random problems of one kind.
-// The student either follows the path ("Practice path") or picks the kind of problem with the
-// page's own menus ("Choose problems"). Pages with levels (how much of each problem the student
+// The student either follows the path ("Guided Learning") or picks the kind of problem with the
+// page's own menus ("Design your own problems"). Pages with levels (how much of each problem the student
 // does) show them in the same settings box, below the stage.
 //
 // Each finished problem is recorded (in this browser) with its stage, its level, and the hints the
@@ -61,6 +61,7 @@ export interface Practice {
   setProblemStage: (i: number | null) => void;
   urlStage: number | null;         // The stage in the page's URL (&st=N), if any
   goToStage: (i: number) => void;
+  goToLevel: (lv: number) => void;  // Selects a level (shown as "Support") and makes a new problem
   record: (problem: string, hints: number, clean: boolean, isNew: boolean) => void;
   render: () => void;              // Updates the menus, the progress section, and the resume button
   levelChanged: () => void;        // Call after the student changes the level
@@ -114,8 +115,8 @@ export function setupPractice(o: PracticeOptions): Practice {
   const modes = el("div", "pr-modes");
   modes.setAttribute("role", "group");
   modes.setAttribute("aria-label", "How to choose problems");
-  const pathButton = el("button", "", "Practice path");
-  const customButton = el("button", "", "Choose problems");
+  const pathButton = el("button", "", "Guided Learning");
+  const customButton = el("button", "", "Design your own problems");
   for (const b of [pathButton, customButton]) { b.type = "button"; modes.append(b); }
   modeRow.append(modes);
 
@@ -220,7 +221,7 @@ export function setupPractice(o: PracticeOptions): Practice {
     resume.hidden = !away || (asList && mode === "path");
     if (away) {
       const lv = leftOff!.level !== undefined && o.levels ? `, ${support(leftOff!.level)}` : "";
-      resumeButton.textContent = `↩ Continue the path: level ${leftOff!.stage + 1}${lv}`;
+      resumeButton.textContent = `↩ Continue guided learning: level ${leftOff!.stage + 1}${lv}`;
     }
   }
 
@@ -369,6 +370,7 @@ export function setupPractice(o: PracticeOptions): Practice {
     setProblemStage: i => { problemStage = i; },
     urlStage,
     goToStage,
+    goToLevel,
     // A problem is added when an answer finishes it (`isNew`); afterward, its count is updated if
     // the student uses more hints.
     record(problem, hints, clean, isNew) {

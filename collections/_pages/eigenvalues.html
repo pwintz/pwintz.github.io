@@ -1,0 +1,546 @@
+---
+layout: single
+permalink: /tools/eigenvalues/
+title: Eigenvalues and Eigenvectors
+excerpt: "Practice finding eigenvalues, eigenvectors, and eigenspaces step by step, with hints and checks, while a picture shows which vectors the matrix stretches without turning. Start with worked examples and work up to calculating every value yourself."
+tool_categories: [Linear Algebra, Math]
+full_width: true
+date_added: 2026-11-19
+---
+
+{% include practice-styles.html %}
+
+<style>
+  .ev button,
+  .ev select {
+    font: inherit;
+    width: auto;
+    margin: 0;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+  }
+  .ev button:hover { background: rgba(128, 128, 128, 0.1); }
+  .ev button:disabled { opacity: 0.45; cursor: not-allowed; }
+  /* The theme adds bottom margins to inputs and labels, which pushes them off-center in a row. */
+  .ev input,
+  .ev label { margin: 0; }
+  .ev [hidden] { display: none !important; }
+  .ev .ev-primary { background: #1a73e8; border-color: #1a73e8; color: #fff; }
+  .ev .ev-primary:hover { background: #1765cc; }
+  .ev .ev-related { margin: 0 0 0.8rem; font-size: 0.85em; color: #5f6368; }
+  .ev h2.ev-section-title { margin: 1.8rem 0 0.5rem; }
+  .ev .ev-plot-toolbar { justify-content: flex-start; }
+  .ev .ev-noplot { padding: 0.6rem 0.8rem; border: 1px dashed rgba(128, 128, 128, 0.5); border-radius: 8px; color: #5f6368; }
+
+  /* Settings: a toolbar of menus (left) and view options and playback (right), then the matrix. */
+  .ev-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem 1.5rem;
+    padding-bottom: 0.6rem;
+    margin-bottom: 0.7rem;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.25);
+  }
+  .ev-toolbar-group { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.1rem; }
+  /* Labels sit beside their controls rather than above them. */
+  .ev .ev-field { display: flex; align-items: center; gap: 0.4rem; font-size: 0.9em; color: #5f6368; }
+  .ev .ev-field select { color: #202124; }
+  .ev #ev-example { max-width: 14rem; }
+  .ev-view { font-size: 0.9em; }
+  .ev-view label { display: flex; align-items: center; gap: 0.3rem; }
+  .ev-group-label { font-size: 0.9em; color: #5f6368; }
+  .ev .ev-sweep { min-width: 6.2rem; }
+
+  /* "?" buttons and their popup (common/help.ts). The popup is moved to <body>, so its styles don't
+     use the .ev prefix. */
+  .ev .ev-help {
+    width: 1.25rem;
+    height: 1.25rem;
+    padding: 0;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: bold;
+    line-height: 1;
+    color: #6b6b6b;
+    flex: none;
+  }
+  .ev .ev-help[aria-expanded="true"] { background: #1a73e8; border-color: #1a73e8; color: #fff; }
+  .ev-help-popup {
+    position: absolute;
+    z-index: 30;
+    max-width: min(22rem, calc(100vw - 16px));
+    padding: 0.6rem 0.8rem;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+    font-size: 0.85em;
+    line-height: 1.45;
+  }
+  .ev-help-popup p { margin: 0 0 0.4rem; }
+  .ev-help-popup p:last-child { margin: 0; }
+  .ev-help-popup ul { margin: 0 0 0.4rem; padding-left: 1.2rem; }
+  .ev-help-popup li { margin: 0 0 0.25rem; }
+  .ev-help-popup dl { margin: 0 0 0.4rem; }
+  .ev-help-popup dl:last-child { margin: 0; }
+  .ev-help-popup dt { margin: 0.35rem 0 0; font-weight: bold; }
+  .ev-help-popup dt:first-child { margin-top: 0; }
+  .ev-help-popup dd { margin: 0 0 0 0.9rem; }
+
+  /* Pinnable panels (common/panels.ts), as in the other tools. */
+  .ev-panel { position: relative; padding: 0.4rem 2.4rem 0.4rem 0; margin-bottom: 0.6rem; background: #fff; }
+  .ev-panel.ev-pinned { position: sticky; z-index: 10; border-bottom: 1px solid rgba(128, 128, 128, 0.35); }
+  .ev .ev-pin {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.35rem;
+    width: auto;
+    padding: 0.25rem;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: #8a919c;
+    line-height: 0;
+    opacity: 0.6;
+  }
+  .ev .ev-pin:hover { background: rgba(128, 128, 128, 0.1); opacity: 1; }
+  .ev .ev-pin svg { width: 18px; height: 18px; transform: rotate(45deg); transition: transform 150ms; }
+  .ev .ev-pinned .ev-pin { color: #1a73e8; opacity: 1; }
+  .ev .ev-pinned .ev-pin svg { transform: none; }
+
+  /* Brackets around a matrix or column vector, drawn by ::before and ::after. */
+  .ev-bracket {
+    position: relative;
+    display: inline-grid;
+    gap: 0.25rem 0.35rem;
+    padding: 0.3rem 0.55rem;
+    vertical-align: middle;
+  }
+  .ev-bracket::before, .ev-bracket::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 0.35rem;
+    border: 2px solid #3c4043;
+  }
+  .ev-bracket::before { left: 0; border-right: none; }
+  .ev-bracket::after { right: 0; border-left: none; }
+  .ev-matrix-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1.2rem; }
+  .ev .ev-matrix-entry {
+    width: 4rem;
+    padding: 0.2rem 0.3rem;
+    border: 1px solid rgba(128, 128, 128, 0.45);
+    border-radius: 4px;
+    text-align: right;
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+  }
+  .ev .ev-matrix-entry.ev-bad { border-color: #c5221f; background: rgba(197, 34, 31, 0.07); }
+  .ev-matrix-note { font-size: 0.85em; color: #5f6368; }
+
+  /* The plot, with the readout beside it (below it on narrow screens). */
+  .ev-viz { display: grid; grid-template-columns: minmax(0, 1fr) minmax(14rem, 19rem); gap: 1rem; align-items: start; }
+  @media (max-width: 700px) {
+    .ev-viz { grid-template-columns: minmax(0, 1fr); }
+    .ev-readout { order: -1; }
+  }
+  /* The theme lays figures out as flex rows with serif captions; the title goes above, centered. */
+  .ev .ev-figure { display: block; margin: 0; }
+  .ev .ev-figure figcaption { margin: 0 0 0.3rem; text-align: center; font-family: inherit; font-size: 0.95em; font-weight: bold; color: #3c4043; }
+  #ev-canvas {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    max-height: 70vh;
+    margin: 0 auto;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 8px;
+    background: #fff;
+    touch-action: none;
+    cursor: grab;
+  }
+  .ev-pinned #ev-canvas { max-height: 42vh; }
+  #ev-canvas.ev-dragging { cursor: grabbing; }
+  .ev-plot-hint { margin: 0.3rem 0 0; font-size: 0.85em; color: #5f6368; text-align: center; }
+  .ev-readout {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 8px;
+    font-size: 0.9em;
+  }
+  .ev-readout p { margin: 0; }
+  .ev-vectors { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 1.2rem; font-variant-numeric: tabular-nums; }
+  .ev-vec { display: inline-flex; align-items: center; gap: 0.35rem; }
+  .ev-colvec { text-align: right; min-width: 3.2rem; padding: 0.15rem 0.5rem; gap: 0.1rem; }
+  .ev-status { padding: 0.4rem 0.55rem; border-left: 4px solid rgba(128, 128, 128, 0.5); border-radius: 4px; background: rgba(128, 128, 128, 0.06); line-height: 1.4; }
+  .ev-status.ev-is-eigen { border-left-color: var(--ev-eig-color, #009E73); background: rgba(0, 158, 115, 0.09); }
+  .ev-eig-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.2rem; font-variant-numeric: tabular-nums; }
+  .ev-swatch { display: inline-block; width: 1.1rem; height: 0; margin-right: 0.35rem; vertical-align: middle; border-top: 3px dashed currentColor; }
+  .ev-readout-title { font-weight: bold; color: #3c4043; }
+
+  /* The calculations for the matrix in the plot. */
+  .ev-calc { overflow-x: auto; overflow-y: hidden; }
+  .ev-calc h3 { margin: 1rem 0 0.3rem; font-size: 1em; }
+  .ev-calc p { margin: 0.4rem 0; }
+
+  /* Practice: the problem, in a box with its label on the top border. */
+  .ev-instructions { margin: 0 0 0.6rem; }
+  .ev-instructions summary { cursor: pointer; font-weight: bold; font-size: 0.95em; }
+  .ev-instructions[open] summary { margin-bottom: 0.4rem; }
+  .ev-custom { margin: 0.5rem 0 0; }
+  .ev-design { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1.4rem; margin: 0.7rem 0 0; }
+  .ev-design-item { display: inline-flex; align-items: center; gap: 0.4rem; }
+  .ev .ev-design .ev-matrix-entry { width: 3.6rem; }
+  .ev .ev-design-error { margin: 0.5rem 0 0; padding: 0.4rem 0.6rem; border-left: 4px solid #c5221f; border-radius: 4px; background: rgba(197, 34, 31, 0.07); font-size: 0.92em; }
+  .ev-problem-box {
+    position: relative;
+    margin: 0.9rem 0 0.2rem;
+    padding: 1.1rem 1.2rem 0.6rem;
+    border: 1px solid rgba(128, 128, 128, 0.45);
+    border-radius: 8px;
+  }
+  .ev .ev-problem-title {
+    position: absolute;
+    top: 0;
+    left: 0.9rem;
+    transform: translateY(-50%);
+    margin: 0;
+    padding: 0 0.4rem;
+    border: none;
+    background: #fff;
+    font-size: 1.05em;
+  }
+  @media (max-width: 600px) {
+    .ev-problem-box { padding: 1rem 0.6rem 0.5rem; }
+  }
+  .ev-statement { overflow-x: auto; overflow-y: hidden; }
+  .ev-statement p { margin: 0 0 0.5rem; }
+  .ev-problem-nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.5rem; margin: 0 0 0.4rem; }
+  .ev-solution-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.4rem 1rem; margin: 1rem 0 0.4rem; }
+  .ev .ev-solution-head h3 { margin: 0; border: none; font-size: 1.1em; }
+  .ev-hint-count { font-size: 0.85em; color: #5f6368; }
+
+  /* The steps: one card each. */
+  .ev-step {
+    margin: 0 0 1rem;
+    padding: 0.8rem 1rem;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-left-width: 4px;
+    border-radius: 8px;
+    background: rgba(128, 128, 128, 0.04);
+  }
+  .ev-step.ev-step-right { border-left-color: #188038; }
+  .ev-step.ev-step-shown { border-left-color: #f9ab00; }
+  .ev-step.ev-step-given { border-left-color: #1a73e8; }
+  .ev .ev-step h4 { margin: 0 0 0.5rem; font-size: 1em; }
+  .ev-step-intro { margin: 0 0 0.6rem; font-size: 0.92em; overflow-x: auto; overflow-y: hidden; }
+  /* What the step uses from the problem and earlier steps, repeated so the student doesn't scroll. */
+  .ev-uses { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 0 2.5rem; margin: 0 0 0.6rem; padding: 0.1rem 0.8rem; border-left: 3px solid rgba(26, 115, 232, 0.4); overflow-x: auto; overflow-y: hidden; }
+  .ev-uses-group { min-width: 0; }
+  .ev .ev-uses-title { margin: 0.3rem 0 0; font-size: 0.85em; color: #5f6368; }
+  .ev-uses mjx-container[display="true"] { margin: 0.4em 0 !important; }
+  .ev-step-intro p { margin: 0 0 0.4rem; }
+  .ev-entries { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem 1.6rem; }
+  .ev-entry-group { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+  .ev-entry-label { white-space: nowrap; }
+  .ev .ev-entry {
+    width: 3.6rem;
+    padding: 0.25rem 0.2rem;
+    border: 1px solid rgba(128, 128, 128, 0.45);
+    border-radius: 6px;
+    background: #fff;
+    color: #000;
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+  }
+  .ev .ev-entry:disabled { background: rgba(128, 128, 128, 0.08); }
+  .ev .ev-entry.ev-right { border: 2px solid #188038; background: rgba(24, 128, 56, 0.08); }
+  .ev .ev-entry.ev-wrong { border: 2px solid #c5221f; background: rgba(197, 34, 31, 0.07); }
+  .ev .ev-entry.ev-shown { border: 2px solid #f9ab00; background: #fef7e0; }
+  /* Yes/No questions: a split pill of two radio buttons. */
+  .ev-yes-no {
+    display: inline-flex;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 999px;
+    overflow: hidden;
+    background: #fff;
+  }
+  .ev .ev-yn-option { position: relative; display: inline-flex; cursor: pointer; }
+  .ev .ev-yn-option + .ev-yn-option { border-left: 1px solid rgba(128, 128, 128, 0.5); }
+  .ev .ev-yn-option input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; }
+  .ev .ev-yn-option span { padding: 0.3rem 1rem; min-width: 3.2rem; text-align: center; color: #3c4043; }
+  .ev .ev-yn-option:hover span { background: rgba(128, 128, 128, 0.1); }
+  .ev .ev-yn-option input:checked + span { background: #1a73e8; color: #fff; }
+  .ev .ev-yn-option input:focus-visible + span { outline: 2px solid #1a73e8; outline-offset: -4px; }
+  .ev .ev-yn-option:has(input:disabled) { cursor: not-allowed; opacity: 0.7; }
+  .ev-yes-no.ev-right { border: 2px solid #188038; }
+  .ev-yes-no.ev-wrong { border: 2px solid #c5221f; }
+  .ev-yes-no.ev-shown { border: 2px solid #f9ab00; }
+  .ev-step-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-top: 0.8rem; }
+  .ev .ev-step-actions button { font-size: 0.9em; }
+  .ev-feedback { margin: 0.6rem 0 0; font-size: 0.92em; }
+  .ev-feedback:empty { display: none; }
+  .ev-feedback-right { color: #188038; font-weight: bold; }
+  .ev-feedback-wrong { color: #c5221f; font-weight: bold; }
+  .ev-feedback-note { color: #3d4144; }
+  .ev-hint-box {
+    margin: 0.6rem 0 0;
+    padding: 0.6rem 0.8rem;
+    border-left: 4px solid #f9ab00;
+    border-radius: 6px;
+    background: #fef7e0;
+    font-size: 0.92em;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  .ev-hint-box p { margin: 0 0 0.4rem; }
+  .ev-hint-box p:last-child { margin: 0; }
+  .ev-worked { margin: 0.6rem 0 0; font-size: 0.95em; overflow-x: auto; overflow-y: hidden; }
+  .ev-worked:empty { display: none; }
+  .ev-worked p { margin: 0 0 0.4rem; }
+  .ev .ev-more-steps { margin: 0 0 1rem; font-size: 0.9em; font-style: italic; color: #5f6368; }
+  .ev-done {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1rem;
+    margin: 0 0 1.5rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid #188038;
+    border-left-width: 5px;
+    border-radius: 6px;
+    background: rgba(24, 128, 56, 0.08);
+  }
+  .ev-done strong { font-size: 1.05em; }
+  .ev .ev-done-suggest { flex-basis: 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.8rem; margin: 0; }
+</style>
+
+<div class="ev">
+  <p>
+    An <em>eigenvector</em> of a square matrix \(A\) is a nonzero vector \(\vect{x}\) that \(A\) stretches (or shrinks, or flips) without turning it off its line: \(A\vect{x} = \lambda \vect{x}\) for a number \(\lambda\), called an <em>eigenvalue</em> of \(A\).
+    Below, practice finding eigenvalues and eigenvectors by hand, while the picture shows where \(A\) sends each vector.
+  </p>
+  <p class="ev-related">
+    {%- assign related_terms = "eigenvalue|eigenvector|characteristic polynomial|eigenspace|determinant|eigendecomposition" | split: "|" %}
+    {%- assign related_defs = "" | split: "" %}
+    {%- for t in related_terms %}
+      {%- assign d = site.definitions | where: "term", t | first %}
+      {%- if d %}{% assign related_defs = related_defs | push: d %}{% endif %}
+    {%- endfor %}
+    Finding eigenvectors means solving \((A - \lambda I)\vect{x} = \vect{0}\); to practice row reducing, try <a href="{{ '/tools/gaussian_elimination_practice/' | relative_url }}">Gaussian Elimination Practice</a>.
+    {%- if related_defs.size > 0 %} See the definitions of
+      {% for d in related_defs -%}
+        {%- if forloop.last and related_defs.size > 2 %}, and {% elsif forloop.last and related_defs.size > 1 %} and {% elsif forloop.index > 1 %}, {% endif -%}
+        <a href="{{ d.url | relative_url }}">{{ d.title | downcase }}</a>
+      {%- endfor %}.
+    {%- endif %}
+  </p>
+  {% include notation-note.html examples="vectors" class="ev-related" %}
+  <details class="ev-instructions">
+    <summary>Instructions</summary>
+    <p>
+      To find the eigenvalues and eigenvectors of an \(n \times n\) matrix \(A\):
+    </p>
+    <ol>
+      <li>Find the <em>characteristic polynomial</em> \(\det(A - \lambda I)\). For a \(2 \times 2\) matrix, it is \(\lambda^2 - (\operatorname{tr} A)\lambda + \det A\).</li>
+      <li>The eigenvalues are its roots: the numbers \(\lambda\) with \(\det(A - \lambda I) = 0\).</li>
+      <li>For each eigenvalue \(\lambda\), the <em>eigenspace</em> is the null space of \(A - \lambda I\): row reduce \(A - \lambda I\) and solve \((A - \lambda I)\vect{x} = \vect{0}\). Its nonzero vectors are the eigenvectors for \(\lambda\).</li>
+      <li>\(A\) is <em>diagonalizable</em> when it has \(n\) linearly independent eigenvectors, that is, when the dimensions of its eigenspaces add up to \(n\).</li>
+    </ol>
+    <p>
+      <strong>Guided Learning</strong> chooses the problems for you, in levels from easy to hard: checking a given vector or number first, then finding eigenvalues, eigenvectors, and eigenspaces.
+      After two problems at a level with no hints, the page suggests the next level.
+      To practice with a matrix of your own, choose <strong>Design your own problems</strong>, pick the kind of problem, and enter the matrix.
+    </p>
+    <p>
+      <strong>Support</strong> sets how much of each problem the page works for you.
+      With full support, the page works every step, as a worked example.
+      With partial support, the page does the routine calculations (\(A\vect{v}\), \(A - \lambda I\), determinants, the characteristic polynomial, and dimensions), and you do the main steps.
+      With no support, you calculate every value.
+    </p>
+    <p>
+      The picture shows the problem's matrix \(A\) (for a \(2 \times 2\) matrix).
+      Drag the vector \(\vect{x}\) (blue), or press <strong>Sweep</strong> to turn it, and watch \(A\vect{x}\) (orange): when \(A\vect{x}\) lies on the line through \(\vect{x}\), \(\vect{x}\) is an eigenvector.
+      Until you finish the steps, the picture doesn't show the eigenvalues or the values of \(A\vect{x}\), and the full solution stays hidden.
+    </p>
+    <p>
+      Fill in the boxes and click <strong>Check</strong> (or press Enter); Tab moves between the boxes.
+      Entries can be integers, decimals, or fractions such as <code>-3</code>, <code>0.5</code>, or <code>1/2</code>.
+      Eigenvalues can be listed in any order, and any nonzero multiple of an eigenvector (or any basis of an eigenspace) counts as right.
+      Stuck? <strong>Hint</strong> suggests what to do, and clicking it again gives a more specific hint.
+      <strong>Show</strong> fills in the answer.
+      The page counts the hints you use for each problem; shown answers and wrong checks count as hints too (checking the same wrong answer again doesn't count twice).
+      Later steps appear once the steps they use are right (or shown).
+      The problem is saved in this page's address, so you can reload the page or share a link.
+    </p>
+  </details>
+
+
+  <div class="ev-practice-settings ev-panel" data-fullscreen="false">
+    <section class="pr-box" aria-labelledby="ev-practice-title">
+      <h2 id="ev-practice-title" class="pr-box-title">Practice</h2>
+      <div id="ev-practice"></div>
+      <div id="ev-custom-controls" class="ev-custom" hidden>
+       <div class="ev-toolbar-group">
+        <label class="ev-field"><span data-help="#ev-help-kind">Problem</span>
+          <select id="ev-kind">
+            <optgroup label="Checking">
+              <option value="evec">Check an eigenvector</option>
+              <option value="evalcheck">Check an eigenvalue</option>
+            </optgroup>
+            <optgroup label="Eigenvalues">
+              <option value="tri">Triangular matrix</option>
+              <option value="poly2">2 × 2: characteristic polynomial</option>
+              <option value="complex2">2 × 2: complex eigenvalues</option>
+            </optgroup>
+            <optgroup label="Eigenvectors">
+              <option value="vecs2">2 × 2: eigenvalues given</option>
+              <option value="full2" selected>2 × 2: eigenvalues and eigenvectors</option>
+              <option value="repeated2">2 × 2: repeated eigenvalue</option>
+              <option value="eig3">3 × 3: eigenspaces</option>
+            </optgroup>
+          </select>
+        </label>
+        <label class="ev-field" id="ev-size-field">Size
+          <select id="ev-size">
+            <option value="2">2 × 2</option>
+            <option value="3">3 × 3</option>
+          </select>
+        </label>
+       </div>
+        <!-- The student's own problem: the matrix (and, for some kinds, v or λ). Filled in from
+             the problem shown, so it can be edited. -->
+        <div class="ev-design" role="group" aria-label="Your problem">
+          <span class="ev-design-item"><span>\(A =\)</span><span class="ev-bracket" id="ev-design-a"></span></span>
+          <span class="ev-design-item" id="ev-design-v-item"><span>\(\vect{v} =\)</span><span class="ev-bracket" id="ev-design-v"></span></span>
+          <label class="ev-design-item" id="ev-design-l-item"><span>\(\lambda =\)</span><input class="ev-matrix-entry" id="ev-design-l" inputmode="decimal" aria-label="λ"></label>
+          <button type="button" class="ev-primary" id="ev-design-go">Practice this problem</button>
+        </div>
+        <p class="ev-design-error" id="ev-design-error" role="alert" hidden></p>
+      </div>
+    </section>
+  </div>
+
+  <section class="ev-problem ev-panel" data-fullscreen="false" aria-labelledby="ev-problem-title">
+    <div class="ev-problem-box">
+      <h3 id="ev-problem-title" class="ev-problem-title">Problem</h3>
+      <div id="ev-statement" class="ev-statement" aria-live="polite"></div>
+      <div class="ev-problem-nav">
+        <button id="ev-prev" type="button">← Previous problem</button>
+        <button id="ev-next" class="ev-primary" type="button">Next problem →</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="ev-plot ev-panel" id="ev-plot-panel" data-fullscreen="false">
+    <div class="ev-toolbar ev-plot-toolbar">
+      <div class="ev-toolbar-group ev-view">
+        <span class="ev-group-label">View</span>
+        <label><input type="checkbox" id="ev-show-lines"> <span data-help="Draws a dashed line through the origin along each real eigenvector direction, labeled with its eigenvalue. Every nonzero vector on one of these lines is an eigenvector. A matrix with complex eigenvalues has no such lines.">Eigenvector lines</span></label>
+        <label><input type="checkbox" id="ev-show-ellipse"> <span data-help="Draws the circle through x (gray, dashed) and its image under A (gray-blue): the curve traced by Ax as x goes around the circle. The image is an ellipse, which flattens to a segment when A isn't invertible. Sweep turns this on.">Circle and image</span></label>
+        <label><input type="checkbox" id="ev-show-grid"> <span data-help="Draws the image of the square grid under A: each grid line x = k or y = k is sent to the line it's carried to. Lines along the eigenvector directions are only stretched, not turned.">Grid image</span></label>
+        <button type="button" id="ev-sweep" class="ev-sweep" aria-pressed="false">▶ Sweep</button>
+      </div>
+    </div>
+    <div class="ev-matrix-row" id="ev-matrix-row" hidden>
+      <span class="ev-matrix-label">\(A =\)</span>
+      <span class="ev-bracket" id="ev-matrix" style="grid-template-columns: auto auto">
+        <input class="ev-matrix-entry" id="ev-a00" inputmode="decimal" aria-label="Row 1, column 1 of A">
+        <input class="ev-matrix-entry" id="ev-a01" inputmode="decimal" aria-label="Row 1, column 2 of A">
+        <input class="ev-matrix-entry" id="ev-a10" inputmode="decimal" aria-label="Row 2, column 1 of A">
+        <input class="ev-matrix-entry" id="ev-a11" inputmode="decimal" aria-label="Row 2, column 2 of A">
+      </span>
+      <span class="ev-matrix-note">Entries can be integers, decimals, or fractions such as <code>1/2</code>.</span>
+    </div>
+    <div class="ev-viz">
+      <figure class="ev-figure">
+        <figcaption>The problem's matrix \(A\): the vector \(\vect{x}\) and its image \(A\vect{x}\)</figcaption>
+        <canvas id="ev-canvas" aria-label="The plane with the vector x, its image Ax, and the eigenvector lines of A"></canvas>
+        <p class="ev-plot-hint">Drag anywhere in the plot to move \(\vect{x}\). It snaps to the eigenvector directions.</p>
+      </figure>
+      <div class="ev-readout" aria-live="off">
+        <div class="ev-vectors">
+          <span class="ev-vec"><span>\(\vect{x} =\)</span><span class="ev-bracket ev-colvec" id="ev-x"></span></span>
+          <span class="ev-vec"><span>\(A\vect{x} =\)</span><span class="ev-bracket ev-colvec" id="ev-ax"></span></span>
+        </div>
+        <p class="ev-status" id="ev-status" role="status"></p>
+        <div>
+          <p class="ev-readout-title">Eigenvalues of \(A\)</p>
+          <ul class="ev-eig-list" id="ev-eigs"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="ev-noplot" id="ev-noplot" hidden>The picture is for 2 × 2 matrices, so this problem has none.</p>
+
+  <div class="ev-solution-head">
+    <h3>Solution</h3>
+    <span id="ev-hint-count" class="ev-hint-count" role="status"></span>
+  </div>
+  {% include by-hand-note.html %}
+  <div id="ev-steps"></div>
+  <div id="ev-done" class="ev-done" role="status" hidden>
+    <strong id="ev-done-text"></strong>
+    <button id="ev-done-new" class="ev-primary" type="button">Next problem</button>
+    <p id="ev-done-suggest" class="ev-done-suggest" hidden>
+      <span id="ev-done-suggest-text"></span>
+      <button id="ev-done-next-level" type="button"></button>
+    </p>
+  </div>
+
+  <section class="ev-calc" aria-labelledby="ev-calc-title">
+    <h3 id="ev-calc-title" style="font-size: 1.1em;">Full solution</h3>
+    <div id="ev-calc" aria-live="polite"></div>
+  </section>
+
+  <section id="ev-progress" aria-label="Your progress"></section>
+
+  <template id="ev-help-support">
+    <p>How much of each problem the page works for you:</p>
+    <dl>
+      <dt>Full</dt>
+      <dd>The page works every step and shows every value, as a worked example.</dd>
+      <dt>Partial</dt>
+      <dd>The page does the routine calculations, such as <em>A</em><strong>v</strong>, <em>A</em> − λ<em>I</em>, determinants, and the characteristic polynomial. You do the main steps.</dd>
+      <dt>None</dt>
+      <dd>You calculate every value. The picture still shows the problem, but its eigenvalues and the values of <em>A</em><strong>x</strong> appear only when you finish.</dd>
+    </dl>
+  </template>
+  <template id="ev-help-kind">
+    <p>The kind of problem:</p>
+    <dl>
+      <dt>Check an eigenvector</dt>
+      <dd>Multiply <em>A</em><strong>v</strong> and decide whether it is a multiple of <strong>v</strong>.</dd>
+      <dt>Check an eigenvalue</dt>
+      <dd>Decide whether det(<em>A</em> − λ<em>I</em>) = 0.</dd>
+      <dt>Triangular matrix</dt>
+      <dd>The eigenvalues are the diagonal entries.</dd>
+      <dt>2 × 2: characteristic polynomial</dt>
+      <dd>Find λ² − (tr <em>A</em>)λ + det <em>A</em> and its roots.</dd>
+      <dt>2 × 2: complex eigenvalues</dt>
+      <dd>The characteristic polynomial has no real roots; find λ = <em>a</em> ± <em>b</em>i.</dd>
+      <dt>2 × 2: eigenvalues given</dt>
+      <dd>Find an eigenvector for each eigenvalue.</dd>
+      <dt>2 × 2: eigenvalues and eigenvectors</dt>
+      <dd>The whole process.</dd>
+      <dt>2 × 2: repeated eigenvalue</dt>
+      <dd>One eigenvalue: find its eigenspace and decide whether <em>A</em> is diagonalizable.</dd>
+      <dt>3 × 3: eigenspaces</dt>
+      <dd>Given the characteristic polynomial, find the eigenvalues, a basis of each eigenspace, and whether <em>A</em> is diagonalizable.</dd>
+    </dl>
+  </template>
+  <div id="ev-help-popup" class="ev-help-popup" role="note" hidden></div>
+</div>
+
+<script src="{{ '/assets/ts/out/eigenvalues.js' | relative_url }}" type="module"></script>
