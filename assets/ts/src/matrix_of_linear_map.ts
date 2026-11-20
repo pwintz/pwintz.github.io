@@ -610,7 +610,7 @@ function initPage(): void {
     customControls: [byId<HTMLDivElement>("mm-custom-controls")],
     progress: byId<HTMLElement>("mm-progress"),
     newProblem: () => newProblem(),
-    helpText: "The practice path is a series of levels, from easy to hard. Each level adds one new idea, such as a nonstandard basis, a map on polynomials, or a target that is a plane in ℝ³, and gives a new random problem of that kind each time. After two problems at a level with no hints, the page suggests the next level. To pick the spaces, bases, and kind of map yourself, choose “Choose problems” instead.",
+    helpText: "Guided Learning is a series of levels, from easy to hard. Each level adds one new idea, such as a nonstandard basis, a map on polynomials, or a target that is a plane in ℝ³, and gives a new random problem of that kind each time. After two problems at a level with no hints, the page suggests the next level. To pick the spaces, bases, and kind of map yourself, choose “Design your own problems” instead.",
   });
 
   const settings = (): Settings => ({
