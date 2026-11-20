@@ -2,11 +2,13 @@
 layout: single
 permalink: /tools/projection_least_squares/
 title: Projections and Least Squares
-excerpt: "Visualize and calculate the projection of a vector onto a subspace, least squares solutions of Ax = b, and curves of best fit. Drag the vectors in 2D or turn the 3D view, and see every calculation step by step in exact fractions."
+excerpt: "Practice finding the projection of a vector onto a subspace, least squares solutions of Ax = b, and lines of best fit, step by step, with hints and checks, while the problem is drawn in 2D or 3D. Start with worked examples and work up to calculating every value yourself."
 tool_categories: [Linear Algebra, Math]
 full_width: true
 date_added: 2026-11-16
 ---
+
+{% include practice-styles.html %}
 
 <style>
   .pl select,
@@ -218,6 +220,7 @@ date_added: 2026-11-16
 
   /* Pinnable panels (common/panels.ts), as in the other tools. */
   .pl-settings, .pl-plot, .pl-side-panel, .pl-overlay-panel { position: relative; background: #fff; }
+  .pl-settings .pr-box { margin-top: 0.5rem; }
   .pl-settings { padding: 0.4rem 2.4rem 0.4rem 0; margin-bottom: 0.6rem; }
   .pl-plot, .pl-side-panel, .pl-overlay-panel { padding: 0.3rem 2.2rem 0.3rem 0; margin-bottom: 0.5rem; }
   .pl-settings.pl-pinned { position: sticky; z-index: 10; border-bottom: 1px solid rgba(128, 128, 128, 0.35); }
@@ -249,14 +252,26 @@ date_added: 2026-11-16
   .pl .pl-note { font-size: 0.9em; color: #5f6368; }
   .pl .pl-note .pl-small { margin-left: 0.3rem; }
   .pl .pl-related { margin: 0 0 0.8rem; font-size: 0.85em; color: #5f6368; }
+  .pl h3.pl-calc-title { margin: 1.4rem 0 0.3rem; font-size: 1.1em; }
+
+  /* The problem: what to find, its entries, and the buttons for other problems. */
+  .pl-problem { position: relative; padding: 0.3rem 2.2rem 0.3rem 0; margin-bottom: 0.5rem; background: #fff; }
+  .pl-problem.pl-pinned { position: sticky; z-index: 9; border-bottom: 1px solid rgba(128, 128, 128, 0.35); }
+  .pl .pl-problem .sp-problem-box { margin-top: 0.9rem; }
+  .pl #pl-entries { margin: 0.4rem 0 0.6rem; }
+  .pl .pl-design { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.1rem; margin: 0.6rem 0 0; }
+  .pl input.pl-entry[readonly] { background: rgba(128, 128, 128, 0.06); color: #202124; -webkit-text-fill-color: #202124; }
+  .pl .pl-plot-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 1.1rem; margin: 0 0 0.4rem; }
+  .pl .sp-no-steps { margin: 0 0 1rem; padding: 0.55rem 0.8rem; border-left: 4px solid rgba(128, 128, 128, 0.5); border-radius: 6px; background: rgba(128, 128, 128, 0.06); font-size: 0.92em; }
 </style>
+{% include step-practice-styles.html %}
 
 <div class="pl">
   <p>
     The <em>projection</em> of a vector $\vect{x}$ onto a subspace $W$ is the point of $W$ closest to $\vect{x}$.
     A <em>least squares solution</em> of $A\vect{x} = \vect{b}$ makes $A\vect{x}$ as close as possible to $\vect{b}$, so $A\vect{x}$ is the projection of $\vect{b}$ onto the column space of $A$.
-    Fitting a curve to data is a least squares problem with one equation for each data point.
-    Choose a problem below, enter your own numbers or load an example, and see the picture and the calculations.
+    Fitting a line to data is a least squares problem with one equation for each data point.
+    Work each problem below step by step while it is drawn in the plane or in space.
   </p>
   <p class="pl-related">
     {%- comment -%}
@@ -278,82 +293,158 @@ date_added: 2026-11-16
   </p>
   {% include notation-note.html examples="vectors, transposes, and column spaces" class="pl-related" %}
 
-  <div class="pl-settings pl-panel" id="pl-settings" data-fullscreen="false">
-    <div class="pl-toolbar">
-      <div class="pl-toolbar-group">
-        <div class="pl-modes" id="pl-modes" role="group" aria-label="Problem">
-          <button type="button" data-mode="proj">Projection</button>
-          <button type="button" data-mode="lsq">Least squares</button>
-          <button type="button" data-mode="fit">Curve fitting</button>
+  <div class="sp-practice">
+    <details class="sp-instructions">
+      <summary>Instructions</summary>
+      <p>The methods:</p>
+      <ul>
+        <li>The projection of \(\vect{x}\) onto a nonzero vector \(\vect{v}\) is \(\operatorname{proj}_{\vect{v}} \vect{x} = \left( \ip{\vect{x}}{\vect{v}} / \norm{\vect{v}}^2 \right) \vect{v}\).</li>
+        <li>The projection onto a subspace \(W\) with an orthogonal basis \(\vect{u}_1, \ldots, \vect{u}_k\) is the sum of the projections onto the basis vectors. If the spanning vectors aren't orthogonal, Gram–Schmidt gives an orthogonal basis.</li>
+        <li>The least squares solutions of \(A\vect{x} = \vect{b}\) are the solutions of the <em>normal equation</em> \(A\trans A \vect{x} = A\trans \vect{b}\). Then \(A\vect{x}_*\) is the projection of \(\vect{b}\) onto \(\colspace{A}\).</li>
+        <li>A line \(y = c_0 + c_1 x\) of best fit is the least squares solution of the system with one equation \(c_0 + c_1 x_i = y_i\) for each data point.</li>
+      </ul>
+      <p>
+        <strong>Guided Learning</strong> chooses the problems for you, in levels from easy to hard: projections onto a vector, a line, and a plane, then least squares solutions and lines of best fit.
+        After two problems at a level with no hints, the page suggests the next level.
+        <strong>Design your own problems</strong> lets you type the vectors (or drag them in the plane), load an example, or choose the kind of random problem.
+      </p>
+      <p>
+        <strong>Support</strong> sets how much of each problem the page works for you.
+        With full support, the page works every step, as a worked example.
+        With partial support, the page does the arithmetic (inner products, \(A\trans A\), and so on), and you do the main steps.
+        With no support, you calculate every value.
+        Until you finish the steps, the picture shows the problem but not the values of the answer.
+      </p>
+      <p>
+        Fill in the boxes and click <strong>Check</strong> (or press Enter); Tab moves between the boxes.
+        Entries can be integers, decimals, or fractions such as <code>-3</code>, <code>0.5</code>, or <code>1/2</code>.
+        Stuck? <strong>Hint</strong> suggests what to do, and clicking it again gives a more specific hint.
+        <strong>Show</strong> fills in the answer.
+        The page counts the hints you use for each problem; shown answers and wrong checks count as hints too (checking the same wrong answer again doesn't count twice).
+        Later steps appear once the steps they use are right (or shown).
+        The problem is saved in this page's address, so you can reload the page or share a link.
+      </p>
+    </details>
+
+    <div class="pl-settings pl-panel" id="pl-settings" data-fullscreen="false">
+      <section class="pr-box" aria-labelledby="pl-practice-title">
+        <h2 id="pl-practice-title" class="pr-box-title">Practice</h2>
+        <div id="pl-practice"></div>
+        <div id="pl-custom-controls" hidden>
+          <hr class="pr-divider">
+          <div class="pl-design">
+            <div class="pl-modes" id="pl-modes" role="group" aria-label="Problem">
+              <button type="button" data-mode="proj">Projection</button>
+              <button type="button" data-mode="lsq">Least squares</button>
+              <button type="button" data-mode="fit">Curve fitting</button>
+            </div>
+            <label class="pl-field" data-for-mode="proj"><span data-help="Whether the vectors are in the plane ℝ² or in space ℝ³. In ℝ², drag the tips of the vectors in the plot; in ℝ³, type the entries and drag the plot to turn it.">Space</span>
+              <select id="pl-dim">
+                <option value="2">ℝ²</option>
+                <option value="3">ℝ³</option>
+              </select>
+            </label>
+            <label class="pl-field" data-for-mode="proj"><span data-help="How many vectors span the subspace W. One nonzero vector spans a line. Two vectors that aren't parallel span a plane. Dependent vectors span less: the calculation leaves out the ones that add nothing.">Spanning vectors</span>
+              <select id="pl-count">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </label>
+            <label class="pl-field" data-for-mode="lsq"><span data-help="The number of rows of A, which is the number of equations and the number of entries of b. With 2 or 3 rows, b is in ℝ² or ℝ³, so the problem is drawn. Least squares problems usually have more rows than columns: more equations than unknowns.">Rows</span>
+              <select id="pl-rows">
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+              </select>
+            </label>
+            <label class="pl-field" data-for-mode="lsq"><span data-help="The number of columns of A, which is the number of unknowns: the entries of x.">Columns</span>
+              <select id="pl-cols">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
+            </label>
+            <label class="pl-field" data-for-mode="fit"><span data-help="#pl-help-model">Model</span>
+              <select id="pl-degree">
+                <option value="0">Constant: y = c₀</option>
+                <option value="1">Line: y = c₀ + c₁x</option>
+                <option value="2">Quadratic: y = c₀ + c₁x + c₂x²</option>
+                <option value="3">Cubic: y = c₀ + c₁x + c₂x² + c₃x³</option>
+              </select>
+            </label>
+            <label class="pl-field">
+              <select id="pl-example" aria-label="Load an example">
+                <option value="" selected>Examples</option>
+                <optgroup label="Projection">
+                  <option value="vec2a">Onto a vector in ℝ² (lecture example)</option>
+                  <option value="vec2b">Onto a vector, pointing the other way (lecture example)</option>
+                  <option value="line3">Onto a line in ℝ³</option>
+                  <option value="orthPlane">Onto a plane, orthogonal basis</option>
+                  <option value="plane">Onto a plane, basis not orthogonal</option>
+                  <option value="inW">A vector already in the plane</option>
+                  <option value="dependent">Three dependent vectors</option>
+                </optgroup>
+                <optgroup label="Least squares">
+                  <option value="lay">3 × 2 system (lecture example)</option>
+                  <option value="consistent">A consistent system</option>
+                  <option value="depCols">Dependent columns</option>
+                  <option value="oneCol">One column in ℝ²</option>
+                  <option value="tall">4 × 2 system (no picture)</option>
+                </optgroup>
+                <optgroup label="Curve fitting">
+                  <option value="fitLecture">Line through three points (lecture example)</option>
+                  <option value="fitQuadLecture">Quadratic through the same three points</option>
+                  <option value="fitFive">Line through five points</option>
+                  <option value="fitQuad">Quadratic through six points</option>
+                  <option value="fitMean">Constant: the mean</option>
+                </optgroup>
+              </select>
+            </label>
+          </div>
+          <div class="pl-design">
+            <label class="sp-field"><span data-help="#pl-help-kind">Random problem</span>
+              <select id="pl-kind">
+                <optgroup label="Projections">
+                  <option value="projv" selected>Onto a vector in ℝ²</option>
+                  <option value="projline">Onto a line in ℝ³</option>
+                  <option value="projorth">Onto a plane: orthogonal basis</option>
+                  <option value="projgs">Onto a plane: Gram–Schmidt</option>
+                </optgroup>
+                <optgroup label="Least squares">
+                  <option value="lsq">Least squares solution</option>
+                  <option value="lsqres">Projection and residual</option>
+                  <option value="fitline">Line of best fit</option>
+                </optgroup>
+              </select>
+            </label>
+          </div>
         </div>
-        <label class="pl-field" data-for-mode="proj"><span data-help="Whether the vectors are in the plane ℝ² or in space ℝ³. In ℝ², drag the tips of the vectors in the plot; in ℝ³, type the entries and drag the plot to turn it.">Space</span>
-          <select id="pl-dim">
-            <option value="2">ℝ²</option>
-            <option value="3">ℝ³</option>
-          </select>
-        </label>
-        <label class="pl-field" data-for-mode="proj"><span data-help="How many vectors span the subspace W. One nonzero vector spans a line. Two vectors that aren't parallel span a plane. Dependent vectors span less: the calculation leaves out the ones that add nothing.">Spanning vectors</span>
-          <select id="pl-count">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-          </select>
-        </label>
-        <label class="pl-field" data-for-mode="lsq"><span data-help="The number of rows of A, which is the number of equations and the number of entries of b. With 2 or 3 rows, b is in ℝ² or ℝ³, so the problem is drawn. Least squares problems usually have more rows than columns: more equations than unknowns.">Rows</span>
-          <select id="pl-rows">
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-          </select>
-        </label>
-        <label class="pl-field" data-for-mode="lsq"><span data-help="The number of columns of A, which is the number of unknowns: the entries of x.">Columns</span>
-          <select id="pl-cols">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-          </select>
-        </label>
-        <label class="pl-field" data-for-mode="fit"><span data-help="#pl-help-model">Model</span>
-          <select id="pl-degree">
-            <option value="0">Constant: y = c₀</option>
-            <option value="1">Line: y = c₀ + c₁x</option>
-            <option value="2">Quadratic: y = c₀ + c₁x + c₂x²</option>
-            <option value="3">Cubic: y = c₀ + c₁x + c₂x² + c₃x³</option>
-          </select>
-        </label>
-        <label class="pl-field">
-          <select id="pl-example" aria-label="Load an example">
-            <option value="" selected>Examples</option>
-            <optgroup label="Projection">
-              <option value="vec2a">Onto a vector in ℝ² (lecture example)</option>
-              <option value="vec2b">Onto a vector, pointing the other way (lecture example)</option>
-              <option value="line3">Onto a line in ℝ³</option>
-              <option value="orthPlane">Onto a plane, orthogonal basis</option>
-              <option value="plane">Onto a plane, basis not orthogonal</option>
-              <option value="inW">A vector already in the plane</option>
-              <option value="dependent">Three dependent vectors</option>
-            </optgroup>
-            <optgroup label="Least squares">
-              <option value="lay">3 × 2 system (lecture example)</option>
-              <option value="consistent">A consistent system</option>
-              <option value="depCols">Dependent columns</option>
-              <option value="oneCol">One column in ℝ²</option>
-              <option value="tall">4 × 2 system (no picture)</option>
-            </optgroup>
-            <optgroup label="Curve fitting">
-              <option value="fitLecture">Line through three points (lecture example)</option>
-              <option value="fitQuadLecture">Quadratic through the same three points</option>
-              <option value="fitFive">Line through five points</option>
-              <option value="fitQuad">Quadratic through six points</option>
-              <option value="fitMean">Constant: the mean</option>
-            </optgroup>
-          </select>
-        </label>
+      </section>
+    </div>
+
+    <section class="pl-problem pl-panel" id="pl-problem-panel" data-fullscreen="false" aria-labelledby="pl-problem-title">
+      <div class="sp-problem-box">
+        <h3 id="pl-problem-title" class="sp-problem-title">Problem</h3>
+        <div id="pl-statement" class="sp-statement" aria-live="polite"></div>
+        <div id="pl-entries"></div>
+        <div class="sp-problem-nav">
+          <button id="pl-prev" type="button">← Previous problem</button>
+          <button id="pl-next" class="sp-primary" type="button">Next problem →</button>
+        </div>
       </div>
-      <div class="pl-toolbar-group pl-view">
+    </section>
+
+    <!-- On small screens the readout box moves here from the plot (see placeOverlay). -->
+    <div class="pl-overlay-panel pl-panel" id="pl-overlay-panel" data-fullscreen="false" hidden>
+      <div id="pl-overlay-slot"></div>
+    </div>
+
+    <div class="pl-plot pl-panel" id="pl-plot-panel" data-fullscreen="false">
+      <div class="pl-plot-toolbar pl-view">
         <span class="pl-group-label">View</span>
         <span class="pl-cues" id="pl-cues">
           <label><input type="checkbox" id="pl-perspective"> <span data-help="Draws farther points smaller, as a camera sees them, which helps show depth while the view turns. Without it, the view is orthographic: parallel lines stay parallel.">Perspective</span></label>
@@ -361,53 +452,61 @@ date_added: 2026-11-16
         </span>
         <label data-for-mode="fit"><input type="checkbox" id="pl-squares"> <span data-help="Draws a square on each residual (the vertical gap between a data point and the curve). Each square's area is the squared residual, and least squares makes their total area as small as possible.">Squares</span></label>
       </div>
-    </div>
-    <div id="pl-entries"></div>
-  </div>
-
-  <!-- On small screens the readout box moves here from the plot (see placeOverlay). -->
-  <div class="pl-overlay-panel pl-panel" id="pl-overlay-panel" data-fullscreen="false" hidden>
-    <div id="pl-overlay-slot"></div>
-  </div>
-
-  <div class="pl-plot pl-panel" id="pl-plot-panel" data-fullscreen="false">
-    <div class="pl-stage">
-      <canvas id="pl-canvas" aria-label="The vectors, the subspace, and the projection"></canvas>
-      <div class="pl-overlay" id="pl-overlay" aria-live="off">
-        <div id="pl-readout"></div>
-        <label class="pl-compare-toggle" data-for-mode="proj lsq"><input type="checkbox" id="pl-compare-box"> <span data-help="Adds another point of the subspace (gray), set by sliders that appear here, with its distance to the target. However you move it, it's never closer than the projection: the projection is the closest point.">Compare with another point</span></label>
-        <div id="pl-compare" hidden></div>
+      <div class="pl-stage">
+        <canvas id="pl-canvas" aria-label="The vectors, the subspace, and the projection"></canvas>
+        <div class="pl-overlay" id="pl-overlay" aria-live="off">
+          <div id="pl-readout"></div>
+          <label class="pl-compare-toggle" id="pl-compare-toggle" data-for-mode="proj lsq"><input type="checkbox" id="pl-compare-box"> <span data-help="Adds another point of the subspace (gray), set by sliders that appear here, with its distance to the target. However you move it, it's never closer than the projection: the projection is the closest point.">Compare with another point</span></label>
+          <div id="pl-compare" hidden></div>
+        </div>
       </div>
+      <p class="pl-plot-hint" id="pl-plot-hint"></p>
     </div>
-    <p class="pl-plot-hint" id="pl-plot-hint"></p>
-  </div>
-  <p class="pl-noplot" id="pl-noplot" hidden>
-    With more than three rows, <strong>b</strong> is in ℝ⁴ or higher, so there's no picture.
-    The calculations below work the same way.
-  </p>
+    <p class="pl-noplot" id="pl-noplot" hidden>
+      With more than three rows, <strong>b</strong> is in ℝ⁴ or higher, so there's no picture.
+      The calculations work the same way.
+    </p>
 
-  <div class="pl-side-panel pl-panel" id="pl-side-panel" data-fullscreen="false">
-    <details class="pl-side-details" open>
-      <summary>Top, front, and side views</summary>
-      <div class="pl-side-views">
-        <figure>
-          <figcaption>Top (<em>x</em>–<em>y</em>)</figcaption>
-          <canvas id="pl-view-top" aria-label="Top view, looking down the z-axis"></canvas>
-        </figure>
-        <figure>
-          <figcaption>Front (<em>x</em>–<em>z</em>)</figcaption>
-          <canvas id="pl-view-front" aria-label="Front view, looking along the y-axis"></canvas>
-        </figure>
-        <figure>
-          <figcaption>Side (<em>y</em>–<em>z</em>)</figcaption>
-          <canvas id="pl-view-side" aria-label="Side view, looking along the x-axis"></canvas>
-        </figure>
-      </div>
-    </details>
-  </div>
+    <div class="pl-side-panel pl-panel" id="pl-side-panel" data-fullscreen="false">
+      <details class="pl-side-details" open>
+        <summary>Top, front, and side views</summary>
+        <div class="pl-side-views">
+          <figure>
+            <figcaption>Top (<em>x</em>–<em>y</em>)</figcaption>
+            <canvas id="pl-view-top" aria-label="Top view, looking down the z-axis"></canvas>
+          </figure>
+          <figure>
+            <figcaption>Front (<em>x</em>–<em>z</em>)</figcaption>
+            <canvas id="pl-view-front" aria-label="Front view, looking along the y-axis"></canvas>
+          </figure>
+          <figure>
+            <figcaption>Side (<em>y</em>–<em>z</em>)</figcaption>
+            <canvas id="pl-view-side" aria-label="Side view, looking along the x-axis"></canvas>
+          </figure>
+        </div>
+      </details>
+    </div>
 
-  <h2 class="pl-section-title">Calculations</h2>
-  <div id="pl-calc" aria-live="polite"></div>
+    <div class="sp-solution-head">
+      <h3>Solution</h3>
+      <span id="pl-hint-count" class="sp-hint-count" role="status"></span>
+    </div>
+    {% include by-hand-note.html %}
+    <div id="pl-steps"></div>
+    <div id="pl-done" class="sp-done" role="status" hidden>
+      <strong id="pl-done-text"></strong>
+      <button id="pl-done-new" class="sp-primary" type="button">Next problem</button>
+      <p id="pl-done-suggest" class="sp-done-suggest" hidden>
+        <span id="pl-done-suggest-text"></span>
+        <button id="pl-done-next-level" type="button"></button>
+      </p>
+    </div>
+
+    <h3 class="pl-calc-title">Full solution</h3>
+    <div id="pl-calc" aria-live="polite"></div>
+
+    <section id="pl-progress" aria-label="Your progress"></section>
+  </div>
 
   <template id="pl-help-model">
     <p>The kind of curve to fit to the data:</p>
@@ -417,11 +516,42 @@ date_added: 2026-11-16
       <dt>Line</dt>
       <dd>A straight line, as in linear regression.</dd>
       <dt>Quadratic</dt>
-      <dd>A parabola. It goes through any three points with different x-values.</dd>
+      <dd>A parabola. It goes through every set of three points with different x-values.</dd>
       <dt>Cubic</dt>
-      <dd>A polynomial of degree 3. It goes through any four points with different x-values.</dd>
+      <dd>A polynomial of degree 3. It goes through every set of four points with different x-values.</dd>
     </dl>
     <p>Each model is linear in its coefficients c₀, c₁, …, so finding them is a least squares problem.</p>
+    <p>Practice steps are available for lines; for the other models, the page shows the full solution.</p>
+  </template>
+  <template id="pl-help-support">
+    <p>How much of each problem the page works for you:</p>
+    <dl>
+      <dt>Full</dt>
+      <dd>The page works every step and shows every value, as a worked example.</dd>
+      <dt>Partial</dt>
+      <dd>The page does the arithmetic, such as inner products, <em>A</em>ᵀ<em>A</em>, and <em>A</em>ᵀ<strong>b</strong>. You do the main steps.</dd>
+      <dt>None</dt>
+      <dd>You calculate every value. The picture still shows the problem, but its values appear only when you finish.</dd>
+    </dl>
+  </template>
+  <template id="pl-help-kind">
+    <p>The kind of random problem that <strong>Next problem</strong> makes:</p>
+    <dl>
+      <dt>Onto a vector in ℝ²</dt>
+      <dd>Find ⟨<strong>x</strong>, <strong>v</strong>⟩ and ‖<strong>v</strong>‖², then the projection of <strong>x</strong> onto <strong>v</strong>.</dd>
+      <dt>Onto a line in ℝ³</dt>
+      <dd>The same, then the component of <strong>x</strong> orthogonal to <strong>v</strong>.</dd>
+      <dt>Onto a plane: orthogonal basis</dt>
+      <dd>Add the projections onto two orthogonal spanning vectors.</dd>
+      <dt>Onto a plane: Gram–Schmidt</dt>
+      <dd>The spanning vectors aren't orthogonal: find an orthogonal basis first.</dd>
+      <dt>Least squares solution</dt>
+      <dd>Compute <em>A</em>ᵀ<em>A</em> and <em>A</em>ᵀ<strong>b</strong>, then solve the normal equation.</dd>
+      <dt>Projection and residual</dt>
+      <dd>The least squares solution <strong>x</strong>*, then <em>A</em><strong>x</strong>* and the residual <strong>b</strong> − <em>A</em><strong>x</strong>*.</dd>
+      <dt>Line of best fit</dt>
+      <dd>Write the data as a system, then solve its normal equation.</dd>
+    </dl>
   </template>
   <div id="pl-help-popup" class="pl-help-popup" role="note" hidden></div>
 </div>

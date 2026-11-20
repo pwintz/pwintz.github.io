@@ -1,7 +1,11 @@
 import { mathHTML, typeset } from './common/mathjax';
 import { setupPanels } from './common/panels';
 import { setupHelp } from './common/help';
+import { replaceQuery } from './common/query';
 import { loadJSON, saveJSON } from './common/storage';
+import { StepPractice } from './common/step_practice';
+import { Picture, Problem as PracticeProblem, classify, pictureOf } from './projection/practice_math';
+import { setupPracticePage } from './projection/practice_page';
 import {
   EasedBox, PlotLabel, OKABE_ITO, redrawOnMathLabels, Rotator, SIDE_VIEW_ANGLES, Scene, Vec3, add3, fitBox, gridStep, norm3,
   orthonormalBasis, scale3, sub3, tickLabel, ticks, toVec3,
@@ -26,6 +30,12 @@ import {
 // of the vectors. Below the plot, the calculations are shown step by step in exact fractions,
 // following the methods from lecture: the projection formula, Gram–Schmidt for a basis that isn't
 // orthogonal, and the normal equation.
+//
+// The picture is of the practice problem (projection/practice_page.ts), which the student works by
+// hand in checked steps. In Guided Learning, the practice path sets the problem and its entries are
+// locked; in "Design your own problems", the entries, examples, and menus here make the problem, and
+// the steps follow it. Until the steps are finished, the picture shows the problem but not the
+// values of the answer (the readout, the coefficients, and the full solution).
 
 type Mode = 'proj' | 'lsq' | 'fit';
 
@@ -77,6 +87,10 @@ const state = {
 const cues = { perspective: true, dropLines: true };
 // The coefficients of the comparison point (not saved).
 let cand: number[] = [0.5, 0.5, 0, 0];
+// Whether the values of the answer are shown (the steps are finished, or the problem has none).
+let numbersShown = true;
+// Whether the entries are locked (in Guided Learning, the practice path sets the problem).
+let locked = false;
 
 const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
 const canvas = $<HTMLCanvasElement>('pl-canvas');
@@ -172,8 +186,10 @@ function geoDim(): 2 | 3 | null {
 
 // Plot labels, with TeX so they're drawn in the same font as the explanations.
 const colLetter = () => (state.mode === 'proj' ? 'v' : 'a');
-const colLabel = (i: number): PlotLabel =>
-  ({ text: `${colLetter()}${sub(i + 1)}`, tex: `\\vect{${colLetter()}}_{${i + 1}}` });
+/** v₁, v₂, … (or just v for one spanning vector, as the practice steps call it), or a₁, a₂, …. */
+const colLabel = (i: number): PlotLabel => (state.mode === 'proj' && state.count === 1
+  ? { text: 'v', tex: '\\vect{v}' }
+  : { text: `${colLetter()}${sub(i + 1)}`, tex: `\\vect{${colLetter()}}_{${i + 1}}` });
 /** The name of the subspace drawn: W = span{v₁, …} for a projection, or col A for least squares. */
 const subspaceLabel = (k: number): PlotLabel => {
   const cols = Array.from({ length: k }, (_, i) => colLabel(i) as { text: string; tex: string });
@@ -243,7 +259,7 @@ function renderGeo(sc: Scene, target: HTMLCanvasElement, yaw: number, pitch: num
     if (Math.abs(c) < 1e-12) return;
     const next = add3(tip, scale3(c, g.cols[i]));
     sc.arrow(tip, next, COL_COLORS[i], small ? 1 : 1.5, undefined, [5, 4]);
-    if (!small) {
+    if (!small && numbersShown) {
       const n = numLabel(c), v = colLabel(i) as { text: string; tex: string };
       sc.segmentLabel(tip, next, { text: n.text + v.text, tex: n.tex + v.tex }, COL_COLORS[i], false);
     }
@@ -251,7 +267,7 @@ function renderGeo(sc: Scene, target: HTMLCanvasElement, yaw: number, pitch: num
   });
 
   // Another point of the subspace, and its (longer) distance to the target.
-  if (state.compare) {
+  if (state.compare && numbersShown) {
     sc.arrow([0, 0, 0], g.w, CAND_COLOR, small ? 1.5 : 2);
     sc.line(g.w, g.target, CAND_COLOR, small ? 1 : 1.5, [3, 4]);
     if (!small) sc.segmentLabel(g.w, g.target, numLabel(norm3(sub3(g.target, g.w))), CAND_COLOR, false);
@@ -418,6 +434,29 @@ function draw(): void {
   saveState();
   if (geoDim()) box.update();
   scheduleCalc();
+  scheduleSync();
+}
+
+// ⋘──────── The practice problem ────────⋙
+
+let practice: StepPractice<PracticeProblem> | null = null;
+let syncTimer = 0;
+
+/** Soon after the problem here changes, gives it to the practice steps (not on every frame of a drag). */
+function scheduleSync(): void {
+  window.clearTimeout(syncTimer);
+  syncTimer = window.setTimeout(() => {
+    if (!practice || locked) return;
+    const p = problem ? classify(state.mode, problem.cols, problem.target, state.degree, practice.current()?.kind) : null;
+    practice.show(p);
+  }, 300);
+}
+
+function setLocked(value: boolean): void {
+  if (value === locked) return;
+  locked = value;
+  setControls();
+  scheduleCalc();
 }
 
 function renderAll(): void {
@@ -467,6 +506,12 @@ function updateReadout(): void {
       ? 'Add a data point to fit a curve.' : 'Fix the highlighted entries to see the result.'}</p>`;
     return;
   }
+  if (!numbersShown) {
+    out.innerHTML = `<p class="pl-read-note">${state.mode === 'fit' ? 'The line of best fit (blue)' : `The projection ${m(mc(PROJ_COLOR, state.mode === 'proj' ? '\\vect{p}' : 'A\\vect{x}_*'))}`} is drawn.
+      Its values appear here when you finish the steps below.</p>`;
+    updateCompareReadout();
+    return;
+  }
   const s = solution;
   const dist = Math.sqrt(toNumber(s.rr));
   if (state.mode === 'fit') {
@@ -505,11 +550,12 @@ let compareKey = '';
 function buildCompare(): void {
   const panel = $('pl-compare');
   const n = problem?.cols.length ?? 0;
-  const key = `${state.mode}|${state.compare}|${n}`;
+  const key = `${state.mode}|${state.compare}|${n}|${numbersShown}`;
   if (key === compareKey) return;
   compareKey = key;
   panel.innerHTML = '';
-  panel.hidden = !state.compare || state.mode === 'fit' || n === 0;
+  $('pl-compare-toggle').hidden = state.mode === 'fit' || !numbersShown;
+  panel.hidden = !state.compare || state.mode === 'fit' || n === 0 || !numbersShown;
   if (panel.hidden) return;
   const proj = state.mode === 'proj';
   const title = document.createElement('div');
@@ -665,13 +711,15 @@ function scheduleCalc(): void {
 }
 
 function updateCalc(): void {
-  const key = JSON.stringify([state.mode, state.dim, state.count, state.vs, state.x, state.m, state.n, state.A, state.b, state.degree, state.pts]);
+  const key = JSON.stringify([numbersShown, locked, state.mode, state.dim, state.count, state.vs, state.x, state.m, state.n, state.A, state.b, state.degree, state.pts]);
   if (key === calcKey) return;
   calcKey = key;
   const out = $('pl-calc');
   rounded = false;
   let html: string;
-  if (!problem || !solution) {
+  if (!numbersShown) {
+    html = '<p class="pl-note">The full solution, with every calculation, appears here when you finish the steps above.</p>';
+  } else if (!problem || !solution) {
     html = `<p>${state.mode === 'fit' && state.pts.length === 0 ? 'Add a data point to see the calculations.' : 'Some entries aren’t numbers. Fix the highlighted entries to see the calculations.'}</p>`;
   } else if (state.mode === 'proj') {
     html = projectionCalc(problem, solution);
@@ -682,7 +730,8 @@ function updateCalc(): void {
   }
   if (rounded) html += '<p class="pl-note">Some numbers have large denominators, so they are shown as decimals rounded to four places. The calculations themselves are exact.</p>';
   out.innerHTML = html;
-  out.querySelectorAll<HTMLButtonElement>('[data-open-lsq]').forEach(b => b.addEventListener('click', openAsLeastSquares));
+  // Opening the problem as another kind changes it, which only "Design your own problems" allows.
+  out.querySelectorAll<HTMLButtonElement>('[data-open-lsq]').forEach(b => (locked ? b.remove() : b.addEventListener('click', openAsLeastSquares)));
   void typeset([out]);
 }
 
@@ -984,6 +1033,8 @@ function entryInput(value: string, label: string, onChange: (text: string) => vo
   input.value = value;
   input.setAttribute('aria-label', label);
   if (colorHex) input.style.setProperty('--vec-color', colorHex);
+  input.readOnly = locked;
+  if (locked) input.title = 'Given by the practice path. To change the problem, choose “Design your own problems”.';
   const mark = () => input.classList.toggle('pl-bad', parseEntry(input.value) === null);
   mark();
   input.addEventListener('input', () => {
@@ -1016,7 +1067,8 @@ function buildEntries(): void {
   box.innerHTML = '';
   if (state.mode === 'proj') {
     for (let i = 0; i < state.count; i++) {
-      box.append(columnEntry(`<b>v</b>${sub(i + 1)} =`, COL_COLORS[i], state.vs[i].slice(0, state.dim), (k, t) => (state.vs[i][k] = t), `\\vect{v}_{${i + 1}}`));
+      const one = state.count === 1;
+      box.append(columnEntry(one ? '<b>v</b> =' : `<b>v</b>${sub(i + 1)} =`, COL_COLORS[i], state.vs[i].slice(0, state.dim), (k, t) => (state.vs[i][k] = t), one ? '\\vect{v}' : `\\vect{v}_{${i + 1}}`));
     }
     const x = columnEntry('<b>x</b> =', TARGET_COLOR, state.x.slice(0, state.dim), (k, t) => (state.x[k] = t), '\\vect{x}');
     x.classList.add('pl-target');
@@ -1055,6 +1107,7 @@ function buildEntries(): void {
       remove.className = 'pl-remove';
       remove.textContent = '×';
       remove.setAttribute('aria-label', `Remove point ${i + 1}`);
+      remove.hidden = locked;
       remove.addEventListener('click', () => {
         state.pts.splice(i, 1);
         afterPointsChange();
@@ -1068,6 +1121,7 @@ function buildEntries(): void {
     add.className = 'pl-small';
     add.textContent = '+ Point';
     add.disabled = state.pts.length >= MAX_POINTS;
+    add.hidden = locked;
     add.addEventListener('click', () => {
       const xs = dataPoints().map(p => p[0]);
       const next = xs.length ? Math.max(...xs) + 1 : 0;
@@ -1114,9 +1168,9 @@ function setControls(): void {
   $<HTMLInputElement>('pl-squares').checked = state.squares;
   // Depth cues only matter for a 3D picture.
   $('pl-cues').hidden = geoDim() !== 3;
-  $('pl-plot-hint').textContent = state.mode === 'fit'
-    ? 'Drag a data point to move it, or click an empty spot to add one.'
-    : geoDim() === 2 ? 'Drag the tip of a vector to move it.' : 'Drag the plot to turn it; fling it to keep it spinning.';
+  $('pl-plot-hint').textContent = geoDim() === 3 ? 'Drag the plot to turn it; fling it to keep it spinning.'
+    : locked ? ''
+      : state.mode === 'fit' ? 'Drag a data point to move it, or click an empty spot to add one.' : 'Drag the tip of a vector to move it.';
   buildEntries();
   compareKey = '';
 }
@@ -1173,10 +1227,8 @@ for (const [id, cue] of [['pl-perspective', 'perspective'], ['pl-droplines', 'dr
 
 // ⋘──────── Examples ────────⋙
 
-type Example =
-  | { mode: 'proj'; dim: 2 | 3; vs: string[][]; x: string[] }
-  | { mode: 'lsq'; A: string[][]; b: string[] }
-  | { mode: 'fit'; degree: number; pts: string[][] };
+// The same shape as a practice problem's picture (projection/practice_math.ts).
+type Example = Picture;
 
 const EXAMPLES: Record<string, Example> = {
   // From lecture: x₁ = (1, 3) and x₂ = (0, −2) onto v = (4, 2).
@@ -1205,7 +1257,11 @@ const exampleMenu = $<HTMLSelectElement>('pl-example');
 exampleMenu.addEventListener('change', () => {
   const ex = EXAMPLES[exampleMenu.value];
   exampleMenu.value = '';
-  if (!ex) return;
+  if (ex) loadExample(ex);
+});
+
+/** Puts an example (or a practice problem) in the visualizer. */
+function loadExample(ex: Example): void {
   if (ex.mode === 'proj') {
     state.dim = ex.dim;
     state.count = ex.vs.length;
@@ -1222,7 +1278,7 @@ exampleMenu.addEventListener('change', () => {
   }
   cand = [0.5, 0.5, 0, 0];
   setMode(ex.mode);
-});
+}
 
 // ╭───────────────────────────────────────────────────────────────╮
 // │                      Pointer interaction                      │
@@ -1245,7 +1301,7 @@ const pointerPos = (e: PointerEvent): [number, number] => {
 
 /** The vector tip within reach of (x, y) in ℝ²: a column's index, or −1 for the target. */
 function tipAt(x: number, y: number): number | null {
-  if (geoDim() !== 2 || !problem || !solution) return null;
+  if (locked || geoDim() !== 2 || !problem || !solution) return null;
   const g = geometry();
   let best: number | null = null, bestD = touchInput ? 30 : 18;
   [...g.cols, g.target].forEach((v, i) => {
@@ -1257,7 +1313,7 @@ function tipAt(x: number, y: number): number | null {
 }
 
 function pointAt(x: number, y: number): number | null {
-  if (state.mode !== 'fit' || !chart) return null;
+  if (locked || state.mode !== 'fit' || !chart) return null;
   let best: number | null = null, bestD = touchInput ? 26 : 14;
   state.pts.forEach((p, i) => {
     const px = parseEntry(p[0]), py = parseEntry(p[1]);
@@ -1292,7 +1348,7 @@ canvas.addEventListener('pointerdown', e => {
     dragging = { kind: 'rotate' };
     rotator.start(x, y);
   } else {
-    if (state.mode === 'fit') pressedEmpty = { x, y };
+    if (state.mode === 'fit' && !locked) pressedEmpty = { x, y };
     return;
   }
   canvas.style.cursor = 'grabbing';
@@ -1397,6 +1453,7 @@ $('pl-overlay').addEventListener('pointerdown', e => {
 // The rest of the state (and every mode's problem) is saved in this browser.
 
 const clean = (t: string) => t.replace(/[^0-9./+\-−]/g, '') || '0';
+const URL_KEYS = ['mode', 'v1', 'v2', 'v3', 'x', 'A', 'b', 'deg', 'pts'];
 
 function saveUrl(): void {
   const parts = [`mode=${state.mode}`];
@@ -1409,7 +1466,7 @@ function saveUrl(): void {
   } else {
     parts.push(`deg=${state.degree}`, `pts=${state.pts.map(p => p.map(clean).join(',')).join(';')}`);
   }
-  history.replaceState(null, '', `${location.pathname}?${parts.join('&')}`);
+  replaceQuery(URL_KEYS, parts);
 }
 
 function loadUrl(): void {
@@ -1494,13 +1551,12 @@ function placeOverlay(): void {
 }
 SMALL_SCREEN.addEventListener('change', placeOverlay);
 
-const PIN_KEY = 'projection_least_squares_pinned_panels';
+const PIN_KEY = 'projection_least_squares_pins';
 const panels = setupPanels('pl', () =>
   saveJSON(PIN_KEY, panels.list.map((panel, i) => (panels.isPinned(panel) ? i : -1)).filter(i => i >= 0)));
 const savedPins = loadJSON<number[]>(PIN_KEY);
 if (Array.isArray(savedPins)) for (const i of savedPins) if (panels.list[i]) panels.setPinned(panels.list[i], true);
 
-setupHelp('pl');
 loadState();
 loadUrl();
 refresh();
@@ -1509,6 +1565,25 @@ saveUrl();
 box.snap();
 placeOverlay();
 draw();
+
+// The practice steps, which set the problem drawn here (or follow the one designed here).
+practice = setupPracticePage({
+  onLoad(p, mode) {
+    locked = mode === 'path';
+    loadExample(pictureOf(p));
+  },
+  onStatus({ finished, hasSteps, mode }) {
+    setLocked(mode === 'path' && hasSteps);
+    const shown = finished || !hasSteps;
+    if (shown === numbersShown) return;
+    numbersShown = shown;
+    compareKey = '';
+    renderAll();
+    scheduleCalc();
+  },
+});
+setupHelp('pl');
+
 const resizer = new ResizeObserver(() => renderAll());
 resizer.observe(canvas);
 resizer.observe($('pl-overlay'));
