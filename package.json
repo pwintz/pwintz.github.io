@@ -41,6 +41,8 @@
     "watch": "esbuild assets/ts/src/*.tsx assets/ts/src/*.ts --bundle --outdir=assets/ts/out --format=esm --watch",
     "link:unicodeit": "npm install --no-save --install-links=false ../unicodeit",
     "serve": "bash scripts/serve-local.sh",
+    "test": "rm -rf .test-build && esbuild assets/ts/test/*.test.ts --bundle --platform=node --format=esm --outdir=.test-build --out-extension:.js=.mjs --log-level=warning && node --test \".test-build/*.test.mjs\"",
+    "typecheck:test": "tsc -p assets/ts/test/tsconfig.json",
     "progress": "python3 scripts/review_progress.py"
   },
   "dependencies": {

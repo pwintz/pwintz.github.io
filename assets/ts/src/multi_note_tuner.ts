@@ -9,23 +9,20 @@
 // Peaks that line up with a whole-number multiple of a lower peak are treated as its harmonics,
 // and the rest are named as notes and shown with how many cents sharp or flat they are.
 
-import { FFT, WINDOWS, fitPeak } from "./audio/fft";
+import { FFT, WINDOWS } from "./audio/fft";
 import { NOTE_NAMES, freqToMidi, midiToFreq, centsOff, noteName, formatCents } from "./audio/notes";
 import { AudioInput } from "./audio/input";
 import { BG, PANEL, TEXT, MUTED, GRID, dpr, fitCanvas, placeholder, setupPanels, setupHelp, setupSavedControls, float32ToBase64, base64ToFloat32 } from "./audio/ui";
 import { loadJSON, saveJSON, removeSaved } from "./common/storage";
+import {
+  HistoryFrame, HistoryNote, Peak, centsColor, findPeaks as findSpectrumPeaks, formatThreshold as thresholdText,
+  noiseLevels, pitchHue, tunerLanes as lanesSince,
+} from "./multi_note_tuner/peaks";
 
 // ⋘──────── Constants ────────⋙
 
 const BLACK_KEYS      = new Set([1, 3, 6, 8, 10]);
 const EPS             = 1e-12;
-const DETECT_MIN_HZ   = 25;   // Peaks are searched for between these frequencies
-const DETECT_MAX_HZ   = 10000;
-const MAX_PEAKS       = 16;   // The strongest peaks kept in each frame
-const HARMONIC_CENTS  = 35;   // How close a peak must be to n × a lower peak to count as its harmonic
-const WEAK_HARMONIC    = 0.003; // Quietest harmonic (relative to the loudest peak) that's marked below the threshold
-const WEAK_FUNDAMENTAL = 0.003; // Quietest fundamental (relative to the loudest peak) that's restored below the threshold (−50 dB, since laptop microphones pick up little below about 150 Hz)
-const N_HARMONICS     = 10;   // Highest harmonic of a note that's marked when it's below the threshold
 const IN_TUNE_CENTS   = 5;    // The tuner's green zone is ± this many cents
 const HISTORY_SECONDS = 10;   // Time span of the note history
 const HISTORY_MIN_SPAN = 18;  // Fewest semitones shown in the note history
@@ -193,11 +190,7 @@ function readSettings(): void {
 
 // The peak threshold, relative to the loudest peak, in the same units as the spectrum's magnitude
 // axis: a fraction of its height, or how many decibels below it.
-function formatThreshold(): string {
-  return settings.scale === "db"
-    ? `−${(-20 * Math.log10(settings.threshold)).toFixed(1)} dB`
-    : settings.threshold.toFixed(2);
-}
+const formatThreshold = () => thresholdText(settings.threshold, settings.scale);
 
 // ⋘──────── Pitch ────────⋙
 // Pitches are MIDI note numbers: 69 is A4, and each semitone is 1, so the fractional part is the
@@ -206,11 +199,6 @@ function formatThreshold(): string {
 const midiFromFreq = (f: number) => freqToMidi(f, settings.a4);
 const freqFromMidi = (m: number) => midiToFreq(m, settings.a4);
 
-// The color of a pitch, running through the rainbow from low to high (as in the original sketch).
-const pitchHue = (midi: number) => (((midi - 21) / 130) * 360 - 18 + 360) % 360;
-
-// Green when in tune, through yellow, to red at a quarter tone off.
-const centsColor = (cents: number) => `hsl(${120 * (1 - Math.min(1, Math.abs(cents) / 50))}, 80%, 55%)`;
 
 // ⋘──────── Analysis state ────────⋙
 
@@ -256,119 +244,20 @@ function updateResolutionNote(): void {
     `${(sampleRate / N).toFixed(1)} Hz between bins, ${Math.round(1000 * N / sampleRate)} ms of audio`;
 }
 
-interface Peak {
-  freq       : number;      // Interpolated center frequency (Hz)
-  mag        : number;      // Interpolated peak magnitude
-  bin        : number;      // Magnitude of the peak's highest bin, as drawn on the spectrum
-  curv       : number;      // Curvature of ln(magnitude) at the peak, per Hz² (negative)
-  midi       : number;
-  fundamental: Peak | null; // The lower peak that this one is a harmonic of, if any
-  harmonic   : number;      // Which harmonic of `fundamental` this is (1 if it isn't a harmonic)
-}
-
 let peaks: Peak[] = [];
 let peakFloor = 0; // Peaks whose highest bin is below this are ignored
 
-// Fits a Gaussian through bins k − 1, k, and k + 1, which is a parabola through the logarithms of
-// their magnitudes, and returns its peak.
-function interpolatePeak(k: number): Peak | null {
-  const fit = fitPeak(spectrum, k);
-  if (!fit) return null;
-  const freq = (k + fit.delta) * binHz;
-  return {
-    freq,
-    mag        : fit.mag,
-    bin        : spectrum[k],
-    curv       : fit.curv / (binHz * binHz),
-    midi       : midiFromFreq(freq),
-    fundamental: null,
-    harmonic   : 1,
-  };
-}
-
+// The peaks of the current spectrum (see multi_note_tuner/peaks.ts), which also sets peakFloor.
 function findPeaks(): Peak[] {
-  const kLo = Math.max(2, Math.ceil(DETECT_MIN_HZ / binHz));
-  const kHi = Math.min(spectrum.length - 2, Math.floor(DETECT_MAX_HZ / binHz));
-  const candidates: Peak[] = [];
-  let strongest = 0;
-  for (let k = kLo; k <= kHi; k++) {
-    if (spectrum[k] > spectrum[k - 1] && spectrum[k] >= spectrum[k + 1]) {
-      const p = interpolatePeak(k);
-      if (!p) continue;
-      candidates.push(p);
-      strongest = Math.max(strongest, p.bin);
-    }
-  }
-  // Peaks are compared with the cutoffs by their highest bins, so that what's counted matches
-  // the spectrum and the cutoff line drawn on it.
-  const minMag = 10 ** (settings.minDb / 20);
-  const floor  = peakFloor = Math.max(settings.threshold * strongest, minMag);
-  candidates.sort((a, b) => b.bin - a.bin);
-  const found = candidates.filter(p => p.bin >= floor).slice(0, MAX_PEAKS);
-
-  // A note's fundamental can be much quieter than its harmonics (as on a violin's G string), so
-  // a quieter peak is kept if at least two of the peaks found are its harmonics.
-  const explained = new Set<Peak>();
-  for (const c of candidates) {
-    if (c.bin >= floor || c.bin < Math.max(WEAK_FUNDAMENTAL * strongest, minMag)) continue;
-    const overtones = found.filter(p => !explained.has(p) && harmonicNumber(p.freq, c.freq) > 0);
-    if (overtones.length >= 2) {
-      found.push(c);
-      overtones.forEach(p => explained.add(p));
-    }
-  }
-  found.sort((a, b) => a.freq - b.freq);
-
-  // Marks each peak that sits at a whole-number multiple of a lower peak as that peak's harmonic.
-  for (const p of found) {
-    for (const q of found) {
-      if (q.freq >= p.freq) break;
-      if (q.fundamental) continue;
-      const n = harmonicNumber(p.freq, q.freq);
-      if (n) {
-        p.fundamental = q;
-        p.harmonic    = n;
-        break;
-      }
-    }
-  }
-
-  // Quieter peaks at the harmonics of the notes found are marked as harmonics too (but never
-  // named as notes): for each note and each harmonic it doesn't have yet, the strongest candidate
-  // there that's at least WEAK_HARMONIC of the loudest peak (and above the quietest-peak level).
-  if (settings.hideHarmonics) {
-    const taken = new Set(found);
-    const weakest = Math.max(WEAK_HARMONIC * strongest, minMag);
-    for (const q of found.filter(p => !p.fundamental)) {
-      const has = new Set(found.filter(p => p.fundamental === q).map(p => p.harmonic));
-      for (const c of candidates) { // Loudest first
-        if (c.bin < weakest) break;
-        const n = harmonicNumber(c.freq, q.freq);
-        if (!n || n > N_HARMONICS || has.has(n) || taken.has(c)) continue;
-        c.fundamental = q;
-        c.harmonic    = n;
-        has.add(n);
-        taken.add(c);
-        found.push(c);
-      }
-    }
-    found.sort((a, b) => a.freq - b.freq);
-  }
-  return found;
-}
-
-// n if f is close to the nth harmonic of f0 (for n ≥ 2), and otherwise 0.
-function harmonicNumber(f: number, f0: number): number {
-  const ratio = f / f0, n = Math.round(ratio);
-  return n >= 2 && Math.abs(1200 * Math.log2(ratio / n)) < HARMONIC_CENTS ? n : 0;
+  const found = findSpectrumPeaks(spectrum, binHz, settings);
+  peakFloor = found.floor;
+  return found.peaks;
 }
 
 // ⋘──────── Tuner and history state ────────⋙
 
 let clock     = 0;                   // Time of the latest analyzed frame (s); stops while frozen
 
-interface HistoryNote { midi: number; level: number; }
-interface HistoryFrame { t: number; notes: HistoryNote[]; hiddenAbove?: boolean; hiddenBelow?: boolean; }
 const history: HistoryFrame[] = [];
 
 // Each note (by its nearest semitone) heard recently: when it started, when it was last heard,
@@ -431,18 +320,7 @@ function analyze(): void {
 }
 
 // The notes heard within the tuner's history, from highest to lowest pitch.
-function tunerLanes(): { row: number; last: number }[] {
-  const since = clock - settings.tunerSeconds;
-  const lanes = new Map<number, { row: number; last: number; level: number }>();
-  for (let i = history.length - 1; i >= 0 && history[i].t >= since; i--) {
-    for (const n of history[i].notes) {
-      const row = Math.round(n.midi), lane = lanes.get(row);
-      if (!lane) lanes.set(row, { row, last: history[i].t, level: n.level });
-      else lane.level = Math.max(lane.level, n.level);
-    }
-  }
-  return [...lanes.values()].sort((a, b) => b.row - a.row);
-}
+const tunerLanes = () => lanesSince(history, clock - settings.tunerSeconds);
 
 // The peaks that are labeled as notes.
 const notePeaks = () => settings.hideHarmonics ? peaks.filter(p => !p.fundamental) : peaks;
@@ -610,19 +488,7 @@ function recordNoiseFrame(mags: Float32Array): void {
 }
 
 function finishNoise(): void {
-  const frames = noiseFrames!, bins = frames[0].length;
-  const percentile = new Float32Array(bins), values = new Float32Array(frames.length);
-  for (let k = 0; k < bins; k++) {
-    frames.forEach((frame, i) => values[i] = frame[k]);
-    values.sort();
-    percentile[k] = values[Math.floor(NOISE_PERCENTILE * (values.length - 1))];
-  }
-  const level = new Float32Array(bins);
-  for (let k = 0; k < bins; k++) {
-    for (let j = Math.max(0, k - NOISE_SPREAD_BINS); j <= Math.min(bins - 1, k + NOISE_SPREAD_BINS); j++) {
-      level[k] = Math.max(level[k], percentile[j]);
-    }
-  }
+  const level = noiseLevels(noiseFrames!, NOISE_PERCENTILE, NOISE_SPREAD_BINS);
   noiseFrames = null;
   calibration = { fftSize: settings.fftSize, window: settings.window, sampleRate, level, savedAt: Date.now(), previous: false };
   saveCalibration();

@@ -24,6 +24,8 @@
 import { setupHelp } from './common/help';
 import { setupPanels } from './common/panels';
 import { loadJSON, saveJSON } from './common/storage';
+import * as P from './das_sensing/physics';
+import { C_LIGHT, MID, N_FIBER, distanceLabel, fmtRate, lengthChange, lossAt, niceStep } from './das_sensing/physics';
 
 // ── Constants ──────────────────────────────────────────────────────
 const L = 1000;           // Fiber length (m).
@@ -40,8 +42,6 @@ const OUTPUT_RATE = 200;  // Hz.
 const WINDOW = 4;         // s.
 let ROW_DT = 0.01;        // Time between waterfall rows (s); set from the pulse rate.
 let N_ROWS = 400;         // Rows of history.
-const C_LIGHT = 3e8;      // Speed of light in vacuum (m/s).
-const N_FIBER = 1.468;    // Refractive index of the fiber's core.
 
 // Colors (Okabe–Ito where possible, so they stay distinct under color blindness).
 const SOURCE_COLOR = '#D55E00';
@@ -94,77 +94,34 @@ if (!PRF_OPTIONS.includes(settings.prf) || settings.prf > maxPulseRate()) settin
 /** The fiber's whole length (m). */
 function fiberLength(): number { return settings.fiberKm * 1000; }
 /** Time for a pulse to reach the end of the fiber and its light to return (s). */
-function roundTrip(): number { return (2 * N_FIBER * fiberLength()) / C_LIGHT; }
+function roundTrip(): number { return P.roundTrip(fiberLength()); }
 /** Each pulse must return before the next is sent, so the pulse rate is at most 1 / round trip. */
-function maxPulseRate(): number { return 1 / roundTrip(); }
+function maxPulseRate(): number { return P.maxPulseRate(fiberLength()); }
 /** The spatial resolution set by the pulse width: half the pulse's length in the fiber (m). */
-function pulseResolution(): number { return (C_LIGHT * settings.pulseNs * 1e-9) / (2 * N_FIBER); }
-/** The waterfall's sample rate: the pulse rate, averaged down to at most OUTPUT_RATE. */
+function pulseResolution(): number { return P.pulseResolution(settings.pulseNs); }
 /** The pulse rate in use: the chosen one, or with Auto, as fast as the fiber allows. */
 function pulseRate(): number { return settings.prfAuto ? maxPulseRate() : settings.prf; }
+/** The waterfall's sample rate: the pulse rate, averaged down to at most OUTPUT_RATE. */
 function outputRate(): number { return Math.min(pulseRate(), OUTPUT_RATE); }
 ROW_DT = 1 / outputRate();
 N_ROWS = Math.round(WINDOW * outputRate());
 
 // ── Sources ────────────────────────────────────────────────────────
-interface Strike { x: number; y: number; t0: number; f: number; amp: number; color: string }
+interface Strike extends P.Strike { color: string }
 const strikes: Strike[] = [];
 
 const car = { on: false, x: 0, y: -25, speed: 20 };        // Drives along a road 25 m from the fiber.
 const walker = { on: false, x: 0, y: 12, speed: 1.4, nextStep: 0, stepEvery: 0.55 };
-// A plane wave from far away. Its front is the line of points p with p·u = d, where u is its
-// direction of travel; d starts at d0, just outside the map, and grows at the wave speed.
-interface Quake { t0: number; angle: number; speed: number; f: number; amp: number; d0: number; d1: number }
-
 /** The range of p·u over the map's corners, for a wave traveling at `angle` degrees. */
-function frontRange(angle: number): [number, number] {
-  const a = (angle * Math.PI) / 180, ux = Math.cos(a), uy = Math.sin(a);
-  const ds = [[0, -H], [0, H], [L, -H], [L, H]].map(([x, y]) => x * ux + y * uy);
-  return [Math.min(...ds), Math.max(...ds)];
-}
-const quakes: Quake[] = [];
+const frontRange = (angle: number) => P.frontRange(angle, L, H);
+const quakes: P.Quake[] = [];
 
 let simTime = 0;
 let playing = true;
 
-/** A Ricker ("Mexican hat") wavelet with peak frequency f, centered at τ = 0. */
-function ricker(tau: number, f: number): number {
-  const a = Math.PI * f * tau;
-  const a2 = a * a;
-  return a2 > 30 ? 0 : (1 - 2 * a2) * Math.exp(-a2);
-}
-
-/**
- * The strain rate along the fiber at fine sample k (x = k·DX) at time t, before gauge averaging,
- * in arbitrary units scaled so that typical signals are around 1.
- */
-function pointStrainRate(x: number, t: number): number {
-  let s = 0;
-  const v = settings.waveSpeed;
-  for (const st of strikes) {
-    const dx = x - st.x, r = Math.hypot(dx, st.y);
-    const tau = t - st.t0 - r / v;
-    if (tau < -2 / st.f || tau > 2 / st.f) continue;
-    const cos2 = r > 1e-6 ? (dx * dx) / (r * r) : 1;
-    s += st.amp * cos2 / Math.sqrt(Math.max(r, 8)) * ricker(tau, st.f);
-  }
-  if (car.on) {
-    // Strain under a moving point load at distance D from the fiber, as a function of q = s/D,
-    // where s is the distance along the fiber from the car. The strain rate is −u·dε/ds.
-    const D = Math.abs(car.y), q = (x - car.x) / D;
-    const g = (2 * q * (3 - q * q)) / Math.pow(q * q + 1, 3);
-    s += 0.9 * (car.speed / 20) * g;
-  }
-  for (const qk of quakes) {
-    const a = (qk.angle * Math.PI) / 180;
-    // A plane wave: its arrival along the fiber advances at the apparent speed V / cos(angle).
-    // The front reaches fiber point x (where p·u = x cos a) after traveling from d0.
-    const tau = t - qk.t0 - (x * Math.cos(a) - qk.d0) / qk.speed;
-    if (tau < -2 / qk.f || tau > 2 / qk.f) continue;
-    s += qk.amp * Math.cos(a) ** 2 * ricker(tau, qk.f);
-  }
-  return s;
-}
+/** The strain rate along the fiber at distance x at time t, before gauge averaging. */
+const pointStrainRate = (x: number, t: number) =>
+  P.pointStrainRate(x, t, { waveSpeed: settings.waveSpeed, strikes, car, quakes });
 
 // Gaussian-ish random numbers for the background noise, fixed per call.
 function noise(): number {
@@ -173,41 +130,15 @@ function noise(): number {
 
 // ── One row of data ────────────────────────────────────────────────
 const fine = new Float64Array(N_FINE);
-const prefix = new Float64Array(N_FINE + 1);
-const blurred = new Float64Array(N_FINE);
 
-/**
- * The gauge-averaged strain rate at each channel at time t: the interrogator compares the phase
- * of light scattered from either end of a gauge-length section, so each channel sees the average
- * strain rate over that section.
- */
+/** The gauge-averaged strain rate at each channel at time t, with background noise. */
 function channelRow(t: number, out: Float32Array) {
   for (let k = 0; k < N_FINE; k++) fine[k] = pointStrainRate(k * DX, t);
-  // The pulse's length blurs everything along the fiber over its resolution, before the gauge.
-  const blur = Math.round(pulseResolution() / DX / 2);
-  if (blur > 0) {
-    prefix[0] = 0;
-    for (let k = 0; k < N_FINE; k++) prefix[k + 1] = prefix[k] + fine[k];
-    for (let k = 0; k < N_FINE; k++) {
-      const lo = Math.max(0, k - blur), hi = Math.min(N_FINE - 1, k + blur);
-      blurred[k] = (prefix[hi + 1] - prefix[lo]) / (hi - lo + 1);
-    }
-    fine.set(blurred);
-  }
-  prefix[0] = 0;
-  for (let k = 0; k < N_FINE; k++) prefix[k + 1] = prefix[k] + fine[k];
-  const half = Math.max(0, Math.round(settings.gauge / DX / 2));
-  for (let c = 0; c < N_CH; c++) {
-    const center = Math.round(((c + 0.5) * CHANNEL) / DX);
-    const lo = Math.max(0, center - half), hi = Math.min(N_FINE - 1, center + half);
-    // A longer gauge collects more light-phase change for the same strain, so its noise is smaller
-    // relative to the signal, falling as 1/√(gauge length) (scaled to 1 at 10 m).
-    // Pulse rates above the waterfall's sample rate are averaged down, which lowers the noise too.
-    const noiseScale = Math.sqrt(10 / Math.max(1, settings.gauge)) * Math.sqrt(outputRate() / pulseRate());
-    // A channel past the end of the fiber measures nothing (NaN, drawn as "no fiber").
-    out[c] = (c + 0.5) * CHANNEL > fiberLength() ? NaN
-      : (prefix[hi + 1] - prefix[lo]) / (hi - lo + 1) + (settings.noise ? noise() * noiseScale : 0);
-  }
+  const averages = P.channelAverages(fine, {
+    dx: DX, channel: CHANNEL, channels: N_CH, gauge: settings.gauge, resolution: pulseResolution(), fiberLength: fiberLength(),
+  });
+  const scale = P.noiseScale(settings.gauge, outputRate(), pulseRate());
+  for (let c = 0; c < N_CH; c++) out[c] = averages[c] + (settings.noise && !Number.isNaN(averages[c]) ? noise() * scale : 0);
 }
 
 // History of rows, as a ring buffer, for the waterfall and the channel trace.
@@ -219,17 +150,8 @@ let nextRowTime = 0;
 let selectedChannel = Math.round(N_CH * 0.45);
 
 // ── Colors ─────────────────────────────────────────────────────────
-// A diverging map: blue for compression rate (negative), white for zero, orange for stretching
-// rate (positive). Blue–orange stays readable under the common kinds of color blindness.
-const NEG = [33, 102, 172], MID = [247, 247, 247], POS = [179, 88, 6];
-const NO_FIBER = [226, 226, 226]; // Waterfall color where there is no fiber.
-function colorOf(v: number): [number, number, number] {
-  if (Number.isNaN(v)) return NO_FIBER as [number, number, number];
-  const u = Math.max(-1, Math.min(1, v * settings.gain));
-  const [a, b] = u < 0 ? [MID, NEG] : [MID, POS];
-  const w = Math.abs(u);
-  return [a[0] + (b[0] - a[0]) * w, a[1] + (b[1] - a[1]) * w, a[2] + (b[2] - a[2]) * w];
-}
+// A diverging map (see colorOf in das_sensing/physics.ts), scaled by the gain.
+const colorOf = (v: number) => P.colorOf(v, settings.gain);
 const css = (rgb: number[]) => `rgb(${rgb[0] | 0},${rgb[1] | 0},${rgb[2] | 0})`;
 
 // ── Canvas helpers ─────────────────────────────────────────────────
@@ -500,17 +422,12 @@ let pulseCount = 0; // Pulses sent so far; the first has no previous pulse to co
 
 // With the strain set here, a section of fiber is stretched by settings.manualStrain (nanostrain).
 // The phase difference across a gauge G is Δφ = 4πnξG·ε/λ (in radians), using ε averaged over the
-// gauge; between pulses the change in phase comes from the change in ε.
-const LAMBDA = 1550e-9, XI = 0.78;
+// gauge (or the pulse's resolution, if that's longer); between pulses the change in phase comes
+// from the change in ε.
+const manualStretch = (): P.Stretch => ({ at: settings.manualAt, length: settings.manualLength, strain: settings.manualStrain });
 /** The gauge-averaged strain (unitless) of the manually stretched section, around distance z. */
-function manualGaugeStrain(z: number): number {
-  const G = Math.max(settings.gauge, pulseResolution());
-  const a0 = z - G / 2, a1 = z + G / 2;
-  const b0 = settings.manualAt - settings.manualLength / 2, b1 = settings.manualAt + settings.manualLength / 2;
-  const overlap = Math.max(0, Math.min(a1, b1) - Math.max(a0, b0));
-  return (overlap / G) * settings.manualStrain * 1e-9;
-}
-const phaseFromStrain = (eps: number) => (4 * Math.PI * N_FIBER * XI * settings.gauge * eps) / LAMBDA;
+const manualGaugeStrain = (z: number) => P.gaugeStrain(z, Math.max(settings.gauge, pulseResolution()), manualStretch());
+const phaseFromStrain = (eps: number) => P.phaseFromStrain(eps, settings.gauge);
 let prevManualRow: Float32Array | null = null; // Gauge strains measured by the previous pulse.
 
 // What each pulse measures, saved when the pulse is sent:
@@ -529,9 +446,7 @@ function measurePhases() {
     if (manual) {
       // Integrate the stretched section's strain from the interrogator up to this channel.
       const z = (c + 0.5) * CHANNEL;
-      const b0 = settings.manualAt - settings.manualLength / 2, b1 = settings.manualAt + settings.manualLength / 2;
-      const inside = Math.max(0, Math.min(z, b1) - Math.max(0, b0));
-      pulseAccum[c] = (4 * Math.PI * N_FIBER * XI * inside * settings.manualStrain * 1e-9) / LAMBDA;
+      pulseAccum[c] = P.accumulatedPhase(z, manualStretch());
       pulseShift[c] = phaseFromStrain(manualGaugeStrain(z));
     } else {
       // Each channel's phase covers one gauge; per channel spacing, it adds CHANNEL / gauge of it.
@@ -600,8 +515,6 @@ for (let k = 0; k <= MAX_FIBER; k++) {
 }
 const backscatterSum = new Float64Array(MAX_FIBER + 2);
 for (let k = 0; k <= MAX_FIBER; k++) backscatterSum[k + 1] = backscatterSum[k] + backscatter[k];
-/** Fiber loss of about 0.2 dB/km each way: the returned light's amplitude falls 0.4 dB per km. */
-const lossAt = (z: number) => Math.pow(10, (-0.4 * z) / 1000 / 20);
 // A sprinkling of scatterers drawn on the fiber, as fractions of its length.
 const N_SCATTERERS = 60;
 const randomScatterers = Array.from({ length: N_SCATTERERS }, () => Math.random());
@@ -641,20 +554,6 @@ function strainArrows(ctx: CanvasRenderingContext2D, x0: number, x1: number, y: 
   ctx.textAlign = 'start';
 }
 
-/** A change in length, given in nanometers, with a sign and a suitable unit. */
-function lengthChange(nm: number): string {
-  const sign = nm > 0 ? '+' : nm < 0 ? '−' : '';
-  const a = Math.abs(nm);
-  return a >= 1000 ? `${sign}${(a / 1000).toFixed(a >= 10000 ? 1 : 2)} μm` : `${sign}${a.toFixed(a < 10 ? 1 : 0)} nm`;
-}
-
-/** A round step (1, 2, or 5 times a power of 10) giving about `count` ticks across `span`. */
-function niceStep(span: number, count: number): number {
-  const raw = span / count, p = Math.pow(10, Math.floor(Math.log10(raw)));
-  return [1, 2, 5, 10].map(m => m * p).find(step => step >= raw)!;
-}
-const distanceLabel = (m: number) => (m >= 1000 ? `${+(m / 1000).toFixed(1)} km` : `${Math.round(m)} m`);
-
 function drawInterrogator() {
   const [ctx, w] = fit(iCanvas);
   const pad = { left: 70, right: 16 };
@@ -664,7 +563,7 @@ function drawInterrogator() {
   const fiberY = 88; // Leaves room above the fiber for the returning light's phase.
   const frac = Math.min(1, pulseClock / settings.slowmo); // Fraction of the round trip.
   const tNow = frac * RT;                                  // Time since the pulse left (s).
-  const pulseLen = (C_LIGHT * settings.pulseNs * 1e-9) / N_FIBER; // The pulse's length in the fiber (m).
+  const pulseLen = P.pulseLength(settings.pulseNs); // The pulse's length in the fiber (m).
   // Where the pulse's leading edge would be if the fiber went on forever. The pulse is drawn only
   // where it is inside the fiber, and once all of it is past the end, nothing scatters.
   const pulseFront = (C_LIGHT / N_FIBER) * tNow;
@@ -1068,15 +967,12 @@ channelSel.addEventListener('change', () => {
 });
 updateGaugeWarning();
 // ── Interrogator controls ──────────────────────────────────────────
-const fmtRate = (hz: number) =>
-  hz >= 1e6 ? `${+(hz / 1e6).toFixed(1)} MHz` : hz >= 1000 ? `${+(hz / 1000).toFixed(1)} kHz` : `${Math.round(hz)} Hz`;
-
 /** Shows the quantities that follow from the interrogator settings. */
 function updateInterrogatorReadout() {
   $('das-i-readout').textContent =
     `Round trip ${(roundTrip() * 1e6).toFixed(1)} μs · ` +
     `fastest possible pulse rate ${fmtRate(maxPulseRate())} · ` +
-    `pulse ${((C_LIGHT * settings.pulseNs * 1e-9) / N_FIBER).toFixed(1)} m long in the fiber, ` +
+    `pulse ${P.pulseLength(settings.pulseNs).toFixed(1)} m long in the fiber, ` +
     `so ${pulseResolution().toFixed(1)} m resolution · ` +
     `waterfall sampled at ${fmtRate(outputRate())}` +
     (settings.prfAuto ? ` (Auto: pulsing at ${fmtRate(pulseRate())})` : '') +

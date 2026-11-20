@@ -185,6 +185,7 @@ export interface ParseContext {
 type Token = { kind: "num"; value: number } | { kind: "id"; name: string } | { kind: "op"; op: string };
 
 function tokenize(src: string): Token[] {
+  src = src.replace(/[−–]/g, "-");  // Accept typographic minus signs (as pasted from documents)
   const tokens: Token[] = [];
   const re = /\s*(?:(\d+\.?\d*(?:[eE][+-]?\d+)?|\.\d+(?:[eE][+-]?\d+)?)|([A-Za-z_][A-Za-z0-9_]*)|(\*\*|[-+*/^()]))/y;
   let pos = 0;

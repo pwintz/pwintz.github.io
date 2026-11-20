@@ -14,6 +14,15 @@
 import { setupPanels } from "./common/panels";
 import { loadJSON, saveJSON } from "./common/storage";
 import { setupHelp } from "./common/help";
+import * as R from "./relativistic_flight/physics";
+import {
+  MAX_BETA, blackbodyRGB, formatScientific, formatTime, seededRandom, segmentHitsCircle, segmentsCross,
+  timeRateColor, wavelengthRGB,
+} from "./relativistic_flight/physics";
+import {
+  GhostSample, MAX_BEST_RUNS, Run, StoredGhost, decodeGhost, encodeGhost, GHOST_SEPARATOR, ghostKey,
+  insertRun, sampleRunAt,
+} from "./relativistic_flight/runs";
 
 // ─── Constants ─────────────────────────────────────────────────────────────────────────────────────
 
@@ -33,11 +42,9 @@ let gameSpeed = 1;
 const GAME_SPEEDS = [0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 50, 100];
 /** World units spanned by the longest side of the canvas when the ship is at rest. */
 const VIEW_SPAN = 1500;
-/** The engines cut out at this fraction of the speed of light. */
-const MAX_BETA = 0.9999;
-/** The largest proper speed γv, which corresponds to MAX_BETA. */
+/** The largest proper speed γv, where the engines cut out (see MAX_BETA). */
 function maxU(): number {
-  return C * MAX_BETA / Math.sqrt(1 - MAX_BETA * MAX_BETA);
+  return R.maxProperSpeed(C);
 }
 /** Default proper acceleration of the engines, in units of c per second. */
 const DEFAULT_THRUST = 1;
@@ -58,8 +65,6 @@ const GRID_SPACING = 250;
 /** Ghosts are recorded every this many seconds of ship time. Ship time, unlike race time, passes at a
  *  bounded rate however fast the ship goes, which keeps recordings small enough to store. */
 const GHOST_SAMPLE_INTERVAL = 0.1;
-/** Number of best runs kept for each combination of settings, each replayed as a ghost. */
-const MAX_BEST_RUNS = 5;
 const GHOST_MARKER_COLOR = "#c3adff";
 /** Best runs are saved under this prefix, per map (v2: maps and standard settings were added). */
 const STORAGE_KEY = "relativistic-flight-v2";
@@ -301,17 +306,6 @@ function placeSolarSystem(ex: number, ey: number, dirX: number, dirY: number): B
     GM: GM_KM3.Moon * k ** 3, kind: "body",
   });
   return bodies;
-}
-
-/** Whether the segment from (x0, y0) to (x1, y1) passes within r of (cx, cy). */
-function segmentHitsCircle(x0: number, y0: number, x1: number, y1: number, cx: number, cy: number, r: number): boolean {
-  const dx = x1 - x0;
-  const dy = y1 - y0;
-  const len2 = dx * dx + dy * dy;
-  const t = len2 > 0 ? Math.max(0, Math.min(1, ((cx - x0) * dx + (cy - y0) * dy) / len2)) : 0;
-  const px = x0 + t * dx - cx;
-  const py = y0 + t * dy - cy;
-  return px * px + py * py < r * r;
 }
 
 // ─── Maps ──────────────────────────────────────────────────────────────────────────────────────────
@@ -616,40 +610,9 @@ function buildTrack(map: MapDef): Track {
 
 // ─── Small helpers ─────────────────────────────────────────────────────────────────────────────────
 
-/** A small deterministic PRNG (mulberry32). */
-function seededRandom(seed: number): () => number {
-  let a = seed >>> 0;
-  return () => {
-    a = (a + 0x6d2b79f5) >>> 0;
-    let t = a;
-    t = Math.imul(t ^ (t >>> 15), t | 1);
-    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
-/** Whether segment PQ crosses segment AB. */
-function segmentsCross(px: number, py: number, qx: number, qy: number,
-                       ax: number, ay: number, bx: number, by: number): boolean {
-  const cross = (ox: number, oy: number, ux: number, uy: number, vx: number, vy: number) =>
-    (ux - ox) * (vy - oy) - (uy - oy) * (vx - ox);
-  const d1 = cross(ax, ay, bx, by, px, py);
-  const d2 = cross(ax, ay, bx, by, qx, qy);
-  const d3 = cross(px, py, qx, qy, ax, ay);
-  const d4 = cross(px, py, qx, qy, bx, by);
-  return d1 * d2 < 0 && d3 * d4 < 0;
-}
-
-/** Relativistic velocity addition: the rest-frame velocity of something moving at w in the frame of
- *  an observer who moves at v relative to the rest frame. Passing -v instead converts a rest-frame
- *  velocity w into the observer's frame. */
+/** Relativistic velocity addition, with the current speed of light (see R.addVelocities). */
 function addVelocities(vx: number, vy: number, wx: number, wy: number): { x: number; y: number } {
-  const v2 = vx * vx + vy * vy;
-  const g = 1 / Math.sqrt(1 - v2 / C2);
-  const vw = vx * wx + vy * wy;
-  const k = g / (g + 1) * vw / C2;
-  const denom = 1 + vw / C2;
-  return { x: (wx / g + vx + k * vx) / denom, y: (wy / g + vy + k * vy) / denom };
+  return R.addVelocities(C, vx, vy, wx, wy);
 }
 
 // ─── Blackbody colors ──────────────────────────────────────────────────────────────────────────────
@@ -658,36 +621,10 @@ const BB_MIN_LOG = Math.log(300);
 const BB_MAX_LOG = Math.log(400000);
 const BB_STEPS = 400;
 
-/** RGB of a blackbody, using Tanner Helland's fit (valid from about 1000 K to 40000 K, and clamped
- *  outside that range). Brightness is handled separately. */
-function blackbodyRGB(kelvin: number): [number, number, number] {
-  const t = Math.min(Math.max(kelvin, 1000), 40000) / 100;
-  const clamp = (x: number) => Math.round(Math.min(255, Math.max(0, x)));
-  const r = t <= 66 ? 255 : 329.698727446 * Math.pow(t - 60, -0.1332047592);
-  const g = t <= 66 ? 99.4708025861 * Math.log(t) - 161.1195681661 : 288.1221695283 * Math.pow(t - 60, -0.0755148492);
-  const b = t >= 66 ? 255 : t <= 19 ? 0 : 138.5177312231 * Math.log(t - 10) - 305.0447927307;
-  return [clamp(r), clamp(g), clamp(b)];
-}
-
 const BB_TABLE: [number, number, number][] = [];
 for (let i = 0; i <= BB_STEPS; i++) {
   BB_TABLE.push(blackbodyRGB(Math.exp(BB_MIN_LOG + (i / BB_STEPS) * (BB_MAX_LOG - BB_MIN_LOG))));
 }
-/** RGB of monochromatic light, after Dan Bruton's approximation, for 380–780 nm. */
-function wavelengthRGB(l: number): [number, number, number] {
-  let r = 0, g = 0, b = 0;
-  if (l < 440) { r = (440 - l) / 60; b = 1; }
-  else if (l < 490) { g = (l - 440) / 50; b = 1; }
-  else if (l < 510) { g = 1; b = (510 - l) / 20; }
-  else if (l < 580) { r = (l - 510) / 70; g = 1; }
-  else if (l < 645) { r = 1; g = (645 - l) / 65; }
-  else { r = 1; }
-  // The eye is less sensitive toward the ends of the visible range.
-  const f = l < 420 ? 0.3 + (0.7 * (l - 380)) / 40 : l > 700 ? 0.3 + (0.7 * (780 - l)) / 80 : 1;
-  const c = (x: number) => Math.round(255 * Math.pow(Math.max(0, Math.min(1, x * f)), 0.8));
-  return [c(r), c(g), c(b)];
-}
-
 const colorCache = new Map<string, string>();
 
 /** CSS color of a light source seen with Doppler factor D (observed / emitted frequency), with
@@ -738,25 +675,6 @@ interface Ship {
   t: number;
   /** Ship's own clock, measured from the start signal. */
   tau: number;
-}
-
-/** A sample of a recorded run, for replaying it as a ghost. */
-interface GhostSample {
-  t: number;
-  x: number;
-  y: number;
-  h: number;
-  vx: number;
-  vy: number;
-  tau: number;
-}
-
-interface Run {
-  /** Identifies the run's ghost recording in storage. */
-  id?: string;
-  t: number;
-  tau: number;
-  samples: GhostSample[];
 }
 
 /** "ready": waiting at the start line, with the clocks stopped, until the first thrust. */
@@ -869,49 +787,19 @@ function newState(track: Track): State {
   };
 }
 
-/** The factor 1 − Σ r_s/r in the metric, g_tt = −(1 − Σ r_s/r) c². A clock at rest at (x, y) runs
- *  at √(1 − Σ r_s/r) times the rate of a clock far from every mass. This superposition of weak
- *  fields is exact for a single black hole (Schwarzschild) and a good approximation for planets. */
-function metricFactor(x: number, y: number): number {
-  if (!gravityOn) return 1;
-  let sum = 0;
-  for (const b of currentBodies) {
-    const r = Math.max(Math.hypot(x - b.x, y - b.y), b.r);
-    sum += (2 * b.GM) / (C2 * r);
-  }
-  return Math.max(1e-4, 1 - sum);
+/** The masses that curve spacetime: the current bodies, or none with gravity off. */
+function activeMasses(): Body[] {
+  return gravityOn ? currentBodies : [];
 }
 
-/** The ship's motion in curved spacetime. The ship's state is its position (x, y) and its proper
- *  velocity u = dx/dτ in the map coordinates. Returns
- *  - f: the metric factor at the ship,
- *  - tdot: dt/dτ, the rate of rest-frame (far-away) time per second of ship time,
- *  - g: the Lorentz factor relative to an observer at rest at the ship's position,
- *  - (vx, vy): the ship's velocity measured by that observer. */
-function kinematics(ship: Ship): { f: number; tdot: number; g: number; vx: number; vy: number } {
-  const f = metricFactor(ship.x, ship.y);
-  // Measured by an observer at rest at the ship's position, radial proper lengths near a mass are
-  // stretched by 1/√(1 − r_s/r), so the part of u pointing toward each mass counts for more locally.
-  // Each body adds its own stretch along its own direction. This is exact for a single black hole,
-  // and unlike stretching along the direction of the single strongest body, it changes smoothly as
-  // the ship moves among many bodies.
-  let lx = ship.ux;
-  let ly = ship.uy;
-  if (gravityOn) {
-    for (const b of currentBodies) {
-      const dx = ship.x - b.x;
-      const dy = ship.y - b.y;
-      const d = Math.hypot(dx, dy);
-      if (d === 0) continue;
-      const compact = Math.min(0.9999, (2 * b.GM) / (C2 * Math.max(d, b.r)));
-      const stretch = 1 / Math.sqrt(1 - compact) - 1;
-      const ur = (ship.ux * dx + ship.uy * dy) / d;
-      lx += (stretch * ur * dx) / d;
-      ly += (stretch * ur * dy) / d;
-    }
-  }
-  const g = Math.sqrt(1 + (lx * lx + ly * ly) / C2);
-  return { f, tdot: g / Math.sqrt(f), g, vx: lx / g, vy: ly / g };
+/** See R.metricFactor. */
+function metricFactor(x: number, y: number): number {
+  return R.metricFactor(x, y, activeMasses(), C);
+}
+
+/** The ship's motion in curved spacetime (see R.kinematics). */
+function kinematics(ship: Ship): R.Kinematics {
+  return R.kinematics(ship, activeMasses(), C);
 }
 
 function gammaOf(ship: Ship): number {
@@ -934,40 +822,6 @@ function storageKey(): string {
 // Each list of best runs is stored in two parts, so that a full storage can't cost a best time: the
 // times themselves, which are tiny, under the list's key; and each run's ghost recording under its own
 // key. If a recording doesn't fit, its run keeps its place on the list without a ghost.
-
-const GHOST_SEPARATOR = "~ghost~";
-
-function ghostKey(listKey: string, id: string): string {
-  return `${listKey}${GHOST_SEPARATOR}${id}`;
-}
-
-/** A ghost recording stored as columns of rounded numbers, which is several times smaller than a
- *  list of objects. */
-interface StoredGhost {
-  t: number[];
-  x: number[];
-  y: number[];
-  h: number[];
-  vx: number[];
-  vy: number[];
-  tau: number[];
-}
-
-function encodeGhost(samples: GhostSample[]): StoredGhost {
-  const column = (get: (q: GhostSample) => number, digits: number) =>
-    samples.map(q => Math.round(get(q) * 10 ** digits) / 10 ** digits);
-  return {
-    t: column(q => q.t, 3), x: column(q => q.x, 1), y: column(q => q.y, 1), h: column(q => q.h, 3),
-    vx: column(q => q.vx, 1), vy: column(q => q.vy, 1), tau: column(q => q.tau, 3),
-  };
-}
-
-function decodeGhost(stored: StoredGhost | null): GhostSample[] {
-  if (!stored || !Array.isArray(stored.t)) return [];
-  return stored.t.map((t, i) => ({
-    t, x: stored.x[i], y: stored.y[i], h: stored.h[i], vx: stored.vx[i], vy: stored.vy[i], tau: stored.tau[i],
-  }));
-}
 
 function newRunId(): string {
   return `${Date.now().toString(36)}${Math.floor(Math.random() * 1e6).toString(36)}`;
@@ -1060,16 +914,6 @@ function importLists(text: string): number {
     saveBests(runs, key);
   }
   return added;
-}
-
-/** Adds a run to the list of best runs, keeping the fastest MAX_BEST_RUNS. Returns the run's rank
- *  (1 for the fastest), or 0 if it is too slow to make the list. */
-function insertRun(runs: Run[], run: Run): number {
-  const rank = runs.filter(r => r.t <= run.t).length + 1;
-  if (rank > MAX_BEST_RUNS) return 0;
-  runs.splice(rank - 1, 0, run);
-  runs.length = Math.min(runs.length, MAX_BEST_RUNS);
-  return rank;
 }
 
 // ─── Physics update ────────────────────────────────────────────────────────────────────────────────
@@ -1274,28 +1118,6 @@ function step(state: State, track: Track, bodies: Body[], controls: Controls, dt
   return finished;
 }
 
-/** The state of a recorded run at rest-frame time t. Before the start and after the finish, the
- *  ghost waits at rest at its first and last positions. */
-function sampleRunAt(samples: GhostSample[], t: number): GhostSample {
-  if (t <= samples[0].t) return { ...samples[0], t, vx: 0, vy: 0 };
-  const last = samples[samples.length - 1];
-  if (t >= last.t) return { ...last, t, vx: 0, vy: 0 };
-  let lo = 0;
-  let hi = samples.length - 1;
-  while (hi - lo > 1) {
-    const mid = (lo + hi) >> 1;
-    if (samples[mid].t <= t) lo = mid;
-    else hi = mid;
-  }
-  const a = samples[lo];
-  const b = samples[hi];
-  const f = (t - a.t) / (b.t - a.t);
-  const mix = (p: number, q: number) => p + f * (q - p);
-  let dh = b.h - a.h;
-  dh -= 2 * Math.PI * Math.round(dh / (2 * Math.PI));
-  return { t, x: mix(a.x, b.x), y: mix(a.y, b.y), h: a.h + f * dh, vx: mix(a.vx, b.vx), vy: mix(a.vy, b.vy), tau: mix(a.tau, b.tau) };
-}
-
 // ─── View transform ────────────────────────────────────────────────────────────────────────────────
 
 /** Maps rest-frame events to positions in the ship's frame. */
@@ -1464,43 +1286,11 @@ function nearestBodyLine(ship: Ship, bodies: Body[]): string {
   return `nearest: ${best.name}, ${when}`;
 }
 
-/** Color for a ratio dt/dτ of race time to ship time: white at 1 (clocks in step), then yellow,
- *  orange, and red as the race clock runs up to 20 or more times faster than the ship's clock. */
-function timeRateColor(rate: number): string {
-  const stops: [number, [number, number, number]][] = [
-    [0, [223, 232, 255]], [0.2, [255, 236, 120]], [0.5, [255, 160, 60]], [1, [255, 80, 110]],
-  ];
-  const f = Math.min(1, Math.max(0, Math.log(rate) / Math.log(20)));
-  let i = 0;
-  while (i < stops.length - 2 && f > stops[i + 1][0]) i++;
-  const [f0, c0] = stops[i];
-  const [f1, c1] = stops[i + 1];
-  const u = (f - f0) / (f1 - f0);
-  return `rgb(${c0.map((c, k) => Math.round(c + u * (c1[k] - c))).join(", ")})`;
-}
-
-/** A number in scientific notation with superscript exponent, like "2.998 × 10⁸". */
-function formatScientific(x: number, digits = 4): string {
-  const exponent = Math.floor(Math.log10(Math.abs(x)));
-  const mantissa = x / 10 ** exponent;
-  const superscripts = "⁰¹²³⁴⁵⁶⁷⁸⁹";
-  const sup = String(exponent).replace(/\d/g, d => superscripts[Number(d)]).replace("-", "⁻");
-  return `${mantissa.toFixed(digits - 1)} × 10${sup}`;
-}
-
 /** The speed of light in meters per second, and how it compares with the real value. */
 function speedOfLightText(): { text: string; real: boolean } {
   const real = C === REAL_C;
   const text = `${formatScientific(C * METERS_PER_UNIT)} m/s`;
   return { text: real ? `${text} (real)` : `${text} (${(C / REAL_C).toFixed(2)}× real)`, real };
-}
-
-function formatTime(t: number): string {
-  const sign = t < 0 ? "−" : "";
-  const a = Math.abs(t);
-  const m = Math.floor(a / 60);
-  const s = a - 60 * m;
-  return `${sign}${m}:${s.toFixed(2).padStart(5, "0")}`;
 }
 
 function render(ctx: CanvasRenderingContext2D, state: State, track: Track, bodies: Body[], stars: Stars,

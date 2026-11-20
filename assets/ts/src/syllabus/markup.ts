@@ -3,7 +3,7 @@
 // ╰───────────────────────────────────────────────────────────────╯
 // The generator builds the syllabus as a list of blocks. Text inside blocks uses a small inline
 // markup, which is also Markdown:
-//   **bold**, *italic*, [text](https://url), and \x for a literal character x. Bare web and email
+//   **bold**, *italic*, ***both***, [text](https://url), and \x for a literal character x. Bare web and email
 //   addresses become links.
 //   {{Label}} is a placeholder for information that the instructor hasn't entered yet. It is
 //   highlighted in the preview and in copied HTML, and written as [Label] in Markdown.
@@ -50,7 +50,20 @@ function safeUrl(url: string): string | null {
   return /^(https?:|mailto:)/i.test(url) ? url : null;
 }
 
-const INLINE = new RegExp(String.raw`\\(.)|\*\*(.+?)\*\*|\*(.+?)\*|` + LINK_SOURCE + String.raw`|\{\{(.+?)\}\}|(https?:\/\/[^\s<>()]*[^\s<>().,;:!?'"])|([\w.+-]+@[\w-]+(?:\.[\w-]+)*\.[A-Za-z]{2,})`, "g");
+// Bold, italic, or both. An escaped character inside counts as one character, so "\*" doesn't
+// end the emphasis. The content stays on one line.
+const EMPH = String.raw`((?:\\.|[^\\\n])+?)`;
+const EMPHASIS = String.raw`\\(.)|\*\*\*${EMPH}\*\*\*|\*\*${EMPH}\*\*|\*${EMPH}\*`;
+const PLACEHOLDER = String.raw`\{\{(.+?)\}\}`;
+// A bare web address, which may contain balanced parentheses (as in Wikipedia addresses) but
+// doesn't end with punctuation, so "(see https://a.org/x)." links only https://a.org/x.
+const BARE_URL = String.raw`(https?:\/\/(?:[^\s<>()]|\([^\s<>()]*\))*(?:[^\s<>().,;:!?'"]|\([^\s<>()]*\)))`;
+const EMAIL = String.raw`([\w.+-]+@[\w-]+(?:\.[\w-]+)*\.[A-Za-z]{2,})`;
+
+// Groups: literal, bold italic, bold, italic, link text, link URL, placeholder, bare URL, email.
+const INLINE = new RegExp([EMPHASIS, LINK_SOURCE, PLACEHOLDER, BARE_URL, EMAIL].join("|"), "g");
+// Groups: literal, bold italic, bold, italic, link text, link URL, placeholder.
+const PLAIN = new RegExp([EMPHASIS, LINK_SOURCE, PLACEHOLDER].join("|"), "g");
 
 export type Flavor = "preview" | "lms";
 
@@ -60,8 +73,9 @@ export function inlineHtml(text: string, flavor: Flavor): string {
   for (const m of text.matchAll(INLINE)) {
     out += escapeHtml(text.slice(last, m.index));
     last = m.index! + m[0].length;
-    const [, literal, bold, italic, linkText, linkUrl, placeholder, bareUrl, email] = m;
+    const [, literal, boldItalic, bold, italic, linkText, linkUrl, placeholder, bareUrl, email] = m;
     if (literal !== undefined) out += escapeHtml(literal);
+    else if (boldItalic !== undefined) out += `<strong><em>${inlineHtml(boldItalic, flavor)}</em></strong>`;
     else if (bold !== undefined) out += `<strong>${inlineHtml(bold, flavor)}</strong>`;
     else if (italic !== undefined) out += `<em>${inlineHtml(italic, flavor)}</em>`;
     else if (linkText !== undefined) {
@@ -81,12 +95,13 @@ export function inlineHtml(text: string, flavor: Flavor): string {
 }
 
 export function inlinePlain(text: string): string {
-  return text
-    .replace(LINK, "$1 ($2)")
-    .replace(/\{\{(.+?)\}\}/g, "[$1]")
-    .replace(/\*\*(.+?)\*\*/g, "$1")
-    .replace(/\*(.+?)\*/g, "$1")
-    .replace(/\\(.)/g, "$1");
+  return text.replace(PLAIN, (_, literal, boldItalic, bold, italic, linkText, linkUrl, placeholder) => {
+    if (literal !== undefined) return literal;
+    const emphasized = boldItalic ?? bold ?? italic;
+    if (emphasized !== undefined) return inlinePlain(emphasized);
+    if (linkText !== undefined) return `${inlinePlain(linkText)} (${linkUrl})`;
+    return `[${placeholder}]`;
+  });
 }
 
 function inlineMarkdown(text: string): string {
@@ -187,10 +202,13 @@ export function toMarkdown(blocks: Block[]): string {
 
 // ⋘──────── Plain text (for the clipboard's plain-text copy) ────────⋙
 
-function itemsPlain(items: Item[], depth: number): string[] {
-  return items.flatMap(item => typeof item === "string"
-    ? [`${"  ".repeat(depth)}• ${inlinePlain(item)}`]
-    : [`${"  ".repeat(depth)}• ${inlinePlain(item.text)}`, ...itemsPlain(item.items, depth + 1)]);
+function itemsPlain(items: Item[], ordered: boolean, depth: number): string[] {
+  const pad = "  ".repeat(depth);
+  return items.flatMap((item, i) => {
+    const marker = ordered ? `${i + 1}.` : "•";
+    if (typeof item === "string") return [`${pad}${marker} ${inlinePlain(item)}`];
+    return [`${pad}${marker} ${inlinePlain(item.text)}`, ...itemsPlain(item.items, false, depth + 1)];
+  });
 }
 
 function blockPlain(b: Block): string {
@@ -198,7 +216,7 @@ function blockPlain(b: Block): string {
     case "h1": case "h2": return inlinePlain(b.text).toUpperCase();
     case "h3": case "h4": return inlinePlain(b.text);
     case "p": return inlinePlain(b.text);
-    case "ul": case "ol": return itemsPlain(b.items, 0).join("\n");
+    case "ul": case "ol": return itemsPlain(b.items, b.t === "ol", 0).join("\n");
     case "kv": return b.rows.map(([label, value]) => `${inlinePlain(label)}: ${value.map(blockPlain).join("\n")}`).join("\n");
     case "table": return [b.head, ...b.rows].map(r => r.map(inlinePlain).join("\t")).join("\n");
   }
@@ -209,7 +227,8 @@ export function toPlain(blocks: Block[]): string {
 }
 
 // ⋘──────── Text that instructors write ────────⋙
-// Paragraphs are separated by blank lines; lines starting with "- " or "* " are bullets.
+// Paragraphs are separated by blank lines; lines starting with "- ", "* ", or "• " are bullets,
+// and lines starting with a number and a period or parenthesis ("1. " or "1) ") are numbered.
 
 export function textBlocks(text: string, src?: string): Block[] {
   const blocks: Block[] = [];
@@ -218,12 +237,23 @@ export function textBlocks(text: string, src?: string): Block[] {
     if (!lines.length) continue;
     let para: string[] = [];
     let list: string[] = [];
+    let listType: "ul" | "ol" = "ul";
     const flushPara = () => { if (para.length) blocks.push({ t: "p", text: para.join(" "), src }); para = []; };
-    const flushList = () => { if (list.length) blocks.push({ t: "ul", items: list, src }); list = []; };
+    const flushList = () => { if (list.length) blocks.push({ t: listType, items: list, src }); list = []; };
     for (const line of lines) {
       const bullet = /^[-*•]\s+(.*)$/.exec(line);
-      if (bullet) { flushPara(); list.push(bullet[1]); }
-      else { flushList(); para.push(line); }
+      const numbered = /^\d+[.)]\s+(.*)$/.exec(line);
+      const item = bullet ?? numbered;
+      if (item) {
+        const type = bullet ? "ul" : "ol";
+        flushPara();
+        if (type !== listType) flushList();
+        listType = type;
+        list.push(item[1]);
+      } else {
+        flushList();
+        para.push(line);
+      }
     }
     flushPara();
     flushList();
