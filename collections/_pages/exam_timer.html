@@ -1,0 +1,103 @@
+---
+layout: single
+permalink: /tools/exam_timer/
+title: "Exam Timer"
+excerpt: "A countdown to the end of an exam, for projecting in the exam room: whole minutes only (no distracting seconds), full screen, and extensions for disruptions."
+tool_categories: [Teaching]
+full_width: true
+date_added: 2026-11-20
+---
+
+<style>
+  .et input, .et select, .et button, .et label { margin: 0; }
+  .et input[type=text], .et input[type=number], .et input[type=time], .et select {
+    font: inherit; font-size: 0.9em; padding: 0.3rem 0.5rem; width: auto;
+    border: 1px solid rgba(128, 128, 128, 0.45); border-radius: 6px; background: #fff; color: #202124;
+  }
+  .et button {
+    font: inherit; font-size: 0.9em; width: auto; padding: 0.3rem 0.7rem; cursor: pointer;
+    border: 1px solid rgba(128, 128, 128, 0.4); border-radius: 6px; background: #fff; color: #202124;
+  }
+  .et button:hover { background: rgba(128, 128, 128, 0.1); }
+  .et .et-help { width: 1.25rem; height: 1.25rem; padding: 0; border-radius: 50%; font-size: 0.75rem; font-weight: bold; line-height: 1; color: #6b6b6b; }
+  .et .et-help[aria-expanded="true"] { background: #1a73e8; border-color: #1a73e8; color: #fff; }
+  .et-help-popup { position: absolute; z-index: 30; max-width: min(24rem, calc(100vw - 16px)); padding: 0.6rem 0.8rem; border: 1px solid rgba(0, 0, 0, 0.15); border-radius: 6px; background: #fff; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18); font-size: 0.85em; }
+  .et-toolbar { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 0.6rem 1.2rem; margin-bottom: 1rem; }
+  .et-field { display: flex; flex-direction: column; gap: 0.2rem; font-size: 0.85em; color: #5f6368; }
+  .et-field > span { display: flex; align-items: center; gap: 0.35rem; }
+  .et-field input[type=text] { min-width: min(18rem, 80vw); }
+
+  /* The display: large, high-contrast text that can be read from the back of a lecture hall. */
+  .et-display {
+    position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5vh;
+    min-height: 60vh; padding: 2rem 1rem; border-radius: 10px; background: #111; color: #fff; text-align: center;
+    font-variant-numeric: tabular-nums; transition: background-color 0.5s;
+  }
+  .et-display:fullscreen { min-height: 100vh; border-radius: 0; }
+  /* Each line stays on one line; the script shrinks a line that is wider than the display. */
+  .et-show-title, .et-remaining, .et-ends, .et-now { max-width: 100%; white-space: nowrap; }
+  .et-show-title { font-size: clamp(1.4rem, 4.5vw, 3.5rem); font-weight: 600; }
+  .et-remaining { font-size: clamp(3rem, 14vw, 13rem); font-weight: 700; line-height: 1.1; }
+  .et-ends { font-size: clamp(1.2rem, 4vw, 3.2rem); }
+  .et-now { font-size: clamp(1rem, 2.6vw, 2rem); color: #bbb; }
+  .et-display:fullscreen .et-remaining { font-size: clamp(4rem, 17vw, 20rem); }
+  /* The colors change at 15 and 5 minutes left (colorblind-safe: they also differ in lightness). */
+  .et-last15 { background: #3d2a00; }
+  .et-last15 .et-remaining { color: #ffd166; }
+  .et-last5 { background: #4a1500; }
+  .et-last5 .et-remaining { color: #ffb38a; }
+  .et-done { background: #5c0000; }
+  .et-display .et-full { position: absolute; right: 0.8rem; bottom: 0.8rem; background: rgba(255, 255, 255, 0.12); color: #fff; border-color: rgba(255, 255, 255, 0.3); }
+  .et-display:fullscreen .et-full { opacity: 0.25; }
+  .et-display:fullscreen .et-full:hover { opacity: 1; }
+
+  .et-extend { margin-top: 1.2rem; padding: 0.8rem 1rem; border: 1px solid rgba(128, 128, 128, 0.3); border-radius: 8px; }
+  .et-extend h2 { margin: 0 0 0.5rem; font-size: 1.1em; }
+  .et-extend-row { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 0.5rem 0.8rem; }
+  .et-extend input[type=number] { width: 5rem; }
+  .et-extend ul { margin: 0.6rem 0 0; font-size: 0.9em; }
+  .et .et-small { padding: 0.05rem 0.5rem; font-size: 0.8em; }
+  .et-note { font-size: 0.85em; color: #5f6368; margin: 0.5rem 0 0; }
+</style>
+
+<div class="et">
+  <p>
+    Project this page during an exam to show how much time is left.
+    It shows whole minutes only, because a ticking seconds count distracts students.
+    The minutes are rounded up, so “5 min” means that more than 4 minutes are left.
+    The display turns amber with 15 minutes left and orange-red with 5 minutes left.
+  </p>
+
+  <div class="et-toolbar">
+    <label class="et-field"><span>Exam</span><input type="text" id="et-title" placeholder="MATH 110 Midterm 1"></label>
+    <label class="et-field"><span><span data-help="When the exam ends today. Extensions are added to this time.">End time</span></span><input type="time" id="et-end"></label>
+    <label class="et-field"><span>Clock</span><select id="et-hour12"><option value="12">12-hour (10:25 am)</option><option value="24">24-hour (10:25)</option></select></label>
+  </div>
+
+  <div id="et-display" class="et-display" aria-live="polite">
+    <div id="et-show-title" class="et-show-title" hidden></div>
+    <div id="et-remaining" class="et-remaining"></div>
+    <div id="et-ends" class="et-ends"></div>
+    <div id="et-now" class="et-now"></div>
+    <button type="button" id="et-full" class="et-full">Full screen</button>
+  </div>
+
+  <section class="et-extend">
+    <h2>Extensions</h2>
+    <div class="et-extend-row">
+      <label class="et-field"><span><span data-help="Optional. Recorded with the extension, so that you can report what happened, for example to students at the testing center.">Reason</span></span><input type="text" id="et-reason" placeholder="Fire alarm"></label>
+      <button type="button" data-extend="1">+1 min</button>
+      <button type="button" data-extend="5">+5 min</button>
+      <button type="button" data-extend="10">+10 min</button>
+      <label class="et-field"><span>Minutes</span><input type="number" id="et-minutes" min="1" step="1" inputmode="numeric"></label>
+      <button type="button" id="et-add">Add</button>
+    </div>
+    <p id="et-ext-none" class="et-note">No extensions.</p>
+    <ul id="et-extensions"></ul>
+    <p class="et-note">Settings and extensions are saved in this browser, so reloading the page keeps the timer. Extensions are cleared on the next day. Double-click the display to switch full screen on or off.</p>
+  </section>
+
+  <div id="et-help-popup" class="et-help-popup" role="note" hidden></div>
+</div>
+
+<script src="/assets/ts/out/exam_timer.js" type="module"></script>
