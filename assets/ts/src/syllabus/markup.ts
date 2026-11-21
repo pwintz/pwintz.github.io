@@ -15,7 +15,7 @@ export type Item = string | { text: string; items: Item[] };
 export type Block =
   | { t: "h1" | "h2" | "h3" | "h4"; text: string; src?: string }
   | { t: "p"; text: string; src?: string; indent?: boolean }
-  | { t: "ul" | "ol"; items: Item[]; src?: string }
+  | { t: "ul" | "ol"; items: Item[]; src?: string; plain?: boolean }  // plain: no bullets, as for a checklist
   | { t: "kv"; rows: [string, Block[]][]; src?: string }            // A two-column table of labels and values
   | { t: "table"; head: string[]; rows: string[][]; src?: string };
 
@@ -133,7 +133,7 @@ function blockHtml(b: Block, flavor: Flavor): string {
     case "p":
       return `<p${src}${b.indent ? ` style="padding-left: 40px;"` : ""}>${inlineHtml(b.text, flavor)}</p>`;
     case "ul": case "ol":
-      return itemsHtml(b.t, b.items, flavor).replace(/^<(ul|ol)>/, `<$1${src}>`);
+      return itemsHtml(b.t, b.items, flavor).replace(/^<(ul|ol)>/, `<$1${src}${b.plain ? ` style="list-style: none; padding-left: 0;"` : ""}>`);
     case "kv": {
       const rows = b.rows.map(([label, value]) => {
         const body = value.map(v => blockHtml(v, flavor)).join("");

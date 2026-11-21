@@ -335,7 +335,8 @@ export function generate(s: State): Block[] {
   const uses = s.multi.lmsUses ?? [];
   const useText: Record<string, string> = {
     announcements: "announcements (please turn on notifications, so that you don't miss them)",
-    materials: "notes, slides, and readings",
+    notes: "class notes",
+    readings: "readings",
     calendar: "the calendar of due dates",
     submissions: "assignment submissions",
     grades: "your scores",
@@ -343,7 +344,11 @@ export function generate(s: State): Block[] {
   };
   const late = ch("late") === "penalty" || ch("late") === "tokens";
   const siteItems: Item[] = [];
-  const useItems = uses.filter(u => u in useText).map(u => useText[u].charAt(0).toUpperCase() + useText[u].slice(1));
+  const useItems = uses.filter(u => u in useText).map(u => linkTo(useText[u].charAt(0).toUpperCase() + useText[u].slice(1), `lms.link.${u}`));
+  if (uses.includes(CUSTOM)) {
+    const own = raw("lmsUses.custom").split("\n").map(l => l.trim().replace(/^[-*•]\s+/, "")).filter(Boolean);
+    useItems.push(...(own.length ? own.map(esc) : ["{{Your own use}}"]));
+  }
   if (useItems.length) siteItems.push({ text: `**${lms}** has`, items: useItems });
   switch (ch("submitPlatform")) {
     case "lms": siteItems.push(`**Submitting work:** Submit written work on ${lms}.`); break;
@@ -737,11 +742,31 @@ export function generate(s: State): Block[] {
     allowed: `**What you may use:** ${reader(s).andList(reader(s).examAllowed())}. Nothing else is allowed, including phones, smartwatches, and earbuds.`,
     bags: "**Bags and phones:** Before the exam starts, turn off your phone and put it in your bag at the front or side of the room. Smartwatches and earbuds are not allowed.",
     seating: "**Seating:** Leave an empty seat between you and your neighbors, or sit in your assigned seat if there is one.",
-    ids: "**Bring your student ID.** Proctors will check it during the exam.",
     restroom: "**Restroom breaks:** One student at a time. Before you leave, give the proctor your phone, your exam, and your student ID, and pick them up when you return. Bring your student ID to every exam.",
   };
-  const examDay = (s.multi.proctoring ?? []).filter(x => x in examDayText).map(x => examDayText[x]);
-  if (ch("examSchedule") || ch("examDay") || ch("examAids") || ch("missedExam") || ch("secondChance") || examDay.length) {
+  // IDs, help during the exam, and the end of the exam, from their own proctoring questions.
+  const idText: Record<string, string> = {
+    during: "**Bring your student ID.** Put it on your desk; proctors will check it during the exam.",
+    turnIn: "**Bring your student ID.** Show it to the proctor when you turn in your exam.",
+  };
+  const helpText: Record<string, string> = {
+    clarify: "**Questions during the exam:** Proctors can clarify what a problem asks, but they can't give hints.",
+    hints: "**Questions during the exam:** If you are stuck, you may ask a proctor for a small hint.",
+    check: "**Checking answers:** You may ask a proctor whether an answer is correct. They won't tell you what the mistake is.",
+  };
+  const endText: Record<string, string> = {
+    seated: "**When time is called,** stop writing and stay seated until the proctors have collected every exam.",
+    front: `**When time is called,** stop writing and bring your exam to the front${ch("examIds") === "turnIn" ? ", with your student ID" : ""}.`,
+    rows: "**When time is called,** stop writing and pass your exam to the end of your row.",
+  };
+  const examDay: string[] = [];
+  const rule = (x: string) => { if (has("proctoring", x)) examDay.push(examDayText[x]); };
+  ["allowed", "bags", "seating"].forEach(rule);
+  if (idText[ch("examIds")]) examDay.push(idText[ch("examIds")]);
+  rule("restroom");
+  if (helpText[ch("examHelp")]) examDay.push(helpText[ch("examHelp")]);
+  if (endText[ch("examEnd")]) examDay.push(`${endText[ch("examEnd")]}${checked("exam.leaveEarly") ? " If you finish early, you may turn in your exam and leave quietly, except in the last 10 minutes." : ""}`);
+  if (ch("examSchedule") || ch("examDay") || ch("examAids") || ch("accommodationTiming") || ch("missedExam") || ch("secondChance") || examDay.length) {
     push({ t: "h3", text: "Exams", src: "examSchedule" });
     const items: string[] = [];
     const whenText: Record<string, string> = {
@@ -762,6 +787,13 @@ export function generate(s: State): Block[] {
       shift: `If you miss an exam because of ${illness}, the weight of that exam is moved to the final exam.`,
       zero: "A missed exam receives a score of zero unless you arrange an alternative with me before the exam. In an emergency, contact me as soon as possible.",
     };
+    const accText: Record<string, string> = {
+      same: "If you have testing accommodations, you take each exam at the testing center at the same time as the main exam.",
+      window: `If you have testing accommodations, you take each exam at the testing center, starting any time from ${opt("accom.window")}, as the testing center's schedule allows.`,
+      either: "If you have testing accommodations, you take each exam at the testing center on the day of the exam, as the testing center's schedule allows.",
+    };
+    if (accText[ch("accommodationTiming")]) items.push(accText[ch("accommodationTiming")]);
+    if (accText[ch("accommodationTiming")] && ch("accommodationTiming") !== "same") items.push("Don't discuss an exam with anyone until everyone has taken it, including students who take it at another time.");
     if (ch("missedExam") && ch("missedExam") !== CUSTOM) items.push(missedText[ch("missedExam")]);
     const secondText: Record<string, string> = {
       replace: "If your percentage on the final exam is higher than your lowest midterm percentage, your final exam percentage replaces it.",
@@ -783,7 +815,7 @@ export function generate(s: State): Block[] {
       else items.push("{{Say whether second chances count toward the requirement to pass}}");
     }
     if (items.length) push({ t: "ul", items, src: "examSchedule" });
-    for (const q of ["examSchedule", "examAids", "missedExam", "secondChance", "passGate"]) if (ch(q) === CUSTOM) push(...custom(q));
+    for (const q of ["examSchedule", "examAids", "accommodationTiming", "missedExam", "secondChance", "passGate"]) if (ch(q) === CUSTOM) push(...custom(q));
     if (examDay.length) push(p("**On exam day:**", "proctoring"), { t: "ul", items: examDay, src: "proctoring" });
   }
 
@@ -829,6 +861,27 @@ export function generate(s: State): Block[] {
     else if (ch("turnaround")) push(p(turnaroundText[ch("turnaround")], "turnaround"));
     if (ch("regrades") === CUSTOM) push(...custom("regrades"));
     else if (ch("regrades")) push(p(regradeText[ch("regrades")], "regrades"));
+    // What a regrade request should contain.
+    if (ch("regrades") && ch("regrades") !== CUSTOM) {
+      const where = ch("regrades") === "platform" ? `On ${opt("regrade.platform")}, submit a separate request for each problem.` : ch("regrades") === "person" ? "Bring your graded work, unchanged." : "Include a copy of your graded work, unchanged.";
+      push(p("A regrade request should include:", "regrades"), {
+        t: "ul", src: "regrades", items: [
+          "**Which work:** the assignment or exam, and the problem and part.",
+          "**What you think was graded incorrectly:** the rubric item or comment that you disagree with, and the part of your work that it applies to.",
+          "**Why:** an explanation based on your work as you submitted it, such as a step that the grader missed or a correct method that received no credit. Requests that only ask for more points, or that explain what you meant to write, can't be considered.",
+          ch("regrades") === "platform" ? `**One request per problem.** ${where}` : `**Your work.** ${where}`,
+        ],
+      });
+    }
+    // Who answers regrade requests (the teaching team questions say how).
+    const regradeDue = opt("team.regradeDue");
+    const handlerText: Record<string, string> = {
+      grader: `The person who graded the problem answers your request, usually within ${regradeDue}.`,
+      instructor: `I answer every regrade request myself, usually within ${regradeDue}.`,
+      // The TA isn't named, so that students use the regrade process instead of contacting the TA.
+      headTA: `One TA answers every regrade request, usually within ${regradeDue}.`,
+    };
+    if (ch("regrades") && handlerText[ch("regradeHandler")]) push(p(handlerText[ch("regradeHandler")], "regradeHandler"));
   }
 
   // Late work
@@ -944,7 +997,7 @@ export function generate(s: State): Block[] {
     const site = raw("support.titleIX") ? `[Title IX Office website](${raw("support.titleIX")})` : "{{Title IX Office website}}";
     push(
       { t: "h3", text: "Title IX: Protection Against Discrimination, Harassment, and Violence", src: "statements" },
-      p(`I want all of you to be safe and to feel safe. If you are experiencing discrimination, harassment, threats, or violence, please talk to me about it. University policies and federal law (Title IX) protect our community from sex discrimination, sexual harassment, sexual violence, and related misconduct. Please know that, as a university employee, I am required to report incidents that you tell me about to the Title IX Office. To talk with someone confidentially, contact ${opt("support.confidential")}. Information about campus resources and online reporting is on the ${site}.`, "statements"),
+      p(`I want all of you to be safe and to feel safe. If you are experiencing discrimination, harassment, threats, or violence, please talk to me about it. University policies and federal law (Title IX) protect our community from sex discrimination, sexual harassment, sexual violence, and related misconduct. Please know that, as a university employee, I am required to report to the Title IX Office the incidents that I learn about, including those that you tell me about. To talk with someone confidentially, contact ${opt("support.confidential")}. Information about campus resources and online reporting is on the ${site}.`, "statements"),
     );
   }
   if (stmts.includes("wellness")) {

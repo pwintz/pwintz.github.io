@@ -84,7 +84,8 @@ date_added: 2026-11-18
   @media (max-width: 1099px) { .syl-views { display: inline-flex; gap: 0.3rem; } }
 
   /* Section links, with each section's progress. */
-  .syl-nav { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.5rem; }
+  .syl-nav-panel { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.8rem; }
+  .syl-nav { display: flex; flex-wrap: wrap; gap: 0.35rem; }
   .syl-nav-link {
     padding: 0.1rem 0.6rem;
     border: 1px solid rgba(128, 128, 128, 0.4);
@@ -162,10 +163,12 @@ date_added: 2026-11-18
   }
   .syl-preview-head b { color: #202124; }
   .syl-preview-head { flex-wrap: wrap; row-gap: 0.25rem; }
-  .syl-docs { display: inline-flex; flex-wrap: nowrap; align-items: center; gap: 0.3rem; }
+  .syl-docs { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.3rem; }
   .syl .syl-docs button { padding: 0.1rem 0.5rem; font-size: 1em; }
-  .syl-exports { flex-basis: 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.5rem; padding-top: 0.3rem; border-top: 1px solid rgba(128, 128, 128, 0.2); }
-  #syl-export-label { color: #202124; font-weight: 600; }
+  .syl-exports { display: inline-flex; align-items: center; gap: 0.3rem; }
+  .syl .syl-exports select { padding: 0.1rem 0.4rem; font-size: 1em; }
+  .syl-export-status { color: #188038; font-weight: 600; }
+  .syl-export-status.syl-warn { color: #c5221f; }
   .syl .syl-exports button { padding: 0.1rem 0.5rem; font-size: 1em; }
   .syl-preview-hint { flex-basis: 100%; }
   .syl-sources { flex-basis: 100%; position: relative; padding: 0.45rem 2rem 0.45rem 0.6rem; border-radius: 6px; background: #fff7e0; border: 1px solid #f0d68a; font-size: 0.85em; line-height: 1.5; }
@@ -251,6 +254,8 @@ date_added: 2026-11-18
   .syl-link-box { display: flex; gap: 0.35rem; align-items: stretch; }
   .syl-link-box > input { flex: 1; min-width: 0; margin: 0; }
   .syl-link-btn { flex: none; font-size: 0.85em; padding: 0 0.6rem; }
+  .syl a.syl-open { display: inline-flex; align-items: center; border: 1px solid rgba(128, 128, 128, 0.4); border-radius: 6px; text-decoration: none; white-space: nowrap; }
+  .syl a.syl-open[hidden] { display: none; }
   .syl-rows { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
   .syl-row-card { position: relative; align-self: stretch; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.4rem 0.6rem; padding: 0.6rem 2.2rem 0.6rem 0.7rem; border: 1px solid #d5dbe3; border-radius: 6px; background: #fafbfd; }
   .syl-row-box { display: flex; flex-direction: column; gap: 0.15rem; margin: 0; min-width: 0; }
@@ -293,6 +298,8 @@ date_added: 2026-11-18
   /* View settings above each pane. */
   .syl-view-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 1.1rem; flex-basis: 100%; padding: 0.35rem 0.7rem; margin-bottom: 0.5rem; border: 1px solid #dde3ea; border-radius: 6px; background: #f6f8fb; font-size: 0.85rem; }
   .syl-view-bar .syl-check { margin: 0; white-space: nowrap; }
+  /* The question settings stay at the top of the questions, below the pinned panels. */
+  .syl-questions > .syl-view-bar { position: sticky; top: calc(var(--syl-top, 8px) - 8px); z-index: 5; box-shadow: 0 0 0 6px #fff; }
   .syl-view-title { font-weight: 600; color: #5f6368; text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.85em; }
   /* Hide completed questions: a question stays while it is unanswered, while its text still has
      highlighted placeholders, or while it is being answered. */
@@ -346,6 +353,8 @@ date_added: 2026-11-18
   .syl-preview h4 { font-size: 1em; margin: 1rem 0 0.3rem; }
   .syl-preview p, .syl-preview ul, .syl-preview ol { margin: 0 0 0.6rem; font-size: 1em; }
   .syl-preview li { margin: 0.15rem 0; }
+  /* Consecutive lists (such as the checklist items from different questions) read as one list. */
+  .syl-preview ul:has(+ ul) { margin-bottom: 0; }
   .syl-preview table { display: table; width: 100%; margin: 0.5rem 0 0.8rem; border-collapse: collapse; font-size: 1em; }
   .syl-preview th, .syl-preview td { padding: 0.4rem 0.55rem; border: 1px solid #dddddd; vertical-align: top; text-align: left; }
   .syl-preview th { background: #eeeeee; }
@@ -391,23 +400,19 @@ date_added: 2026-11-18
           <button type="button" data-view="preview">Syllabus</button>
         </span>
       </div>
-      <div class="syl-toolbar-group">
-        <span id="syl-progress" class="syl-progress" aria-live="polite"></span>
-      </div>
     </div>
+  </div>
+
+  <div class="syl-panel syl-nav-panel" data-fullscreen="false">
+    <span id="syl-progress" class="syl-progress" aria-live="polite"></span>
     <nav id="syl-nav" class="syl-nav" aria-label="Sections"></nav>
   </div>
 
   <div id="syl-layout" class="syl-layout">
-    <div id="syl-questions" class="syl-questions"><div class="syl-view-bar" role="group" aria-label="Question view"><span class="syl-view-title">Questions</span><label class="syl-check"><input type="checkbox" id="syl-pros-cons" checked><span data-help="Show the pros and cons under each option. Hide them once you know the options, to see more questions at once.">Pros and cons</span></label><label class="syl-check"><input type="checkbox" id="syl-remaining"><span data-help="Hide the questions you have answered and the questions that don't apply to your course. A question stays visible while you answer it, and hides when you move on.">Hide Completed Questions</span></label></div></div>
+    <div id="syl-questions" class="syl-questions"><div class="syl-view-bar" role="group" aria-label="Question view"><span class="syl-view-title">Decision</span><label class="syl-check"><input type="checkbox" id="syl-pros-cons" checked><span data-help="Show the pros and cons under each option. Hide them once you know the options, to see more questions at once.">Pros and cons</span></label><label class="syl-check"><input type="checkbox" id="syl-remaining"><span data-help="Hide the questions you have answered and the questions that don't apply to your course. A question stays visible while you answer it, and hides when you move on.">Hide Completed Questions</span></label></div></div>
     <aside id="syl-preview-wrap" class="syl-preview-wrap" aria-label="Syllabus preview">
-      <div class="syl-preview-head"><div class="syl-view-bar" role="group" aria-label="Preview view"><span class="syl-view-title">Preview</span><label class="syl-check"><input type="checkbox" id="syl-focus" checked><span data-help="While you edit a question, the document shows only the text that depends on it, including text that changes because of it through other answers. Click outside the questions to see the whole document again.">Show only what you're editing</span></label><label class="syl-check"><input type="checkbox" id="syl-sync" checked><span data-help="As you scroll through the questions, the document scrolls to the text written from the question you're reading, and both are highlighted. Turn this off to scroll each pane on its own.">Scroll panes together</span></label></div><span class="syl-docs" role="group" aria-label="Document"><button type="button" data-doc="student">Student syllabus</button><button type="button" data-doc="team" data-help="A document for TAs, tutors, and readers, written from the Teaching team syllabus questions (the last section) and your other answers. Copy and download export the document shown here.">Teaching team syllabus</button><button type="button" data-doc="quiz" data-help="A multiple-choice quiz on the policies in the student syllabus, with an answer key at the end, written from your answers. Copy it into a quiz on your course website.">Syllabus quiz</button></span>
-        <div class="syl-exports">
-          <span id="syl-export-label">Export the student syllabus:</span>
-          <span class="syl-nowrap"><button type="button" id="syl-copy" data-help="#syl-copy-help">Copy formatted</button></span>
-          <span class="syl-nowrap"><button type="button" id="syl-download-html" data-help="Download the document shown below as a web page that you can open in a browser, print, or upload.">Download HTML</button></span>
-          <span class="syl-nowrap"><button type="button" id="syl-download-md" data-help="Download the document shown below as Markdown, a plain-text format that you can edit and convert to other formats (for example, with Pandoc).">Download Markdown</button></span>
-        </div>
+      <div class="syl-preview-head"><div class="syl-view-bar" role="group" aria-label="Preview view"><span class="syl-view-title">Output</span><label class="syl-check"><input type="checkbox" id="syl-focus" checked><span data-help="While you edit a question, the document shows only the text that depends on it, including text that changes because of it through other answers. Click outside the questions to see the whole document again.">Show only what you're editing</span></label><label class="syl-check"><input type="checkbox" id="syl-sync" checked><span data-help="As you scroll through the questions, the document scrolls to the text written from the question you're reading, and both are highlighted. Turn this off to scroll each pane on its own.">Scroll panes together</span></label></div><span class="syl-docs" role="group" aria-label="Document"><button type="button" data-doc="student">Student syllabus</button><button type="button" data-doc="team" data-help="A document for TAs, tutors, and readers, written from the Teaching team syllabus questions and your other answers. Export exports the document shown here.">Teaching team syllabus</button><button type="button" data-doc="quiz" data-help="A multiple-choice quiz on the policies in the student syllabus, with an answer key at the end, written from your answers. Copy it into a quiz on your course website.">Syllabus quiz</button><button type="button" data-doc="plan" data-help="A document for you alone: checklists of tasks before the term, each week, during the term, and around each exam, written from your answers, followed by your planning decisions (the last section), which don't appear in either syllabus.">Instructor checklist</button></span>
+        <span class="syl-exports"><select id="syl-export" data-help="#syl-export-help"><option value="" selected>Export</option><option value="copy">Copy formatted</option><option value="html">Download HTML</option><option value="md">Download Markdown</option></select><span id="syl-export-status" class="syl-export-status" role="status"></span></span>
         <span class="syl-preview-hint">Click text to find its question. <mark class="syl-ph">Highlighted</mark> text needs filling in.</span>
         <span class="syl-sources" id="syl-sources" role="status" hidden></span>
         <span class="syl-focus-note" id="syl-focus-note" hidden>Showing only the text that depends on the question you're editing.</span></div>
@@ -417,13 +422,14 @@ date_added: 2026-11-18
   </div>
 
   <div id="syl-help-popup" class="syl-help-popup" role="note" hidden></div>
-  <template id="syl-copy-help">
-    <p>Copies the syllabus with its formatting, ready to paste into:</p>
+  <template id="syl-export-help">
+    <p>Exports the document shown below:</p>
     <ul>
-      <li>the Canvas syllabus or page editor (or the rich-text editor of Moodle, Blackboard, or D2L),</li>
-      <li>Google Docs or Microsoft Word.</li>
+      <li><b>Copy formatted</b> copies it with its formatting, ready to paste into the Canvas syllabus or page editor (or the rich-text editor of Moodle, Blackboard, or D2L), Google Docs, or Microsoft Word.</li>
+      <li><b>Download HTML</b> saves it as a web page that you can open in a browser, print, or upload.</li>
+      <li><b>Download Markdown</b> saves it as Markdown, a plain-text format that you can edit and convert to other formats (for example, with Pandoc).</li>
     </ul>
-    <p>Placeholders for missing information are pasted in brackets and highlighted, so that you can find and fill them in.</p>
+    <p>Placeholders for missing information are exported in brackets (and highlighted, when copied), so that you can find and fill them in.</p>
   </template>
   <template id="syl-hours-help">
     <p>The number of hours per week that students should expect to spend on the course, in and out of class. Saying it up front helps students plan their schedules.</p>

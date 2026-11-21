@@ -11,10 +11,18 @@
 // with a description. Dates are stored as ISO dates (see dates.ts).
 // The stakes of quizzes given in discussion sections: high for closed-book quizzes graded for
 // correctness, low for quizzes revised with help; null when quizzes aren't given in sections.
+// Whether quizzes are given in discussion sections.
+function sectionQuizzes(s: { choice: Record<string, string>; field: Record<string, string> }): boolean {
+  return s.choice.quizzes === "section" || (s.choice.quizzes === "highStakes" && /section/i.test(s.field["quiz.where"] || "discussion sections"));
+}
+// The stakes suggested by how quizzes work in Coursework.
+function suggestedStakes(s: { choice: Record<string, string> }): "low" | "high" {
+  return s.choice.quizzes === "highStakes" ? "high" : "low";
+}
 function quizStakes(s: { choice: Record<string, string>; field: Record<string, string> }): "high" | "low" | null {
-  if (s.choice.quizzes === "section") return "low";
-  if (s.choice.quizzes === "highStakes" && /section/i.test(s.field["quiz.where"] || "discussion sections")) return "high";
-  return null;
+  if (!sectionQuizzes(s)) return null;
+  const chosen = s.choice.sectionQuizStakes;
+  return chosen === "high" ? "high" : chosen ? "low" : suggestedStakes(s);
 }
 
 export type FieldKind = "text" | "textarea" | "number" | "checkbox" | "date" | "dates" | "dateList" | "rows" | "weekdays";
@@ -37,6 +45,7 @@ export interface Field {
   help?: string;            // Shown by a "?" button (plain text, or "#template-id")
   defaultValue?: string;    // Used in the syllabus when the field is left empty
   wide?: boolean;           // Takes a full row
+  open?: boolean;           // Shows an "Open" link to the address in the box, for checking it
   columns?: Column[];       // For a "rows" field
   availableFrom?: boolean;  // For a "dateList" field: the second date is when the item becomes available
   addLabel?: string;        // For a "rows" field: the text of the button that adds a row
@@ -67,10 +76,17 @@ export interface Question {
   // For a "perRole" question: one choice among the options for each of these roles, stored as
   // choice["<question>.<role>"]. A role is asked only when it is chosen in rolesFrom (a multi
   // question).
-  roles?: { id: string; label: string }[];
+  // A role whose `relevant` is false, given the other answers, isn't asked.
+  roles?: { id: string; label: string; relevant?: (s: Answers) => boolean }[];
   rolesFrom?: string;
+  // For a "multi" question: an option whose id is an option of this question (a multi question)
+  // is shown only when it is chosen there (or here), such as roles that are on the team.
+  optionsFrom?: string;
   fields?: Field[];
   custom?: boolean;
+  // For a single-choice question with `custom`: the answer is always your own text, and the
+  // options are templates to start it from (an option that writes no text is chosen as it is).
+  templates?: boolean;
   // Whether the question matters, given the other answers. A question that doesn't is dimmed,
   // with a note, and doesn't count toward progress.
   relevant?: (s: { choice: Record<string, string>; multi: Record<string, string[]>; field: Record<string, string> }) => boolean;
@@ -85,6 +101,12 @@ export interface Section {
 }
 
 export const CUSTOM = "custom";
+
+// A link to the page of the course website with one of its uses (the "lmsUses" question).
+const USE_LABELS: Record<string, string> = { announcements: "Announcements", notes: "Class notes", readings: "Readings", calendar: "Calendar", submissions: "Submitting work", grades: "Grades", recordings: "Lecture recordings" };
+function useLink(use: string): Field {
+  return { id: `lms.link.${use}`, label: "Link (optional)", placeholder: "https://…", wide: true, help: `The page with the ${USE_LABELS[use].toLowerCase()}. The syllabus links to it. All of the course links are also listed together in Course basics.` };
+}
 
 export const SECTIONS: Section[] = [
   // ⋘──────── Basics ────────⋙
@@ -164,9 +186,10 @@ export const SECTIONS: Section[] = [
       {
         id: "welcome",
         title: "How should the syllabus open?",
-        why: "In a study by Harnish and Bridges (2011), students who read a warmly written syllabus rated the instructor as more approachable and more motivated to teach than students who read the same policies written coldly.",
+        why: "In a study by Harnish and Bridges (2011), students who read a warmly written syllabus rated the instructor as more approachable and more motivated to teach than students who read the same policies written coldly. Write the opening in your own words, starting from one of the templates below if you like.",
         kind: "single",
         custom: true,
+        templates: true,
         options: [
           {
             id: "letter",
@@ -191,7 +214,7 @@ export const SECTIONS: Section[] = [
           },
           {
             id: "none",
-            label: "Start with logistics",
+            label: "No introduction",
             summary: "Open with the course information and policies.",
             pros: ["Fastest for students to scan for a fact.", "Works well as a reference document."],
             cons: ["Makes a cold first impression.", "Policies with no context can read as rules for their own sake."],
@@ -1228,6 +1251,64 @@ export const SECTIONS: Section[] = [
           },
         ],
       },
+      {
+        id: "examVersions",
+        title: "How many versions of each exam will there be?",
+        why: "Versions differ in the order of problems or in the numbers, so that a student can't copy from a neighbor. More versions make copying harder but take longer to write, check, and grade. The teaching team syllabus tells proctors how to hand them out.",
+        kind: "single",
+        options: [
+          {
+            id: "one",
+            label: "One version",
+            pros: ["Easiest to write, check, and grade."],
+            cons: ["In a crowded hall, students can easily copy from their neighbors.", "Works only with an empty seat between students, as in a small class with a large room."],
+          },
+          {
+            id: "two",
+            label: "Two versions",
+            summary: "Handed out in alternating seats, so that neighbors have different versions.",
+            pros: ["Students can't read the answers of the students beside them."],
+            cons: ["A student who arrives late may find the only empty seat between two students with different versions, so either version lets them copy one neighbor.", "Twice the solutions and rubrics to check."],
+          },
+          {
+            id: "three",
+            label: "Three versions",
+            summary: "Two alternate in the seats; the third goes to students who arrive late and to students at the testing center.",
+            pros: ["Late arrivals get a version that neither neighbor has.", "Students who take the exam at the testing center after the main exam get a version that nobody can share with them."],
+            cons: ["The most work to write, check, and grade, and the versions must be equally difficult."],
+          },
+        ],
+      },
+      {
+        id: "accommodationTiming",
+        title: "When do students with testing accommodations take exams?",
+        why: "Students with accommodations, such as extra time or a quiet room, often take exams at a testing center, whose hours may not match your exam. Taking the exam at a different time lets answers be shared, so decide which times you allow, and with what safeguards.",
+        kind: "single",
+        custom: true,
+        options: [
+          {
+            id: "same",
+            label: "At the same time as the main exam",
+            summary: "The accommodated exam starts when the main exam starts.",
+            pros: ["Nobody can share questions or answers.", "Corrections announced during the exam reach the testing center in time."],
+            cons: ["The testing center may not have room at that time, and students with extended time may have conflicts with their next class."],
+          },
+          {
+            id: "window",
+            label: "Within a range of start times",
+            summary: "Students may start the exam any time from {{accom.window}}.",
+            pros: ["Fits around the student's other classes and the testing center's hours.", "A short range keeps the time for sharing questions short."],
+            cons: ["Students who start early can pass on the questions, and students who start late can learn them; ask students not to discuss the exam, and consider a separate version (see the question above)."],
+            fields: [{ id: "accom.window", label: "Start times allowed", placeholder: "2 hours before to 2 hours after the main exam starts", defaultValue: "2 hours before to 2 hours after the main exam starts", help: "The earliest and latest times a student may start the exam, relative to the main exam, such as “1 hour before to 3 hours after the main exam starts”." }],
+          },
+          {
+            id: "either",
+            label: "Any time on the same day",
+            pros: ["Flexible, while keeping the window short."],
+            cons: ["Both early and late takers can share questions."],
+          },
+        ],
+      },
     ],
   },
 
@@ -1496,6 +1577,39 @@ export const SECTIONS: Section[] = [
         ],
       },
       {
+        id: "regradeHandler",
+        title: "Who handles regrade requests?",
+        why: "Regrade requests arrive all term. Deciding who answers them, and when they go to you, keeps answers consistent and keeps students from asking several people until one says yes. The student syllabus says who answers and how soon; the teaching team syllabus says how to handle requests.",
+        relevant: s => !!s.choice.regrades,
+        irrelevantNote: "Only needed once you choose how students request regrades (Grades).",
+        kind: "single",
+        custom: true,
+        options: [
+          {
+            id: "grader",
+            label: "The person who graded the problem",
+            summary: "The grader answers, and forwards requests about policy, or that they are unsure about, to you.",
+            pros: ["The grader knows the rubric and the mistakes they saw.", "Spreads the work across the team."],
+            cons: ["Graders may defend their own grading.", "Answers vary between graders unless they share rubric changes."],
+          },
+          {
+            id: "instructor",
+            label: "The instructor",
+            pros: ["Consistent answers.", "You see where the rubric or the problems were unclear."],
+            cons: ["A lot of work in a large class, concentrated after each exam."],
+          },
+          {
+            id: "headTA",
+            label: "One designated TA",
+            summary: "One TA answers every request and forwards hard cases to you.",
+            fields: [{ id: "team.regradeTA", label: "TA", placeholder: "Ada Lovelace" }],
+            pros: ["Consistent answers without all of the work falling on you."],
+            cons: ["A heavy load for one TA after exams; adjust their other duties."],
+          },
+        ],
+        fields: [{ id: "team.regradeDue", label: "Answered within", placeholder: "one week", defaultValue: "one week" }],
+      },
+      {
         id: "regradeDeadline",
         title: "When must regrade requests be submitted?",
         why: "Without a deadline, requests for the whole term arrive in the last week, when students start counting points toward a grade cutoff and the graders no longer remember the rubric.",
@@ -1753,13 +1867,15 @@ export const SECTIONS: Section[] = [
         title: "What is the course website used for?",
         why: "Students look for everything in one place. Saying what is on the course website (and what isn't) prevents “Where do I find…?” questions.",
         kind: "multi",
+        custom: true,
         options: [
-          { id: "announcements", label: "Announcements", summary: "Students are asked to turn on notifications.", pros: ["Reaches every student, including those who missed class."] },
-          { id: "materials", label: "Notes, slides, and readings" },
-          { id: "calendar", label: "Calendar and due dates", pros: ["Due dates appear in students' calendars and to-do lists."], cons: ["Due dates for work submitted elsewhere (such as Gradescope) must be entered on the course website too."] },
-          { id: "submissions", label: "Submitting work" },
-          { id: "grades", label: "Grades" },
-          { id: "recordings", label: "Lecture recordings" },
+          { id: "announcements", label: "Announcements", summary: "Students are asked to turn on notifications.", pros: ["Reaches every student, including those who missed class."], fields: [useLink("announcements")] },
+          { id: "notes", label: "Class notes", fields: [useLink("notes")] },
+          { id: "readings", label: "Readings", fields: [useLink("readings")] },
+          { id: "calendar", label: "Calendar and due dates", pros: ["Due dates appear in students' calendars and to-do lists."], cons: ["Due dates for work submitted elsewhere (such as Gradescope) must be entered on the course website too."], fields: [useLink("calendar")] },
+          { id: "submissions", label: "Submitting work", fields: [useLink("submissions")] },
+          { id: "grades", label: "Grades", fields: [useLink("grades")] },
+          { id: "recordings", label: "Lecture recordings", fields: [useLink("recordings")] },
         ],
       },
       {
@@ -2200,6 +2316,44 @@ export const SECTIONS: Section[] = [
         ],
       },
       {
+        id: "teamTasks",
+        title: "Who does each course management task?",
+        why: "Routine tasks take hours every week. Naming one person (or a rotation) for each task keeps it from falling between people, and handing tasks to TAs frees your time for teaching. The teaching team syllabus lists who does what, and the instructor checklist assigns each weekly task. Who answers regrade requests is asked in Grades, right after how students request regrades.",
+        kind: "perRole",
+        roles: [
+          { id: "graders", label: "Managing graders: assigning grading and checking that it is done on time", relevant: s => (s.multi.teamRoles ?? []).some(r => r === "ta" || r === "reader") },
+          { id: "tutors", label: "Coordinating tutors: schedules, training, and substitutes", relevant: s => (s.multi.teamRoles ?? []).includes("tutor") },
+          { id: "videos", label: "Uploading lecture videos", relevant: s => s.choice.recordings === "posted" || s.choice.recordings === "request" },
+          { id: "pages", label: "Creating assignment pages on the course website" },
+          { id: "rubrics", label: "Writing rubrics" },
+        ],
+        relevant: s => (s.multi.teamRoles ?? []).length > 0,
+        irrelevantNote: "Only needed once you choose the roles on the teaching team.",
+        options: [
+          {
+            id: "instructor",
+            label: "Instructor",
+            pros: ["Done the way you want it."],
+            cons: ["Takes hours that could go to teaching and to students."],
+          },
+          {
+            id: "headTA",
+            label: "Head TA",
+            summary: "One TA, named below, with fewer of the other duties.",
+            pros: ["One person for the team to ask.", "Experience in running a course, which helps TAs who want to teach."],
+            cons: ["Reduce the head TA's other duties, so that the work fits within their hours."],
+          },
+          {
+            id: "tas",
+            label: "TAs take turns",
+            summary: "On a schedule set at the first team meeting.",
+            pros: ["Spreads the work."],
+            cons: ["Needs a schedule, and quality varies from week to week."],
+          },
+        ],
+        fields: [{ id: "team.headTA", label: "Head TA", placeholder: "Ada Lovelace", help: "The TA who does the tasks marked Head TA. Leave empty if no task is." }],
+      },
+      {
         id: "teamMeeting",
         title: "How will the team meet?",
         kind: "single",
@@ -2301,14 +2455,14 @@ export const SECTIONS: Section[] = [
           {
             id: "instructor",
             label: "The instructor",
-            pros: ["Quizzes match the lectures and exams.", "Equal difficulty in every section."],
+            pros: ["Quizzes match the lectures and exams.", "Equal difficulty in every section.", "The quiz itself tells the TAs which topics matter, so they know what to emphasize in section."],
             cons: ["More work for you each week, especially with several versions."],
           },
           {
             id: "rotate",
             label: "TAs take turns, and the instructor reviews",
             pros: ["Spreads the work.", "TAs practice writing assessments."],
-            cons: ["Difficulty varies from week to week.", "Reviewing drafts still takes your time."],
+            cons: ["Difficulty varies from week to week.", "TAs may not know which topics the quiz should cover, so it can miss what you emphasized or include what you skipped; list the topics for each week.", "Reviewing drafts still takes your time."],
           },
           {
             id: "own",
@@ -2320,6 +2474,37 @@ export const SECTIONS: Section[] = [
         fields: [
           { id: "team.quizVersions", label: "A different version for each section", kind: "checkbox", help: "The student syllabus then says that each section takes a different version, and the academic integrity section prohibits sharing quiz questions with students in later sections." },
           { id: "team.quizDue", label: "Quizzes ready by", placeholder: "two days before the first section", defaultValue: "two days before the first section" },
+        ],
+      },
+      {
+        id: "sectionQuizStakes",
+        title: "How are section quizzes graded?",
+        why: "How much a quiz score counts decides how carefully it must be graded, and so who should grade it (the next question) and how the quizzes are written (the question above). The suggested answer follows how quizzes work in Coursework.",
+        relevant: s => sectionQuizzes(s),
+        irrelevantNote: "Only needed when quizzes are given in discussion sections (Coursework).",
+        kind: "single",
+        options: [
+          {
+            id: "completion",
+            label: "For completion",
+            summary: "Full credit for a good-faith attempt; the answers are reviewed in section.",
+            pros: ["Almost no grading.", "Low pressure, so students focus on learning."],
+            cons: ["Students get little written feedback.", "Some students put in little effort."],
+          },
+          {
+            id: "low",
+            label: "For correctness, low stakes",
+            summary: "Graded with the answer key, generously; each quiz counts little, or can be revised.",
+            pros: ["Students get feedback on what they got wrong.", "Small differences between graders matter little."],
+            cons: ["Grading takes time every week."],
+          },
+          {
+            id: "high",
+            label: "For correctness, high stakes",
+            summary: "Graded strictly with a rubric; the quizzes count for a large share of the grade.",
+            pros: ["Rewards keeping up, and gives a reliable measure before the exams."],
+            cons: ["Grading must be consistent across sections, and quizzes must be equally difficult and kept secret.", "More regrade requests."],
+          },
         ],
       },
       {
@@ -2350,26 +2535,18 @@ export const SECTIONS: Section[] = [
             pros: ["Frees TAs to prepare for sections and hold office hours."],
             cons: ["Readers don't know what was emphasized in each section.", "Needs readers in the budget."],
           },
-          {
-            id: "completion",
-            label: "Graded for completion only",
-            summary: "Students get full credit for a good-faith attempt; the TA reviews the answers in section.",
-            pros: ["Almost no grading.", "Low pressure, so students focus on learning."],
-            cons: ["Students get little written feedback.", "Doesn't fit high-stakes quizzes."],
-          },
         ],
         fields: [{ id: "team.quizGradeDue", label: "Graded within", placeholder: "one week", defaultValue: "one week" }],
       },
       {
         id: "proctoring",
-        title: "What guidance should proctors follow during exams?",
-        why: "Proctors make quick decisions under pressure, so agreeing on them in advance keeps exams fair and consistent across rooms. Items marked for students also appear in the Exams section of the student syllabus, so that students know what to expect.",
+        title: "Which exam-room rules should proctors follow?",
+        why: "Proctors make quick decisions under pressure, so agreeing on the rules in advance keeps exams fair and consistent across rooms. Rules marked for students also appear in the Exams section of the student syllabus, so that students know what to expect. The next three questions cover IDs, help during the exam, and how the exam ends.",
         kind: "multi",
         options: [
           { id: "allowed", label: "What is allowed on exams", summary: "Lists the allowed materials (from your exam aids and calculator answers) and what is not allowed, such as phones and smartwatches. Also in the student syllabus." },
           { id: "bags", label: "Bags and phones at the front or sides of the room", summary: "Phones off and in bags; no smartwatches or earbuds. Also in the student syllabus.", pros: ["Removes the most common way of cheating."], cons: ["Students worry about their belongings; let them keep wallets and keys."] },
           { id: "seating", label: "Spread-out or assigned seating", summary: "Students leave an empty seat between them, or sit in assigned seats. Also in the student syllabus.", pros: ["Makes copying much harder."], cons: ["Needs a room with about twice as many seats as students, or time to make a seating chart."] },
-          { id: "ids", label: "Check student IDs", summary: "Also in the student syllabus.", pros: ["Prevents someone else from taking the exam."], cons: ["Slow with a large class; check during the exam, not at the door."] },
           {
             id: "restroom", label: "Restroom breaks one at a time",
             summary: "Before leaving, the student hands the proctor their phone, exam, and student ID; while the student is out, the proctor checks the ID against the roster. Also in the student syllabus.",
@@ -2379,10 +2556,100 @@ export const SECTIONS: Section[] = [
             ],
             cons: ["Needs a proctor at the front of the room to hold items, and a roster."],
           },
-          { id: "questions", label: "Answer only clarifying questions", summary: "Proctors don't give hints; corrections are announced to the whole room and written on the board.", pros: ["Every student gets the same information."] },
-          { id: "time", label: "Announce the time remaining", summary: "At set times, and stop writing when time is called." },
           { id: "incidents", label: "Record suspected cheating without confronting", summary: "Note the student, seat, time, and what you saw; quietly move the student if needed, and tell the instructor after the exam.", pros: ["Lets the student finish the exam and keeps the formal process intact."] },
           { id: "accommodations", label: "Accommodated students take the exam elsewhere", summary: "At the testing center, with the same exam and instructions; proctors pass on corrections announced during the exam." },
+        ],
+      },
+      {
+        id: "examIds",
+        title: "How do proctors check student IDs?",
+        why: "Checking IDs keeps someone else from taking a student's exam. Checking at the door delays the start, so most courses check during the exam or when exams are turned in. The student syllabus tells students to bring their ID and when to show it.",
+        kind: "single",
+        options: [
+          {
+            id: "during",
+            label: "During the exam",
+            summary: "Students put their ID on the desk; proctors walk the rows and compare each ID with the student and the name on the exam.",
+            pros: ["Doesn't delay the start of the exam.", "Every ID is checked while the student is in their seat."],
+            cons: ["Hard in a crowded lecture hall: proctors can't reach the middle of full rows without disturbing students.", "Proctors walking the rows can distract students."],
+          },
+          {
+            id: "turnIn",
+            label: "When exams are turned in",
+            summary: "Each student shows their ID while handing in the exam, and the proctor checks it against the name on the exam.",
+            pros: ["Works in any room: every student passes a proctor at the end.", "Nobody is disturbed during the exam."],
+            cons: ["Lines form at the end, so have several proctors collecting.", "Doesn't work if proctors collect exams at the seats."],
+          },
+          {
+            id: "none",
+            label: "Don't check IDs",
+            pros: ["No time spent.", "In a small class, you know every student."],
+            cons: ["Someone else could take a student's exam."],
+          },
+        ],
+      },
+      {
+        id: "examHelp",
+        title: "What help do proctors give during exams?",
+        why: "Students ask proctors for help during every exam. When proctors answer differently, students in some rooms get more help than others. Whatever you choose, an error in a problem is corrected for everyone: announced to the whole room, written on the board, and sent to the testing center.",
+        kind: "single",
+        custom: true,
+        options: [
+          {
+            id: "clarify",
+            label: "Answer only clarifying questions",
+            summary: "Proctors explain what a problem asks, but not how to solve it.",
+            pros: ["Every student gets the same information.", "Easy for proctors to apply consistently."],
+            cons: ["A student stuck on the first step of a problem can't show what they know about the rest."],
+          },
+          {
+            id: "hints",
+            label: "Give hints",
+            summary: "Proctors may point a stuck student to a relevant idea, without solving any part of the problem.",
+            pros: ["Students who are stuck early can still show what they know about the rest of the problem.", "Lowers anxiety."],
+            cons: ["Hints differ between proctors and rooms, and students who don't ask get none.", "Students at the testing center get no hints."],
+          },
+          {
+            id: "check",
+            label: "Check students' answers",
+            summary: "When asked, proctors tell a student whether an answer is right, so that the student can look for the mistake.",
+            pros: ["Good for students who are struggling: the exam becomes a chance to learn.", "A small mistake doesn't cost a whole problem."],
+            cons: ["Can be distracting or intimidating for students.", "Works only in small classes, with enough proctors to reach every student who asks."],
+          },
+        ],
+      },
+      {
+        id: "examEnd",
+        title: "How do exams end?",
+        why: "The last minutes of an exam are when the rules are hardest to enforce: students keep writing, crowd the front, or leave while others are still working. Deciding in advance lets every room end the same way. The student syllabus tells students what to do when time is called.",
+        kind: "single",
+        custom: true,
+        options: [
+          {
+            id: "seated",
+            label: "Students stay seated until exams are collected",
+            summary: "When time is called, students stop writing, and proctors collect the exams from the seats.",
+            pros: ["Nobody keeps writing while waiting in line.", "Calm and orderly."],
+            cons: ["Slow in a large room, and needs a proctor for each block of seats."],
+          },
+          {
+            id: "front",
+            label: "Students bring their exams to the front",
+            summary: "When time is called, students stop writing and hand their exams to a proctor.",
+            pros: ["Fast in a small room.", "Proctors can check IDs as exams are handed in."],
+            cons: ["Crowds form at the front, and students in line may keep writing, so proctors must watch for it."],
+          },
+          {
+            id: "rows",
+            label: "Exams are passed to the ends of the rows",
+            summary: "When time is called, students stop writing and pass their exams to the aisle, where proctors collect them.",
+            pros: ["The fastest way to collect exams in a full lecture hall."],
+            cons: ["Students handle each other's exams, and an exam can go missing, so count them against the roster."],
+          },
+        ],
+        fields: [
+          { id: "exam.timeCalls", label: "Announce the time remaining at", placeholder: "the halfway point and at 15 and 5 minutes", defaultValue: "the halfway point and at 15 and 5 minutes" },
+          { id: "exam.leaveEarly", label: "Students who finish early may leave, except in the last 10 minutes", kind: "checkbox", help: "Students who finish early turn in their exam and leave quietly. In the last 10 minutes, everyone stays seated, so that people leaving don't disturb students who are finishing." },
         ],
       },
       {
@@ -2419,39 +2686,6 @@ export const SECTIONS: Section[] = [
         ],
       },
       {
-        id: "regradeHandler",
-        title: "Who handles regrade requests?",
-        why: "Regrade requests arrive all term. Deciding who answers them, and when they go to you, keeps answers consistent and keeps students from asking several people until one says yes.",
-        relevant: s => !!s.choice.regrades,
-        irrelevantNote: "Only needed once you choose how students request regrades (Grades).",
-        kind: "single",
-        custom: true,
-        options: [
-          {
-            id: "grader",
-            label: "The person who graded the problem",
-            summary: "The grader answers, and forwards requests about policy, or that they are unsure about, to you.",
-            pros: ["The grader knows the rubric and the mistakes they saw.", "Spreads the work across the team."],
-            cons: ["Graders may defend their own grading.", "Answers vary between graders unless they share rubric changes."],
-          },
-          {
-            id: "instructor",
-            label: "The instructor",
-            pros: ["Consistent answers.", "You see where the rubric or the problems were unclear."],
-            cons: ["A lot of work in a large class, concentrated after each exam."],
-          },
-          {
-            id: "headTA",
-            label: "One designated TA",
-            summary: "One TA answers every request and forwards hard cases to you.",
-            fields: [{ id: "team.regradeTA", label: "TA", placeholder: "Ada Lovelace" }],
-            pros: ["Consistent answers without all of the work falling on you."],
-            cons: ["A heavy load for one TA after exams; adjust their other duties."],
-          },
-        ],
-        fields: [{ id: "team.regradeDue", label: "Answered within", placeholder: "one week", defaultValue: "one week" }],
-      },
-      {
         id: "teamExceptions",
         title: "Who decides on extensions and other exceptions?",
         why: "Students ask whoever seems most likely to say yes. One decision-maker keeps exceptions consistent; letting TAs decide small requests keeps them fast.",
@@ -2471,6 +2705,37 @@ export const SECTIONS: Section[] = [
             fields: [{ id: "team.taExtension", label: "Up to", placeholder: "2 days", defaultValue: "2 days" }],
             pros: ["Fast answers for small requests."],
             cons: ["TAs decide differently, and students compare.", "Hard to track a student's total extensions across TAs."],
+          },
+        ],
+      },
+      {
+        id: "extensionLog",
+        title: "How are extensions and other exceptions tracked?",
+        why: "A record of every exception shows when a student has asked several times, lets anyone on the team answer “Do I have an extension?”, and keeps graders from marking excused work as late.",
+        kind: "single",
+        custom: true,
+        options: [
+          {
+            id: "spreadsheet",
+            label: "A shared spreadsheet",
+            summary: "One row for each exception: the student, the assignment or exam, the new deadline, the reason, and who granted it.",
+            pros: ["Every exception in one place, including excused absences and makeup exams.", "Shows at a glance when a student has asked several times."],
+            cons: ["Entered separately from the grading platform, so the two can disagree.", "Holds private information, so share it only with the team."],
+            fields: [{ id: "team.extensionSheet", label: "Spreadsheet", placeholder: "the Extensions sheet in the team drive", defaultValue: "the extensions spreadsheet" }],
+          },
+          {
+            id: "platform",
+            label: "In the grading platform",
+            summary: "Each extension is a new due date for the student on that assignment, which Gradescope and Canvas both support.",
+            pros: ["The new deadline is enforced automatically, so late flags are right.", "Nothing to enter twice."],
+            cons: ["Spread across assignments, so it's hard to see how many extensions a student has had.", "Doesn't cover excused absences or makeup exams."],
+          },
+          {
+            id: "form",
+            label: "In the responses to the request form",
+            summary: "Requests from the online form collect in a spreadsheet, with added columns for the decision and who made it.",
+            pros: ["Each request and its decision are kept together.", "No separate list to keep up."],
+            cons: ["Requests that arrive by email or in person must be added by hand."],
           },
         ],
       },
@@ -2496,31 +2761,37 @@ export const SECTIONS: Section[] = [
       },
       {
         id: "teamLecture",
-        title: "Do team members attend lectures?",
-        why: "Lectures take several hours of each team member's week, out of a fixed number of paid hours. Saying so explicitly, either way, avoids team members guessing what is expected. The answer can differ by role: tutors who help during class activities need to be there, while readers rarely do.",
-        kind: "perRole",
-        rolesFrom: "teamRoles",
-        roles: [{ id: "ta", label: "Teaching assistants" }, { id: "tutor", label: "Tutors or learning assistants" }, { id: "reader", label: "Readers or graders" }],
-        relevant: s => (s.multi.teamRoles ?? []).some(r => r === "ta" || r === "tutor" || r === "reader"),
+        title: "Who is required to attend lectures?",
+        why: "Lectures take several hours of a team member's week, out of a fixed number of paid hours. Saying who must attend keeps team members from guessing what is expected. Team members who aren't required to attend are told that they may, and to read the lecture notes or slides instead.",
+        kind: "multi",
+        optionsFrom: "teamRoles",
+        relevant: s => (s.multi.teamRoles ?? []).length > 0,
         irrelevantNote: "Only needed once you choose the roles on the teaching team.",
         options: [
           {
-            id: "required",
-            label: "Yes, required",
-            pros: ["Sections build on exactly what was said in class.", "TAs hear students' questions in lecture.", "Needed if team members help students during in-class activities."],
-            cons: ["Takes several hours of each team member's week, leaving fewer hours for office hours and grading."],
+            id: "ta",
+            label: "Teaching assistants",
+            pros: ["Sections build on exactly what was said in class.", "TAs hear the questions students ask in lecture."],
+            cons: ["Takes several hours of each TA's week, leaving fewer for office hours and grading."],
           },
           {
-            id: "encouraged",
-            label: "Encouraged, but optional",
-            pros: ["Team members can attend when it helps, such as before a section on new material."],
-            cons: ["Some team members will never attend, and sections may drift from lecture."],
+            id: "tutor",
+            label: "Tutors or learning assistants",
+            pros: ["Needed when tutors help students during in-class activities.", "Tutors know what students are working on."],
+            cons: ["Takes hours from drop-in tutoring."],
           },
           {
-            id: "notRequired",
-            label: "Not required",
-            summary: "Team members read the lecture notes or slides before section instead.",
-            pros: ["Frees hours for office hours, grading, and preparation.", "Clear: nobody wonders whether they should be there."],
+            id: "reader",
+            label: "Readers or graders",
+            pros: ["Readers grade with the methods and notation that students were taught."],
+            cons: ["Rarely worth the hours: reading the lecture notes for the topics they grade is usually enough."],
+          },
+          {
+            id: "none",
+            label: "No one",
+            exclusive: true,
+            summary: "Team members read the lecture notes or slides instead.",
+            pros: ["Frees hours for office hours, grading, and preparation."],
             cons: ["Sections may use different notation or methods from lecture.", "Team members miss what confused students in class."],
           },
         ],
@@ -2536,7 +2807,7 @@ export const SECTIONS: Section[] = [
           { id: "respond", label: "Response times", summary: "Reply to students and the team within two business days, and check the team channel on weekdays." },
           { id: "absences", label: "Absences and substitutes", summary: "Arrange a substitute for your section or office hours, and tell the instructor in advance." },
           { id: "boundaries", label: "Professional boundaries", summary: "No romantic relationships with students in the course, and care with social media." },
-          { id: "reporting", label: "Mandated reporting", summary: "Team members may also be required to report harassment and discrimination (Title IX, in the US)." },
+          { id: "reporting", label: "Mandated reporting", summary: "Team members are required to report the discrimination, harassment, and sexual violence that they learn about, including cases that nobody tells them about directly (Title IX, in the US)." },
         ],
       },
       {
@@ -2551,9 +2822,229 @@ export const SECTIONS: Section[] = [
           { id: "letters", label: "Letters of recommendation", summary: "Offer to write letters for team members.", pros: ["Recognizes the work, which TAs and tutors value."] },
         ],
       },
+      {
+        id: "teamOpportunities",
+        title: "What teaching opportunities will you offer the team?",
+        why: "Many TAs want teaching experience beyond sections, for their development and for job applications. Offering it to the whole team gives everyone the same chance, not only those who think to ask.",
+        kind: "multi",
+        custom: true,
+        options: [
+          {
+            id: "lecture",
+            label: "Give a lecture",
+            summary: "A team member teaches a class meeting, with your help preparing and your feedback afterward.",
+            pros: ["The experience that most TAs who want to teach lack.", "Material for teaching statements and recommendation letters."],
+            cons: ["Preparation takes hours, which must fit within the appointment.", "Students notice the change of style, and a weak lecture costs them a class."],
+          },
+          {
+            id: "examProblems",
+            label: "Write exam problems",
+            summary: "Team members propose problems, and you choose and edit them.",
+            pros: ["Teaches how to write a fair assessment.", "A source of new problems."],
+            cons: ["You still review every problem for difficulty and clarity.", "Every proposed problem must stay secret, used or not."],
+          },
+          {
+            id: "review",
+            label: "Lead a review session",
+            summary: "Before an exam, a team member runs an optional review for students.",
+            pros: ["Lower stakes than a lecture.", "Students get extra help when they need it most."],
+            cons: ["Takes preparation time in exam weeks, when grading is heavy."],
+          },
+          { id: "none", label: "None this term", exclusive: true },
+        ],
+      },
+    ],
+  },
+
+  // ⋘──────── Planning ────────⋙
+  {
+    id: "planning",
+    title: "Planning (not in the syllabus)",
+    intro: "Decisions that students don't need to read, but that come up every term. Your answers, and a checklist of tasks before the term, each week, and around each exam, are in the instructor checklist. The preview switches to the checklist while you are in this section.",
+    questions: [
+      {
+        id: "lateAdds",
+        title: "How will you handle students who add the course late?",
+        why: "Students add in the first week or two, after some work is due. Deciding in advance gives every late add the same deal and saves negotiating each case.",
+        kind: "single",
+        custom: true,
+        options: [
+          {
+            id: "extend",
+            label: "Extend the deadlines of the work they missed",
+            summary: "Work due before the student enrolled is due {{lateAdd.window}}.",
+            pros: ["Late adds do all of the work, and learn the material that later work builds on."],
+            cons: ["Extra deadlines to track and grade, out of step with everyone else's."],
+            fields: [{ id: "lateAdd.window", label: "New deadline", placeholder: "one week after enrolling", defaultValue: "one week after enrolling" }],
+          },
+          {
+            id: "excuse",
+            label: "Excuse the work from before they enrolled",
+            summary: "The weight of the excused work moves to the rest of its category.",
+            pros: ["No catch-up deadlines to track."],
+            cons: ["Late adds may skip material that later work builds on.", "Each excused assignment must be marked in the gradebook."],
+          },
+          {
+            id: "drops",
+            label: "Count the missed work as dropped scores",
+            summary: "The policy of dropping the lowest scores absorbs the missed work.",
+            pros: ["No special handling: the syllabus policy already covers it."],
+            cons: ["Leaves late adds no drops for illnesses later in the term.", "Works only when the drops cover all of the missed work."],
+          },
+          {
+            id: "cutoff",
+            label: "No adds after the first week",
+            summary: "Permission to add is given only in the first week of the term.",
+            pros: ["Everyone starts together, and nobody has work to make up."],
+            cons: ["Students who need the course to graduate on time may have to wait a term.", "Your department may set its own add policy."],
+          },
+        ],
+      },
+      {
+        id: "prereqs",
+        title: "How will you handle requests to waive prerequisites?",
+        why: "Students who took an equivalent course elsewhere, or who taught themselves, ask to enroll without the listed prerequisites. Check your department's policy first: some departments decide these requests themselves.",
+        kind: "single",
+        custom: true,
+        options: [
+          {
+            id: "strict",
+            label: "Enforce the prerequisites",
+            summary: "No waivers; students take the prerequisites first.",
+            pros: ["Consistent, and quick to answer.", "Students arrive prepared."],
+            cons: ["Blocks students with equivalent preparation, such as transfer students."],
+          },
+          {
+            id: "evidence",
+            label: "Waive with evidence of an equivalent course",
+            summary: "A transcript, plus the syllabus of the course if it was taken elsewhere.",
+            pros: ["Fair to transfer students.", "Decisions rest on something you can check."],
+            cons: ["Takes time to compare courses.", "Doesn't help students who learned the material on their own."],
+          },
+          {
+            id: "conversation",
+            label: "Decide after a conversation or a diagnostic quiz",
+            summary: "The student shows you that they know the prerequisite material.",
+            pros: ["Tests what the student actually knows."],
+            cons: ["The most time per request.", "Can feel arbitrary unless the quiz or the questions are the same for everyone."],
+          },
+          {
+            id: "request",
+            label: "Waive on request",
+            summary: "The student accepts the risk of starting without the prerequisites.",
+            pros: ["The least work.", "Respects students' judgment about their own preparation."],
+            cons: ["Unprepared students struggle, and some fail or drop late."],
+          },
+        ],
+      },
+      {
+        id: "examLeads",
+        title: "How far ahead is each exam task due?",
+        why: "The instructor checklist lists the tasks for each exam with these lead times. When the midterm dates (Exams) and the final exam date (Course basics) are entered, it also lists the tasks for each exam with their dates. Leave a box empty to use the suggested number of days.",
+        kind: "fields",
+        fields: [
+          { id: "lead.problems", label: "Collect problems from the team (days before)", kind: "number", placeholder: "21", defaultValue: "21" },
+          { id: "lead.write", label: "Write the exam and solutions (days before)", kind: "number", placeholder: "14", defaultValue: "14" },
+          { id: "lead.rooms", label: "Confirm rooms and conflict exams (days before)", kind: "number", placeholder: "14", defaultValue: "14" },
+          { id: "lead.versions", label: "Make the other versions (days before)", kind: "number", placeholder: "10", defaultValue: "10" },
+          { id: "lead.review", label: "Schedule the review session (days before)", kind: "number", placeholder: "10", defaultValue: "10" },
+          { id: "lead.testing", label: "Send to the testing center (days before)", kind: "number", placeholder: "7", defaultValue: "7", help: "Testing centers set their own deadlines, often a week or more before the exam. Check yours." },
+          { id: "lead.rubric", label: "Write the rubric (days before)", kind: "number", placeholder: "3", defaultValue: "3" },
+          { id: "lead.print", label: "Print the exams (days before)", kind: "number", placeholder: "2", defaultValue: "2" },
+          { id: "lead.proctors", label: "Remind the proctors of the rules (days before)", kind: "number", placeholder: "1", defaultValue: "1" },
+          { id: "lead.grades", label: "Release grades (days after)", kind: "number", placeholder: "7", defaultValue: "7", help: "Regrade requests and exam corrections open when grades are released." },
+          { id: "lead.makeup", label: "Hold makeup exams (days after)", kind: "number", placeholder: "5", defaultValue: "5" },
+          { id: "lead.retake", label: "Hold the retake (days after)", kind: "number", placeholder: "14", defaultValue: "14" },
+        ],
+      },
+      {
+        id: "struggling",
+        title: "How will you notice students who are struggling?",
+        why: "Students who fall behind often stop coming to class and office hours, so they don't ask for help. Reaching out early, while a recovery is still possible, makes the most difference.",
+        kind: "multi",
+        custom: true,
+        options: [
+          {
+            id: "gradebook",
+            label: "Check the gradebook at set points",
+            summary: "At set points in the term, email every student whose grade is below a threshold, with ways to get help.",
+            pros: ["Catches every student, not only those the team notices.", "Quick with a sorted gradebook."],
+            cons: ["Grades lag: by the first check, a student may already be far behind."],
+            fields: [
+              { id: "struggle.when", label: "When", placeholder: "after the first quiz, in week 4, and after each midterm", defaultValue: "after the first quiz, in week 4, and after each midterm" },
+              { id: "struggle.threshold", label: "Below", placeholder: "70%", defaultValue: "70%", ...PERCENT },
+            ],
+          },
+          {
+            id: "missing",
+            label: "Watch for missing work",
+            summary: "Email students who miss two assignments in a row.",
+            pros: ["Missing work is the earliest sign of trouble, before grades show it."],
+            cons: ["Weekly work for someone, unless the platform can report it."],
+          },
+          {
+            id: "teamFlags",
+            label: "Team members flag students",
+            summary: "TAs and tutors add students who seem lost, stop attending, or seem distressed to a shared list, which you review each week.",
+            pros: ["The team sees things that grades don't, such as a student who stops coming to section."],
+            cons: ["Depends on how well team members know their students.", "The list holds private information, so share it only with the team."],
+            fields: [{ id: "struggle.list", label: "Shared list", placeholder: "the Student Concerns sheet in the team drive", defaultValue: "the shared list of students to check on" }],
+          },
+          {
+            id: "earlyAlert",
+            label: "Use the campus early-alert system",
+            summary: "Refer students to advisers, who contact them about every course they take.",
+            pros: ["Advisers see the whole picture, such as a student struggling in every course.", "Connects students with support that you can't give."],
+            cons: ["Students may feel reported rather than helped; tell them first."],
+            fields: [{ id: "struggle.system", label: "System", placeholder: "EAB Navigate", defaultValue: "the campus early-alert system" }],
+          },
+        ],
+      },
     ],
   },
 ];
+
+// ⋘──────── Course links ────────⋙
+// Every link in the syllabus, gathered in one card in Course basics, so that they can be set and
+// checked in one place. Each is the same field as in its own question (the boxes stay in step).
+
+const LINKS: [string, string][] = [
+  ["course.lms", "Course website"],
+  ...Object.entries(USE_LABELS).map(([use, label]): [string, string] => [`lms.link.${use}`, `Course website: ${label.toLowerCase()}`]),
+  ["schedule.page", "Schedule page"],
+  ["inst.ohLink", "Office hours page"],
+  ["contact.forum", "Discussion forum"],
+  ["regrade.platform", "Grading platform"],
+  ["regrade.help", "Regrade instructions"],
+  ["exc.form", "Exception request form"],
+  ["exc.dean", "Dean of Students"],
+  ["book.accessLink", "Textbook access instructions"],
+  ["software.link", "Software installation instructions"],
+  ["ai.guide", "Guide to using AI"],
+  ["faq.index", "Course index"],
+  ["integrity.office", "Academic integrity office"],
+  ["support.drc", "Disability resources"],
+  ["support.titleIX", "Title IX office"],
+  ["support.confidential", "Confidential resource"],
+  ["support.counseling", "Counseling"],
+  ["support.basicNeeds", "Basic needs"],
+  ["support.tutoring", "Tutoring"],
+];
+{
+  const all = SECTIONS.flatMap(sec => sec.questions).flatMap(q => [...(q.fields ?? []), ...(q.options ?? []).flatMap(o => o.fields ?? [])]);
+  const fields = LINKS.map(([id, label]): Field => {
+    const f = all.find(x => x.id === id);
+    if (!f) throw new Error(`No field ${id}`);
+    return { ...f, label, wide: true, open: true };
+  });
+  SECTIONS[0].questions.splice(SECTIONS[0].questions.findIndex(q => q.id === "instructor") + 1, 0, {
+    id: "links",
+    title: "Course links",
+    why: "Every link in the syllabus, in one place, so that you can set and check them all at once. Each box is the same as the one in its own question, where it is explained. Use “Open” to check that a link goes to the right page. A link is used only when its question's answer mentions it.",
+    kind: "fields",
+    fields,
+  });
+}
 
 // ⋘──────── Lookups ────────⋙
 
@@ -2572,12 +3063,56 @@ export const CONTEXT_NOTES: Record<string, (s: Answers) => ContextNote | null> =
   "gsExtensions.noDates": s => ((s.multi.lmsUses ?? []).includes("calendar")
     ? { tone: "warn", text: "You use the course website for the calendar of due dates, but this option leaves work on the grading platform out of it." }
     : null),
-  "teamLecture.notRequired": s => ((s.multi.teamRoles ?? []).includes("tutor") && s.choice["teamLecture.tutor"] === "notRequired" && (s.choice.format === "active" || s.choice.format === "flipped")
-    ? { tone: "warn", text: "Your tutors or learning assistants help students during class, so they still need to attend those class meetings." }
+  teamLecture: s => ((s.multi.teamRoles ?? []).includes("tutor") && (s.multi.teamLecture ?? []).length > 0 && !(s.multi.teamLecture ?? []).includes("tutor") && (s.choice.format === "active" || s.choice.format === "flipped")
+    ? { tone: "warn", text: "Your tutors or learning assistants help students during class (Class meetings), so they still need to attend those class meetings." }
     : null),
+  "teamLecture.tutor": s => (s.choice.format === "active" || s.choice.format === "flipped"
+    ? { tone: "good", text: "Your tutors help students during class (Class meetings), so they need to be there." }
+    : null),
+  "examVersions.one": s => (!(s.multi.proctoring ?? []).includes("seating")
+    ? { tone: "warn", text: "You haven't chosen spread-out or assigned seating (exam-room rules, in the teaching team section). Without an empty seat between students, one version is easy to copy from." }
+    : { tone: "good", text: "Students sit with an empty seat between them (exam-room rules), which makes one version workable." }),
+  "accommodationTiming.window": s => (s.choice.examVersions && s.choice.examVersions !== "three"
+    ? { tone: "warn", text: "Students who take the exam later can learn the questions from the main exam. Three versions (the question above) gives the testing center its own version." }
+    : null),
+  "accommodationTiming.either": s => (s.choice.examVersions && s.choice.examVersions !== "three"
+    ? { tone: "warn", text: "Students who take the exam later can learn the questions from the main exam. Three versions (the question above) gives the testing center its own version." }
+    : null),
+  "examIds.turnIn": s => (s.choice.examEnd === "seated"
+    ? { tone: "warn", text: "Proctors collect exams at the seats (How do exams end?), so there is no moment when students hand in their exams. Check IDs during the exam, or have students bring their exams to the front." }
+    : s.choice.examEnd === "front" ? { tone: "good", text: "Students bring their exams to the front, where proctors can check each ID." } : null),
+  "examHelp.hints": s => ((s.multi.proctoring ?? []).includes("accommodations")
+    ? { tone: "warn", text: "Students with accommodations take the exam at the testing center, where nobody gives hints. Consider sending the hints that proctors gave to the testing center." }
+    : null),
+  "extensionLog.form": s => (!s.choice.exceptions ? null : s.choice.exceptions === "form"
+    ? { tone: "good", text: "Students already request exceptions with an online form (Communication)." }
+    : { tone: "warn", text: "Students don't request exceptions with an online form (Communication), so every request would be entered by hand." }),
+  "extensionLog.platform": s => ((s.choice.missedExam === "makeup" || s.choice.attendance === "graded")
+    ? { tone: "warn", text: "Makeup exams and excused absences, which your other answers allow, have no place on the grading platform; record them somewhere else too." }
+    : null),
+  "lateAdds.drops": s => {
+    if (!s.choice.dropLowest) return null;
+    const drops = (id: string) => Number(s.field[id] ?? "1") || 0;
+    return s.choice.dropLowest === "drop" && drops("drop.hw") + drops("drop.quiz") > 0 ? null : { tone: "warn", text: "Your syllabus doesn't drop the lowest scores (Grades), so there are no drops to absorb the missed work." };
+  },
+  "lateAdds.excuse": s => (s.choice.dropLowest === "drop"
+    ? { tone: "info", text: "You also drop the lowest scores (Grades), which can absorb one or two missed assignments without excusing them." }
+    : null),
+  "struggling.teamFlags": s => ((s.multi.teamRoles ?? []).length
+    ? null
+    : { tone: "warn", text: "You haven't chosen a teaching team (Teaching team syllabus) to flag students." }),
   "gradingProcess.byProblem": s => (s.field["team.calibrate"] === "1"
     ? { tone: "info", text: "With grading by problem, each rubric is applied by one grader, so calibrating everyone on the same submissions matters less. The teaching team syllabus asks each grader to check their rubric with you after the first few submissions instead." }
     : null),
+  sectionQuizStakes: s => (!sectionQuizzes(s) ? null : suggestedStakes(s) === "high"
+    ? { tone: "info", text: "Your section quizzes are closed-book quizzes graded for correctness (Coursework), which suggests high stakes." }
+    : { tone: "info", text: "Your section quizzes are revised with help before they are submitted (Coursework), which suggests completion or low stakes." }),
+  "sectionQuizGrading.ownTA": s => (s.choice.sectionQuizStakes === "high"
+    ? { tone: "warn", text: "Scores vary between TAs, which matters with high-stakes quizzes. Calibrate on a few quizzes each week, or grade by problem." }
+    : s.choice.sectionQuizStakes ? { tone: "good", text: "A good fit for completion or low-stakes quizzes: the TA sees their own students' work, and small differences between TAs matter little." } : null),
+  "sectionQuizGrading.shared": s => (s.choice.sectionQuizStakes === "high"
+    ? { tone: "good", text: "The best fit for high-stakes quizzes: each problem is graded the same way in every section." }
+    : s.choice.sectionQuizStakes === "completion" ? { tone: "info", text: "More process than completion grading needs." } : null),
   sectionQuizPrep: s => {
     switch (quizStakes(s)) {
       case "high": return { tone: "warn", text: "Your section quizzes are high stakes (graded for correctness), so every section must get quizzes of equal difficulty, and questions must not reach students in later sections. A different version for each section, written or reviewed by one person, is the safest choice." };
@@ -2740,7 +3275,22 @@ export const SIZE_FITS: Record<string, SizeFit> = {
   "regrades.person": { good: ["small"], poor: LARGE, note: { large: "Regrade requests crowd out help with the material in office hours." } },
   "integrityStyle.pledge": { good: ["small"] },
   "proctoring.seating": { note: { huge: "Spreading out needs exam rooms with about twice as many seats as students." } },
-  "proctoring.ids": { good: LARGE, note: { small: "You know every student, so checking IDs adds little." } },
+  "examVersions.one": { good: ["small"], poor: LARGE, note: { large: "A full lecture hall leaves no empty seats between students." } },
+  "examVersions.two": { good: ["medium", "large"] },
+  "examVersions.three": { good: ["huge"], note: { small: "More versions than a small class needs." } },
+  "examIds.during": { poor: ["huge"], note: { large: "In a crowded lecture hall, proctors can't reach the middle of full rows; check those students' IDs when they turn in their exams.", huge: "In a full lecture hall, proctors can't reach the middle of the rows without disturbing students." } },
+  "examIds.turnIn": { good: LARGE },
+  "examIds.none": { good: ["small"], poor: LARGE, note: { small: "You know every student, so checking IDs adds little." } },
+  "examHelp.check": { good: ["small"], poor: LARGE, note: { medium: "Possible with several proctors, but students wait for one to come by." } },
+  "examHelp.hints": { poor: ["huge"], note: { huge: "With many proctors in many rooms, hints can't be kept consistent." } },
+  "examEnd.seated": { good: ["small"], note: { large: "Needs a proctor for each block of seats.", huge: "Collecting hundreds of exams from the seats takes a long time." } },
+  "examEnd.front": { good: ["small", "medium"], poor: ["huge"], note: { large: "Collect at several spots, so that lines stay short.", huge: "Hundreds of students crowd the front at once." } },
+  "examEnd.rows": { good: LARGE, note: { small: "Unnecessary in a small room." } },
+  "teamTasks.instructor": { poor: ["huge"], note: { huge: "Every task you keep multiplies with the size of the team." } },
+  "lateAdds.extend": { poor: ["huge"], note: { huge: "Dozens of late adds, each with their own deadlines." } },
+  "prereqs.conversation": { good: ["small"], poor: LARGE, note: { large: "Too many requests to meet with each student." } },
+  "struggling.gradebook": { good: LARGE },
+  "struggling.missing": { note: { huge: "Use a report from the platform, not a manual check." } },
   "gradingProcess.rotate": {
     good: ["small"],
     poor: LARGE,

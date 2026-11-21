@@ -147,3 +147,8 @@ test("numbered lists in plain text, Markdown, and HTML", () => {
   assert.equal(toHtml(blocks, "preview"), "<ol><li>one</li><li>two</li></ol>");
   assert.equal(toPlain([{ t: "ol", items: [{ text: "a", items: ["b"] }] }]), "1. a\n  • b\n");
 });
+
+test("plain lists have no bullets in HTML", () => {
+  const html = toHtml([{ t: "ul", items: ["☐ Task"], src: "q", plain: true }], "lms");
+  assert.equal(html, `<ul style="list-style: none; padding-left: 0;"><li>☐ Task</li></ul>`);
+});

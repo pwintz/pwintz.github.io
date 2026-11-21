@@ -16,6 +16,8 @@ import { Block, Item, esc, inlineHtml, toHtml, toMarkdown, toPlain } from "./syl
 import { PRESETS } from "./syllabus/presets";
 import { DATE_STYLES, formatDate, formatDateValue, setDateStyle } from "./syllabus/dates";
 import { Holiday, approximateTerm, holidaysBetween } from "./syllabus/holidays";
+import { migrate } from "./syllabus/migrate";
+import { generatePlan } from "./syllabus/plan";
 import { generateQuiz } from "./syllabus/quiz";
 import { generateTeam } from "./syllabus/team";
 import {
@@ -24,7 +26,8 @@ import {
 } from "./syllabus/questions";
 
 const STATE_KEY = "syllabus-designer-state";
-const PINNED_KEY = "syllabus-designer-pinned";
+const PINNED_KEY = "syllabus-designer-pinned";            // Whether the toolbar is pinned (older versions)
+const PINNED_PANELS_KEY = "syllabus-designer-pinned-panels"; // Whether each panel is pinned
 const PROS_KEY = "syllabus-designer-pros-cons";
 const SYNC_KEY = "syllabus-designer-sync";
 const FOCUS_KEY = "syllabus-designer-focus";
@@ -33,16 +36,21 @@ const DATE_FIELD = "doc.dateFormat";
 const DOC_KEY = "syllabus-designer-document";
 
 // Which document the preview and exports show: the student syllabus, the teaching team syllabus,
-// or the syllabus quiz.
-type Doc = "student" | "team" | "quiz";
+// the syllabus quiz, or the instructor checklist.
+type Doc = "student" | "team" | "quiz" | "plan";
 const DOCS: Record<Doc, { generate: (s: State) => Block[]; file: string }> = {
   student: { generate, file: "syllabus" },
   team: { generate: generateTeam, file: "teaching-team-syllabus" },
   quiz: { generate: generateQuiz, file: "syllabus-quiz" },
+  plan: { generate: generatePlan, file: "instructor-checklist" },
 };
+// The documents written from the questions (the quiz only restates the student syllabus).
+const WRITTEN_DOCS: Doc[] = ["student", "team", "plan"];
 const savedDoc = loadString(DOC_KEY) as Doc | null;
 let doc: Doc = savedDoc && savedDoc in DOCS ? savedDoc : "student";
-const TEAM_SECTION = "team";
+// The document that each section's questions write, when it isn't the student syllabus. The
+// preview switches to it while those questions are answered or read.
+const SECTION_DOCS: Record<string, Doc> = { team: "team", planning: "plan" };
 
 function emptyState(): State {
   return { choice: {}, multi: {}, field: {}, weights: structuredClone(DEFAULT_WEIGHTS), scale: [] };
@@ -53,13 +61,13 @@ function validState(x: unknown): State | null {
   if (!x || typeof x !== "object") return null;
   const s = x as Partial<State>;
   const obj = (o: unknown) => (o && typeof o === "object" && !Array.isArray(o) ? o : {});
-  return {
+  return migrate({
     choice: obj(s.choice) as State["choice"],
     multi: obj(s.multi) as State["multi"],
     field: obj(s.field) as State["field"],
     weights: Array.isArray(s.weights) ? s.weights.filter(w => w && typeof w.weight === "number") : structuredClone(DEFAULT_WEIGHTS),
     scale: Array.isArray(s.scale) ? s.scale.filter(r => r && typeof r.min === "number") : [],
-  };
+  });
 }
 
 let state: State = validState(loadJSON(STATE_KEY)) ?? emptyState();
@@ -76,8 +84,10 @@ const navEl = $<HTMLElement>("syl-nav");
 const exampleSelect = $<HTMLSelectElement>("syl-example");
 const resetButton = $<HTMLButtonElement>("syl-reset");
 const prosToggle = $<HTMLInputElement>("syl-pros-cons");
-const copyButton = $<HTMLButtonElement>("syl-copy");
-const panel = document.querySelector<HTMLElement>(".syl-panel")!;
+const exportSelect = $<HTMLSelectElement>("syl-export");
+const exportStatus = $<HTMLSpanElement>("syl-export-status");
+// The toolbar, and the section links with the progress (pinned unless the visitor unpins it).
+const panelEls = [...document.querySelectorAll<HTMLElement>(".syl-panel")];
 
 function el<K extends keyof HTMLElementTagNameMap>(tag: K, props: Partial<HTMLElementTagNameMap[K]> & { className?: string } = {}, ...children: (Node | string)[]): HTMLElementTagNameMap[K] {
   const e = Object.assign(document.createElement(tag), props);
@@ -280,8 +290,16 @@ function fieldEl(f: Field): HTMLElement {
   input.dataset.field = f.id;
   // Boxes for a web address alone.
   if (/^https?:\/\//.test(f.placeholder ?? "") || /link\)?/i.test(f.label)) input.dataset.url = "1";
-  // Boxes whose help suggests a Markdown link get a button that writes one.
-  const box = f.help?.includes("Markdown link") ? el("span", { className: "syl-link-box" }, input, linkButton(input)) : input;
+  // Boxes whose help suggests a Markdown link get a button that writes one, and boxes in the list
+  // of course links get a link that opens the address, for checking it.
+  const extras: HTMLElement[] = [];
+  if (f.help?.includes("Markdown link")) extras.push(linkButton(input));
+  if (f.open) {
+    const open = el("a", { className: "syl-link-btn syl-open", textContent: "Open ↗", target: "_blank", rel: "noopener" });
+    open.dataset.openFor = f.id;
+    extras.push(open);
+  }
+  const box = extras.length ? el("span", { className: "syl-link-box" }, input, ...extras) : input;
   return el("label", { className: `syl-field${f.wide || f.kind === "textarea" ? " syl-field-wide" : ""}` }, el("span", { className: "syl-field-label" }, labelText), box);
 }
 
@@ -319,6 +337,8 @@ function optionCard(q: Question, o: Option): HTMLElement {
   return card;
 }
 
+const QUESTIONS_WITH_TEMPLATES = SECTIONS.flatMap(sec => sec.questions).filter(q => q.templates);
+
 // ⋘──────── Starting your own text from an option ────────⋙
 // A "Write my own" box can be filled with the text that an option writes, to edit from there.
 
@@ -326,7 +346,7 @@ function optionCard(q: Question, o: Option): HTMLElement {
 function optionText(q: string, id: string): string {
   const trial: State = { ...structuredClone(state), choice: { ...state.choice, [q]: id } };
   const item = (i: Item): string[] => (typeof i === "string" ? [`- ${i}`] : [`- ${i.text}`, ...i.items.flatMap(item)]);
-  for (const d of ["student", "team"] as Doc[]) {
+  for (const d of WRITTEN_DOCS) {
     const own = DOCS[d].generate(trial).filter(b => b.src === q && !/^h[1-4]$/.test(b.t));
     if (!own.length) continue;
     return own.map(b => {
@@ -356,7 +376,7 @@ function replaceText(input: HTMLInputElement | HTMLTextAreaElement, start: numbe
 
 function startFromEl(q: Question, options: Option[]): HTMLElement {
   const select = el("select", { ariaLabel: "Option to start from" },
-    el("option", { value: "", textContent: "Start from an option…" }),
+    el("option", { value: "", textContent: q.templates ? "Start from a template…" : "Start from an option…" }),
     ...options.map(o => el("option", { value: o.id, textContent: o.label })));
   const note = el("span", { className: "syl-start-note" });
   select.addEventListener("change", () => {
@@ -365,6 +385,15 @@ function startFromEl(q: Question, options: Option[]): HTMLElement {
     if (!id) return;
     const box = select.closest(".syl-followup")!.querySelector<HTMLTextAreaElement>(`textarea[data-field="${q.id}.custom"]`)!;
     const text = optionText(q.id, id);
+    if (!text && q.templates) {
+      // A template with no text (such as starting with the logistics) is chosen as it is.
+      replaceText(box, 0, box.value.length, "");
+      state.choice[q.id] = id;
+      note.textContent = "";
+      fillInputs();
+      changed(q.id);
+      return;
+    }
     note.textContent = text ? "" : "That option doesn't write any text here.";
     if (!text) return;
     // Replaces the text as an edit, so that Ctrl+Z (Cmd+Z) brings back the previous text.
@@ -433,7 +462,14 @@ function questionCard(q: Question, number: string): HTMLElement {
       if (o.id === CUSTOM && q.kind === "single") box.append(startFromEl(q, options.filter(x => x.id !== CUSTOM)));
       return box;
     };
-    if (q.kind === "multi" || q.kind === "single") {
+    if (q.templates) {
+      // The options are templates: the text box is always shown, with a menu to start from one.
+      const box = followup(options.find(o => o.id === CUSTOM)!)!;
+      box.classList.add("syl-always");
+      box.querySelector(".syl-field-label > span")!.textContent = "Your text";
+      box.querySelector("textarea")!.rows = 10;
+      card.append(box);
+    } else if (q.kind === "multi" || q.kind === "single") {
       card.append(el("div", { className: "syl-options" }, ...options.map(o => {
         const box = followup(o);
         return box ? el("div", { className: "syl-opt-group" }, optionCard(q, o), box) : optionCard(q, o);
@@ -556,6 +592,16 @@ function checkScaleOrder(): void {
 
 // Puts the answers into the inputs (after loading saved answers or an example).
 function fillInputs(): void {
+  // An answer that chose a template (from an example, or saved before the options became
+  // templates) becomes its text, to edit.
+  for (const q of QUESTIONS_WITH_TEMPLATES) {
+    const chosen = state.choice[q.id];
+    if (!chosen || chosen === CUSTOM || state.field[`${q.id}.custom`]) continue;
+    const text = optionText(q.id, chosen);
+    if (!text) continue;
+    state.field[`${q.id}.custom`] = text;
+    state.choice[q.id] = CUSTOM;
+  }
   for (const input of questionsEl.querySelectorAll<HTMLInputElement>("input[data-q]")) {
     const q = input.dataset.q!;
     input.checked = input.type === "radio" ? state.choice[q] === input.value : (state.multi[q] ?? []).includes(input.value);
@@ -573,10 +619,11 @@ function fillInputs(): void {
   dateSelect.value = state.field[DATE_FIELD] ?? "long";
 }
 
-// The roles asked in a "perRole" question: those chosen in its rolesFrom question.
+// The roles asked in a "perRole" question: those chosen in its rolesFrom question, and that apply
+// with the other answers.
 function roleRows(q: Question): { id: string; label: string }[] {
   const chosen = state.multi[q.rolesFrom ?? ""] ?? [];
-  return (q.roles ?? []).filter(r => !q.rolesFrom || chosen.includes(r.id));
+  return (q.roles ?? []).filter(r => (!q.rolesFrom || chosen.includes(r.id)) && (!r.relevant || r.relevant(state)));
 }
 
 function answered(q: Question): boolean {
@@ -663,6 +710,17 @@ function updateRoleRows(): void {
     const shown = new Set(roleRows(q).map(r => r.id));
     for (const row of questionsEl.querySelectorAll<HTMLElement>(`#syl-q-${q.id} tr[data-role]`)) row.hidden = !shown.has(row.dataset.role!);
   }
+  // Options that stand for the options of another question, such as roles, are shown only when
+  // chosen there (or here).
+  for (const q of SECTIONS.flatMap(sec => sec.questions).filter(x => x.optionsFrom)) {
+    const from = new Set(QUESTION_BY_ID.get(q.optionsFrom!)?.options?.map(o => o.id));
+    const there = state.multi[q.optionsFrom!] ?? [];
+    const here = state.multi[q.id] ?? [];
+    for (const card of questionsEl.querySelectorAll<HTMLElement>(`#syl-q-${q.id} .syl-opt`)) {
+      const id = card.dataset.opt!;
+      (card.closest<HTMLElement>(".syl-opt-group") ?? card).hidden = from.has(id) && !there.includes(id) && !here.includes(id);
+    }
+  }
 }
 
 function updateSelections(): void {
@@ -673,7 +731,7 @@ function updateSelections(): void {
     const q = card.dataset.q!;
     const chosen = state.multi[q] ?? (state.choice[q] ? [state.choice[q]] : []);
     for (const opt of card.querySelectorAll<HTMLElement>(".syl-opt")) opt.classList.toggle("syl-chosen", chosen.includes(opt.dataset.opt!));
-    for (const box of card.querySelectorAll<HTMLElement>(".syl-followup")) box.hidden = !chosen.includes(box.dataset.followup!);
+    for (const box of card.querySelectorAll<HTMLElement>(".syl-followup")) box.hidden = !box.classList.contains("syl-always") && !chosen.includes(box.dataset.followup!);
     const question = QUESTION_BY_ID.get(q);
     card.classList.toggle("syl-answered", question?.kind === "perRole" ? answered(question) : chosen.length > 0);
     card.classList.toggle("syl-decision", !!question && DECISIONS.includes(question));
@@ -704,6 +762,7 @@ function updateSelections(): void {
   updateHolidayNotes();
   updateContextNotes();
   updateExamCount();
+  updateOpenLinks();
   // Summaries that show field values, such as an example subject line with the course number.
   for (const span of questionsEl.querySelectorAll<HTMLElement>("[data-template]")) {
     // The values may be Markdown links, which are shown as links.
@@ -713,6 +772,17 @@ function updateSelections(): void {
       return esc(state.field[part]?.trim() || f?.defaultValue || f?.placeholder || part);
     }).join("");
     span.innerHTML = inlineHtml(text, "preview");
+  }
+}
+
+// The "Open" links beside the course links: to the address in the box (or in its Markdown link).
+function updateOpenLinks(): void {
+  for (const a of questionsEl.querySelectorAll<HTMLAnchorElement>("a[data-open-for]")) {
+    const value = state.field[a.dataset.openFor!]?.trim() ?? "";
+    const url = /\]\(([^)\s]+)\)/.exec(value)?.[1] ?? (/^(https?:\/\/|www\.)\S+$/i.test(value) ? value : "");
+    const ok = !!url && validUrl(url);
+    a.hidden = !ok;
+    if (ok) a.href = /^www\./i.test(url) ? `https://${url}` : url;
   }
 }
 
@@ -880,7 +950,7 @@ function markIncomplete(current: Block[]): void {
       value.forEach(v => visit(v, own));
     }
   };
-  for (const d of ["student", "team"] as Doc[]) (d === doc ? current : DOCS[d].generate(state)).forEach(b => visit(b));
+  for (const d of WRITTEN_DOCS) (d === doc ? current : DOCS[d].generate(state)).forEach(b => visit(b));
   for (const card of questionsEl.querySelectorAll<HTMLElement>(".syl-q")) card.classList.toggle("syl-incomplete", sources.has(card.dataset.q!));
 }
 
@@ -921,10 +991,11 @@ function render(): void {
 
 // Shows a document in the preview.
 const docButtons = [...document.querySelectorAll<HTMLButtonElement>("[data-doc]")];
-const DOC_NAMES: Record<Doc, string> = { student: "student syllabus", team: "teaching team syllabus", quiz: "syllabus quiz" };
+const DOC_NAMES: Record<Doc, string> = { student: "student syllabus", team: "teaching team syllabus", quiz: "syllabus quiz", plan: "instructor checklist" };
 function showDocButtons(d: Doc): void {
   for (const b of docButtons) b.setAttribute("aria-pressed", String(b.dataset.doc === d));
-  document.getElementById("syl-export-label")!.textContent = `Export the ${DOC_NAMES[d]}:`;
+  exportSelect.title = `Export the ${DOC_NAMES[d]}`;
+  exportSelect.ariaLabel = `Export the ${DOC_NAMES[d]}`;
 }
 function setDoc(d: Doc, now = false): void {
   showDocButtons(d);
@@ -936,13 +1007,15 @@ function setDoc(d: Doc, now = false): void {
   else changed();
 }
 for (const b of docButtons) b.addEventListener("click", () => setDoc(b.dataset.doc as Doc));
-const teamQuestions = new Set(SECTIONS.find(sec => sec.id === TEAM_SECTION)!.questions.map(q => q.id));
+// The document that each question's section writes.
+const questionDoc = new Map<string, Doc>(SECTIONS.flatMap(sec => sec.questions.map(q => [q.id, SECTION_DOCS[sec.id] ?? "student"] as [string, Doc])));
 
 function changed(q?: string): void {
   if (q) pendingFocus = q;
-  // Answering a teaching team question shows the teaching team syllabus; choosing a syllabus quiz
-  // shows the quiz.
-  const show: Doc | null = q && teamQuestions.has(q) ? "team" : q === "syllabusQuiz" && state.choice.syllabusQuiz === "quiz" ? "quiz" : null;
+  // Answering a teaching team question shows the teaching team syllabus, and a planning question
+  // the instructor checklist; choosing a syllabus quiz shows the quiz.
+  const own = q ? questionDoc.get(q) : undefined;
+  const show: Doc | null = own && own !== "student" ? own : q === "syllabusQuiz" && state.choice.syllabusQuiz === "quiz" ? "quiz" : null;
   if (show && doc !== show) { doc = show; saveString(DOC_KEY, doc); previewWrap.scrollTop = 0; showDocButtons(doc); }
   saveJSON(STATE_KEY, state);
   updateSelections();
@@ -1059,7 +1132,7 @@ let syncTarget = 0;
 let syncFrame = 0;
 let syncQueued = false;
 let syncPausedUntil = 0;
-let wasInTeam: boolean | null = null;
+let wasIn: Doc | null = null;
 const cards = [...questionsEl.querySelectorAll<HTMLElement>(".syl-q")];
 
 function cancelSync(): void {
@@ -1101,11 +1174,11 @@ function syncFromQuestions(): void {
     else break;
   }
   setActive(card.dataset.q!);
-  // Entering or leaving the teaching team section switches the document shown.
-  const inTeam = teamQuestions.has(card.dataset.q!);
-  if (inTeam !== wasInTeam) {
-    if (wasInTeam !== null) setDoc(inTeam ? "team" : "student", true);
-    wasInTeam = inTeam;
+  // Entering or leaving the teaching team or planning section switches the document shown.
+  const here = questionDoc.get(card.dataset.q!) ?? "student";
+  if (here !== wasIn) {
+    if (wasIn !== null) setDoc(here, true);
+    wasIn = here;
   }
   const targets = previewTargets(card.dataset.q!);
   if (!targets.length) return;      // Nothing written from this question: leave the preview where it is.
@@ -1479,6 +1552,12 @@ function setField(input: HTMLInputElement | HTMLTextAreaElement, value: string):
 // Sets a field from one of its inputs (source), and updates its other inputs.
 function setFieldValue(id: string, value: string, source: Element): void {
   if (id === "gate.n") delete state.field[AUTO_N];   // The instructor's own number
+  // Text in a template question's box is the answer.
+  const owner = id.endsWith(".custom") ? QUESTION_BY_ID.get(id.slice(0, -".custom".length)) : undefined;
+  if (owner?.templates) {
+    if (value.trim()) state.choice[owner.id] = CUSTOM;
+    else if (state.choice[owner.id] === CUSTOM) delete state.choice[owner.id];
+  }
   if (value) state.field[id] = value;
   else delete state.field[id];
   // The same field can appear under more than one option.
@@ -1501,6 +1580,10 @@ questionsEl.addEventListener("click", e => {
   if (!q) return;
   delete state.choice[q];
   delete state.multi[q];
+  if (QUESTION_BY_ID.get(q)?.templates) {
+    delete state.field[`${q}.custom`];
+    for (const box of questionsEl.querySelectorAll<HTMLTextAreaElement>(`[data-field="${q}.custom"]`)) box.value = "";
+  }
   for (const key of Object.keys(state.choice)) if (key.startsWith(`${q}.`)) delete state.choice[key];
   for (const input of questionsEl.querySelectorAll<HTMLInputElement>(`input[data-q="${q}"], input[data-q^="${q}."]`)) input.checked = false;
   if (q === "quizzes") renderWeights();
@@ -1616,8 +1699,6 @@ ${toHtml(blocks, "lms")}
 `;
 }
 
-$<HTMLButtonElement>("syl-download-html").addEventListener("click", () => download(standaloneHtml(), "text/html", fileName("html")));
-$<HTMLButtonElement>("syl-download-md").addEventListener("click", () => download(toMarkdown(blocks), "text/markdown", fileName("md")));
 
 function flashButton(button: HTMLButtonElement, ok: boolean, text: string): void {
   const original = button.dataset.label ?? button.textContent!;
@@ -1628,14 +1709,32 @@ function flashButton(button: HTMLButtonElement, ok: boolean, text: string): void
   setTimeout(() => { button.textContent = original; button.classList.remove("syl-ok", "syl-fail"); }, 1800);
 }
 
-copyButton.addEventListener("click", async () => {
+// Says how an export went, beside the export menu, for a moment.
+let statusTimer = 0;
+function exportDone(ok: boolean, text: string): void {
+  exportStatus.textContent = text;
+  exportStatus.classList.toggle("syl-warn", !ok);
+  clearTimeout(statusTimer);
+  statusTimer = window.setTimeout(() => (exportStatus.textContent = ""), 2500);
+}
+
+// The export menu: each choice exports the document shown, and the menu returns to "Export".
+exportSelect.addEventListener("change", () => {
+  const choice = exportSelect.value;
+  exportSelect.value = "";
+  if (choice === "copy") void copyFormatted();
+  else if (choice === "html") { download(standaloneHtml(), "text/html", fileName("html")); exportDone(true, "Downloaded"); }
+  else if (choice === "md") { download(toMarkdown(blocks), "text/markdown", fileName("md")); exportDone(true, "Downloaded"); }
+});
+
+async function copyFormatted(): Promise<void> {
   const html = toHtml(blocks, "lms");
   try {
     await navigator.clipboard.write([new ClipboardItem({
       "text/html": new Blob([html], { type: "text/html" }),
       "text/plain": new Blob([toPlain(blocks)], { type: "text/plain" }),
     })]);
-    flashButton(copyButton, true, "Copied");
+    exportDone(true, "Copied");
   } catch {
     // Older browsers: copy a selection of rendered HTML.
     const holder = el("div", { className: "syl-copy-holder" });
@@ -1649,9 +1748,9 @@ copyButton.addEventListener("click", async () => {
     const ok = document.execCommand("copy");
     selection.removeAllRanges();
     holder.remove();
-    flashButton(copyButton, ok, ok ? "Copied" : "Copy failed");
+    exportDone(ok, ok ? "Copied" : "Copy failed");
   }
-});
+}
 
 // ⋘──────── Saving and loading answers as JSON ────────⋙
 
@@ -1693,16 +1792,17 @@ importFile.addEventListener("change", async () => {
 // ⋘──────── Pinning ────────⋙
 
 const panels = setupPanels("syl", () => {
-  saveJSON(PINNED_KEY, panels.isPinned(panel));
+  saveJSON(PINNED_PANELS_KEY, panelEls.map(p => panels.isPinned(p)));
   updateStickyTop();
 });
-// The preview sticks below the toolbar when the toolbar is pinned.
+// The preview sticks below the pinned panels.
 function updateStickyTop(): void {
-  const top = panels.isPinned(panel) ? panel.offsetHeight : 0;
+  const top = panelEls.filter(p => panels.isPinned(p)).reduce((sum, p) => sum + p.offsetHeight, 0);
   layout.style.setProperty("--syl-top", `${top + 8}px`);
 }
-new ResizeObserver(updateStickyTop).observe(panel);
-if (loadJSON<boolean>(PINNED_KEY)) panels.setPinned(panel, true);
+panelEls.forEach(p => new ResizeObserver(updateStickyTop).observe(p));
+const pinned = loadJSON<boolean[]>(PINNED_PANELS_KEY) ?? [loadJSON<boolean>(PINNED_KEY) ?? false, true];
+panelEls.forEach((p, i) => { if (pinned[i]) panels.setPinned(p, true); });
 updateStickyTop();
 
 // ⋘──────── Start ────────⋙
