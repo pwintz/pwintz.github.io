@@ -1,0 +1,93 @@
+{
+  "$schema": "https://frontmatter.codes/frontmatter.schema.json",
+  "frontMatter.taxonomy.contentTypes": [
+    {
+      "name": "default",
+      "pageBundle": false,
+      "previewPath": null,
+      "fields": [
+        {
+          "title": "Title",
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "title": "Description",
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "title": "Publishing date",
+          "name": "date",
+          "type": "datetime",
+          "default": "{{now}}",
+          "isPublishDate": true
+        },
+        {
+          "title": "Content preview",
+          "name": "preview",
+          "type": "image"
+        },
+        {
+          "title": "Is in draft",
+          "name": "draft",
+          "type": "draft"
+        },
+        {
+          "title": "Tags",
+          "name": "tags",
+          "type": "tags"
+        },
+        {
+          "title": "Categories",
+          "name": "categories",
+          "type": "categories"
+        }
+      ]
+    }
+  ],
+  "frontMatter.framework.id": "jekyll",
+  "frontMatter.content.publicFolder": "assets",
+  "frontMatter.preview.host": "http://localhost:4000",
+  "frontMatter.content.pageFolders": [
+    {
+      "title": "posts",
+      "path": "[[workspace]]/collections/_posts"
+    },
+    {
+      "title": "Publications",
+      "path": "[[workspace]]/collections/_publications"
+    },
+    {
+      "title": "Writing Tips",
+      "path": "[[workspace]]/collections/_writing-tips"
+    },
+    {
+      "title": "LaTeX Macros",
+      "path": "[[workspace]]/collections/_latex-macros"
+    },
+    {
+      "title": "Pages",
+      "path": "[[workspace]]/collections/_pages"
+    },
+    {
+      "title": "Distinctions",
+      "path": "[[workspace]]/collections/_distinctions"
+    },
+    {
+      "title": "Definitions",
+      "path": "[[workspace]]/collections/_definitions"
+    },
+    {
+      "title": "Examples",
+      "path": "[[workspace]]/collections/_examples"
+    },
+    {
+      "path": "[[workspace]]/collections/_pages/uaw"
+    },
+    {
+      "title": "Redirects",
+      "path": "[[workspace]]/collections/_pages/redirects"
+    }
+  ]
+}
