@@ -31,7 +31,9 @@ import { Fraction, equals, parseEntry } from "../matrix/fraction";
 // ⋘──────── Steps ────────⋙
 
 export type Group =
-  | { type: "scalar"; before?: string; after?: string; whenYes?: boolean; joined?: boolean }  // joined: close to the group before it, as one expression
+  // joined: close to the group before it, as one expression. accept: whether the box can read an
+  // entry (by default, a number; see parseEntry), with acceptHelp saying what it can read.
+  | { type: "scalar"; before?: string; after?: string; whenYes?: boolean; joined?: boolean; accept?: (value: string) => boolean; acceptHelp?: string; wide?: boolean }  // wide: a wider box, for entries such as "3√5/2"
   | { type: "vec"; n: number; before?: string; after?: string }
   | { type: "mat"; rows: number; cols: number; before?: string; after?: string }
   | { type: "yesno"; before?: string };
@@ -289,6 +291,8 @@ export function setupStepPractice<P, K extends string>(o: StepPracticeOptions<P,
     const label = plain(g.before ?? steps[s].title);
     if (g.type === "scalar") {
       const input = entryInput(label || "Answer", s);
+      if (g.accept) input.inputMode = "text";  // Such as "√2", which a number keypad can't type
+      if (g.wide) input.classList.add("sp-entry-wide");
       input.dataset.group = `${gi}`;
       inputs[s].push(input);
       wrap.append(input);
@@ -513,11 +517,19 @@ export function setupStepPractice<P, K extends string>(o: StepPracticeOptions<P,
   function check(s: number): void {
     if (isDone(s)) return;
     const values = inputs[s].map(i => i.value.trim());
-    // Entries that aren't numbers are marked without counting as a wrong check.
-    const bad = inputs[s].filter((input, i) => input.type !== "hidden" && !input.disabled && values[i] !== "" && parseEntry(values[i]) === null);
+    // Entries that the boxes can't read are marked without counting as a wrong check.
+    const groupOf = (input: HTMLInputElement) => steps[s].groups[Number(input.dataset.group)];
+    const readable = (input: HTMLInputElement, value: string) => {
+      const g = groupOf(input);
+      return g.type === "scalar" && g.accept ? g.accept(value) : parseEntry(value) !== null;
+    };
+    const bad = inputs[s].filter((input, i) => input.type !== "hidden" && !input.disabled && values[i] !== "" && !readable(input, values[i]));
     if (bad.length > 0) {
       bad.forEach(i => i.classList.add("sp-wrong"));
-      feedbacks[s].innerHTML = `<p class="sp-feedback-wrong">Enter numbers like <code>-3</code>, <code>0.5</code>, or <code>1/2</code>.</p>`;
+      const special = bad.map(groupOf).find(g => g.type === "scalar" && g.acceptHelp);
+      const help = special?.type === "scalar" && special.acceptHelp
+        ? special.acceptHelp : `Enter numbers like <code>-3</code>, <code>0.5</code>, or <code>1/2</code>.`;
+      feedbacks[s].innerHTML = `<p class="sp-feedback-wrong">${help}</p>`;
       return;
     }
     const verdict = steps[s].check(values);
