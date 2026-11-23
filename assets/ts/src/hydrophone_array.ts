@@ -11,15 +11,31 @@
 // is the emitted signal evaluated at τ(t), which produces both the delay and the Doppler shift
 // without treating them separately.
 
+import { PITCH_LIMIT, Rotator, Scene, Vec3 } from "./common/scene3d";
+import { setupHelp } from "./common/help";
+import { FIXED_DEPTH_LAYOUTS, LAYOUT_COUNTS, Layout, layoutPhones } from "./hydrophone_array/layouts";
+import { setupPanels } from "./common/panels";
+import { loadJSON, saveJSON } from "./common/storage";
+import { Boundaries, PathKind, SoundPath, bouncePoint, mirror, soundPaths } from "./hydrophone_array/reflections";
+
 // ⋘──────── Constants ────────⋙
 
 const C           = 1500;  // Speed of sound in seawater (m/s)
-const SONG_END    = 24;    // The whale sings for emission times τ ∈ [0, SONG_END) (s)
-const CPA_TIME    = 12;    // Emission time at which the whale is closest to the array's center (s)
+// The whale sings for emission times τ ∈ [0, songEnd) and is closest to the array's center at
+// cpaTime, halfway through. The song lasts long enough for the whale to swim a track several
+// times as long as its distance from the array, so it passes through a wide range of directions
+// and distances even at a realistic speed (see updateSong).
+let songEnd = 24;   // (s)
+let cpaTime = 12;   // (s)
+const MIN_SONG   = 24;   // Shortest song (s)
+const MAX_SONG   = 1800; // Longest song (s), reached only at the slowest speeds
+const TRACK_SPAN = 5;    // Length of the whale's track, in multiples of its distance from the array
 const AUDIO_RATE  = 44100; // Sample rate of the rendered audio
 
 // Categorical colors for the hydrophones, in fixed order.
-const COLORS = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#6250d6", "#e34948"];
+// Okabe–Ito, which stays distinguishable under the common kinds of color blindness (its yellow is
+// replaced by a gray, which is too faint on the light background), then a dark brown.
+const COLORS = ["#0072B2", "#D55E00", "#009E73", "#E69F00", "#CC79A7", "#56B4E9", "#7f7f7f", "#8c564b"];
 const INK    = "#222";
 const MUTED  = "#6b6b6b";
 const GRID   = "rgba(0, 0, 0, 0.08)";
@@ -41,7 +57,7 @@ const PATTERNS: Record<string, CallPattern> = {
   short      : { dur: 0.3,  period: 1.5  },
   long       : { dur: 1.0,  period: 3.0  },
   pulses     : { dur: 0.05, period: 0.25 },
-  continuous : { dur: SONG_END - 2 * PULSE_START, period: SONG_END },
+  continuous : { dur: 0, period: 0 }, // One tone for the whole song (see setPattern)
 };
 
 let continuous  = false; // Whether the whale makes one continuous tone instead of separate calls
@@ -50,11 +66,20 @@ let pulsePeriod = 0;     // Time from the start of one call to the start of the 
 let nPulses     = 0;
 
 function setPattern(name: string): void {
-  ({ dur: pulseDur, period: pulsePeriod } = PATTERNS[name]);
   continuous = name === "continuous";
-  nPulses = Math.ceil((SONG_END - PULSE_START - pulseDur) / pulsePeriod);
+  ({ dur: pulseDur, period: pulsePeriod } = continuous
+    ? { dur: songEnd - 2 * PULSE_START, period: songEnd } : PATTERNS[name]);
+  nPulses = Math.ceil((songEnd - PULSE_START - pulseDur) / pulsePeriod);
 }
 setPattern("short");
+
+// Sets the song's length from the whale's speed and distance (see songEnd).
+function updateSong(): void {
+  const length = params.speed > 0 ? TRACK_SPAN * params.distance / params.speed : MIN_SONG;
+  songEnd = Math.round(Math.min(MAX_SONG, Math.max(MIN_SONG, length)));
+  cpaTime = songEnd / 2;
+  setPattern(patternSelect.value);
+}
 
 const pulseCenter = (k: number) => PULSE_START + k * pulsePeriod + pulseDur / 2;
 const callIndex   = (tau: number) => Math.round((tau - pulseCenter(0)) / pulsePeriod);
@@ -68,7 +93,7 @@ function snapToCall(tau: number): number {
 
 // Loudness envelope of the call at emission time τ, with raised-cosine edges.
 function emittedAmp(tau: number): number {
-  if (tau < PULSE_START || tau >= SONG_END) return 0;
+  if (tau < PULSE_START || tau >= songEnd) return 0;
   const s = (tau - PULSE_START) % pulsePeriod;
   if (s >= pulseDur) return 0;
   const fade = Math.min(FADE, pulseDur / 4);
@@ -79,7 +104,7 @@ function emittedAmp(tau: number): number {
 // ⋘──────── Scenario and geometry ────────⋙
 // The hydrophones start out spaced along the x-axis, centered at the origin, each at its own depth
 // z below the whale's depth; dragging them moves them anywhere. The whale swims along the line
-// y = distance (at depth 0) in the +x direction and passes x = 0 at emission time CPA_TIME.
+// y = distance (at depth 0) in the +x direction and passes x = 0 at emission time cpaTime.
 
 interface Phone { x: number; y: number; z: number; } // Horizontal position and depth below the whale (m)
 
@@ -88,15 +113,38 @@ interface Params {
   distance : number; // Distance from the array line to the whale's track (m)
   count    : number; // Number of hydrophones
   spacing  : number; // Distance between neighboring hydrophones (m)
-  depths   : string; // How the hydrophones' depths are arranged (see hydrophoneDepth)
+  depths   : string; // How the hydrophones are arranged (see layoutPhones)
   depth    : number; // Greatest depth of a hydrophone below the whale (m)
+  surface  : number; // Depth of the whale below the sea surface (m)
+  floor    : number; // Depth of the seafloor below the whale (m)
+  echoes   : string; // Which reflections are heard: "none", "surface", "seafloor", or "both"
 }
 
-const params: Params = { speed: 250, distance: 1200, count: 5, spacing: 400, depths: "level", depth: 600 };
+const params: Params = {
+  speed: 250, distance: 1200, count: 5, spacing: 400, depths: "level", depth: 600,
+  surface: 300, floor: 1000, echoes: "both",
+};
+
+function boundaries(): Boundaries {
+  return {
+    surface: params.surface,
+    floor  : params.floor,
+    echoes : {
+      surface : params.echoes === "surface"  || params.echoes === "both",
+      seafloor: params.echoes === "seafloor" || params.echoes === "both",
+    },
+  };
+}
+
+// The direct path and the switched-on reflected paths to a hydrophone. A reflected path is
+// computed as a direct path to the hydrophone's mirror image, so every function below that takes
+// a Phone also works for the reflections when given path.receiver.
+const pathsTo = (ph: Phone): SoundPath<Phone>[] => soundPaths(ph, boundaries());
+const ECHO_NAMES: Record<PathKind, string> = { direct: "direct", surface: "surface echo", seafloor: "seafloor echo" };
 let phones: Phone[] = [];
 let tEnd = 30; // The last received time shown (s)
 
-const whaleX = (tau: number) => params.speed * (tau - CPA_TIME);
+const whaleX = (tau: number) => params.speed * (tau - cpaTime);
 
 // Distance from the whale at emission time τ to a hydrophone, at least 1 m so that a hydrophone
 // dragged onto the whale's track doesn't divide by zero.
@@ -133,35 +181,20 @@ function dopplerFactor(ph: Phone, tau: number): number {
   return 1 / (1 + dx * params.speed / distanceAt(ph, tau) / C);
 }
 
-// Depth of hydrophone i below the whale for each depth arrangement.
-function hydrophoneDepth(i: number): number {
-  const n = params.count, max = params.depth;
-  switch (params.depths) {
-    case "slope"     : return n === 1 ? max : (max * i) / (n - 1);
-    case "alternate" : return i % 2 === 0 ? 0 : max;
-    case "valley"    : return n === 1 ? max : max * (1 - Math.abs((2 * i) / (n - 1) - 1));
-    case "scattered" : return max * SCATTER[i % SCATTER.length];
-    default          : return 0; // "level": all at the whale's depth
-  }
-}
-// Fixed "random" fractions of the maximum depth, so the scattered arrangement doesn't jump around.
-const SCATTER = [0.55, 0.1, 0.85, 0.35, 1.0, 0.2, 0.7, 0.45];
-
 // Places the hydrophones as set by the controls, discarding any dragging.
 function placePhones(): void {
-  phones = Array.from({ length: params.count }, (_, i) => ({
-    x: (i - (params.count - 1) / 2) * params.spacing,
-    y: 0,
-    z: hydrophoneDepth(i),
-  }));
+  phones = layoutPhones(params.depths, params.count, params.spacing, params.depth, params.surface, params.floor)
+    .map(p => ({ ...p, z: clamp(p.z, -params.surface, params.floor) }));
 }
 
 function updateGeometry(): void {
   let maxDelay = 0;
   for (const ph of phones) {
-    maxDelay = Math.max(maxDelay, distanceAt(ph, 0), distanceAt(ph, SONG_END));
+    for (const { receiver } of pathsTo(ph)) {
+      maxDelay = Math.max(maxDelay, distanceAt(receiver, 0), distanceAt(receiver, songEnd));
+    }
   }
-  tEnd = Math.ceil(SONG_END + maxDelay / C + 0.5);
+  tEnd = Math.ceil(songEnd + maxDelay / C + 0.5);
 }
 
 // ⋘──────── Formatting helpers ────────⋙
@@ -207,11 +240,17 @@ const spacingOut   = $<HTMLOutputElement>("wh-spacing-out");
 const depthsSelect = $<HTMLSelectElement>("wh-depths");
 const depthInput   = $<HTMLInputElement>("wh-depth");
 const depthOut     = $<HTMLOutputElement>("wh-depth-out");
+const echoesSelect = $<HTMLSelectElement>("wh-echoes");
+const surfaceInput = $<HTMLInputElement>("wh-surface");
+const surfaceOut   = $<HTMLOutputElement>("wh-surface-out");
+const floorInput   = $<HTMLInputElement>("wh-floor");
+const floorOut     = $<HTMLOutputElement>("wh-floor-out");
 const resetPhonesButton = $<HTMLButtonElement>("wh-reset-phones");
 const readoutBody  = $<HTMLTableSectionElement>("wh-readout-body");
 const tooltip      = $<HTMLDivElement>("wh-tooltip");
 
 const mapCanvas     = $<HTMLCanvasElement>("wh-map");
+const view3dCanvas  = $<HTMLCanvasElement>("wh-3d");
 const sideCanvas    = $<HTMLCanvasElement>("wh-side");
 const freqCanvas    = $<HTMLCanvasElement>("wh-freq");
 const delayCanvas   = $<HTMLCanvasElement>("wh-delay");
@@ -219,7 +258,7 @@ const delayCanvas   = $<HTMLCanvasElement>("wh-delay");
 // ⋘──────── State ────────⋙
 
 let now      = 13.3;     // Current received time (s); starts just after the highlighted call is made
-let marked   = snapToCall(CPA_TIME); // Emission time of the highlighted call (s)
+let marked   = snapToCall(cpaTime); // Emission time of the highlighted call (s)
 let hoverT: number | null = null;
 let hoverTau: number | null = null; // Emission time of the call under the mouse in the frequency chart
 let playing  = false;
@@ -262,19 +301,29 @@ const timeCharts = [freqChart, delayChart];
 
 let mapWidth = 0, mapHeight = 0;
 
+// The height left for a canvas whose panel is shown full screen (below its title), or null.
+function fullScreenHeight(canvas: HTMLElement): number | null {
+  const panel = canvas.closest(".wh-panel");
+  if (!panel || document.fullscreenElement !== panel) return null;
+  return Math.max(200, Math.floor(window.innerHeight - canvas.getBoundingClientRect().top - 16));
+}
+
 function layout(): void {
   mapWidth  = mapCanvas.clientWidth;
-  mapHeight = Math.round(Math.min(440, Math.max(260, mapWidth * 0.5)));
+  mapHeight = fullScreenHeight(mapCanvas) ?? Math.round(Math.min(440, Math.max(260, mapWidth * 0.5)));
   sizeCanvas(mapCanvas, mapWidth, mapHeight);
 
   // The side view is drawn at the map's scale when that fits, so that distances match.
   sideWidth  = sideCanvas.clientWidth;
-  sideHeight = Math.round(Math.min(300, Math.max(120, SIDE_TOP + SIDE_BOTTOM + sideDepth() * mapView().scale)));
+  sideHeight = fullScreenHeight(sideCanvas)
+    ?? Math.round(Math.min(300, Math.max(120, SIDE_TOP + SIDE_BOTTOM + sideDepth() * mapView().scale)));
   sizeCanvas(sideCanvas, sideWidth, sideHeight);
+  // The 3D view sizes itself from its CSS height (see Scene.begin).
+  view3dCanvas.style.height = fullScreenHeight(view3dCanvas) === null ? "" : `${fullScreenHeight(view3dCanvas)}px`;
 
   for (const chart of timeCharts) {
     chart.width  = chart.canvas.clientWidth;
-    chart.height = chart === freqChart ? 300 : 220;
+    chart.height = fullScreenHeight(chart.canvas) ?? (chart === freqChart ? 300 : 220);
     sizeCanvas(chart.canvas, chart.width, chart.height);
     sizeCanvas(chart.layer, chart.width, chart.height);
     chart.dirty = true;
@@ -337,13 +386,17 @@ function drawEndLabels(ctx: CanvasRenderingContext2D, chart: Chart, ys: { i: num
 function freqRange(): { lo: number; hi: number } {
   let lo = 1, hi = 1;
   for (const ph of phones) {
-    for (const tau of [0, SONG_END]) {
-      lo = Math.min(lo, dopplerFactor(ph, tau));
-      hi = Math.max(hi, dopplerFactor(ph, tau));
+    for (const { receiver } of pathsTo(ph)) {
+      for (const tau of [0, songEnd]) {
+        lo = Math.min(lo, dopplerFactor(receiver, tau));
+        hi = Math.max(hi, dopplerFactor(receiver, tau));
+      }
     }
   }
-  lo = Math.min(lo, 0.99);
-  hi = Math.max(hi, 1.01);
+  // A narrow band of frequencies (a slow whale) is spread over the chart's height, down to a
+  // range of ±0.05% (±0.25 Hz), so the hydrophones' bars don't crowd together.
+  lo = Math.min(lo, 0.9995);
+  hi = Math.max(hi, 1.0005);
   const pad = 0.08 * (hi - lo);
   return { lo: TONE_FREQ * (lo - pad), hi: TONE_FREQ * (hi + pad) };
 }
@@ -369,7 +422,7 @@ function drawFreqStatic(ctx: CanvasRenderingContext2D, chart: Chart): void {
     ctx.strokeStyle = GRID;
     ctx.beginPath(); ctx.moveTo(PAD_L, y); ctx.lineTo(right, y); ctx.stroke();
     ctx.fillStyle = MUTED;
-    ctx.fillText(`${fmt(f, step < 1 ? 1 : 0)} Hz`, PAD_L - 6, y);
+    ctx.fillText(`${fmt(f, Math.max(0, Math.ceil(-Math.log10(step) - 1e-9)))} Hz`, PAD_L - 6, y);
   }
   const y0 = freqToY(chart, TONE_FREQ);
   ctx.strokeStyle = "rgba(0, 0, 0, 0.45)";
@@ -386,6 +439,34 @@ function drawFreqStatic(ctx: CanvasRenderingContext2D, chart: Chart): void {
   ctx.textBaseline = "bottom";
   ctx.fillText("Lower pitch: whale moving away", PAD_L + 6, bottom - 4);
 
+  // Echoes first, so the direct sound is drawn on top: thinner bars, fainter by the loss at the
+  // bounce, without the continuous curve.
+  phones.forEach((ph, i) => {
+    for (const path of pathsTo(ph)) {
+      if (path.kind === "direct") continue;
+      const echo = path.receiver;
+      let prev: { x: number; y: number; amp: number } | null = null;
+      let guess: number | undefined;
+      ctx.strokeStyle = COLORS[i];
+      ctx.lineWidth = 2;
+      for (let x = PAD_L; x <= right; x += 0.5) {
+        const tau = emissionTime(echo, xToT(chart, x), guess);
+        guess = tau;
+        if (tau < 0 || tau > songEnd) { prev = null; continue; }
+        const p = {
+          x, y: freqToY(chart, TONE_FREQ * dopplerFactor(echo, tau)),
+          amp: emittedAmp(tau) * loudness(echo, tau) * Math.abs(path.gain),
+        };
+        if (prev && prev.amp >= 0.03 && p.amp >= 0.03) {
+          ctx.globalAlpha = 0.15 + 0.5 * Math.min(1, p.amp);
+          ctx.beginPath(); ctx.moveTo(prev.x, prev.y); ctx.lineTo(p.x, p.y); ctx.stroke();
+        }
+        prev = p;
+      }
+      ctx.globalAlpha = 1;
+    }
+  });
+
   // Each hydrophone: a thin curve for the Doppler-shifted frequency and bold segments where a call
   // is arriving, fading with distance.
   const ends: { i: number; y: number }[] = [];
@@ -395,7 +476,7 @@ function drawFreqStatic(ctx: CanvasRenderingContext2D, chart: Chart): void {
     for (let x = PAD_L; x <= right; x += 0.5) {
       const tau = emissionTime(ph, xToT(chart, x), guess);
       guess = tau;
-      if (tau < 0 || tau > SONG_END) continue;
+      if (tau < 0 || tau > songEnd) continue;
       const amp = emittedAmp(tau) * loudness(ph, tau);
       samples.push({ x, y: freqToY(chart, TONE_FREQ * dopplerFactor(ph, tau)), amp });
     }
@@ -502,6 +583,19 @@ function drawHoveredCall(ctx: CanvasRenderingContext2D, chart: Chart, tau: numbe
   for (const a of arrivals) {
     ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(a.x, a.y); ctx.stroke();
   }
+  // Fainter lines to where each echo of the same sound arrives, when it's loud enough to hear.
+  ctx.globalAlpha = 0.35;
+  for (const ph of phones) {
+    for (const path of pathsTo(ph)) {
+      if (path.kind === "direct") continue;
+      if (loudness(path.receiver, tau) * Math.abs(path.gain) < 0.03) continue;
+      ctx.beginPath();
+      ctx.moveTo(x0, y0);
+      ctx.lineTo(tToX(chart, tau + distanceAt(path.receiver, tau) / C), freqToY(chart, TONE_FREQ * dopplerFactor(path.receiver, tau)));
+      ctx.stroke();
+    }
+  }
+  ctx.globalAlpha = 1;
   ctx.setLineDash([]);
   ctx.lineCap = "round";
   const stroke = (points: { x: number; y: number }[], color: string) => {
@@ -531,7 +625,11 @@ function drawHoveredCall(ctx: CanvasRenderingContext2D, chart: Chart, tau: numbe
 function drawDelayStatic(ctx: CanvasRenderingContext2D, chart: Chart): void {
   const top = PAD_T, bottom = chart.height - PAD_B;
   let maxDelay = 0;
-  for (const ph of phones) maxDelay = Math.max(maxDelay, distanceAt(ph, 0) / C, distanceAt(ph, SONG_END) / C);
+  for (const ph of phones) {
+    for (const { receiver } of pathsTo(ph)) {
+      maxDelay = Math.max(maxDelay, distanceAt(receiver, 0) / C, distanceAt(receiver, songEnd) / C);
+    }
+  }
   const yMax = maxDelay * 1.1;
   const toY = (d: number) => bottom - (d / yMax) * (bottom - top);
   drawTimeAxis(ctx, chart, top, bottom);
@@ -548,25 +646,42 @@ function drawDelayStatic(ctx: CanvasRenderingContext2D, chart: Chart): void {
     ctx.fillText(`${fmt(d, step < 0.1 ? 2 : step < 1 ? 1 : 0)} s`, PAD_L - 6, y);
   }
 
+  // Each hydrophone's direct sound as a solid curve; its echoes, which travel farther and so
+  // arrive later, as dashed (surface) and dotted (seafloor) curves above it.
   const ends: { i: number; y: number }[] = [];
   phones.forEach((ph, i) => {
-    ctx.strokeStyle = COLORS[i];
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    let started = false, lastY = 0;
-    let guess: number | undefined;
-    for (let x = PAD_L; x <= chart.width - PAD_R; x += 1) {
-      const t = xToT(chart, x);
-      const tau = emissionTime(ph, t, guess);
-      guess = tau;
-      if (tau < 0 || tau > SONG_END) { started = false; continue; }
-      lastY = toY(t - tau);
-      if (started) ctx.lineTo(x, lastY); else ctx.moveTo(x, lastY);
-      started = true;
+    for (const path of pathsTo(ph)) {
+      const direct = path.kind === "direct";
+      ctx.strokeStyle = COLORS[i];
+      ctx.lineWidth = direct ? 2 : 1.25;
+      ctx.globalAlpha = direct ? 1 : 0.75;
+      ctx.setLineDash(direct ? [] : path.kind === "surface" ? [6, 4] : [2, 3]);
+      ctx.beginPath();
+      let started = false, lastY = 0;
+      let guess: number | undefined;
+      for (let x = PAD_L; x <= chart.width - PAD_R; x += 1) {
+        const t = xToT(chart, x);
+        const tau = emissionTime(path.receiver, t, guess);
+        guess = tau;
+        if (tau < 0 || tau > songEnd) { started = false; continue; }
+        lastY = toY(t - tau);
+        if (started) ctx.lineTo(x, lastY); else ctx.moveTo(x, lastY);
+        started = true;
+      }
+      ctx.stroke();
+      if (direct) ends.push({ i, y: lastY });
     }
-    ctx.stroke();
-    ends.push({ i, y: lastY });
+    ctx.setLineDash([]);
+    ctx.globalAlpha = 1;
   });
+  if (params.echoes !== "none") {
+    ctx.font = "11px system-ui, sans-serif";
+    ctx.fillStyle = MUTED;
+    ctx.textAlign = "left";
+    ctx.textBaseline = "top";
+    const kinds = [params.echoes !== "seafloor" && "dashed: surface echo", params.echoes !== "surface" && "dotted: seafloor echo"];
+    ctx.fillText(`Solid: direct sound; ${kinds.filter(Boolean).join("; ")}`, PAD_L + 6, top + 4);
+  }
   drawEndLabels(ctx, chart, ends);
 }
 
@@ -614,7 +729,7 @@ function drawTimeChart(chart: Chart): void {
 // position of that point when the whale is at x along its track.
 
 function drawSoundInPlane(ctx: CanvasRenderingContext2D, scale: number, center: (x: number) => [number, number],
-                          offset: number, maxR: number, highlighted: boolean): void {
+                          offset: number, maxR: number, highlighted: boolean, strength = 1): void {
   const inPlane = (r: number) => Math.sqrt(Math.max(0, r * r - offset * offset));
   const circle = (tau: number, r: number) => {
     const [cx, cy] = center(whaleX(tau));
@@ -663,7 +778,7 @@ function drawSoundInPlane(ctx: CanvasRenderingContext2D, scale: number, center: 
     if (!visibleCall(k) || (!continuous && pulseCenter(k) === marked)) continue;
     const start = pulseCenter(k) - pulseDur / 2;
     if (!callBand(k)) continue;
-    ctx.globalAlpha = (continuous ? 0.2 : 0.35) * Math.max(0.12, 1 - inPlane(C * (now - start)) / maxR);
+    ctx.globalAlpha = strength * (continuous ? 0.2 : 0.35) * Math.max(0.12, 1 - inPlane(C * (now - start)) / maxR);
     ctx.fill("evenodd");
   }
   // A continuous tone fills one big region, so wavefronts are drawn inside it at regular
@@ -674,7 +789,7 @@ function drawSoundInPlane(ctx: CanvasRenderingContext2D, scale: number, center: 
     for (let tau = PULSE_START; tau <= Math.min(now, PULSE_START + pulseDur); tau += 0.5) {
       const r = C * (now - tau);
       if (r <= offset || inPlane(r) > maxR) continue;
-      ctx.globalAlpha = 0.6 * Math.max(0.15, 1 - inPlane(r) / maxR);
+      ctx.globalAlpha = strength * 0.6 * Math.max(0.15, 1 - inPlane(r) / maxR);
       ctx.beginPath(); circle(tau, inPlane(r)); ctx.stroke();
     }
   }
@@ -690,7 +805,7 @@ let frozenMapView: MapView | null = null; // The view while a hydrophone is bein
 function mapView(): MapView {
   if (frozenMapView) return frozenMapView;
   const xMax = Math.max(...phones.map(ph => Math.abs(ph.x)));
-  const halfW = Math.max(params.speed * CPA_TIME + 300, xMax + 400, params.distance * 1.3, 1500);
+  const halfW = Math.max(params.speed * cpaTime + 300, xMax + 400, params.distance * 1.3, 1500);
   const ySpan = Math.max(params.distance, 600);
   const yMin = Math.min(-0.35 * ySpan, ...phones.map(ph => ph.y - 0.25 * ySpan));
   const yMax = Math.max(params.distance + 0.35 * ySpan, ...phones.map(ph => ph.y + 0.25 * ySpan));
@@ -797,6 +912,12 @@ function drawMap(): void {
   ctx.fillRect(0, 0, mapWidth, mapHeight);
 
   const maxR = Math.hypot(mapWidth, mapHeight) / scale;
+  // Echoes come from the whale's mirror images, directly above and below it, so in this view they
+  // are fainter rings that reach each point later than the direct sound.
+  const b = boundaries();
+  for (const [on, height, gain] of [[b.echoes.surface, 2 * params.surface, 0.9], [b.echoes.seafloor, 2 * params.floor, 0.5]] as const) {
+    if (on) drawSoundInPlane(ctx, scale, x => [sx(x), sy(params.distance)], height, maxR, false, 0.6 * gain);
+  }
   drawSoundInPlane(ctx, scale, x => [sx(x), sy(params.distance)], 0, maxR, false);
 
   // The whale's track, with the point of closest approach to the array's center.
@@ -820,7 +941,7 @@ function drawMap(): void {
   // hydrophone hears right now.
   phones.forEach((ph, i) => {
     const tau = emissionTime(ph, now);
-    if (tau < 0 || tau > SONG_END) return;
+    if (tau < 0 || tau > songEnd) return;
     const audible = emittedAmp(tau) > 0.05;
     ctx.strokeStyle = COLORS[i];
     ctx.lineWidth = audible ? 1.75 : 1;
@@ -838,7 +959,7 @@ function drawMap(): void {
   ctx.font = "bold 11px system-ui, sans-serif";
   ctx.textBaseline = "top";
   phones.forEach((ph, i) => {
-    drawPhoneMarker(ctx, sx(ph.x), sy(ph.y), i, ph.z < 0.5);
+    drawPhoneMarker(ctx, sx(ph.x), sy(ph.y), i, Math.abs(ph.z) < 0.5);
     if (roomy || phonesMoved || i === 0 || i === params.count - 1) {
       ctx.fillStyle = INK;
       ctx.fillText(phoneName(i), sx(ph.x), sy(ph.y) + 10);
@@ -868,37 +989,61 @@ function drawMap(): void {
 // it's drawn faintly at its depth.
 
 const SIDE_TOP = 26, SIDE_BOTTOM = 22; // Margins (px)
-const sideDepth = () => Math.max(200, ...phones.map(ph => ph.z)) * 1.1; // Deepest depth shown (m)
+const sideDepth = () => params.surface + params.floor; // Depth range shown, surface to seafloor (m)
 let sideWidth = 0, sideHeight = 0;
 
 let frozenSideScale: number | null = null; // The scale while a hydrophone is being dragged
 
 function sideScale(): number {
-  return frozenSideScale ?? Math.min(mapView().scale, (sideHeight - SIDE_TOP - SIDE_BOTTOM) / sideDepth());
+  const fit = (sideHeight - SIDE_TOP - SIDE_BOTTOM) / sideDepth();
+  // Matches the map's scale when that fits, except in full screen, where the depths fill the screen.
+  const full = document.fullscreenElement === sideCanvas.closest(".wh-panel");
+  return frozenSideScale ?? (full ? fit : Math.min(mapView().scale, fit));
 }
+
+// Screen y of depth z (below the whale) in the side view.
+const sideZ = (z: number, scale: number) => SIDE_TOP + (z + params.surface) * scale;
 
 function drawSide(): void {
   const ctx = context(sideCanvas);
   const scale = sideScale();
   const sx = (x: number) => sideWidth / 2 + x * scale;
-  const sz = (z: number) => SIDE_TOP + z * scale;
+  const sz = (z: number) => sideZ(z, scale);
+  const yTop = sz(-params.surface), yFloor = sz(params.floor);
 
-  const water = ctx.createLinearGradient(0, 0, 0, sideHeight);
+  // Sky above the surface, water, and sediment below the seafloor.
+  ctx.fillStyle = "#f6f9fc";
+  ctx.fillRect(0, 0, sideWidth, yTop);
+  const water = ctx.createLinearGradient(0, yTop, 0, yFloor);
   water.addColorStop(0, "#e6f0f8");
   water.addColorStop(1, "#cfdfee");
   ctx.fillStyle = water;
-  ctx.fillRect(0, 0, sideWidth, sideHeight);
+  ctx.fillRect(0, yTop, sideWidth, yFloor - yTop);
+  ctx.fillStyle = "#d9cdb4";
+  ctx.fillRect(0, yFloor, sideWidth, sideHeight - yFloor);
 
+  // Sound stays in the water. Echoes spread from the whale's mirror images above the surface and
+  // below the seafloor, and only the parts that have bounced back into the water are drawn.
+  ctx.save();
+  ctx.beginPath(); ctx.rect(0, yTop, sideWidth, yFloor - yTop); ctx.clip();
   const maxR = Math.hypot(sideWidth, sideHeight) / scale;
+  const b = boundaries();
+  if (b.echoes.surface) {
+    drawSoundInPlane(ctx, scale, x => [sx(x), sz(-2 * params.surface)], params.distance, maxR, false, 0.55);
+  }
+  if (b.echoes.seafloor) {
+    drawSoundInPlane(ctx, scale, x => [sx(x), sz(2 * params.floor)], params.distance, maxR, false, 0.35);
+  }
   drawSoundInPlane(ctx, scale, x => [sx(x), sz(0)], params.distance, maxR, false);
   drawSoundInPlane(ctx, scale, x => [sx(x), sz(0)], params.distance, maxR, true);
+  ctx.restore();
 
   // Depth gridlines.
   const step = niceStep(1 / scale, 40);
   ctx.font = "11px system-ui, sans-serif";
   ctx.textAlign = "left";
   ctx.textBaseline = "bottom";
-  for (let z = step; sz(z) < sideHeight - 4; z += step) {
+  for (let z = step; sz(z) < yFloor - 14; z += step) {
     ctx.strokeStyle = "rgba(0, 0, 0, 0.07)";
     ctx.lineWidth = 1;
     ctx.beginPath(); ctx.moveTo(0, sz(z)); ctx.lineTo(sideWidth, sz(z)); ctx.stroke();
@@ -912,18 +1057,42 @@ function drawSide(): void {
   ctx.fillStyle = MUTED;
   ctx.fillText(`Whale's depth (the whale swims ${params.distance} m in front of this plane)`, 6, sz(0) - 4);
 
-  // Sound in flight, as in the map, but only drawn to where its path crosses this plane.
+  // The surface and the seafloor.
+  ctx.lineWidth = 1.5;
+  ctx.strokeStyle = "#5b8fc4";
+  ctx.beginPath(); ctx.moveTo(0, yTop); ctx.lineTo(sideWidth, yTop); ctx.stroke();
+  ctx.strokeStyle = "#8a7550";
+  ctx.beginPath(); ctx.moveTo(0, yFloor); ctx.lineTo(sideWidth, yFloor); ctx.stroke();
+  ctx.fillStyle = MUTED;
+  ctx.fillText(`Sea surface (${params.surface} m above the whale)`, 6, yTop - 3);
+  ctx.textBaseline = "top";
+  ctx.fillText(`Seafloor (${params.floor} m below the whale)`, 6, yFloor + 3);
+  ctx.textBaseline = "bottom";
+
+  // Sound in flight, as in the map, but only drawn to where its path crosses this plane. Echoes
+  // are drawn from the whale to where they bounce and on to the hydrophone, thinner.
   phones.forEach((ph, i) => {
-    const tau = emissionTime(ph, now);
-    if (tau < 0 || tau > SONG_END) return;
-    const audible = emittedAmp(tau) > 0.05;
-    ctx.strokeStyle = COLORS[i];
-    ctx.lineWidth = audible ? 1.75 : 1;
-    ctx.globalAlpha = audible ? 0.9 : 0.35;
-    ctx.setLineDash(audible ? [] : [3, 4]);
-    ctx.beginPath(); ctx.moveTo(sx(whaleX(tau)), sz(0)); ctx.lineTo(sx(ph.x), sz(ph.z)); ctx.stroke();
-    ctx.setLineDash([]);
-    ctx.globalAlpha = 1;
+    for (const path of pathsTo(ph)) {
+      const tau = emissionTime(path.receiver, now);
+      if (tau < 0 || tau > songEnd) continue;
+      const audible = emittedAmp(tau) > 0.05;
+      const direct = path.kind === "direct";
+      ctx.strokeStyle = COLORS[i];
+      ctx.lineWidth = (audible ? 1.75 : 1) * (direct ? 1 : 0.7);
+      ctx.globalAlpha = (audible ? 0.9 : 0.35) * (direct ? 1 : 0.6);
+      ctx.setLineDash(audible ? [] : [3, 4]);
+      ctx.beginPath();
+      ctx.moveTo(sx(whaleX(tau)), sz(0));
+      if (path.kind !== "direct") {
+        const whale = { x: whaleX(tau), y: params.distance, z: 0 };
+        const bounce = bouncePoint(whale, path.receiver, path.kind, boundaries());
+        ctx.lineTo(sx(bounce.x), sz(bounce.z));
+      }
+      ctx.lineTo(sx(ph.x), sz(ph.z));
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.globalAlpha = 1;
+    }
   });
 
   ctx.globalAlpha = 0.45;
@@ -933,13 +1102,130 @@ function drawSide(): void {
   const roomy = params.spacing * scale >= 20;
   ctx.font = "bold 11px system-ui, sans-serif";
   ctx.textAlign = "center";
-  ctx.textBaseline = "top";
+  ctx.textBaseline = "bottom";
   phones.forEach((ph, i) => {
     drawPhoneMarker(ctx, sx(ph.x), sz(ph.z), i, Math.abs(ph.y) < 0.5);
     if (roomy || phonesMoved || i === 0 || i === params.count - 1) {
       ctx.fillStyle = INK;
-      ctx.fillText(phoneName(i), sx(ph.x), sz(ph.z) + 9);
+      ctx.fillText(phoneName(i), sx(ph.x), sz(ph.z) - 9);
     }
+  });
+}
+
+// ⋘──────── 3D view ────────⋙
+// The whole scene in 3D, drawn with the linear algebra tools' Scene, so it rotates the same way:
+// drag to turn it, fling to set it spinning. Scene's z points up, so a depth z below the whale is
+// drawn at height −z. Sound spheres are shown by the circles where they cut the sea surface, the
+// whale's depth, and the seafloor.
+
+const view3d = { yaw: -0.6, pitch: 0.35 };
+const scene3d = new Scene();
+const toWorld = (x: number, y: number, z: number): Vec3 => [x, y, -z];
+
+function draw3D(): void {
+  const { scale } = mapView();
+  const halfW = mapWidth / 2 / scale;
+  const yLo = Math.min(-0.3 * params.distance, ...phones.map(ph => ph.y - 200));
+  const yHi = Math.max(1.3 * params.distance, ...phones.map(ph => ph.y + 200));
+  const x0 = -halfW, x1 = halfW, top = -params.surface, bottom = params.floor;
+    // Scene fits a sphere of radius `extent` in the canvas's shorter side, which leaves a wide canvas
+  // mostly empty, so the extent is shrunk by the aspect ratio. The ends of the box can then leave
+  // the canvas at some angles, which is fine for a long, flat stretch of ocean.
+  const rect = view3dCanvas.getBoundingClientRect();
+  const aspect = Math.min(1, rect.height / Math.max(1, rect.width));
+  const box = {
+    center: toWorld(0, (yLo + yHi) / 2, (top + bottom) / 2),
+    extent: 1.1 * aspect * Math.max(halfW, (yHi - yLo) / 2, (bottom - top) / 2),
+  };
+  const sc = scene3d;
+  sc.begin(view3dCanvas, { dim: 3, yaw: view3d.yaw, pitch: view3d.pitch, perspective: true, ...box });
+  const ctx = sc.ctx;
+
+  const sheet = (z: number) => [toWorld(x0, yLo, z), toWorld(x1, yLo, z), toWorld(x1, yHi, z), toWorld(x0, yHi, z)];
+  sc.polygon(sheet(bottom), "rgba(190, 170, 130, 0.55)", "#8a7550");
+  for (const x of [x0, x1]) for (const y of [yLo, yHi]) sc.line(toWorld(x, y, top), toWorld(x, y, bottom), "rgba(90, 120, 160, 0.35)");
+
+  // A circle in the horizontal plane at depth z, cut off at the edges of the box.
+  const ring = (cx: number, cy: number, z: number, r: number, color: string, width: number, alpha: number) => {
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
+    ctx.globalAlpha = alpha;
+    ctx.beginPath();
+    let pen = false;
+    const n = 96;
+    for (let k = 0; k <= n; k++) {
+      const a = (2 * Math.PI * k) / n;
+      const x = cx + r * Math.cos(a), y = cy + r * Math.sin(a);
+      if (x < x0 || x > x1 || y < yLo || y > yHi) { pen = false; continue; }
+      const [px, py] = sc.project(toWorld(x, y, z));
+      if (pen) ctx.lineTo(px, py); else ctx.moveTo(px, py);
+      pen = true;
+    }
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+  };
+  const maxR = Math.hypot(2 * halfW, yHi - yLo, top - bottom);
+  for (let k = 0; k < nPulses; k++) {
+    const start = pulseCenter(k) - pulseDur / 2;
+    const r = C * (now - start);
+    if (r <= 0 || r > maxR) continue;
+    const highlighted = !continuous && pulseCenter(k) === marked;
+    const color = highlighted ? INK : WAVE;
+    const alpha = highlighted ? 0.9 : 0.35 + 0.4 * (1 - r / maxR);
+    for (const z of [top, 0, bottom]) {
+      if (r > Math.abs(z)) ring(whaleX(start), params.distance, z, Math.sqrt(r * r - z * z), color, highlighted ? 1.75 : 1, alpha);
+    }
+  }
+
+  // The whale's track, and the paths of the sound each hydrophone hears now, bouncing for echoes.
+  sc.line(toWorld(x0, params.distance, 0), toWorld(x1, params.distance, 0), "rgba(47, 59, 74, 0.45)", 1, [6, 5]);
+  phones.forEach((ph, i) => {
+    sc.line(toWorld(ph.x, ph.y, ph.z), toWorld(ph.x, ph.y, bottom), "rgba(0, 0, 0, 0.25)", 1, [2, 3]);
+    for (const path of pathsTo(ph)) {
+      const tau = emissionTime(path.receiver, now);
+      if (tau < 0 || tau > songEnd) continue;
+      const audible = emittedAmp(tau) > 0.05;
+      const direct = path.kind === "direct";
+      const whale = { x: whaleX(tau), y: params.distance, z: 0 };
+      const points = [whale];
+      if (path.kind !== "direct") points.push(bouncePoint(whale, path.receiver, path.kind, boundaries()));
+      points.push(ph);
+      ctx.globalAlpha = (audible ? 0.9 : 0.35) * (direct ? 1 : 0.6);
+      for (let j = 1; j < points.length; j++) {
+        const a = points[j - 1], b = points[j];
+        sc.line(toWorld(a.x, a.y, a.z), toWorld(b.x, b.y, b.z), COLORS[i], (audible ? 1.75 : 1) * (direct ? 1 : 0.7), audible ? [] : [3, 4]);
+      }
+      ctx.globalAlpha = 1;
+    }
+  });
+
+  sc.polygon(sheet(top), "rgba(120, 170, 220, 0.18)", "#5b8fc4");
+
+  const font = `bold ${sc.px(11)}px system-ui, sans-serif`;
+  phones.forEach((ph, i) => {
+    const p = toWorld(ph.x, ph.y, ph.z);
+    sc.dot(p, 6, "#fff");
+    sc.dot(p, 4.5, COLORS[i]);
+    const [px, py] = sc.project(p);
+    sc.haloText(phoneName(i), px, py - 10, INK, font);
+  });
+  const [wx, wy] = sc.project(toWorld(whaleX(now), params.distance, 0));
+  sc.dot(toWorld(whaleX(now), params.distance, 0), 7, "#2f3b4a");
+  sc.haloText("whale", wx, wy - 12, "#2f3b4a", font);
+  sc.finish();
+}
+
+const rotator = new Rotator(view3d, () => { if (!playing) draw3D(); });
+view3dCanvas.addEventListener("pointerdown", e => {
+  rotator.start(e.clientX, e.clientY);
+  view3dCanvas.setPointerCapture(e.pointerId);
+  view3dCanvas.style.cursor = "grabbing";
+});
+view3dCanvas.addEventListener("pointermove", e => rotator.move(e.clientX, e.clientY));
+for (const type of ["pointerup", "pointercancel"] as const) {
+  view3dCanvas.addEventListener(type, () => {
+    rotator.end(type === "pointerup");
+    view3dCanvas.style.cursor = "grab";
   });
 }
 
@@ -953,7 +1239,7 @@ function buildReadout(): void {
     const row = readoutBody.insertRow();
     const name = row.insertCell();
     name.innerHTML = `<span class="wh-swatch" style="background:${COLORS[i]}"></span>${phoneName(i)}`;
-    return [row.insertCell(), row.insertCell(), row.insertCell(), row.insertCell(), row.insertCell(), row.insertCell()];
+    return [row.insertCell(), row.insertCell(), row.insertCell(), row.insertCell(), row.insertCell(), row.insertCell(), row.insertCell()];
   });
 }
 
@@ -962,14 +1248,17 @@ function updateReadout(): void {
   const arrivalsOfMarked = phones.map(ph => marked + distanceAt(ph, marked) / C);
   const firstArrival = Math.min(...arrivalsOfMarked);
   phones.forEach((ph, i) => {
-    const [depth, dist, delay, lag, shift, hearing] = readoutCells[i];
+    const [depth, dist, delay, lag, echoes, shift, hearing] = readoutCells[i];
     const tau = taus[i];
-    const inSong = tau >= 0 && tau <= SONG_END;
+    const inSong = tau >= 0 && tau <= songEnd;
     const factor = dopplerFactor(ph, tau);
-    depth.textContent = `${Math.round(ph.z)} m`;
+    depth.textContent = ph.z < -0.5 ? `${Math.round(-ph.z)} m above` : `${Math.round(ph.z)} m`;
     dist.textContent  = `${Math.round(distanceAt(ph, tau))} m`;
     delay.textContent = `${fmt(now - tau, 3)} s`;
     lag.textContent   = `${fmt(arrivalsOfMarked[i] - firstArrival, 3)} s`;
+    const echoLags = pathsTo(ph).filter(p => p.kind !== "direct")
+      .map(p => `${ECHO_NAMES[p.kind].replace(" echo", "")} +${fmt((distanceAt(p.receiver, marked) - distanceAt(ph, marked)) / C, 3)} s`);
+    echoes.innerHTML = echoLags.length ? echoLags.join("<br>") : "—";
     shift.textContent = inSong ? `${signed(100 * (factor - 1), 2)}% (${signed(semitones(factor), 2)} semitones)` : "—";
     hearing.textContent = inSong && emittedAmp(tau) > 0.05
       ? `${fmt(TONE_FREQ * factor, 1)} Hz` : "silence";
@@ -981,79 +1270,102 @@ function updateReadout(): void {
 // The Doppler shift and delay come out of τ(t) on their own.
 
 let audioCtx: AudioContext | null = null;
-let audioSource: AudioBufferSourceNode | null = null;
-let audioStart = { ctxTime: 0, t: 0 }; // Maps the audio clock to the simulation time
-const channelCache = new Map<string, Float32Array<ArrayBuffer>>(); // Rendered recordings, by listener
+let audioOut: GainNode | null = null;          // Where the chunks play, faded in at the start
+let audioSources: AudioBufferSourceNode[] = []; // Chunks scheduled to play
+let audioQueuedUntil = 0;                      // Simulation time up to which audio is scheduled
+let audioStart = { ctxTime: 0, t: 0 };         // Maps the audio clock to the simulation time
 
-// Renders what a listener ("whale" or a hydrophone index) hears over the whole simulation.
-function renderChannel(listener: string): Float32Array<ArrayBuffer> {
-  const cached = channelCache.get(listener);
-  if (cached) return cached;
-  const n = Math.ceil(tEnd * AUDIO_RATE);
+// A song can last half an hour, too long to render at once, so the audio is rendered in chunks
+// of AUDIO_CHUNK seconds, each scheduled to start exactly when the one before it ends.
+const AUDIO_CHUNK = 20; // (s)
+
+// Renders n samples, starting at time t0, of what a listener ("whale" or a hydrophone index) hears.
+function renderChannel(listener: string, t0: number, n: number): Float32Array<ArrayBuffer> {
   const data = new Float32Array(n);
-  const ph = listener === "whale" ? null : phones[Number(listener)];
-  let tau: number | undefined;
-  for (let k = 0; k < n; k++) {
-    const t = k / AUDIO_RATE;
-    let gain = 1;
-    if (ph === null) {
-      tau = t;
-    } else {
-      tau = emissionTime(ph, t, tau);
-      gain = loudness(ph, tau);
+  // The whale hears itself directly; a hydrophone hears the direct sound plus each echo, each
+  // computed as the direct sound at the hydrophone's mirror image, times the bounce's gain.
+  const paths: { receiver: Phone | null; gain: number }[] = listener === "whale"
+    ? [{ receiver: null, gain: 1 }] : pathsTo(phones[Number(listener)]);
+  // Echoes add to the direct sound, so the mix is scaled down to keep it from clipping.
+  const mix = 0.45 / Math.sqrt(paths.length);
+  for (const { receiver, gain: bounce } of paths) {
+    let tau: number | undefined = receiver === null ? undefined : emissionTime(receiver, t0);
+    for (let k = 0; k < n; k++) {
+      const t = t0 + k / AUDIO_RATE;
+      let gain = bounce;
+      if (receiver === null) {
+        tau = t;
+      } else {
+        tau = emissionTime(receiver, t, tau);
+        gain *= loudness(receiver, tau);
+      }
+      const amp = emittedAmp(tau);
+      if (amp === 0) continue;
+      // Near the speed of sound the pitch rises up to tenfold, so overtones that would go past the
+      // highest frequency the sample rate can represent are left out to avoid aliasing.
+      const heard = TONE_FREQ * (receiver === null ? 1 : dopplerFactor(receiver, tau));
+      const phase = 2 * Math.PI * TONE_FREQ * tau;
+      let wave = Math.sin(phase);
+      if (2 * heard < 0.45 * AUDIO_RATE) wave += 0.3 * Math.sin(2 * phase);
+      if (3 * heard < 0.45 * AUDIO_RATE) wave += 0.12 * Math.sin(3 * phase);
+      data[k] += mix * gain * amp * wave;
     }
-    const amp = emittedAmp(tau);
-    if (amp === 0) continue;
-    // Near the speed of sound the pitch rises up to tenfold, so overtones that would go past the
-    // highest frequency the sample rate can represent are left out to avoid aliasing.
-    const heard = TONE_FREQ * (ph === null ? 1 : dopplerFactor(ph, tau));
-    const phase = 2 * Math.PI * TONE_FREQ * tau;
-    let wave = Math.sin(phase);
-    if (2 * heard < 0.45 * AUDIO_RATE) wave += 0.3 * Math.sin(2 * phase);
-    if (3 * heard < 0.45 * AUDIO_RATE) wave += 0.12 * Math.sin(3 * phase);
-    data[k] = 0.45 * gain * amp * wave;
   }
-  channelCache.set(listener, data);
   return data;
 }
 
-// A stereo buffer with one listener in each speaker ("off" leaves that speaker silent).
-function renderAudio(ctx: AudioContext, left: string, right: string): AudioBuffer {
-  const buffer = ctx.createBuffer(2, Math.ceil(tEnd * AUDIO_RATE), AUDIO_RATE);
-  [left, right].forEach((listener, channel) => {
-    if (listener !== "off") buffer.copyToChannel(renderChannel(listener), channel);
+// Schedules the chunk of audio that starts at simulation time t0.
+function scheduleChunk(t0: number): void {
+  if (!audioCtx || !audioOut) return;
+  const t1 = Math.min(tEnd, t0 + AUDIO_CHUNK);
+  const n = Math.round((t1 - t0) * AUDIO_RATE);
+  if (n <= 0) return;
+  const buffer = audioCtx.createBuffer(2, n, AUDIO_RATE);
+  [leftSelect.value, rightSelect.value].forEach((listener, channel) => {
+    if (listener !== "off") buffer.copyToChannel(renderChannel(listener, t0, n), channel);
   });
-  return buffer;
+  const source = audioCtx.createBufferSource();
+  source.buffer = buffer;
+  source.connect(audioOut);
+  source.onended = () => { audioSources = audioSources.filter(s => s !== source); };
+  source.start(audioStart.ctxTime + (t0 - audioStart.t));
+  audioSources.push(source);
+  audioQueuedUntil = t0 + n / AUDIO_RATE;
+}
+
+// Keeps the next chunk scheduled a few seconds before the current one runs out.
+function topUpAudio(): void {
+  if (audioSources.length && audioQueuedUntil < tEnd && now > audioQueuedUntil - 5) scheduleChunk(audioQueuedUntil);
 }
 
 function stopAudio(): void {
-  if (audioSource) {
-    audioSource.onended = null;
-    audioSource.stop();
-    audioSource.disconnect();
-    audioSource = null;
+  for (const source of audioSources) {
+    source.onended = null;
+    source.stop();
+    source.disconnect();
   }
+  audioSources = [];
+  audioOut?.disconnect();
+  audioOut = null;
 }
 
 // Starts the audio at the current time, if sound is on and playback is at normal speed.
 function startAudio(): void {
   stopAudio();
-  const left = leftSelect.value, right = rightSelect.value;
-  const silent = left === "off" && right === "off";
+  const silent = leftSelect.value === "off" && rightSelect.value === "off";
   const realTime = Number(rateSelect.value) === 1;
   audioNote.hidden = silent || realTime;
   if (silent || !realTime || !playing) return;
   audioCtx ??= new AudioContext();
   void audioCtx.resume();
-  const source = audioCtx.createBufferSource();
-  source.buffer = renderAudio(audioCtx, left, right);
-  const fade = audioCtx.createGain();
-  fade.gain.setValueAtTime(0, audioCtx.currentTime);
-  fade.gain.linearRampToValueAtTime(1, audioCtx.currentTime + 0.03);
-  source.connect(fade).connect(audioCtx.destination);
-  source.start(0, now);
-  audioSource = source;
-  audioStart = { ctxTime: audioCtx.currentTime, t: now };
+  audioOut = audioCtx.createGain();
+  // Rendering the first chunk takes a moment, so it starts slightly in the future.
+  const start = audioCtx.currentTime + 0.05;
+  audioOut.gain.setValueAtTime(0, start);
+  audioOut.gain.linearRampToValueAtTime(1, start + 0.03);
+  audioOut.connect(audioCtx.destination);
+  audioStart = { ctxTime: start, t: now };
+  scheduleChunk(now);
 }
 
 // ⋘──────── Playback ────────⋙
@@ -1077,8 +1389,9 @@ function seek(t: number): void {
 
 function frame(time: number): void {
   if (playing) {
-    if (audioSource && audioCtx) {
-      now = audioStart.t + (audioCtx.currentTime - audioStart.ctxTime);
+    if (audioSources.length && audioCtx) {
+      now = Math.max(audioStart.t, audioStart.t + (audioCtx.currentTime - audioStart.ctxTime));
+      topUpAudio();
     } else {
       now += ((time - lastFrame) / 1000) * Number(rateSelect.value);
     }
@@ -1101,6 +1414,7 @@ function render(): void {
   timeOutput.textContent = `${fmt(now, 2)} s`;
   drawMap();
   drawSide();
+  draw3D();
   for (const chart of timeCharts) drawTimeChart(chart);
   updateReadout();
 }
@@ -1116,7 +1430,7 @@ function showTooltip(event: MouseEvent, chart: Chart): void {
   chart.canvas.style.cursor = hoverTau !== null ? "pointer" : "";
   const rows = phones.map((ph, i) => {
     const tau = emissionTime(ph, hoverT!);
-    const inSong = tau >= 0 && tau <= SONG_END;
+    const inSong = tau >= 0 && tau <= songEnd;
     const factor = dopplerFactor(ph, tau);
     return `<tr><td><span class="wh-swatch" style="background:${COLORS[i]}"></span>${phoneName(i)}</td>` +
            `<td>${fmt(hoverT! - tau, 2)} s</td>` +
@@ -1147,14 +1461,24 @@ function readParams(): void {
   params.distance = Number(distInput.value);
   params.count    = Number(countInput.value);
   params.spacing  = Number(spacingInput.value);
-  speedOut.textContent   = `${params.speed} m/s (${fmt(params.speed / C * 100, params.speed < 15 ? 2 : 1)}% of the speed of sound)`;
+  speedOut.textContent   = `${params.speed} m/s (${fmt(params.speed / C * 100, 1)}% of c)`;
   distOut.textContent    = `${params.distance} m`;
   countOut.textContent   = String(params.count);
   spacingOut.textContent = `${params.spacing} m`;
+  // Spacing means nothing with a single hydrophone.
+  spacingInput.closest("label")!.hidden = params.count === 1;
+  params.surface  = Number(surfaceInput.value);
+  params.floor    = Number(floorInput.value);
+  params.echoes   = echoesSelect.value;
+  surfaceOut.textContent = `${params.surface} m`;
+  floorOut.textContent   = `${params.floor} m`;
+  // Hydrophones can't be deeper than the seafloor; lowering the maximum also lowers the value.
+  depthInput.max  = String(params.floor);
   params.depths   = depthsSelect.value;
   params.depth    = Number(depthInput.value);
   depthOut.textContent   = `${params.depth} m`;
-  depthInput.disabled    = params.depths === "level";
+  depthInput.disabled    = FIXED_DEPTH_LAYOUTS.includes(params.depths as Layout);
+  updateSong();
 }
 
 function rebuildListenOptions(): void {
@@ -1170,12 +1494,22 @@ function rebuildListenOptions(): void {
 // Called when a control changes; `rearrange` is whether it changes where the hydrophones are.
 function onParamsChanged(rearrange: boolean): void {
   const countChanged = params.count !== Number(countInput.value);
+  const oldSong = songEnd;
   readParams();
-  if (rearrange) {
+  // When the song's length changes, the time and the highlighted call move with it, so they stay
+  // at the same point of the whale's track.
+  if (songEnd !== oldSong) {
+    now *= songEnd / oldSong;
+    marked = snapToCall(marked * songEnd / oldSong);
+  }
+  // The single hydrophones on the seafloor or below the surface move with it, unless dragged.
+  if (rearrange || (!phonesMoved && params.depths.startsWith("single"))) {
     placePhones();
     phonesMoved = false;
     resetPhonesButton.hidden = true;
   }
+  // A raised seafloor lifts hydrophones with it, and a lowered surface pushes them down.
+  for (const ph of phones) ph.z = clamp(ph.z, -params.surface, params.floor);
   updateGeometry();
   timeSlider.max = String(tEnd);
   now = Math.min(now, tEnd);
@@ -1184,25 +1518,39 @@ function onParamsChanged(rearrange: boolean): void {
     buildReadout();
   }
   layout(); // The side view's height depends on the depths
-  channelCache.clear();
   invalidateCharts();
   if (playing) startAudio();
 }
 
-for (const input of [speedInput, distInput]) {
+for (const input of [speedInput, distInput, surfaceInput, floorInput, echoesSelect]) {
   input.addEventListener("input", () => onParamsChanged(false));
 }
+// Choosing a layout also sets the number of hydrophones that suits it; it can be changed afterward.
+depthsSelect.addEventListener("input", () => {
+  const count = LAYOUT_COUNTS[depthsSelect.value as Layout];
+  if (count) countInput.value = String(count);
+});
 for (const input of [countInput, spacingInput, depthInput, depthsSelect]) {
   input.addEventListener("input", () => onParamsChanged(true));
 }
 resetPhonesButton.addEventListener("click", () => onParamsChanged(true));
 
-for (const button of document.querySelectorAll<HTMLButtonElement>("[data-wh-speed]")) {
-  button.addEventListener("click", () => {
-    speedInput.value = button.dataset.whSpeed!;
-    onParamsChanged(false);
-  });
-}
+// Each whale preset sets some of the whale's settings; the others keep their values.
+const WHALE_PRESETS: Record<string, [HTMLInputElement, string][]> = {
+  realistic  : [[speedInput, "3"]],
+  fast       : [[speedInput, "250"]],
+  nearSound  : [[speedInput, "1350"]],
+  nearSurface: [[surfaceInput, "20"]],
+  deep       : [[surfaceInput, "800"]],
+};
+const whalePresetSelect = $<HTMLSelectElement>("wh-whale-preset");
+whalePresetSelect.addEventListener("change", () => {
+  const preset = WHALE_PRESETS[whalePresetSelect.value];
+  whalePresetSelect.value = ""; // Back to the prompt, so the same preset can be chosen again
+  if (!preset) return;
+  for (const [el, value] of preset) el.value = value;
+  onParamsChanged(false);
+});
 
 // ⋘──────── Dragging hydrophones ────────⋙
 // In the map, dragging moves a hydrophone horizontally; in the side view, along the array and up
@@ -1211,6 +1559,8 @@ for (const button of document.querySelectorAll<HTMLButtonElement>("[data-wh-spee
 interface Drag { index: number; }
 let drag: Drag | null = null;
 let phonesMoved = false; // Whether any hydrophone has been dragged from where the controls put it
+// Whether the whale is being dragged along its track, which moves the time to when it was there.
+let whaleDrag = false;
 
 // Screen position of a hydrophone in each view, and the inverse.
 const views = {
@@ -1225,18 +1575,25 @@ const views = {
       ph.x = clamp((px - ox) / scale, -20000, 20000);
       ph.y = clamp((oy - py) / scale, -20000, 20000);
     },
+    whaleScreen: (): [number, number] => {
+      const { scale, ox, oy } = mapView();
+      return [ox + whaleX(now) * scale, oy - params.distance * scale];
+    },
+    trackX: (px: number) => (px - mapView().ox) / mapView().scale,
   },
   side: {
     canvas: sideCanvas,
     toScreen: (ph: Phone): [number, number] => {
       const scale = sideScale();
-      return [sideWidth / 2 + ph.x * scale, SIDE_TOP + ph.z * scale];
+      return [sideWidth / 2 + ph.x * scale, sideZ(ph.z, scale)];
     },
     moveTo: (ph: Phone, px: number, py: number) => {
       const scale = sideScale();
       ph.x = clamp((px - sideWidth / 2) / scale, -20000, 20000);
-      ph.z = clamp((py - SIDE_TOP) / scale, 0, 5000);
+      ph.z = clamp((py - SIDE_TOP) / scale - params.surface, -params.surface, params.floor);
     },
+    whaleScreen: (): [number, number] => [sideWidth / 2 + whaleX(now) * sideScale(), sideZ(0, sideScale())],
+    trackX: (px: number) => (px - sideWidth / 2) / sideScale(),
   },
 };
 
@@ -1250,7 +1607,6 @@ function onPhonesMoved(dropped: boolean): void {
   updateGeometry();
   timeSlider.max = String(tEnd);
   now = Math.min(now, tEnd);
-  channelCache.clear();
   invalidateCharts();
   if (dropped) {
     layout();
@@ -1272,9 +1628,25 @@ for (const view of Object.values(views)) {
     }
     return null;
   };
+  // Whether the whale is under the pointer. It can be dragged only while it swims.
+  const onWhale = (px: number, py: number): boolean => {
+    const [x, y] = view.whaleScreen();
+    return params.speed > 0 && Math.abs(px - x) <= 26 && Math.abs(py - y) <= 14;
+  };
+  // Moves the time to when the whale was at the pointer's position along its track.
+  const dragWhaleTo = (px: number) => seek(cpaTime + view.trackX(px) / params.speed);
   canvas.addEventListener("pointerdown", e => {
     const index = phoneAt(...pointer(e));
-    if (index === null) return;
+    if (index === null) {
+      if (!onWhale(...pointer(e))) return;
+      // Dragging the whale scrubs through time, so playback pauses.
+      if (playing) setPlaying(false);
+      whaleDrag = true;
+      canvas.setPointerCapture(e.pointerId);
+      canvas.style.cursor = "grabbing";
+      e.preventDefault();
+      return;
+    }
     frozenMapView = mapView();
     frozenSideScale = sideScale();
     drag = { index };
@@ -1283,14 +1655,23 @@ for (const view of Object.values(views)) {
     e.preventDefault();
   });
   canvas.addEventListener("pointermove", e => {
+    if (whaleDrag) {
+      dragWhaleTo(pointer(e)[0]);
+      return;
+    }
     if (!drag) {
-      canvas.style.cursor = phoneAt(...pointer(e)) === null ? "" : "grab";
+      canvas.style.cursor = phoneAt(...pointer(e)) !== null || onWhale(...pointer(e)) ? "grab" : "";
       return;
     }
     view.moveTo(phones[drag.index], ...pointer(e));
     onPhonesMoved(false);
   });
   const drop = () => {
+    if (whaleDrag) {
+      whaleDrag = false;
+      canvas.style.cursor = "";
+      return;
+    }
     if (!drag) return;
     drag = null;
     frozenMapView = null;
@@ -1314,7 +1695,6 @@ for (const select of [leftSelect, rightSelect]) {
 patternSelect.addEventListener("change", () => {
   setPattern(patternSelect.value);
   marked = snapToCall(marked);
-  channelCache.clear();
   invalidateCharts();
   if (playing) startAudio();
 });
@@ -1347,16 +1727,118 @@ document.addEventListener("keydown", e => {
 });
 
 new ResizeObserver(() => { layout(); render(); }).observe(mapCanvas.parentElement!);
+// Entering or leaving full screen changes how tall the plots should be. The 3D view's height is
+// reset first so that it doesn't keep the full-screen height when measured.
+document.addEventListener("fullscreenchange", () => {
+  view3dCanvas.style.height = "";
+  requestAnimationFrame(() => { layout(); render(); });
+});
+
+// ⋘──────── Saved state ────────⋙
+// The controls, dragged hydrophones, highlighted call, current time, and 3D view angles are saved
+// in this browser, so a refreshed page comes back as it was left (but paused), along with the
+// speaker choices.
+
+const STATE_KEY = "hydrophone-array-state";
+const SAVED_CONTROLS = [
+  patternSelect, speedInput, distInput, countInput, spacingInput, depthsSelect, floorInput,
+  depthInput, echoesSelect, surfaceInput, rateSelect,
+];
+
+interface SavedState {
+  controls: Record<string, string>;
+  loop    : boolean;
+  speakers: { left: string; right: string };
+  phones  : Phone[] | null; // Only when dragged; otherwise they're placed from the controls
+  marked  : number;
+  now     : number;
+  view3d  : { yaw: number; pitch: number };
+}
+
+let saveTimer = 0;
+function saveState(): void {
+  clearTimeout(saveTimer);
+  saveTimer = window.setTimeout(saveNow, 300);
+}
+function saveNow(): void {
+  const state: SavedState = {
+    controls: Object.fromEntries(SAVED_CONTROLS.map(el => [el.id, el.value])),
+    loop: loopInput.checked,
+    speakers: { left: leftSelect.value, right: rightSelect.value },
+    phones: phonesMoved ? phones.map(ph => ({ ...ph })) : null,
+    marked, now, view3d: { ...view3d },
+  };
+  saveJSON(STATE_KEY, state);
+}
+
+// Restores the saved state, checking each part, since it may come from an older version of the page.
+function restoreState(): void {
+  const saved = loadJSON<Partial<SavedState>>(STATE_KEY);
+  if (!saved) return;
+  const finite = (x: unknown): x is number => typeof x === "number" && Number.isFinite(x);
+  // The floor comes before the depth, since it sets the depth slider's maximum.
+  for (const el of SAVED_CONTROLS) {
+    const value = saved.controls?.[el.id];
+    if (typeof value !== "string") continue;
+    if (el instanceof HTMLSelectElement && !Array.from(el.options).some(o => o.value === value)) continue;
+    if (el === depthInput) depthInput.max = floorInput.value;
+    el.value = value;
+  }
+  if (typeof saved.loop === "boolean") loopInput.checked = saved.loop;
+  setPattern(patternSelect.value);
+  readParams();
+  placePhones();
+  const savedPhones = saved.phones;
+  if (Array.isArray(savedPhones) && savedPhones.length === params.count
+      && savedPhones.every(ph => finite(ph?.x) && finite(ph?.y) && finite(ph?.z))) {
+    phones = savedPhones.map(ph => ({ x: ph.x, y: ph.y, z: clamp(ph.z, -params.surface, params.floor) }));
+    phonesMoved = true;
+    resetPhonesButton.hidden = false;
+  }
+  if (finite(saved.marked)) marked = saved.marked;
+  if (finite(saved.now)) now = Math.max(0, saved.now);
+  if (finite(saved.view3d?.yaw) && finite(saved.view3d?.pitch)) {
+    view3d.yaw = saved.view3d.yaw;
+    view3d.pitch = clamp(saved.view3d.pitch, -PITCH_LIMIT, PITCH_LIMIT);
+  }
+}
+
+// Restores the speakers once their options (one per hydrophone) exist. Playback still waits for a
+// click, since browsers don't let a page start sound on its own.
+function restoreSpeakers(): void {
+  const saved = loadJSON<Partial<SavedState>>(STATE_KEY)?.speakers;
+  for (const [select, value] of [[leftSelect, saved?.left], [rightSelect, saved?.right]] as const) {
+    if (typeof value === "string" && Array.from(select.options).some(o => o.value === value)) select.value = value;
+  }
+}
+
+// Saves after any change to a control or a click or drag in a view; the time while playing is
+// saved when the page is left.
+const whaleRoot = playButton.closest(".whale")!;
+for (const type of ["input", "change", "pointerup", "click"]) whaleRoot.addEventListener(type, saveState);
+window.addEventListener("pagehide", saveNow);
+document.addEventListener("visibilitychange", () => { if (document.hidden) saveNow(); });
+
+// ⋘──────── Help and pinning ────────⋙
+
+setupHelp("wh");
+const PIN_KEY = "hydrophone-array-pinned-panels";
+const panels = setupPanels("wh", () =>
+  saveJSON(PIN_KEY, panels.list.map((p, i) => (panels.isPinned(p) ? i : -1)).filter(i => i >= 0)));
+for (const i of loadJSON<number[]>(PIN_KEY) ?? []) if (panels.list[i]) panels.setPinned(panels.list[i], true);
 
 // ⋘──────── Start ────────⋙
 
 setPattern(patternSelect.value);
-marked = snapToCall(marked);
 readParams();
 placePhones();
+restoreState();
+marked = snapToCall(marked);
 updateGeometry();
 timeSlider.max = String(tEnd);
+now = Math.min(now, tEnd);
 rebuildListenOptions();
+restoreSpeakers();
 buildReadout();
 layout();
 requestAnimationFrame(frame);
