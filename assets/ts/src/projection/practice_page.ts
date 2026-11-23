@@ -7,11 +7,11 @@
 // lines of best fit. The math is in practice_math.ts.
 
 import { Stage } from "../common/practice";
-import { Step, StepPractice, Verdict, exact, parseAll, setupStepPractice } from "../common/step_practice";
+import { Step, StepPractice, Verdict, exact, parseAll, setupStepPractice, yesNo } from "../common/step_practice";
 import { Fraction, equals, isZero } from "../matrix/fraction";
 import { FMat, FVec, fdot, fsub, isZeroVec, rref } from "../matrix/linalg";
 import {
-  KINDS, Kind, Problem, URL_KEYS, hasProblem, augTex, combo, decodeProblem, encodeProblem, fracTex, fromCols, gramSchmidt2,
+  KINDS, Kind, Problem, URL_KEYS, familyOf, hasProblem, augTex, combo, decodeProblem, encodeProblem, fracTex, fromCols, gramSchmidt2,
   ipExpand, lineTex, matTex, matVec, normSq, normSqExpand, normalSolution, parenTex, projCoeff, randomProblem, rankOf,
   ratioTex, slashTex, sqrtTex, vecTex,
 } from "./practice_math";
@@ -197,9 +197,33 @@ function stepGramSchmidt(v1: FVec, v2: FVec, prereqs: number[]): Step {
 
 interface LsqNames { A: string; b: string; x: string }
 
+/** Aᵀ, whose rows are the columns of A. At partial support, the student writes it, once per problem. */
+function stepTranspose(cols: FVec[], nm: LsqNames, prereqs: number[]): Step {
+  const A = fromCols(cols), m = A.length, n = cols.length;
+  return {
+    title: `Write the transpose ${$(`${nm.A}\\trans`)}`,
+    intro: `<p>The next steps use ${$(`${nm.A}\\trans`)}, so writing it first can help. This step is optional: you can skip it, and Show doesn't count as a hint.</p>`,
+    groups: [{ type: "mat", rows: n, cols: m, before: $(`${nm.A}\\trans =`) }],
+    answer: cols.flat().map(str),
+    check: exact(cols.flat(), `Row \\(i\\) of ${$(`${nm.A}\\trans`)} is column \\(i\\) of ${$(nm.A)}.`),
+    hints: [
+      `The rows of ${$(`${nm.A}\\trans`)} are the columns of ${$(nm.A)}. ${$(nm.A)} is ${m} × ${n}, so ${$(`${nm.A}\\trans`)} is ${n} × ${m}.`,
+      `Row 1 of ${$(`${nm.A}\\trans`)} is column 1 of ${$(nm.A)}: ${$(`\\begin{bmatrix} ${cols[0].map(fracTex).join(" & ")} \\end{bmatrix}`)}.`,
+    ],
+    worked: $$(`${nm.A} = ${matTex(A)} \\qquad \\Longrightarrow \\qquad ${nm.A}\\trans = ${matTex(cols)}`),
+    prereqs,
+    optional: true,
+  };
+}
+
+/** A matrix of TeX entries. */
+const texMat = (m: string[][]) => `\\begin{bmatrix} ${m.map(row => row.join(" & ")).join(" \\\\ ")} \\end{bmatrix}`;
+
 function stepAtAOf(cols: FVec[], nm: LsqNames, prereqs: number[]): Step {
   const A = fromCols(cols), n = cols.length;
   const AtA: FMat = cols.map(a => cols.map(c => fdot(a, c)));
+  // Each entry as the sum of products, as in an inner product.
+  const expanded = texMat(cols.map(a => cols.map(c => ipExpand(a, c))));
   return {
     title: `Compute ${$(`${nm.A}\\trans ${nm.A}`)}`,
     groups: [{ type: "mat", rows: n, cols: n, before: $(`${nm.A}\\trans ${nm.A} =`) }],
@@ -209,13 +233,14 @@ function stepAtAOf(cols: FVec[], nm: LsqNames, prereqs: number[]): Step {
       `Entry \\((i, j)\\) of ${$(`${nm.A}\\trans ${nm.A}`)} is the inner product of column \\(i\\) and column \\(j\\) of ${$(nm.A)}. So ${$(`${nm.A}\\trans ${nm.A}`)} is symmetric, and its diagonal entries are the squared lengths of the columns.`,
       `${$(`${nm.A}\\trans ${nm.A} = ${matTex(cols)} ${matTex(A)}`)}.`,
     ],
-    worked: $$(`${nm.A}\\trans ${nm.A} = ${matTex(cols)} ${matTex(A)} = ${matTex(AtA)}`),
+    worked: $$(`${nm.A}\\trans ${nm.A} = \\underbrace{${matTex(cols)}}_{${nm.A}\\trans} \\underbrace{${matTex(A)}}_{${nm.A}} = ${expanded} = ${matTex(AtA)}`),
     prereqs,
   };
 }
 
 function stepAtbOf(cols: FVec[], b: FVec, nm: LsqNames, prereqs: number[]): Step {
   const Atb = cols.map(a => fdot(a, b));
+  const expanded = texMat(cols.map(a => [ipExpand(a, b)]));
   return vecStep(
     `Compute ${$(`${nm.A}\\trans ${nm.b}`)}`,
     $(`${nm.A}\\trans ${nm.b} =`),
@@ -224,14 +249,14 @@ function stepAtbOf(cols: FVec[], b: FVec, nm: LsqNames, prereqs: number[]): Step
       `Entry \\(i\\) of ${$(`${nm.A}\\trans ${nm.b}`)} is the inner product of column \\(i\\) of ${$(nm.A)} with ${$(nm.b)}.`,
       `${$(`${nm.A}\\trans ${nm.b} = ${matTex(cols)} ${vecTex(b)}`)}.`,
     ],
-    $$(`${nm.A}\\trans ${nm.b} = ${matTex(cols)} ${vecTex(b)} = ${vecTex(Atb)}`),
+    $$(`${nm.A}\\trans ${nm.b} = \\underbrace{${matTex(cols)}}_{${nm.A}\\trans} \\underbrace{${vecTex(b)}}_{${nm.b}} = ${expanded} = ${vecTex(Atb)}`),
     prereqs,
   );
 }
 
 /** A link to practice a row reduction (on the Gaussian elimination page). */
 function practiceLink(aug: FMat): string {
-  const base = (window as { GAUSSIAN_PRACTICE_URL?: string }).GAUSSIAN_PRACTICE_URL ?? "/tools/gaussian_elimination_practice/";
+  const base = (typeof window === "undefined" ? undefined : (window as { GAUSSIAN_PRACTICE_URL?: string }).GAUSSIAN_PRACTICE_URL) ?? "/tools/gaussian_elimination_practice/";
   return `<a href="${base}?m=${aug.map(r => r.map(str).join(",")).join(";")}" target="_blank" rel="noopener">practice this row reduction</a>`;
 }
 
@@ -281,7 +306,16 @@ function stepAxOf(cols: FVec[], b: FVec, nm: LsqNames, prereqs: number[]): Step 
     p,
     [`Multiply ${$(nm.A)} by ${$(`${nm.x}_*`)}: entry \\(i\\) is row \\(i\\) of ${$(nm.A)} times ${$(`${nm.x}_*`)}.`],
     $$(`${nm.A}${nm.x}_* = ${matTex(A)} ${vecTex(xstar)} = ${vecTex(p)}`)
-      + `<p>This is the point of ${$(`\\colspace{${nm.A}}`)} closest to ${$(nm.b)}: ${$(`${nm.A}${nm.x}_* = \\operatorname{proj}_{\\colspace{${nm.A}}} ${nm.b}`)}.</p>`,
+      + `<p>Why ${$(`${nm.A}${nm.x}_*`)} is the projection of ${$(nm.b)} onto ${$(`\\colspace{${nm.A}}`)}:</p>`
+      + `<ul><li>${$(`${nm.A}${nm.x}_*`)} is a linear combination of the columns of ${$(nm.A)}, so ${$(`${nm.A}${nm.x}_*`)} is in ${$(`\\colspace{${nm.A}}`)}.</li>`
+      + `<li>${$(`${nm.x}_*`)} solves the normal equation ${$(`${nm.A}\\trans ${nm.A} ${nm.x}_* = ${nm.A}\\trans ${nm.b}`)}, so</li></ul>`
+      + $$(`${nm.A}\\trans (${nm.b} - ${nm.A}${nm.x}_*) = ${nm.A}\\trans ${nm.b} - ${nm.A}\\trans ${nm.A} ${nm.x}_* = \\vect{0}.`)
+      + `<p>Entry \\(i\\) of ${$(`${nm.A}\\trans (${nm.b} - ${nm.A}${nm.x}_*)`)} is the inner product of column \\(i\\) of ${$(nm.A)} with ${$(`${nm.b} - ${nm.A}${nm.x}_*`)}.
+        So ${$(`${nm.b} - ${nm.A}${nm.x}_*`)} is orthogonal to every column of ${$(nm.A)}, and so to ${$(`\\colspace{${nm.A}}`)}.
+        Then ${$(`${nm.b} = ${nm.A}${nm.x}_* + (${nm.b} - ${nm.A}${nm.x}_*)`)} writes ${$(nm.b)} as a vector in ${$(`\\colspace{${nm.A}}`)} plus a vector orthogonal to ${$(`\\colspace{${nm.A}}`)}.
+        There is only one way to do that, and its first part is the projection:</p>`
+      + $$(`${nm.A}${nm.x}_* = \\operatorname{proj}_{\\colspace{${nm.A}}} ${nm.b}.`)
+      + `<p>So ${$(`${nm.A}${nm.x}_*`)} is the point of ${$(`\\colspace{${nm.A}}`)} closest to ${$(nm.b)}.</p>`,
     prereqs,
   );
 }
@@ -307,15 +341,27 @@ const pointList = (xs: FVec, ys: FVec) => xs.map((x, i) => $(`(${slashTex(x)}, $
 
 function stepDesignMatrix(xs: FVec, ys: FVec): Step {
   const A = fromCols([xs.map(() => ({ num: 1n, den: 1n })), xs]);
+  const expected = [...A.flat(), ...ys];
+  const nA = A.flat().length;
   const equations = xs.map((x, i) => `c_0 + ${parenTex(x)} c_1 &= ${fracTex(ys[i])}`).join(" \\\\ ");
   return {
-    title: `Write the matrix \\(A\\) of the system ${$("A\\vect{c} = \\vect{y}")}`,
+    title: `Write the matrix \\(A\\) and the vector ${$("\\vect{y}")} of the system ${$("A\\vect{c} = \\vect{y}")}`,
     intro: `<p>Each data point ${$("(x_i, y_i)")} gives one equation ${$("c_0 + c_1 x_i = y_i")} for the unknowns ${$("\\vect{c} = (c_0, c_1)")}.</p>`,
-    groups: [{ type: "mat", rows: xs.length, cols: 2, before: $("A =") }],
-    answer: A.flat().map(str),
-    check: exact(A.flat(), `Row \\(i\\) of \\(A\\) holds the coefficients of ${$("c_0")} and ${$("c_1")} in the equation for point \\(i\\).`),
+    groups: [
+      { type: "mat", rows: xs.length, cols: 2, before: $("A =") },
+      { type: "vec", n: ys.length, before: $("\\vect{y} =") },
+    ],
+    answer: expected.map(str),
+    check(values) {
+      const marks = parseAll(values).map((g, i) => g !== null && equals(g, expected[i]));
+      if (marks.every(Boolean)) return { ok: true, marks };
+      const messages: string[] = [];
+      if (!marks.slice(0, nA).every(Boolean)) messages.push(`Row \\(i\\) of \\(A\\) holds the coefficients of ${$("c_0")} and ${$("c_1")} in the equation for point \\(i\\).`);
+      if (!marks.slice(nA).every(Boolean)) messages.push(`Entry \\(i\\) of ${$("\\vect{y}")} is the right side of the equation for point \\(i\\).`);
+      return { ok: false, marks, message: messages.join(" ") };
+    },
     hints: [
-      `Row \\(i\\) of \\(A\\) is ${$("\\begin{bmatrix} 1 & x_i \\end{bmatrix}")}: the coefficient of ${$("c_0")} is 1, and the coefficient of ${$("c_1")} is ${$("x_i")}.`,
+      `Row \\(i\\) of \\(A\\) is ${$("\\begin{bmatrix} 1 & x_i \\end{bmatrix}")}: the coefficient of ${$("c_0")} is 1, and the coefficient of ${$("c_1")} is ${$("x_i")}. Entry \\(i\\) of ${$("\\vect{y}")} is ${$("y_i")}, the height of point \\(i\\).`,
     ],
     worked: $$(`\\left\\{ \\begin{aligned} ${equations} \\end{aligned} \\right. \\qquad \\Longrightarrow \\qquad \\underbrace{${matTex(A)}}_{A} \\begin{bmatrix} c_0 \\\\ c_1 \\end{bmatrix} = \\underbrace{${vecTex(ys)}}_{\\vect{y}}`)
       + `<p>The data points aren't on one line, so this system has no solution, and the line of best fit is its least squares solution.</p>`,
@@ -330,7 +376,7 @@ function stepLine(cols: FVec[], ys: FVec, prereqs: number[]): Step {
     title: `Solve the normal equation ${$("A\\trans A \\vect{c} = A\\trans \\vect{y}")} for the line`,
     groups: [
       { type: "scalar", before: $("y ="), after: $("+") },
-      { type: "scalar", after: $("x") },
+      { type: "scalar", after: $("x"), joined: true },
     ],
     answer: [str(c0), str(c1)],
     check(values) {
@@ -355,8 +401,59 @@ function stepLine(cols: FVec[], ys: FVec, prereqs: number[]): Step {
   };
 }
 
+// ⋘──────── Steps: checking against the plot ────────⋙
+
+/**
+ * Whether the problem gets a step that compares the answer with the plot: only flat (2D) plots, since
+ * reading values from a 3D plot is hard. A line fit is drawn in the plane, whatever the number of points.
+ */
+const hasPicture = (p: Problem) => familyOf(p.kind) === "fit" || p.target.length === 2;
+
+/**
+ * The last step: compare the answer with the picture, where the page draws the answer (without its
+ * values) until the steps are finished.
+ */
+function stepPlotCheck(p: Problem, prereqs: number[]): Step {
+  const family = familyOf(p.kind);
+  const { xstar, p: proj } = normalSolution(p.cols, p.target);
+  let what: string, question: string, hints: string[], worked: string;
+  if (family === "fit") {
+    const [c0, c1] = xstar;
+    what = `The plot draws the line of best fit (blue), as the page computed it, without its equation.`;
+    question = "Is your line close to the blue line in the plot?";
+    hints = [`On your line, ${$(`y = ${slashTex(c0)}`)} at ${$("x = 0")}, and \\(y\\) changes by ${$(slashTex(c1))} for each step of 1 to the right. Read the same values from the blue line, using the labels on the axes.`];
+    worked = `<p>The blue line is ${$(`y = ${lineTex(c0, c1)}`)}: at ${$("x = 0")} its height is ${$(slashTex(c0))}, and its slope is ${$(slashTex(c1))}.</p>`;
+  } else if (p.kind === "lsq") {
+    what = `The plot draws ${$("A\\vect{x}_*")} (vermillion) as the page computed it, reached from the origin by the dashed arrows ${$("x_1 \\vect{a}_1")} and then ${$("x_2 \\vect{a}_2")}, along the columns of \\(A\\).`;
+    question = `Does each dashed arrow look like your entry of ${$("\\vect{x}_*")} times its column?`;
+    hints = [`Compare the length of each dashed arrow with the length of its column ${$("\\vect{a}_i")}: the ratio is ${$("|x_i|")}, and the arrow points the opposite way when ${$("x_i")} is negative.`];
+    worked = `<p>With ${$(`\\vect{x}_* = ${vecTex(xstar)}`)}, the dashed arrows are ${xstar.map((c, i) => $(`${parenTex(c)} \\vect{a}_{${i + 1}}`)).join(" and ")}, and they end at ${$(`A\\vect{x}_* = ${vecTex(proj)}`)}.</p>`;
+  } else {
+    const name = family === "proj" ? "\\vect{p}" : "A\\vect{x}_*";
+    what = `The plot draws the projection ${$(name)} (vermillion) as the page computed it, without its values.`;
+    question = `Is your projection close to the tip of ${$(name)} in the plot?`;
+    hints = [`Read the coordinates of the tip of ${$(name)} from the labels on the axes, and compare them with the entries you found.`];
+    worked = `<p>The tip of ${$(name)} in the plot is at ${$(vecTex(proj))}, the projection found above.</p>`;
+  }
+  return {
+    title: "Compare your answer with the plot",
+    intro: `<p>${what} Your answer should match it.</p>`,
+    groups: [{ type: "yesno", before: question }],
+    answer: ["yes"],
+    check: values => (yesNo(values[0]) === "yes"
+      ? { ok: true }
+      : { ok: false, message: "Your answer is right, so the plot should match it. Look again, more closely: read the values from the labels on the axes." }),
+    hints,
+    worked,
+    prereqs,
+    final: true,
+    autoCheck: "yes",
+  };
+}
+
 // At partial support, the page works the arithmetic (inner products, AᵀA, Aᵀb, and Ax*) and the
-// student works the main steps.
+// student works the main steps (including Aᵀ, once). At the last level, the student works the whole
+// problem by hand and enters only the answers (the steps marked with `answer`).
 const partial = (step: Step): Step => ({ ...step, given: 2 });
 const stepIp = (...a: Parameters<typeof stepIpOf>) => partial(stepIpOf(...a));
 const stepAtA = (...a: Parameters<typeof stepAtAOf>) => partial(stepAtAOf(...a));
@@ -386,7 +483,20 @@ function statementHtml(p: Problem): string {
   }
 }
 
-function buildSteps(p: Problem): Step[] {
+/** An answer to the problem: at the last support level, the student enters only these. */
+const answer = (step: Step): Step => ({ ...step, final: true });
+
+/** Whether problems end with the step that compares the answer with the plot (hidden for now). */
+export const PLOT_CHECK = false;
+
+/** The steps, then (when the problem is drawn, and plotCheck is set) the comparison with the plot. */
+export function buildSteps(p: Problem, plotCheck = PLOT_CHECK): Step[] {
+  const steps = buildWorkSteps(p);
+  if (plotCheck && hasPicture(p)) steps.push(stepPlotCheck(p, [steps.length - 1]));
+  return steps;
+}
+
+function buildWorkSteps(p: Problem): Step[] {
   const { cols, target: x } = p;
   const lsqNames: LsqNames = { A: "A", b: "\\vect{b}", x: "\\vect{x}" };
   switch (p.kind) {
@@ -396,10 +506,10 @@ function buildSteps(p: Problem): Step[] {
       const steps = [
         stepIp(x, v, X, "\\vect{v}", []),
         stepIp(v, v, "\\vect{v}", "\\vect{v}", []),
-        stepProjOntoVector(x, v, [0, 1]),
+        answer(stepProjOntoVector(x, v, [0, 1])),
       ];
       if (p.kind === "projline") {
-        steps.push(stepOrthComponent(x, combo([projCoeff(x, v)], [v]), [v], ["\\vect{v}"], "\\operatorname{proj}_{\\vect{v}} \\vect{x}", [2]));
+        steps.push(answer(stepOrthComponent(x, combo([projCoeff(x, v)], [v]), [v], ["\\vect{v}"], "\\operatorname{proj}_{\\vect{v}} \\vect{x}", [2])));
       }
       return steps;
     }
@@ -409,8 +519,8 @@ function buildSteps(p: Problem): Step[] {
         stepIp(v1, v2, VS[0], VS[1], [], `<p>The spanning vectors are orthogonal, so they are an orthogonal basis of \\(W\\), and the projection onto \\(W\\) is the sum of the projections onto ${$(VS[0])} and ${$(VS[1])}.</p>`),
         stepCoeff(x, v1, VS[0], "c_1", [0]),
         stepCoeff(x, v2, VS[1], "c_2", [0]),
-        stepPlaneProj(x, [v1, v2], VS, [1, 2]),
-        stepOrthComponent(x, combo([projCoeff(x, v1), projCoeff(x, v2)], [v1, v2]), [v1, v2], VS, "\\operatorname{proj}_W \\vect{x}", [3]),
+        answer(stepPlaneProj(x, [v1, v2], VS, [1, 2])),
+        answer(stepOrthComponent(x, combo([projCoeff(x, v1), projCoeff(x, v2)], [v1, v2]), [v1, v2], VS, "\\operatorname{proj}_W \\vect{x}", [3])),
       ];
     }
     case "projgs": {
@@ -422,30 +532,33 @@ function buildSteps(p: Problem): Step[] {
         stepGramSchmidt(v1, v2, [0]),
         stepCoeff(x, v1, U[0], "c_1", [1], `<p>Here ${$(`\\vect{u}_1 = \\vect{v}_1 = ${vecTex(v1)}`)}.</p>`),
         stepCoeff(x, u2, U[1], "c_2", [1], `<p>Use ${$(`\\vect{u}_2 = ${vecTex(u2)}`)}. (A multiple of it gives the same projection.)</p>`),
-        stepPlaneProj(x, [v1, u2], U, [2, 3]),
+        answer(stepPlaneProj(x, [v1, u2], U, [2, 3])),
       ];
     }
     case "lsq":
       return [
+        stepTranspose(cols, lsqNames, []),
         stepAtA(cols, lsqNames, []),
         stepAtb(cols, x, lsqNames, []),
-        stepSolveNormal(cols, x, lsqNames, [0, 1]),
+        answer(stepSolveNormal(cols, x, lsqNames, [1, 2])),
       ];
     case "lsqres":
       return [
+        stepTranspose(cols, lsqNames, []),
         stepAtA(cols, lsqNames, []),
         stepAtb(cols, x, lsqNames, []),
-        stepSolveNormal(cols, x, lsqNames, [0, 1]),
-        stepAx(cols, x, lsqNames, [2]),
-        stepResidual(cols, x, lsqNames, [3]),
+        answer(stepSolveNormal(cols, x, lsqNames, [1, 2])),
+        answer(stepAx(cols, x, lsqNames, [3])),
+        answer(stepResidual(cols, x, lsqNames, [4])),
       ];
     case "fitline": {
       const fitNames: LsqNames = { A: "A", b: "\\vect{y}", x: "\\vect{c}" };
       return [
         stepDesignMatrix(p.xs!, x),
+        stepTranspose(cols, fitNames, [0]),
         stepAtA(cols, fitNames, [0]),
         stepAtb(cols, x, fitNames, [0]),
-        stepLine(cols, x, [1, 2]),
+        answer(stepLine(cols, x, [2, 3])),
       ];
     }
   }
@@ -472,7 +585,7 @@ export function setupPracticePage(hooks: PracticeHooks): StepPractice<Problem> {
     buildSteps,
     levels: {
       names: ["Full", "Partial", "None"],
-      descriptions: ["The page works every step: a worked example", "The page does the arithmetic; you do the main steps", "You calculate every value"],
+      descriptions: ["The page works every step: a worked example", "The page does the arithmetic; you do the main steps", "Solve the whole problem by hand, then enter the answers"],
       helpText: "#pl-help-support",
     },
     noStepsHtml: NO_STEPS,

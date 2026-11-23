@@ -14,7 +14,9 @@
 //
 // Support levels (shown as "Support"): at the first level the page works every step, as a worked
 // example; at each later level it works fewer (each step's `given` is the last level at which the
-// page works it); at the last level the student works every step.
+// page works it). At the last level the student works the whole problem by hand, on paper, and
+// enters only the answers (the steps marked `final`); the other steps stay hidden until the answers
+// are finished, and then the page shows them, worked.
 //
 // A page can show the problem somewhere else too (such as in a visualizer): `onLoad` tells it when
 // this code loads a problem, `show` loads a problem the student designed there, and `onStatus` tells
@@ -29,7 +31,7 @@ import { Fraction, equals, parseEntry } from "../matrix/fraction";
 // ⋘──────── Steps ────────⋙
 
 export type Group =
-  | { type: "scalar"; before?: string; after?: string; whenYes?: boolean }
+  | { type: "scalar"; before?: string; after?: string; whenYes?: boolean; joined?: boolean }  // joined: close to the group before it, as one expression
   | { type: "vec"; n: number; before?: string; after?: string }
   | { type: "mat"; rows: number; cols: number; before?: string; after?: string }
   | { type: "yesno"; before?: string };
@@ -48,6 +50,9 @@ export interface Step {
   prereqs: number[];                      // Steps that must be right or shown first
   shownNote?: string;                     // Added to "The answer is filled in", such as "(other multiples are right too)"
   given?: number;                         // The last support level at which the page works this step (default 1)
+  final?: boolean;                        // An answer to the problem, entered at the last level (by hand)
+  autoCheck?: "yes" | "no";               // Choosing this in a Yes/No box checks the step, without Check
+  optional?: boolean;                     // Can be skipped: no step waits for it, the problem is finished without it, and Show isn't a hint
 }
 
 export const parseAll = (values: string[]) => values.map(v => parseEntry(v));
@@ -78,6 +83,26 @@ function element<K extends keyof HTMLElementTagNameMap>(tag: K, className = "", 
   if (className) e.className = className;
   if (html) e.innerHTML = html;
   return e;
+}
+
+// The note at the top of the last support level (by hand), which names the hidden steps by their
+// 0-based indices, such as [0, 1, 2] → "Steps 1–3 are hidden until your answers are finished."
+export function byHandNote(hidden: number[]): string {
+  const runs: string[] = [];
+  for (let i = 0; i < hidden.length; ) {
+    let j = i;
+    while (j + 1 < hidden.length && hidden[j + 1] === hidden[j] + 1) j++;
+    const [a, b] = [hidden[i] + 1, hidden[j] + 1];
+    if (b === a) runs.push(`${a}`);
+    else if (b === a + 1) runs.push(`${a}`, `${b}`);
+    else runs.push(`${a}–${b}`);
+    i = j + 1;
+  }
+  const list = runs.length <= 2 ? runs.join(" and ") : `${runs.slice(0, -1).join(", ")}, and ${runs[runs.length - 1]}`;
+  const one = runs.length === 1 && !list.includes("–");
+  const hiddenText = hidden.length === 0 ? ""
+    : ` ${one ? "Step" : "Steps"} ${list} ${one ? "is" : "are"} hidden until your answers are finished.`;
+  return "Work the whole problem by hand, on paper, then enter only the answers below." + hiddenText;
 }
 
 // ⋘──────── The page ────────⋙
@@ -226,9 +251,15 @@ export function setupStepPractice<P, K extends string>(o: StepPracticeOptions<P,
     saveJSON(WORKS_KEY, all);
   };
 
+  // At the last level (with more than one), the student works on paper and enters only the answers.
+  const byHand = () => levelCount > 1 && level === levelCount;
+  // A step that isn't an answer, hidden at the last level until the answers are finished.
+  const hiddenByHand = (s: number) => byHand() && !steps[s].final;
   // A step the page works at this level: filled in, with its worked solution.
-  const given = (s: number) => level <= (steps[s].given ?? 1);
-  const isDone = (s: number) => given(s) || work.status[s] !== "";
+  const given = (s: number) => level <= (steps[s].given ?? 1) || hiddenByHand(s);
+  // A step the page works is done once the steps it uses are (so it waits for a step the student
+  // works, such as Aᵀ before AᵀA, and the steps after it wait too).
+  const isDone = (s: number): boolean => work.status[s] !== "" || (given(s) && steps[s].prereqs.every(isDone));
   const unlocked = (s: number) => steps[s].prereqs.every(isDone);
 
   // ⋘──────── Building the steps ────────⋙
@@ -252,7 +283,7 @@ export function setupStepPractice<P, K extends string>(o: StepPracticeOptions<P,
   }
 
   function buildGroup(g: Group, s: number, gi: number): HTMLElement {
-    const wrap = element("span", "sp-entry-group");
+    const wrap = element("span", g.type === "scalar" && g.joined ? "sp-entry-group sp-joined" : "sp-entry-group");
     if (g.before) wrap.append(element("span", "sp-entry-label", g.before));
     const plain = (html: string) => html.replace(/<[^>]+>/g, "").replace(/\\\(|\\\)|\\vect\{(\w)\}|\\/g, (_m, v) => v ?? "");
     const label = plain(g.before ?? steps[s].title);
@@ -295,6 +326,7 @@ export function setupStepPractice<P, K extends string>(o: StepPracticeOptions<P,
           work.entries[s] = inputs[s].map(i => i.value);
           saveWork();
           updateButtons(s);
+          if (steps[s].autoCheck === value && !checkButtons[s].disabled) check(s);
         });
         option.append(radio, element("span", "", value === "yes" ? "Yes" : "No"));
         box.append(option);
@@ -318,7 +350,7 @@ export function setupStepPractice<P, K extends string>(o: StepPracticeOptions<P,
     cards = []; feedbacks = []; hintBoxes = []; workedBoxes = []; checkButtons = []; actionRows = [];
     steps.forEach((step, s) => {
       const card = element("section", "sp-step");
-      card.append(element("h4", "sp-step-title", `Step ${s + 1}. ${step.title}`));
+      card.append(element("h4", "sp-step-title", `Step ${s + 1}. ${step.title}${step.optional ? ` <span class="sp-optional">(optional)</span>` : ""}`));
       if (step.intro) card.append(element("div", "sp-step-intro", step.intro));
       const entries = element("div", "sp-entries");
       step.groups.forEach((g, gi) => entries.append(buildGroup(g, s, gi)));
@@ -327,7 +359,7 @@ export function setupStepPractice<P, K extends string>(o: StepPracticeOptions<P,
       const checkButton = element("button", "sp-primary", "Check");
       checkButton.type = "button";
       checkButton.addEventListener("click", () => check(s));
-      const hintButton = element("button", "", "Hint");
+      const hintButton = element("button", "sp-hint-button", "Hint");
       hintButton.type = "button";
       hintButton.addEventListener("click", () => hint(s));
       const showButton = element("button", "", "Show");
@@ -348,6 +380,10 @@ export function setupStepPractice<P, K extends string>(o: StepPracticeOptions<P,
     });
     moreNote = element("p", "sp-more-steps", "More steps appear as you finish the steps above.");
     stepsBox.append(moreNote);
+    if (byHand() && steps.length > 0) {
+      stepsBox.prepend(element("p", "sp-by-hand-note",
+        byHandNote(steps.map((_, s) => s).filter(hiddenByHand))));
+    }
     if (!problem) stepsBox.innerHTML = o.noStepsHtml ?? "";
     // Restore saved entries and marks, and fill in the steps the page works.
     steps.forEach((step, s) => {
@@ -400,6 +436,14 @@ export function setupStepPractice<P, K extends string>(o: StepPracticeOptions<P,
     const filled = required(s).every(i => i.value.trim() !== "");
     checkButtons[s].disabled = done || !filled;
     for (const b of actionRows[s].querySelectorAll("button")) if (b !== checkButtons[s]) (b as HTMLButtonElement).disabled = done;
+    // Hint says "Next hint" while more hints are left, and is disabled once none are.
+    const hintButton = actionRows[s].querySelector<HTMLButtonElement>(".sp-hint-button");
+    if (hintButton) {
+      const left = work.hintLevel[s] < steps[s].hints.length;
+      hintButton.textContent = work.hintLevel[s] > 0 && left ? "Next hint" : "Hint";
+      hintButton.disabled = done || !left;
+      hintButton.title = !done && !left ? "No more hints for this step" : "";
+    }
     const yes = yesNoBoxes[s][0]?.input.value === "yes";
     inputs[s].forEach(input => {
       const g = steps[s].groups[Number(input.dataset.group)];
@@ -408,16 +452,23 @@ export function setupStepPractice<P, K extends string>(o: StepPracticeOptions<P,
     yesNoBoxes[s].forEach(y => y.radios.forEach(r => { r.disabled = done; }));
   }
 
-  function update(answered = false): void {
+  function update(justAnswered = false): void {
     const changed: Element[] = [];
     let anyHidden = false;
+    // By hand, the steps that aren't answers appear (worked) once the answers are finished.
+    const answered = steps.every((_, s) => isDone(s) || !!steps[s].optional);
+    // The current step: the first one that the student still works. An optional step stops being
+    // current once the student works a step after it (skips it).
+    const skipped = (s: number) => !!steps[s].optional && steps.some((_, t) => t > s && work.status[t] !== "");
+    const current = steps.findIndex((_, s) => !isDone(s) && !skipped(s) && (hiddenByHand(s) ? answered : unlocked(s)));
     steps.forEach((step, s) => {
-      const visible = unlocked(s);
-      if (!visible) anyHidden = true;
+      const visible = hiddenByHand(s) ? answered : unlocked(s);
+      cards[s].classList.toggle("sp-step-current", s === current);
+      if (!visible && !hiddenByHand(s)) anyHidden = true;
       cards[s].hidden = !visible;
       cards[s].classList.toggle("sp-step-right", work.status[s] === "right");
       cards[s].classList.toggle("sp-step-shown", work.status[s] === "shown");
-      const html = isDone(s) ? step.worked : "";
+      const html = isDone(s) || (answered && step.optional) ? step.worked : "";  // A skipped step shows its work at the end
       if (workedBoxes[s].dataset.html !== html) {
         workedBoxes[s].dataset.html = html;
         workedBoxes[s].innerHTML = html;
@@ -431,8 +482,8 @@ export function setupStepPractice<P, K extends string>(o: StepPracticeOptions<P,
     const wrong = work.wrongChecks;
     hintCount.textContent = !hasSteps ? "" : work.hintsUsed === 0 ? "No hints used"
       : `Hints used: ${work.hintsUsed}${wrong > 0 ? ` (including ${wrong} wrong check${wrong === 1 ? "" : "s"})` : ""}`;
-    const finished = hasSteps && steps.every((_, s) => isDone(s));
-    const worked = finished && steps.every((_, s) => given(s));  // A worked example: the page did every step
+    const finished = hasSteps && answered;
+    const worked = finished && !byHand() && steps.every((_, s) => given(s));  // A worked example: the page did every step
     doneBox.hidden = !finished;
     let next: { text: string; label: string; action: () => void } | null = null;
     if (worked) {
@@ -441,12 +492,12 @@ export function setupStepPractice<P, K extends string>(o: StepPracticeOptions<P,
         next = { text: "Ready to work some steps yourself?", label: `Try ${o.levels!.names[1].toLowerCase()} support`, action: () => practice.goToLevel(2) };
       }
     } else if (finished) {
-      const mine = steps.map((_, s) => s).filter(s => !given(s));
+      const mine = steps.map((_, s) => s).filter(s => !given(s) && !steps[s].optional);
       const allRight = mine.every(s => work.status[s] === "right");
       doneText.textContent = allRight
         ? work.hintsUsed === 0 ? "Every step is right, with no hints!" : `Every step is right (hints used: ${work.hintsUsed}).`
         : "All steps are finished. Try another problem to get them right on your own.";
-      practice.record(work.problem, work.hintsUsed, allRight && work.hintsUsed === 0, answered);
+      practice.record(work.problem, work.hintsUsed, allRight && work.hintsUsed === 0, justAnswered);
       next = practice.suggestion();
     }
     doneSuggest.hidden = next === null;
@@ -526,7 +577,7 @@ export function setupStepPractice<P, K extends string>(o: StepPracticeOptions<P,
     inputs[s].forEach((input, i) => { input.value = steps[s].answer[i] ?? ""; });
     syncYesNo(s);
     work.status[s] = "shown";
-    work.hintsUsed++;
+    if (!steps[s].optional) work.hintsUsed++;
     mark(s, "sp-shown");
     feedbacks[s].innerHTML = `<p class="sp-feedback-note">The answer is filled in${steps[s].shownNote ? ` ${steps[s].shownNote}` : ""}.</p>`;
     void typeset([feedbacks[s]]);

@@ -242,6 +242,7 @@ date_added: 2026-11-19
   .ev-step.ev-step-right { border-left-color: #188038; }
   .ev-step.ev-step-shown { border-left-color: #f9ab00; }
   .ev-step.ev-step-given { border-left-color: #1a73e8; }
+  .ev-step.ev-step-current { border-color: rgba(26, 115, 232, 0.45); border-left-color: #1a73e8; background: rgba(26, 115, 232, 0.07); }
   .ev .ev-step h4 { margin: 0 0 0.5rem; font-size: 1em; }
   .ev-step-intro { margin: 0 0 0.6rem; font-size: 0.92em; overflow-x: auto; overflow-y: hidden; }
   /* What the step uses from the problem and earlier steps, repeated so the student doesn't scroll. */
@@ -309,7 +310,10 @@ date_added: 2026-11-19
   .ev-worked { margin: 0.6rem 0 0; font-size: 0.95em; overflow-x: auto; overflow-y: hidden; }
   .ev-worked:empty { display: none; }
   .ev-worked p { margin: 0 0 0.4rem; }
-  .ev .ev-more-steps { margin: 0 0 1rem; font-size: 0.9em; font-style: italic; color: #5f6368; }
+  /* A placeholder card for the steps still to come. */
+  .ev .ev-more-steps { margin: 0 0 1rem; padding: 0.8rem 1rem; border: 1px dashed rgba(128, 128, 128, 0.5); border-left-width: 4px; border-radius: 8px; background: rgba(128, 128, 128, 0.04); font-size: 0.92em; font-style: italic; color: #5f6368; }
+  /* No support: the problem is worked on paper, and only the answers are entered. */
+  .ev .ev-by-hand-note { margin: 0 0 1rem; padding: 0.55rem 0.8rem; border-left: 4px solid #1a73e8; border-radius: 6px; background: rgba(26, 115, 232, 0.06); font-size: 0.92em; }
   .ev-done {
     display: flex;
     flex-wrap: wrap;
@@ -367,7 +371,7 @@ date_added: 2026-11-19
       <strong>Support</strong> sets how much of each problem the page works for you.
       With full support, the page works every step, as a worked example.
       With partial support, the page does the routine calculations (\(A\vect{v}\), \(A - \lambda I\), determinants, the characteristic polynomial, and dimensions), and you do the main steps.
-      With no support, you calculate every value.
+      With no support, you solve the whole problem by hand, on paper, and enter only the answers; the page shows every step once your answers are finished.
     </p>
     <p>
       The picture shows the problem's matrix \(A\) (for a \(2 \times 2\) matrix).
@@ -514,7 +518,7 @@ date_added: 2026-11-19
       <dt>Partial</dt>
       <dd>The page does the routine calculations, such as <em>A</em><strong>v</strong>, <em>A</em> − λ<em>I</em>, determinants, and the characteristic polynomial. You do the main steps.</dd>
       <dt>None</dt>
-      <dd>You calculate every value. The picture still shows the problem, but its eigenvalues and the values of <em>A</em><strong>x</strong> appear only when you finish.</dd>
+      <dd>You solve the whole problem by hand, on paper, and enter only the answers. The page shows every step once your answers are finished. The picture still shows the problem, but its eigenvalues and the values of <em>A</em><strong>x</strong> appear only when you finish.</dd>
     </dl>
   </template>
   <template id="ev-help-kind">

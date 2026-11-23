@@ -671,6 +671,7 @@ function initPage(): void {
       const noteWaiting = answerNotes[s] !== "" && shownNotes[s] !== answerNotes[s];
       const hintsLeft = work.hintLevel[s] < hintLevels(s).length;
       hintButton.disabled = locked || answered || (!noteWaiting && !hintsLeft);
+      hintButton.textContent = work.hintLevel[s] > 0 && hintsLeft ? "Next hint" : "Hint";
       hintButton.title = locked ? "" : answered ? "This step is answered" : !noteWaiting && !hintsLeft ? "No more hints for this step" : "";
     }
     const showButton = card.querySelector<HTMLButtonElement>(".mm-show-button");
@@ -1755,7 +1756,7 @@ function initPage(): void {
     const about = shownNotes[s] ? `<p><strong>About your answer:</strong></p>${shownNotes[s]}` : "";
     hintBoxes[s].hidden = shown.length === 0 && about === "";
     hintBoxes[s].innerHTML = about + shown.map(h => (h.startsWith("<p>") ? h : `<p>${h}</p>`)).join("")
-      + (work.hintLevel[s] < levels.length ? `<p><em>Click Hint again for ${shown.length === 0 ? "a hint" : "a more specific hint"}.</em></p>` : "");
+      + (work.hintLevel[s] < levels.length ? `<p><em>Click ${shown.length === 0 ? "Hint for a hint" : "Next hint for a more specific hint"}.</em></p>` : "");
     void typeset([hintBoxes[s]]);
   }
 

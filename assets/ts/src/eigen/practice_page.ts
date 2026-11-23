@@ -9,9 +9,11 @@
 //
 // Support levels: with full support the page works every step (a worked example); with partial
 // support it works the routine calculations (Av, A − λI, determinants, the characteristic
-// polynomial, and dimensions), and the student does the rest; with none, the student calculates
-// every value. The picture (visualizer.ts) is of the same problem, and its values stay hidden until
-// the steps are finished.
+// polynomial, and dimensions), and the student does the rest; with none, the student works the
+// whole problem by hand, on paper, and enters only the answers (the steps marked `final`). The other
+// steps stay hidden until the answers are finished, and then the page shows them, worked. The
+// picture (visualizer.ts) is of the same problem, and its values stay hidden until the steps are
+// finished.
 //
 // The practice path (common/practice.ts) goes from checking a given vector or number, through the
 // eigenvalues and eigenvectors of 2 × 2 matrices, to the eigenspaces of 3 × 3 matrices. The
@@ -21,6 +23,7 @@
 import { setupPractice, Stage } from "../common/practice";
 import { typeset as typesetMath } from "../common/mathjax";
 import { loadJSON, saveJSON } from "../common/storage";
+import { byHandNote } from "../common/step_practice";
 import { Fraction, equals, formatFraction, isZero, mul, parseEntry } from "../matrix/fraction";
 import { FMat, FVec, isZeroVec, matVec, rref } from "../matrix/linalg";
 import {
@@ -69,7 +72,7 @@ const SUPPORT_NAMES = ["Full", "Partial", "None"];
 const SUPPORT_DESCRIPTIONS = [
   "The page works every step: a worked example",
   "The page does the routine calculations; you do the main steps",
-  "You calculate every value",
+  "Solve the whole problem by hand, then enter the answers",
 ];
 
 // ⋘──────── Steps ────────⋙
@@ -87,7 +90,7 @@ interface Verdict { ok: boolean; message?: string; marks?: (boolean | null)[] }
 interface Step {
   title: string;
   intro?: string;
-  uses?: string;                          // What the step uses from the problem and earlier steps
+  uses?: Use[];                           // What the step uses from the problem and earlier steps
   groups: Group[];
   answer: string[];                       // One per box; "yes"/"no" for Yes/No
   check: (values: string[]) => Verdict;
@@ -95,6 +98,7 @@ interface Step {
   worked: string;                         // Shown once the step is right or shown
   prereqs: number[];                      // Steps that must be right or shown first
   given?: number;                         // The last support level at which the page works this step (default 1)
+  final?: boolean;                        // An answer to the problem, entered at the last level (by hand)
 }
 
 const parseAll = (values: string[]) => values.map(v => parseEntry(v));
@@ -506,7 +510,7 @@ function statementHtml(p: Problem): string {
   }
 }
 
-function buildSteps(p: Problem): Step[] {
+export function buildSteps(p: Problem): Step[] {
   const A = p.A;
   // What each step uses, from the problem and from earlier steps (whose answers are found by the
   // time the step appears), so the student doesn't have to scroll back.
@@ -519,10 +523,15 @@ function buildSteps(p: Problem): Step[] {
   const uDim = (space: Eigenspace, from: string): Use => ({ from, tex: `\\dim(\\nullspaceOf{${shiftName(space.value)}}) = ${space.basis.length}` });
   const steps = buildBareSteps(p);
   const uses = usesFor(p, steps.length, { problem, stepN, uA, uPoly, uShift, uLambda, uDim });
-  return steps.map((s, k) => (uses[k]?.length ? { ...s, uses: usesHtml(uses[k]) } : s));
+  // The answers (entered at the last level, by hand) are the main steps: every step but the routine
+  // calculations that the page works at partial support (`partial`), such as A − λI and det(A − λI).
+  return steps.map((s, k) => ({ ...s, final: s.final ?? (s.given ?? 1) < 2, ...(uses[k]?.length ? { uses: uses[k] } : {}) }));
 }
 
 interface Use { from: string; tex: string }
+
+/** The steps (0-based) that a use comes from, such as 1 for "the problem and step 2". */
+const useSteps = (u: Use) => [...u.from.matchAll(/step (\d+)/g)].map(match => Number(match[1]) - 1);
 
 /** The uses, grouped by where they come from: "From step 1:" and a display of them. */
 function usesHtml(uses: Use[]): string {
@@ -800,9 +809,15 @@ export function setupPracticePage(hooks: PracticeHooks): void {
     saveJSON(WORKS_KEY, all);
   };
 
+  // At the last level, the student works on paper and enters only the answers.
+  const byHand = () => level === SUPPORT_NAMES.length;
+  // A step that isn't an answer, hidden at the last level until the answers are finished.
+  const hiddenByHand = (s: number) => byHand() && !steps[s].final;
   // A step the page works at this support level: filled in, with its worked solution.
-  const given = (s: number) => level <= (steps[s].given ?? 1);
-  const isDone = (s: number) => given(s) || work.status[s] !== "";
+  const given = (s: number) => level <= (steps[s].given ?? 1) || hiddenByHand(s);
+  // A step the page works is done once the steps it uses are (so it waits for a step the student
+  // works, such as Aᵀ before AᵀA, and the steps after it wait too).
+  const isDone = (s: number): boolean => work.status[s] !== "" || (given(s) && steps[s].prereqs.every(isDone));
   const unlocked = (s: number) => steps[s].prereqs.every(isDone);
 
   // ⋘──────── Building the steps ────────⋙
@@ -893,7 +908,9 @@ export function setupPracticePage(hooks: PracticeHooks): void {
     steps.forEach((step, s) => {
       const card = element("section", "ev-step");
       card.append(element("h4", "", `Step ${s + 1}. ${step.title}`));
-      if (step.uses) card.append(element("div", "ev-uses", step.uses));
+      // By hand, a step uses nothing from the hidden steps: the student found those values on paper.
+      const uses = (step.uses ?? []).filter(u => !useSteps(u).some(hiddenByHand));
+      if (uses.length) card.append(element("div", "ev-uses", usesHtml(uses)));
       if (step.intro) card.append(element("div", "ev-step-intro", step.intro));
       const entries = element("div", "ev-entries");
       step.groups.forEach((g, gi) => entries.append(buildGroup(g, s, gi)));
@@ -902,7 +919,7 @@ export function setupPracticePage(hooks: PracticeHooks): void {
       const checkButton = element("button", "ev-primary", "Check");
       checkButton.type = "button";
       checkButton.addEventListener("click", () => check(s));
-      const hintButton = element("button", "", "Hint");
+      const hintButton = element("button", "ev-hint-button", "Hint");
       hintButton.type = "button";
       hintButton.addEventListener("click", () => hint(s));
       const showButton = element("button", "", "Show");
@@ -923,6 +940,10 @@ export function setupPracticePage(hooks: PracticeHooks): void {
     });
     moreNote = element("p", "ev-more-steps", "More steps appear as you finish the steps above.");
     stepsBox.append(moreNote);
+    if (byHand()) {
+      stepsBox.prepend(element("p", "ev-by-hand-note",
+        byHandNote(steps.map((_, s) => s).filter(hiddenByHand))));
+    }
     // Restore saved entries and marks, and fill in the steps the page works.
     steps.forEach((step, s) => {
       if (given(s)) {
@@ -974,6 +995,14 @@ export function setupPracticePage(hooks: PracticeHooks): void {
     const filled = required(s).every(i => i.value.trim() !== "");
     checkButtons[s].disabled = done || !filled;
     for (const b of actionRows[s].querySelectorAll("button")) if (b !== checkButtons[s]) (b as HTMLButtonElement).disabled = done;
+    // Hint says "Next hint" while more hints are left, and is disabled once none are.
+    const hintButton = actionRows[s].querySelector<HTMLButtonElement>(".ev-hint-button");
+    if (hintButton) {
+      const left = work.hintLevel[s] < steps[s].hints.length;
+      hintButton.textContent = work.hintLevel[s] > 0 && left ? "Next hint" : "Hint";
+      hintButton.disabled = done || !left;
+      hintButton.title = !done && !left ? "No more hints for this step" : "";
+    }
     // The eigenvalue box beside a Yes/No question is for "Yes" only.
     const yes = yesNoBoxes[s][0]?.input.value === "yes";
     inputs[s].forEach(input => {
@@ -986,9 +1015,14 @@ export function setupPracticePage(hooks: PracticeHooks): void {
   function update(answered = false): void {
     const changed: Element[] = [];
     let anyHidden = false;
+    // By hand, the steps that aren't answers appear (worked) once the answers are finished.
+    const answersDone = steps.every((_, s) => isDone(s));
+    // The current step: the first one that the student still works.
+    const current = steps.findIndex((_, s) => !isDone(s) && (hiddenByHand(s) ? answersDone : unlocked(s)));
     steps.forEach((step, s) => {
-      const visible = unlocked(s);
-      if (!visible) anyHidden = true;
+      const visible = hiddenByHand(s) ? answersDone : unlocked(s);
+      cards[s].classList.toggle("ev-step-current", s === current);
+      if (!visible && !hiddenByHand(s)) anyHidden = true;
       cards[s].hidden = !visible;
       cards[s].classList.toggle("ev-step-right", work.status[s] === "right");
       cards[s].classList.toggle("ev-step-shown", work.status[s] === "shown");
@@ -1006,7 +1040,7 @@ export function setupPracticePage(hooks: PracticeHooks): void {
     hintCount.textContent = work.hintsUsed === 0 ? "No hints used"
       : `Hints used: ${work.hintsUsed}${wrong > 0 ? ` (including ${wrong} wrong check${wrong === 1 ? "" : "s"})` : ""}`;
     const finished = steps.every((_, s) => isDone(s));
-    const workedExample = finished && steps.every((_, s) => given(s));
+    const workedExample = finished && !byHand() && steps.every((_, s) => given(s));
     doneBox.hidden = !finished;
     let next: { text: string; label: string; action: () => void } | null = null;
     if (workedExample) {

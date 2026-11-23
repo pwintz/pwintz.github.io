@@ -247,9 +247,9 @@ function renderGeo(sc: Scene, target: HTMLCanvasElement, yaw: number, pitch: num
   const g = geometry();
   if (dim === 2) {
     sc.subspace(g.basis, small ? undefined : subspaceLabel(g.cols.length));
-    sc.gridAndAxes('rgba(128,128,128,0.25)');
+    sc.gridAndAxes('rgba(128,128,128,0.25)', !small);
   } else {
-    sc.gridAndAxes('rgba(128,128,128,0.18)');
+    sc.gridAndAxes('rgba(128,128,128,0.18)', !small);
     sc.subspace(g.basis, small ? undefined : subspaceLabel(g.cols.length));
   }
 

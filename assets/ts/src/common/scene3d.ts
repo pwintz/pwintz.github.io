@@ -428,8 +428,11 @@ export class Scene {
     ctx.closePath();
   }
 
-  /** Draws the grid on the plane z = 0 and the coordinate axes, all within the box. */
-  gridAndAxes(gridColor: string): void {
+  /**
+   * Draws the grid on the plane z = 0 and the coordinate axes, all within the box. One grid line is
+   * labeled, or with `allTicks`, every tick on every axis (so coordinates can be read off).
+   */
+  gridAndAxes(gridColor: string, allTicks = false): void {
     const { lo, hi, ctx } = this;
     const step = gridStep(this.extent);
     for (const t of ticks(lo[0], hi[0], step)) this.line([t, lo[1], 0], [t, hi[1], 0], gridColor);
@@ -460,6 +463,10 @@ export class Scene {
         this.labelBoxes.push({ x0: lx - hw - 2, y0: ly - hh - 2, x1: lx + hw + 2, y1: ly + hh + 2 });
       }
     }
+    if (allTicks) {
+      this.tickLabels(step);
+      return;
+    }
     // Label one grid line so the scale can be read as the axes change. Prefer the positive side.
     const t = hi[0] >= step ? step : -step;
     const [x, y] = this.project([t, 0, 0]);
@@ -468,6 +475,54 @@ export class Scene {
     ctx.textAlign = 'center';
     ctx.fillText(tickLabel(t), x, y + this.px(13));
     ctx.textAlign = 'start';
+  }
+
+  /**
+   * Labels the ticks (multiples of `step`, except 0) along each axis, beside the axis: below a
+   * horizontal axis and left of a vertical one. Where the ticks are too close on screen for their
+   * labels (an axis seen nearly end-on), every other one is labeled, or none. In ℝ², the labels of
+   * an axis outside the view stay at the edge of the canvas.
+   */
+  private tickLabels(step: number): void {
+    const { lo, hi, ctx } = this;
+    const font = `${this.px(11)}px system-ui, sans-serif`;
+    ctx.font = font;
+    const hh = this.px(11) * 0.45;
+    for (let k = 0; k < this.dim; k++) {
+      const unit: Vec3 = [0, 0, 0];
+      unit[k] = step;
+      const [ox, oy] = this.project([0, 0, 0]), [ex, ey] = this.project(unit);
+      const spacing = Math.hypot(ex - ox, ey - oy);
+      if (spacing < 1) continue;
+      const ux = (ex - ox) / spacing, uy = (ey - oy) / spacing;
+      // The side of the axis for the labels: down, or left for a vertical axis.
+      let nx = -uy, ny = ux;
+      if (ny < -1e-9 || (Math.abs(ny) <= 1e-9 && nx > 0)) { nx = -nx; ny = -ny; }
+      const ts = ticks(lo[k], hi[k], step).filter(t => Math.abs(t) > step / 2);
+      const widest = Math.max(0, ...ts.map(t => ctx.measureText(tickLabel(t)).width));
+      // The room each label takes along the axis.
+      const room = Math.abs(ux) * (widest + 6) + Math.abs(uy) * (2 * hh + 4);
+      const every = spacing >= room ? 1 : 2 * spacing >= room ? 2 : 0;
+      if (every === 0) continue;
+      for (const t of ts) {
+        if (Math.round(t / step) % every !== 0) continue;
+        const label = tickLabel(t);
+        const hw = ctx.measureText(label).width / 2;
+        const p: Vec3 = [0, 0, 0];
+        p[k] = t;
+        const [x, y] = this.project(p);
+        const d = 4 * this.textScale + Math.abs(nx) * hw + Math.abs(ny) * hh;
+        let lx = x + nx * d, ly = y + ny * d;
+        if (this.dim === 2) {
+          lx = Math.min(Math.max(lx, hw + 3), this.width - hw - 3);
+          ly = Math.min(Math.max(ly, hh + 3), this.height - hh - 3);
+        }
+        ctx.textBaseline = 'middle';
+        this.haloText(label, lx, ly, '#5f6368', font);
+        ctx.textBaseline = 'alphabetic';
+        this.labelBoxes.push({ x0: lx - hw - 2, y0: ly - hh - 2, x1: lx + hw + 2, y1: ly + hh + 2 });
+      }
+    }
   }
 
   /** The segment of the line through the origin along `d` that lies inside the box. */
