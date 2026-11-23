@@ -26,7 +26,7 @@ import { setupPractice, Stage } from "./practice";
 import { typeset as typesetMath } from "./mathjax";
 import { replaceQuery } from "./query";
 import { loadJSON, saveJSON } from "./storage";
-import { Fraction, equals, parseEntry } from "../matrix/fraction";
+import { Fraction, equals, isZero, parseEntry } from "../matrix/fraction";
 
 // ⋘──────── Steps ────────⋙
 
@@ -35,7 +35,9 @@ export type Group =
   // entry (by default, a number; see parseEntry), with acceptHelp saying what it can read.
   | { type: "scalar"; before?: string; after?: string; whenYes?: boolean; joined?: boolean; accept?: (value: string) => boolean; acceptHelp?: string; wide?: boolean }  // wide: a wider box, for entries such as "3√5/2"
   | { type: "vec"; n: number; before?: string; after?: string }
-  | { type: "mat"; rows: number; cols: number; before?: string; after?: string }
+  // bars: |…| (a determinant), not […]. skipIfZero: the index of a scalar group (such as the matrix's
+  // coefficient); while that box holds 0, this matrix's boxes are grayed out and skipped.
+  | { type: "mat"; rows: number; cols: number; before?: string; after?: string; bars?: boolean; skipIfZero?: number }
   | { type: "yesno"; before?: string };
 
 // marks: for each box, true (right), false (wrong), or null (not marked).
@@ -44,6 +46,7 @@ export interface Verdict { ok: boolean; message?: string; marks?: (boolean | nul
 export interface Step {
   title: string;
   intro?: string;
+  lead?: string;                          // A first line above the boxes, at the same size and left edge (to line up equations)
   groups: Group[];
   answer: string[];                       // One per box; "yes"/"no" for Yes/No
   check: (values: string[]) => Verdict;
@@ -105,6 +108,15 @@ export function byHandNote(hidden: number[]): string {
   const hiddenText = hidden.length === 0 ? ""
     : ` ${one ? "Step" : "Steps"} ${list} ${one ? "is" : "are"} hidden until your answers are finished.`;
   return "Work the whole problem by hand, on paper, then enter only the answers below." + hiddenText;
+}
+
+/**
+ * Whether support level `lv` (1-based, of `count`) works these steps the same way as the last
+ * level, so it would only repeat it: every step is an answer (`final`) and the page works none of
+ * them at `lv`. Such a level is hidden for the problem (for example, a problem with one step).
+ */
+export function sameAsLastLevel(steps: Pick<Step, "final" | "given">[], lv: number, count: number): boolean {
+  return lv < count && steps.length > 0 && steps.every(s => s.final && lv > (s.given ?? 1));
 }
 
 // ⋘──────── The page ────────⋙
@@ -215,10 +227,10 @@ export function setupStepPractice<P, K extends string>(o: StepPracticeOptions<P,
       count: levelCount,
       names: o.levels.names,
       cleanToAdvance: 2,
-      current: () => level,
+      current: () => shownLevel(),
       set: (lv: number) => {
         level = lv;
-        levelRadios.forEach(r => { r.checked = Number(r.value) === lv; });
+        syncLevelRadios();
         saveSettings();
       },
     } : undefined,
@@ -253,12 +265,24 @@ export function setupStepPractice<P, K extends string>(o: StepPracticeOptions<P,
     saveJSON(WORKS_KEY, all);
   };
 
+  // A level that would only repeat the last one for this problem is hidden; while it is chosen, the
+  // problem uses the last level (and the choice is kept for the next problem).
+  const hiddenLevel = (lv: number) => sameAsLastLevel(steps, lv, levelCount);
+  const shownLevel = () => (hiddenLevel(level) ? levelCount : level);
+  function syncLevelRadios(): void {
+    levelRadios.forEach(r => {
+      const lv = Number(r.value);
+      (r.closest("label") as HTMLElement).hidden = hiddenLevel(lv);
+      r.checked = lv === shownLevel();
+    });
+  }
+
   // At the last level (with more than one), the student works on paper and enters only the answers.
-  const byHand = () => levelCount > 1 && level === levelCount;
+  const byHand = () => levelCount > 1 && shownLevel() === levelCount;
   // A step that isn't an answer, hidden at the last level until the answers are finished.
   const hiddenByHand = (s: number) => byHand() && !steps[s].final;
   // A step the page works at this level: filled in, with its worked solution.
-  const given = (s: number) => level <= (steps[s].given ?? 1) || hiddenByHand(s);
+  const given = (s: number) => shownLevel() <= (steps[s].given ?? 1) || hiddenByHand(s);
   // A step the page works is done once the steps it uses are (so it waits for a step the student
   // works, such as Aᵀ before AᵀA, and the steps after it wait too).
   const isDone = (s: number): boolean => work.status[s] !== "" || (given(s) && steps[s].prereqs.every(isDone));
@@ -287,7 +311,13 @@ export function setupStepPractice<P, K extends string>(o: StepPracticeOptions<P,
   function buildGroup(g: Group, s: number, gi: number): HTMLElement {
     const wrap = element("span", g.type === "scalar" && g.joined ? "sp-entry-group sp-joined" : "sp-entry-group");
     if (g.before) wrap.append(element("span", "sp-entry-label", g.before));
-    const plain = (html: string) => html.replace(/<[^>]+>/g, "").replace(/\\\(|\\\)|\\vect\{(\w)\}|\\/g, (_m, v) => v ?? "");
+    // A box's label as plain text, without HTML tags or TeX markup that isn't read (such as
+    // \phantom{…}, \Bigl, or "{}").
+    const plain = (html: string) => html.replace(/<[^>]+>/g, "")
+      .replace(/\\phantom\{[^}]*\}|\\[Bb]igg?[lr]?\b|\\(?:left|right)\b|\{\}/g, "")
+      .replace(/\\color\{[^}]*\}/g, "")
+      .replace(/\\\(|\\\)|\\vect\{(\w)\}|\\/g, (_m, v) => v ?? "")
+      .replace(/[{}]/g, "").replace(/\s+/g, " ").trim();
     const label = plain(g.before ?? steps[s].title);
     if (g.type === "scalar") {
       const input = entryInput(label || "Answer", s);
@@ -298,7 +328,7 @@ export function setupStepPractice<P, K extends string>(o: StepPracticeOptions<P,
       wrap.append(input);
     } else if (g.type === "vec" || g.type === "mat") {
       const rows = g.type === "vec" ? g.n : g.rows, cols = g.type === "vec" ? 1 : g.cols;
-      const bracket = element("span", "sp-bracket");
+      const bracket = element("span", g.type === "mat" && g.bars ? "sp-bracket sp-bars" : "sp-bracket");
       bracket.style.gridTemplateColumns = `repeat(${cols}, auto)`;
       for (let k = 0; k < rows * cols; k++) {
         const name = g.type === "vec" ? `entry ${k + 1}` : `row ${Math.floor(k / cols) + 1}, column ${(k % cols) + 1}`;
@@ -348,6 +378,7 @@ export function setupStepPractice<P, K extends string>(o: StepPracticeOptions<P,
   };
 
   function renderSteps(): void {
+    syncLevelRadios();
     stepsBox.innerHTML = "";
     inputs = steps.map(() => []);
     yesNoBoxes = steps.map(() => []);
@@ -357,6 +388,7 @@ export function setupStepPractice<P, K extends string>(o: StepPracticeOptions<P,
       card.append(element("h4", "sp-step-title", `Step ${s + 1}. ${step.title}${step.optional ? ` <span class="sp-optional">(optional)</span>` : ""}`));
       if (step.intro) card.append(element("div", "sp-step-intro", step.intro));
       const entries = element("div", "sp-entries");
+      if (step.lead) entries.append(element("div", "sp-entries-lead", step.lead));
       step.groups.forEach((g, gi) => entries.append(buildGroup(g, s, gi)));
       card.append(entries);
       const actions = element("div", "sp-step-actions");
@@ -419,6 +451,7 @@ export function setupStepPractice<P, K extends string>(o: StepPracticeOptions<P,
     clearMarks(s);
     const yn = new Map(yesNoBoxes[s].map(y => [y.input, y.box]));
     inputs[s].forEach((input, i) => {
+      if (skipped(s, input)) return;  // A skipped box is not marked
       const m = marks ? marks[i] : true;
       if (m === null || m === undefined) return;
       const c = marks ? (m ? "sp-right" : "sp-wrong") : cls;
@@ -426,12 +459,22 @@ export function setupStepPractice<P, K extends string>(o: StepPracticeOptions<P,
     });
   }
 
-  /** The boxes that must be filled for Check: all, except a "whenYes" box after "No". */
+  /** Whether a box is skipped: in a matrix whose `skipIfZero` box holds 0. */
+  function skipped(s: number, input: HTMLInputElement): boolean {
+    const g = steps[s].groups[Number(input.dataset.group)];
+    if (g.type !== "mat" || g.skipIfZero === undefined) return false;
+    const control = inputs[s].find(i => Number(i.dataset.group) === g.skipIfZero);
+    if (!control || control.value.trim() === "") return false;
+    const x = parseEntry(control.value);
+    return x !== null && isZero(x);
+  }
+
+  /** The boxes that must be filled for Check: all, except a "whenYes" box after "No" and skipped boxes. */
   function required(s: number): HTMLInputElement[] {
     const yes = yesNoBoxes[s][0]?.input.value === "yes";
     return inputs[s].filter(input => {
       const g = steps[s].groups[Number(input.dataset.group)];
-      return !(g.type === "scalar" && g.whenYes && !yes);
+      return !(g.type === "scalar" && g.whenYes && !yes) && !skipped(s, input);
     });
   }
 
@@ -451,7 +494,9 @@ export function setupStepPractice<P, K extends string>(o: StepPracticeOptions<P,
     const yes = yesNoBoxes[s][0]?.input.value === "yes";
     inputs[s].forEach(input => {
       const g = steps[s].groups[Number(input.dataset.group)];
-      input.disabled = done || (g.type === "scalar" && !!g.whenYes && !yes);
+      const skip = skipped(s, input);
+      input.disabled = done || (g.type === "scalar" && !!g.whenYes && !yes) || skip;
+      input.classList.toggle("sp-skipped", skip);
     });
     yesNoBoxes[s].forEach(y => y.radios.forEach(r => { r.disabled = done; }));
   }
@@ -492,8 +537,10 @@ export function setupStepPractice<P, K extends string>(o: StepPracticeOptions<P,
     let next: { text: string; label: string; action: () => void } | null = null;
     if (worked) {
       doneText.textContent = "A worked example: the page did every step. Read each one, then try the next problem.";
-      if (levelCount > 1) {
-        next = { text: "Ready to work some steps yourself?", label: `Try ${o.levels!.names[1].toLowerCase()} support`, action: () => practice.goToLevel(2) };
+      // The next level that isn't hidden for this problem.
+      const lv = Array.from({ length: levelCount - 1 }, (_, i) => i + 2).find(l => !hiddenLevel(l));
+      if (lv !== undefined) {
+        next = { text: "Ready to work some steps yourself?", label: `Try ${o.levels!.names[lv - 1].toLowerCase()} support`, action: () => practice.goToLevel(lv) };
       }
     } else if (finished) {
       const mine = steps.map((_, s) => s).filter(s => !given(s) && !steps[s].optional);
@@ -516,7 +563,7 @@ export function setupStepPractice<P, K extends string>(o: StepPracticeOptions<P,
   // ⋘──────── Check, Hint, Show ────────⋙
   function check(s: number): void {
     if (isDone(s)) return;
-    const values = inputs[s].map(i => i.value.trim());
+    const values = inputs[s].map(i => (skipped(s, i) ? "" : i.value.trim()));  // A skipped box counts as blank
     // Entries that the boxes can't read are marked without counting as a wrong check.
     const groupOf = (input: HTMLInputElement) => steps[s].groups[Number(input.dataset.group)];
     const readable = (input: HTMLInputElement, value: string) => {
@@ -656,7 +703,23 @@ export function setupStepPractice<P, K extends string>(o: StepPracticeOptions<P,
   nextButton.addEventListener("click", () => {
     if (seenIndex < seen.length - 1) goTo(seenIndex + 1);
     else newProblem();
+    scrollToProblem();
   });
+
+  // Scrolls the window to the top of the problem, below the panels pinned above it. When the
+  // problem's own panel is pinned (so it is always in view), scrolls to the top of the solution.
+  function scrollToProblem(): void {
+    const pinnedClass = `${o.prefix}-pinned`;
+    const box = statement.closest<HTMLElement>(".sp-problem-box") ?? statement;
+    const panel = statement.closest<HTMLElement>(`.${o.prefix}-panel`);
+    const target = panel?.classList.contains(pinnedClass)
+      ? stepsBox.parentElement?.querySelector<HTMLElement>(".sp-solution-head") ?? stepsBox
+      : panel ?? box;
+    const above = [...document.querySelectorAll<HTMLElement>(`.${pinnedClass}`)]
+      .filter(p => p !== target && (p.compareDocumentPosition(target) & Node.DOCUMENT_POSITION_FOLLOWING))
+      .reduce((sum, p) => sum + p.offsetHeight, 0);
+    window.scrollTo({ top: Math.max(0, target.getBoundingClientRect().top + window.scrollY - above - 8), behavior: "smooth" });
+  }
 
   function newProblem(): void {
     const path = practice.mode() === "path";
@@ -668,10 +731,7 @@ export function setupStepPractice<P, K extends string>(o: StepPracticeOptions<P,
     saveSettings();
     newProblem();
   });
-  byId<HTMLButtonElement>("done-new").addEventListener("click", () => {
-    nextButton.click();
-    window.scrollTo({ top: statement.getBoundingClientRect().top + window.scrollY - 120, behavior: "smooth" });
-  });
+  byId<HTMLButtonElement>("done-new").addEventListener("click", () => nextButton.click());
   doneNextLevel.addEventListener("click", () => doneSuggestAction());
 
   // The problem in the address; else the last one here; else a new one.

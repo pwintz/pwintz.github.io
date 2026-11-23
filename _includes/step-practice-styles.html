@@ -63,6 +63,7 @@
   .sp-practice .sp-entries { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem 1.6rem; }
   .sp-practice .sp-entry-group { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
   .sp-practice .sp-entry-label { white-space: nowrap; }
+  .sp-practice .sp-entries-lead { flex: 0 0 100%; overflow-x: auto; overflow-y: hidden; }  /* A first line, on its own row */
   .sp-practice .sp-entry-group.sp-joined { margin-left: -1.1rem; }  /* The gap inside a group, for the next term of an expression */
   .sp-practice .sp-optional { font-weight: normal; color: #5f6368; }
   .sp-practice .sp-entry {
@@ -79,6 +80,7 @@
   }
   .sp-practice .sp-entry.sp-entry-wide { width: 7rem; }
   .sp-practice .sp-entry:disabled { background: rgba(128, 128, 128, 0.08); }
+  .sp-practice .sp-entry.sp-skipped { background: rgba(128, 128, 128, 0.25); border-style: dashed; }  /* Not needed: its coefficient is 0 */
   .sp-practice .sp-entry.sp-right { border: 2px solid #188038; background: rgba(24, 128, 56, 0.08); }
   .sp-practice .sp-entry.sp-wrong { border: 2px solid #c5221f; background: rgba(197, 34, 31, 0.07); }
   .sp-practice .sp-entry.sp-shown { border: 2px solid #f9ab00; background: #fef7e0; }
@@ -101,6 +103,8 @@
   }
   .sp-practice .sp-bracket::before { left: 0; border-right: none; }
   .sp-practice .sp-bracket::after { right: 0; border-left: none; }
+  /* Straight bars, for the determinant of a matrix of entries. */
+  .sp-practice .sp-bracket.sp-bars::before, .sp-practice .sp-bracket.sp-bars::after { width: 0; border-top: none; border-bottom: none; }
 
   /* Yes/No questions: a split pill of two radio buttons. */
   .sp-practice .sp-yes-no { display: inline-flex; border: 1px solid rgba(128, 128, 128, 0.5); border-radius: 999px; overflow: hidden; background: #fff; }

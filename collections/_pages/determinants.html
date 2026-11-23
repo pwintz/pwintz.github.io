@@ -1,0 +1,393 @@
+---
+layout: single
+permalink: /tools/determinants/
+title: Determinants
+excerpt: "Practice finding determinants step by step, with hints and checks: 2 × 2 matrices, triangular matrices, cofactor expansions, row reduction, and the properties of determinants. Each 2 × 2 or 3 × 3 problem is drawn as the parallelogram or parallelepiped spanned by the columns. Start with worked examples and work up to calculating every value yourself."
+tool_categories: [Math]
+full_width: true
+date_added: 2026-11-23
+---
+
+{% include practice-styles.html %}
+
+<style>
+  .dt select,
+  .dt button {
+    font: inherit;
+    width: auto;
+    margin: 0;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+  }
+  .dt button:hover { background: rgba(128, 128, 128, 0.1); }
+  .dt button:disabled { opacity: 0.45; cursor: not-allowed; }
+  .dt label, .dt input { margin: 0; }
+  .dt [hidden] { display: none !important; }
+  .dt .dt-related { margin: 0 0 0.8rem; font-size: 0.85em; color: #5f6368; }
+
+  /* Settings: menus beside their labels, as in the other tools. */
+  .dt .dt-design-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.1rem; margin: 0.6rem 0 0; }
+  .dt .dt-field { display: flex; align-items: center; gap: 0.4rem; font-size: 0.9em; color: #5f6368; }
+  .dt .dt-field select { max-width: 100%; color: #202124; }
+  .dt #dt-example { max-width: 14rem; }
+  .dt .dt-design-item { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.9em; color: #5f6368; }
+  .dt input.dt-design-entry {
+    width: 3.6rem;
+    padding: 0.2rem 0.3rem;
+    border: 1px solid rgba(128, 128, 128, 0.45);
+    border-radius: 4px;
+    font: inherit;
+    color: #202124;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .dt .dt-bracket {
+    position: relative;
+    display: inline-grid;
+    gap: 0.25rem 0.35rem;
+    padding: 0.3rem 0.55rem;
+    vertical-align: middle;
+  }
+  .dt .dt-bracket::before, .dt .dt-bracket::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 0.35rem;
+    border: 2px solid #3c4043;
+  }
+  .dt .dt-bracket::before { left: 0; border-right: none; }
+  .dt .dt-bracket::after { right: 0; border-left: none; }
+  .dt .dt-design-error { margin: 0.5rem 0 0; padding: 0.4rem 0.6rem; border-left: 4px solid #c5221f; border-radius: 4px; background: rgba(197, 34, 31, 0.07); font-size: 0.92em; }
+
+  /* "?" buttons and their popup (common/help.ts). The popup is moved to <body>, so its styles don't
+     use the .dt prefix. */
+  .dt .dt-help {
+    width: 1.25rem;
+    height: 1.25rem;
+    padding: 0;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: bold;
+    line-height: 1;
+    color: #6b6b6b;
+    flex: none;
+  }
+  .dt .dt-help[aria-expanded="true"] { background: #1a73e8; border-color: #1a73e8; color: #fff; }
+  .dt-help-popup {
+    position: absolute;
+    z-index: 30;
+    max-width: min(22rem, calc(100vw - 16px));
+    padding: 0.6rem 0.8rem;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+    font-size: 0.85em;
+    line-height: 1.45;
+  }
+  .dt-help-popup p { margin: 0 0 0.4rem; }
+  .dt-help-popup p:last-child { margin: 0; }
+  .dt-help-popup dl { margin: 0 0 0.4rem; }
+  .dt-help-popup dl:last-child { margin: 0; }
+  .dt-help-popup dt { margin: 0.35rem 0 0; font-weight: bold; }
+  .dt-help-popup dt:first-child { margin-top: 0; }
+  .dt-help-popup dd { margin: 0 0 0 0.9rem; }
+
+  /* Pinnable panels (common/panels.ts), as in the other tools. */
+  .dt-panel { position: relative; padding: 0.4rem 2.4rem 0.4rem 0; margin-bottom: 0.6rem; background: #fff; }
+  .dt-panel.dt-pinned { position: sticky; z-index: 10; border-bottom: 1px solid rgba(128, 128, 128, 0.35); }
+  .dt .dt-pin {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.35rem;
+    width: auto;
+    padding: 0.25rem;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: #8a919c;
+    line-height: 0;
+    opacity: 0.6;
+  }
+  .dt .dt-pin:hover { background: rgba(128, 128, 128, 0.1); opacity: 1; }
+  .dt .dt-pin svg { width: 18px; height: 18px; transform: rotate(45deg); transition: transform 150ms; }
+  .dt .dt-pinned .dt-pin { color: #1a73e8; opacity: 1; }
+  .dt .dt-pinned .dt-pin svg { transform: none; }
+
+  /* The plot, with the readout beside it (above it on narrow screens). */
+  .dt-plot-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 1.1rem; margin: 0 0 0.5rem; font-size: 0.9em; }
+  .dt-plot-toolbar label { display: flex; align-items: center; gap: 0.3rem; }
+  .dt-group-label { color: #5f6368; }
+  .dt-viz { display: grid; grid-template-columns: minmax(0, 1fr) minmax(13rem, 18rem); gap: 1rem; align-items: start; }
+  @media (max-width: 700px) {
+    .dt-viz { grid-template-columns: minmax(0, 1fr); }
+    .dt-readout { order: -1; }
+  }
+  /* The theme lays figures out as flex rows with serif captions; the title goes above, centered. */
+  .dt .dt-figure { display: block; margin: 0; }
+  .dt .dt-figure figcaption { margin: 0 0 0.3rem; text-align: center; font-family: inherit; font-size: 0.95em; font-weight: bold; color: #3c4043; }
+  #dt-canvas {
+    display: block;
+    width: 100%;
+    max-width: min(36rem, 70vh);
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 8px;
+    background: #fff;
+    touch-action: none;
+  }
+  .dt-pinned #dt-canvas { max-width: 42vh; }
+  #dt-canvas.dt-dragging { cursor: grabbing !important; }
+  .dt-plot-hint { margin: 0.3rem 0 0; font-size: 0.85em; color: #5f6368; text-align: center; }
+  .dt-plot-hint:empty { display: none; }
+  .dt-readout {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 8px;
+    font-size: 0.92em;
+    font-variant-numeric: tabular-nums;
+  }
+  .dt-readout-row { display: flex; align-items: baseline; gap: 0.45rem; }
+  .dt-readout-name { min-width: 4.6rem; flex: none; }
+  .dt-swatch { display: inline-block; flex: none; width: 0.75rem; height: 0.75rem; border-radius: 50%; }
+  .dt-hidden { color: #6b6b6b; font-style: italic; }
+
+  .dt .dt-problem .sp-problem-box { margin-top: 0.9rem; }
+  .dt .sp-statement ul { margin: 0.3rem 0 0.6rem; }
+</style>
+{% include step-practice-styles.html %}
+
+<div class="dt">
+  {%- comment -%} Dictionary entries are linked once they're published (or with --unpublished). {%- endcomment -%}
+  {%- assign det_def = site.definitions | where: "term", "determinant" | first %}
+  {%- assign minor_def = site.definitions | where: "term", "minor" | first %}
+  {%- assign cofactor_def = site.definitions | where: "term", "cofactor" | first %}
+  <p>
+    The {% if det_def %}<a href="{{ det_def.url | relative_url }}">determinant</a>{% else %}determinant{% endif %} of a square matrix \(A\) is a number, \(\det A\), that is zero exactly when \(A\) is not invertible.
+    Its absolute value is the area (or volume) of the parallelogram (or parallelepiped) spanned by the columns of \(A\), and its sign says whether \(A\) keeps or flips orientation.
+    Below, practice finding determinants by hand while the picture shows each problem's columns and the shape they span.
+  </p>
+  <p class="dt-related">
+    {%- assign related_terms = "determinant|minor|cofactor" | split: "|" %}
+    {%- assign related_defs = "" | split: "" %}
+    {%- for t in related_terms %}
+      {%- assign d = site.definitions | where: "term", t | first %}
+      {%- if d %}{% assign related_defs = related_defs | push: d %}{% endif %}
+    {%- endfor %}
+    To use determinants to find eigenvalues, try <a href="{{ '/tools/eigenvalues/' | relative_url }}">Eigenvalues and Eigenvectors</a>; to practice row reduction, try <a href="{{ '/tools/gaussian_elimination_practice/' | relative_url }}">Gaussian Elimination</a>
+    {%- if related_defs.size > 0 %}; see also the definitions of
+      {% for d in related_defs -%}
+        {%- if forloop.last and related_defs.size > 2 %}, and {% elsif forloop.last and related_defs.size > 1 %} and {% elsif forloop.index > 1 %}, {% endif -%}
+        <a href="{{ d.url | relative_url }}">{{ d.title | downcase }}</a>
+      {%- endfor %}
+    {%- endif %}.
+  </p>
+
+  <div class="sp-practice">
+    <details class="sp-instructions">
+      <summary>Instructions</summary>
+      <p>The methods:</p>
+      <ul>
+        <li>For a \(2 \times 2\) matrix, \(\det \begin{bmatrix} a & b \\ c & d \end{bmatrix} = ad - bc\).</li>
+        <li>The determinant of a triangular matrix is the product of its diagonal entries.</li>
+        <li>
+          A <em>cofactor expansion</em> along a row (or a column) writes \(\det A\) as a sum with one term for each entry \(a_{ij}\) of it: \((-1)^{i+j} a_{ij} M_{ij}\), with the sign following a checkerboard pattern.
+          The <em>{% if minor_def %}<a href="{{ minor_def.url | relative_url }}">minor</a>{% else %}minor{% endif %}</em> \(M_{ij}\) is the determinant of the matrix left after crossing out row \(i\) and column \(j\), and \((-1)^{i+j} M_{ij}\) is the <em>{% if cofactor_def %}<a href="{{ cofactor_def.url | relative_url }}">cofactor</a>{% else %}cofactor{% endif %}</em> \(C_{ij}\).
+          For example, along row 1 of a \(3 \times 3\) matrix,
+          \[\det A = a_{11} \begin{vmatrix} a_{22} & a_{23} \\ a_{32} & a_{33} \end{vmatrix} - a_{12} \begin{vmatrix} a_{21} & a_{23} \\ a_{31} & a_{33} \end{vmatrix} + a_{13} \begin{vmatrix} a_{21} & a_{22} \\ a_{31} & a_{32} \end{vmatrix}.\]
+          Expanding along the row or column with the most zeros needs the fewest minors.
+          The page asks you to write this equation first, typing each entry with its sign and the entries of each smaller matrix.
+        </li>
+        <li>
+          <em>Row reduction</em> to an upper triangular matrix \(U\): adding a multiple of one row to another (a row replacement) keeps the determinant, and swapping two rows changes its sign.
+          So \(\det A = \pm \det U\), with one sign change for each swap.
+        </li>
+        <li>
+          For \(n \times n\) matrices \(A\) and \(B\): \(\det(A\trans) = \det A\), \(\det(AB) = \det A \det B\), \(\det(kA) = k^n \det A\), and \(\det(A^{-1}) = 1/\det A\).
+          Multiplying one row by \(k\) multiplies the determinant by \(k\).
+        </li>
+      </ul>
+      <p>
+        <strong>Guided Learning</strong> chooses the problems for you, in levels from easy to hard: \(2 \times 2\) matrices, triangular matrices, \(3 \times 3\) matrices by cofactor expansion and by row reduction, the properties of determinants, and then a \(4 \times 4\) cofactor expansion.
+        After two problems at a level with no hints, the page suggests the next level.
+        <strong>Design your own problems</strong> lets you choose the kind of problem, type its matrix, drag the columns of a \(2 \times 2\) matrix in the picture, or load an example.
+      </p>
+      <p>
+        <strong>Support</strong> sets how much of each problem the page works for you.
+        With full support, the page works every step, as a worked example.
+        With partial support, you work the first step of each problem, and the page does some of the routine steps after it (such as the second column of a row reduction), while you do the main ones.
+        With no support, you solve the whole problem by hand, on paper, and enter only the answers; the page shows every step once your answers are finished.
+        Until you finish the steps, the picture shows the problem's columns but not the determinant.
+      </p>
+      <p>
+        Fill in the boxes and click <strong>Check</strong> (or press Enter); Tab moves between the boxes.
+        Entries can be integers, decimals, or fractions such as <code>-3</code>, <code>0.5</code>, or <code>1/2</code>.
+        Stuck? <strong>Hint</strong> suggests what to do, and clicking it again gives a more specific hint.
+        <strong>Show</strong> fills in the answer.
+        The page counts the hints you use for each problem; shown answers and wrong checks count as hints too (checking the same wrong answer again doesn't count twice).
+        Later steps appear once the steps they use are right (or shown).
+        The problem is saved in this page's address, so you can reload the page or share a link.
+      </p>
+    </details>
+
+    <div class="dt-settings dt-panel" id="dt-settings" data-fullscreen="false">
+      <section class="pr-box" aria-labelledby="dt-practice-title">
+        <h2 id="dt-practice-title" class="pr-box-title">Practice</h2>
+        <div id="dt-practice"></div>
+        <div id="dt-custom-controls" hidden>
+          <hr class="pr-divider">
+          <div class="dt-design-row">
+            <label class="dt-field"><span data-help="#dt-help-kind">Problem</span>
+              <select id="dt-kind">
+                <optgroup label="Formulas">
+                  <option value="det2" selected>2 × 2 matrix</option>
+                  <option value="tri">Triangular matrix</option>
+                </optgroup>
+                <optgroup label="Methods">
+                  <option value="cofactor3">3 × 3: cofactor expansion</option>
+                  <option value="rowreduce3">3 × 3: row reduction</option>
+                  <option value="cofactor4">4 × 4: cofactor expansion</option>
+                </optgroup>
+                <optgroup label="Properties">
+                  <option value="props">Properties of determinants</option>
+                </optgroup>
+              </select>
+            </label>
+            <label class="dt-field" id="dt-size-field" hidden>Size
+              <select id="dt-size">
+                <option value="3">3 × 3</option>
+                <option value="4">4 × 4</option>
+              </select>
+            </label>
+            <label class="dt-field">
+              <select id="dt-example" aria-label="Load an example">
+                <option value="" selected>Examples</option>
+                <optgroup label="2 × 2 matrix">
+                  <option value="scale">Scaling: [3, 0; 0, 2]</option>
+                  <option value="shear">Shear: [1, 2; 0, 1]</option>
+                  <option value="rotate">Rotation by 90°: [0, −1; 1, 0]</option>
+                  <option value="reflect">Reflection: [0, 1; 1, 0]</option>
+                  <option value="general2">[3, 1; 2, 4]</option>
+                  <option value="dependent2">Dependent columns: [2, 4; 1, 2]</option>
+                </optgroup>
+                <optgroup label="Triangular matrix">
+                  <option value="upper3">Upper triangular, 3 × 3</option>
+                  <option value="lower4">Lower triangular, 4 × 4</option>
+                  <option value="zeroDiag">A 0 on the diagonal</option>
+                </optgroup>
+                <optgroup label="3 × 3: cofactor expansion">
+                  <option value="noZeros3">No zeros</option>
+                  <option value="zeroRow3">A row with two zeros</option>
+                  <option value="zeroCol3">A column with two zeros</option>
+                  <option value="classic3">[1, 2, 3; 4, 5, 6; 7, 8, 9]</option>
+                </optgroup>
+                <optgroup label="3 × 3: row reduction">
+                  <option value="rrBasic">Whole-number multipliers</option>
+                  <option value="rrSwap">A row swap</option>
+                  <option value="rrFractions">Fractions</option>
+                  <option value="rrSingular">A zero determinant</option>
+                </optgroup>
+                <optgroup label="4 × 4: cofactor expansion">
+                  <option value="four">A row with three zeros</option>
+                  <option value="fourCol">A column with three zeros</option>
+                </optgroup>
+                <optgroup label="Properties of determinants">
+                  <option value="props2">2 × 2, det A = −4</option>
+                  <option value="props3">3 × 3, det A = 5</option>
+                  <option value="props4">4 × 4, det A = 2</option>
+                </optgroup>
+              </select>
+            </label>
+          </div>
+          <div class="dt-design-row" id="dt-design" role="group" aria-label="Your problem"></div>
+          <p class="dt-design-error" id="dt-design-error" role="alert" hidden></p>
+        </div>
+      </section>
+    </div>
+
+    <section class="dt-problem dt-panel" id="dt-problem-panel" data-fullscreen="false" aria-labelledby="dt-problem-title">
+      <div class="sp-problem-box">
+        <h3 id="dt-problem-title" class="sp-problem-title">Problem</h3>
+        <div id="dt-statement" class="sp-statement" aria-live="polite"></div>
+        <div class="sp-problem-nav">
+          <button id="dt-prev" type="button">← Previous problem</button>
+          <button id="dt-next" class="sp-primary" type="button">Next problem →</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="sp-solution-head">
+      <h3>Solution</h3>
+      <span id="dt-hint-count" class="sp-hint-count" role="status"></span>
+    </div>
+    {% include by-hand-note.html %}
+    <div id="dt-steps"></div>
+    <div id="dt-done" class="sp-done" role="status" hidden>
+      <strong id="dt-done-text"></strong>
+      <button id="dt-done-new" class="sp-primary" type="button">Next problem</button>
+      <p id="dt-done-suggest" class="sp-done-suggest" hidden>
+        <span id="dt-done-suggest-text"></span>
+        <button id="dt-done-next-level" type="button"></button>
+      </p>
+    </div>
+
+    <div class="dt-plot dt-panel" id="dt-plot-panel" data-fullscreen="false">
+      <div class="dt-plot-toolbar" id="dt-plot-toolbar">
+        <span class="dt-group-label">View</span>
+        <label><input type="checkbox" id="dt-unit"> <span data-help="Draws the unit square (or cube) with dashed edges. The matrix A maps it onto the shaded shape, so |det A| is the factor by which A scales areas (or volumes).">Unit square</span></label>
+        <label><input type="checkbox" id="dt-orientation"> <span data-help="Once the steps are finished, draws a circular arrow in the middle of the unit square and one in the middle of the parallelogram. The unit square's arrow turns counterclockwise, from e₁ toward e₂. The parallelogram's arrow turns counterclockwise when det A is positive, and clockwise when det A is negative: then A flips the plane over, like a mirror.">Orientation</span></label>
+      </div>
+      <div class="dt-viz" id="dt-viz">
+        <figure class="dt-figure">
+          <figcaption id="dt-caption">The parallelogram spanned by the columns of A</figcaption>
+          <canvas id="dt-canvas" aria-label="The columns of A drawn as arrows from the origin, with the shape they span"></canvas>
+        </figure>
+        <div class="dt-readout" id="dt-readout" aria-live="off"></div>
+      </div>
+      <p class="dt-plot-hint" id="dt-plot-hint"></p>
+    </div>
+
+    <section id="dt-progress" aria-label="Your progress"></section>
+  </div>
+
+  <template id="dt-help-support">
+    <p>How much of each problem the page works for you:</p>
+    <dl>
+      <dt>Full</dt>
+      <dd>The page works every step and shows every value, as a worked example.</dd>
+      <dt>Partial</dt>
+      <dd>You work the first step of each problem. After it, the page does some of the routine steps, such as the second column of a row reduction. You do the main steps, including every minor of a cofactor expansion.</dd>
+      <dt>None</dt>
+      <dd>You solve the whole problem by hand, on paper, and enter only the answers. The page shows every step once your answers are finished. The picture still shows the problem, but the determinant appears only when you finish.</dd>
+    </dl>
+  </template>
+  <template id="dt-help-kind">
+    <p>The kind of problem:</p>
+    <dl>
+      <dt>2 × 2 matrix</dt>
+      <dd>Find det <em>A</em> = <em>ad</em> − <em>bc</em>, and the area of the parallelogram spanned by the columns.</dd>
+      <dt>Triangular matrix</dt>
+      <dd>Multiply the diagonal entries of a 3 × 3 or 4 × 4 triangular matrix (choose the size beside the menu).</dd>
+      <dt>3 × 3: cofactor expansion</dt>
+      <dd>Write det <em>A</em> as a sum of entries of the row or column with the most zeros, each with its sign, times the determinant of a smaller matrix. Then find those determinants (the minors), det <em>A</em>, and the volume of the parallelepiped.</dd>
+      <dt>3 × 3: row reduction</dt>
+      <dd>Reduce <em>A</em> to an upper triangular matrix with row replacements (and swaps when a diagonal entry is 0), then find det <em>A</em> and the volume.</dd>
+      <dt>4 × 4: cofactor expansion</dt>
+      <dd>Expand along a row or a column with three zeros, which leaves one 3 × 3 minor.</dd>
+      <dt>Properties of determinants</dt>
+      <dd>From det <em>A</em> alone, find the determinants of the transpose, of matrices made by row operations, of <em>kA</em>, of <em>A</em>², and of <em>A</em><sup>−1</sup>.</dd>
+    </dl>
+  </template>
+  <div id="dt-help-popup" class="dt-help-popup" role="note" hidden></div>
+</div>
+
+<script src="{{ '/assets/ts/out/determinants.js' | relative_url }}" type="module"></script>
