@@ -11,11 +11,13 @@
 import { setupHelp } from "./common/help";
 import { mathHTML, typeset } from "./common/mathjax";
 import { setupPanels } from "./common/panels";
+import { replaceQuery } from "./common/query";
 import { loadJSON, saveJSON } from "./common/storage";
 import { parseEntry } from "./matrix/fraction";
 import {
   EigenInfo, Mat2, Vec2, apply, coordinates, eigenInfo, fate, norm, snapToLine, stepBetween, trajectory,
 } from "./discrete_system/system_math";
+import { SHARE_KEYS, decodeSettings, encodeSettings } from "./discrete_system/share";
 
 const SETTINGS_KEY = "discrete_linear_system";
 const PIN_KEY = "discrete_linear_system_pins";
@@ -119,7 +121,9 @@ function initPage(): void {
   let playTimer: number | null = null;
   let dragging = false;
 
-  const saved = loadJSON<Saved>(SETTINGS_KEY) ?? {};
+  // Settings in the address (from a shared link) win over the ones saved in this browser.
+  const stepChoices = [...stepsSelect.options].map(o => +o.value);
+  const saved: Saved = { ...(loadJSON<Saved>(SETTINGS_KEY) ?? {}), ...decodeSettings(location.search, e => toNum(e) !== null, stepChoices) };
   const validEntries = (e: unknown, n: number): e is string[] =>
     Array.isArray(e) && e.length === n && e.every(s => typeof s === "string" && toNum(s) !== null);
   const startA = validEntries(saved.A, 4) ? saved.A : EXAMPLES.saddle.A;
@@ -134,10 +138,15 @@ function initPage(): void {
   steps = +stepsSelect.value;
   if (typeof saved.k === "number" && Number.isInteger(saved.k)) k = Math.min(Math.max(saved.k, 0), steps);
 
-  const save = () => saveJSON(SETTINGS_KEY, {
-    A: aInputs.map(i => i.value), x0: xInputs.map(i => i.value), steps, k,
-    lines: showLines.checked, parts: showParts.checked, circle: showCircle.checked,
-  } satisfies Saved);
+  // Saves the settings in this browser and in the page's address, so the address can be shared.
+  function save(): void {
+    const settings = {
+      A: aInputs.map(i => i.value), x0: xInputs.map(i => i.value), steps, k,
+      lines: showLines.checked, parts: showParts.checked, circle: showCircle.checked,
+    } satisfies Saved;
+    saveJSON(SETTINGS_KEY, settings);
+    replaceQuery(SHARE_KEYS, encodeSettings(settings));
+  }
 
   // ⋘──────── Reading the entries ────────⋙
   function readMatrix(): boolean {
@@ -847,6 +856,26 @@ function initPage(): void {
   new ResizeObserver(() => { drawPlane(); drawGraphs(); }).observe(canvas);
   new ResizeObserver(() => drawGraphs()).observe(graphXY);
 
+  // "Copy link": the page's address, which holds the current settings.
+  const copyButton = byId<HTMLButtonElement>("dls-copy-link");
+  const copyFeedback = byId<HTMLSpanElement>("dls-copy-feedback");
+  let feedbackTimer: number | null = null;
+  copyButton.addEventListener("click", async () => {
+    save();
+    const url = location.href;
+    // If copying fails (or a browser leaves it waiting on a permission prompt), show the link to
+    // copy by hand instead.
+    const timeout = new Promise<never>((_, reject) => setTimeout(() => reject(new Error("timeout")), 1500));
+    try {
+      await Promise.race([navigator.clipboard.writeText(url), timeout]);
+      copyFeedback.textContent = "Copied a link to these settings.";
+    } catch {
+      copyFeedback.textContent = `Copy this link: ${url}`;
+    }
+    if (feedbackTimer !== null) window.clearTimeout(feedbackTimer);
+    feedbackTimer = window.setTimeout(() => { copyFeedback.textContent = ""; }, 6000);
+  });
+
   // ⋘──────── Start ────────⋙
   readMatrix();
   readX0();
@@ -854,6 +883,7 @@ function initPage(): void {
   targetR = R = fitTarget();
   redraw();
   writeAnalysis();
+  save();
 
   setupHelp("dls");
   const panels = setupPanels("dls", () =>

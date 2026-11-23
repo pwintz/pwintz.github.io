@@ -3,6 +3,8 @@ import assert from "node:assert/strict";
 import {
   Mat2, Vec2, apply, blend, coordinates, eigenInfo, eigenvectorFor, fate, niceVector, partsAt, snapToLine, stepBetween, trajectory, turnBetween,
 } from "../src/discrete_system/system_math";
+import { decodeSettings, encodeSettings } from "../src/discrete_system/share";
+import { parseEntry } from "../src/matrix/fraction";
 import { assertArrayClose, assertClose } from "./helpers";
 
 test("trajectory applies A repeatedly", () => {
@@ -118,4 +120,22 @@ test("stepBetween runs from p to Ap, and each eigenvector part changes on its ow
   // A = −I shrinks through the origin rather than turning.
   const N: Mat2 = [[-1, 0], [0, -1]];
   assertArrayClose(stepBetween(N, eigenInfo(N), [2, 0], 0.5), [0, 0]);
+});
+
+test("shared links: settings round-trip through the address", () => {
+  const isEntry = (s: string) => parseEntry(s) !== null;
+  const settings = { A: ["1", "1", "1/4", "−1"], x0: ["-5", "2.5"], steps: 20, k: 3, lines: true, parts: false, circle: true };
+  const query = `?${encodeSettings(settings).join("&")}`;
+  assert.equal(query, "?A=1,1;1/4,-1&x0=-5,2.5&n=20&k=3&show=lc");
+  assert.deepEqual(decodeSettings(query, isEntry, [10, 20, 30, 50]), { ...settings, A: ["1", "1", "1/4", "-1"] });
+});
+
+test("shared links: invalid or missing settings are left out", () => {
+  const isEntry = (s: string) => parseEntry(s) !== null;
+  assert.deepEqual(decodeSettings("?A=1,2,3&x0=a,1&n=7&k=-1&show=xyz", isEntry, [10, 20]), {});
+  assert.deepEqual(decodeSettings("", isEntry, [10, 20]), {});
+  // k is capped at the number of steps; an empty show turns every view option off.
+  assert.deepEqual(decodeSettings("?n=10&k=99&show=", isEntry, [10, 20]), { steps: 10, k: 10, lines: false, parts: false, circle: false });
+  // Escaped characters are read too.
+  assert.deepEqual(decodeSettings("?x0=1%2F2%2C-3", isEntry, [10]).x0, ["1/2", "-3"]);
 });

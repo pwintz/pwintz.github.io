@@ -48,6 +48,7 @@ date_added: 2026-11-23
   .dls-view { font-size: 0.9em; }
   .dls-view label { display: flex; align-items: center; gap: 0.3rem; }
   .dls-group-label { font-size: 0.9em; color: #5f6368; }
+  .dls-copy-feedback { font-size: 0.85em; color: #5f6368; overflow-wrap: anywhere; }
 
   /* "?" buttons and their popup (common/help.ts). The popup is moved to <body>, so its styles don't
      use the .dls prefix. */
@@ -254,6 +255,8 @@ date_added: 2026-11-23
             <option value="50">50</option>
           </select>
         </label>
+        <button type="button" id="dls-copy-link" title="Copies a link to this page with the current matrix, starting state, number of steps, current step, and view options. The page's address also updates as you change the settings, so you can bookmark it or copy it from the address bar.">🔗 Copy link</button>
+        <span class="dls-copy-feedback" id="dls-copy-feedback" role="status"></span>
       </div>
       <div class="dls-toolbar-group dls-view">
         <span class="dls-group-label">View</span>
