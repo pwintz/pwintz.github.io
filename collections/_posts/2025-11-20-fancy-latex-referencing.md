@@ -15,13 +15,13 @@ reference-packages:
       - \pageref
     description: "The macro <code>\\ref</code> inserts the number of the referenced target (e.g., \"1\" for equation 1) and <code>\\pageref</code>  inserts the page number where it appears. The reference does not include any formatting."
   - name: "<code>amsmath</code> package"
-    documentation: https://mirrors.ctafn.org/macros/latex/required/amsmath/amsldoc.pdf
+    documentation: https://mirrors.ctan.org/macros/latex/required/amsmath/amsldoc.pdf
     macros: 
       - \eqref
     description: "The <code>\\eqref</code> macro inserts equation references formatted as \"(1)\" instead of just a number \"1\"."
   - name: "<code>cleveref</code> package"
     description: "Cleveref is a powerful cross-referencing tool that creates references that are formatted based on the type of object referenced, the location of the reference in the sentence (start vs. middle), and the number of targets referenced. Can produce multiple references and ranges of references using single commands."
-    documentation: 
+    documentation: https://ctan.org/pkg/cleveref
     macros: 
       - \cref
       - \crefrange
@@ -31,7 +31,7 @@ reference-packages:
   #   description: "The hyperref package adds hyperlinks to references created by other packages."
   #   documentation: https://ctan.org/pkg/hyperref
   - name: "<code>nameref</code> package"
-    description: "The <code>\\nameref</code> package inserts the text associated of referenced objects, such as chapter titles, section headings, theorem names, and description list labels. Bundled with hyperref."
+    description: "The <code>\\nameref</code> macro inserts the text associated with referenced objects, such as chapter titles, section headings, theorem names, and description list labels. Bundled with hyperref."
     documentation: https://ctan.org/pkg/nameref
     macros: 
       - \nameref
@@ -44,13 +44,10 @@ reference-packages:
       - \vrefrange
       - \vrefpagerange
   - name: "<code>xr</code> package"
-    description: "Inserts external references to other compiled LaTeX documents. Makes other "
+    description: "Inserts references to labels in other compiled LaTeX documents, such as a supplement that references equations in the main paper."
     documentation: https://ctan.org/pkg/xr
     macros: 
       - \externaldocument
-      - \vpageref
-      - \vrefrange
-      - \vrefpagerange
   # - name: "<code>fancyref</code>"
   #   description: "The fancyref package is similar to the cleveref package in that it formats references based on the type of object referenced, but it identifies the type using label prefixes. Largely superseded by cleveref."
   #   documentation: https://ctan.org/pkg/fancyref
@@ -63,96 +60,13 @@ reference-packages:
   #   description: "Inserts labels into the document to facilitate editing."
   #   documentation: https://ctan.org/pkg/showkeys
 
-reference-commands:
-  - name: <code>\ref</code>
-    provided-by: TeX
-    documentation: "https://www.overleaf.com/learn/latex/Cross_referencing_sections%2C_equations_and_floats"
-    description: Inserts the number of the section, figure, equation, etc. that contains the matching label.
-    can-reference-multiple: false
-    allows-type-based-formatting: false
-    allows-different-formatting-at-start-of-sentences: false
-    customizability: None
-    examples:
-      - code: \ref{eq:my 3rd equation}
-        output: $3$
-        description: The number (and only the number) of the referenced object is inserted.
-      - code: Section \
-        output:
-        description: To 
-  - name: <code>\pageref</code>
-    provided-by: TeX
-    documentation: "https://www.overleaf.com/learn/latex/Cross_referencing_sections%2C_equations_and_floats"
-    description: Inserts the page number that contains the matching label.
-    can-reference-multiple: false
-    allows-type-based-formatting: false
-    allows-different-formatting-at-start-of-sentences: false
-    customizability: None
-  - name: <code>\eqref</code>
-    provided-by: "<code>amsmath</code>"
-    documentation: https://mirrors.ctan.org/macros/latex/required/amsmath/amsldoc.pdf
-    description: Inserts a equation number formatted like "(1)" for the matching label.
-    can-reference-multiple: false
-    allows-type-based-formatting: false
-    allows-different-formatting-at-start-of-sentences: false
-    customizability: Difficult
-  - name: <code>\\cref<code>
-    provided-by: "<code>cleveref</code>"
-    documentation: https://ctan.org/pkg/cleveref
-    description: Inserts formatted reference(s) for each listed label.
-    can-reference-multiple: true
-    allows-type-based-formatting: true
-    allows-different-formatting-at-start-of-sentences: "Yes, by changing <code>\\cref</code> to <code>\\Cref</code>"
-    customizability: Yes
-  - name: <code>crefrange</code>
-    provided-by: "<code>cleveref</code>"
-    documentation: https://ctan.org/pkg/cleveref
-    description: Inserts a range of references starting at the first given equation and ending at the last.
-    can-reference-multiple: true
-    allows-type-based-formatting: true
-    allows-different-formatting-at-start-of-sentences: true
-    customizability: Yes
-  - name: <code>cpageref</code>
-    provided-by: "<code>cleveref</code>"
-    documentation: https://ctan.org/pkg/cleveref
-    description: 
-    can-reference-multiple: true
-    allows-type-based-formatting: true
-    allows-different-formatting-at-start-of-sentences: true
-    customizability: Yes
-  - name: <code>cpagerefrange</code>
-    provided-by: "<code>cleveref</code>"
-    documentation: https://ctan.org/pkg/cleveref
-    description: Inserts a range of page numbers starting at the first given equation and ending at the last.
-    can-reference-multiple: true
-    allows-type-based-formatting: true
-    allows-different-formatting-at-start-of-sentences: true
-    customizability: Yes
-
-cleveref-single-label-eq-reference-examples:
-  - macro: \cref
-    default-output: eq. (1)
-    custom-output: Equation (1)
-  - macro: \Cref
-    default-output: Eq. (1)
-    custom-output: Equation (1)
-  - macro: \cref*
-  - macro: \Cref*
-  - macro: \cpageref
-  - macro: \Cpageref
-  - macro: \namecref
-  - macro: \nameCref
-  - macro: \lcnamecref # Force lower case
-  - macro: \namecrefs
-  - macro: \nameCrefs
-  - macro: \labelcref
-
-
 ---
 One powerful aspect of writing documents in LaTeX is the ability to insert automatic references to components of your document, such as theorems, page numbers, and equations. 
+This post covers how to label objects, how to choose label names, how to configure the `cleveref` package to format references, and how to make references into hyperlinks.
 
 ## Labeling Document Components
 
-In LaTeX, you can add code labels to any numbered objects, such as equations, tables, sections, theorems, etc., which allow you to insert automatic references that use the number of the labeled object.
+In LaTeX, you can add labels to numbered objects, such as equations, tables, sections, and theorems, which allow you to insert automatic references that use the number of the labeled object.
 For example, the body of your document might be as shown here:
 ```latex
 \begin{equation}
@@ -170,7 +84,8 @@ For example, the body of your document might be as shown here:
   2 + 2 + 2 = 6.
 \end{equation}
 ```
-You can now reference the labels using the following commands:
+You can now reference the labels using the following commands.
+The `cleveref` outputs assume the configuration given in [Formatting Equation References](#formatting-equation-references-as-1-not-eq-1); the `cleveref` defaults are given in parentheses.
 
 | Command | Example Output | Description | Provided by |
 |:-----------:|:-----------:|:-----------:|:-----------:|
@@ -178,42 +93,18 @@ You can now reference the labels using the following commands:
 | `\ref{eq:my 2nd math}`   |  2    |   Equation Counter Value     | TeX |
 | `\pageref{eq:my 1st math}`   |  1   |   Page Number     | TeX |
 | `\eqref{eq:my 1st math}`   |  (1)    |   Formatted Equation Number     | `amsmath` |
-| `\Cref{eq:my 1st math}`   |  Equation 1   |   Start-of-sentence formatted equation number  | `cleveref` |
-| `\cref{eq:my 1st math}`   |  (1)   |   Middle-of-sentence formatted equation number  | `cleveref` |
-| `\cref{eq:my 1st math,eq:my 2nd math}`   |  (1) and (2)    |   Multiple Formatted Equation Numbers  (middle of sentence)     | `cleveref` |
-| `\cref{eq:my 1st math,eq:my 2nd math,eq:my 3rd math}`   |  (1)-(2)    |   Multiple Formatted Equation Numbers  (middle of sentence)     | `cleveref` |
-
-
-
-\section{Introduction}
-\label{sec:introduction}
-| `\nameref{sec:introduction}`   |  Introduction   |   Inserts the name of the section      | `nameref` (included by `hyperref`)  |
-\label{sec:introduction}
-
-| `\ref{result:my 1st theorem}`   |  2    |   Theorem Counter Value     | TeX |
+| `\Cref{eq:my 1st math}`   |  Equation (1)   |   Start-of-sentence formatted equation number  | `cleveref` |
+| `\cref{eq:my 1st math}`   |  (1) <br>(default: eq. (1))   |   Middle-of-sentence formatted equation number  | `cleveref` |
+| `\cref{eq:my 1st math,eq:my 2nd math}`   |  (1) and (2) <br>(default: eqs. (1) and (2))    |   Multiple Formatted Equation Numbers  (middle of sentence)     | `cleveref` |
+| `\cref{eq:my 1st math,eq:my 2nd math,eq:my 3rd math}`   |  (1)–(3) <br>(default: eqs. (1) to (3))    |   Range of Formatted Equation Numbers  (middle of sentence)     | `cleveref` |
 
 ## Comparison of Reference Packages
-<!-- 
-<table>
-  <tr>
-    <th>Command</th>
-    <th>Provided by</th>
-    <th>Description</th>
-  </tr>
-  {% for item in page.reference-commands %}
-    <tr>
-      <td>{{ item.name }}</td>
-      <td><a href="{{ item.documentation }}">{{ item.provided-by }}</a></td>
-      <td>{{ item.description }}</td>
-      <td>{{ item.can-reference-multiple }}</td>
-      <td>{{ item.allows-type-based-formatting }}</td>
-      <td>{{ item.allows-different-formatting-at-start-of-sentences }}</td>
-      <td>{{ item.customizability }}</td>
-    </tr>
-  {% endfor %}
-</table> -->
 
 <table>
+  <tr>
+    <th>Package and macros</th>
+    <th>Description</th>
+  </tr>
   {% for package in page.reference-packages %}
     <tr>
       <td>
@@ -238,13 +129,9 @@ You can now reference the labels using the following commands:
       <td>
         {{ package.description }}
       </td>
-      <!-- <td>
-      </td> -->
     </tr>
   {% endfor %}
 </table>
-
-
 
 
 <!-- \begin{theorem}
@@ -262,7 +149,7 @@ You can now reference the labels using the following commands:
 <!-- `\ref{eq:math}` or `\pageref{eq:math}` -->
 
 
-## Choosing Reference Label
+## Choosing Reference Labels
 
 
 The format for `[label name]` has [some restrictions](https://tex.stackexchange.com/q/18311/153678).
@@ -278,9 +165,12 @@ Do not use the following characters in labels:
 * Backslashes "`\`"
 * dollar signs "`$`"
 
+Spaces work with `\label` and `\ref`, but they come with a tradeoff.
+Inside a `\cref{}` list, a space before or after a comma becomes part of the label (see [Referencing Multiple Items](#referencing-multiple-items)), and some editors and linters handle labels with spaces poorly.
+Colons can also break if you use `babel` with a language that makes "`:`" an active character, such as French.
 
-
-In general, labels should be fairly stable, prefixes should not be too specific, since creating, e.g., different prefixes for sections, subsections, and subsections will require you to change the label whenever you decide to move a section up or down one level.
+Labels should be stable, so prefixes should not be too specific.
+For example, using different prefixes for sections, subsections, and subsubsections forces you to change a label whenever you move a section up or down one level.
 Thus, I use a single prefix `sec:` for all section levels (including chapters, since a chapter may be demoted to a section).
 Similarly, the boundaries are fuzzy between theorems, lemmas, and propositions. 
 A proposition may be renamed to a theorem or a lemma, or vice versa, and a conjecture will become one of the three when it is proven, so I use the same prefix `result:` for all four categories (aspirationally in the case of conjectures).
@@ -313,31 +203,17 @@ In some cases, I concatenate multiple prefixes.
 Most commonly, if I have a list of items in an assumption, I'll use `item:assump:`. 
 <!-- The choice to put `item` before `assumption` is not arbitrary. I use Dryer Lint to check the formatting of items, which has a different check that I would use for assumptions. -->
 
-
-## The `cleveref` Package
-
-### Start of sentence vs. end of sentence
-
-To insert a reference at the start of sentence, use `\Cref` (note the capital `C`) whereas mid-sentences references should use `\cref`. 
-In some cases, the resulting text will be identical, such as if you use the `capitalise` package option and are referencing "Theorem 2". 
-Careful usage of `\Cref` vs. `\cref` should be used, however, in case the global formatting later changes and because some types of references, such as equations, will use custom formatting styles for `\Cref` vs. `\cref`, overriding the `capitalise` option.
-
-The `cleveref` formatting for mid-sentence references is defined using macros that start with `\cref...` whereas configuration for start of sentence use macros in the form `\Cref...`.
-
 ## Hyperlinking
 
-To make each reference a hyperlink to the referenced item, you simply load the `hyperref` package before loading `cleveref`. 
+To make each reference a hyperlink to the referenced item, load the `hyperref` package before loading `cleveref`. 
 I use the following options for `hyperref`: 
 ```latex
-\usepackage{hyperref}
+% Include links even if the document is in 'draft' mode.
+\usepackage[final]{hyperref}
 \hypersetup{
-    % Include links even if document is in 'draft' mode.
-    final,                   
-    % Prevent boxes from being drawn around links in some viewers.
-    hidelinks,               
-    % Allow line breaks in the middle of links
+    % Allow line breaks in the middle of links.
     breaklinks=true,         
-    % Use colors for links.
+    % Color links instead of drawing boxes around them.
     colorlinks=true,
     % Set link color for internal links, including links in the table of 
     % contents, and linked references to equations, environments, etc.
@@ -349,6 +225,16 @@ I use the following options for `hyperref`:
     citecolor=black!30!blue, 
 }
 ```
+
+## The `cleveref` Package
+
+### Start of sentence vs. end of sentence
+
+To insert a reference at the start of sentence, use `\Cref` (note the capital `C`) whereas mid-sentences references should use `\cref`. 
+In some cases, the resulting text will be identical, such as if you use cleveref's `capitalise` option and are referencing "Theorem 2". 
+Use `\Cref` and `\cref` carefully anyway, because the global formatting may change later and because some types of references, such as equations, use different formats for `\Cref` and `\cref`, overriding the `capitalise` option.
+
+The `cleveref` formatting for mid-sentence references is defined using macros that start with `\cref...` whereas configuration for start of sentence use macros in the form `\Cref...`.
 
 ### Referencing Multiple Items
 The `cleveref` package supports referencing multiple items with a single `\cref{}` macro, using comma-separated labels.
@@ -365,32 +251,32 @@ A few things to keep in mind:
 When inserting many references with a single occurrence of `\cref{...}`, the code can become difficult to read.
 
 ```latex
-\cref{authorsTitle2025,authorsTitle1993,authorsTitle1984,authorsTitle1723,authorsTitle1023}
+\cref{eq:energy bound,eq:momentum bound,eq:mass bound,result:main theorem,fig:trajectory}
 ```
-You may expect that you can inserting a line break after each key:
+You might expect to insert a line break after each label:
 ```latex
 \cref{
-authorsTitle2025,
-authorsTitle1993,
-authorsTitle1984,
-authorsTitle1723,
-authorsTitle1023
+eq:energy bound,
+eq:momentum bound,
+eq:mass bound,
+result:main theorem,
+fig:trajectory
 }
 ```
 However, LaTeX treats each line break as a space, making the above code equivalent to 
 ```latex
-\cref{ authorsTitle2025, authorsTitle1993, authorsTitle1984, authorsTitle1723, authorsTitle1023 }
+\cref{ eq:energy bound, eq:momentum bound, eq:mass bound, result:main theorem, fig:trajectory }
 ```
-so each label key that begins with an extra space: "` authorsTitle2025`", "` authorsTitle1993`", etc.
+so each label begins with an extra space: "` eq:energy bound`", "` eq:momentum bound`", etc.
 
 Instead, you must end each line with a comment to suppress the additional space:
 ```latex
 \cref{%
-  authorsTitle2025,%
-  authorsTitle1993,%
-  authorsTitle1984,%
-  authorsTitle1723,%
-  authorsTitle1023%
+  eq:energy bound,%
+  eq:momentum bound,%
+  eq:mass bound,%
+  result:main theorem,%
+  fig:trajectory%
 }
 ```
 In TeX, leading white space on each line is discarded, so we can indent the labels as shown above to improve readability.
@@ -400,6 +286,8 @@ In TeX, leading white space on each line is discarded, so we can indent the labe
 ## Preventing Bad Line Breaks
 
 When inserting a reference to objects like "Section 1" or "Theorem 3", we want to ensure that "Section" and "1" are on the same line. 
+The default `cleveref` formats already join the name and number with a non-breaking space `~`.
+When you define custom formats, as in the next section, use `~` between words and numbers (e.g., `Equation~\textup{(#2#1#3)}` and ` and~\textup{(#2#1#3)}`) to keep this behavior.
 
 ## Formatting Equation References as "(1)" not "eq. (1)"
 
@@ -428,21 +316,21 @@ You must use all of the following macros:
 
 
 {% raw %} 
-If there are no gaps in the list of equations, then it is not to complicated. 
+If there are no gaps in the list of equations, then it is not too complicated. 
 Suppose we have sequential equations labeled as `eq:1`, `eq:2`, `eq:3`, etc.
 The following shows where the formatting for each reference comes from:
 
 ```latex
 \cref{eq:1}%                Uses \crefformat:      "(1)"
 \cref{eq:1,eq:2}%           Uses \crefmultiformat: "(1) and (2)"
-\cref{eq:1,eq:2,eq:3}%      Uses \crefrangeformat: "(1)-(3)"
-\cref{eq:1,eq:2,eq:3,eq:4}% Uses \crefrangeformat: "(1)-(4)"
+\cref{eq:1,eq:2,eq:3}%      Uses \crefrangeformat: "(1)–(3)"
+\cref{eq:1,eq:2,eq:3,eq:4}% Uses \crefrangeformat: "(1)–(4)"
 ```
-Once we have a gaps between references, however, then we can have a mixture of formats coming from `\crefmultiformat` and `\crefrangemultiformat`:
+Once we have gaps between references, however, then we can have a mixture of formats coming from `\crefmultiformat` and `\crefrangemultiformat`:
 ```latex
-% Insert "(1)-(3) and (5)"
+% Insert "(1)–(3) and (5)"
 \cref{%
-  eq:1,eq:2,eq:3,% Uses \crefrangemultiformat: "(1)-(3)"
+  eq:1,eq:2,eq:3,% Uses \crefrangemultiformat: "(1)–(3)"
   eq:5%            Uses \crefmultiformat for (5). 
 }
 % Insert "(1), (2), and (5)"
@@ -452,10 +340,14 @@ Once we have a gaps between references, however, then we can have a mixture of f
 ```
 {% endraw %}
 
-The following code changes the format of equation references to "(1)" instead of "Equation 1" (except at the start of a sentence).
-When an equation reference occurs in italicized text, it looks odd to have "(1)" italicized like, "_We see in (1) that..._", so I use "`\textup{(...)}`" instead of "(...)", forcing the equation reference to always be upright. 
+The following code changes the format of equation references to "(1)" instead of "eq. (1)" (except at the start of a sentence).
+When an equation reference occurs in italicized text, such as a theorem statement, it looks odd to have "(1)" italicized like, "_We see in (1) that..._", so I use "`\textup{(...)}`" instead of "(...)", forcing the equation reference to always be upright. 
 For the previous example, this would produce "_We see in_ (1) _that..._".
 
+In the single and multiple formats, argument `#1` is the formatted equation number (e.g., `\theequation`), and arguments `#2` and `#3` mark the beginning and end of the part of the cross-reference that is hyperlinked when the `hyperref` package is used.
+In the range formats, `#1` and `#2` are the first and last equation numbers, `#3` and `#4` mark the hyperlink for the first number, and `#5` and `#6` mark the hyperlink for the last number.
+
+{% raw %} 
 ```latex
 % ⋘──────── Equation in middle of sentence ────────⋙
 % Omit "Equation" when \cref{} is used to reference an equation in the middle of a sentence.
@@ -463,38 +355,48 @@ For the previous example, this would produce "_We see in_ (1) _that..._".
 % Define format for a single equation referenced in the middle of a sentence.
 % When inserting "(1)", use upright text for the parentheses and number.
 \crefformat{equation}{\textup{(#2#1#3)}}
-% Define format for a multiple equations referenced in the middle of a sentence.
+% Define format for multiple equations referenced in the middle of a sentence.
 \crefmultiformat{equation}    % {type}
     {\textup{(#2#1#3)}}       % {first}
     { and~\textup{(#2#1#3)}}  % {second}
     {, \textup{(#2#1#3)}}     % {middle}
     {, and~\textup{(#2#1#3)}} % {last}
+% Define format for a range of equations, joined by an en dash.
+\crefrangeformat{equation}{\textup{(#3#1#4)}--\textup{(#5#2#6)}}
+% Define format for ranges that occur in a list of multiple references.
+\crefrangemultiformat{equation}                    % {type}
+    {\textup{(#3#1#4)}--\textup{(#5#2#6)}}         % {first}
+    { and~\textup{(#3#1#4)}--\textup{(#5#2#6)}}    % {second}
+    {, \textup{(#3#1#4)}--\textup{(#5#2#6)}}       % {middle}
+    {, and~\textup{(#3#1#4)}--\textup{(#5#2#6)}}   % {last}
 
 % ⋘──────── Equation at start of sentence ────────⋙
-% For equations referenced at the start of a sentence, we want to include "Equation" or "Equations". The following formats are used when "\Cref" is used instead of "\cref". 
-% * The first argument #1 is the formatted version of the label counter (e.g.\theequation). 
-% * Arguments #2 and #3 mark the beginning and end of the part of the cross-reference that is hyperlinked when the hyperref package is used.
+% For equations referenced at the start of a sentence, we want to include "Equation" or "Equations". 
+% The following formats are used when "\Cref" is used instead of "\cref". 
 % Define format for a single equation referenced at the start of sentence.
 \Crefformat{equation}{Equation~\textup{(#2#1#3)}}
-% Define format for a multiple equation referenced at the start of sentence.
+% Define format for multiple equations referenced at the start of sentence.
 \Crefmultiformat{equation}        % {type}   
     {Equations~\textup{(#2#1#3)}} % {first}           
     { and~\textup{(#2#1#3)}}      % {second}       
     {, \textup{(#2#1#3)}}         % {middle}   
     {, and~\textup{(#2#1#3)}}     % {last}   
+% Define format for a range of equations referenced at the start of sentence.
+\Crefrangeformat{equation}{Equations~\textup{(#3#1#4)}--\textup{(#5#2#6)}}
+% Define format for ranges in a list of references at the start of sentence.
+\Crefrangemultiformat{equation}                            % {type}
+    {Equations~\textup{(#3#1#4)}--\textup{(#5#2#6)}}       % {first}
+    { and~\textup{(#3#1#4)}--\textup{(#5#2#6)}}            % {second}
+    {, \textup{(#3#1#4)}--\textup{(#5#2#6)}}               % {middle}
+    {, and~\textup{(#3#1#4)}--\textup{(#5#2#6)}}           % {last}
 ```
+{% endraw %}
 
+## Oxford Comma in Lists of Mixed References
 
-## Use upright numbers and parentheses
-
-We use "\textup{(...)}" instead of "(...)" so that the equation reference is always upright, even in theorem statements and other italicized text.
-% https://ctan.org/pkg/cleveref
-
-## Configuring Ranges of References
-
-### Oxford Comma in lists of references
-
-When a list of references are pointing to items of different types or do not have a contiguous sequence of numbers, then references are listed, by default, like "Lemma 1, Theorem 2 and Lemma 2". 
+The multiple formats in the previous section already insert an Oxford comma in lists of equations, via the `{, and~...}` argument.
+When a list of references points to items of different types, however, `cleveref` does not use those formats. 
+By default, such references are listed like "Lemma 1, Theorem 2 and Lemma 2". 
 Note the absence of the Oxford comma after "Theorem 2". 
 To fix this, we define `\creflastconjunction`, which `cleveref` will automatically use to insert as the last conjunction in a list of 3 or more items.
 
@@ -506,7 +408,7 @@ To fix this, we define `\creflastconjunction`, which `cleveref` will automatical
 
 ## References to Enumerations
 
-```
+```latex
 % When inserting items using "\cref", don't prefix the reference with "Item".
 \crefname{enumi}{}{}%
 \crefname{enumii}{}{}%
@@ -514,12 +416,12 @@ To fix this, we define `\creflastconjunction`, which `cleveref` will automatical
 \crefname{enumiv}{}{}%
 ```
 
-### Using References in Sections Headings and Chapter Titles
+## Using References in Section Headings and Chapter Titles
 <!-- 
 TODO: Test the cases when section headings cannot have links. Is it only when you have a table of contents? 
  -->
-In some cases, section headings and chapter titles, you cannot include hyperlinks. 
-If you want to include a reference in a section heading, you need to somehow avoid inserting the hyperlink that is automatically created for each reference when `hyperref` is loaded.
+Section headings and chapter titles are copied into the table of contents and the PDF bookmarks, where a hyperlinked reference causes problems.
+If you want to include a reference in a section heading, you need to avoid inserting the hyperlink that is automatically created for each reference when `hyperref` is loaded.
 
 The `cleveref` package provides starred versions of `\cref` and other related macros which inserts the reference text without a link:
 ```latex
@@ -527,26 +429,23 @@ The `cleveref` package provides starred versions of `\cref` and other related ma
 \cref*{eq:my equation}% Unlinked reference.
 ```
 You can use `\cref*{}` in section headings. 
-```
+```latex
 \subsection{Proof of \cref*{result:my result}}
 ```
 You might, however, want the section header to have a link to `result:my result`.
-To achieve this, use `\section`'s optional argument:
+To achieve this, use `\subsection`'s optional argument, which sets the text used in the table of contents and bookmarks:
 ```latex
-\section[Proof of \cref*{result:my result}]{Proof of \cref{result:my result}}
+\subsection[Proof of \cref*{result:my result}]{Proof of \cref{result:my result}}
 ```
+PDF bookmarks can only contain plain text, so `hyperref` may warn about `\cref*` in the optional argument.
+To give the bookmark its own plain-text version, wrap the reference in `\texorpdfstring{<TeX version>}{<PDF version>}`.
 
+<!-- 
 ## Using `cleveref` to access separate parts of references
 You can access the name and number parts of references. 
-If you have that `\cref{fig:my figure}` references "Figure 7", then 
-
-
+If `\cref{fig:my figure}` produces "Figure 7", then 
 
 ## Defining & Testing Custom Formats
 
 ## Examples of cleveref macro outputs
-
-
-
-
-*[chapter]: This is a test of abbreviating chapter
+-->
