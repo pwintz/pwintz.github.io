@@ -1,5 +1,4 @@
 ---
-published: false
 title: Parabolic PDE
 term: parabolic
 applies_to: second-order PDEs

@@ -1,9 +1,8 @@
 ---
-published: false
 title: Probability Distribution
 term: probability distribution
 applies_to: random variables
-synonyms: [distribution, law]
+# synonyms: [distribution, law]
 levels:
   high-school:
     text: |-

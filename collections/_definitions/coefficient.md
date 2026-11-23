@@ -6,8 +6,7 @@ applies_to: terms of a polynomial or linear combination
 levels:
   elementary:
     text: |-
-      Think of a term in algebra, made of a number times a variable.
-      The _coefficient_ of the term is the number that multiplies its variable.
+      A _coefficient_ is a constant that is multiplied with a variable, like "5" in $5x$.
   high-school:
     text: |-
       Consider a term of a [polynomial](/dictionary/definitions/polynomial), made of a constant factor times a variable part.

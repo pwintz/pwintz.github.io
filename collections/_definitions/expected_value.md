@@ -1,5 +1,4 @@
 ---
-published: false
 title: Expected Value
 term: expected value
 applies_to: random variables
@@ -12,16 +11,27 @@ levels:
   undergraduate:
     context: probability
     text: |-
-      Consider a [random variable](/dictionary/definitions/random-variable) $X$, either discrete or with a density $f$.
-      The _expected value_ of $X$ is
+      Consider a [random variable](/dictionary/definitions/random-variable) $X$. 
+      
+      If $X$ is a discrete random variable, then the _expected value_ of $X$ is
 
-      $$\mathbb{E}[X] = \sum_x x P(X = x) \quad \text{(discrete)} \qquad \text{or} \qquad \mathbb{E}[X] = \int x f(x) \dx \quad \text{(with density } f\text{)}.$$
+      $$\mathbb{E}[X] = \sum_x x P(X = x).$$
 
-      It is a [weighted average](/dictionary/definitions/weighted-average) of the possible values, weighted by their probabilities.
+      If $X$ is a continuous random variable with a [density](/dictionary/definitions/probability-density) $f$, then the _expected value_ of $X$ is
+
+      $$\mathbb{E}[X] = \int x f(x) \dx$$
+
 properties:
   - >-
-    By the law of large numbers, the mean of many independent samples approaches the expected value.
+    The expected average of a random variable is a [weighted average](/dictionary/definitions/weighted-average) of the possible values, where each value is weighted by its probability.
+
   - >-
-    Expected value is linear: $\mathbb{E}[a X + b Y] = a \mathbb{E}[X] + b \mathbb{E}[Y]$.
+    By the law of large numbers, the mean of many independent samples approaches the expected value.
+
+  - |-
+    Expected value is linear: 
+    
+    $$\mathbb{E}[a X + b Y] = a \mathbb{E}[X] + b \mathbb{E}[Y].$$
+
 ---
-The expected value is a property of a [probability distribution](/dictionary/definitions/probability-distribution), while the mean of a data set is a property of the data.
+The expected value is a property of a [probability distribution](/dictionary/definitions/probability-distribution), while the [mean](arithmetic-mean) of a data set is a property of the data.

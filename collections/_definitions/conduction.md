@@ -21,13 +21,13 @@ levels:
 
       where $k > 0$ is the _thermal conductivity_ of the material.
 properties:
-  - >-
+  - |-
     In a uniform material without heat sources, the temperature satisfies the _heat equation_
 
     $$\frac{\partial T}{\partial t} = \alpha \nabla^2 T,$$
 
     where $\alpha = k / (\rho c_p)$ is the _thermal diffusivity_, $\rho$ is the density, and $c_p$ is the specific heat capacity.
-    The heat equation is the diffusion equation, so conduction is the [diffusion](/dictionary/definitions/diffusion) of heat.
+    The heat equation is the diffusion equation, so conduction in a still material is [heat diffusion](/dictionary/definitions/heat-diffusion).
   - >-
     Metals conduct heat well, and still air conducts heat poorly, which is why materials that trap air, such as foam and down feathers, are good insulators.
   - >-

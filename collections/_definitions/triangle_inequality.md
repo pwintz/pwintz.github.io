@@ -38,13 +38,13 @@ properties:
   - >-
     The triangle inequality is one of the conditions in the definitions of a [norm](/dictionary/definitions/norm) and of a [metric](/dictionary/definitions/metric).
     For a norm, the metric $d(x, y) = \norm{x - y}$ satisfies the metric version of the triangle inequality.
-  - >-
+  - |-
     The reverse triangle inequality
 
     $$\abs{\norm{\vect{x}} - \norm{\vect{y}}} \le \norm{\vect{x} - \vect{y}}$$
 
     follows from the triangle inequality.
-  - >-
+  - |-
     For the [norm](/dictionary/definitions/norm) of an [inner product](/dictionary/definitions/inner-product), the triangle inequality follows from the [Cauchy–Schwarz inequality](/dictionary/definitions/cauchy-schwarz-inequality):
 
     $$\norm{\vect{x} + \vect{y}}^2 = \norm{\vect{x}}^2 + 2 \ip{\vect{x}}{\vect{y}} + \norm{\vect{y}}^2 \le \norm{\vect{x}}^2 + 2 \norm{\vect{x}} \norm{\vect{y}} + \norm{\vect{y}}^2 = (\norm{\vect{x}} + \norm{\vect{y}})^2.$$

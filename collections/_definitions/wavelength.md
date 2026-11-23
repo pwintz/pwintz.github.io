@@ -15,7 +15,7 @@ levels:
 
       $$u(x + \lambda, t) = u(x, t) \quad \text{for all } x \text{ and } t.$$
 properties:
-  - >-
+  - |-
     The wavelength $\lambda$, the [frequency](/dictionary/definitions/frequency-oscillation) $f$, and the [wave speed](/dictionary/definitions/wave-speed) $c$ of a [wave](/dictionary/definitions/wave) are related by
 
     $$c = f \lambda.$$

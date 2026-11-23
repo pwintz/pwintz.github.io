@@ -10,7 +10,7 @@ values:
 why:
   transmission_zero: >-
     $G(s) = \frac{s + 1}{(s + 1)(s + 2)}$ has no transmission zeros, because the factor $s + 1$ cancels.
-  pole: >-
+  pole: |-
     The pole of $G(s)$ is $-2$, because 
     
     $$G(s) = \frac{1}{s + 2}$$

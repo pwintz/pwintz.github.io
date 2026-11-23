@@ -10,7 +10,7 @@ levels:
       Consider sets $X$ and $Y$.
       A _set-valued map_ $F$ from $X$ to $Y$, written $F : X \rightrightarrows Y$, assigns to each point $x \in X$ a [subset](/dictionary/definitions/subset) $F(x)$ of $Y$, which may be empty or contain many points.
 properties:
-  - >-
+  - |-
     The _graph_ of $F$ is the set
   
     $$\operatorname{gph} F = \setdef{(x, y) \in X \times Y \suchthat y \in F(x)}.$$

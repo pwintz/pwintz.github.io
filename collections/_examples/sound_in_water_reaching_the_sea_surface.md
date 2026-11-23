@@ -11,13 +11,13 @@ values:
 why:
   reflection_wave: >-
     Sound in seawater reaching the sea surface is reflected, because the impedance of air is much smaller than the impedance of seawater, so nearly all of the sound turns back down into the water.
-  reflection_coefficient: >-
+  reflection_coefficient: |-
     The reflection coefficient of the pressure for sound in seawater reaching the sea surface is
 
     $$R = \frac{Z_{\text{air}} - Z_{\text{water}}}{Z_{\text{air}} + Z_{\text{water}}} \approx \frac{413 - 1{,}537{,}500}{413 + 1{,}537{,}500} \approx -0.99946.$$
 
     The reflection coefficient is negative, so the reflected sound is flipped upside down.
-  transmission_coefficient: >-
+  transmission_coefficient: |-
     The transmission coefficient of the pressure for sound in seawater reaching the sea surface is
 
     $$T = \frac{2 Z_{\text{air}}}{Z_{\text{air}} + Z_{\text{water}}} \approx \frac{826}{1{,}537{,}913} \approx 0.00054.$$

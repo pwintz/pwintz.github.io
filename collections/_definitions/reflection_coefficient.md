@@ -12,7 +12,7 @@ levels:
 
       $$R = \frac{A_r}{A_i}.$$
 properties:
-  - >-
+  - |-
     For the pressure of a sound [wave](/dictionary/definitions/wave), the reflection coefficient is
 
     $$R = \frac{Z_2 - Z_1}{Z_2 + Z_1},$$

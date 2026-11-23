@@ -20,7 +20,7 @@ levels:
 
       for a function $X$ of position and constants $\omega$ and $\phi$.
 properties:
-  - >-
+  - |-
     The sum of two [waves](/dictionary/definitions/wave) with the same [amplitude](/dictionary/definitions/amplitude) and [frequency](/dictionary/definitions/frequency-oscillation) that travel in opposite directions is a standing wave:
 
     $$A \cos(k x - \omega t) + A \cos(k x + \omega t) = 2 A \cos(k x) \cos(\omega t).$$

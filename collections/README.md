@@ -113,7 +113,7 @@ I think the following make sense to sort the topics into priority levels, based 
 - [Types of reoccurring](/collections/_distinctions/types_of_reoccurring.md)
 - [Types of real_numbers](/collections/_distinctions/types_of_real_numbers.md)
 - [Types of maps](/collections/_distinctions/types_of_maps.md)
-- [Types of mathematical_expressions](/collections/_distinctions/types_of_mathematical_expressions.md)
+- [Parts of an expression](/collections/_distinctions/parts_of_an_expression.md)
 - [Types of sameness](/collections/_distinctions/types_of_sameness.md)
 - [Types of vector_vs_point](/collections/_distinctions/vector_vs_point.md)
 
@@ -345,6 +345,7 @@ Use `\norm` for vectors, such as the state $x \in \reals^n$, and `\abs` only for
 In a YAML flow list, quote a value that contains braces, e.g., `synonyms: ['$\abs{A}$']`.
 
 **Math in YAML:** Use single quotes or block scalars (`>`) for values containing backslashes, and quote values containing `: `.
+Use a literal block scalar (`|-`), not a folded one (`>-`), for a value that contains a display equation: a folded scalar turns the blank lines around `$$...$$` into single line breaks, so the equation stays in the paragraph and renders inline.
 Write `f^{\prime}` instead of `f'` (smart quotes would change the apostrophe), and `\lvert x \rvert` instead of `|x|`.
 Write `\ast` instead of `*` in math, such as `$T^{\ast}$` for an adjoint, because kramdown reads two asterisks in a paragraph as emphasis before MathJax sees the math, which deletes the asterisks and italicizes the text between them.
 

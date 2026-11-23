@@ -1,5 +1,4 @@
 ---
-published: false
 title: Variance
 term: variance
 applies_to: random variables and data

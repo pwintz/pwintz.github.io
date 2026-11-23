@@ -25,7 +25,7 @@ properties:
     The absolute value of the signed angle from $\vect{x}$ to $\vect{y}$ is the [angle](/dictionary/definitions/angle) between $\vect{x}$ and $\vect{y}$.
   - >-
     The signed angle from $\vect{y}$ to $\vect{x}$ is the negative of the signed angle from $\vect{x}$ to $\vect{y}$, except when the vectors point in opposite directions, where both signed angles are $180^\circ$.
-  - >-
+  - |-
     Programming languages compute the signed angle with the two-argument arctangent:
 
     $$\theta = \operatorname{atan2}(x_1 y_2 - x_2 y_1, \; x_1 y_1 + x_2 y_2).$$

@@ -1,5 +1,4 @@
 ---
-published: false
 title: Arithmetic Mean
 term: mean
 applies_to: data
@@ -16,6 +15,7 @@ levels:
       The _mean_ of the data is
 
       $$\bar{x} = \frac{1}{n} \sum_{i=1}^n x_i.$$
+  # TODO: Add undergraduate version with expected value (with a link to that page). 
 ---
 There are other means, such as the [geometric mean](/dictionary/definitions/geometric-mean) $\sqrt[n]{x_1 x_2 \cdots x_n}$ and the harmonic mean.
 "Mean" alone usually means the arithmetic mean.

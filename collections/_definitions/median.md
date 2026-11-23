@@ -1,5 +1,4 @@
 ---
-published: false
 title: Median
 term: median
 applies_to: data and distributions
@@ -8,12 +7,13 @@ levels:
     text: |-
       Think of a list of numbers, sorted from smallest to largest.
       The _median_ of the list is the middle value.
-      With an even number of values, it is the mean of the two middle values.
+      With an even number of values, it is the [mean](/dictionary/definitions/arithmetic-mean) of the two middle values.
   undergraduate:
     context: probability
     text: |-
       Consider a [random variable](/dictionary/definitions/random-variable) $X$.
-      A _median_ of $X$ is a number $m$ with
+      A _median_ of $X$ is a number $m$ such that
 
       $$P(X \leq m) \geq \frac{1}{2} \quad \text{and} \quad P(X \geq m) \geq \frac{1}{2}.$$
 ---
+<!-- TODO: Not to be confused with meridian (which also is related to the concept of "middle") -->

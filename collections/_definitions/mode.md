@@ -1,5 +1,4 @@
 ---
-published: false
 title: Mode
 term: mode
 applies_to: data and distributions

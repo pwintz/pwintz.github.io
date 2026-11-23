@@ -1,5 +1,4 @@
 ---
-published: false
 title: Probability Mass Function
 term: probability mass function
 applies_to: discrete random variables

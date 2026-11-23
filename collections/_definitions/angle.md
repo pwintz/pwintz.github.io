@@ -38,7 +38,7 @@ properties:
     The angle between $\vect{x}$ and $\vect{y}$ is $0$ if and only if $\vect{y}$ is a positive multiple of $\vect{x}$, and $\pi$ if and only if $\vect{y}$ is a negative multiple of $\vect{x}$.
   - >-
     The angle between a vector and the [zero vector](/dictionary/definitions/zero-vector) is undefined, because the zero vector has no direction.
-  - >-
+  - |-
     The [Cauchy–Schwarz inequality](/dictionary/definitions/cauchy-schwarz-inequality) states that the fraction 
     
     $$\frac{\ip{\vect{x}}{\vect{y}}}{(\norm{\vect{x}} \norm{\vect{y}})}$$

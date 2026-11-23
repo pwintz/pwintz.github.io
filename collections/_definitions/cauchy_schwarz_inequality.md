@@ -18,17 +18,17 @@ levels:
 
       with equality if and only if $\vect{x}$ and $\vect{y}$ are linearly dependent.
 properties:
-  - >-
+  - |-
     For vectors in $\reals^n$, the inequality is
 
     $$\left( \sum_{i=1}^n x_i y_i \right)^2 \le \left( \sum_{i=1}^n x_i^2 \right) \left( \sum_{i=1}^n y_i^2 \right).$$
-  - >-
+  - |-
     For the [$L^2$ inner product](/dictionary/definitions/l2-inner-product) of functions $f$ and $g$ on $[a, b]$, the inequality is
 
     $$\left\lvert \int_a^b f(t) g(t) \dt \right\rvert \le \sqrt{\int_a^b f(t)^2 \dt} \, \sqrt{\int_a^b g(t)^2 \dt}.$$
 
     So the $L^2$ inner product of $f$ and $g$ is finite if $\int_a^b f(t)^2 \dt$ and $\int_a^b g(t)^2 \dt$ are finite.
-  - >-
+  - |-
     In a real [inner product space](/dictionary/definitions/inner-product-space), the inequality gives $-1 \le \ip{\vect{x}}{\vect{y}} / (\norm{\vect{x}} \norm{\vect{y}}) \le 1$ for nonzero $\vect{x}$ and $\vect{y}$, so the [angle](/dictionary/definitions/angle) $\theta$ between $\vect{x}$ and $\vect{y}$ can be defined by
 
     $$\cos \theta = \frac{\ip{\vect{x}}{\vect{y}}}{\norm{\vect{x}} \norm{\vect{y}}}.$$

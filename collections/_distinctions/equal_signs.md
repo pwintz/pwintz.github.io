@@ -23,7 +23,7 @@ examples:
   - example: x_squared_geq_0
 see_also:
   - polynomial_vs_polynomial_function_vs_polynomial_equation
-  - types_of_mathematical_expressions
+  - parts_of_an_expression
   - types_of_sameness
 ---
 ## Notes

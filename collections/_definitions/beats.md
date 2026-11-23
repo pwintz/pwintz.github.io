@@ -14,7 +14,7 @@ levels:
 
       $$f_{\text{beat}} = \abs{f_1 - f_2}.$$
 properties:
-  - >-
+  - |-
     By the sum-to-product identity,
 
     $$\cos(2\pi f_1 t) + \cos(2\pi f_2 t) = 2 \cos\left(\pi (f_1 - f_2) t\right) \cos\left(\pi (f_1 + f_2) t\right),$$

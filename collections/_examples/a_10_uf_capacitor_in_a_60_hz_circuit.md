@@ -9,7 +9,7 @@ values:
 why:
   resistance: >-
     The resistance of an ideal $10$ μF capacitor is $0$, because an ideal capacitor converts no energy into heat.
-  reactance: >-
+  reactance: |-
     The reactance of a $10$ μF capacitor at $60$ Hz is
 
     $$X = -\frac{1}{2 \pi f C} = -\frac{1}{2 \pi \cdot 60 \cdot 10^{-5}} \approx -265.3 \text{ Ω}.$$

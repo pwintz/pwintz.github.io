@@ -11,7 +11,7 @@ levels:
 
       $$P(a \leq X \leq b) = \int_a^b f(x) \dx \quad \text{for all } a \leq b.$$
 properties:
-  - >- 
+  - |-
     The integral of every probability density $f(x)$ over its domain is 1:
 
     $$\int_{-\infty}^\infty f(x) \dx = 1.$$

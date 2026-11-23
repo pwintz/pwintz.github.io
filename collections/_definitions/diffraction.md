@@ -20,7 +20,7 @@ properties:
   - >-
     (Huygens' principle.)
     Each point of the opening acts as a new source of [waves](/dictionary/definitions/wave), and diffraction is the [interference](/dictionary/definitions/interference) of the waves from these sources.
-  - >-
+  - |-
     A [wave](/dictionary/definitions/wave) of [wavelength](/dictionary/definitions/wavelength) $\lambda$ that passes through a slit of width $a$ spreads out so that the first direction of complete [destructive interference](/dictionary/definitions/destructive-interference) is at the [angle](/dictionary/definitions/angle) $\theta$ from straight ahead such that
 
     $$\sin \theta = \frac{\lambda}{a}.$$

@@ -1,5 +1,4 @@
 ---
-published: false
 title: Probability Space
 term: probability space
 applies_to: random experiments
@@ -17,7 +16,7 @@ levels:
       3. $P$ is a [probability measure](/dictionary/definitions/probability-measure) on $\mathcal{F}$.
 properties:
   - |-
-    A probability space is a measure space whose measure of the whole space is $1$:
+    A probability space is a [measure space](/dictionary/definitions/measure-space) such that the measure of the whole space is $1$:
 
     $$
       P(\Omega) = 1.

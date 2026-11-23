@@ -15,7 +15,7 @@ levels:
 
       $$\operatorname{id}_X(x) = x \quad \text{for all } x \in X.$$
 properties:
-  - >-
+  - |-
     The identity function $\operatorname{id}_X$ is the [identity element](/dictionary/definitions/identity-element) of [function composition](/dictionary/definitions/function-composition) on the functions from $X$ to $X$: for every function $f : X \to X$,
 
     $$f \circ \operatorname{id}_X = \operatorname{id}_X \circ f = f.$$

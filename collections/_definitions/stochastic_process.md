@@ -1,5 +1,4 @@
 ---
-published: false
 title: Stochastic Process
 term: stochastic process
 applies_to: probability

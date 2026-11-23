@@ -21,7 +21,7 @@ examples:
   - example: poly_x_squared_plus_x_mod_2
 see_also:
   - equal_signs
-  - types_of_mathematical_expressions
+  - parts_of_an_expression
 ---
 ## Notes
 

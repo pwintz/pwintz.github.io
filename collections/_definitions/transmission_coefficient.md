@@ -12,7 +12,7 @@ levels:
 
       $$T = \frac{A_t}{A_i}.$$
 properties:
-  - >-
+  - |-
     For the pressure of a sound [wave](/dictionary/definitions/wave), the transmission coefficient is
 
     $$T = \frac{2 Z_2}{Z_2 + Z_1},$$
@@ -21,7 +21,7 @@ properties:
   - >-
     The transmission coefficient of the pressure can be greater than $1$: sound passing from air into water has $T \approx 2$.
     The pressure doubles, but almost none of the [energy](/dictionary/definitions/energy) is transmitted, because the same pressure carries much less energy in water than in air.
-  - >-
+  - |-
     The fraction of the incident [energy](/dictionary/definitions/energy) that is transmitted is
 
     $$\frac{Z_1}{Z_2} T^2 = \frac{4 Z_1 Z_2}{(Z_1 + Z_2)^2},$$

@@ -1,7 +1,7 @@
 ---
 published: false
 title: 'The Pythagorean theorem'
-detail: >-
+detail: |-
   For the legs $a$ and $b$ and the hypotenuse $c$ of every right triangle,
 
   $$a^2 + b^2 = c^2.$$

@@ -13,7 +13,7 @@ levels:
       Consider a [wave](/dictionary/definitions/wave) that crosses the boundary between two materials in which the wave travels at different speeds, such as light passing from air into glass.
       _Refraction_ is the change in the direction of the wave as the wave crosses the boundary.
 properties:
-  - >-
+  - |-
     (Snell's law.)
     Consider a [wave](/dictionary/definitions/wave) that crosses a flat boundary from a medium with [wave speed](/dictionary/definitions/wave-speed) $c_1$ into a medium with wave speed $c_2$.
     The [angle](/dictionary/definitions/angle) of incidence $\theta_1$ and the angle of refraction $\theta_2$, both measured from the [normal vector](/dictionary/definitions/normal-vector) of the boundary, satisfy

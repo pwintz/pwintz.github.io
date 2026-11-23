@@ -9,7 +9,7 @@ values:
 why:
   resistance: >-
     The resistance of an ideal $0.5$ H inductor is $0$, because an ideal inductor converts no energy into heat.
-  reactance: >-
+  reactance: |-
     The reactance of a $0.5$ H inductor at $60$ Hz is
 
     $$X = 2 \pi f L = 2 \pi \cdot 60 \cdot 0.5 \approx 188.5 \text{ Ω}.$$

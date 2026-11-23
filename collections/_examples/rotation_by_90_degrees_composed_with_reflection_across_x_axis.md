@@ -10,7 +10,7 @@ is: [function_composition]
 values:
   function_composition: '$$(f \circ g)(x) = \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix} x$$, which is the reflection across the line $y = x$'
 why:
-  function_composition: >-
+  function_composition: |-
     The composition $f \circ g$ is multiplication by the matrix product
 
     $$\begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix} = \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix},$$

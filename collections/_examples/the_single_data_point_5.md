@@ -1,10 +1,9 @@
 ---
-published: false
 title: 'The single data point $5$'
 level: high-school
 values:
   variance: '$0$'
-  sample_variance: 'Undefined ($\frac{0}{0}$)'
+  sample_variance: 'Undefined'
 why:
   variance: >-
     The variance of the single data point $5$ is $0$, because the data point equals its mean.
