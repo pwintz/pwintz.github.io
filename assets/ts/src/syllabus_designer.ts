@@ -12,7 +12,7 @@ import { setupPanels } from "./common/panels";
 import { loadJSON, loadString, removeSaved, saveJSON, saveString } from "./common/storage";
 import { State, generate } from "./syllabus/generate";
 import { WEEKDAYS } from "./syllabus/read";
-import { Block, Item, esc, inlineHtml, toHtml, toMarkdown, toPlain } from "./syllabus/markup";
+import { Block, Item, esc, exportFileName, inlineHtml, toHtml, toMarkdown, toPlain } from "./syllabus/markup";
 import { PRESETS } from "./syllabus/presets";
 import { DATE_STYLES, formatDate, formatDateValue, setDateStyle } from "./syllabus/dates";
 import { Holiday, approximateTerm, holidaysBetween } from "./syllabus/holidays";
@@ -1664,8 +1664,7 @@ updateViewButtons();
 // ⋘──────── Exports ────────⋙
 
 function fileName(ext: string): string {
-  const code = (state.field["course.code"] ?? "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-  return `${code ? `${code}-` : ""}${DOCS[doc].file}.${ext}`;
+  return `${exportFileName(state.field, DOCS[doc].file)}.${ext}`;
 }
 
 function download(text: string, type: string, name: string): void {
@@ -1758,8 +1757,7 @@ const JSON_FORMAT = "syllabus-designer-answers";
 
 $<HTMLButtonElement>("syl-export-json").addEventListener("click", () => {
   const file = { format: JSON_FORMAT, version: 1, saved: new Date().toISOString(), answers: state };
-  const code = (state.field["course.code"] ?? "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-  download(JSON.stringify(file, null, 2), "application/json", `${code ? `${code}-` : ""}syllabus-answers.json`);
+  download(JSON.stringify(file, null, 2), "application/json", `${exportFileName(state.field, "syllabus-answers")}.json`);
 });
 
 const importButton = $<HTMLButtonElement>("syl-import-json");

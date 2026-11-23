@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { Block, esc, inlineHtml, inlinePlain, textBlocks, toHtml, toMarkdown, toPlain } from "../src/syllabus/markup";
+import { Block, esc, exportFileName, inlineHtml, inlinePlain, textBlocks, toHtml, toMarkdown, toPlain } from "../src/syllabus/markup";
 
 test("esc escapes markup but keeps Markdown links", () => {
   assert.equal(esc("a*b* [x] {y}"), "a\\*b\\* \\[x\\] \\{y\\}");
@@ -151,4 +151,10 @@ test("numbered lists in plain text, Markdown, and HTML", () => {
 test("plain lists have no bullets in HTML", () => {
   const html = toHtml([{ t: "ul", items: ["☐ Task"], src: "q", plain: true }], "lms");
   assert.equal(html, `<ul style="list-style: none; padding-left: 0;"><li>☐ Task</li></ul>`);
+});
+
+test("export file names start with the course number and term", () => {
+  assert.equal(exportFileName({ "course.code": "MATH 110", "course.term": "Fall 2026" }, "syllabus"), "math-110-fall-2026-syllabus");
+  assert.equal(exportFileName({ "course.term": " Winter '27 " }, "syllabus-answers"), "winter-27-syllabus-answers");
+  assert.equal(exportFileName({}, "syllabus"), "syllabus");
 });

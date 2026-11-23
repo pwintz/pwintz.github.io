@@ -260,3 +260,11 @@ export function textBlocks(text: string, src?: string): Block[] {
   }
   return blocks;
 }
+
+// A download's file name, starting with the course number and term when they are filled in,
+// such as "math-110-fall-2026-syllabus.html".
+export function exportFileName(fields: Record<string, string | undefined>, base: string): string {
+  const slug = (text: string | undefined) =>
+    (text ?? "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  return [slug(fields["course.code"]), slug(fields["course.term"]), base].filter(Boolean).join("-");
+}
