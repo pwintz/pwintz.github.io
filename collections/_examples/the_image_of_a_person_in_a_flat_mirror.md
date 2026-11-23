@@ -1,5 +1,4 @@
 ---
-published: false
 title: The image of a person in a flat mirror
 level: elementary
 is: [

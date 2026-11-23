@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'Meanings of "Reflection"'
 kind: conflicting
 areas: [physics, geometry]
@@ -24,4 +23,4 @@ see_also:
 ## Notes
 
 - The two meanings are linked by the law of reflection: the direction of a ray that is reflected by a flat boundary is the geometric reflection of the direction of the incoming ray across the plane of the boundary.
-- The [image method](/dictionary/definitions/reflection-wave) uses the geometric reflection of a source across a flat boundary to describe the [wave](/dictionary/definitions/wave) that the boundary reflects.
+- The image method uses the geometric reflection of a source across a flat boundary to describe the [wave](/dictionary/definitions/wave) that the boundary reflects.

@@ -1,8 +1,7 @@
 ---
-published: false
 title: 'The map $f(x, y) = (-x, -y)$ on $\reals^2$'
 level: high-school
-is_not: [reflection_geometry]
+is_not: [reflection_geometry, reflection_wave]
 why:
   reflection_geometry: >-
     The map $f(x, y) = (-x, -y)$ is not a reflection of the plane, even though $f$ flips the signs of the coordinates, because $f$ is the rotation by $180^{\circ}$ about the origin.

@@ -1,5 +1,4 @@
 ---
-published: false
 title: Transmission Coefficient
 term: transmission coefficient
 applies_to: boundaries between media

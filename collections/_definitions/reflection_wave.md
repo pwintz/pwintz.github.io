@@ -1,5 +1,4 @@
 ---
-published: false
 title: Reflection of a Wave
 term: reflection (of a wave)
 applies_to: waves

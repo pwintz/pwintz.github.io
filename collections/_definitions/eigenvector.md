@@ -1,5 +1,4 @@
 ---
-published: false
 title: Eigenvector
 term: eigenvector
 applies_to: square matrices and linear maps
@@ -7,29 +6,29 @@ levels:
   high-school:
     text: |-
       Consider a square [matrix](/dictionary/definitions/matrix) $A$, which stretches and turns [vectors](/dictionary/definitions/vector) when it multiplies them.
-      An _eigenvector_ of $A$ is a nonzero vector $v$ that $A$ stretches without turning it off its line:
+      An _eigenvector_ of $A$ is a nonzero vector $\vect{v}$ that $A$ stretches without turning it off its line:
 
-      $$A v = \lambda v$$
+      $$A \vect{v} = \lambda \vect{v}$$
 
-      for some number $\lambda$, the [eigenvalue](/dictionary/definitions/eigenvalue) of $v$.
+      for some number $\lambda$, the [eigenvalue](/dictionary/definitions/eigenvalue) of $\vect{v}$.
     caveat: >-
       An eigenvector can have complex entries, with a complex [eigenvalue](/dictionary/definitions/eigenvalue).
       Then the picture of stretching without turning does not apply in the real plane: the matrix that rotates the plane by $90°$ turns every real vector off its line, but $(1, -i)$ is an eigenvector with eigenvalue $i$.
   undergraduate:
     text: |-
       Consider a square [matrix](/dictionary/definitions/matrix) $A$.
-      An _eigenvector_ of $A$ is a nonzero [vector](/dictionary/definitions/vector) $v$ such that
+      An _eigenvector_ of $A$ is a nonzero [vector](/dictionary/definitions/vector) $\vect{v}$ such that
 
-      $$A v = \lambda v$$
+      $$A \vect{v} = \lambda \vect{v}$$
 
-      for some number $\lambda$, called the [eigenvalue](/dictionary/definitions/eigenvalue) of $v$.
+      for some number $\lambda$, called the [eigenvalue](/dictionary/definitions/eigenvalue) of $\vect{v}$.
 properties:
   - >-
     Every nonzero multiple of an eigenvector is an eigenvector with the same [eigenvalue](/dictionary/definitions/eigenvalue).
-    The eigenvectors for an eigenvalue $\lambda$, together with $0$, form a subspace, the _eigenspace_ $\nullspaceOf{A - \lambda I}$.
+    The eigenvectors for an eigenvalue $\lambda$, together with $\vect{0}$, form a subspace, the _eigenspace_ $\nullspaceOf{A - \lambda I}$.
   - >-
     Eigenvectors with different [eigenvalues](/dictionary/definitions/eigenvalue) are [linearly independent](/dictionary/definitions/linearly-independent).
   - >-
     An $n \times n$ matrix is diagonalizable if and only if it has $n$ [linearly independent](/dictionary/definitions/linearly-independent) eigenvectors.
 ---
-The [zero vector](/dictionary/definitions/zero-vector) is excluded, because $A 0 = \lambda 0$ for every $\lambda$.
+The [zero vector](/dictionary/definitions/zero-vector) is excluded, because $A \vect{0} = \lambda \vect{0}$ for every $\lambda$.

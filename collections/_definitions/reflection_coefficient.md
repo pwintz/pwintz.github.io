@@ -1,5 +1,4 @@
 ---
-published: false
 title: Reflection Coefficient
 term: reflection coefficient
 applies_to: boundaries between media

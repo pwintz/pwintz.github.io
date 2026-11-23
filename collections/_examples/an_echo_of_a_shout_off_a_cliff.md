@@ -1,5 +1,4 @@
 ---
-published: false
 title: An echo of a shout off of a cliff
 level: elementary
 is: [reflection_wave]

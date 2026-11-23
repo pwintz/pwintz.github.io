@@ -1,5 +1,4 @@
 ---
-published: false
 title: Geometric Reflection
 term: reflection (geometric)
 applies_to: transformations of space
@@ -23,7 +22,7 @@ properties:
   - >-
     Applying a reflection twice gives the [identity map](/dictionary/definitions/identity-function).
   - >-
-    A reflection preserves distances and [angles](/dictionary/definitions/angle), but reverses orientation, such as turning a left hand into a right hand.
+    A reflection preserves distances and [angles](/dictionary/definitions/angle), but reverses [orientation](/dictionary/definitions/orientation-rigid-body), such as turning a left hand into a right hand.
   - >-
     The [composition](/dictionary/definitions/function-composition) of two reflections in the plane, across lines that meet at an [angle](/dictionary/definitions/angle) $\theta$, is a [rotation](/dictionary/definitions/rotation) by $2 \theta$.
 ---
