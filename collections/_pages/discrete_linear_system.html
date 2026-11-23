@@ -1,0 +1,366 @@
+---
+layout: single
+permalink: /tools/discrete_linear_system/
+title: Discrete-Time Linear Systems and Eigenvectors
+excerpt: "Watch the states of xₖ₊₁ = A xₖ evolve step by step in the plane, and see why the eigenvectors and eigenvalues of A decide where they go: each eigenvector part is multiplied by its eigenvalue at every step."
+tool_categories: [Linear Algebra, Math, Control]
+full_width: true
+date_added: 2026-11-23
+---
+
+<style>
+  .dls button,
+  .dls select {
+    font: inherit;
+    width: auto;
+    margin: 0;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+  }
+  .dls button:hover { background: rgba(128, 128, 128, 0.1); }
+  .dls button:disabled { opacity: 0.45; cursor: not-allowed; }
+  /* The theme adds bottom margins to inputs and labels, which pushes them off-center in a row. */
+  .dls input,
+  .dls label { margin: 0; }
+  .dls [hidden] { display: none !important; }
+  .dls .dls-related { margin: 0 0 0.8rem; font-size: 0.85em; color: #5f6368; }
+  .dls h2.dls-section-title { margin: 1.8rem 0 0.5rem; }
+
+  /* Settings: a toolbar of menus (left) and view options (right), then the matrix and x₀. */
+  .dls-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem 1.5rem;
+    padding-bottom: 0.6rem;
+    margin-bottom: 0.7rem;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.25);
+  }
+  .dls-toolbar-group { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.1rem; }
+  /* Labels sit beside their controls rather than above them. */
+  .dls .dls-field { display: flex; align-items: center; gap: 0.4rem; font-size: 0.9em; color: #5f6368; }
+  .dls .dls-field select { color: #202124; }
+  .dls #dls-example { max-width: 16rem; }
+  .dls-view { font-size: 0.9em; }
+  .dls-view label { display: flex; align-items: center; gap: 0.3rem; }
+  .dls-group-label { font-size: 0.9em; color: #5f6368; }
+
+  /* "?" buttons and their popup (common/help.ts). The popup is moved to <body>, so its styles don't
+     use the .dls prefix. */
+  .dls .dls-help {
+    width: 1.25rem;
+    height: 1.25rem;
+    padding: 0;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: bold;
+    line-height: 1;
+    color: #6b6b6b;
+    flex: none;
+  }
+  .dls .dls-help[aria-expanded="true"] { background: #1a73e8; border-color: #1a73e8; color: #fff; }
+  .dls-help-popup {
+    position: absolute;
+    z-index: 30;
+    max-width: min(22rem, calc(100vw - 16px));
+    padding: 0.6rem 0.8rem;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+    font-size: 0.85em;
+    line-height: 1.45;
+  }
+  .dls-help-popup p { margin: 0 0 0.4rem; }
+  .dls-help-popup p:last-child { margin: 0; }
+  .dls-help-popup ul { margin: 0 0 0.4rem; padding-left: 1.2rem; }
+  .dls-help-popup li { margin: 0 0 0.25rem; }
+
+  /* Pinnable panels (common/panels.ts), as in the other tools. */
+  .dls-panel { position: relative; padding: 0.4rem 2.4rem 0.4rem 0; margin-bottom: 0.6rem; background: #fff; }
+  .dls-panel.dls-pinned { position: sticky; z-index: 10; border-bottom: 1px solid rgba(128, 128, 128, 0.35); }
+  .dls .dls-pin {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.35rem;
+    width: auto;
+    padding: 0.25rem;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: #8a919c;
+    line-height: 0;
+    opacity: 0.6;
+  }
+  .dls .dls-pin:hover { background: rgba(128, 128, 128, 0.1); opacity: 1; }
+  .dls .dls-pin svg { width: 18px; height: 18px; transform: rotate(45deg); transition: transform 150ms; }
+  .dls .dls-pinned .dls-pin { color: #1a73e8; opacity: 1; }
+  .dls .dls-pinned .dls-pin svg { transform: none; }
+
+  /* Brackets around a matrix or column vector, drawn by ::before and ::after. */
+  .dls-bracket {
+    position: relative;
+    display: inline-grid;
+    gap: 0.25rem 0.35rem;
+    padding: 0.3rem 0.55rem;
+    vertical-align: middle;
+  }
+  .dls-bracket::before, .dls-bracket::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 0.35rem;
+    border: 2px solid #3c4043;
+  }
+  .dls-bracket::before { left: 0; border-right: none; }
+  .dls-bracket::after { right: 0; border-left: none; }
+  .dls-entries { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 2rem; }
+  .dls-entry-group { display: inline-flex; align-items: center; gap: 0.4rem; }
+  .dls .dls-entry {
+    width: 4rem;
+    padding: 0.2rem 0.3rem;
+    border: 1px solid rgba(128, 128, 128, 0.45);
+    border-radius: 4px;
+    text-align: right;
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+  }
+  .dls .dls-entry.dls-bad { border-color: #c5221f; background: rgba(197, 34, 31, 0.07); }
+  .dls .dls-x0 .dls-entry { border-left: 3px solid #000; }
+  .dls-note { font-size: 0.85em; color: #5f6368; }
+
+  /* Playback: buttons and the step slider. */
+  .dls-playback { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.8rem; margin: 0 0 0.6rem; }
+  .dls .dls-play { min-width: 5.6rem; }
+  .dls-slider { display: flex; align-items: center; gap: 0.5rem; flex: 1 1 14rem; font-size: 0.9em; color: #5f6368; }
+  .dls-slider input[type=range] { flex: 1; min-width: 8rem; }
+  .dls-k { min-width: 4.2rem; font-variant-numeric: tabular-nums; color: #202124; }
+
+  /* The plane, with the readout to its left (below it on narrow screens). */
+  .dls-viz { display: grid; grid-template-columns: minmax(15rem, 24rem) minmax(0, 1fr); gap: 1rem; align-items: start; }
+  .dls-viz .dls-readout { order: -1; }
+  @media (max-width: 700px) {
+    .dls-viz { grid-template-columns: minmax(0, 1fr); }
+    .dls-viz .dls-readout { order: 0; }
+  }
+  /* The theme lays figures out as flex rows with serif captions; the title goes above, centered. */
+  .dls .dls-figure { display: block; margin: 0; }
+  .dls .dls-figure figcaption { margin: 0 0 0.3rem; text-align: center; font-family: inherit; font-size: 0.95em; font-weight: bold; color: #3c4043; }
+  #dls-canvas {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    max-height: 70vh;
+    margin: 0 auto;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 8px;
+    background: #fff;
+    touch-action: none;
+    cursor: crosshair;
+  }
+  .dls-pinned #dls-canvas { max-height: 42vh; }
+  .dls-plot-hint { margin: 0.3rem 0 0; font-size: 0.85em; color: #5f6368; text-align: center; }
+  .dls-readout {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 8px;
+    font-size: 0.9em;
+  }
+  .dls-readout p { margin: 0; }
+  .dls-readout-title { font-weight: bold; color: #3c4043; }
+  .dls-sum { overflow-x: auto; overflow-y: hidden; line-height: 2.4; font-variant-numeric: tabular-nums; }
+  .dls-status { padding: 0.4rem 0.55rem; border-left: 4px solid rgba(128, 128, 128, 0.5); border-radius: 4px; background: rgba(128, 128, 128, 0.06); line-height: 1.4; }
+  .dls-status.dls-on-line { border-left-color: var(--dls-line-color, #0072B2); background: color-mix(in srgb, var(--dls-line-color, #0072B2) 9%, transparent); }
+  .dls-eig-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.2rem; font-variant-numeric: tabular-nums; }
+  .dls-eig-list li { margin: 0; }
+  .dls-swatch { display: inline-block; width: 1.1rem; height: 0; margin-right: 0.35rem; vertical-align: middle; border-top: 3px dashed currentColor; }
+
+  /* The graphs of the coordinates against k. */
+  .dls-graphs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  @media (max-width: 700px) {
+    .dls-graphs { grid-template-columns: minmax(0, 1fr); }
+  }
+  .dls-graph-canvas {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 8px;
+    background: #fff;
+  }
+  .dls-pinned .dls-graph-canvas { max-height: 24vh; }
+  .dls-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.2rem 1rem; margin: 0.3rem 0 0; font-size: 0.85em; color: #3c4043; }
+  .dls-legend span::before { content: ""; display: inline-block; width: 0.9rem; height: 0; margin-right: 0.3rem; vertical-align: middle; border-top: 3px solid var(--c); }
+  .dls-graph-note { display: flex; align-items: center; justify-content: center; aspect-ratio: 16 / 9; padding: 0 1rem; border: 1px dashed rgba(128, 128, 128, 0.5); border-radius: 8px; color: #5f6368; font-size: 0.9em; text-align: center; }
+
+  .dls-analysis { overflow-x: auto; overflow-y: hidden; }
+  .dls-analysis p { margin: 0.5rem 0; }
+  .dls-why p { margin: 0.5rem 0; }
+</style>
+
+<div class="dls">
+  <p>
+    A <em>discrete-time linear system</em> is a sequence of states $\vect{x}_0, \vect{x}_1, \vect{x}_2, \ldots$ in which each state is found from the one before it by multiplying by a matrix $A$:
+    $$\vect{x}_{k+1} = A \vect{x}_k.$$
+    Equivalently, $\vect{x}_k = A^k \vect{x}_0$.
+    Such systems describe populations that move between places, money that grows in accounts, and controllers that run once per clock tick.
+    The plot below shows the states for a $2 \times 2$ matrix $A$.
+    Start $\vect{x}_0$ on one of the dashed eigenvector lines to see what makes eigenvectors special.
+  </p>
+  <p class="dls-related">
+    To practice finding eigenvalues and eigenvectors, try <a href="{{ '/tools/eigenvalues/' | relative_url }}">Eigenvalues and Eigenvectors</a>.
+  </p>
+  {% include notation-note.html examples="vectors" %}
+
+  <div class="dls-settings dls-panel" id="dls-settings" data-fullscreen="false">
+    <div class="dls-toolbar">
+      <div class="dls-toolbar-group">
+        <label class="dls-field">
+          <select id="dls-example" aria-label="Load an example">
+            <option value="" selected>Examples</option>
+            <optgroup label="Two real eigenvalues">
+              <option value="saddle">One part grows, one shrinks</option>
+              <option value="decay">Both parts shrink</option>
+              <option value="grow">Both parts grow</option>
+              <option value="markov">Moving between two towns (λ = 1)</option>
+              <option value="flip">A negative eigenvalue: flipping</option>
+              <option value="fib">Fibonacci numbers</option>
+            </optgroup>
+            <optgroup label="One repeated eigenvalue">
+              <option value="scalar">A = 0.8 I: every vector is an eigenvector</option>
+              <option value="defective">Only one eigenvector line</option>
+            </optgroup>
+            <optgroup label="Complex eigenvalues">
+              <option value="rotate">Rotation (|λ| = 1)</option>
+              <option value="spiralin">Spiral inward (|λ| &lt; 1)</option>
+              <option value="spiralout">Spiral outward (|λ| &gt; 1)</option>
+            </optgroup>
+          </select>
+        </label>
+        <label class="dls-field"><span data-help="#dls-help-steps">Steps</span>
+          <select id="dls-steps">
+            <option value="10">10</option>
+            <option value="20" selected>20</option>
+            <option value="30">30</option>
+            <option value="50">50</option>
+          </select>
+        </label>
+      </div>
+      <div class="dls-toolbar-group dls-view">
+        <span class="dls-group-label">View</span>
+        <label><input type="checkbox" id="dls-show-lines" checked> <span data-help="Draws a dashed line through the origin along each real eigenvector direction, labeled with its eigenvalue. The eigenvectors listed beside the plot (v₁ and v₂) are drawn as thin arrows on these lines. If x₀ is on one of these lines, then every state stays on it. A matrix with complex eigenvalues has no such lines.">Eigenvector lines</span></label>
+        <label><input type="checkbox" id="dls-show-parts" checked> <span data-help="Splits the current state into its two eigenvector parts, drawn as colored arrows that add tip to tail to the state. Play the steps to see the parts change size independently: each step multiplies each part by its own eigenvalue. Only for matrices with two distinct real eigenvalues.">Eigenvector parts</span></label>
+        <label><input type="checkbox" id="dls-show-circle"> <span data-help="Starts a whole circle of states, centered at the origin and passing through x₀, and draws where the circle is after k steps (gray-blue), with twelve of its points as dots. As k grows, the circle stretches toward the eigenvector line with the largest eigenvalue in size.">Circle of starting states</span></label>
+      </div>
+    </div>
+    <div class="dls-entries">
+      <span class="dls-entry-group">
+        <span>\(A =\)</span>
+        <span class="dls-bracket" style="grid-template-columns: auto auto">
+          <input class="dls-entry" id="dls-a00" inputmode="decimal" aria-label="Row 1, column 1 of A">
+          <input class="dls-entry" id="dls-a01" inputmode="decimal" aria-label="Row 1, column 2 of A">
+          <input class="dls-entry" id="dls-a10" inputmode="decimal" aria-label="Row 2, column 1 of A">
+          <input class="dls-entry" id="dls-a11" inputmode="decimal" aria-label="Row 2, column 2 of A">
+        </span>
+      </span>
+      <span class="dls-entry-group dls-x0">
+        <span>\(\vect{x}_0 =\)</span>
+        <span class="dls-bracket">
+          <input class="dls-entry" id="dls-x0" inputmode="decimal" aria-label="First coordinate of x₀">
+          <input class="dls-entry" id="dls-x1" inputmode="decimal" aria-label="Second coordinate of x₀">
+        </span>
+      </span>
+      <span class="dls-note">Entries can be integers, decimals, or fractions such as <code>1/2</code>.</span>
+    </div>
+  </div>
+
+  <div class="dls-plot dls-panel" id="dls-plot-panel" data-fullscreen="false">
+    <div class="dls-playback">
+      <button type="button" id="dls-reset" aria-label="Back to step 0">⏮</button>
+      <button type="button" id="dls-back" aria-label="One step back">◀</button>
+      <button type="button" id="dls-play" class="dls-play" aria-pressed="false">▶ Play</button>
+      <button type="button" id="dls-forward" aria-label="One step forward">▶|</button>
+      <label class="dls-slider">Step
+        <input type="range" id="dls-k" min="0" max="20" step="1" value="0">
+        <span class="dls-k" id="dls-k-label">k = 0</span>
+      </label>
+    </div>
+    <div class="dls-viz">
+      <figure class="dls-figure">
+        <figcaption>The states \(\vect{x}_0, \vect{x}_1, \ldots, \vect{x}_k\)</figcaption>
+        <canvas id="dls-canvas" aria-label="The plane with the states x₀ through x_k and the eigenvector lines of A"></canvas>
+        <p class="dls-plot-hint">Click or drag in the plot to move \(\vect{x}_0\). It snaps to the eigenvector lines. The plot zooms out to fit the states.</p>
+      </figure>
+      <div class="dls-readout">
+        <div>
+          <p class="dls-readout-title">Eigenvalues of \(A\)</p>
+          <ul class="dls-eig-list" id="dls-eigs"></ul>
+        </div>
+        <div class="dls-sum" id="dls-sum" aria-live="off"></div>
+        <p class="dls-status" id="dls-status" role="status"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="dls-graphs-panel dls-panel" id="dls-graphs-panel" data-fullscreen="false">
+    <div class="dls-graphs">
+      <figure class="dls-figure">
+        <figcaption>The coordinates of \(\vect{x}_k\)</figcaption>
+        <canvas class="dls-graph-canvas" id="dls-graph-xy" aria-label="The two coordinates of x_k against k"></canvas>
+        <p class="dls-legend"><span style="--c: #009E73">first coordinate</span><span style="--c: #CC79A7">second coordinate</span></p>
+      </figure>
+      <figure class="dls-figure">
+        <figcaption>The eigenvector coefficients of \(\vect{x}_k\)</figcaption>
+        <canvas class="dls-graph-canvas" id="dls-graph-eig" aria-label="The coefficients of v₁ and v₂ in x_k against k"></canvas>
+        <p class="dls-legend" id="dls-eig-legend"><span style="--c: #0072B2">\(c_1 \lambda_1^k\)</span><span style="--c: #D55E00">\(c_2 \lambda_2^k\)</span></p>
+        <p class="dls-graph-note" id="dls-eig-note" hidden></p>
+      </figure>
+    </div>
+  </div>
+
+  <h2 class="dls-section-title">Why eigenvectors matter</h2>
+  <div class="dls-why">
+    <p>
+      Suppose that $\vect{v}$ is an eigenvector of $A$ with eigenvalue $\lambda$, which means that $\vect{v} \neq \vect{0}$ and
+      $$A \vect{v} = \lambda \vect{v}.$$
+      If $\vect{x}_0 = \vect{v}$, then each step multiplies the state by the number $\lambda$, so
+      $$\vect{x}_k = \lambda^k \vect{v}.$$
+      The states stay on the line through $\vect{v}$.
+      If $|\lambda| < 1$, then the states shrink toward $\vect{0}$; if $|\lambda| > 1$, then the states grow; if $\lambda < 0$, then the states flip from one side of the origin to the other at each step.
+    </p>
+    <p>
+      Suppose that $A$ has two linearly independent eigenvectors $\vect{v}_1$ and $\vect{v}_2$ with eigenvalues $\lambda_1$ and $\lambda_2$.
+      Then every starting state is a linear combination $\vect{x}_0 = c_1 \vect{v}_1 + c_2 \vect{v}_2$.
+      Multiplying by $A$ multiplies each part by its own eigenvalue, so
+      $$\vect{x}_k = c_1 \lambda_1^k \vect{v}_1 + c_2 \lambda_2^k \vect{v}_2.$$
+      Each part changes on its own, as though the other part were absent.
+      This is why the graph of the eigenvector coefficients above shows simple geometric sequences, while the coordinates in the other graph can rise and then fall.
+      For large $k$, the part with the larger $|\lambda|$ outgrows the other, so $\vect{x}_k$ lines up with its eigenvector, unless its coefficient is $0$.
+      Every state tends to $\vect{0}$ exactly when $|\lambda_1| < 1$ and $|\lambda_2| < 1$.
+    </p>
+  </div>
+
+  <h2 class="dls-section-title">This system</h2>
+  <div class="dls-analysis" id="dls-analysis" aria-live="polite"></div>
+
+  <template id="dls-help-steps">
+    <p>The number of steps \(k\) that Play runs and that the slider reaches.</p>
+    <ul>
+      <li>10 steps: enough to see which part wins when the eigenvalues differ a lot in size.</li>
+      <li>20 or 30 steps: for eigenvalues close in size, such as 0.9 and 0.8.</li>
+      <li>50 steps: for slow spirals and for eigenvalues near 1.</li>
+    </ul>
+  </template>
+  <div id="dls-help-popup" class="dls-help-popup" role="note" hidden></div>
+</div>
+
+<script src="{{ '/assets/ts/out/discrete_linear_system.js' | relative_url }}" type="module"></script>
