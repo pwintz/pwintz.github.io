@@ -534,3 +534,7 @@ pyrightconfig.json
 
 # Unit test bundles (npm test)
 .test-build
+
+# Local tool config
+.npmrc
+.frontmatter/
