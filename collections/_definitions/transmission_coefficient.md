@@ -17,7 +17,7 @@ properties:
     $$T = \frac{2 Z_2}{Z_2 + Z_1},$$
 
     where $Z_1$ and $Z_2$ are the [characteristic acoustic impedances](/dictionary/definitions/characteristic-acoustic-impedance) of the first medium and the second medium.
-  - >-
+  - |-
     The transmission coefficient of the pressure can be greater than $1$: sound passing from air into water has $T \approx 2$.
     The pressure doubles, but almost none of the [energy](/dictionary/definitions/energy) is transmitted, because the same pressure carries much less energy in water than in air.
   - |-

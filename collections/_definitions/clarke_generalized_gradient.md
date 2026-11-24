@@ -14,11 +14,11 @@ levels:
 
       the convex hull of all limits of [gradients](/dictionary/definitions/gradient) at nearby points.
 properties:
-  - >-
+  - |-
     If $f$ is [continuously differentiable](/dictionary/definitions/continuously-differentiable), then $\partial f(x) = \setdef{\nabla f(x)}$.
     If $f$ is convex, then $\partial f(x)$ is the [subdifferential](/dictionary/definitions/subdifferential).
-  - >-
+  - |-
     For $f(x) = \abs{x}$, $\partial f(0) = [-1, 1]$.
-  - >-
+  - |-
     If $x$ is a local [minimizer](/dictionary/definitions/minimizer) of $f$, then $0 \in \partial f(x)$.
 ---

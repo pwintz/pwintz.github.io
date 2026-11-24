@@ -14,6 +14,6 @@ levels:
     text: |-
       A function $f : X \to Y$ is _surjective_ if for every $y \in Y$ there exists $x \in X$ such that $f(x) = y$.
 properties:
-  - >-
+  - |-
     A function is surjective if and only if its [range](/dictionary/definitions/range-image) equals its [codomain](/dictionary/definitions/codomain), so whether it is surjective depends on the choice of codomain.
 ---

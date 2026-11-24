@@ -23,9 +23,9 @@ levels:
 
       $$\Gamma \vdash \psi.$$
 properties:
-  - >-
+  - |-
     If every [rule of inference](/dictionary/definitions/rule-of-inference) is sound, then every deducible formula follows validly from the [premises](/dictionary/definitions/premise): $\Gamma \vdash \psi$ implies $\Gamma \models \psi$.
-  - >-
+  - |-
     For [first-order logic](/dictionary/definitions/first-order-logic) with a standard set of rules, the converse also holds: $\Gamma \models \psi$ implies $\Gamma \vdash \psi$, by Gödel's completeness theorem.
 ---
 "Deductive reasoning," which draws [conclusions](/dictionary/definitions/conclusion) that the [premises](/dictionary/definitions/premise) guarantee, is contrasted with "inductive reasoning," which draws general conclusions from examples that make them likely but do not guarantee them.

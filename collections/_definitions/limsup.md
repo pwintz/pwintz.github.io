@@ -18,6 +18,6 @@ levels:
 
       the largest value that a subsequence of $(a_n)$ can converge to (allowing $\pm \infty$).
 properties:
-  - >-
+  - |-
     Every sequence of [real numbers](/dictionary/definitions/real-number) has a limit superior in the extended real numbers, even if the sequence has no limit.
 ---

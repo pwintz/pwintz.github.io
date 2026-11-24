@@ -22,9 +22,9 @@ levels:
 
       $$U \cap S = \setdef{x}.$$
 properties:
-  - >-
+  - |-
     Every isolated point of $S$ belongs to $S$.
-  - >-
+  - |-
     Each point of $S$ is either an isolated point of $S$ or a [limit point](/dictionary/definitions/limit-point) of $S$, but not both.
 ---
 A set with no isolated points is called _dense-in-itself_, and a [closed set](/dictionary/definitions/closed-set) with no isolated points is called _perfect_.

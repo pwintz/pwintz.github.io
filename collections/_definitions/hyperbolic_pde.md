@@ -22,7 +22,7 @@ levels:
 
       The equation is _hyperbolic_ where the [coefficient](/dictionary/definitions/coefficient) [matrix](/dictionary/definitions/matrix) $(a_{ij})$ has no zero [eigenvalues](/dictionary/definitions/eigenvalue), one eigenvalue of one sign, and all others of the opposite sign.
 properties:
-  - >-
+  - |-
     Hyperbolic equations typically describe waves.
     [Disturbances](/dictionary/definitions/disturbance) travel at finite speed and are not smoothed out.
 ---

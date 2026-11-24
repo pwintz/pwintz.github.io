@@ -23,7 +23,7 @@ properties:
     $$\rank{\begin{bmatrix} B & A B & \cdots & A^{n-1} B \end{bmatrix}} = n$$
 
     (the Kalman [rank](/dictionary/definitions/matrix-rank) condition).
-  - >-
+  - |-
     Every controllable linear system is [stabilizable](/dictionary/definitions/stabilizable).
 ---
 Many authors, especially for continuous-time linear systems, define "controllable" to mean that any state can be steered to any other state.

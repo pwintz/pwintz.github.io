@@ -12,9 +12,9 @@ levels:
       Consider a set $S$.
       The set $S$ is _countably infinite_ if $S$ is in bijection with $\nats$, so its elements can be listed as $a_1, a_2, a_3, \dots$ without missing any.
 properties:
-  - >-
+  - |-
     $\nats$, $\integers$, and $\rationals$ are countably infinite, but $\reals$ is not.
-  - >-
+  - |-
     Every infinite [subset](/dictionary/definitions/subset) of a countably infinite set is countably infinite, and a [countable](/dictionary/definitions/countable) [union](/dictionary/definitions/set-union) of countable sets is countable (assuming the axiom of countable choice).
 ---
 "[Countable](/dictionary/definitions/countable)" is ambiguous: some authors mean countably infinite, and others mean finite or countably infinite.

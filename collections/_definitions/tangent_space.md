@@ -14,6 +14,6 @@ levels:
       The _tangent space_ $T_x M$ is the set of velocities $\gamma^{\prime}(0)$ of those curves.
   # TODO: Add graduate version.
 properties:
-  - >-
+  - |-
     The tangent space is a [vector space](/dictionary/definitions/vector-space) whose dimension equals the dimension of $M$.
 ---

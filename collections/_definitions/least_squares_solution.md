@@ -19,21 +19,21 @@ properties:
     A vector $\vect{x}^{\ast}$ is a least squares solution of $A \vect{x} = \vect{b}$ if and only if $\vect{x}^{\ast}$ solves the _normal equation_
 
     $$A\trans A \vect{x}^{\ast} = A\trans \vect{b}.$$
-  - >-
+  - |-
     Every linear system $A \vect{x} = \vect{b}$ has at least one least squares solution.
   - |-
     If $\vect{x}^{\ast}$ is a least squares solution of $A \vect{x} = \vect{b}$, then $A \vect{x}^{\ast}$ is the [orthogonal projection](/dictionary/definitions/orthogonal-projection) of $\vect{b}$ onto the [column space](/dictionary/definitions/column-space) of $A$:
 
     $$A \vect{x}^{\ast} = \operatorname{proj}_{\colspace{A}} \vect{b}.$$
-  - >-
+  - |-
     If $\vect{x}^{\ast}$ is a least squares solution of $A \vect{x} = \vect{b}$, then the residual $\vect{b} - A \vect{x}^{\ast}$ is [orthogonal](/dictionary/definitions/orthogonal-vectors) to every column of $A$.
-  - >-
+  - |-
     The least squares solution of $A \vect{x} = \vect{b}$ is unique if and only if the columns of $A$ are [linearly independent](/dictionary/definitions/linearly-independent).
   - |-
     If the columns of $A$ are [linearly independent](/dictionary/definitions/linearly-independent), then the least squares solution of $A \vect{x} = \vect{b}$ is
 
     $$\vect{x}^{\ast} = (A\trans A)^{-1} A\trans \vect{b}.$$
-  - >-
+  - |-
     If the linear system $A \vect{x} = \vect{b}$ has a solution, then the least squares solutions of $A \vect{x} = \vect{b}$ are exactly its solutions.
 ---
 ### Notation and terminology

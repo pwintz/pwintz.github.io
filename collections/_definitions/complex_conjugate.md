@@ -11,13 +11,13 @@ levels:
 
       $$\conj{z} = a - b i.$$
 properties:
-  - >-
+  - |-
     In the complex plane, $\conj{z}$ is the [reflection](/dictionary/definitions/reflection-geometry) of $z$ across the real axis.
-  - >-
+  - |-
     The product of a complex number $z$ and its conjugate is the square of the absolute value of $z$: $z \conj{z} = a^2 + b^2 = \abs{z}^2$.
-  - >-
+  - |-
     A complex number $z$ is real if and only if $\conj{z} = z$.
-  - >-
+  - |-
     Conjugation respects addition and multiplication: $\conjOf{z + w} = \conj{z} + \conj{w}$ and $\conjOf{z w} = \conj{z} \, \conj{w}$.
 ---
 Most mathematics texts write the complex conjugate of $z$ as $\overline{z}$, and physics texts often write it as $z^{\ast}$.

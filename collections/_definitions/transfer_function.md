@@ -12,14 +12,14 @@ levels:
 
       $$G(s) = \frac{Y(s)}{U(s)}.$$
 properties:
-  - >-
+  - |-
     The transfer function does not depend on the input $u$.
-  - >-
-    The transfer function of a system described by a linear ordinary differential equation with constant coefficients is a ratio of [polynomials](/dictionary/definitions/polynomial) in $s$.
-  - >-
+  - |-
+    The transfer function of a system described by a linear ordinary [differential equation](/dictionary/definitions/differential-equation) with constant coefficients is a ratio of [polynomials](/dictionary/definitions/polynomial) in $s$.
+  - |-
     The _frequency response_ $G(i \omega)$ gives the [steady-state response](/dictionary/definitions/steady-state) to the input $\cos(\omega t)$: the output is $\abs{G(i \omega)} \cos(\omega t + \arg G(i \omega))$, if the system is stable.
-  - >-
+  - |-
     The transfer function of two systems in series is the product of their transfer functions.
-  - >-
+  - |-
     The [impedance](/dictionary/definitions/impedance) of a circuit is the transfer function from the current to the voltage, evaluated at $s = i \omega$.
 ---

@@ -18,7 +18,7 @@ levels:
 
       $$\operatorname{diam}(A) = \sup \setdef{d(x, y) \suchthat x, y \in A}.$$
 properties:
-  - >-
+  - |-
     The diameter of a [circle](/dictionary/definitions/circle) or [sphere](/dictionary/definitions/sphere) is twice its radius.
     In a general [metric space](/dictionary/definitions/metric-space), a [ball](/dictionary/definitions/ball) of radius $r$ has diameter at most $2r$, and possibly less.
 ---

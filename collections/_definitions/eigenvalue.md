@@ -21,8 +21,8 @@ levels:
 
       for some nonzero [vector](/dictionary/definitions/vector) $\vect{v}$, called an [_eigenvector_](/dictionary/definitions/eigenvector).
 properties:
-  - >-
+  - |-
     The eigenvalues of $A$ are the roots of its characteristic [polynomial](/dictionary/definitions/polynomial) $\det(\lambda I - A)$.
-  - >-
+  - |-
     The origin of $\dot{\vect{x}} = A \vect{x}$ is [asymptotically stable](/dictionary/definitions/asymptotically-stable) if and only if every eigenvalue of $A$ has negative real part ($A$ is Hurwitz).
 ---

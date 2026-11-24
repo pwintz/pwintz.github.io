@@ -23,14 +23,14 @@ levels:
 
       $$U \cap (S \setdiff \setdef{x}) \neq \emptyset.$$
 properties:
-  - >-
+  - |-
     A limit point of $S$ need not belong to $S$.
     A set is [closed](/dictionary/definitions/closed-set) if and only if it contains all of its limit points.
-  - >-
+  - |-
     The [closure](/dictionary/definitions/closure) of $S$ is the [union](/dictionary/definitions/set-union) of $S$ and its set of limit points, which is often written $S^{\prime}$.
-  - >-
+  - |-
     In a [metric space](/dictionary/definitions/metric-space), $x$ is a limit point of $S$ if and only if some sequence of points of $S \setdiff \setdef{x}$ converges to $x$, and then every [open ball](/dictionary/definitions/open-ball) around $x$ contains infinitely many points of $S$.
-  - >-
+  - |-
     Every [bounded](/dictionary/definitions/bounded) infinite [subset](/dictionary/definitions/subset) of $\reals^n$ has a limit point (the Bolzano–Weierstrass theorem).
 ---
 For [sequences](/dictionary/definitions/sequence), "limit point" sometimes means a subsequential limit, which is different.

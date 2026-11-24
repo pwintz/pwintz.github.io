@@ -28,6 +28,6 @@ properties:
     An absolutely continuous function $f$ is [differentiable](/dictionary/definitions/differentiable) [almost everywhere](/dictionary/definitions/almost-everywhere), and
 
     $$f(x) = f(a) + \int_a^x f^{\prime}(t) \dt.$$
-  - >-
+  - |-
     Every absolutely continuous function is [uniformly continuous](/dictionary/definitions/uniformly-continuous) and has [bounded](/dictionary/definitions/bounded) variation.
 ---

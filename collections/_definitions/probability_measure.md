@@ -21,6 +21,6 @@ levels:
       1. $P(\Omega) = 1$, and
       2. $P$ is countably additive: $P\left(\bigcup_{i} A_i\right) = \sum_{i} P(A_i)$ for every sequence of [disjoint events](/dictionary/definitions/mutually-exclusive) $A_1, A_2, \dots$.
 properties:
-  - >-
+  - |-
     A probability measure is a [measure](/dictionary/definitions/lebesgue-measure) whose total mass is $1$.
 ---

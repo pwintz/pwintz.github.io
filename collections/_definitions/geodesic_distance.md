@@ -18,11 +18,11 @@ levels:
 
       $$d(p, q) = \inf \setdef{\int_0^1 \norm{\gamma^{\prime}(t)} \dt \suchthat \gamma(0) = p, \gamma(1) = q}.$$
 properties:
-  - >-
+  - |-
     The geodesic distance is at least the [Euclidean distance](/dictionary/definitions/euclidean-distance) through the surrounding space, because a straight segment is the shortest of all paths, including those that leave the surface.
-  - >-
+  - |-
     In the plane (or in $\reals^n$), the geodesic distance is the [Euclidean distance](/dictionary/definitions/euclidean-distance), because the straight segment stays in the space.
-  - >-
+  - |-
     A shortest path is called a _geodesic_.
     Geodesics need not be unique: every half great [circle](/dictionary/definitions/circle) from the north [pole](/dictionary/definitions/pole) to the south pole is a shortest path.
 ---

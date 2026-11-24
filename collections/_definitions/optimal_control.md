@@ -21,10 +21,10 @@ levels:
 
       where the unknown is the input $u$ as a function of time.
 properties:
-  - >-
+  - |-
     Pontryagin's maximum principle gives necessary conditions for an input to be optimal, in terms of a [Hamiltonian](/dictionary/definitions/hamiltonian) $H(x, u, \lambda) = \ell(x, u) + \lambda\trans f(x, u)$ and a costate $\lambda$.
-  - >-
+  - |-
     The optimal cost, as a function of the initial state and time, satisfies the Hamilton–Jacobi–Bellman partial differential equation.
-  - >-
+  - |-
     Every problem in the [calculus of variations](/dictionary/definitions/calculus-of-variations) is an optimal control problem with the dynamics $\dot{x} = u$ and $U = \reals^n$.
 ---

@@ -18,10 +18,10 @@ levels:
 
       The random variables $X$ and $Y$ are _uncorrelated_ if $\rho(X, Y) = 0$.
 properties:
-  - >-
+  - |-
     The correlation lies in $[-1, 1]$, and $\rho(X, Y) = \pm 1$ exactly when $Y = a X + b$ for constants $a \neq 0$ and $b$, with the sign of $a$.
-  - >-
+  - |-
     Correlation measures only how close the relationship is to a straight line: if $X$ is uniform on $[-1, 1]$ and $Y = X^2$, then $\rho(X, Y) = 0$, although $Y$ is determined by $X$.
-  - >-
+  - |-
     The correlation does not depend on the units of $X$ and $Y$, unlike the [covariance](/dictionary/definitions/covariance).
 ---

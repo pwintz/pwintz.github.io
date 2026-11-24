@@ -15,8 +15,8 @@ levels:
 
       $$\lim_{x \to a^{-}} f(x) \neq \lim_{x \to a^{+}} f(x).$$
 properties:
-  - >-
+  - |-
     No choice of $f(a)$ makes $f$ [continuous](/dictionary/definitions/continuous) at a jump discontinuity.
-  - >-
+  - |-
     A derivative has no jump discontinuities, by Darboux's theorem, and a monotone function has no discontinuities other than jump discontinuities.
 ---

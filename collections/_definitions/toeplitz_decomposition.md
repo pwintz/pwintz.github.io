@@ -37,7 +37,7 @@ properties:
   #    $A = H + i K$ with $H$ and $K$ Hermitian, then $H = \frac{1}{2}(A + A^{\ast})$ and $K = \frac{1}{2 i}(A - A^{\ast})$.
   # - |-
   #   For every vector $x$, the numbers $x^{\ast} H x$ and $x^{\ast} K x$ are real, so $x^{\ast} A x = x^{\ast} H x + i \, x^{\ast} K x$ splits $x^{\ast} A x$ into its real and imaginary parts.
-  #   In particular, $\operatorname{Re}(x^{\ast} A x) < 0$ for every $x \neq 0$ exactly when $H$ is negative definite.
+  #   In particular, $\realpartOf{x^{\ast} A x} < 0$ for every $x \neq 0$ exactly when $H$ is negative definite.
   - |-
     The matrix $A$ is normal ($A A\trans = A\trans A$) exactly when $H$ and $K$ commute.
 

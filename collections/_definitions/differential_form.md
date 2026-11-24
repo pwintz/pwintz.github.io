@@ -19,11 +19,11 @@ levels:
       Consider a smooth [manifold](/dictionary/definitions/manifold) $M$ and a natural number $k$.
       A *differential $k$-form* on $M$ is a [continuous](/dictionary/definitions/continuous) [tensor](/dictionary/definitions/tensor) field on $M$ whose value at each point $p$ is an alternating $k$-tensor on the [tangent space](/dictionary/definitions/tangent-space) $T_p M$: a continuous section of the bundle $\Lambda^k T^{\ast} M$.
 properties:
-  - >-
+  - |-
     A $0$-form is a function, and a $1$-form is a field of [covectors](/dictionary/definitions/covector), such as the [differential](/dictionary/definitions/differential) $\diff{f}$ of a function $f$.
-  - >-
+  - |-
     A $k$-form can be integrated over an oriented $k$-dimensional surface (a curve for $k = 1$) without choosing coordinates.
-  - >-
+  - |-
     The exterior derivative $\mathrm{d}$ maps $k$-forms to $(k + 1)$-forms and satisfies $\mathrm{d} \circ \mathrm{d} = 0$.
     On $\reals^3$, the exterior derivative combines the [gradient](/dictionary/definitions/gradient), the [curl](/dictionary/definitions/curl), and the [divergence](/dictionary/definitions/divergence).
 ---

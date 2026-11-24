@@ -19,13 +19,13 @@ levels:
       Consider a linear electric circuit with two terminals and with [impedance](/dictionary/definitions/impedance) $Z(\omega)$ at angular [frequency](/dictionary/definitions/frequency-oscillation) $\omega$.
       The _reactance_ of the circuit at frequency $\omega$ is the imaginary part of the impedance:
 
-      $$X(\omega) = \operatorname{Im} Z(\omega).$$
+      $$X(\omega) = \imagpart{Z(\omega)}.$$
 properties:
-  - >-
+  - |-
     An ideal inductor or capacitor stores [energy](/dictionary/definitions/energy) during part of each cycle and returns the energy during the rest of the cycle, so a reactance converts no energy into heat, unlike a [resistance](/dictionary/definitions/resistance).
-  - >-
+  - |-
     In a component with positive reactance (inductive), the current lags behind the voltage, and in a component with negative reactance (capacitive), the current leads the voltage.
-  - >-
+  - |-
     The reactance of an inductor grows with [frequency](/dictionary/definitions/frequency-oscillation), and the magnitude of the reactance of a capacitor shrinks with frequency.
     An inductor and a capacitor in series have total reactance $0$ at the _resonant frequency_ $\omega = 1 / \sqrt{L C}$.
 ---

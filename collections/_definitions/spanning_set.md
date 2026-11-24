@@ -16,8 +16,8 @@ levels:
 
       $$\Span{\vect{v}_1, \dots, \vect{v}_k} = V.$$
 properties:
-  - >-
+  - |-
     Every spanning set of $V$ contains a [basis](/dictionary/definitions/vector-basis) of $V$.
-  - >-
+  - |-
     A spanning set of an $n$-dimensional space has at least $n$ vectors.
 ---

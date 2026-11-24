@@ -13,8 +13,8 @@ levels:
       Consider a dynamical system in the plane or in space.
       A _limit cycle_ of the system is an isolated [periodic orbit](/dictionary/definitions/periodic-orbit): a closed [trajectory](/dictionary/definitions/trajectory) with no other periodic orbits nearby, so that nearby solutions spiral toward it or away from it.
 properties:
-  - >-
+  - |-
     A limit cycle is stable if nearby solutions approach it and unstable if they move away from it.
-  - >-
+  - |-
     By the Poincaré–Bendixson theorem, a [bounded](/dictionary/definitions/bounded) solution of a planar system whose [ω-limit set](/dictionary/definitions/omega-limit-set) contains no equilibria approaches a [periodic orbit](/dictionary/definitions/periodic-orbit).
 ---

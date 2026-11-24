@@ -13,9 +13,9 @@ levels:
 
       $$p_i = \frac{\partial L}{\partial \dot{q}_i}.$$
 properties:
-  - >-
+  - |-
     If a [Lagrangian](/dictionary/definitions/lagrangian) $L$ does not depend on the coordinate $q_i$, then the conjugate momentum $p_i$ is constant along every motion, because the Euler–Lagrange equation reads $\dot{p}_i = \partial L / \partial q_i = 0$.
-  - >-
+  - |-
     The conjugate momenta are the variables, besides the coordinates, of the [Hamiltonian](/dictionary/definitions/hamiltonian).
 ---
 The conjugate momentum depends on the choice of coordinates: conjugate to a position, it is often the ordinary [momentum](/dictionary/definitions/momentum) $m \dot{q}$, and conjugate to an angle, it is often an angular momentum.

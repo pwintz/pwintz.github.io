@@ -8,10 +8,10 @@ levels:
       Consider an $m \times n$ real [matrix](/dictionary/definitions/matrix) $A$.
       The _singular values_ of $A$ are the square roots of the [eigenvalues](/dictionary/definitions/eigenvalue) of the $n \times n$ matrix $A\trans A$, which are nonnegative.
 properties:
-  - >-
+  - |-
     Geometrically, $A$ maps the unit [sphere](/dictionary/definitions/sphere) to an ellipsoid, and the lengths of the ellipsoid's semi-axes are the singular values of $A$.
-  - >-
+  - |-
     The largest singular value of $A$ is its [operator](/dictionary/definitions/operator) [norm](/dictionary/definitions/norm) $\norm{A}_2$, the most that $A$ stretches a vector.
-  - >-
+  - |-
     For a [symmetric matrix](/dictionary/definitions/symmetric-matrix), the singular values are the absolute values of the [eigenvalues](/dictionary/definitions/eigenvalue).
 ---

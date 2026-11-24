@@ -21,16 +21,16 @@ levels:
 
       where $\alpha = k / (\rho c_p)$ is the _thermal diffusivity_ of the material.
 properties:
-  - >-
+  - |-
     The heat equation follows from Fourier's law $\vect{q} = -k \nabla T$ for the heat flux and the conservation of [energy](/dictionary/definitions/energy).
-  - >-
+  - |-
     The heat equation is the [diffusion](/dictionary/definitions/diffusion) equation, with the thermal diffusivity $\alpha$ in place of the diffusion coefficient.
-  - >-
+  - |-
     In metals, free electrons carry most of the heat, so metals diffuse heat quickly.
-  - >-
+  - |-
     The thermal diffusivity depends on how easily the material conducts heat and on how much heat the material must absorb to warm up.
     Air conducts heat about $25$ times worse than water, but air has a much smaller heat capacity per unit volume, so the thermal diffusivity of air, about $2 \times 10^{-5}$ m²/s, is about $150$ times that of water, about $1.4 \times 10^{-7}$ m²/s.
-  - >-
+  - |-
     Heat diffusion conserves thermal [energy](/dictionary/definitions/energy), $\int \rho c_p T \dx$, not temperature.
 ---
 ### Heat diffusion vs. conduction

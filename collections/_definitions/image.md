@@ -20,9 +20,9 @@ levels:
 
       $$f(A) = \setdef{f(x) \suchthat x \in A}.$$
 properties:
-  - >-
+  - |-
     The image $f(X)$ of the whole domain is the [range](/dictionary/definitions/range-image) of $f$.
-  - >-
+  - |-
     If $f$ is a [linear map](/dictionary/definitions/linear-map) between [vector spaces](/dictionary/definitions/vector-space), then the image of every subspace is a subspace.
     In particular, the range of $f$ is a subspace of the [codomain](/dictionary/definitions/codomain), and its dimension is the [rank](/dictionary/definitions/rank-linear-map) of $f$.
 ---

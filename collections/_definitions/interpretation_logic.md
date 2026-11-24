@@ -20,9 +20,9 @@ levels:
       3. a function on $D$ with the same number of inputs for each function symbol, and
       4. a relation on $D$ with the same number of places for each relation symbol.
 properties:
-  - >-
+  - |-
     An interpretation gives each [sentence](/dictionary/definitions/sentence-logic) of the language a truth value, so a sentence expresses a [proposition](/dictionary/definitions/proposition) only once an interpretation is chosen.
-  - >-
+  - |-
     An interpretation in which every sentence of a set $T$ is true is called a _model_ of $T$.
 ---
 In everyday language, an "interpretation" is any explanation of what something means, as in the frequentist and Bayesian interpretations of [probability](/dictionary/definitions/probability); that meaning is not technical.

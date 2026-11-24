@@ -15,9 +15,9 @@ levels:
 
       $$D_v f(x) = \lim_{t \to 0} \frac{f(x + t v) - f(x)}{t}.$$
 properties:
-  - >-
+  - |-
     If $f$ is [differentiable](/dictionary/definitions/differentiable), then $D_v f(x) = \nabla f(x) \cdot v$.
-  - >-
+  - |-
     A function can have directional derivatives in every direction and still not be [differentiable](/dictionary/definitions/differentiable), or even [continuous](/dictionary/definitions/continuous).
 ---
 Some authors require $v$ to be a unit [vector](/dictionary/definitions/vector), so that $D_v f(x)$ is a rate per unit distance.

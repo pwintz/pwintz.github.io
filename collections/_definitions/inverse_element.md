@@ -29,6 +29,6 @@ levels:
 
       $$a \ast b = b \ast a = e.$$
 properties:
-  - >-
+  - |-
     If $\ast$ is [associative](/dictionary/definitions/associative), then each element has at most one inverse, which is written $a^{-1}$ (or $-a$ when the operation is addition).
 ---

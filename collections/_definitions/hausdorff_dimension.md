@@ -22,11 +22,11 @@ levels:
 
       $$\dim_H(A) = \inf \setdef{s \geq 0 \suchthat \mathcal{H}^s(A) = 0}.$$
 properties:
-  - >-
+  - |-
     For a smooth curve, surface, or solid, the Hausdorff dimension is $1$, $2$, or $3$, its usual dimension.
-  - >-
+  - |-
     Every [countable](/dictionary/definitions/countable) set has Hausdorff dimension $0$.
-  - >-
+  - |-
     The Cantor set has Hausdorff dimension $\log 2 / \log 3 \approx 0.63$, because it consists of $2$ copies of itself, each scaled down by a factor of $3$.
 ---
 The Hausdorff dimension of a set is a different notion from the [dimension of a vector space](/dictionary/definitions/dimension-vector-space), which counts the vectors in a [basis](/dictionary/definitions/vector-basis).

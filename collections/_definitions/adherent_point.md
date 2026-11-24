@@ -23,12 +23,12 @@ levels:
 
       $$U \cap S \neq \emptyset.$$
 properties:
-  - >-
+  - |-
     The [closure](/dictionary/definitions/closure) of $S$ is the set of adherent points of $S$.
-  - >-
+  - |-
     Every point of $S$ is an adherent point of $S$.
-  - >-
+  - |-
     The adherent points of $S$ are the [limit points](/dictionary/definitions/limit-point) of $S$ together with the [isolated points](/dictionary/definitions/isolated-point) of $S$.
-  - >-
+  - |-
     In a [metric space](/dictionary/definitions/metric-space), $x$ is an adherent point of $S$ if and only if some sequence of points of $S$ converges to $x$.
 ---

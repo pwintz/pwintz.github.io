@@ -10,7 +10,7 @@ levels:
       Consider a control system whose states must satisfy some constraints, such as a minimum distance to an obstacle.
       The _admissible set_ is the set of states that satisfy the state constraints.
 properties:
-  - >-
+  - |-
     Being in the admissible set now does not guarantee that the constraints can be satisfied in the future.
     The states from which they can be satisfied forever form the [viability kernel](/dictionary/definitions/viability-kernel): the largest [controlled invariant](/dictionary/definitions/controlled-invariant) [subset](/dictionary/definitions/subset) of the admissible set.
 ---

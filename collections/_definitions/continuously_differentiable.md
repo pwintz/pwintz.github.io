@@ -16,6 +16,6 @@ levels:
       Consider a function $f : U \to \reals^m$ on an [open set](/dictionary/definitions/open-set) $U \subseteq \reals^n$.
       The function $f$ is _continuously differentiable_ if every [partial derivative](/dictionary/definitions/partial-derivative) of $f$ exists and is [continuous](/dictionary/definitions/continuous) on $U$.
 properties:
-  - >-
+  - |-
     A continuously differentiable function is locally [Lipschitz continuous](/dictionary/definitions/lipschitz-continuous), and it is Lipschitz continuous on every [compact](/dictionary/definitions/compact) convex [subset](/dictionary/definitions/subset) of its domain.
 ---

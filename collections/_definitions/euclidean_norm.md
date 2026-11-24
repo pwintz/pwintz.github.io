@@ -11,9 +11,9 @@ levels:
 
       $$\norm{x}_2 = \sqrt{x_1^2 + \dots + x_n^2}.$$
 properties:
-  - >-
+  - |-
     The Euclidean norm comes from the [dot product](/dictionary/definitions/dot-product), as $\norm{x}_2 = \sqrt{\ip{x}{x}}$, so it is the only one of the common [norms](/dictionary/definitions/norm) on $\reals^n$ that measures angles as well as lengths.
-  - >-
+  - |-
     Rotations and reflections do not change the Euclidean norm of a vector.
 ---
 When no [norm](/dictionary/definitions/norm) is specified, $\norm{x}$ on $\reals^n$ usually means the Euclidean norm.

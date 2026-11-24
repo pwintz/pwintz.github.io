@@ -21,7 +21,7 @@ properties:
     Linear interpolation between two data points $(x_1, y_1)$ and $(x_2, y_2)$ estimates
 
     $$y = y_1 + \frac{y_2 - y_1}{x_2 - x_1} (x - x_1).$$
-  - >-
+  - |-
     Interpolating many equally spaced data points with a single [polynomial](/dictionary/definitions/polynomial) can oscillate wildly near the ends of the range (Runge's phenomenon), which splines avoid.
 ---
 In numerical analysis, interpolation means constructing a function $f$, called an _interpolant_, that passes exactly through the data points, so that $f(x_i) = y_i$ for every $i$.

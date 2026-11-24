@@ -27,12 +27,12 @@ levels:
 
       whose $(i, j)$ entry is $\operatorname{Cov}(X_i, X_j)$.
 properties:
-  - >-
+  - |-
     The covariance of a [random variable](/dictionary/definitions/random-variable) with itself is its [variance](/dictionary/definitions/variance): $\operatorname{Cov}(X, X) = \operatorname{Var}(X)$.
-  - >-
+  - |-
     If $X$ and $Y$ are independent, then $\operatorname{Cov}(X, Y) = 0$, but the converse is false: if $X$ is uniform on $[-1, 1]$ and $Y = X^2$, then $\operatorname{Cov}(X, Y) = 0$, although $Y$ is determined by $X$.
-  - >-
+  - |-
     Dividing the covariance by the product of the [standard deviations](/dictionary/definitions/standard-deviation) gives the [correlation coefficient](/dictionary/definitions/correlation), which lies in $[-1, 1]$ and does not depend on the units of $X$ and $Y$.
-  - >-
+  - |-
     A covariance matrix is symmetric and [positive semidefinite](/dictionary/definitions/positive-semidefinite-matrix).
 ---

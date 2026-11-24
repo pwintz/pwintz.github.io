@@ -17,8 +17,8 @@ levels:
       Consider a function $f : X \to Y$.
       The function $f$ is _bijective_ if $f$ is [injective](/dictionary/definitions/injective) and [surjective](/dictionary/definitions/surjective).
 properties:
-  - >-
+  - |-
     A function $f : X \to Y$ is bijective if and only if it has an inverse function $f^{-1} : Y \to X$.
-  - >-
+  - |-
     A [composition](/dictionary/definitions/function-composition) of bijections is a bijection.
 ---

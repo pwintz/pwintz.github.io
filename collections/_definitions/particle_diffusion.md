@@ -22,9 +22,9 @@ levels:
 
       where $D > 0$ is the _diffusion coefficient_ of the substance in the medium.
 properties:
-  - >-
+  - |-
     The concentration of a substance that spreads by particle diffusion satisfies the [diffusion](/dictionary/definitions/diffusion) equation $\partial c / \partial t = D \nabla^2 c$, which is Fick's second law.
-  - >-
+  - |-
     Each particle moves by a [random walk](/dictionary/definitions/random-walk), called _Brownian motion_, and its mean squared [displacement](/dictionary/definitions/displacement) along each axis grows as $2 D t$.
   - |-
     Larger particles diffuse more slowly: a [sphere](/dictionary/definitions/sphere) of radius $r$ in a fluid with viscosity $\eta$ at absolute temperature $T$ has the diffusion coefficient
@@ -32,8 +32,8 @@ properties:
     $$D = \frac{k_B T}{6 \pi \eta r}$$
 
     (the Stokes–Einstein relation), where $k_B$ is Boltzmann's constant.
-  - >-
+  - |-
     The diffusion coefficient of a small molecule is about $10^{-5}$ m²/s in air and about $10^{-9}$ m²/s in water, so particle diffusion is about $10{,}000$ times faster in air.
-  - >-
+  - |-
     Particle diffusion conserves the amount of the substance: the total amount $\int c \dx$ does not change.
 ---

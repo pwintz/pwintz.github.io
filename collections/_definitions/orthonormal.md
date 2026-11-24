@@ -25,11 +25,11 @@ levels:
 
       $$\ip{e_i}{e_j} = \begin{cases} 1 & \text{if } i = j, \\ 0 & \text{if } i \neq j. \end{cases}$$
 properties:
-  - >-
+  - |-
     A list is orthonormal exactly when the list is [orthogonal](/dictionary/definitions/orthogonal-vectors) and every vector in the list is a [unit vector](/dictionary/definitions/unit-vector).
-  - >-
+  - |-
     Dividing each vector of an orthogonal list of nonzero vectors by its [norm](/dictionary/definitions/norm) gives an orthonormal list.
-  - >-
+  - |-
     A square matrix is an [orthogonal matrix](/dictionary/definitions/orthogonal-matrix) exactly when its columns are orthonormal.
 
   # TODO: Add a note about why orthonormal sets are exceptionally nice as coordinate systems: It is very easy to find coordinates and projections. 

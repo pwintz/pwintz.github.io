@@ -15,8 +15,8 @@ levels:
       
       $$[v]_B = (c_1, c_2, \dots, c_n) \in \reals^n.$$
 properties:
-  - >-
+  - |-
     The coordinate vector depends on the [basis](/dictionary/definitions/vector-basis); the [vector](/dictionary/definitions/vector) does not.
-  - >-
+  - |-
     If the columns of $P$ are the new [basis](/dictionary/definitions/vector-basis) [vectors](/dictionary/definitions/vector) written in the old basis, then the new coordinates of $v$ are $P^{-1}$ times its old coordinates.
 ---

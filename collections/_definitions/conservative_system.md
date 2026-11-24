@@ -35,11 +35,11 @@ levels:
       $$f(x) = -\nabla V(x)$$
       
 properties:
-  - >-
+  - |-
     In a conservative system, the total [energy](/dictionary/definitions/energy) $E = U + K$, the potential energy plus the kinetic energy, is constant along every motion.
-  - >-
+  - |-
     Friction, air resistance, and other damping forces make a system non-conservative, because these forces turn mechanical [energy](/dictionary/definitions/energy) into heat.
-  - >-
+  - |-
     A conservative system has the [Lagrangian](/dictionary/definitions/lagrangian) $L = T - V$.
 ---
 In dynamical systems, a system $\dot{x} = f(x)$ is sometimes called _conservative_ if the [flow](/dictionary/definitions/flow) preserves volume, which is a separate definition of the word.

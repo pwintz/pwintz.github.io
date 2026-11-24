@@ -17,10 +17,10 @@ levels:
 
       $$x(t + T) = x(t) \quad \text{for all } t.$$
 properties:
-  - >-
+  - |-
     A periodic orbit is a closed curve.
-  - >-
+  - |-
     Every [limit cycle](/dictionary/definitions/limit-cycle) is a periodic orbit.
-  - >-
+  - |-
     In a planar system with a [continuously differentiable](/dictionary/definitions/continuously-differentiable) $f$, every periodic orbit encloses at least one [equilibrium](/dictionary/definitions/equilibrium).
 ---

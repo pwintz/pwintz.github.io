@@ -16,6 +16,6 @@ levels:
 
       $$\mu_X = \lambda \, \mu_d + (1 - \lambda) \, \mu_c.$$
 properties:
-  - >-
+  - |-
     The [cumulative distribution function](/dictionary/definitions/cumulative-distribution-function) of a mixed distribution has jumps, like a staircase, and also rises continuously between the jumps.
 ---

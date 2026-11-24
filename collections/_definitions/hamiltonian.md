@@ -21,11 +21,11 @@ levels:
 
       where the velocities $\dot{q}$ are written as functions of $q$, $p$, and $t$.
 properties:
-  - >-
+  - |-
     The motions of the system satisfy Hamilton's equations $\dot{q}_i = \partial H / \partial p_i$ and $\dot{p}_i = -\partial H / \partial q_i$.
-  - >-
+  - |-
     If the Hamiltonian does not depend on $t$, then the value of the Hamiltonian is constant along every motion.
-  - >-
+  - |-
     If the kinetic [energy](/dictionary/definitions/energy) $T$ is quadratic in the velocities and the potential energy $V$ depends only on the positions, then $H = T + V$ is the total energy.
 ---
 The passage from $L(q, \dot{q}, t)$ to $H(q, p, t)$ is the Legendre [transform](/dictionary/definitions/transform) in the velocities.

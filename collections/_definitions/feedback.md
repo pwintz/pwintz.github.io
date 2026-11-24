@@ -17,6 +17,6 @@ levels:
       Consider a system with an input $u$ and an output $y$ (or state $x$).
       _Feedback_ is the use of measurements of the output (or state) to determine the input, as in $u = k(y)$.
 properties:
-  - >-
+  - |-
     Feedback can stabilize unstable systems and reduce sensitivity to [disturbances](/dictionary/definitions/disturbance) and model errors.
 ---

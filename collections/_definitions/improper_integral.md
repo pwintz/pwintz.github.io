@@ -14,7 +14,7 @@ levels:
       when this limit exists.
       Integrals of functions that are unbounded near an endpoint are defined the same way, with a limit toward that endpoint.
 properties:
-  - >-
+  - |-
     An improper integral can exist even when $\int \abs{f}$ is infinite, as for $\int_0^{\infty} \frac{\sin x}{x} \dx$.
     Such a function has an improper integral but no [Lebesgue integral](/dictionary/definitions/lebesgue-integral).
 ---

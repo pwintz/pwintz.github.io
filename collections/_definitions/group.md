@@ -22,7 +22,7 @@ levels:
       2. $G$ has an [identity element](/dictionary/definitions/identity-element) $e$ such that $e \ast g = g \ast e = g$ for all $g \in G$, and
       3. every element $g \in G$ has an [inverse](/dictionary/definitions/inverse-element) $g^{-1}$ such that $g \ast g^{-1} = g^{-1} \ast g = e$.
 properties:
-  - >-
+  - |-
     The [identity element](/dictionary/definitions/identity-element) of a group is unique, and so is the inverse of each element.
 ---
 In mathematics, "group" is a technical term.

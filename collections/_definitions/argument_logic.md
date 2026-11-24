@@ -16,9 +16,9 @@ levels:
 
       $$p_1, \; p_2, \; \dots, \; p_n \;\therefore\; q.$$
 properties:
-  - >-
+  - |-
     An argument is [valid](/dictionary/definitions/valid-argument) or invalid depending only on the form of its [premises](/dictionary/definitions/premise) and [conclusion](/dictionary/definitions/conclusion), not on whether the premises are true.
-  - >-
+  - |-
     A [sound](/dictionary/definitions/sound-argument) argument is a [valid](/dictionary/definitions/valid-argument) argument whose [premises](/dictionary/definitions/premise) are all true.
 ---
 The symbol $\therefore$ is read "therefore."

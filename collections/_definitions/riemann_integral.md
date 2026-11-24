@@ -12,8 +12,8 @@ levels:
 
       $$\int_a^b f(x) \dx = \lim \sum_{k = 1}^{n} f(t_k) (x_k - x_{k-1}) = I.$$
 properties:
-  - >-
+  - |-
     Every [continuous](/dictionary/definitions/continuous) function on $[a, b]$ is Riemann integrable.
-  - >-
+  - |-
     A [bounded](/dictionary/definitions/bounded) function is Riemann integrable if and only if its set of discontinuities has [measure zero](/dictionary/definitions/measure-zero) (Lebesgue's criterion).
 ---

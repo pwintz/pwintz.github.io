@@ -24,8 +24,8 @@ properties:
     The sum of two [waves](/dictionary/definitions/wave) with the same [amplitude](/dictionary/definitions/amplitude) and [frequency](/dictionary/definitions/frequency-oscillation) that travel in opposite directions is a standing wave:
 
     $$A \cos(k x - \omega t) + A \cos(k x + \omega t) = 2 A \cos(k x) \cos(\omega t).$$
-  - >-
+  - |-
     Neighboring nodes of a sinusoidal standing wave are half a [wavelength](/dictionary/definitions/wavelength) apart.
-  - >-
+  - |-
     A string of length $L$ that is held at both ends has standing waves only with the [wavelengths](/dictionary/definitions/wavelength) $2 L / n$ for [positive integers](/dictionary/definitions/natural-numbers-from-one) $n$, which set the pitches of the string.
 ---

@@ -23,7 +23,7 @@ levels:
 
     # TODO: Split this into a separate definition: The minimum of a function $f$ is the minimum of its set of values, if it exists.
 properties:
-  - >-
+  - |-
     A set has at most one minimum.
     If the minimum exists, then it equals the [infimum](/dictionary/definitions/infimum).
 ---

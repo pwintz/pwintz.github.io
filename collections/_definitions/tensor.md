@@ -21,11 +21,11 @@ levels:
 
       For finite-dimensional $V$, these elements correspond exactly to the multilinear functions in the undergraduate definition.
 properties:
-  - >-
+  - |-
     Relative to a [basis](/dictionary/definitions/vector-basis) $e_1, \dots, e_n$ of $V$ and its dual basis $\varepsilon^1, \dots, \varepsilon^n$, a tensor $T$ of type $(r, s)$ has the $n^{r + s}$ components $T^{i_1 \cdots i_r}_{j_1 \cdots j_s} = T(\varepsilon^{i_1}, \dots, \varepsilon^{i_r}, e_{j_1}, \dots, e_{j_s})$, which form an [array](/dictionary/definitions/array) with $r + s$ axes.
-  - >-
+  - |-
     When the [basis](/dictionary/definitions/vector-basis) changes, the components of a tensor change by a fixed rule: the upper indices change like the coordinates of a [vector](/dictionary/definitions/vector), and the lower indices change like the coordinates of a [covector](/dictionary/definitions/covector).
-  - >-
+  - |-
     A vector is a tensor of type $(1, 0)$, a [covector](/dictionary/definitions/covector) is a tensor of type $(0, 1)$, an [inner product](/dictionary/definitions/inner-product) is a tensor of type $(0, 2)$, and a [linear map](/dictionary/definitions/linear-map) $V \to V$ corresponds to a tensor of type $(1, 1)$.
 ---
 In physics, "tensor" usually means a _tensor field_, which assigns a tensor to each point of space, such as the stress tensor of a material.

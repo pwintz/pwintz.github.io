@@ -21,15 +21,15 @@ levels:
 
       Equivalently, $X$ is a section of $\pi$, that is, $\pi \circ X = \operatorname{id}_M$.
 properties:
-  - >-
+  - |-
     A vector field $f$ on $\reals^n$ defines the differential equation $\dot{x} = f(x)$, whose solutions are curves whose velocity at each point $x$ is $f(x)$.
     The [flow](/dictionary/definitions/flow) of the vector field moves each point along these solutions.
-  - >-
+  - |-
     A smooth vector field $X$ acts on smooth functions $h$ by differentiating them in the direction of $X$, $h \mapsto X h$, and this map is a [derivation](/dictionary/definitions/derivation).
     The number $X h$ at a point is the [Lie derivative](/dictionary/definitions/lie-derivative) of $h$ along $X$.
-  - >-
+  - |-
     The [Lie bracket](/dictionary/definitions/lie-bracket) $[X, Y]$ of two smooth vector fields $X$ and $Y$ is again a vector field.
-  - >-
+  - |-
     The [gradient](/dictionary/definitions/gradient) of a [differentiable](/dictionary/definitions/differentiable) function $h : \reals^n \to \reals$ is a vector field.
     In $\reals^3$, the gradient of every twice [continuously differentiable](/dictionary/definitions/continuously-differentiable) function has zero [curl](/dictionary/definitions/curl), so a vector field with nonzero curl, such as $(x, y, z) \mapsto (-y, x, 0)$, is not a gradient.
 ---

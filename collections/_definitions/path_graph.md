@@ -18,7 +18,7 @@ levels:
       The path starts at $v_0$ and ends at $v_k$.
       The _length_ of the path is $k$, which is the number of edges that the path uses.
 properties:
-  - >-
+  - |-
     A graph is [connected](/dictionary/definitions/connected-graph) if every two vertices of the graph are joined by a path.
 ---
 A sequence of vertices joined by edges that may visit a vertex more than once is called a _walk_.

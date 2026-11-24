@@ -13,11 +13,11 @@ levels:
 
       $$Z = \rho c.$$
 properties:
-  - >-
+  - |-
     In a [plane wave](/dictionary/definitions/plane-wave) of sound, the ratio of the sound pressure to the particle velocity is the characteristic acoustic impedance of the medium.
-  - >-
+  - |-
     Characteristic acoustic impedance is measured in rayls, where one rayl is one pascal second per meter.
-  - >-
+  - |-
     The fraction of a sound [wave](/dictionary/definitions/wave) that is [reflected](/dictionary/definitions/reflection-wave) at a boundary between two media depends on the characteristic acoustic impedances of the media, through the [reflection coefficient](/dictionary/definitions/reflection-coefficient) $R = (Z_2 - Z_1) / (Z_2 + Z_1)$.
 ---
 The characteristic acoustic impedance is about $413$ rayl for air at $20^{\circ}$C and about $1.5 \times 10^{6}$ rayl for seawater.

@@ -18,9 +18,9 @@ levels:
 
       $$p_1, \; \dots, \; p_n \models q.$$
 properties:
-  - >-
+  - |-
     In [propositional logic](/dictionary/definitions/propositional-logic), the [argument](/dictionary/definitions/argument-logic) $p_1, \dots, p_n \;\therefore\; q$ is valid if and only if the formula $(p_1 \land \dots \land p_n) \implies q$ is a tautology.
-  - >-
+  - |-
     A valid [argument](/dictionary/definitions/argument-logic) with true [premises](/dictionary/definitions/premise) has a true [conclusion](/dictionary/definitions/conclusion).
     A valid argument with a false premise can have a true or a false conclusion.
 ---

@@ -22,8 +22,8 @@ levels:
       Consider a dynamical system and a [closed set](/dictionary/definitions/closed-set) $A$ of states.
       The set $A$ is _attractive_ if there is a [neighborhood](/dictionary/definitions/neighborhood) $U$ of $A$ such that every solution starting in $U$ converges to $A$: its distance to $A$ tends to zero.
 properties:
-  - >-
+  - |-
     Attractivity does not imply stability: solutions can make a large excursion before converging.
-  - >-
+  - |-
     An [equilibrium](/dictionary/definitions/equilibrium) that is both stable and attractive is [asymptotically stable](/dictionary/definitions/asymptotically-stable).
 ---

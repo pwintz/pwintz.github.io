@@ -18,6 +18,6 @@ levels:
 
       the smallest value that a subsequence of $(a_n)$ can converge to (allowing $\pm \infty$).
 properties:
-  - >-
+  - |-
     The limit inferior is at most the [limit superior](/dictionary/definitions/limsup), and a [sequence](/dictionary/definitions/sequence) converges exactly when they are equal and finite.
 ---

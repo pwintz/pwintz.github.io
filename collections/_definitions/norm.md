@@ -26,8 +26,8 @@ levels:
       2. $\norm{c x} = \abs{c} \norm{x}$, and 
       3. $\norm{x + y} \leq \norm{x} + \norm{y}$ (the [triangle inequality](/dictionary/definitions/triangle-inequality)).
 properties:
-  - >-
+  - |-
     Every norm satisfies $\abs{\norm{x} - \norm{y}} \leq \norm{x - y}$, so it is a [continuous](/dictionary/definitions/continuous) function.
-  - >-
+  - |-
     On a finite-dimensional space, all norms are equivalent: they give the same [open sets](/dictionary/definitions/open-set) and the same convergent [sequences](/dictionary/definitions/sequence).
 ---

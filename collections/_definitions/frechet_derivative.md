@@ -21,6 +21,6 @@ levels:
       The map $f$ is Fréchet [differentiable](/dictionary/definitions/differentiable) at $x$ if there is a [bounded](/dictionary/definitions/bounded) [linear map](/dictionary/definitions/linear-map) $Df(x) : X \to Y$ such that $\norm{f(x + h) - f(x) - Df(x) h} = o(\norm{h})$ as $h \to 0$.
       The map $Df(x)$ is the _Fréchet derivative_ of $f$ at $x$.
 properties:
-  - >-
+  - |-
     If $f$ is Fréchet [differentiable](/dictionary/definitions/differentiable) at $x$, then it is [continuous](/dictionary/definitions/continuous) at $x$ and Gâteaux differentiable at $x$, with the same derivative.
 ---

@@ -39,12 +39,12 @@ levels:
 
       where the sum is over all [permutations](/dictionary/definitions/permutation) $\sigma$ of $\setdef{1, \dots, n}$, and $\operatorname{sign}(\sigma)$ is $1$ if $\sigma$ is a product of an even number of swaps and $-1$ if $\sigma$ is a product of an odd number of swaps.
 properties:
-  - >-
+  - |-
     Expanding along a different row, or along a column, gives the same determinant (the Laplace expansion): $\det A = \sum_{j} a_{ij} C_{ij}$ for each row $i$, where $C_{ij}$ is the $(i, j)$ [cofactor](/dictionary/definitions/cofactor) of $A$.
-  - >-
+  - |-
     $\abs{\det A}$ is the factor by which $A$ scales volumes, and the sign of $\det A$ says whether $A$ preserves or reverses orientation.
-  - >-
+  - |-
     $A$ is [invertible](/dictionary/definitions/invertible-matrix) if and only if $\det A \neq 0$.
-  - >-
+  - |-
     $\det(A B) = \det A \det B$, and $\det A$ is the product of the [eigenvalues](/dictionary/definitions/eigenvalue) of $A$.
 ---

@@ -16,12 +16,12 @@ levels:
 
       $$\nullity{A} = \dim(\nullspace{A}).$$
 properties:
-  - >-
+  - |-
     The nullity of $A$ is the [nullity](/dictionary/definitions/nullity-linear-map) of the [linear map](/dictionary/definitions/linear-map) $x \mapsto A x$, because the [null space](/dictionary/definitions/kernel) of $A$ is the kernel of that map.
-  - >-
+  - |-
     For an $m \times n$ matrix $A$, $\rank{A} + \nullity{A} = n$ (the rank–nullity theorem).
-  - >-
+  - |-
     The nullity of a matrix $A$ is the number of free variables in the solutions of $A x = 0$.
-  - >-
+  - |-
     The nullity of a matrix $A$ is $0$ if and only if the columns of $A$ are [linearly independent](/dictionary/definitions/linearly-independent), if and only if the map $x \mapsto A x$ is [injective](/dictionary/definitions/injective).
 ---

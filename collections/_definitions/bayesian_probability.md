@@ -18,6 +18,6 @@ levels:
 
       In words, values of $\theta$ that make the observed data more probable become more plausible after the data are observed.
 properties:
-  - >-
+  - |-
     Bayesian statistics describes uncertainty about $\theta$ by the [posterior](/dictionary/definitions/posterior), for example by credible intervals.
 ---

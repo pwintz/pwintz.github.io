@@ -24,19 +24,19 @@ properties:
 
     is the most common sublevel set, because each inequality $g(x) \leq c$ can be rewritten as $g(x) - c \leq 0$.
     For example, the feasible set of the constraint $g(x) \leq 0$ in an optimization problem is the zero sublevel set of $g$, and the initial set of a [barrier certificate](/dictionary/definitions/barrier-certificate) $B$ is contained in the zero sublevel set of $B$.
-  - >-
+  - |-
     The sublevel sets of $f$ are nested: if $c_1 \leq c_2$, then the $c_1$-sublevel set is a [subset](/dictionary/definitions/subset) of the $c_2$-sublevel set.
-  - >-
+  - |-
     The $c$-[level set](/dictionary/definitions/level-set) of $f$ is a [subset](/dictionary/definitions/subset) of the $c$-sublevel set of $f$.
     If $f$ is [continuous](/dictionary/definitions/continuous), then the [boundary](/dictionary/definitions/boundary) of the $c$-sublevel set is a subset of the $c$-level set, but the two sets can differ: for the constant function $f(x) = 0$, the $0$-sublevel set is all of $X$, which has an empty boundary in $X$.
-  - >-
+  - |-
     If $f$ is [continuous](/dictionary/definitions/continuous), then each sublevel set of $f$ is a [closed set](/dictionary/definitions/closed-set), because $(-\infty, c]$ is closed.
-  - >-
+  - |-
     If $f$ is a [convex function](/dictionary/definitions/convex-function), then each sublevel set of $f$ is a [convex set](/dictionary/definitions/convex-set).
     The converse is false: a function whose sublevel sets are all convex is called _quasiconvex_.
-  - >-
+  - |-
     If $V : \reals^n \to \reals$ is a [Lyapunov function](/dictionary/definitions/lyapunov-function) for $\dot{x} = f(x)$ and $\dot{V}(x) \leq 0$ for every $x \in \reals^n$, then each sublevel set of $V$ is [forward invariant](/dictionary/definitions/forward-invariant), because $V$ does not increase along solutions.
-  - >-
+  - |-
     The _strict sublevel set_ is $\setdef{x \in X \suchthat f(x) < c}$, and the _superlevel set_ is $\setdef{x \in X \suchthat f(x) \geq c}$.
     The superlevel set of $f$ at $c$ is the sublevel set of $-f$ at $-c$.
 ---

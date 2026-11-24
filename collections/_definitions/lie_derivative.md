@@ -23,7 +23,7 @@ levels:
 
       [Lie derivatives](/dictionary/definitions/lie-derivative) are also defined for [vector fields](/dictionary/definitions/vector-field) and [differential forms](/dictionary/definitions/differential-form).
 properties:
-  - >-
+  - |-
     If $L_F V(x) \leq 0$ for all $x$, then $V$ never increases along solutions of $\dot{x} = F(x)$.
     This is how [Lyapunov functions](/dictionary/definitions/lyapunov-function) are checked, without solving the system.
 ---

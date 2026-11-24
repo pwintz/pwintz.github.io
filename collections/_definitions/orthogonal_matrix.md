@@ -10,9 +10,9 @@ levels:
 
       $$Q\trans Q = Q Q\trans = I.$$
 properties:
-  - >-
+  - |-
     A matrix is orthogonal if and only if its columns are [unit vectors](/dictionary/definitions/unit-vector) that are perpendicular to each other (an [orthonormal](/dictionary/definitions/orthonormal) [basis](/dictionary/definitions/vector-basis)).
-  - >-
+  - |-
     Orthogonal matrices preserve lengths and angles: $\norm{Q x} = \norm{x}$.
     They are the rotations and reflections, and $\det Q = \pm 1$.
 ---

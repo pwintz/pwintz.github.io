@@ -18,14 +18,14 @@ levels:
 
       $$\ip{T x}{y} = \ip{x}{T^{\ast} y} \quad \text{for all } x \in H \text{ and } y \in K.$$
 properties:
-  - >-
+  - |-
     The adjoint depends on the [inner products](/dictionary/definitions/inner-product), not only on the map.
     For example, see [the adjoint of $x \mapsto A x$ with a weighted inner product](/dictionary/examples/linear-map-with-weighted-inner-product).
-  - >-
+  - |-
     Relative to [orthonormal](/dictionary/definitions/orthonormal) bases of $V$ and $W$, the matrix of $T^{\ast}$ is the [conjugate transpose](/dictionary/definitions/conjugate-transpose) of the matrix of $T$.
-  - >-
+  - |-
     $(S T)^{\ast} = T^{\ast} S^{\ast}$, and $(T^{\ast})^{\ast} = T$.
-  - >-
+  - |-
     A [linear map](/dictionary/definitions/linear-map) $T : V \to V$ such that $T^{\ast} = T$ is called _self-adjoint_.
 ---
 ### Adjoints of unbounded operators

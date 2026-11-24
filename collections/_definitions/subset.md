@@ -11,9 +11,9 @@ levels:
     text: |-
       $A$ is a _subset_ of $B$, written $A \subseteq B$, if every element of $A$ is also an element of $B$.
 properties:
-  - >-
+  - |-
     Every set is a subset of itself, and the [empty set](/dictionary/definitions/empty-set) is a subset of every set.
-  - >-
+  - |-
     $A = B$ if and only if $A \subseteq B$ and $B \subseteq A$.
 ---
 The symbol $\subset$ is ambiguous: some authors use it to mean $\subseteq$, and others use it to mean [proper subset](/dictionary/definitions/proper-subset) ($\subsetneq$).

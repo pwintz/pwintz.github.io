@@ -1,14 +1,14 @@
 ---
-published: false
 title: Angle vs. Angular Measure vs. Angle of Rotation
 kind: siblings
 areas: [geometry]
 summary: >
-  [Angles](/dictionary/definitions/angle) come up both in shapes and in turning motions.
-  An angle is the amount of turning between two directions, and its [angular measure](/dictionary/definitions/angular-measure) is the number that gives that amount in a unit, such as $90^\circ$ or $\pi/2$ radians.
+  [Angles](/dictionary/definitions/angle-geometric-figure) come up both in shapes and in turning motions.
+  In geometry, an angle is a figure made by two rays that start at the same point, and its [angular measure](/dictionary/definitions/angular-measure) is the amount of rotation needed to turn one ray onto the other, given in a unit, such as $90^\circ$ or $\pi/2$ radians.
+  But "angle" is often used to mean the angular measure, as in "the angle $\theta = \pi/4$" or "the angle of incidence is $30^\circ$," so readers must tell from context which is meant.
   The [angle of rotation](/dictionary/definitions/angle-of-rotation) of a turning object is the total amount that the object turns, with a sign for its direction, so it can be negative or larger than $360^\circ$.
 terms:
-  - angle
+  - angle_geometric_figure
   - angular_measure
   - angle_of_rotation
 examples:
@@ -20,9 +20,8 @@ examples:
     why: >-
       For a wheel that turns twice counterclockwise, the angle between the starting and final positions of a spoke is zero, but the angle of rotation is $720^\circ$, because the angle of rotation counts every turn.
 see_also:
-  - angle_vs_signed_angle
-  - rotation_vs_orientation_vs_attitude
+  - angular_measure_vs_signed_angle
+  - rotation_vs_orientation
 ---
 
-- Geometry texts often call the figure formed by two rays the [angle](/dictionary/definitions/angle), written $\angle ABC$, and write its measure as $m\angle ABC$.
-  Most other texts use "angle" for the measure itself, as in "the angle $\theta = \pi/4$."
+- Geometry texts often call the figure formed by two rays the [angle](/dictionary/definitions/angle-geometric-figure), written $\angle ABC$, and write its measure as $m\angle ABC$, which keeps the figure and the number apart.

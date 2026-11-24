@@ -17,6 +17,6 @@ levels:
 
       converges to zero (or stays small).
 properties:
-  - >-
+  - |-
     Tracking a reference can be posed as stabilizing the origin of the error dynamics.
 ---

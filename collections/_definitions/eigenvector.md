@@ -23,12 +23,12 @@ levels:
 
       for some number $\lambda$, called the [eigenvalue](/dictionary/definitions/eigenvalue) of $\vect{v}$.
 properties:
-  - >-
+  - |-
     Every nonzero multiple of an eigenvector is an eigenvector with the same [eigenvalue](/dictionary/definitions/eigenvalue).
     The eigenvectors for an eigenvalue $\lambda$, together with $\vect{0}$, form a subspace, the _eigenspace_ $\nullspaceOf{A - \lambda I}$.
-  - >-
+  - |-
     Eigenvectors with different [eigenvalues](/dictionary/definitions/eigenvalue) are [linearly independent](/dictionary/definitions/linearly-independent).
-  - >-
+  - |-
     An $n \times n$ matrix is diagonalizable if and only if it has $n$ [linearly independent](/dictionary/definitions/linearly-independent) eigenvectors.
 ---
 The [zero vector](/dictionary/definitions/zero-vector) is excluded, because $A \vect{0} = \lambda \vect{0}$ for every $\lambda$.

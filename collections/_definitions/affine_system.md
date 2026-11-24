@@ -14,7 +14,7 @@ levels:
       Consider a system $\dot{x} = f(t, x, u)$.
       The system is _affine_ if it is linear plus a constant (or time-dependent) offset, as in $\dot{x} = A x + B u + c$.
 properties:
-  - >-
+  - |-
     If $A x^{\ast} + B u^{\ast} + c = 0$, then in the shifted coordinates $x - x^{\ast}$ and $u - u^{\ast}$, the affine system $\dot{x} = A x + B u + c$ is linear.
 ---
 Affine systems are often loosely called linear, just as $y = m x + b$ is called a "linear function" in school.

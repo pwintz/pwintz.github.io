@@ -13,17 +13,17 @@ levels:
 
       Momentum is a [vector](/dictionary/definitions/vector), with the direction of the velocity, and is measured in kilogram meters per second (kg·m/s).
 properties:
-  - >-
+  - |-
     Force is the rate of change of momentum: $F = \frac{\diff{p}}{\dt}$.
 
-  - >- 
+  - |- 
     A net change of momentum is called an _impulse_.
 
   # TODO: Explain elastic vs. inelastic.
-  - >-
+  - |-
     The total momentum of an isolated system is constant, so momentum is conserved in every collision, whether elastic or inelastic.
 
-  - >-
+  - |-
     Momentum is the conserved quantity that comes from symmetry under shifts in space (Noether's theorem).
 ---
 The _angular momentum_ $r \times p$ of an object about a point is a different quantity.

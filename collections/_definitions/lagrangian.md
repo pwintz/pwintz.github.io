@@ -19,11 +19,11 @@ levels:
 
       $$\frac{\diff{}}{\dt} \frac{\partial L}{\partial \dot{q}_i} = \frac{\partial L}{\partial q_i}, \qquad i = 1, \dots, n.$$
 properties:
-  - >-
+  - |-
     For a [conservative system](/dictionary/definitions/conservative-system), $L = T - V$ is a Lagrangian.
-  - >-
+  - |-
     The motions of a system with Lagrangian $L$ make the action $\int_{t_0}^{t_1} L(q, \dot{q}, t) \dt$ stationary (Hamilton's principle).
-  - >-
+  - |-
     A system has many Lagrangians: adding the total time derivative of a function $F(q, t)$ to a Lagrangian gives the same Euler–Lagrange equations.
 ---
 In optimization, the _Lagrangian_ of the problem "minimize $f(x)$ subject to $g(x) = 0$" is the different function $f(x) + \lambda\trans g(x)$, with Lagrange multipliers $\lambda$.

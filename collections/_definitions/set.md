@@ -13,6 +13,6 @@ levels:
       A _set_ is an object of a set theory such as ZFC.
       By the axiom of extensionality, a set is determined entirely by its elements.
 properties:
-  - >-
+  - |-
     Not every collection is a set: the collection of all sets is not a set (Russell's paradox).
 ---

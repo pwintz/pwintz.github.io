@@ -13,8 +13,8 @@ levels:
       Consider two mathematical objects $a$ and $b$.
       The statement $a = b$ means that $a$ and $b$ are _equal_: $a$ and $b$ are the same object.
 properties:
-  - >-
+  - |-
     Two sets are equal if and only if they have the same elements.
-  - >-
+  - |-
     Two functions are equal if and only if they have the same domain, [codomain](/dictionary/definitions/codomain), and output at every input.
 ---

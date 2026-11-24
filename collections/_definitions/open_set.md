@@ -29,10 +29,10 @@ levels:
       Consider a set $X$ with a [topology](/dictionary/definitions/topology) $\mathcal{T}$.
       A set $U \subseteq X$ is _open_ if $U \in \mathcal{T}$.
 properties:
-  - >-
+  - |-
     Every [union](/dictionary/definitions/set-union) of open sets is open, and every [intersection](/dictionary/definitions/set-intersection) of finitely many open sets is open.
     An intersection of infinitely many open sets need not be open: the intersection of the intervals $(-1/n, 1/n)$ is $\setdef{0}$.
-  - >-
+  - |-
     A set is open if and only if it equals its [interior](/dictionary/definitions/interior), and if and only if it contains none of its [boundary](/dictionary/definitions/boundary) points.
 ---
 Being open depends on the surrounding space: $[0, 1)$ is not open in $\reals$, but it is open as a [subset](/dictionary/definitions/subset) of the space $[0, \infty)$.

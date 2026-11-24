@@ -23,9 +23,9 @@ levels:
 
       $$M_{ij} = \det A^{(i, j)}.$$
 properties:
-  - >-
+  - |-
     The $(i, j)$ [cofactor](/dictionary/definitions/cofactor) of $A$ is the $(i, j)$ minor with a sign: $C_{ij} = (-1)^{i + j} M_{ij}$.
-  - >-
+  - |-
     A [symmetric matrix](/dictionary/definitions/symmetric-matrix) is [positive definite](/dictionary/definitions/positive-definite-matrix) if and only if all of its leading principal minors are positive (Sylvester's criterion).
 ---
 More generally, a _minor of order $k$_ of a matrix, square or not, is the [determinant](/dictionary/definitions/determinant) of a $k \times k$ submatrix obtained by keeping $k$ of its rows and $k$ of its columns.

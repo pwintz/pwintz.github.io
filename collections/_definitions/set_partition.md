@@ -14,6 +14,6 @@ levels:
       The collection is a _partition_ of the set if the [union](/dictionary/definitions/set-union) of the blocks is the whole set.
       Every element is then in exactly one block.
 properties:
-  - >-
+  - |-
     Partitions of a set correspond exactly to equivalence [relations](/dictionary/definitions/relation) on it: the blocks are the [equivalence classes](/dictionary/definitions/equivalence-relation).
 ---

@@ -18,6 +18,6 @@ levels:
 
       for all $t \geq 0$.
 properties:
-  - >-
+  - |-
     With $d = 0$, an ISS system has a [globally asymptotically stable](/dictionary/definitions/globally-asymptotically-stable) origin.
 ---

@@ -12,13 +12,13 @@ levels:
 
       $$(A^{\ast})_{ij} = \conj{a_{ji}}.$$
 properties:
-  - >-
+  - |-
     If $A$ has real entries, then $A^{\ast} = A\trans$.
-  - >-
+  - |-
     $(A B)^{\ast} = B^{\ast} A^{\ast}$, and $(A^{\ast})^{\ast} = A$.
-  - >-
+  - |-
     For the standard [inner product](/dictionary/definitions/inner-product) $\ip{x}{y} = \sum_i x_i \conj{y_i}$ on $\complexes^n$, $\ip{A x}{y} = \ip{x}{A^{\ast} y}$ for all $x$ and $y$, so the [adjoint](/dictionary/definitions/adjoint) of the [linear map](/dictionary/definitions/linear-map) $x \mapsto A x$ is the linear map $y \mapsto A^{\ast} y$.
-  - >-
+  - |-
     A square matrix that is equal to its conjugate transpose is called _Hermitian_ (or _self-adjoint_).
     Every [eigenvalue](/dictionary/definitions/eigenvalue) of a Hermitian matrix is real.
 ---

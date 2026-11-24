@@ -13,7 +13,7 @@ levels:
       Consider a differential equation $\dot{x} = f(t, x)$ on an interval of times.
       A _classical solution_ of the equation is a [continuously differentiable](/dictionary/definitions/continuously-differentiable) function $x(t)$ such that $\dot{x}(t) = f(t, x(t))$ for every $t$ in the interval.
 properties:
-  - >-
+  - |-
     If $f$ is [continuous](/dictionary/definitions/continuous), then classical solutions exist (Peano's theorem).
     If $f$ is also [locally Lipschitz](/dictionary/definitions/locally-lipschitz-continuous) in $x$, then they are unique.
 ---

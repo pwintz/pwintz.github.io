@@ -10,8 +10,8 @@ levels:
 
       $$P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!} \quad \text{for } k = 0, 1, 2, \dots.$$
 properties:
-  - >-
+  - |-
     A Poisson [random variable](/dictionary/definitions/random-variable) with mean $\lambda$ also has [variance](/dictionary/definitions/variance) $\lambda$.
-  - >-
+  - |-
     The Poisson distribution is the limit of the [binomial distribution](/dictionary/definitions/binomial-distribution) with parameters $n$ and $\lambda / n$ as $n \to \infty$.
 ---

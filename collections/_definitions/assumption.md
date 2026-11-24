@@ -14,6 +14,6 @@ levels:
       Consider a [theorem](/dictionary/definitions/theorem) or other result.
       An _assumption_ of the result is a condition that it requires of the objects it is about, such as "$f$ is [continuous](/dictionary/definitions/continuous)," and the result is proved only for objects that satisfy it.
 properties:
-  - >-
+  - |-
     An assumption applies to one result, while an [axiom](/dictionary/definitions/axiom) applies to an entire theory.
 ---

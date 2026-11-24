@@ -15,6 +15,6 @@ levels:
       An _ordinal number_ is the order type of a well-ordered set.
       The finite ordinals are the natural numbers, followed by infinite ordinals $\omega, \omega + 1, \omega + 2, \dots$
 properties:
-  - >-
+  - |-
     For infinite sets, ordinals and cardinals differ: $\omega$ and $\omega + 1$ are different ordinals, but the corresponding sets have the same [cardinality](/dictionary/definitions/cardinality), $\aleph_0$.
 ---

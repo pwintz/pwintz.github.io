@@ -23,8 +23,8 @@ levels:
 
       $$x(t + T) = x(t) \quad \text{for all } t.$$
 properties:
-  - >-
+  - |-
     If $T$ is a period, then so is every positive [integer](/dictionary/definitions/integer) multiple of $T$.
-  - >-
+  - |-
     The [trajectory](/dictionary/definitions/trajectory) of a nonconstant periodic solution is a closed curve, called a [periodic orbit](/dictionary/definitions/periodic-orbit).
 ---

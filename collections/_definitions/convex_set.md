@@ -15,6 +15,6 @@ levels:
 
       $$\lambda x + (1 - \lambda) y \in C.$$
 properties:
-  - >-
+  - |-
     Every [intersection](/dictionary/definitions/set-intersection) of convex sets is convex, but a [union](/dictionary/definitions/set-union) of convex sets need not be.
 ---

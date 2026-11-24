@@ -11,9 +11,9 @@ levels:
 
       $$F(x) = P(X \leq x).$$
 properties:
-  - >-
+  - |-
     Every cumulative distribution function is nondecreasing and right-continuous, with $F(x) \to 0$ as $x \to -\infty$ and $F(x) \to 1$ as $x \to \infty$.
-  - >-
+  - |-
     Every [random variable](/dictionary/definitions/random-variable) has a cumulative distribution function, even when it has neither a [probability mass function](/dictionary/definitions/probability-mass-function) nor a [probability density](/dictionary/definitions/probability-density).
 
   # TODO: For continuous random variables with a PDF, show the relationship between the PDF and the CDF, using the derivative and intergral.

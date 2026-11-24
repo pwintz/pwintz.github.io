@@ -13,8 +13,8 @@ levels:
       the closed convex hull of all values of $f$ near $x$.
       A _Krasovskii solution_ of $\dot{x} = f(x)$ is an [absolutely continuous](/dictionary/definitions/absolutely-continuous) function $x(t)$ such that $\dot{x}(t) \in K(x(t))$ for almost every $t$.
 properties:
-  - >-
+  - |-
     For locally [bounded](/dictionary/definitions/bounded) $f$, the Krasovskii solutions are exactly the [Hermes solutions](/dictionary/definitions/hermes-solution): the limits of solutions under vanishing measurement errors (Hájek).
-  - >-
+  - |-
     Krasovskii solutions do not ignore sets of [measure zero](/dictionary/definitions/measure-zero), so changing $f$ on a set of measure zero can create Krasovskii solutions but cannot change the [Filippov solutions](/dictionary/definitions/filippov-solution).
 ---

@@ -16,7 +16,7 @@ levels:
 
       Each of the [propositions](/dictionary/definitions/proposition) $p_1, p_2, \dots, p_n$ is a _premise_ of the argument.
 properties:
-  - >-
+  - |-
     A premise need not be true.
     Whether an [argument](/dictionary/definitions/argument-logic) is [valid](/dictionary/definitions/valid-argument) depends only on whether the premises, if true, guarantee the [conclusion](/dictionary/definitions/conclusion).
 ---

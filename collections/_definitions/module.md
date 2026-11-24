@@ -15,11 +15,11 @@ levels:
 
       A module is defined like a [vector space](/dictionary/definitions/vector-space), except that the scalars come from a ring instead of a [field](/dictionary/definitions/field).
 properties:
-  - >-
+  - |-
     A module over a [field](/dictionary/definitions/field) is the same as a [vector space](/dictionary/definitions/vector-space) over that field.
-  - >-
+  - |-
     Every [commutative](/dictionary/definitions/commutative) [group](/dictionary/definitions/group) $M$ is a module over the [integers](/dictionary/definitions/integer), with $n x = x + \dots + x$ ($n$ terms) for [positive integers](/dictionary/definitions/natural-numbers-from-one) $n$.
-  - >-
+  - |-
     A module need not have a [basis](/dictionary/definitions/vector-basis).
     In the [integers](/dictionary/definitions/integer) modulo $2$, as a module over the integers, $2 x = 0$ for every $x$, so no nonempty set of elements is [linearly independent](/dictionary/definitions/linearly-independent).
 ---

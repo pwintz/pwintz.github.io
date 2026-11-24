@@ -19,26 +19,26 @@ levels:
       The incident wave and the wave transmitted into the second medium cannot satisfy the boundary conditions by themselves, so the wave in the first medium also contains a _reflected wave_, which travels away from the boundary.
       _Reflection_ is the production of the reflected wave.
 properties:
-  - >-
+  - |-
     (The law of reflection.)
-    The angle of reflection equals the angle of incidence, where both [angles](/dictionary/definitions/angle) are measured from the [normal vector](/dictionary/definitions/normal-vector) of the boundary, and the reflected ray lies in the plane that contains the incident ray and the normal vector.
+    The angle of reflection equals the angle of incidence, where both [angles](/dictionary/definitions/angular-measure) are measured from the [normal vector](/dictionary/definitions/normal-vector) of the boundary, and the reflected ray lies in the plane that contains the incident ray and the normal vector.
   - |-
     At normal incidence, the ratio of the [amplitude](/dictionary/definitions/amplitude) of the reflected pressure [wave](/dictionary/definitions/wave) to the amplitude of the incident pressure wave is the [reflection coefficient](/dictionary/definitions/reflection-coefficient)
 
     $$R = \frac{Z_2 - Z_1}{Z_2 + Z_1},$$
 
     where $Z_1$ and $Z_2$ are the [characteristic acoustic impedances](/dictionary/definitions/characteristic-acoustic-impedance) of the two media.
-  - >-
+  - |-
     If the second medium has a much smaller [impedance](/dictionary/definitions/impedance) than the first, such as air above water, then $R \approx -1$, so nearly all of the [wave](/dictionary/definitions/wave) is reflected, with its waveform flipped upside down.
     If the second medium has a much larger impedance, such as rock below water, then $R \approx 1$, so nearly all of the wave is reflected without being flipped.
   - |-
     ([Total internal reflection](/dictionary/definitions/total-internal-reflection).)
-    When a [wave](/dictionary/definitions/wave) reaches a medium in which the wave travels faster, at an [angle](/dictionary/definitions/angle) of incidence $\theta$ greater than the _critical angle_ $\theta_c$ such that
+    When a [wave](/dictionary/definitions/wave) reaches a medium in which the wave travels faster, at an [angle](/dictionary/definitions/angular-measure) of incidence $\theta$ greater than the _critical angle_ $\theta_c$ such that
 
     $$\sin \theta_c = \frac{c_1}{c_2},$$
 
     all of the wave is reflected, and no wave travels away from the boundary in the second medium.
-  - >-
+  - |-
     (The image method.)
     The [wave](/dictionary/definitions/wave) reflected from a flat boundary with $R = \pm 1$ is the same as the wave from a mirror-image source on the other side of the boundary, with its [amplitude](/dictionary/definitions/amplitude) multiplied by $R$.
 ---

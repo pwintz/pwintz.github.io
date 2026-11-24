@@ -11,6 +11,6 @@ levels:
     text: |-
       The number zero is the additive identity of real and complex numbers.
 properties:
-  - >-
+  - |-
     $a + 0 = a$ and $a \cdot 0 = 0$ for every number $a$. Division by $0$ is undefined.
 ---

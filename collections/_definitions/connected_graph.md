@@ -14,7 +14,7 @@ levels:
       Consider a [graph](/dictionary/definitions/graph-network) $G = (V, E)$.
       The graph $G$ is _connected_ if for every two vertices $u, v \in V$, there is a [path](/dictionary/definitions/path-graph) in $G$ from $u$ to $v$.
 properties:
-  - >-
+  - |-
     A connected graph with $n$ vertices has at least $n - 1$ [edges](/dictionary/definitions/edge-graph).
 ---
 In [topology](/dictionary/definitions/topology), a [connected space](/dictionary/definitions/connected) is a space that cannot be split into two disjoint, nonempty [open sets](/dictionary/definitions/open-set), which is a different definition.

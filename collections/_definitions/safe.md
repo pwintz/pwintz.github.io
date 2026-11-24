@@ -14,7 +14,7 @@ levels:
       Consider a dynamical system with an initial set $X_0$ and an unsafe set $X_u$.
       The system is _safe_ with respect to $X_0$ and $X_u$ if no solution starting in $X_0$ ever reaches $X_u$.
 properties:
-  - >-
+  - |-
     A system is safe if there is a [forward invariant](/dictionary/definitions/forward-invariant) set that contains $X_0$ and does not meet $X_u$.
     [Barrier certificates](/dictionary/definitions/barrier-certificate) are one way to find such a set.
 ---

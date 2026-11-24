@@ -22,7 +22,7 @@ levels:
       which lists the elements $\sigma(1), \dots, \sigma(k)$ in order.
       A _permutation_ of $S$ is an $n$-permutation of $S$, which is the same as a [bijective](/dictionary/definitions/bijective) function from $\setdef{1, \dots, n}$ to $S$.
 properties:
-  - >-
+  - |-
     The [number of permutations](/dictionary/definitions/number-of-permutations) of $k$ of $n$ objects is $P(n, k) = n! / (n - k)!$, and the number of permutations of all $n$ objects is $n!$.
 ---
 In algebra, a _permutation_ of a set $S$ is a bijection from $S$ to $S$, and the permutations of $\setdef{1, \dots, n}$ form the symmetric group $S_n$.

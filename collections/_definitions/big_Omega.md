@@ -17,7 +17,7 @@ levels:
 
       $$\abs{f(x)} \geq c \abs{g(x)} \quad \text{for all } x \geq x_0.$$
 properties:
-  - >-
+  - |-
     In Knuth's sense, $f = \Omega(g)$ if and only if $g = O(f)$.
 ---
 In [analytic](/dictionary/definitions/analytic) number theory, $f = \Omega(g)$ has an older meaning (Hardy and Littlewood): $f$ is _not_ $o(g)$, so $\abs{f} \geq c \abs{g}$ only for arbitrarily large $x$, not for all large $x$.

@@ -12,8 +12,8 @@ levels:
 
       $$A \cap \closure{B} = \emptyset \quad \text{and} \quad \closure{A} \cap B = \emptyset.$$
 properties:
-  - >-
+  - |-
     A space is disconnected exactly when it is the [union](/dictionary/definitions/set-union) of two nonempty separated sets.
-  - >-
+  - |-
     Separated sets are disjoint, but disjoint sets need not be separated: $[0, 1]$ and $(1, 2]$ are disjoint but not separated.
 ---

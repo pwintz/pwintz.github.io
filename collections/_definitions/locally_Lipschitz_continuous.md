@@ -16,11 +16,11 @@ levels:
 
       $$d(f(x), f(y)) \leq L_U \, d(x, y) \quad \text{for all } x, y \in U.$$
 properties:
-  - >-
+  - |-
     Every [continuously differentiable](/dictionary/definitions/continuously-differentiable) function on an open [subset](/dictionary/definitions/subset) of $\reals^n$ is locally Lipschitz continuous.
-  - >-
+  - |-
     A locally Lipschitz continuous function is [(globally) Lipschitz continuous](/dictionary/definitions/lipschitz-continuous) on every [compact](/dictionary/definitions/compact) [subset](/dictionary/definitions/subset) of its domain.
-  - >-
+  - |-
     If $f$ is locally Lipschitz continuous, then the differential equation $\dot{x} = f(x)$ has a unique solution from each initial condition on some time interval, but the solution can blow up in finite time, as for $\dot{x} = x^2$.
     If $f$ is [Lipschitz continuous](/dictionary/definitions/lipschitz-continuous) on $\reals^n$, then each solution exists for all time.
 ---

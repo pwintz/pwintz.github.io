@@ -18,6 +18,6 @@ levels:
 
       $$\Span{\vect{v}_1, \dots, \vect{v}_k} = V.$$
 properties:
-  - >-
+  - |-
     The span of every list of vectors is a [vector subspace](/dictionary/definitions/vector-space), which is the smallest subspace that contains them.
 ---

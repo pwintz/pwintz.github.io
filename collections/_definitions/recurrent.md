@@ -10,8 +10,8 @@ levels:
       Consider a dynamical system with [flow](/dictionary/definitions/flow) $\phi_t$, and a point $x$.
       The point $x$ is _recurrent_ if its [trajectory](/dictionary/definitions/trajectory) returns arbitrarily close to $x$ infinitely often: for every [neighborhood](/dictionary/definitions/neighborhood) $U$ of $x$ and every $T$, there is $t > T$ such that $\phi_t(x) \in U$.
 properties:
-  - >-
+  - |-
     Every point on a [periodic orbit](/dictionary/definitions/periodic-orbit) is recurrent, but recurrent points need not be [periodic](/dictionary/definitions/periodic).
-  - >-
+  - |-
     The Poincaré recurrence theorem says that, for volume-preserving dynamics on a [bounded](/dictionary/definitions/bounded) region, almost every point is recurrent.
 ---

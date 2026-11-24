@@ -18,10 +18,10 @@ levels:
 
       $$\ip{\nabla f(x)}{v} = \diff{f}_x(v) \quad \text{for every tangent vector } v.$$
 properties:
-  - >-
+  - |-
     If $\nabla f(x) \neq 0$, then it points in the direction of steepest increase of $f$, and its length is the rate of increase in that direction.
-  - >-
+  - |-
     The gradient is perpendicular to the [level sets](/dictionary/definitions/level-set) of $f$.
-  - >-
+  - |-
     The gradient depends on the choice of [inner product](/dictionary/definitions/inner-product) (Riemannian [metric](/dictionary/definitions/metric)); the [differential](/dictionary/definitions/differential) $\diff{f}$ does not.
 ---

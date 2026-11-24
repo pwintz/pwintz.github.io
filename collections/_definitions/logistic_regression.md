@@ -26,9 +26,9 @@ properties:
     In logistic regression, the log-odds is a linear function of $x$:
 
     $$\ln \frac{p(x)}{1 - p(x)} = \beta_0 + \beta\trans x.$$
-  - >-
+  - |-
     The log-likelihood of logistic regression is concave, but its maximizer has no closed-form formula, so the parameters are computed numerically.
-  - >-
+  - |-
     Logistic regression is used for classification by predicting "yes" when $p(x) \geq \frac{1}{2}$, which happens when $\beta_0 + \beta\trans x \geq 0$.
 ---
 Despite the name "regression," logistic regression is mostly used for classification.

@@ -13,10 +13,10 @@ levels:
 
       $$\norm{x(t)} \leq \beta\bigl(\norm{x(t_0)}, t - t_0\bigr) \quad \text{for every } x(t_0), \text{ every } t_0 \geq 0, \text{ and every } t \geq t_0.$$
 properties:
-  - >-
+  - |-
     The bound $\beta$ is the same for every initial time $t_0$ ("uniformly"), applies to every initial state ("globally"), and decreases to $0$ as $t - t_0 \to \infty$ ("asymptotically").
-  - >-
+  - |-
     Equivalently, the [equilibrium](/dictionary/definitions/equilibrium) is [uniformly stable](/dictionary/definitions/uniformly-stable), its solutions are uniformly [bounded](/dictionary/definitions/bounded), and every solution converges to $0$ uniformly in $t_0$ and uniformly on bounded sets of initial states.
-  - >-
+  - |-
     For a [time-invariant](/dictionary/definitions/time-invariant) system, uniform global asymptotic stability is the same as [global asymptotic stability](/dictionary/definitions/globally-asymptotically-stable).
 ---

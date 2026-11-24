@@ -17,13 +17,13 @@ levels:
 
       $$\mu(X \setdiff A) = 0.$$
 properties:
-  - >-
+  - |-
     A set $A$ has full measure if and only if [almost every](/dictionary/definitions/almost-everywhere) point of $X$ is in $A$.
-  - >-
+  - |-
     A [countable](/dictionary/definitions/countable) [intersection](/dictionary/definitions/set-intersection) of sets of full measure has full measure, because the complement of the intersection is a countable [union](/dictionary/definitions/set-union) of sets of [measure zero](/dictionary/definitions/measure-zero).
-  - >-
+  - |-
     For Lebesgue measure on $\reals^n$, every set of full measure is [dense](/dictionary/definitions/dense-set), because every nonempty [open set](/dictionary/definitions/open-set) has positive measure and so is not contained in the complement.
-  - >-
+  - |-
     For a [probability measure](/dictionary/definitions/probability-measure), an [event](/dictionary/definitions/event) has full measure if and only if its [probability](/dictionary/definitions/probability) is $1$.
 ---
 "Full measure" is about the complement, not about the measure of $A$ itself.

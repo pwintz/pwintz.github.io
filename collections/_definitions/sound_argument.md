@@ -17,7 +17,7 @@ levels:
       1. the argument is [valid](/dictionary/definitions/valid-argument), and
       2. each [premise](/dictionary/definitions/premise) $p_1, \dots, p_n$ is true.
 properties:
-  - >-
+  - |-
     The [conclusion](/dictionary/definitions/conclusion) of a sound [argument](/dictionary/definitions/argument-logic) is true.
 ---
 In mathematical logic, a proof system is also called _sound_ if every formula that the proof system proves is valid, which is a different meaning.

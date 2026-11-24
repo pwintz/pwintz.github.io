@@ -35,7 +35,7 @@ levels:
 
       $$d(x, z) \le d(x, y) + d(y, z).$$
 properties:
-  - >-
+  - |-
     The triangle inequality is one of the conditions in the definitions of a [norm](/dictionary/definitions/norm) and of a [metric](/dictionary/definitions/metric).
     For a norm, the metric $d(x, y) = \norm{x - y}$ satisfies the metric version of the triangle inequality.
   - |-
@@ -50,7 +50,7 @@ properties:
     $$\norm{\vect{x} + \vect{y}}^2 = \norm{\vect{x}}^2 + 2 \ip{\vect{x}}{\vect{y}} + \norm{\vect{y}}^2 \le \norm{\vect{x}}^2 + 2 \norm{\vect{x}} \norm{\vect{y}} + \norm{\vect{y}}^2 = (\norm{\vect{x}} + \norm{\vect{y}})^2.$$
 
     This calculation is for a real [inner product space](/dictionary/definitions/inner-product-space).
-  - >-
+  - |-
     For the [Euclidean norm](/dictionary/definitions/euclidean-norm), equality holds if and only if one of $\vect{x}$ and $\vect{y}$ is a nonnegative multiple of the other, so that the "triangle" is flat, otherwise strict inequality is achieved.
 
   # Todo: Mention the pythagorean theorem as related result.

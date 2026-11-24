@@ -18,8 +18,8 @@ levels:
       Sets $A$ and $B$ have the same _cardinality_ if there is a bijection between $A$ and $B$.
       This extends counting to infinite sets.
 properties:
-  - >-
+  - |-
     Infinite sets can have different cardinalities: $\abs{\nats} < \abs{\reals}$.
-  - >-
+  - |-
     Every set has smaller cardinality than its power set (Cantor's theorem).
 ---

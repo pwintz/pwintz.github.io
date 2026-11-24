@@ -29,9 +29,9 @@ properties:
 
     So the $L^2$ inner product of $f$ and $g$ is finite if $\int_a^b f(t)^2 \dt$ and $\int_a^b g(t)^2 \dt$ are finite.
   - |-
-    In a real [inner product space](/dictionary/definitions/inner-product-space), the inequality gives $-1 \le \ip{\vect{x}}{\vect{y}} / (\norm{\vect{x}} \norm{\vect{y}}) \le 1$ for nonzero $\vect{x}$ and $\vect{y}$, so the [angle](/dictionary/definitions/angle) $\theta$ between $\vect{x}$ and $\vect{y}$ can be defined by
+    In a real [inner product space](/dictionary/definitions/inner-product-space), the inequality gives $-1 \le \ip{\vect{x}}{\vect{y}} / (\norm{\vect{x}} \norm{\vect{y}}) \le 1$ for nonzero $\vect{x}$ and $\vect{y}$, so the [angle](/dictionary/definitions/angular-measure) $\theta$ between $\vect{x}$ and $\vect{y}$ can be defined by
 
     $$\cos \theta = \frac{\ip{\vect{x}}{\vect{y}}}{\norm{\vect{x}} \norm{\vect{y}}}.$$
-  - >-
+  - |-
     The [triangle inequality](/dictionary/definitions/triangle-inequality) $\norm{\vect{x} + \vect{y}} \le \norm{\vect{x}} + \norm{\vect{y}}$ for the [norm](/dictionary/definitions/norm) of an [inner product](/dictionary/definitions/inner-product) follows from the Cauchy–Schwarz inequality.
 ---

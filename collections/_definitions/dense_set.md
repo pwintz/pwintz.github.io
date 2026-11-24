@@ -21,6 +21,6 @@ levels:
 
       Equivalently: $A$ is dense if every nonempty [open set](/dictionary/definitions/open-set) intersects $A$.
 properties:
-  - >-
+  - |-
     Both $\rationals$ and $\reals \setdiff \rationals$ are dense in $\reals$.
 ---

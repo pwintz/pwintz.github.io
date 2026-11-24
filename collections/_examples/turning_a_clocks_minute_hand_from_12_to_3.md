@@ -7,11 +7,11 @@ description: >-
 is: [rotation]
 is_not: [orientation_rigid_body]
 values:
-  angle: 'A right angle'
+  angle_geometric_figure: 'A right angle'
   angular_measure: '$90^\circ = \pi/2$ radians'
   angle_of_rotation: '$-90^\circ = -\pi/2$ radians'
 why:
-  angle: >-
+  angle_geometric_figure: >-
     The angle between the minute hand at 12 and the minute hand at 3 is a right angle, because the hand turns a quarter of a full turn.
   angular_measure: >-
     The measure of the angle between the minute hand at 12 and the minute hand at 3 is $90^\circ$, or $\pi/2$ radians.

@@ -13,6 +13,6 @@ levels:
     caveat: >-
       For a [Lyapunov stable](/dictionary/definitions/lyapunov-stable) [equilibrium](/dictionary/definitions/equilibrium) of a time-varying system, $\delta$ may depend on $t_0$.
 properties:
-  - >-
+  - |-
     For a [time-invariant](/dictionary/definitions/time-invariant) system, every stable [equilibrium](/dictionary/definitions/equilibrium) is uniformly stable, because shifting the initial time does not change the solutions.
 ---

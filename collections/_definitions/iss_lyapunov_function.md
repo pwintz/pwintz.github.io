@@ -17,6 +17,6 @@ levels:
 
       for all $x$ and $d$, where $\alpha_1$, $\alpha_2$, and $\alpha_3$ are class-$$\mathcal{K}_\infty$$ functions and $\sigma$ is a class-$\mathcal{K}$ function.
 properties:
-  - >-
+  - |-
     A system is [input-to-state stable](/dictionary/definitions/input-to-state-stable) if and only if it has an ISS-Lyapunov function (Sontag and Wang).
 ---

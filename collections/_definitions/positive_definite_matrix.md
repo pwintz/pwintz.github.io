@@ -9,13 +9,13 @@ levels:
 
       $$x\trans A x > 0 \quad \text{for every nonzero vector } x \in \reals^n.$$
 properties:
-  - >-
+  - |-
     A [symmetric matrix](/dictionary/definitions/symmetric-matrix) is positive definite if and only if all of its [eigenvalues](/dictionary/definitions/eigenvalue) are positive.
-  - >-
+  - |-
     A [symmetric matrix](/dictionary/definitions/symmetric-matrix) is positive definite if and only if all of its leading principal [minors](/dictionary/definitions/minor) (the [determinants](/dictionary/definitions/determinant) of its upper-left $k \times k$ submatrices) are positive (Sylvester's criterion).
-  - >-
+  - |-
     A [symmetric matrix](/dictionary/definitions/symmetric-matrix) is positive definite if and only if it has a [Cholesky decomposition](/dictionary/definitions/cholesky-decomposition) $A = L L\trans$ with $L$ [invertible](/dictionary/definitions/invertible-matrix).
-  - >-
+  - |-
     A positive definite matrix $A$ defines an [inner product](/dictionary/definitions/inner-product) $\ip{x}{y} = x\trans A y$ on $\reals^n$.
 ---
 Some authors do not require $A$ to be symmetric.

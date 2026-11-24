@@ -16,8 +16,8 @@ levels:
 
       $$\abs{f(x)} \leq \varepsilon \abs{g(x)} \quad \text{for all } x \geq x_0.$$
 properties:
-  - >-
+  - |-
     When $g(x) \neq 0$ for large $x$, $f = o(g)$ if and only if $f(x) / g(x) \to 0$: $f$ is negligible compared with $g$.
-  - >-
+  - |-
     If $f = o(g)$, then $f = O(g)$, but not conversely.
 ---

@@ -16,10 +16,10 @@ levels:
 
       $$S_n = \xi_1 + \xi_2 + \dots + \xi_n.$$
 properties:
-  - >-
+  - |-
     A random walk is a [Markov chain](/dictionary/definitions/markov-chain).
-  - >-
+  - |-
     The simple random walk on the [integers](/dictionary/definitions/integer) returns to $0$ with [probability](/dictionary/definitions/probability) $1$.
-  - >-
+  - |-
     A random walk with steps of mean $0$ and [variance](/dictionary/definitions/variance) $1$, scaled by $S_{\lfloor n t \rfloor} / \sqrt{n}$, converges in distribution to a [Brownian motion](/dictionary/definitions/brownian-motion) as $n \to \infty$ (Donsker's theorem).
 ---

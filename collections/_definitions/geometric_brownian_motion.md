@@ -12,13 +12,13 @@ levels:
 
       $$S_t = S_0 \exp\left( \left(\mu - \tfrac{1}{2} \sigma^2\right) t + \sigma W_t \right).$$
 properties:
-  - >-
+  - |-
     A geometric Brownian motion solves the stochastic differential equation $\diff{S}_t = \mu S_t \dt + \sigma S_t \diff{W}_t$, so its changes are proportional to its current value.
-  - >-
+  - |-
     Every value $S_t$ of a geometric Brownian motion is positive.
-  - >-
+  - |-
     The logarithm $\ln S_t$ of a geometric Brownian motion is a [Brownian motion](/dictionary/definitions/brownian-motion) with drift, so each $S_t$ has a lognormal distribution.
-  - >-
+  - |-
     The [expected value](/dictionary/definitions/expected-value) of a geometric Brownian motion is $\mathbb{E}[S_t] = S_0 e^{\mu t}$.
 ---
 Geometric Brownian motion is the model of stock prices in the Black–Scholes model of option pricing.

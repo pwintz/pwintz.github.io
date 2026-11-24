@@ -18,9 +18,9 @@ levels:
 
       $$f(x, y) = f(y, x) \quad \text{for all } x, y \in X.$$
 properties:
-  - >-
+  - |-
     A [binary operation](/dictionary/definitions/binary-operation) $\ast$ on a set $X$ is a function $X \times X \to X$, and $\ast$ is symmetric if and only if $\ast$ is [commutative](/dictionary/definitions/commutative).
-  - >-
+  - |-
     A [bilinear form](/dictionary/definitions/bilinear-form) $B(x, y) = x\trans A y$ on $\reals^n$ is symmetric if and only if $A$ is a [symmetric matrix](/dictionary/definitions/symmetric-matrix).
 ---
 ### Terminology

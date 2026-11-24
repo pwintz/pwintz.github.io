@@ -14,9 +14,9 @@ levels:
       Consider a random experiment and its sample space $\Omega$, the set of all of its possible results.
       An _outcome_ of the experiment is an element $\omega$ of $\Omega$.
 properties:
-  - >-
+  - |-
     Exactly one outcome occurs each time the experiment is performed.
-  - >- 
+  - |- 
     A collection of possible outcomes is called an [event](/dictionary/definitions/event) 
 
 ---

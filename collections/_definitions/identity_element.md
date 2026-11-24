@@ -18,7 +18,7 @@ levels:
       For addition, $e$ is called the _additive identity_ and is usually written as $0$.
       For multiplication, $e$ is the _multiplicative identity_ and is usually written $1$.
 properties:
-  - >-
+  - |-
     If an operation has an identity element, it is unique: if $e$ and $e^{\prime}$ are both identities, then $e = e \ast e^{\prime} = e^{\prime}$.
 ---
 The identity element of an operation is different from the identity _function_ $x \mapsto x$, though the [identity function](/dictionary/definitions/identity-function) is the identity element for [composition](/dictionary/definitions/function-composition) of functions.

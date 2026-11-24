@@ -14,12 +14,12 @@ levels:
       2. $u (v + w) = u v + u w$, and
       3. $(a u) v = a (u v) = u (a v)$.
 properties:
-  - >-
+  - |-
     The multiplication of an algebra need not be [associative](/dictionary/definitions/associative) or [commutative](/dictionary/definitions/commutative).
     A [Lie algebra](/dictionary/definitions/lie-algebra), whose multiplication is the [Lie bracket](/dictionary/definitions/lie-bracket), is neither.
-  - >-
+  - |-
     An algebra whose multiplication is [associative](/dictionary/definitions/associative) and has an [identity element](/dictionary/definitions/identity-element) is a [ring](/dictionary/definitions/ring), and the scalar multiplication of that algebra satisfies $a u = (a 1) u$.
-  - >-
+  - |-
     Every algebra over $F$ is a [module](/dictionary/definitions/module) over $F$, because every algebra over $F$ is a [vector space](/dictionary/definitions/vector-space) over $F$.
 ---
 Many authors require an algebra to be [associative](/dictionary/definitions/associative) and to have an [identity element](/dictionary/definitions/identity-element) $1$ (to be _unital_).

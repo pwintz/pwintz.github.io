@@ -12,6 +12,6 @@ levels:
 
       $$\nabla V(x) \cdot f(x, u) < 0.$$
 properties:
-  - >-
+  - |-
     For [control-affine](/dictionary/definitions/control-affine) systems, a control Lyapunov function yields a [feedback](/dictionary/definitions/feedback) law that makes the origin [globally asymptotically stable](/dictionary/definitions/globally-asymptotically-stable), for example through Sontag's universal formula (Artstein's theorem).
 ---

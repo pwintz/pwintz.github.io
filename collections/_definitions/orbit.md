@@ -17,11 +17,11 @@ levels:
 
       $$\mathcal{O}(x_0) = \setdef{x(t) : t \in I}.$$
 properties:
-  - >-
+  - |-
     The orbit of every state on an orbit is the same orbit, so two orbits are either disjoint or equal.
-  - >-
+  - |-
     The orbit of an [equilibrium](/dictionary/definitions/equilibrium) is a single point.
-  - >-
+  - |-
     The orbit of a nonconstant [periodic](/dictionary/definitions/periodic) solution is a closed curve, called a [periodic orbit](/dictionary/definitions/periodic-orbit).
 ---
 The _forward orbit_ (or positive orbit) of $x_0$ uses only the times $t \geq 0$, and the _backward orbit_ uses only the times $t \leq 0$.

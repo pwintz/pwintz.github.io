@@ -17,7 +17,7 @@ levels:
 
       $$x \cdot y = x\trans y.$$
 properties:
-  - >-
+  - |-
     $x \cdot y = \norm{x} \norm{y} \cos \theta$, where $\theta$ is the angle between $x$ and $y$.
     In particular, $x \cdot y = 0$ exactly when $x$ and $y$ are perpendicular (or one of them is zero).
 ---

@@ -21,10 +21,10 @@ levels:
 
       A vector space with a Lie bracket is called a _Lie algebra_.
 properties:
-  - >-
+  - |-
     On a [manifold](/dictionary/definitions/manifold), the _Lie bracket_ of smooth [vector fields](/dictionary/definitions/vector-field) $X$ and $Y$, viewed as [derivations](/dictionary/definitions/derivation) of the smooth functions, is $[X, Y] f = X (Y f) - Y (X f)$.
     On $\reals^n$, this agrees with the formula $[f, g] = \frac{\partial g}{\partial x} f - \frac{\partial f}{\partial x} g$.
-  - >-
+  - |-
     The Lie bracket $[X, Y]$ is the [Lie derivative](/dictionary/definitions/lie-derivative) of $Y$ along $X$.
   - |-
     The Lie bracket measures how much two [flows](/dictionary/definitions/flow) fail to commute: moving along $f$, then $g$, then $-f$, then $-g$, each for time $t$, moves a point $x$ to 

@@ -14,6 +14,6 @@ properties:
     Most functions are neither even nor odd, but every function on $\reals$ is the sum of an even function and an odd function:
 
     $$f(x) = \frac{f(x) + f(-x)}{2} + \frac{f(x) - f(-x)}{2}.$$
-  - >-
+  - |-
     The product of two even functions, or of two odd functions, is even.
 ---

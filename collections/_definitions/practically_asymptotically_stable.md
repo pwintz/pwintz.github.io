@@ -13,10 +13,10 @@ levels:
 
       $$\norm{x(t)} \leq \beta\bigl(\norm{x(0)}, t\bigr) + \nu \quad \text{for every } t \geq 0.$$
 properties:
-  - >-
+  - |-
     "Practically" means that solutions converge to a [ball](/dictionary/definitions/ball) of radius $\nu$ around the origin, not to the origin itself; the radius $\nu$ can be made as small as desired by making $\varepsilon$ small enough.
-  - >-
+  - |-
     "Semiglobally" means that every [bounded](/dictionary/definitions/bounded) set of initial states can be handled, but the parameter $\varepsilon^{\ast}$ may have to shrink as the set grows.
-  - >-
+  - |-
     Practical stability is the typical guarantee for sampled-data control, averaging, and singular [perturbations](/dictionary/definitions/perturbation), where the nominal system is [globally asymptotically stable](/dictionary/definitions/globally-asymptotically-stable) but the implemented system only approximates it.
 ---

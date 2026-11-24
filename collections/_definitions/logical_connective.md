@@ -21,10 +21,10 @@ levels:
       4. implication $p \implies q$ ("if $p$, then $q$"), and
       5. the biconditional $p \iff q$ ("$p$ if and only if $q$").
 properties:
-  - >-
+  - |-
     Each connective is described by a truth table, which lists the truth value of the new formula for each combination of truth values of its parts.
-  - >-
+  - |-
     In logic, "or" is inclusive: $p \lor q$ is true when $p$ and $q$ are both true.
-  - >-
+  - |-
     The implication $p \implies q$ is true whenever $p$ is false.
 ---

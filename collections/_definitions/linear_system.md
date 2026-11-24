@@ -15,6 +15,6 @@ levels:
 
       $$\begin{aligned} \dot{x} &= A(t) x + B(t) u, \\ y &= C(t) x + D(t) u. \end{aligned}$$
 properties:
-  - >-
+  - |-
     Linear systems satisfy the superposition principle: the response to $a u_1 + b u_2$ from the initial state $a x_1 + b x_2$ is $a$ times the response to $u_1$ from $x_1$ plus $b$ times the response to $u_2$ from $x_2$.
 ---

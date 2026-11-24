@@ -22,10 +22,10 @@ levels:
       $$\mathbb{E}[X] = \int x f(x) \dx$$
 
 properties:
-  - >-
+  - |-
     The expected average of a random variable is a [weighted average](/dictionary/definitions/weighted-average) of the possible values, where each value is weighted by its probability.
 
-  - >-
+  - |-
     By the law of large numbers, the mean of many independent samples approaches the expected value.
 
   - |-

@@ -11,6 +11,6 @@ levels:
 
       $$p(x) = P(X = x).$$
 properties:
-  - >-
+  - |-
     The values of a probability mass function are between $0$ and $1$, and they add up to $1$.
 ---

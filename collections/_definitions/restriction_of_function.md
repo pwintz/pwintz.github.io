@@ -16,11 +16,11 @@ levels:
 
       $$f|_A(a) = f(a) \quad \text{for all } a \in A.$$
 properties:
-  - >-
+  - |-
     The restriction $f|_A$ is the [composition](/dictionary/definitions/function-composition) $f \circ \iota$, where $\iota : A \hookrightarrow X$ is the [inclusion map](/dictionary/definitions/inclusion-map).
-  - >-
+  - |-
     If $f$ is [injective](/dictionary/definitions/injective), then every restriction of $f$ is injective.
-  - >-
+  - |-
     If $X$ and $Y$ are topological spaces, $A$ has the [subspace topology](/dictionary/definitions/subspace-topology), and $f$ is [continuous](/dictionary/definitions/continuous), then $f|_A$ is continuous.
 ---
 The restriction $f|_A$ has the same rule as $f$ but a smaller [domain](/dictionary/definitions/domain), so $f|_A$ and $f$ are different functions unless $A = X$.

@@ -17,9 +17,9 @@ levels:
 
       $$p(\theta \mid x) = \frac{p(x \mid \theta) \, p(\theta)}{p(x)}.$$
 properties:
-  - >-
+  - |-
     The posterior is proportional to the [likelihood](/dictionary/definitions/likelihood) times the [prior](/dictionary/definitions/prior): $p(\theta \mid x) \propto L(\theta) \, p(\theta)$.
-  - >-
+  - |-
     The maximum a posteriori (MAP) estimate of $\theta$ is the value that maximizes $p(\theta \mid x)$.
     If the [prior](/dictionary/definitions/prior) is uniform, then the MAP estimate equals the [maximum likelihood estimate](/dictionary/definitions/maximum-likelihood-estimator).
 ---

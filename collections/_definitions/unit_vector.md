@@ -14,10 +14,10 @@ levels:
 
       $$\norm{u} = 1.$$
 properties:
-  - >-
+  - |-
     Dividing a nonzero vector $v$ by its [norm](/dictionary/definitions/norm) gives the unit vector $v / \norm{v}$ that points in the same direction as $v$; this is called _normalizing_ $v$.
-  - >-
+  - |-
     Whether a vector is a unit vector depends on the [norm](/dictionary/definitions/norm): $(1, 1)$ is a unit vector in the [max norm](/dictionary/definitions/infinity-norm), because $\max(\abs{1}, \abs{1}) = 1$, but $(1, 1)$ is not a unit vector in the [Euclidean norm](/dictionary/definitions/euclidean-norm), because $\sqrt{1^2 + 1^2} = \sqrt{2}$.
-  - >-
+  - |-
     An [orthogonal](/dictionary/definitions/orthogonal-vectors) list of unit vectors is called _orthonormal_.
 ---

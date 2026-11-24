@@ -17,12 +17,12 @@ levels:
 
       A list of vectors is _orthogonal_ if every two different vectors in the list are orthogonal.
 properties:
-  - >-
+  - |-
     The [zero vector](/dictionary/definitions/zero-vector) is orthogonal to every vector.
 
-  - >-
+  - |-
     An orthogonal list of nonzero vectors is [linearly independent](/dictionary/definitions/linearly-independent).
 
-  - >-
+  - |-
     An orthogonal list of [unit vectors](/dictionary/definitions/unit-vector) is called _orthonormal_.
 ---

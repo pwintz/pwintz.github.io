@@ -16,8 +16,8 @@ levels:
       so the plane through $(x, f(x))$ with slope $g$ lies below the graph of $f$.
       The _subdifferential_ $\partial f(x)$ is the set of all subgradients at $x$.
 properties:
-  - >-
+  - |-
     A point $x$ minimizes a [convex function](/dictionary/definitions/convex-function) $f$ if and only if $0 \in \partial f(x)$.
-  - >-
+  - |-
     If a [convex function](/dictionary/definitions/convex-function) $f$ is [differentiable](/dictionary/definitions/differentiable) at $x$, then $\partial f(x) = \setdef{\nabla f(x)}$.
 ---

@@ -23,8 +23,8 @@ levels:
       with $a_{ij}$ symmetric.
       The equation is _elliptic_ where all [eigenvalues](/dictionary/definitions/eigenvalue) of $(a_{ij})$ are nonzero and have the same sign.
 properties:
-  - >-
+  - |-
     Elliptic equations typically describe [steady states](/dictionary/definitions/steady-state), such as [equilibrium](/dictionary/definitions/equilibrium) temperatures or electrostatic potentials.
-  - >-
+  - |-
     Elliptic equations are posed with [boundary](/dictionary/definitions/boundary) conditions, not initial conditions.
 ---

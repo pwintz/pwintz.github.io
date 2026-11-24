@@ -24,13 +24,13 @@ levels:
 
       $$\partial A = \closure{A} \setdiff \operatorname{int}(A).$$
 properties:
-  - >-
+  - |-
     $\partial A = \closure{A} \cap \closureOf{X \setdiff A}$, so a set and its complement have the same boundary.
-  - >-
+  - |-
     The boundary of every set is closed.
-  - >-
+  - |-
     A set $A$ is closed if and only if it contains its boundary: $\partial A \subset A$, 
     
-  - >-
+  - |-
     A set $A$ is open if and only if it is disjoint from its boundary: $\partial A \cap A = \emptyset$.
 ---

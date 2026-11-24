@@ -19,9 +19,9 @@ properties:
 
     $$\rank{\begin{bmatrix} \lambda I - A & B \end{bmatrix}} = n$$
 
-    for every [eigenvalue](/dictionary/definitions/eigenvalue) $\lambda$ of $A$ such that $\operatorname{Re} \lambda \geq 0$ (the PBH test).
-  - >-
+    for every [eigenvalue](/dictionary/definitions/eigenvalue) $\lambda$ of $A$ such that $\realpart{\lambda} \geq 0$ (the PBH test).
+  - |-
     For a [controllable](/dictionary/definitions/controllable) linear system, the closed-loop [eigenvalues](/dictionary/definitions/eigenvalue) can be placed anywhere by [state feedback](/dictionary/definitions/state-feedback) ([pole](/dictionary/definitions/pole) placement).
-  - >-
+  - |-
     Some nonlinear systems that are [controllable](/dictionary/definitions/controllable) cannot be stabilized by any [continuous](/dictionary/definitions/continuous) [static feedback](/dictionary/definitions/static-feedback), such as the nonholonomic integrator (Brockett's condition).
 ---

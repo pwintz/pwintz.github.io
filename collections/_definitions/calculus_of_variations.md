@@ -13,9 +13,9 @@ levels:
 
       $$J[y] = \int_a^b L\bigl(t, y(t), y^{\prime}(t)\bigr) \dt.$$
 properties:
-  - >-
+  - |-
     If a [continuously differentiable](/dictionary/definitions/continuously-differentiable) function $y$ minimizes $J$, then $y$ satisfies the Euler–Lagrange equation $\frac{\diff{}}{\dt} \frac{\partial L}{\partial y^{\prime}} = \frac{\partial L}{\partial y}$.
-  - >-
+  - |-
     A problem in the calculus of variations is the [optimal control](/dictionary/definitions/optimal-control) problem with the dynamics $\dot{x} = u$ and no constraints on the input $u$, where the state $x$ plays the role of $y$.
 ---
 The name comes from the _variation_ $\delta y$: a small change to the function $y$, which changes $J$ by approximately $\delta J$, much as a small change in $x$ changes $f(x)$ by approximately $f^{\prime}(x) \, \delta x$.

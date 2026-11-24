@@ -17,9 +17,9 @@ levels:
 
       $$A \cap B = \emptyset.$$
 properties:
-  - >-
+  - |-
     If $A$ and $B$ are mutually exclusive, then $P(A \cup B) = P(A) + P(B)$.
-  - >-
+  - |-
     If $A$ and $B$ are mutually exclusive, $P(A) > 0$, and $P(B) > 0$, then $A$ and $B$ are not [independent](/dictionary/definitions/statistical-independence), because $P(A \cap B) = 0$ but $P(A) P(B) > 0$.
 ---
 Several events $A_1, A_2, \dots$ are called mutually exclusive (or pairwise disjoint) if every two of them are mutually exclusive.

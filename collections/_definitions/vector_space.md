@@ -18,9 +18,9 @@ levels:
 
       The elements of $V$ are called _vectors_, and the elements of $F$ are called _scalars_.
 properties:
-  - >-
+  - |-
     Every vector space has a [basis](/dictionary/definitions/vector-basis), assuming the axiom of choice, and all bases of the same vector space have the same number of elements, which is the [dimension](/dictionary/definitions/dimension-vector-space) of the vector space.
-  - >-
+  - |-
     In a vector space, multiplication of two vectors is undefined, but can be introduced as in an [algebra](/dictionary/definitions/algebra-over-a-field) or an [inner product space](/dictionary/definitions/inner-product-space).
 ---
 A real vector space is a vector space over $\reals$, and a complex vector space is a vector space over $\complexes$.

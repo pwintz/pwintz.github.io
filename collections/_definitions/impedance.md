@@ -1,5 +1,4 @@
 ---
-published: false
 title: Impedance
 term: impedance
 applies_to: electric circuits
@@ -17,23 +16,23 @@ levels:
     context: linear circuits
     text: |-
       Consider a linear, [time-invariant](/dictionary/definitions/time-invariant) electric circuit with two terminals that is driven at angular [frequency](/dictionary/definitions/frequency-oscillation) $\omega$.
-      In [steady state](/dictionary/definitions/steady-state), the voltage across the terminals is $\operatorname{Re}(V e^{i \omega t})$ and the current through the terminals is $\operatorname{Re}(I e^{i \omega t})$ for two complex numbers $V$ and $I$, called [phasors](/dictionary/definitions/phasor).
+      In [steady state](/dictionary/definitions/steady-state), the voltage across the terminals is $\realpartOf{V e^{i \omega t}}$ and the current through the terminals is $\realpartOf{I e^{i \omega t}}$ for two complex numbers $V$ and $I$, called [phasors](/dictionary/definitions/phasor).
       The _impedance_ of the circuit at frequency $\omega$ is the complex number
 
       $$Z(\omega) = \frac{V}{I}.$$
 properties:
-  - >-
+  - |-
     The magnitude $\abs{Z(\omega)}$ is the ratio of the [amplitude](/dictionary/definitions/amplitude) of the voltage to the amplitude of the current, and the angle $\arg Z(\omega)$ is the [phase](/dictionary/definitions/phase-wave) by which the voltage leads the current.
-  - >-
+  - |-
     The real part of $Z = R + i X$ is the [resistance](/dictionary/definitions/resistance) $R$, which dissipates [energy](/dictionary/definitions/energy), and the imaginary part is the [reactance](/dictionary/definitions/reactance) $X$, which stores energy and returns it each cycle.
-  - >-
+  - |-
     A resistor with [resistance](/dictionary/definitions/resistance) $R$ has impedance $R$, an inductor with inductance $L$ has impedance $i \omega L$, and a capacitor with capacitance $C$ has impedance $1 / (i \omega C)$.
-  - >-
-    Impedances in series add.
-    For impedances in parallel, the reciprocals add, so the reciprocal $Y = 1/Z$, called the [admittance](/dictionary/definitions/admittance), is used for parallel connections.
-  - >-
+  - |-
+    Impedances in series add, which is easy to work with.
+    For impedances in parallel, however, the _reciprocals_ add, which is more difficult to work with, so the reciprocal $Y = 1/Z$, called the [admittance](/dictionary/definitions/admittance), is commonly used for parallel connections.
+  - |-
     The impedance is the [transfer function](/dictionary/definitions/transfer-function) from current to voltage, evaluated at $s = i \omega$: if $V(s)$ and $I(s)$ are the [Laplace transforms](/dictionary/definitions/laplace-transform) of the voltage and the current, starting from rest, then $Z(\omega) = V(i \omega) / I(i \omega)$.
-  - >-
+  - |-
     When a [wave](/dictionary/definitions/wave) passes between two media with [characteristic acoustic impedances](/dictionary/definitions/characteristic-acoustic-impedance) $Z_1$ and $Z_2$, the fraction of the wave that is [reflected](/dictionary/definitions/reflection-wave) depends on the mismatch between $Z_1$ and $Z_2$.
     If $Z_1 = Z_2$, then none of the wave is reflected.
 ---

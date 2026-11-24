@@ -11,10 +11,10 @@ levels:
 
       $$A = \begin{bmatrix} [T(v_1)]_{\mathcal{W}} & [T(v_2)]_{\mathcal{W}} & \cdots & [T(v_n)]_{\mathcal{W}} \end{bmatrix}.$$
 properties:
-  - >-
+  - |-
     The matrix $A$ of $T$ relative to $\mathcal{V}$ and $\mathcal{W}$ transforms coordinates: for every $x$ in $V$, $[T(x)]_{\mathcal{W}} = A [x]_{\mathcal{V}}$.
-  - >-
+  - |-
     The matrix of $T$ depends on the bases $\mathcal{V}$ and $\mathcal{W}$; the [linear map](/dictionary/definitions/linear-map) $T$ does not.
-  - >-
+  - |-
     If $V = \reals^n$ and $W = \reals^m$ with their standard bases, then the matrix of $T$ is the matrix $A$ such that $T(x) = A x$ for every $x$ in $\reals^n$.
 ---

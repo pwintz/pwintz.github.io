@@ -20,13 +20,13 @@ levels:
 
       $$\ip{\vect{x} - \operatorname{proj}_W \vect{x}}{\vect{w}} = 0 \quad \text{for every } \vect{w} \in W.$$
 properties:
-  - >-
+  - |-
     For every vector $\vect{x} \in V$, the orthogonal projection of $\vect{x}$ onto $W$ exists and is unique.
   - |-
     The orthogonal projection $\operatorname{proj}_W \vect{x}$ is the vector in $W$ closest to $\vect{x}$:
 
     $$\norm{\vect{x} - \operatorname{proj}_W \vect{x}} < \norm{\vect{x} - \vect{w}} \quad \text{for every } \vect{w} \in W \text{ such that } \vect{w} \neq \operatorname{proj}_W \vect{x}.$$
-  - >-
+  - |-
     The orthogonal projection of $\vect{x}$ onto a nonzero vector $\vect{v}$ is equal to the orthogonal projection of $\vect{x}$ onto the line $\Span{\vect{v}}$.
   - |-
     If $\vect{u}_1, \dots, \vect{u}_k$ is an orthogonal [basis](/dictionary/definitions/vector-basis) of $W$, then the orthogonal projection onto $W$ is the sum of the orthogonal projections onto the basis vectors:

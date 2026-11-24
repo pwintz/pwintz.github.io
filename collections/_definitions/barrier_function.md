@@ -14,7 +14,7 @@ levels:
 
       for some extended class-$\mathcal{K}$ function $\alpha$ ([continuous](/dictionary/definitions/continuous) and strictly increasing, with $\alpha(0) = 0$).
 properties:
-  - >-
+  - |-
     If $h$ is a barrier function and solutions are unique, then $C$ is [forward invariant](/dictionary/definitions/forward-invariant).
 ---
 [Barrier certificates](/dictionary/definitions/barrier-certificate) and barrier functions use opposite sign conventions: the safe region is $\setdef{B \leq 0}$ for a barrier certificate and $\setdef{h \geq 0}$ for a barrier function.

@@ -13,10 +13,10 @@ levels:
 
       $$Y(\omega) = \frac{1}{Z(\omega)}.$$
 properties:
-  - >-
+  - |-
     Admittance is measured in siemens (S), where one siemens is one reciprocal ohm.
-  - >-
+  - |-
     Admittances in parallel add, just as [impedances](/dictionary/definitions/impedance) in series add.
-  - >-
+  - |-
     The real part of the admittance $Y = G + i B$ is the _conductance_ $G$, and the imaginary part is the _susceptance_ $B$.
 ---

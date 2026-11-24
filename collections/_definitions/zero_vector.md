@@ -21,6 +21,6 @@ levels:
 
       In a space of functions, it is the function that is $0$ everywhere.
 properties:
-  - >-
+  - |-
     The zero vector is the only [vector](/dictionary/definitions/vector) with length zero, and it has no direction.
 ---

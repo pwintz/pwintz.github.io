@@ -20,11 +20,11 @@ properties:
     $$\cos(2\pi f_1 t) + \cos(2\pi f_2 t) = 2 \cos\left(\pi (f_1 - f_2) t\right) \cos\left(\pi (f_1 + f_2) t\right),$$
 
     so the sum is a sinusoid at the average [frequency](/dictionary/definitions/frequency-oscillation) whose [amplitude](/dictionary/definitions/amplitude) rises and falls slowly.
-  - >-
+  - |-
     The two [waves](/dictionary/definitions/wave) drift in and out of [phase](/dictionary/definitions/phase-wave), so beats alternate between [constructive interference](/dictionary/definitions/constructive-interference) and [destructive interference](/dictionary/definitions/destructive-interference).
-  - >-
+  - |-
     Musicians tune two instruments to each other by adjusting one instrument until the beats slow down and stop.
-  - >-
+  - |-
     Beats are heard as pulsing only when the beat [frequency](/dictionary/definitions/frequency-oscillation) is low, less than about $20$ Hz.
     A larger difference in frequency is heard as two separate pitches or as roughness.
 ---

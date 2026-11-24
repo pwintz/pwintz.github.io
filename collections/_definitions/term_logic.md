@@ -13,9 +13,9 @@ levels:
       1. every variable and every constant symbol is a term, and
       2. if $f$ is a function symbol with $n$ inputs and $t_1, \dots, t_n$ are terms, then $f(t_1, \dots, t_n)$ is a term.
 properties:
-  - >-
+  - |-
     A term has a value, such as a number, once its variables are given values, but a term has no truth value.
-  - >-
+  - |-
     A relation symbol applied to terms, such as $x^2 + 1 > 3$, is a [formula](/dictionary/definitions/formula-logic), not a term.
 ---
 In algebra, a "[term](/dictionary/definitions/term-of-sum)" is one of the summands of a sum, such as $3x^2$ in $3x^2 - 5x + 2$; that meaning is different.

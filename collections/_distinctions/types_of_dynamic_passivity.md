@@ -23,6 +23,7 @@ examples:
   - example: frictionless_mass_on_a_spring_with_force_input
 see_also:
   - types_of_dynamic_stability
+  - passive_vs_input_to_state_stable
 ---
 ## Notes
 

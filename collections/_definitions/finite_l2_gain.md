@@ -14,8 +14,8 @@ levels:
       for every input $u$ and every $T \geq 0$.
       The smallest such $\gamma$ is the $L_2$ gain.
 properties:
-  - >-
+  - |-
     For a stable linear [time-invariant](/dictionary/definitions/time-invariant) system, the $L_2$ gain is the peak of $\abs{G(i \omega)}$ over all frequencies (the $H_{\infty}$ [norm](/dictionary/definitions/norm) of its transfer function).
-  - >-
+  - |-
     [Output strictly passive](/dictionary/definitions/output-strictly-passive) systems have finite $L_2$ gain.
 ---

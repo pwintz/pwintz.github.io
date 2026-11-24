@@ -7,7 +7,7 @@ levels:
     text: |-
       A scientific _theory_ is a well-tested explanation of a broad range of observations, supported by a large body of evidence and used to make predictions.
 properties:
-  - >-
+  - |-
     A theory is not a hypothesis that is waiting to be proved.
     Instead, it is an explanation for existing data and observations. 
     Theories may be revised as new evidence is collected.

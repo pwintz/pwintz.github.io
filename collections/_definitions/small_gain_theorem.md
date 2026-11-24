@@ -21,8 +21,8 @@ levels:
 
       $$\gamma_1\bigl(\gamma_2(r)\bigr) < r \quad \text{for every } r > 0.$$
 properties:
-  - >-
+  - |-
     The small gain theorem is conservative: the theorem uses only the size of each system's gain, not the phase, so many stable feedback loops violate its condition.
-  - >-
+  - |-
     In a [cascade](/dictionary/definitions/cascade-control), the output of the first system feeds the second system but nothing feeds back, so no small gain condition is needed: a cascade of ISS systems is ISS.
 ---

@@ -14,8 +14,8 @@ levels:
 
       A general $f$ is split as $f = f^{+} - f^{-}$ into its positive and negative parts, and $\int f \diff{\mu} = \int f^{+} \diff{\mu} - \int f^{-} \diff{\mu}$ when both are finite.
 properties:
-  - >-
+  - |-
     Every Riemann integrable function on $[a, b]$ is Lebesgue integrable, with the same integral.
-  - >-
+  - |-
     The Lebesgue integral works well with limits: the monotone and dominated convergence theorems let limits and integrals be exchanged under mild conditions.
 ---

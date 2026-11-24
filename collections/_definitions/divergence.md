@@ -17,9 +17,9 @@ levels:
 
       It measures how much $F$ spreads out from a point.
 properties:
-  - >-
+  - |-
     The divergence is the trace of the [Jacobian](/dictionary/definitions/jacobian) [matrix](/dictionary/definitions/matrix) of $F$.
-  - >-
+  - |-
     By the divergence theorem, the integral of $\nabla \cdot F$ over a region equals the flux of $F$ out through its [boundary](/dictionary/definitions/boundary).
 ---
 Unrelated to a [divergent](/dictionary/definitions/divergent) [sequence](/dictionary/definitions/sequence).

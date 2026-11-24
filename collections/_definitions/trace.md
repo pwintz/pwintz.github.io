@@ -11,8 +11,8 @@ levels:
 
       $$\trace{A} = a_{11} + a_{22} + \dots + a_{nn}.$$
 properties:
-  - >-
+  - |-
     The trace of $A$ is the sum of its [eigenvalues](/dictionary/definitions/eigenvalue), counted with multiplicity.
-  - >-
+  - |-
     $\traceOf{A B} = \traceOf{B A}$, even though $A B \neq B A$ in general.
 ---

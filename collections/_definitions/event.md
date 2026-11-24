@@ -15,8 +15,8 @@ levels:
       An _event_ $A$ is a [subset](/dictionary/definitions/subset) of the sample space $\Omega$ such that $A$ is an element of the [σ-algebra](/dictionary/definitions/sigma-algebra) $\mathcal{F}$. 
       For each event, the [probability measure](/dictionary/definitions/probability-measure) $P$ assigns the [probability](/dictionary/definitions/probability) that $A$ occurs in each experiment.
 properties:
-  - >-
+  - |-
     An [outcome](/dictionary/definitions/outcome) $\omega$ and the event $\setdef{\omega}$ are different objects: an outcome is a result coming from a particular experiment, and an event is a set of results which describes which outcomes satisfy a property of interest.
-  - >-
+  - |-
     When $\Omega$ is [uncountable](/dictionary/definitions/uncountable), such as $[0, 1]$, it is impossible for every [subset](/dictionary/definitions/subset) of $\Omega$ to be an event, because no [probability](/dictionary/definitions/probability) can be assigned consistently to every subset.
 ---

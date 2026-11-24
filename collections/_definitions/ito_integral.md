@@ -12,8 +12,8 @@ levels:
 
       $$\int_0^T H_t \diff{W}_t = \lim \sum_{k = 1}^{n} H_{t_{k-1}} \bigl(W_{t_k} - W_{t_{k-1}}\bigr).$$
 properties:
-  - >-
+  - |-
     A [Riemann–Stieltjes integral](/dictionary/definitions/riemann-stieltjes-integral) with respect to $W$ does not exist, because $W$ has infinite total variation, so the choice of evaluation point matters even in the limit.
-  - >-
+  - |-
     The Itô integral has mean $0$, and it satisfies Itô's formula, a chain rule with an extra second-order term: $\diff{f}(W_t) = f^{\prime}(W_t) \diff{W}_t + \frac{1}{2} f^{\prime\prime}(W_t) \dt$.
 ---

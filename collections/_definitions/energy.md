@@ -18,14 +18,14 @@ levels:
 
       $$E = \frac{1}{2} m \norm{v}^2 + V(x).$$
 properties:
-  - >-
+  - |-
     Energy is a scalar, which has a size but no direction.
-  - >-
+  - |-
     The total energy of an isolated system is constant, but energy can change form.
     For example, in an inelastic collision, some kinetic energy is lost to other forms of energy, such as heat or sound.
-  - >-
+  - |-
     The kinetic energy and the [momentum](/dictionary/definitions/momentum) $p = m v$ of a particle are related by $K = \norm{p}^2 / (2 m)$.
-  - >-
+  - |-
     Energy is the conserved quantity that comes from symmetry under shifts in time (Noether's theorem).
 ---
 One joule is $1 \ \mathrm{kg} \cdot \mathrm{m}^2 / \mathrm{s}^2$, or one newton meter.

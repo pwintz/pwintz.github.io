@@ -12,6 +12,6 @@ levels:
 
       $$90^\circ = \frac{\pi}{2} \text{ radians}.$$
 properties:
-  - >-
+  - |-
     A right angle is formed by two rays or segments that share an endpoint; the term describes the angle, not the lines.
 ---

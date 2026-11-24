@@ -13,9 +13,9 @@ levels:
       2. $B(x) > 0$ for every $x \in X_u$, and
       3. $\nabla B(x) \cdot f(x) \leq 0$ for every $x$.
 properties:
-  - >-
+  - |-
     If a barrier certificate exists, then the system is safe: no solution starting in $X_0$ reaches $X_u$.
-  - >-
+  - |-
     When $f$ is [polynomial](/dictionary/definitions/polynomial) and the sets are semialgebraic, barrier certificates can be found with sum-of-squares programming (Prajna and Jadbabaie).
 ---
 Many variations weaken the derivative condition, for example requiring it only near the [zero level set](/dictionary/definitions/level-set) $\setdef{x \suchthat B(x) = 0}$.

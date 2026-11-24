@@ -21,6 +21,6 @@ properties:
     For $\dot{x} = A x + B u$, $y = C x$ with $n$ states, observability holds exactly when
 
     $$\rank{\begin{bmatrix} C \\ C A \\ \vdots \\ C A^{n-1} \end{bmatrix}} = n.$$
-  - >-
+  - |-
     Observability is dual to controllability: $(A, C)$ is observable if and only if $(A\trans, C\trans)$ is [controllable](/dictionary/definitions/controllable).
 ---

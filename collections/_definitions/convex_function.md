@@ -15,9 +15,9 @@ levels:
 
       $$f(\lambda x + (1 - \lambda) y) \leq \lambda f(x) + (1 - \lambda) f(y).$$
 properties:
-  - >-
+  - |-
     A twice-differentiable function of one variable is convex if and only if $f^{\prime\prime}(x) \geq 0$ for all $x$.
-  - >-
+  - |-
     For a convex function, every local minimizer is a global [minimizer](/dictionary/definitions/minimizer).
 ---
 Older texts and some economics texts say "concave up" for convex.

@@ -12,13 +12,13 @@ levels:
 
       $$D(a b) = (D a) \, b + a \, (D b) \quad \text{for all } a, b \in A.$$
 properties:
-  - >-
+  - |-
     Every smooth [vector field](/dictionary/definitions/vector-field) $X$ on a [manifold](/dictionary/definitions/manifold) $M$ is a [derivation](/dictionary/definitions/derivation) $f \mapsto X f$ of the algebra of smooth functions on $M$, and every derivation of that algebra comes from a vector field.
-  - >-
+  - |-
     The commutator $D_1 D_2 - D_2 D_1$ of two [derivations](/dictionary/definitions/derivation) is a derivation, but the [composition](/dictionary/definitions/function-composition) $D_1 D_2$ need not be one.
-  - >-
+  - |-
     For each element $x$ of a [Lie algebra](/dictionary/definitions/lie-algebra), the map $y \mapsto [x, y]$ is a [derivation](/dictionary/definitions/derivation) of the [Lie bracket](/dictionary/definitions/lie-bracket); this statement is equivalent to the Jacobi identity.
-  - >-
+  - |-
     If $A$ has an [identity element](/dictionary/definitions/identity-element) $1$, then every [derivation](/dictionary/definitions/derivation) $D$ of $A$ satisfies $D(1) = 0$, because $D(1) = D(1 \cdot 1) = 2 D(1)$.
 ---
 A _derivation at a point_ $p$ is a [linear map](/dictionary/definitions/linear-map) $v$ from smooth functions to $\reals$ such that $v(f g) = v(f) \, g(p) + f(p) \, v(g)$.

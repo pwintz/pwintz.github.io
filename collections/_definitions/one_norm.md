@@ -11,8 +11,8 @@ levels:
 
       $$\norm{x}_1 = \abs{x_1} + \dots + \abs{x_n}.$$
 properties:
-  - >-
+  - |-
     In the plane, $\norm{x - y}_1$ is the distance from $y$ to $x$ when traveling only along horizontal and vertical streets, as in a city grid. The is why the 1-norm is sometimes called the _taxicab norm_ or _Manhattan norm_.
-  - >-
+  - |-
     For every $x \in \reals^n$, $\norm{x}_{\infty} \leq \norm{x}_2 \leq \norm{x}_1$.
 ---

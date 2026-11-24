@@ -16,9 +16,9 @@ levels:
 
       The points $\gamma(0)$ and $\gamma(1)$ are the start and the end of the path.
 properties:
-  - >-
+  - |-
     Every path is a [curve](/dictionary/definitions/curve), parametrized by the interval $[0, 1]$.
-  - >-
+  - |-
     A space is [path connected](/dictionary/definitions/path-connected) if every two points of the space are joined by a path.
 ---
 In graph theory, a [path](/dictionary/definitions/path-graph) is a sequence of distinct vertices joined by edges, which is a different object; see [continuous path vs. path in a graph](/dictionary/distinctions/path-continuous-vs-path-graph).

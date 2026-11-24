@@ -12,6 +12,6 @@ levels:
       Consider an unknown quantity, such as a state or a parameter, and the data available about it.
       An _estimator_ is any rule for computing an estimate of the quantity from the data.
 properties:
-  - >-
+  - |-
     [Observers](/dictionary/definitions/observer), filters, and [predictors](/dictionary/definitions/predictor) are all estimators of a state.
 ---

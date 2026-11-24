@@ -17,6 +17,6 @@ levels:
 
       is $c_1 = \dots = c_k = 0$.
 properties:
-  - >-
+  - |-
     A set that contains the [zero vector](/dictionary/definitions/zero-vector) is not linearly independent, because $1 \cdot \vect{0} = \vect{0}$.
 ---

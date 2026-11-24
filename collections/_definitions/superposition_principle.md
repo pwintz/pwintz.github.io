@@ -15,12 +15,12 @@ levels:
 
       $$L(a_1 u_1 + a_2 u_2) = a_1 L u_1 + a_2 L u_2 = 0 \quad \text{for all constants } a_1 \text{ and } a_2.$$
 properties:
-  - >-
+  - |-
     The superposition principle holds for every [linear system](/dictionary/definitions/linear-system), and fails for nonlinear systems.
-  - >-
+  - |-
     [Waves](/dictionary/definitions/wave) of large [amplitude](/dictionary/definitions/amplitude), such as breaking ocean waves or very loud sounds, are nonlinear, so the superposition principle holds only approximately for small waves.
-  - >-
+  - |-
     [Interference](/dictionary/definitions/interference) is a consequence of the superposition principle.
-  - >-
+  - |-
     The superposition principle lets a complicated [wave](/dictionary/definitions/wave) be split into sinusoids, as with the [Fourier transform](/dictionary/definitions/fourier-transform), and each sinusoid be studied on its own.
 ---

@@ -27,15 +27,15 @@ levels:
       Consider a set $K$ in a topological space, and the open covers of $K$: collections of [open sets](/dictionary/definitions/open-set) whose [union](/dictionary/definitions/set-union) contains $K$.
       The set $K$ is _compact_ if every open cover of $K$ has a finite subcover.
 properties:
-  - >-
+  - |-
     In a [metric space](/dictionary/definitions/metric-space), a set is compact if and only if it is [sequentially compact](/dictionary/definitions/sequentially-compact): every [sequence](/dictionary/definitions/sequence) in the set has a subsequence that converges to a point of the set.
     In a general topological space, neither property implies the other.
-  - >-
+  - |-
     In a [metric space](/dictionary/definitions/metric-space), the definitions agree: a set is complete and totally bounded if and only if every open cover of the set has a finite subcover.
     In $\reals^n$, both are equivalent to being [closed](/dictionary/definitions/closed-set) and [bounded](/dictionary/definitions/bounded).
-  - >-
+  - |-
     A [continuous](/dictionary/definitions/continuous) image of a compact set is compact.
     In particular, a continuous real-valued function on a nonempty compact set attains a maximum and a minimum (the extreme value theorem).
-  - >-
+  - |-
     A closed [subset](/dictionary/definitions/subset) of a compact set is compact, and a compact subset of a [Hausdorff](/dictionary/definitions/hausdorff-space) space is closed.
 ---

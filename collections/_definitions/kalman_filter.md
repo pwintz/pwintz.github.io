@@ -26,11 +26,11 @@ levels:
 
       where $K_k = P_k^- C\trans (C P_k^- C\trans + R)^{-1}$ is the _Kalman gain_.
 properties:
-  - >-
+  - |-
     For a linear system with Gaussian noise, the Kalman filter's estimate $\hat{x}_k$ is the conditional mean of $x_k$ given the measurements $y_1, \dots, y_k$, so it has the smallest mean-square error of every [estimator](/dictionary/definitions/estimator) of $x_k$ from those measurements.
-  - >-
+  - |-
     The Kalman filter is an [observer](/dictionary/definitions/observer) with the same structure as a [Luenberger observer](/dictionary/definitions/luenberger-observer), but with a time-varying gain $K_k$ chosen from the noise [covariances](/dictionary/definitions/covariance) $Q$ and $R$.
-  - >-
+  - |-
     If $(A, C)$ is [detectable](/dictionary/definitions/detectable) and $(A, Q^{1/2})$ is [stabilizable](/dictionary/definitions/stabilizable), then the Kalman gain $K_k$ converges to a constant gain as $k \to \infty$.
 ---
 For nonlinear systems, variants such as the [extended Kalman filter](/dictionary/definitions/extended-kalman-filter) and the [unscented Kalman filter](/dictionary/definitions/unscented-kalman-filter) apply the same predict-and-correct steps to approximations of the system.

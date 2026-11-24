@@ -11,8 +11,8 @@ levels:
     text: |-
       Functions $f$ and $g$ are _asymptotically equivalent_ as $x \to \infty$, written $f(x) \sim g(x)$, if $$\lim_{x \to \infty} f(x) / g(x) = 1.$$
 properties:
-  - >-
+  - |-
     If $f \sim g$, then $f = \Theta(g)$, but not conversely.
-  - >-
+  - |-
     $f \sim g$ if and only if $f - g = o(g)$.
 ---

@@ -17,6 +17,6 @@ levels:
 
       $$P(X \in S) = 1.$$
 properties:
-  - >-
+  - |-
     A discrete distribution is described by its [probability mass function](/dictionary/definitions/probability-mass-function) $p(x) = P(X = x)$, and its [cumulative distribution function](/dictionary/definitions/cumulative-distribution-function) is a staircase.
 ---

@@ -12,6 +12,6 @@ levels:
 
       $$\int_0^T H_t \circ \diff{W}_t = \lim \sum_{k = 1}^{n} \frac{H_{t_{k-1}} + H_{t_k}}{2} \bigl(W_{t_k} - W_{t_{k-1}}\bigr).$$
 properties:
-  - >-
+  - |-
     The Stratonovich integral satisfies the ordinary chain rule, $\diff{f}(W_t) = f^{\prime}(W_t) \circ \diff{W}_t$, which makes it natural in physics and on [manifolds](/dictionary/definitions/manifold).
 ---

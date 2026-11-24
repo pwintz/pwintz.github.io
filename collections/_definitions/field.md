@@ -17,11 +17,11 @@ levels:
       3. There exists an additive identity $0$ and a multiplicative identity $1$ such that $0 \neq 1$, and
       4. every element $a \neq 0$ has a multiplicative [inverse](/dictionary/definitions/inverse-element) $a^{-1}$ such that $a a^{-1} = 1$.
 properties:
-  - >-
+  - |-
     A field has no zero divisors: if $a b = 0$, then $a = 0$ or $b = 0$.
-  - >-
+  - |-
     The [integers](/dictionary/definitions/integer) modulo $n$ form a field if and only if $n$ is prime.
-  - >-
+  - |-
     The scalars of a [vector space](/dictionary/definitions/vector-space) come from a field.
 ---
 This "field" is unrelated to a [vector field](/dictionary/definitions/vector-field) or to a scalar field in physics, which are functions that assign a vector or a number to each point of space.

@@ -21,18 +21,18 @@ levels:
 
       is a nonconstant function of $k$.
 properties:
-  - >-
+  - |-
     In a medium with dispersion, a group of [waves](/dictionary/definitions/wave) with nearby frequencies travels at the _group speed_ $\diff{\omega} / \diff{k}$, which differs from the [phase](/dictionary/definitions/phase-wave) speed $\omega / k$ of each wave in the group.
     The [energy](/dictionary/definitions/energy) of the group travels at the group speed.
-  - >-
+  - |-
     Dispersion stretches out a short pulse as the pulse travels, because the frequencies that make up the pulse arrive at different times.
     Dispersion in optical fibers limits how closely pulses of light can be spaced, which limits the data rate of the fiber.
-  - >-
-    The [index of refraction](/dictionary/definitions/index-of-refraction) of glass depends on the [frequency](/dictionary/definitions/frequency-oscillation) of the light, so [refraction](/dictionary/definitions/refraction) bends each color by a different [angle](/dictionary/definitions/angle), which is how a prism and the raindrops of a rainbow separate colors.
-  - >-
+  - |-
+    The [index of refraction](/dictionary/definitions/index-of-refraction) of glass depends on the [frequency](/dictionary/definitions/frequency-oscillation) of the light, so [refraction](/dictionary/definitions/refraction) bends each color by a different [angle](/dictionary/definitions/angular-measure), which is how a prism and the raindrops of a rainbow separate colors.
+  - |-
     [Waves](/dictionary/definitions/wave) on deep water satisfy the dispersion relation $\omega^2 = g k$, where $g$ is the acceleration of gravity, so long waves travel faster than short waves.
     The long swells from a distant storm reach a beach before the short waves from the same storm.
-  - >-
+  - |-
     Sound in air and light in a vacuum have almost no dispersion: every [frequency](/dictionary/definitions/frequency-oscillation) travels at nearly the same speed, so music sounds the same from near and far.
 ---
 ### Other meanings of "dispersion"

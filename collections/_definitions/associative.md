@@ -15,10 +15,10 @@ levels:
 
       $$(a \ast b) \ast c = a \ast (b \ast c) \quad \text{for all } a, b, c \in S.$$
 properties:
-  - >-
+  - |-
     Addition and multiplication of [real numbers](/dictionary/definitions/real-number) are associative, and so are [composition](/dictionary/definitions/function-composition) of functions and multiplication of matrices.
-  - >-
+  - |-
     Subtraction is not associative: $(5 - 3) - 1 = 1$, but $5 - (3 - 1) = 3$.
-  - >-
+  - |-
     Associativity is different from [commutativity](/dictionary/definitions/commutative): matrix multiplication is associative, but $A B$ and $B A$ can differ.
 ---

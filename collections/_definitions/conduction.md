@@ -28,11 +28,11 @@ properties:
 
     where $\alpha = k / (\rho c_p)$ is the _thermal diffusivity_, $\rho$ is the density, and $c_p$ is the specific heat capacity.
     The heat equation is the diffusion equation, so conduction in a still material is [heat diffusion](/dictionary/definitions/heat-diffusion).
-  - >-
+  - |-
     Metals conduct heat well, and still air conducts heat poorly, which is why materials that trap air, such as foam and down feathers, are good insulators.
-  - >-
+  - |-
     Thermal conductivity is measured in watts per meter per kelvin (W/(m·K)).
-  - >-
+  - |-
     Heat is also conducted in liquids and gases, but in a fluid that can move, [convection](/dictionary/definitions/convection) usually carries much more heat than conduction.
 ---
 ### Electrical conduction

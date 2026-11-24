@@ -9,14 +9,14 @@ levels:
 
       $$x\trans A x \geq 0 \quad \text{for every vector } x \in \reals^n.$$
 properties:
-  - >-
+  - |-
     A [symmetric matrix](/dictionary/definitions/symmetric-matrix) is positive semidefinite if and only if all of its [eigenvalues](/dictionary/definitions/eigenvalue) are nonnegative.
-  - >-
+  - |-
     Every matrix of the form $B\trans B$ is positive semidefinite, because $x\trans B\trans B x = \norm{B x}^2 \geq 0$.
     Conversely, every positive semidefinite matrix can be written in this form.
-  - >-
+  - |-
     A positive semidefinite matrix is [positive definite](/dictionary/definitions/positive-definite-matrix) if and only if it is [invertible](/dictionary/definitions/invertible-matrix).
-  - >-
+  - |-
     Sylvester's criterion with $\geq$ does not test positive semidefiniteness: all leading principal [minors](/dictionary/definitions/minor) of $$\begin{bmatrix} 0 & 0 \\ 0 & -1 \end{bmatrix}$$ are $\geq 0$, but $x = (0, 1)$ gives $x\trans A x = -1$.
     All principal minors (not only the leading ones) must be nonnegative.
 ---

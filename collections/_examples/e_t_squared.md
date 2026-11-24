@@ -1,8 +1,8 @@
 ---
-published: false
 title: '$f(t) = e^{t^2}$ for $t \geq 0$'
 level: undergraduate
-is_not: [laplace_transform]
+values:
+  laplace_transform: 'None'
 why:
   laplace_transform: >-
     $f(t) = e^{t^2}$ has no Laplace transform.

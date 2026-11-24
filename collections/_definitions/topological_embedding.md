@@ -17,9 +17,9 @@ levels:
       Give the [range](/dictionary/definitions/range-image) $f(X)$ the [subspace topology](/dictionary/definitions/subspace-topology) from $Y$.
       The function $f$ is a _topological embedding_ if $f$ is a [homeomorphism](/dictionary/definitions/homeomorphism) from $X$ onto $f(X)$.
 properties:
-  - >-
+  - |-
     Every topological embedding is [continuous](/dictionary/definitions/continuous) and [injective](/dictionary/definitions/injective).
-  - >-
+  - |-
     For a [subset](/dictionary/definitions/subset) $A$ of a topological space $Y$ with the [subspace topology](/dictionary/definitions/subspace-topology), the [inclusion map](/dictionary/definitions/inclusion-map) $\iota : A \hookrightarrow Y$ is a topological embedding.
 ---
 A [continuous](/dictionary/definitions/continuous) [injective](/dictionary/definitions/injective) function need not be a topological embedding, because the inverse of $f$ on $f(X)$ need not be continuous.

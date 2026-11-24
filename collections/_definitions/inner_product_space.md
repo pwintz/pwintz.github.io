@@ -11,8 +11,8 @@ levels:
     text: |-
       An _inner product space_ is a [vector space](/dictionary/definitions/vector-space) together with an [inner product](/dictionary/definitions/inner-product).
 properties:
-  - >-
+  - |-
     Every inner product space is a [normed space](/dictionary/definitions/normed-space) with $\norm{x} = \sqrt{\ip{x}{x}}$.
-  - >-
+  - |-
     The Cauchy–Schwarz inequality holds: $\abs{\ip{x}{y}} \leq \norm{x} \norm{y}$.
 ---

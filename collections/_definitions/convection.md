@@ -19,12 +19,12 @@ levels:
 
       $$\frac{\partial u}{\partial t} + \vect{v} \cdot \nabla u = D \nabla^2 u.$$
 properties:
-  - >-
+  - |-
     In _natural convection_, the fluid moves because warm fluid is less dense than cool fluid and rises.
     In _forced convection_, the fluid is moved by something else, such as a fan or a pump.
-  - >-
+  - |-
     Over long distances, convection usually carries heat much faster than [conduction](/dictionary/definitions/conduction) or [diffusion](/dictionary/definitions/diffusion).
-  - >-
+  - |-
     (Newton's law of cooling.)
     The rate of heat transfer from a surface at temperature $T_s$ to a fluid at temperature $T_{\infty}$ is approximately $h A (T_s - T_{\infty})$, where $A$ is the area of the surface and $h$ is the _heat transfer coefficient_.
 ---

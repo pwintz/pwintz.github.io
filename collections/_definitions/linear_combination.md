@@ -17,10 +17,10 @@ levels:
 
       where $c_1, \dots, c_n \in \mathbb{F}$ are scalars, called the _coefficients_.
 properties:
-  - >-
+  - |-
     The set of all linear combinations of $\vect{v}_1, \dots, \vect{v}_n$ is the [span](/dictionary/definitions/span) of $\vect{v}_1, \dots, \vect{v}_n$.
-  - >-
+  - |-
     The vectors $\vect{v}_1, \dots, \vect{v}_n$ are [linearly independent](/dictionary/definitions/linearly-independent) exactly when the only linear combination equal to the [zero vector](/dictionary/definitions/zero-vector) has all coefficients equal to $0$.
-  - >-
+  - |-
     A linear combination must have finitely many terms, even in an infinite-dimensional [vector space](/dictionary/definitions/vector-space).
 ---

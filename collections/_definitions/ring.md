@@ -17,12 +17,12 @@ levels:
       2. multiplication is [associative](/dictionary/definitions/associative) and has an identity element, written $1$, and
       3. multiplication distributes over addition: $a (b + c) = a b + a c$ and $(a + b) c = a c + b c$ for all $a, b, c \in R$.
 properties:
-  - >-
+  - |-
     Multiplication in a ring need not be [commutative](/dictionary/definitions/commutative).
     A ring whose multiplication is commutative is called a _commutative ring_.
-  - >-
+  - |-
     Elements of a ring need not have multiplicative inverses, so division need not be possible.
-  - >-
+  - |-
     In every ring, $0 \cdot a = a \cdot 0 = 0$ and $(-1) \cdot a = -a$ for all $a$.
 ---
 Some authors do not require a multiplicative identity $1$.

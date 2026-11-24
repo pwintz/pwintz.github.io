@@ -16,8 +16,8 @@ levels:
       1. the increments $N_t - N_s$ over disjoint time intervals $(s, t]$ are independent, and
       2. for $s < t$, the increment $N_t - N_s$ has a [Poisson distribution](/dictionary/definitions/poisson-distribution) with mean $\lambda (t - s)$.
 properties:
-  - >-
+  - |-
     The times between consecutive events of a Poisson process are independent and have an [exponential distribution](/dictionary/definitions/exponential-distribution) with rate $\lambda$.
-  - >-
+  - |-
     The sample paths of a Poisson process are step functions that jump up by $1$ at each event.
 ---

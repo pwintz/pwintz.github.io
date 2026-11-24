@@ -15,8 +15,8 @@ levels:
       _Propositional logic_ is the formal system whose formulas are [propositional formulas](/dictionary/definitions/propositional-formula), built from propositional variables $p, q, r, \dots$ with [logical connectives](/dictionary/definitions/logical-connective).
       The truth value of a formula is determined by a truth assignment, which gives each propositional variable the value true or false.
 properties:
-  - >-
+  - |-
     Propositional logic has no [quantifiers](/dictionary/definitions/quantifier) and no variables for [objects](/dictionary/definitions/object-logic).
-  - >-
+  - |-
     Whether a [propositional formula](/dictionary/definitions/propositional-formula) is a tautology can be decided by a truth table, which checks every truth assignment.
 ---

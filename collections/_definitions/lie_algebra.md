@@ -12,14 +12,14 @@ levels:
       1. $[x, y] = -[y, x]$, and
       2. $[x, [y, z]] + [y, [z, x]] + [z, [x, y]] = 0$ (the Jacobi identity).
 properties:
-  - >-
+  - |-
     A Lie algebra is an [algebra](/dictionary/definitions/algebra-over-a-field) whose multiplication is the [Lie bracket](/dictionary/definitions/lie-bracket).
     This multiplication is not [associative](/dictionary/definitions/associative) in general, and it is [commutative](/dictionary/definitions/commutative) only when every bracket is $0$.
-  - >-
+  - |-
     Every [associative](/dictionary/definitions/associative) algebra, such as the $n \times n$ matrices, becomes a Lie algebra with the commutator $[a, b] = a b - b a$ as its bracket.
-  - >-
+  - |-
     The smooth [vector fields](/dictionary/definitions/vector-field) on a [manifold](/dictionary/definitions/manifold) form a Lie algebra over $\reals$ with the [Lie bracket](/dictionary/definitions/lie-bracket) of vector fields.
-  - >-
+  - |-
     For a matrix Lie group $G$, the Lie algebra of $G$ is the set of matrices $X$ such that $e^{t X}$ is in $G$ for every [real number](/dictionary/definitions/real-number) $t$, with the commutator as its bracket; the [matrix exponential](/dictionary/definitions/matrix-exponential) maps the Lie algebra into the group.
 ---
 Lie algebras are usually written in lowercase Fraktur letters, such as $\mathfrak{g}$ or $\mathfrak{so}(3)$, and matrix Lie groups in capital letters, such as $G$ or $SO(3)$.

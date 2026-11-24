@@ -14,8 +14,8 @@ levels:
       Consider a set $S$ with $n$ elements and a number $k \leq n$.
       A _$k$-combination_ of $S$ is a [subset](/dictionary/definitions/subset) of $S$ with $k$ elements.
 properties:
-  - >-
+  - |-
     The number of combinations of $k$ of $n$ objects is the [binomial coefficient](/dictionary/definitions/binomial-coefficient) $\binom{n}{k}$, read "$n$ choose $k$."
-  - >-
+  - |-
     Each combination of $k$ objects can be put in order in $k!$ ways, so each combination corresponds to $k!$ [permutations](/dictionary/definitions/permutation).
 ---

@@ -27,11 +27,11 @@ levels:
       A set $F \subseteq X$ is _closed_ if its complement $X \setdiff F$ is [open](/dictionary/definitions/open-set).
 
 properties:
-  - >-
+  - |-
     Every [intersection](/dictionary/definitions/set-intersection) of closed sets is closed, and every [union](/dictionary/definitions/set-union) of finitely many closed sets is closed.
     A union of infinitely many closed sets need not be closed: the union of the intervals $[1/n, 1]$ is $(0, 1]$.
-  - >-
+  - |-
     In a [metric space](/dictionary/definitions/metric-space), the three definitions agree: a set contains its boundary points if and only if it contains the limits of its convergent sequences, if and only if its complement is open.
-  - >-
+  - |-
     "Closed" is not the opposite of "open": a set can be both (such as $\emptyset$ and $\reals$ in $\reals$) or neither (such as $[0, 1)$).
 ---

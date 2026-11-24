@@ -18,10 +18,10 @@ levels:
 
       $$(A^{\top})_{ij} = a_{ji}.$$
 properties:
-  - >-
+  - |-
     $(A B)^{\top} = B^{\top} A^{\top}$
-  - >-
+  - |-
     $(A^{\top})^{\top} = A$.
-  - >-
+  - |-
     For real column vectors $\vect{x}, \vect{y} \in \reals^n$, the [dot product](/dictionary/definitions/dot-product) is $x \cdot y = x^{\top} y$.
 ---

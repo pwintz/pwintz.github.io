@@ -13,7 +13,7 @@ levels:
 
       $$\varphi : U \to \varphi(U) \subseteq \reals^n.$$
 properties:
-  - >-
+  - |-
     The entries of $\varphi(p)$ are the _coordinates_ of the point $p$ in the chart $(U, \varphi)$.
 ---
 Many texts call the chart map itself a "chart" and leave its domain $U$ implicit.

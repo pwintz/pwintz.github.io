@@ -17,13 +17,13 @@ levels:
 
       $$\mathbb{E}\bigl[(X - \mu)^k\bigr].$$
 properties:
-  - >-
+  - |-
     The first central moment of every [random variable](/dictionary/definitions/random-variable) with a mean is $0$.
-  - >-
+  - |-
     The second central moment of a [random variable](/dictionary/definitions/random-variable) is its [variance](/dictionary/definitions/variance).
-  - >-
+  - |-
     Central moments do not change when a constant is added to $X$: $X + c$ has the same central moments as $X$.
-  - >-
+  - |-
     Central moments can be computed from moments, such as $\mathbb{E}[(X - \mu)^2] = \mathbb{E}[X^2] - \mu^2$.
 ---
 The third and fourth central moments, divided by $\sigma^3$ and $\sigma^4$, where $\sigma$ is the [standard deviation](/dictionary/definitions/standard-deviation), are the skewness and the kurtosis.

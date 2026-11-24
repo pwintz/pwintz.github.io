@@ -17,7 +17,7 @@ levels:
 
       The [proposition](/dictionary/definitions/proposition) $q$ is the _conclusion_ of the argument.
 properties:
-  - >-
+  - |-
     The conclusion of a [valid](/dictionary/definitions/valid-argument) [argument](/dictionary/definitions/argument-logic) need not be true, because a valid argument can have a false [premise](/dictionary/definitions/premise).
     The conclusion of a [sound](/dictionary/definitions/sound-argument) argument is true.
 ---

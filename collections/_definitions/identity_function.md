@@ -21,11 +21,11 @@ properties:
     $$f \circ \operatorname{id}_X = \operatorname{id}_X \circ f = f.$$
 
     More generally, for every function $f : X \to Y$, $f \circ \operatorname{id}_X = f$ and $\operatorname{id}_Y \circ f = f$.
-  - >-
+  - |-
     The identity function on $X$ is [bijective](/dictionary/definitions/bijective), and $\operatorname{id}_X$ is its own inverse.
-  - >-
+  - |-
     The domain and the [codomain](/dictionary/definitions/codomain) of an identity function are the same set.
-  - >-
+  - |-
     The identity function on $X$ is the [inclusion map](/dictionary/definitions/inclusion-map) of $X$ into itself.
 ---
 The identity function on $X$ depends on the set $X$: the identity function on $[0, 1]$ and the identity function on $\reals$ are different functions, even though both are written $x \mapsto x$.

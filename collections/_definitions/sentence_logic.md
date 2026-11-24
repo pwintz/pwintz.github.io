@@ -10,9 +10,9 @@ levels:
       Consider a formula of [first-order logic](/dictionary/definitions/first-order-logic), such as $\forall x \, (x^2 \geq 0)$ or $x > 3$.
       The formula is a _sentence_ if it has no free variables: every variable in it is bound by a [quantifier](/dictionary/definitions/quantifier).
 properties:
-  - >-
+  - |-
     Once its symbols are [interpreted](/dictionary/definitions/interpretation-logic) in a structure (such as $\reals$ with its usual operations), a sentence is true or false, so it expresses a [proposition](/dictionary/definitions/proposition).
-  - >-
+  - |-
     A formula with free variables, such as $x > 3$, expresses a [predicate](/dictionary/definitions/predicate).
     Quantifying every free variable turns it into a sentence.
 ---

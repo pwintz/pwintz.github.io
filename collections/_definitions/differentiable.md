@@ -21,9 +21,9 @@ levels:
       $$\lim_{h \to 0} \frac{\norm{f(a + h) - f(a) - Df(a) h}}{\norm{h}} = 0.$$
       
 properties:
-  - >-
+  - |-
     Every differentiable function is [continuous](/dictionary/definitions/continuous).
-  - >-
+  - |-
     Having all [partial derivatives](/dictionary/definitions/partial-derivative) at $a$ does not imply differentiability at $a$.
     If the partial derivatives exist near $a$ and are [continuous](/dictionary/definitions/continuous) at $a$, then $f$ is differentiable at $a$.
 ---

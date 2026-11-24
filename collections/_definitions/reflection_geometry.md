@@ -17,14 +17,14 @@ levels:
 
       $$\vect{x} \mapsto \vect{x} - 2 (\vect{n} \cdot \vect{x}) \vect{n}.$$
 properties:
-  - >-
+  - |-
     The matrix of the reflection across the hyperplane perpendicular to $\vect{n}$ is the _Householder matrix_ $I - 2 \vect{n} \vect{n}\trans$, which is symmetric and orthogonal, and has [determinant](/dictionary/definitions/determinant) $-1$.
-  - >-
+  - |-
     Applying a reflection twice gives the [identity map](/dictionary/definitions/identity-function).
-  - >-
-    A reflection preserves distances and [angles](/dictionary/definitions/angle), but reverses [orientation](/dictionary/definitions/orientation-rigid-body), such as turning a left hand into a right hand.
-  - >-
-    The [composition](/dictionary/definitions/function-composition) of two reflections in the plane, across lines that meet at an [angle](/dictionary/definitions/angle) $\theta$, is a [rotation](/dictionary/definitions/rotation) by $2 \theta$.
+  - |-
+    A reflection preserves distances and [angles](/dictionary/definitions/angular-measure), but reverses [orientation](/dictionary/definitions/orientation-rigid-body), such as turning a left hand into a right hand.
+  - |-
+    The [composition](/dictionary/definitions/function-composition) of two reflections in the plane, across lines that meet at an [angle](/dictionary/definitions/angular-measure) $\theta$, is a [rotation](/dictionary/definitions/rotation) by $2 \theta$.
 ---
 The [reflection of a wave](/dictionary/definitions/reflection-wave) is a different meaning of "reflection": a [wave](/dictionary/definitions/wave) bouncing off of a boundary.
 By the law of reflection, the direction of the reflected ray is the geometric reflection of the direction of the incident ray across the boundary.

@@ -22,8 +22,8 @@ levels:
 
       An equilibrium of $x_{k+1} = f(x_k)$ is a state $x^{\ast}$ such that $f(x^{\ast}) = x^{\ast}$.
 properties:
-  - >-
+  - |-
     An equilibrium of $x_{k+1} = f(x_k)$ is a [fixed point](/dictionary/definitions/fixed-point) of $f$, but an equilibrium of $\dot{x} = f(x)$ is a zero of $f$, not a fixed point of $f$.
-  - >-
+  - |-
     An equilibrium of $\dot{x} = f(x)$ is a [fixed point](/dictionary/definitions/fixed-point) of every [flow](/dictionary/definitions/flow) map $x(0) \mapsto x(t)$.
 ---

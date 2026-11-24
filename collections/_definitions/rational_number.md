@@ -13,8 +13,8 @@ levels:
     text: |-
       A _rational number_ is an element of $\rationals$, constructed as equivalence classes of pairs $(p, q)$ of [integers](/dictionary/definitions/integer) such that $q \neq 0$, where $(p, q) \sim (r, s)$ if $p s = q r$.
 properties:
-  - >-
+  - |-
     A [real number](/dictionary/definitions/real-number) is rational if and only if its decimal expansion either ends or repeats.
-  - >-
+  - |-
     Between every two [real numbers](/dictionary/definitions/real-number) there is a rational number: $\rationals$ is [dense](/dictionary/definitions/dense-set) in $\reals$.
 ---

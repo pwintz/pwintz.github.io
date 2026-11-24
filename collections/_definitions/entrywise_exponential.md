@@ -12,9 +12,9 @@ levels:
 
       $$b_{ij} = e^{a_{ij}} \quad \text{for all } i \text{ and } j.$$
 properties:
-  - >-
+  - |-
     The entrywise exponential is defined for matrices of every shape, not only for square matrices.
-  - >-
+  - |-
     Every entry of the entrywise exponential of a real matrix is positive.
 ---
 In MATLAB, `exp(A)` computes the entrywise exponential, and in Python, `numpy.exp(A)` does.

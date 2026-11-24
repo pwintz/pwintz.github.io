@@ -18,8 +18,8 @@ levels:
       Consider a system $\dot{x} = f(t, x, u)$.
       The system is _time-invariant_ if its equations do not depend explicitly on time, as in $\dot{x} = f(x, u)$.
 properties:
-  - >-
+  - |-
     Delaying the input of a time-invariant system (from the same initial state) delays its response by the same amount.
-  - >-
+  - |-
     Every time-varying system becomes time-invariant by adding time as a state $\tau$ such that $\dot{\tau} = 1$.
 ---

@@ -19,9 +19,9 @@ levels:
 
       $$\range{f} = f(X) = \setdef{f(x) \suchthat x \in X}.$$
 properties:
-  - >-
+  - |-
     The dimension of the range (in this sense) of a [linear map](/dictionary/definitions/linear-map) $T$ is the [rank](/dictionary/definitions/rank-linear-map) of $T$.
-  - >-
+  - |-
     The range (in this sense) of a [matrix](/dictionary/definitions/matrix) $A$ is its [column space](/dictionary/definitions/column-space), the set of all [vectors](/dictionary/definitions/vector) $A x$.
 ---
 This is the most common meaning of "range," and the one used in this dictionary.

@@ -15,11 +15,11 @@ levels:
 
       $$f \circ f = f.$$
 properties:
-  - >- 
+  - |- 
       A square matrix $P$ is _idempotent_ if $P^2 = P$, which means that the [linear map](/dictionary/definitions/linear-map) $\vect{x} \mapsto P \vect{x}$ is idempotent.
-  - >-
+  - |-
     Every [orthogonal projection](/dictionary/definitions/orthogonal-projection) is idempotent, because projecting a vector that is already in the subspace does not change the vector.
-  - >-
+  - |-
     Every [eigenvalue](/dictionary/definitions/eigenvalue) of an idempotent matrix is $0$ or $1$.
   
 ---

@@ -16,11 +16,11 @@ levels:
 
       where $\hat{x}$ is the state estimate and the matrix $L$ is a constant gain, called the _observer gain_.
 properties:
-  - >-
+  - |-
     The estimation error $e = x - \hat{x}$ of a Luenberger observer satisfies $\dot{e} = (A - L C) e$, so it converges to zero from every initial condition exactly when every [eigenvalue](/dictionary/definitions/eigenvalue) of $A - L C$ has negative real part.
-  - >-
+  - |-
     A gain $L$ that makes the error converge to zero exists exactly when $(A, C)$ is [detectable](/dictionary/definitions/detectable).
-  - >-
+  - |-
     If $(A, C)$ is [observable](/dictionary/definitions/observable), then $L$ can be chosen to place the [eigenvalues](/dictionary/definitions/eigenvalue) of $A - L C$ anywhere (in complex-conjugate pairs).
 ---
 The discrete-time version is $\hat{x}_{k+1} = A \hat{x}_k + B u_k + L (y_k - C \hat{x}_k)$.

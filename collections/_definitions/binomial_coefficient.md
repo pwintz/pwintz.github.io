@@ -16,7 +16,7 @@ properties:
 
     $$\binom{n}{k} = \frac{P(n, k)}{k!}.$$
 
-  - >-
+  - |-
     Choosing $k$ of $n$ objects is the same as choosing the $n - k$ objects to leave out, so $\binom{n}{k} = \binom{n}{n - k}$.
 
   - |-

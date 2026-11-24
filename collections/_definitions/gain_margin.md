@@ -13,9 +13,9 @@ levels:
       Consider a stable [feedback](/dictionary/definitions/feedback) loop with open-loop transfer function $L(s)$, whose phase crosses $-180^{\circ}$ at the frequency $\omega_{p}$.
       The _gain margin_ of the loop is $1 / \abs{L(i \omega_{p})}$, often given in decibels as $-20 \log_{10} \abs{L(i \omega_{p})}$.
 properties:
-  - >-
+  - |-
     If the phase of $L$ does not reach $-180^{\circ}$ at any frequency, then the gain margin is infinite.
-  - >-
+  - |-
     The formula assumes a single phase crossover and a stable [open loop](/dictionary/definitions/open-loop).
     In general, the margins should be read from the [Nyquist](/dictionary/definitions/nyquist-criterion) plot.
 ---

@@ -21,6 +21,7 @@ see_also:
   - types_of_dynamic_stability
   - types_of_lyapunov_functions
   - types_of_dynamic_passivity
+  - passive_vs_input_to_state_stable
 ---
 ## Notes
 

@@ -26,12 +26,12 @@ properties:
     $$\frac{\partial u}{\partial t} = D \nabla^2 u,$$
 
     which is a [parabolic PDE](/dictionary/definitions/parabolic-pde).
-  - >-
+  - |-
     In a time $t$, a diffusing quantity spreads a distance of about $\sqrt{D t}$.
     Diffusion is fast over short distances but slow over long distances: a distance that is $10$ times longer takes $100$ times as long.
-  - >-
+  - |-
     The two most common kinds of diffusion are [particle diffusion](/dictionary/definitions/particle-diffusion), in which molecules of a substance wander from place to place, and [heat diffusion](/dictionary/definitions/heat-diffusion), in which [energy](/dictionary/definitions/energy) is passed between neighboring molecules.
-  - >-
+  - |-
     Diffusion smooths out differences: the diffusion equation turns every initial density into a smoother one, and the maximum of the density does not increase.
 ---
 ### Other meanings of "diffusion"

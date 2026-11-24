@@ -26,9 +26,9 @@ levels:
 
       The choice of $\delta$ depends only on $\varepsilon$, so the same $\delta$ works at every point.
 properties:
-  - >-
+  - |-
     Every uniformly continuous function is [continuous](/dictionary/definitions/continuous).
     On a [compact](/dictionary/definitions/compact) domain, every continuous function is uniformly continuous (the Heine–Cantor theorem).
-  - >-
+  - |-
     A uniformly continuous function maps Cauchy [sequences](/dictionary/definitions/sequence) to [Cauchy sequences](/dictionary/definitions/cauchy-sequence).
 ---

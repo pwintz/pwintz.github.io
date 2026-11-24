@@ -15,8 +15,8 @@ properties:
     $v \in T_S(x)$ if and only if
 
     $$\liminf_{t \downarrow 0} \operatorname{dist}(x + t v, S) / t = 0.$$
-  - >-
+  - |-
     $T_S(x)$ is a closed cone, but it need not be convex.
-  - >-
+  - |-
     If $S$ is convex, then $T_S(x)$ is the closure of $\setdef{t (y - x) \suchthat y \in S, t \geq 0}$.
 ---

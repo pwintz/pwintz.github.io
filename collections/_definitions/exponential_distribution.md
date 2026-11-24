@@ -10,9 +10,9 @@ levels:
 
       $$f(t) = \lambda e^{-\lambda t} \quad \text{for } t \geq 0.$$
 properties:
-  - >-
+  - |-
     An exponential [random variable](/dictionary/definitions/random-variable) with rate $\lambda$ has [mean](/dictionary/definitions/expected-value) $1 / \lambda$ and satisfies $P(T > t) = e^{-\lambda t}$.
-  - >-
+  - |-
     The exponential distribution is memoryless: $P(T > s + t \mid T > s) = P(T > t)$.
     The exponential distribution is the [continuous](/dictionary/definitions/continuous) counterpart of the [geometric distribution](/dictionary/definitions/geometric-distribution).
 ---

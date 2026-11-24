@@ -10,13 +10,13 @@ levels:
 
       $$P(N = k) = (1 - p)^{k - 1} p \quad \text{for } k = 1, 2, 3, \dots.$$
 properties:
-  - >-
+  - |-
     A geometric [random variable](/dictionary/definitions/random-variable) with parameter $p$ has [mean](/dictionary/definitions/expected-value) $1 / p$.
-  - >-
+  - |-
     Some authors instead count the failures before the first success, which takes values $0, 1, 2, \dots$ and has mean $(1 - p) / p$.
-  - >-
+  - |-
     The geometric distribution is memoryless: $P(N > j + k \mid N > j) = P(N > k)$.
-  - >-
+  - |-
     The geometric distribution is the discrete counterpart of the [exponential distribution](/dictionary/definitions/exponential-distribution).
 
 ---

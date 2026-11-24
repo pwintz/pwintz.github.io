@@ -15,6 +15,6 @@ levels:
 
       $$f(a) \neq L \quad \text{or} \quad f(a) \text{ is undefined}.$$
 properties:
-  - >-
+  - |-
     Redefining $f(a) = L$ removes the discontinuity: the redefined function is [continuous](/dictionary/definitions/continuous) at $a$.
 ---

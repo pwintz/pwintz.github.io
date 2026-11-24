@@ -17,8 +17,8 @@ levels:
 
       $$P(X \in B) = \int_B f(x) \dx \quad \text{for every Borel set } B \subseteq \reals.$$
 properties:
-  - >-
+  - |-
     For a continuous distribution, every single value has [probability](/dictionary/definitions/probability) $0$: $P(X = x) = 0$ for every $x$.
-  - >-
+  - |-
     "Continuous" here is short for [absolutely continuous](/dictionary/definitions/absolutely-continuous) with respect to [Lebesgue measure](/dictionary/definitions/lebesgue-measure). A distribution whose [cumulative distribution function](/dictionary/definitions/cumulative-distribution-function) is merely [continuous](/dictionary/definitions/continuous) can be [singular](/dictionary/definitions/singular-distribution) instead.
 ---

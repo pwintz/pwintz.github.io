@@ -12,9 +12,9 @@ levels:
 
       has a multivariate [normal distribution](/dictionary/definitions/normal-distribution).
 properties:
-  - >-
+  - |-
     A Gaussian process is determined by the mean function $m(t) = \mathbb{E}[X_t]$ and the [covariance](/dictionary/definitions/covariance) function $k(s, t) = \operatorname{Cov}(X_s, X_t)$.
-  - >-
+  - |-
     Every value $X_t$ of a Gaussian process has a [normal distribution](/dictionary/definitions/normal-distribution).
 ---
 In machine learning, Gaussian processes are used as [prior distributions](/dictionary/definitions/prior) over unknown functions, and "Gaussian process regression" computes the [posterior distribution](/dictionary/definitions/posterior) of the function after observing some of the function's values.

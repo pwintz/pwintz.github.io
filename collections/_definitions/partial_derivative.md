@@ -15,7 +15,7 @@ levels:
 
     # TODO: Add formula: $$\frac{\partial f}{\partial x_i}() = \lim_{x \to $$
 properties:
-  - >-
+  - |-
     Having all partial derivatives at a point does not make a function [differentiable](/dictionary/definitions/differentiable) there, or even [continuous](/dictionary/definitions/continuous).
   - |-
     If the second partial derivatives are [continuous](/dictionary/definitions/continuous), then the order of differentiation does not matter:

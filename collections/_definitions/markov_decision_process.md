@@ -27,11 +27,11 @@ levels:
 
       where $0 \leq \gamma < 1$ is a discount factor.
 properties:
-  - >-
+  - |-
     Fixing a policy $\pi$ turns a Markov decision process into a [Markov chain](/dictionary/definitions/markov-chain) on the states $S$, with transition probabilities $P(s^{\prime} \mid s, \pi(s))$.
-  - >-
+  - |-
     The optimal value function $V$ of a discounted Markov decision process satisfies the Bellman equation $V(s) = \max_{a} \left[ r(s, a) + \gamma \sum_{s^{\prime}} P(s^{\prime} \mid s, a) V(s^{\prime}) \right]$.
-  - >-
+  - |-
     Reinforcement learning studies Markov decision processes whose transition probabilities and rewards are unknown and must be learned from experience.
 ---
 Some authors use costs instead of rewards and minimize instead of maximize.

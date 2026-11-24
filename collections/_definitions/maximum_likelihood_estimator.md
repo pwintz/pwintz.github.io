@@ -17,13 +17,13 @@ levels:
 
       $$\hat{\theta}(x) = \arg\max_{\theta} \, p(x \mid \theta).$$
 properties:
-  - >-
+  - |-
     The logarithm is increasing, so the maximum likelihood estimate also maximizes the log-likelihood $\ln L(\theta)$, which is often easier to compute.
-  - >-
+  - |-
     For independent data that are normally distributed with unknown mean and [variance](/dictionary/definitions/variance), the maximum likelihood estimate of the mean is the sample mean, and the maximum likelihood estimate of the variance divides by $n$ instead of $n - 1$, so the estimate is biased.
-  - >-
+  - |-
     Least squares fitting, as in [linear regression](/dictionary/definitions/linear-regression), gives the maximum likelihood estimate when the errors are independent and normally distributed with equal [variances](/dictionary/definitions/variance).
-  - >-
+  - |-
     Under mild conditions, the maximum likelihood estimator converges to the true parameter as the amount of data grows, and its error is approximately normally distributed.
 ---
 The _estimator_ is the rule $x \mapsto \hat{\theta}(x)$, and the _estimate_ is the number $\hat{\theta}(x)$ that the rule gives for the observed data.
