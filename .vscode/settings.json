@@ -57,7 +57,8 @@
     "ttfamily",
     "underfull",
     "upshape",
-    "usepackage"
+    "usepackage",
+    "vect"
   ], 
   "dryerLint.ruleSets": {
     "paulwintz.com Markdown Rules": {
@@ -114,5 +115,6 @@
     "quarto",
     "restructuredtext",
     "rsweave"
-  ]
+  ],
+  "js/ts.tsdk.path": "node_modules/typescript/lib"
 }

@@ -33,6 +33,8 @@ OPERATORS = {
     r"\operatorname{nullity}": "nullity",
     r"\operatorname{tr}": "trace",
     r"\operatorname{span}": "Span",
+    r"\operatorname{Re}": "realpart",
+    r"\operatorname{Im}": "imagpart",
 }
 
 # A simple argument: a letter or digit with an optional subscript, a command such as \Phi, or a bmatrix.

@@ -217,7 +217,7 @@ levels:
     text: >
       A function $f : X \to Y$ is continuous if ...
 properties:
-  - >-
+  - |-
     Sums, products, and compositions of continuous functions are continuous.
 ---
 Markdown body: notes on terminology and conventions.

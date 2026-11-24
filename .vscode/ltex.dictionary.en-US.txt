@@ -28,3 +28,7 @@ SyncTeX
 USFA
 Wintz
 Zotero
+arcseconds
+arcminutes
+gradians
+gradians

@@ -235,3 +235,27 @@
   options:
     - {id: bar, tex: '\overline{#1}', used_by: most mathematics texts; this dictionary}
     - {id: star, tex: '{#1}^{\ast}', tex_of: '(#1)^{\ast}', used_by: physics texts}
+
+- id: realpart
+  name: Real part
+  group: Complex numbers
+  macro: realpart
+  args: 1
+  sample: 'z = a + b i, \qquad @{z} = a'
+  default: Re
+  help: The real part a of a complex number z = a + bi. Content writes \realpart{z}, or \realpartOf{z + w} when the argument has more than one term.
+  options:
+    - {id: Re, tex: '\operatorname{Re} #1', used_by: most texts; this dictionary}
+    - {id: frak, tex: '\Re #1', used_by: some mathematics texts}
+
+- id: imagpart
+  name: Imaginary part
+  group: Complex numbers
+  macro: imagpart
+  args: 1
+  sample: 'z = a + b i, \qquad @{z} = b'
+  default: Im
+  help: The imaginary part b of a complex number z = a + bi, which is a real number. Content writes \imagpart{z}, or \imagpartOf{z + w} when the argument has more than one term.
+  options:
+    - {id: Im, tex: '\operatorname{Im} #1', used_by: most texts; this dictionary}
+    - {id: frak, tex: '\Im #1', used_by: some mathematics texts}
