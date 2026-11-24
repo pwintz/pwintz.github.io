@@ -1,0 +1,319 @@
+---
+published: false
+layout: single
+permalink: /tools/linear_algebra_practice/
+title: Linear Algebra Practice Tools
+excerpt: "A guide to the step-by-step practice tools for linear algebra: row reduction, echelon forms, matrices of linear maps, determinants, projections and least squares, eigenvalues, and complex numbers. See the skills each tool trains and what it looks like."
+tool_categories: [Linear Algebra, Math]
+full_width: true
+date_added: 2026-11-23
+---
+
+<style>
+  .la-guide { max-width: 70rem; }
+  .la-guide .la-tool {
+    margin: 2.4rem 0 0;
+    padding: 1.4rem 0 0;
+    border-top: 1px solid rgba(128, 128, 128, 0.3);
+  }
+  .la-guide .la-tool h2 { margin: 0 0 0.3rem; }
+  .la-guide .la-pitch { margin: 0 0 0.8rem; }
+  .la-guide .la-body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem 2rem;
+    align-items: flex-start;
+  }
+  .la-guide .la-skills { flex: 1 1 18rem; min-width: 0; }
+  .la-guide .la-skills h3 { margin: 0 0 0.3rem; font-size: 1rem; }
+  .la-guide .la-skills ul { margin: 0 0 0.8rem; padding-left: 1.2rem; font-size: 0.95em; }
+  .la-guide .la-shots {
+    flex: 2 1 22rem;
+    min-width: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .la-guide figure { flex: 1 1 14rem; min-width: 0; margin: 0; }
+  .la-guide figure.la-tall { flex: 0 1 20rem; }
+  .la-guide figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  }
+  .la-guide figcaption { margin: 0.3rem 0 0; font-family: inherit; font-size: 0.8em; line-height: 1.35; color: #5f6368; }
+  .la-guide .la-try {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    background: #1a73e8;
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .la-guide .la-try:hover { background: #1765cc; color: #fff; }
+  .la-guide .la-how dt { font-weight: 600; margin-top: 0.6rem; }
+  .la-guide .la-how dd { margin: 0 0 0 1.2rem; }
+  .la-guide .la-note { font-size: 0.9em; color: #5f6368; }
+</style>
+
+<div class="la-guide" markdown="0">
+
+<p>
+These tools take you through linear algebra problems one step at a time, with hints and checks.
+Each tool is a ladder of levels, from the first idea up to the full problem, so you can start where you are and work up.
+</p>
+
+<h2>How every tool works</h2>
+<dl class="la-how">
+  <dt>Guided Learning</dt>
+  <dd>The tool picks a new random problem at the level you choose. After a couple of problems with no hints, it suggests the next level.</dd>
+  <dt>Design your own problems</dt>
+  <dd>Choose the sizes, bases, or entries yourself, or load an example.</dd>
+  <dt>Support, from Full to None</dt>
+  <dd>With Full support, the page works every step so you can read a worked example. With less support, you do more of the steps. With None, you solve the whole problem on paper and enter only the answers.</dd>
+  <dt>Check, Hint, and Show</dt>
+  <dd>Check your answer to a step before moving on. A hint says what to do next, and a second click gives a more specific hint. The tool counts hints, so you can see whether a skill is solid.</dd>
+  <dt>Your progress</dt>
+  <dd>A log at the bottom of the page records the levels you have finished, so you can pick up where you left off.</dd>
+</dl>
+
+<p class="la-note">
+The tools are built for practicing by hand: have paper in front of you, and use the page to check each step.
+</p>
+
+<!-- ───────────────────────────── Gaussian elimination ───────────────────────────── -->
+<section class="la-tool" id="gaussian-elimination">
+  <h2>Gaussian Elimination Practice</h2>
+  <p class="la-pitch">Row reduce a matrix one row operation at a time, with a record of every step and a checklist that shows which conditions still fail.</p>
+  <div class="la-body">
+    <div class="la-skills">
+      <h3>Skills you will practice</h3>
+      <ul>
+        <li>Choosing among the three row operations: replacement, scaling, and swapping</li>
+        <li>Computing the rows that result from a row operation, with integers and fractions</li>
+        <li>Row reducing a system or matrix to row echelon form (REF)</li>
+        <li>Continuing to reduced row echelon form (RREF)</li>
+        <li>Recognizing when a matrix is finished</li>
+        <li>Working up from 2 &times; 3 systems to 4 &times; 5 systems and 4 &times; 4 matrices</li>
+      </ul>
+      <p><a class="la-try" href="/tools/gaussian_elimination_practice/">Try Gaussian Elimination Practice</a></p>
+    </div>
+    <div class="la-shots">
+      <figure class="la-tall">
+        <img src="/assets/images/linear-algebra-practice/gaussian-practice.webp" alt="Gaussian Elimination Practice at Level 3 with Full support, showing the seven difficulty levels, five support levels, and a matrix with circled leading entries marked Not yet in REF" loading="lazy">
+        <figcaption>Seven levels and five levels of support. Leading entries are circled, and the page says whether the matrix is in REF yet.</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/images/linear-algebra-practice/gaussian-row-operation.webp" alt="The row operation panel with Replace chosen, row 2 replaced by row 2 plus 3 times row 1, and a color-coded preview of the new matrix" loading="lazy">
+        <figcaption>Choose a row operation and see a color-coded preview of the new rows before you apply it.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── REF / RREF ───────────────────────────── -->
+<section class="la-tool" id="ref-rref">
+  <h2>REF/RREF Study Tool</h2>
+  <p class="la-pitch">Check whether a matrix is in row echelon form or reduced row echelon form, see exactly which conditions fail, and quiz yourself on random matrices.</p>
+  <div class="la-body">
+    <div class="la-skills">
+      <h3>Skills you will practice</h3>
+      <ul>
+        <li>Stating the conditions for REF and for RREF: zero rows at the bottom, leading entries moving right, leading entries equal to 1, and zeros above leading entries</li>
+        <li>Finding leading entries and zero rows</li>
+        <li>Deciding whether a matrix is REF, REF but not RREF, or neither</li>
+        <li>Reading the rank, the nullity, and the number of solutions of a system from an REF matrix</li>
+        <li>Working with augmented matrices of increasing size</li>
+      </ul>
+      <p><a class="la-try" href="/tools/rref_study_tool/">Try the REF/RREF Study Tool</a></p>
+    </div>
+    <div class="la-shots">
+      <figure class="la-tall">
+        <img src="/assets/images/linear-algebra-practice/rref-quiz.webp" alt="REF/RREF Study Tool quiz showing a 2 by 3 matrix, four yes-or-no questions about the REF and RREF conditions, and buttons to choose Neither, REF but not RREF, or RREF" loading="lazy">
+        <figcaption>The quiz asks about each condition, then for the form. Every failed condition is explained afterward.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── Matrix of a linear map ───────────────────────────── -->
+<section class="la-tool" id="matrix-of-a-linear-map">
+  <h2>Matrix of a Linear Map Practice</h2>
+  <p class="la-pitch">Find the matrix of a linear map relative to bases, then use it. Maps on &#8477;<sup>n</sup> and on polynomials, with standard and nonstandard bases.</p>
+  <div class="la-body">
+    <div class="la-skills">
+      <h3>Skills you will practice</h3>
+      <ul>
+        <li>Applying a linear map to each basis vector</li>
+        <li>Finding the coordinates of a vector relative to a basis</li>
+        <li>Assembling the matrix <i>A</i> of <i>T</i> from the coordinate vectors of <i>T</i>(<i>v</i><sub>j</sub>)</li>
+        <li>Using <i>A</i> to find the coordinates of <i>T</i>(<i>x</i>) from the coordinates of <i>x</i></li>
+        <li>Finding the rank and the nullity of <i>A</i></li>
+        <li>Deciding whether <i>T</i> is onto and whether <i>T</i> is one-to-one</li>
+        <li>Maps given by a formula, a matrix, a description, or their action on a basis</li>
+        <li>Maps between different dimensions, onto a plane or a line, and on polynomials</li>
+      </ul>
+      <p><a class="la-try" href="/tools/matrix_of_linear_map/">Try Matrix of a Linear Map Practice</a></p>
+    </div>
+    <div class="la-shots">
+      <figure>
+        <img src="/assets/images/linear-algebra-practice/matrix-map-practice.webp" alt="Matrix of a Linear Map Practice showing nine difficulty levels, four support levels, and a problem asking for the matrix of a map from R2 to R2 relative to the standard basis and a second basis" loading="lazy">
+        <figcaption>Nine levels, each adding one new idea, and four levels of support.</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/images/linear-algebra-practice/matrix-map-steps.webp" alt="The worked solution for the matrix of a linear map, applying the map to each basis vector and writing the results in coordinates, color coded by basis vector" loading="lazy">
+        <figcaption>Each step is worked with the basis vectors color coded, so you can see where each coordinate comes from.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── Determinants ───────────────────────────── -->
+<section class="la-tool" id="determinants">
+  <h2>Determinants</h2>
+  <p class="la-pitch">Find determinants in every standard way, and connect them to area, volume, and invertibility.</p>
+  <div class="la-body">
+    <div class="la-skills">
+      <h3>Skills you will practice</h3>
+      <ul>
+        <li>Finding the determinant of a 2 &times; 2 matrix, and the area of the parallelogram spanned by its columns</li>
+        <li>Finding the determinant of a triangular matrix as the product of its diagonal entries</li>
+        <li>Choosing the best row or column for a cofactor expansion, and finding minors and cofactor signs</li>
+        <li>Finding 3 &times; 3 and 4 &times; 4 determinants by cofactor expansion</li>
+        <li>Finding a determinant by row reduction, tracking the effect of swaps</li>
+        <li>Using the properties of determinants: transposes, scalar multiples, products, powers, and inverses</li>
+        <li>Deciding whether a matrix is singular, and reading orientation from the sign</li>
+      </ul>
+      <p><a class="la-try" href="/tools/determinants/">Try Determinants</a></p>
+    </div>
+    <div class="la-shots">
+      <figure>
+        <img src="/assets/images/linear-algebra-practice/determinants-practice.webp" alt="Determinants practice showing six difficulty levels, three support levels, and a problem asking for a determinant of a 3 by 3 matrix by cofactor expansion and the volume of the parallelepiped spanned by its columns" loading="lazy">
+        <figcaption>Six levels, from 2 &times; 2 matrices to 4 &times; 4 cofactor expansions.</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/images/linear-algebra-practice/determinants-steps.webp" alt="Step 1 of a cofactor expansion, with the chosen row highlighted in the matrix and the entries and minors filled in" loading="lazy">
+        <figcaption>The page explains why to expand along the row or column with the most zeros, then fills in the expansion.</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/images/linear-algebra-practice/determinants-picture.webp" alt="A 3D picture of the parallelepiped spanned by the three columns of a matrix, with a readout of the determinant, the volume, and the orientation" loading="lazy">
+        <figcaption>When the steps are finished, the picture shows the determinant as a volume, and whether the columns are right-handed.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── Projections and least squares ───────────────────────────── -->
+<section class="la-tool" id="projections-and-least-squares">
+  <h2>Projections and Least Squares</h2>
+  <p class="la-pitch">Work each problem step by step while it is drawn in the plane or in space, and rotate the 3D picture to see the geometry.</p>
+  <div class="la-body">
+    <div class="la-skills">
+      <h3>Skills you will practice</h3>
+      <ul>
+        <li>Projecting a vector onto a line with &#10216;<i>x</i>, <i>v</i>&#10217;/&#8214;<i>v</i>&#8214;&sup2;</li>
+        <li>Finding the component of a vector orthogonal to a line</li>
+        <li>Projecting onto a plane with an orthogonal basis, after checking orthogonality</li>
+        <li>Building an orthogonal basis with Gram&ndash;Schmidt</li>
+        <li>Solving the normal equation <i>A</i><sup>T</sup><i>A</i><i>x</i> = <i>A</i><sup>T</sup><i>b</i> for a least squares solution</li>
+        <li>Finding the projection <i>A</i><i>x</i>* onto the column space, and the residual</li>
+        <li>Fitting a line of best fit to data</li>
+      </ul>
+      <p><a class="la-try" href="/tools/projection_least_squares/">Try Projections and Least Squares</a></p>
+    </div>
+    <div class="la-shots">
+      <figure>
+        <img src="/assets/images/linear-algebra-practice/projection-practice.webp" alt="Projections and Least Squares practice showing seven difficulty levels, three support levels, and a problem asking for the projection of a vector in R3 onto the span of two vectors" loading="lazy">
+        <figcaption>Seven levels, from projecting onto a line to fitting data.</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/images/linear-algebra-practice/projection-3d.webp" alt="A 3D picture of a vector, the plane it is projected onto, and its projection, beside a readout of the projection and the distance from the vector to the plane" loading="lazy">
+        <figcaption>The projection is the point of the plane closest to the vector. Drag the plot to turn it.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── Eigenvalues ───────────────────────────── -->
+<section class="la-tool" id="eigenvalues">
+  <h2>Eigenvalues and Eigenvectors</h2>
+  <p class="la-pitch">Find eigenvalues, eigenvectors, and eigenspaces while a picture shows which vectors the matrix stretches without turning.</p>
+  <div class="la-body">
+    <div class="la-skills">
+      <h3>Skills you will practice</h3>
+      <ul>
+        <li>Checking whether a vector is an eigenvector, by computing <i>A</i><i>v</i> and comparing it with <i>v</i></li>
+        <li>Checking whether a number is an eigenvalue, using det(<i>A</i> &minus; &lambda;<i>I</i>)</li>
+        <li>Reading the eigenvalues of a triangular matrix</li>
+        <li>Finding the characteristic polynomial of a 2 &times; 2 matrix and its roots</li>
+        <li>Finding an eigenvector for each eigenvalue by solving (<i>A</i> &minus; &lambda;<i>I</i>)<i>x</i> = 0</li>
+        <li>Handling a repeated eigenvalue and deciding whether the matrix is diagonalizable</li>
+        <li>Finding complex eigenvalues</li>
+        <li>Finding the eigenvalues and a basis of each eigenspace of a 3 &times; 3 matrix</li>
+      </ul>
+      <p><a class="la-try" href="/tools/eigenvalues/">Try Eigenvalues and Eigenvectors</a></p>
+    </div>
+    <div class="la-shots">
+      <figure>
+        <img src="/assets/images/linear-algebra-practice/eigenvalues-practice.webp" alt="Eigenvalues and Eigenvectors practice showing nine difficulty levels, from checking an eigenvector to eigenspaces of a 3 by 3 matrix, and three support levels" loading="lazy">
+        <figcaption>Nine levels, from checking one eigenvector to eigenspaces in three dimensions.</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/images/linear-algebra-practice/eigenvalues-picture.webp" alt="A plot of a vector x and its image Ax, with a readout that says how many degrees Ax is turned off the line through x, and the eigenvalues of the matrix" loading="lazy">
+        <figcaption>Drag <i>x</i> until <i>Ax</i> lines up with it: it snaps to the eigenvector directions.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── Complex numbers ───────────────────────────── -->
+<section class="la-tool" id="complex-numbers">
+  <h2>Complex Numbers</h2>
+  <p class="la-pitch">Practice the arithmetic that complex eigenvalues and eigenvectors need, with each problem drawn in the complex plane.</p>
+  <div class="la-body">
+    <div class="la-skills">
+      <h3>Skills you will practice</h3>
+      <ul>
+        <li>Finding powers of <i>i</i></li>
+        <li>Adding, subtracting, and multiplying in the form <i>a</i> + <i>b</i><i>i</i></li>
+        <li>Finding the conjugate and the modulus</li>
+        <li>Dividing by multiplying by the conjugate of the denominator</li>
+        <li>Writing a complex number in polar form <i>r</i><i>e</i><sup><i>i</i>&theta;</sup>, with the angle</li>
+        <li>Multiplying and dividing in polar form</li>
+        <li>Finding powers with De Moivre&rsquo;s theorem and converting back to <i>a</i> + <i>b</i><i>i</i></li>
+      </ul>
+      <p><a class="la-try" href="/tools/complex_numbers/">Try Complex Numbers</a></p>
+    </div>
+    <div class="la-shots">
+      <figure>
+        <img src="/assets/images/linear-algebra-practice/complex-practice.webp" alt="Complex Numbers practice showing eight difficulty levels, from powers of i to powers in polar form, and a problem asking for 3 + 3i in polar form" loading="lazy">
+        <figcaption>Eight levels, from powers of <i>i</i> to De Moivre&rsquo;s theorem.</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/images/linear-algebra-practice/complex-plane.webp" alt="The complex plane with the point 3 + 3i drawn as an arrow, with the unit circle, and a readout of its modulus and angle" loading="lazy">
+        <figcaption>Every problem is drawn in the complex plane, with the unit circle and angles.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="la-tool" id="explore">
+  <h2>Explore, without answering questions</h2>
+  <div class="la-shots" style="margin: 0 0 1rem;">
+    <figure>
+      <img src="/assets/images/linear-algebra-practice/vector-span-3d.webp" alt="Three vectors in R3 that lie in one plane, with sliders for the coefficients of a linear combination and the combination drawn tip to tail inside the shaded span" loading="lazy">
+      <figcaption>Vector Span: drag the coefficients and see the combination move inside the span.</figcaption>
+    </figure>
+  </div>
+  <p class="la-pitch">
+    These tools are for building intuition before or after practicing.
+    <a href="/tools/vector_span/">Vector Span, Linear Independence, Column Space, and Null Space</a> lets you drag vectors and coefficients in 2D and 3D.
+    <a href="/tools/discrete_linear_system/">Discrete-Time Linear Systems and Eigenvectors</a> shows why the eigenvectors of <i>A</i> decide where the states of <i>x</i><sub>k+1</sub> = <i>A</i><i>x</i><sub>k</sub> go.
+  </p>
+</section>
+
+</div>
