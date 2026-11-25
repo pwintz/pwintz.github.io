@@ -93,6 +93,7 @@ export function setupVisualizer(): Visualizer {
   let len = typeof saved.len === "number" && Number.isFinite(saved.len) && saved.len > 0 ? saved.len : 1;
   const xVec = () => [len * Math.cos(theta), len * Math.sin(theta)];
   let R = 2;                          // Half the width of the plot, in plot units
+  let maxLen = 1.9;                   // The longest x can be, so that Ax stays in the plot, too
   // The real eigenvector directions (angles in [0, π)), with their eigenvalues and colors.
   let directions: { angle: number; lambda: number; label: string; color: string }[] = [];
   let scalar = false;                 // A = cI: every vector is an eigenvector
@@ -138,6 +139,9 @@ export function setupVisualizer(): Visualizer {
     const sigma = Math.sqrt((m11 + m22) / 2 + Math.sqrt(((m11 - m22) / 2) ** 2 + m12 * m12));
     // Room to drag x past the unit circle, too.
     R = Math.max(2.5, sigma * 1.2);
+    // The view depends only on A, never on x (fitting the view to Ax would make it grow without
+    // bound as x is dragged outward), so x is kept short enough that |Ax| ≤ σ|x| fits in the view.
+    maxLen = (0.95 * R) / Math.max(sigma, 1);
   }
 
   // ⋘──────── Drawing ────────⋙
@@ -463,7 +467,7 @@ export function setupVisualizer(): Visualizer {
     renderReadout();
   }
 
-  // x follows the pointer anywhere in the plot (kept inside it while dragging past the edge).
+  // x follows the pointer's direction anywhere in the plot, and its distance up to maxLen.
   let dragging = false;
   function moveToPointer(e: PointerEvent): void {
     const rect = canvas.getBoundingClientRect();
@@ -471,7 +475,7 @@ export function setupVisualizer(): Visualizer {
     const px = Math.min(Math.max(e.clientX - rect.left - rect.width / 2, -halfW), halfW);
     const py = Math.min(Math.max(rect.height / 2 - (e.clientY - rect.top), -halfH), halfH);
     if (Math.hypot(px, py) < 4) return;  // Too close to the origin to have a direction
-    len = Math.hypot(px, py) / scale;
+    len = Math.min(Math.hypot(px, py) / scale, maxLen);
     setTheta(Math.atan2(py, px));
   }
   canvas.addEventListener("pointerdown", e => {
@@ -548,7 +552,7 @@ export function setupVisualizer(): Visualizer {
   let calcTimer = 0;
   function matrixChanged(): void {
     if (!readMatrix()) return;
-    len = Math.min(len, 0.95 * R);  // Keep x in the plot when the view shrinks
+    len = Math.min(len, maxLen);  // Keep x and Ax in the plot when the view changes
     setTheta(theta);
     renderEigenvalues();
     save();
@@ -567,6 +571,7 @@ export function setupVisualizer(): Visualizer {
   new ResizeObserver(() => draw()).observe(canvas);
 
   readMatrix();
+  len = Math.min(len, maxLen);
   setTheta(theta, false);
   renderEigenvalues();
   renderCalc();
