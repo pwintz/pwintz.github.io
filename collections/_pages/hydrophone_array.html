@@ -90,6 +90,7 @@ date_added: 2026-10-23
   .whale .wh-preset { font-size: 0.9em; }
   .wh-speakers { margin-top: 0.5rem; }
   .wh-audio-note { margin: 0.4rem 0 0; font-size: 0.85em; color: #5f6368; }
+  .wh-copy-feedback { overflow-wrap: anywhere; }
 
   /* "?" buttons that explain a setting (see common/help.ts), as in the other tools. */
   .whale .wh-help {
@@ -126,6 +127,16 @@ date_added: 2026-10-23
   /* Graph titles are centered above their graphs, in the page font (the theme's captions are serif). */
   .whale figure.wh-panel { display: block; margin: 1rem 0 0.5rem; padding: 0.4rem 0; }
   .whale figcaption { font-family: inherit; font-size: 0.9em; font-weight: bold; color: #3c4043; margin-bottom: 0.25rem; text-align: center; }
+
+  /* The views from above and from the side: side by side on wide screens, stacked on narrow ones.
+     The pair is pinned as one panel; each view can still be shown full screen on its own. */
+  .wh-pair { display: grid; grid-template-columns: 1fr; gap: 0 1.25rem; align-items: start; }
+  @media (min-width: 900px) {
+    .wh-pair { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  }
+  .whale .wh-pair > figure.wh-panel { margin: 0; }
+  .whale .wh-panel[data-pin="false"] > .wh-full { right: 0.35rem; }
+  .wh-hints { margin-bottom: 1rem; }
 
   .wh-view { border-radius: 8px; overflow: hidden; }
   /* The hydrophones can be dragged, so touches on the views drag instead of scrolling the page. */
@@ -192,6 +203,7 @@ date_added: 2026-10-23
             <option value="0.1">⅒×</option>
           </select>
         </label>
+        <button id="wh-copy-link" type="button" title="Copies a link to this page with the current settings, speakers, time, highlighted call, dragged hydrophones, and 3D view angle. The page's address also updates as you change the settings, so you can bookmark it or copy it from the address bar.">🔗 Copy link</button>
       </div>
     </div>
     <div class="wh-toolbar-group wh-speakers">
@@ -203,6 +215,7 @@ date_added: 2026-10-23
       </label>
     </div>
     <p id="wh-audio-note" class="wh-audio-note" hidden>Sound plays only at 1× speed, since changing the speed would change its pitch.</p>
+    <p id="wh-copy-feedback" class="wh-audio-note wh-copy-feedback" role="status" hidden></p>
   </div>
 
   <div class="wh-panel wh-settings" data-fullscreen="false">
@@ -349,35 +362,41 @@ date_added: 2026-10-23
     </dl>
   </template>
 
-  <figure class="wh-panel">
-    <figcaption>View from above</figcaption>
-    <div class="wh-view"><canvas id="wh-map" aria-label="Map of the whale, its sound waves, and the hydrophones, seen from above"></canvas></div>
-  </figure>
-  <p class="wh-hint">
-    The view is at the whale's depth.
-    Each shaded band is the sound of one call spreading outward.
-    Its outer edge is the start of the call, spreading from where the whale was when the call began, and its inner edge is the end of the call, spreading from where the whale was when it stopped.
-    Since the whale moves in between, the band is squeezed thinner in front of the whale (higher pitch) and stretched thicker behind it (lower pitch), and the bands from successive calls are closer together in front than behind.
-    Faint rings that trail the bands are echoes off the surface and seafloor.
-    The colored lines connect each hydrophone to where the whale was when it made the sound that the hydrophone is hearing right now (dashed while that is silence between calls).
-    The outlined dark band is the highlighted call.
-    <strong>Drag the whale</strong> along its track to move through time.
-    <strong>Drag a hydrophone</strong> to move it; a hollow marker means the hydrophone is above or below the whale's depth, so the bands in this view (at the whale's depth) don't show what it hears.
-  </p>
-
-  <figure class="wh-panel">
-    <figcaption>Side view</figcaption>
-    <div class="wh-view"><canvas id="wh-side" aria-label="Side view of the vertical plane through the hydrophones, showing their depths"></canvas></div>
-  </figure>
-  <p class="wh-hint">
-    The vertical plane through the hydrophones, showing their depths.
-    Sound spreads from the whale in spheres, so the bands here are where those spheres cut through this plane.
-    A hydrophone hears a call exactly while a band covers it.
-    Deeper hydrophones are farther from the whale, so they hear each call later.
-    The fainter bands are <em>echoes</em>: sound that bounced off the sea surface or the seafloor before reaching the hydrophones, drawn with thinner lines along their bent paths.
-    <strong>Drag a hydrophone</strong> here to change its depth, or drag the whale to move through time.
-    A hollow marker means the hydrophone has been moved off this plane in the view from above.
-  </p>
+  <!-- The views from above and from the side, side by side on wide screens, at the same scale so
+       that positions along the track line up. They are pinned together, since pinning one alone
+       would keep it only within its column. -->
+  <div class="wh-panel wh-pair" data-fullscreen="false">
+    <figure class="wh-panel" data-pin="false">
+      <figcaption>View from above</figcaption>
+      <div class="wh-view"><canvas id="wh-map" aria-label="Map of the whale, its sound waves, and the hydrophones, seen from above"></canvas></div>
+    </figure>
+    <figure class="wh-panel" data-pin="false">
+      <figcaption>Side view</figcaption>
+      <div class="wh-view"><canvas id="wh-side" aria-label="Side view of the vertical plane through the hydrophones, showing their depths"></canvas></div>
+    </figure>
+  </div>
+  <div class="wh-pair wh-hints">
+    <p class="wh-hint">
+      The view from above is at the whale's depth.
+      Each shaded band is the sound of one call spreading outward.
+      Its outer edge is the start of the call, spreading from where the whale was when the call began, and its inner edge is the end of the call, spreading from where the whale was when it stopped.
+      Since the whale moves in between, the band is squeezed thinner in front of the whale (higher pitch) and stretched thicker behind it (lower pitch), and the bands from successive calls are closer together in front than behind.
+      Faint rings that trail the bands are echoes off the surface and seafloor.
+      The colored lines connect each hydrophone to where the whale was when it made the sound that the hydrophone is hearing right now (dashed while that is silence between calls).
+      The outlined dark band is the highlighted call.
+      <strong>Drag the whale</strong> along its track to move through time.
+      <strong>Drag a hydrophone</strong> to move it; a hollow marker means the hydrophone is above or below the whale's depth, so the bands in this view (at the whale's depth) don't show what it hears.
+    </p>
+    <p class="wh-hint">
+      The side view shows the vertical plane through the hydrophones and their depths.
+      Sound spreads from the whale in spheres, so the bands here are where those spheres cut through this plane.
+      A hydrophone hears a call exactly while a band covers it.
+      Deeper hydrophones are farther from the whale, so they hear each call later.
+      The fainter bands are <em>echoes</em>: sound that bounced off the sea surface or the seafloor before reaching the hydrophones, drawn with thinner lines along their bent paths.
+      <strong>Drag a hydrophone</strong> here to change its depth, or drag the whale to move through time.
+      A hollow marker means the hydrophone has been moved off this plane in the view from above.
+    </p>
+  </div>
 
   <figure class="wh-panel">
     <figcaption>3D view</figcaption>

@@ -16,7 +16,9 @@ import { setupHelp } from "./common/help";
 import { FIXED_DEPTH_LAYOUTS, LAYOUT_COUNTS, Layout, layoutPhones } from "./hydrophone_array/layouts";
 import { setupPanels } from "./common/panels";
 import { loadJSON, saveJSON } from "./common/storage";
+import { replaceQuery } from "./common/query";
 import { Boundaries, PathKind, SoundPath, bouncePoint, mirror, soundPaths } from "./hydrophone_array/reflections";
+import { SHARE_KEYS, SavedState, decodeState, encodeState } from "./hydrophone_array/share";
 
 // ⋘──────── Constants ────────⋙
 
@@ -1055,7 +1057,7 @@ function drawSide(): void {
   ctx.beginPath(); ctx.moveTo(0, sz(0)); ctx.lineTo(sideWidth, sz(0)); ctx.stroke();
   ctx.setLineDash([]);
   ctx.fillStyle = MUTED;
-  ctx.fillText(`Whale's depth (the whale swims ${params.distance} m in front of this plane)`, 6, sz(0) - 4);
+  ctx.fillText(`Whale's depth (${params.distance} m in front of this plane)`, 6, sz(0) - 4);
 
   // The surface and the seafloor.
   ctx.lineWidth = 1.5;
@@ -1745,22 +1747,18 @@ const SAVED_CONTROLS = [
   depthInput, echoesSelect, surfaceInput, rateSelect,
 ];
 
-interface SavedState {
-  controls: Record<string, string>;
-  loop    : boolean;
-  speakers: { left: string; right: string };
-  phones  : Phone[] | null; // Only when dragged; otherwise they're placed from the controls
-  marked  : number;
-  now     : number;
-  view3d  : { yaw: number; pitch: number };
-}
+// The state to start from: a configuration in the address (from a shared link) replaces the one
+// saved in this browser, so the link opens exactly as it was shared.
+const startState = decodeState(location.search) ?? loadJSON<Partial<SavedState>>(STATE_KEY);
 
 let saveTimer = 0;
 function saveState(): void {
   clearTimeout(saveTimer);
   saveTimer = window.setTimeout(saveNow, 300);
 }
+// Saves the state in this browser and in the page's address, so the address can be shared.
 function saveNow(): void {
+  clearTimeout(saveTimer);
   const state: SavedState = {
     controls: Object.fromEntries(SAVED_CONTROLS.map(el => [el.id, el.value])),
     loop: loopInput.checked,
@@ -1769,11 +1767,13 @@ function saveNow(): void {
     marked, now, view3d: { ...view3d },
   };
   saveJSON(STATE_KEY, state);
+  replaceQuery(SHARE_KEYS, encodeState(state));
 }
 
-// Restores the saved state, checking each part, since it may come from an older version of the page.
+// Restores the starting state, checking each part, since it may come from an older version of the
+// page or a hand-edited link.
 function restoreState(): void {
-  const saved = loadJSON<Partial<SavedState>>(STATE_KEY);
+  const saved = startState;
   if (!saved) return;
   const finite = (x: unknown): x is number => typeof x === "number" && Number.isFinite(x);
   // The floor comes before the depth, since it sets the depth slider's maximum.
@@ -1806,7 +1806,7 @@ function restoreState(): void {
 // Restores the speakers once their options (one per hydrophone) exist. Playback still waits for a
 // click, since browsers don't let a page start sound on its own.
 function restoreSpeakers(): void {
-  const saved = loadJSON<Partial<SavedState>>(STATE_KEY)?.speakers;
+  const saved = startState?.speakers;
   for (const [select, value] of [[leftSelect, saved?.left], [rightSelect, saved?.right]] as const) {
     if (typeof value === "string" && Array.from(select.options).some(o => o.value === value)) select.value = value;
   }
@@ -1819,10 +1819,32 @@ for (const type of ["input", "change", "pointerup", "click"]) whaleRoot.addEvent
 window.addEventListener("pagehide", saveNow);
 document.addEventListener("visibilitychange", () => { if (document.hidden) saveNow(); });
 
+// "Copy link": the page's address, updated first so it holds the current time.
+const copyButton   = $<HTMLButtonElement>("wh-copy-link");
+const copyFeedback = $<HTMLElement>("wh-copy-feedback");
+let copyTimer = 0;
+copyButton.addEventListener("click", async () => {
+  saveNow();
+  const url = location.href;
+  // If copying fails (or a browser leaves it waiting on a permission prompt), show the link to
+  // copy by hand instead.
+  const timeout = new Promise<never>((_, reject) => setTimeout(() => reject(new Error("timeout")), 1500));
+  try {
+    await Promise.race([navigator.clipboard.writeText(url), timeout]);
+    copyFeedback.textContent = "Copied a link to this configuration.";
+  } catch {
+    copyFeedback.textContent = `Copy this link: ${url}`;
+  }
+  copyFeedback.hidden = false;
+  clearTimeout(copyTimer);
+  copyTimer = window.setTimeout(() => { copyFeedback.hidden = true; }, 8000);
+});
+
 // ⋘──────── Help and pinning ────────⋙
 
 setupHelp("wh");
-const PIN_KEY = "hydrophone-array-pinned-panels";
+// v2: the views from above and from the side became one panel, which shifted the others.
+const PIN_KEY = "hydrophone-array-pinned-panels-v2";
 const panels = setupPanels("wh", () =>
   saveJSON(PIN_KEY, panels.list.map((p, i) => (panels.isPinned(p) ? i : -1)).filter(i => i >= 0)));
 for (const i of loadJSON<number[]>(PIN_KEY) ?? []) if (panels.list[i]) panels.setPinned(panels.list[i], true);
