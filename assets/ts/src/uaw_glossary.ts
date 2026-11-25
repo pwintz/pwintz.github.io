@@ -7,6 +7,8 @@
 // to match the search box and menus. The settings are mirrored in the URL
 // (e.g. /tools/uaw_glossary/?q=perb&rarity=common) so a filtered view can be shared.
 
+import { focusOnLoad } from "./common/focus";
+
 // ⋘──────── Types and constants ────────⋙
 
 type SortOrder   = "term" | "category";
@@ -282,6 +284,7 @@ function init(): void {
 
   toolbar.hidden = false;
   update();
+  focusOnLoad(search);
 
   // Re-rendering moves the entries, so scroll to a linked term again once it's in place.
   if (window.location.hash) document.getElementById(decodeURIComponent(window.location.hash.slice(1)))?.scrollIntoView();

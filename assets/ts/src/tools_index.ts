@@ -6,6 +6,8 @@
 // the cards to match the search box, the selected category, and the sort order. The settings are
 // mirrored in the URL (e.g. /tools/?category=Music&sort=newest) so a filtered view can be shared.
 
+import { focusOnLoad } from "./common/focus";
+
 // ⋘──────── Types and constants ────────⋙
 
 type SortOrder = "category" | "title" | "newest";
@@ -194,6 +196,7 @@ function init(): void {
 
   toolsBar.hidden = false;
   update();
+  focusOnLoad(search);
 }
 
 init();

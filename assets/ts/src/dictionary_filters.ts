@@ -13,6 +13,8 @@
 // On the distinctions page, an item matches a level if every term it compares has a definition at that level
 // or a lower one (data-levels is computed accordingly), and links to distinction pages carry ?level=.
 
+import { focusOnLoad } from "./common/focus";
+
 const PARAMS = ["q", "subject", "kind", "level"] as const;
 
 // Lowercase, remove accents (so "holder" matches "Hölder"), and replace LaTeX punctuation with spaces.
@@ -145,6 +147,8 @@ function init(): void {
 
   form.hidden = false;
   apply();
+  const search = control("q");
+  if (search instanceof HTMLInputElement) focusOnLoad(search);
 }
 
 init();

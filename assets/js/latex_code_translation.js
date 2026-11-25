@@ -76,6 +76,11 @@ document.getElementById('inputText').addEventListener('input', updateText);
 document.getElementById('additionalReplacements').addEventListener('change', updateText);
 document.getElementById('removeClozeReplacements').addEventListener('change', updateText);
 
+// The cursor starts in the input box, as in assets/ts/src/common/focus.ts (skipped on touch screens).
+if (matchMedia('(pointer: fine)').matches && (!document.activeElement || document.activeElement === document.body)) {
+  document.getElementById('inputText').focus({ preventScroll: true });
+}
+
 // TESTING
  // For the sake of testing, modify the string and run "updateText()".
 //   document.getElementById('inputText').innerHTML = 

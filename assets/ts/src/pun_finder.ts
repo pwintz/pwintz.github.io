@@ -36,6 +36,7 @@ import {
   SearchOptions, Selection, Sense, SIMILAR_SECTIONS, stressMarkOf, stressMarkPositions, withStress,
   WordFilter, WordInfo,
 } from "./pun_finder/search";
+import { focusOnLoad } from "./common/focus";
 
 // ⋘──────── Types and constants ────────⋙
 
@@ -645,6 +646,8 @@ function initPage(): void {
 
   const params = new URLSearchParams(location.search);
   input.value = params.get("word") ?? DEFAULT_WORD;
+  // The word is selected, so that typing a new word replaces it.
+  focusOnLoad(input, { select: true });
   const initial = { pron: Number(params.get("pron") ?? 0), sel: params.get("sel") ?? "", stress: params.get("stress") ?? "" };
   const at = params.get("at");
   anchorStart = at === "start" || at === "whole";

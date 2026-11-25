@@ -145,6 +145,11 @@ excerpt: "The differences between mathematical terms that are easily confused."
     group.querySelector(".dictionary-search__more").addEventListener("click", () => { expanded.add(group); update(); });
   }
   update();
+  // The cursor starts in the search box, as in common/focus.ts (skipped on touch screens).
+  if (matchMedia("(pointer: fine)").matches && (!document.activeElement || document.activeElement === document.body)) {
+    input.focus({ preventScroll: true });
+    input.setSelectionRange(input.value.length, input.value.length);
+  }
 })();
 </script>
 

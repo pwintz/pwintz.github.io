@@ -13,6 +13,7 @@
 // so no email addresses are published in the site's source.
 
 import { loadJSON, saveJSON } from "./common/storage";
+import { focusOnLoad } from "./common/focus";
 import { enableDragReorder } from "./common/drag_reorder";
 import { convertUrl, emailProblem, trimTrailingBlanks } from "./gmail_link/convert";
 
@@ -290,6 +291,8 @@ function initPage(): void {
     input.value = incoming;
     convert();
   }
+  // A link from the URL is selected, so that pasting a new link replaces it.
+  focusOnLoad(input, { select: true });
 }
 
 if (typeof document !== "undefined") {

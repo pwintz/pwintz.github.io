@@ -7,6 +7,7 @@
 
 import { convertLatex, Reason, searchSymbols } from "./latex_unicode/convert";
 import { loadString as load, saveString as save } from "./common/storage";
+import { focusOnLoad } from "./common/focus";
 
 // ⋘──────── Constants ────────⋙
 
@@ -187,6 +188,7 @@ function initPage(): void {
 
   convert();
   renderSymbols();
+  focusOnLoad(input);
 }
 
 if (typeof document !== "undefined") {

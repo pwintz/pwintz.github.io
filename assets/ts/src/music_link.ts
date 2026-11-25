@@ -13,6 +13,7 @@
 // direct link, unless the pasted link was for that service.
 
 import { loadString, saveString, loadJSON, saveJSON, removeSaved } from "./common/storage";
+import { focusOnLoad } from "./common/focus";
 
 // ⋘──────── Types and constants ────────⋙
 
@@ -1540,6 +1541,8 @@ function initSender(): void {
     input.value = incoming;
     submit();
   }
+  // A link from the URL is selected, so that pasting a new link replaces it.
+  focusOnLoad(input, { select: true });
 }
 
 // The "Opening links you receive" settings at the bottom of the sender view.
