@@ -48,8 +48,15 @@ date_added: 2026-11-20
   .et-last5 .et-remaining { color: #ffb38a; }
   .et-done { background: #5c0000; }
   .et-display .et-full { position: absolute; right: 0.8rem; bottom: 0.8rem; background: rgba(255, 255, 255, 0.12); color: #fff; border-color: rgba(255, 255, 255, 0.3); }
-  .et-display:fullscreen .et-full { opacity: 0.25; }
-  .et-display:fullscreen .et-full:hover { opacity: 1; }
+  .et-display .et-float { right: auto; left: 0.8rem; }
+  .et-display:fullscreen .et-full, .et-display:fullscreen .et-float { opacity: 0.25; }
+  .et-display:fullscreen .et-full:hover, .et-display:fullscreen .et-float:hover { opacity: 1; }
+  /* In the floating window, the display fills the window and has no buttons. */
+  body:has(.et-floating) { margin: 0; background: #111; }
+  .et-floating .et-display { min-height: 100vh; box-sizing: border-box; padding: 0.5rem; border-radius: 0; }
+  .et-floating .et-full, .et-floating .et-float { display: none; }
+  .et-floating-note[hidden] { display: none; }
+  .et-floating-note { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.6rem 1rem; padding: 1.2rem 1rem; border: 1px dashed rgba(128, 128, 128, 0.5); border-radius: 10px; color: #5f6368; }
 
   .et-extend { margin-top: 1.2rem; padding: 0.8rem 1rem; border: 1px solid rgba(128, 128, 128, 0.3); border-radius: 8px; }
   .et-extend h2 { margin: 0 0 0.5rem; font-size: 1.1em; }
@@ -79,7 +86,12 @@ date_added: 2026-11-20
     <div id="et-remaining" class="et-remaining"></div>
     <div id="et-ends" class="et-ends"></div>
     <div id="et-now" class="et-now"></div>
+    <button type="button" id="et-float" class="et-full et-float">Floating window</button>
     <button type="button" id="et-full" class="et-full">Full screen</button>
+  </div>
+  <div id="et-floating-note" class="et-floating-note" hidden>
+    The timer is in a floating window, which stays on top of other windows.
+    <button type="button" id="et-unfloat">Return it to this page</button>
   </div>
 
   <section class="et-extend">
@@ -94,7 +106,8 @@ date_added: 2026-11-20
     </div>
     <p id="et-ext-none" class="et-note">No extensions.</p>
     <ul id="et-extensions"></ul>
-    <p class="et-note">Settings and extensions are saved in this browser, so reloading the page keeps the timer. Extensions are cleared on the next day. Double-click the display to switch full screen on or off.</p>
+    <p class="et-note">Settings and extensions are saved in this browser, so reloading the page keeps the timer. Extensions are cleared on the next day. Double-click the display to switch full screen on or off.
+      While the timer is full screen or in a floating window, the screen is kept awake.</p>
   </section>
 
   <div id="et-help-popup" class="et-help-popup" role="note" hidden></div>
