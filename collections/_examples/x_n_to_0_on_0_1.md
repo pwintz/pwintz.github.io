@@ -5,6 +5,21 @@ detail: >-
   The sequence of functions $f_1(x) = x$, $f_2(x) = x^2$, $f_3(x) = x^3$, $\dots$, each defined for $x$ in $[0, 1)$.
   For each fixed $x$ in the interval, $x^n \to 0$ as $n \to \infty$.
 level: undergraduate
+figure:
+  widget: function-plot
+  params:
+    x: [-0.1, 1.15]
+    y: [-0.1, 1.15]
+    curves:
+      - {"f": "x^1", "label": "f_{1}", "from": 0, "to": 1, "ends": "[)"}
+      - {"f": "x^2", "label": "f_{2}", "from": 0, "to": 1, "ends": "[)"}
+      - {"f": "x^4", "label": "f_{4}", "from": 0, "to": 1, "ends": "[)"}
+      - {"f": "x^8", "label": "f_{8}", "from": 0, "to": 1, "ends": "[)"}
+      - {"f": "x^16", "from": 0, "to": 1, "ends": "[)"}
+      - {"f": "x^32", "from": 0, "to": 1, "ends": "[)"}
+  caption: |-
+    The graphs of $f_n(x) = x^n$ on $[0, 1)$ for $n = 1, 2, 4, 8, 16, 32$.
+  alt: "Six curves from the origin toward (1, 1), each flatter near 0 and steeper near 1 than the last."
 is_not: [
   uniform_in_parameter,
   uniform_convergence

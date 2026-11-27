@@ -12,6 +12,12 @@ levels:
     text: |-
       An _angle_ is a geometric figure that consists of two rays with a common endpoint.
       The common endpoint is called the _vertex_ of the angle, and the rays are called the _sides_ of the angle.
+    figure:
+      widget: angle
+      caption: |-
+        The angle $\angle ABC$, with the vertex $B$ and the sides through $A$ and $C$.
+        Drag $A$ or $C$.
+      alt: Two rays from a vertex B, through points A and C that can be dragged, with an arc marking the angle between them and its measure in degrees.
 
 properties:
   - |-
@@ -32,6 +38,3 @@ properties:
 ## Notes
 
 - Outside of geometry, "angle" usually means the [angular measure](/dictionary/definitions/angular-measure) of an angle, as in "the angle $\theta = \pi/4$" or "the angle between $\vect{x}$ and $\vect{y}$ is $90^\circ$."
-
-
-<!-- TODO: Add a plotting tool that shows angles with different measures. -->

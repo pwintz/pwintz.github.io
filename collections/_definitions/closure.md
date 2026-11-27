@@ -1,5 +1,4 @@
 ---
-published: false
 title: Closure of a Set
 term: closure
 applies_to: sets

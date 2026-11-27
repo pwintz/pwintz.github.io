@@ -1,5 +1,4 @@
 ---
-published: false
 title: Connected vs. Path-Connected vs. Simply Connected
 kind: hierarchy
 areas: [topology, analysis]
@@ -16,12 +15,13 @@ terms:
   - simply_connected
 examples:
   - example: closed_unit_disk
-  - example: the_surface_of_a_basketball
+  - example: the_unit_sphere_x_squared_plus_y_squared_plus_z_squared_eq_1
   - example: annulus
+  - example: surface_of_a_donut
   - example: the_unit_circle_x_squared_plus_y_squared_eq_1
   - example: two_intervals
   - example: topologist_sine_curve
 see_also:
   - types_of_compactness
-  - types_of_sphere_balls_and_circles
+  - sphere_vs_ball
 ---

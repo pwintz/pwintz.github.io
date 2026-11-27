@@ -2,6 +2,16 @@
 published: false
 title: '$f(x) = 1/x$, at $x = 0$'
 level: high-school
+figure:
+  widget: function-plot
+  params:
+    x: [-3, 3]
+    y: [-5, 5]
+    curves:
+      - {"f": "1/x", "label": "f"}
+  caption: |-
+    The graph of $f(x) = 1/x$.
+  alt: "A hyperbola in two pieces: one in the upper right, one in the lower left, each approaching the axes."
 values:
   limit_of_function: '$\lim_{x \to 0} f(x)$ does not exist'
   left_limit: '$\lim_{x \to 0^{-}} f(x)$ does not exist'

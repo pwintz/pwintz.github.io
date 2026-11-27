@@ -7,6 +7,16 @@
                 by the level switcher. Without JavaScript, all levels are shown.
 {% endcomment %}
 <div class="definition-levels"{% if include.switchable %} data-switchable{% endif %}>
+  {% if include.definition.synonym_of %}
+    {% comment %} A synonym page has no levels; it points to its canonical definition (see _plugins/dictionary_index.rb). {% endcomment %}
+    {% assign canonical = include.definition.canonical %}
+    <div class="definition-synonym">
+      {% capture word %}{{ include.definition.term | default: include.definition.title }}{% endcapture %}
+      {% capture canonical_word %}{{ canonical.term | default: canonical.title | default: include.definition.synonym_of }}{% endcapture %}
+      <p><em>{{ word | capitalize }}</em> means exactly the same as <a href="{{ canonical.url | relative_url }}">{{ canonical_word }}</a>.
+      The definitions, examples, and properties are on the page for <a href="{{ canonical.url | relative_url }}">{{ canonical_word }}</a>.</p>
+    </div>
+  {% endif %}
   {% for level in site.data.definition_levels %}
     {% assign entry = include.definition.levels[level.id] %}
     {% if entry %}
@@ -15,6 +25,7 @@
           {{ level.name }}{% if entry.context %} <span class="definition-level__context">({{ entry.context }})</span>{% endif %}
         </div>
         <div class="definition-level__text">{{ entry.text | markdownify }}</div>
+        {% if entry.figure %}{% include dictionary-figure.html figure=entry.figure %}{% endif %}
         {% if entry.caveat %}
           <div class="definition-level__caveat"><strong>Caveat.</strong> {{ entry.caveat | markdownify | remove: '<p>' | remove: '</p>' }}</div>
         {% endif %}

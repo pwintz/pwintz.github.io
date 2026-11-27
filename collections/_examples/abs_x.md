@@ -1,6 +1,18 @@
 ---
 title: '$f(x) = \abs{x}$'
 level: high-school
+figure:
+  widget: function-plot
+  aspect: 4 / 3
+  params:
+    equal: true
+    x: [-2, 2]
+    y: [-0.5, 2.5]
+    curves:
+      - {"f": "abs(x)", "label": "f"}
+  caption: |-
+    The graph of $f(x) = \abs{x}$.
+  alt: "A V-shaped graph with its corner at the origin."
 is: [
   idempotent,
   convex_function

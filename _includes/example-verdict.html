@@ -4,14 +4,16 @@
 
   Parameters:
     example: A document from the "examples" collection.
-    term:    The slug of a definition.
+    term:    The slug of a definition. For a synonym page, the verdict for its canonical definition is shown,
+             since examples list only the canonical term (see _plugins/dictionary_index.rb).
 {% endcomment %}
-{%- assign value = include.example.values[include.term] -%}
+{%- assign ev_term = site.data.dictionary_synonym_of[include.term] | default: include.term -%}
+{%- assign value = include.example.values[ev_term] -%}
 {%- if value -%}
   <td class="distinction__value">{{ value | markdownify | remove: '<p>' | remove: '</p>' }}</td>
-{%- elsif include.example.is contains include.term -%}
+{%- elsif include.example.is contains ev_term -%}
   <td class="distinction__check distinction__check--yes" title="Yes">✓</td>
-{%- elsif include.example.is_not contains include.term -%}
+{%- elsif include.example.is_not contains ev_term -%}
   <td class="distinction__check distinction__check--no" title="No">✗</td>
 {%- else -%}
   <td class="distinction__check distinction__check--na" title="Not addressed">–</td>

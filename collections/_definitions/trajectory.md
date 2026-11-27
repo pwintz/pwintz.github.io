@@ -1,5 +1,4 @@
 ---
-published: false
 title: Trajectory
 term: trajectory
 applies_to: dynamical systems
@@ -8,7 +7,7 @@ levels:
   high-school:
     text: |-
       Consider a system whose state changes over time according to a rule.
-      A _trajectory_ of the system is a function $x(t)$ that gives the state of the system at each time $t$ and obeys the rule.
+      A _trajectory_ of the system is a function $x(t)$ that gives the state of the system at each time $t$ while obeying the rule.
   undergraduate:
     context: ordinary differential equations
     text: |-

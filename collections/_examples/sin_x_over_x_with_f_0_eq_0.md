@@ -1,6 +1,19 @@
 ---
 title: '$f(x) = \frac{\sin x}{x}$ for $x \neq 0$, $f(0) = 0$, at $x = 0$'
 level: undergraduate
+figure:
+  widget: function-plot
+  params:
+    x: [-15, 15]
+    y: [-0.4, 1.2]
+    curves:
+      - {"f": "sin(x)/x", "label": "f"}
+    points:
+      - {"at": [0, 1], "open": true}
+      - {"at": [0, 0]}
+  caption: |-
+    The graph of $f(x) = (\sin x)/x$ for $x \neq 0$, with $f(0) = 0$ (filled dot) and the point $(0, 1)$ missing (hollow dot).
+  alt: "A wave with a central peak approaching height 1 and shrinking ripples on both sides, with a hollow dot at (0, 1) and a filled dot at the origin."
 is: [removable_discontinuity]
 is_not: [
   jump_discontinuity,

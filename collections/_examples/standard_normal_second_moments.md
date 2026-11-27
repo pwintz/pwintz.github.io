@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'A standard normal random variable $X$, for $k = 2$'
 level: undergraduate
 values:

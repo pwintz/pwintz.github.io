@@ -1,5 +1,4 @@
 ---
-published: false
 title: Image
 term: image
 applies_to: functions and sets
@@ -8,7 +7,6 @@ levels:
     text: |-
       Think of a function as a machine that turns inputs into outputs, and pick a group of inputs.
       The _image_ of that group is the set of outputs that the machine gives for those inputs.
-      For example, if the machine doubles numbers, then the image of the inputs $1$, $2$, and $3$ is the outputs $2$, $4$, and $6$.
   high-school:
     text: |-
       Consider a function and a set $A$ of inputs in its domain.

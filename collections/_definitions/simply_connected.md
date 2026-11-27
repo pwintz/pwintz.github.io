@@ -1,5 +1,4 @@
 ---
-published: false
 title: Simply Connected Space
 term: simply connected
 applies_to: sets and topological spaces

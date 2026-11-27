@@ -9,6 +9,14 @@ levels:
       Consider an object that turns about a fixed point in the plane.
       The _angle of rotation_ of the object is the total [angle](/dictionary/definitions/angular-measure) through which the object turns, positive if it turns counterclockwise and negative if it turns clockwise.
       For example, a wheel that turns twice counterclockwise has an angle of rotation of $720^\circ$.
+    figure:
+      widget: angle
+      params: { mode: rotation, face: wheel, play: 720 }
+      aspect: 1 / 1
+      caption: |-
+        A wheel, with the starting position of the blue spoke (dashed) and its turn so far (spiral), labeled with the angle of rotation.
+        Drag the blue spoke around the axle, or play two counterclockwise turns.
+      alt: A wheel with six spokes, one of them blue, which can be dragged around the axle. A dashed line marks its starting position, and a spiral arrow shows how far it has turned.
   undergraduate:
     context: rotations of the plane
     text: |-

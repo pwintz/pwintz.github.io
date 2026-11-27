@@ -3,6 +3,14 @@ title: 'A wheel that turns twice counterclockwise'
 level: high-school
 description: >-
   A wheel turns two full turns counterclockwise about its axle, so each spoke ends where the spoke started.
+figure:
+  widget: angle
+  params: { mode: rotation, face: wheel, play: 720 }
+  aspect: 1 / 1
+  caption: |-
+    A wheel, with the starting position of the blue spoke (dashed) and its turn so far (spiral), labeled with the angle of rotation.
+    Play two counterclockwise turns, or drag the blue spoke.
+  alt: A wheel with six spokes, one of them blue, which can be dragged around the axle. A dashed line marks its starting position, and a spiral arrow shows how far it has turned.
 values:
   # TODO: It is confusing to say the angle is zero. Check this new phrasing. 
   angle_geometric_figure: 'The angle between the starting and final positions of each spoke is a zero angle (an angle with measure zero).'

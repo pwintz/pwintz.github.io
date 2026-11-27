@@ -1,0 +1,63 @@
+---
+# Lists the dictionary entries, which `jekyll serve --incremental` does not track, so always rebuild it.
+regenerate: true
+published: false
+layout: single
+permalink: /dictionary/figures/
+title: Figures
+excerpt: "The definitions and examples in the Dictionary of Fine Distinctions that have figures."
+---
+{% comment %}
+  Lists every definition level and example with a figure (a "figure" in its front matter; see
+  _includes/dictionary-figure.html), with the figure's widget and caption.
+{% endcomment %}
+<div class="distinctions">
+<p>
+  The definitions and examples in the <a href="{{ '/dictionary/distinctions/' | relative_url }}">Dictionary of Fine Distinctions</a> that have figures.
+</p>
+
+{% capture definition_rows %}
+  {% assign definitions = site.definitions | sort_natural: "term" %}
+  {% for def in definitions %}
+    {% for level in site.data.definition_levels %}
+      {% assign entry = def.levels[level.id] %}
+      {% if entry.figure %}
+        <tr>
+          <td><a href="{{ def.url | relative_url }}">{{ def.term | default: def.title }}</a></td>
+          <td>{{ level.name }}</td>
+          <td><code>{{ entry.figure.widget }}</code></td>
+          <td>{{ entry.figure.caption | markdownify | remove: '<p>' | remove: '</p>' }}</td>
+        </tr>
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+{% endcapture %}
+{% assign definition_count = definition_rows | split: "<tr>" | size | minus: 1 %}
+
+<h2 id="definitions">Definitions ({{ definition_count }})</h2>
+<div class="distinction__examples">
+  <table>
+    <thead><tr><th>Term</th><th>Level</th><th>Widget</th><th>Caption</th></tr></thead>
+    <tbody>{{ definition_rows }}</tbody>
+  </table>
+</div>
+
+{% assign examples = site.examples | where_exp: "e", "e.figure" | sort_natural: "slug" %}
+<h2 id="examples">Examples ({{ examples.size }})</h2>
+<div class="distinction__examples">
+  <table>
+    <thead><tr><th>Example</th><th>Level</th><th>Widget</th><th>Caption</th></tr></thead>
+    <tbody>
+      {% for example in examples %}
+        {% assign level = site.data.definition_levels | where: "id", example.level | first %}
+        <tr>
+          <td><a href="{{ example.url | relative_url }}">{{ example.title | markdownify | remove: '<p>' | remove: '</p>' }}</a></td>
+          <td>{{ level.name | default: example.level }}</td>
+          <td><code>{{ example.figure.widget }}</code></td>
+          <td>{{ example.figure.caption | markdownify | remove: '<p>' | remove: '</p>' }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+</div>

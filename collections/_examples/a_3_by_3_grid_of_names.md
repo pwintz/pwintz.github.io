@@ -9,5 +9,5 @@ is_not: [
 ]
 why:
   matrix: >-
-    The entries of a $3 \times 3$ grid of names cannot be added or multiplied, so the grid is an array but not a matrix.
+    A $3 \times 3$ grid of names is not a matrix, because its entries cannot be added or multiplied.
 ---

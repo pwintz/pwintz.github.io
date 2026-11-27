@@ -1,7 +1,18 @@
 ---
-published: false
 title: 'A solid square, drawn on a page'
 level: elementary
+figure:
+  widget: plane
+  aspect: 1 / 1
+  params:
+    x: [-1.8, 1.8]
+    y: [-1.8, 1.8]
+    grid: false
+    shapes:
+      - { polygon: [[-1, -1], [1, -1], [1, 1], [-1, 1]] }
+  caption: |-
+    A solid square.
+  alt: "A shaded square with solid edges."
 values:
   interior: 'The inside of the square, without its edges'
   boundary: 'Its four edges'

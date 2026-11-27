@@ -1,6 +1,18 @@
 ---
 title: '$f(x) = x^2 \sin(1/x)$ for $x \neq 0$, $f(0) = 0$, on $[-1, 1]$'
 level: undergraduate
+figure:
+  widget: function-plot
+  params:
+    x: [-1.2, 1.2]
+    y: [-0.5, 0.9]
+    curves:
+      - {"f": "x^2 sin(1/x)", "label": "f", "samples": 8000, "from": -1, "to": 1, "ends": "[]"}
+    points:
+      - {"at": [0, 0]}
+  caption: |-
+    The graph of $f(x) = x^2 \sin(1/x)$ on $[-1, 1]$, with $f(0) = 0$ (dot).
+  alt: "A curve on [-1, 1] that oscillates faster and faster toward x = 0 while its height shrinks to 0, with a dot at the origin."
 is: [
   continuous,
   Lipschitz_continuous,

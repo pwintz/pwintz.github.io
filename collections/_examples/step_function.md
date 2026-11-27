@@ -1,6 +1,17 @@
 ---
 title: 'The step function: $0$ for $x < 0$ and $1$ for $x \geq 0$'
 level: undergraduate
+figure:
+  widget: function-plot
+  params:
+    x: [-2, 2]
+    y: [-0.5, 1.5]
+    curves:
+      - {"f": "0", "to": 0, "ends": " )"}
+      - {"f": "1", "same": true, "from": 0, "ends": "[ "}
+  caption: |-
+    The graph of the step function, with the value $1$ at $x = 0$ (filled dot).
+  alt: "A horizontal line at height 0 for negative x ending in a hollow dot at the origin, and a horizontal line at height 1 starting with a filled dot at x = 0."
 is: [jump_discontinuity]
 is_not: [
   sequentially_continuous, 

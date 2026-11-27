@@ -1,6 +1,17 @@
 ---
 title: '$(0, 1)$'
 level: high-school
+figure:
+  widget: plane
+  aspect: 4 / 1
+  params:
+    number_line: true
+    x: [-0.5, 1.5]
+    shapes:
+      - { interval: [0, 1], ends: "()" }
+  caption: |-
+    The interval $(0, 1)$.
+  alt: "A number line with the segment from 0 to 1 highlighted, with hollow dots at both ends."
 values:
   interior: '$\operatorname{int} (0, 1) = (0, 1)$'
   boundary: '$\partial (0, 1) = \setdef{0, 1}$'

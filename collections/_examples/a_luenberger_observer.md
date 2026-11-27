@@ -13,5 +13,5 @@ why:
   predictor: >-
     A Luenberger observer is not a predictor, because it estimates the present, not the future.
   estimator: >-
-    A Luenberger observer is an observer, and so an estimator, because it estimates the current state of a deterministic system from its inputs and outputs.
+    A Luenberger observer is an estimator, because it computes an estimate of the current state of a system from its inputs and outputs.
 ---

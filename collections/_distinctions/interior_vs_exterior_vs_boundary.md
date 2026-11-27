@@ -1,5 +1,4 @@
 ---
-published: false
 title: Interior vs. Exterior vs. Boundary
 kind: siblings
 areas: [topology, analysis, geometry]
@@ -26,7 +25,7 @@ examples:
   - example: disk_inside_circle
 see_also:
   - boundary_vs_edge
-  - types_of_sphere_balls_and_circles
+  - sphere_vs_ball
 ---
 ## Notes
 

@@ -2,6 +2,18 @@
 published: false
 title: '$f(x) = \frac{\sin x}{x}$ on $(0, \infty)$'
 level: undergraduate
+figure:
+  widget: function-plot
+  params:
+    x: [-1, 25]
+    y: [-0.4, 1.2]
+    curves:
+      - {"f": "sin(x)/x", "label": "f", "from": 0}
+    points:
+      - {"at": [0, 1], "open": true}
+  caption: |-
+    The graph of $f(x) = (\sin x)/x$ on $(0, \infty)$.
+  alt: "A wave starting near height 1 at the left and rippling toward the x-axis, with smaller and smaller ripples."
 values:
   riemann_integral: 'None'
   improper_integral: '$\lim_{t \to \infty} \int_0^t \frac{\sin x}{x} \dx = \frac{\pi}{2}$'

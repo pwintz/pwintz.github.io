@@ -105,6 +105,176 @@
     color: $muted-text-color;
   }
 
+  /* Figures drawn by assets/ts/src/dictionary_figures.ts (_includes/dictionary-figure.html).
+     The theme makes a figure a flex row with a serif caption; here it is a column in the page font. */
+  .dict-figure {
+    display: block;
+    max-width: 34rem;
+    margin: 1em auto;
+
+    figcaption {
+      margin-top: 0.4em;
+      font-family: inherit;
+      font-size: $type-size-6;
+      color: $muted-text-color;
+      text-align: center;
+
+      p { margin: 0; }
+    }
+  }
+
+  .dict-figure__stage { position: relative; }
+
+  // A math label of a figure, typeset by MathJax over the canvas (Scene.htmlLayer in assets/ts/src/common/scene3d.ts),
+  // with a light halo (shadows in the background color) so that it stays readable over the grid and the shading.
+  .scene-math-label {
+    position: absolute;
+    line-height: 1;
+    white-space: nowrap;
+    pointer-events: none;
+
+    // Offset by the canvas's border, so that canvas pixels and positions in the layer agree.
+    margin: 1px 0 0 1px;
+
+    // The box is exactly the math's box, so that the label sits where it was placed.
+    mjx-container { display: block !important; margin: 0 !important; }
+    svg { display: block; overflow: visible; }
+    filter: drop-shadow(0 0 1px $background-color) drop-shadow(0 0 1px $background-color) drop-shadow(0 0 1.5px $background-color);
+  }
+
+  // A box over a corner of a figure's canvas: the calculations behind the figure, or the key to its symbols
+  // (showCalc() and showKey() in assets/ts/src/figures/widget.ts). Pointers pass through it, so that a point under it
+  // can still be dragged.
+  .dict-figure__box {
+    position: absolute;
+    max-width: calc(100% - 1.2em);
+    padding: 0.3em 0.65em;
+    font-size: $type-size-5;
+    line-height: 1.45;
+    background: rgba($background-color, 0.9);
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    pointer-events: none;
+    font-variant-numeric: tabular-nums;
+
+    &[data-corner="top-left"] { top: 0.6em; left: 0.6em; }
+    &[data-corner="top-right"] { top: 0.6em; right: 0.6em; }
+    &[data-corner="bottom-left"] { bottom: 0.6em; left: 0.6em; }
+    &[data-corner="bottom-right"] { bottom: 0.6em; right: 0.6em; }
+
+    sub, sup { line-height: 0; }
+
+    // An entry that names a part of the figure: pointing at it (or focusing it) highlights the part and the entry.
+    [data-key-id] {
+      pointer-events: auto;
+      margin: 0 -0.3em;
+      padding: 0 0.3em;
+      border-radius: 4px;
+      outline-offset: 1px;
+    }
+    [data-key-id].is-active { background: rgba(128, 128, 128, 0.2); }
+  }
+
+  // Information about a point of a figure, above it, while the pointer is over it (HoverTips in widget.ts).
+  .dict-figure__tip {
+    position: absolute;
+    transform: translate(-50%, calc(-100% - 10px));
+    padding: 0.15em 0.5em;
+    font-size: $type-size-6;
+    white-space: nowrap;
+    background: rgba($background-color, 0.95);
+    border: 1px solid rgba(128, 128, 128, 0.45);
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+    pointer-events: none;
+  }
+
+  .dict-figure__key-symbol {
+    display: inline-block;
+    min-width: 1.2em;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .dict-figure__canvas {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border: 1px solid rgba(128, 128, 128, 0.25);
+    border-radius: 6px;
+  }
+
+  .dict-figure__controls:empty { display: none; }
+
+  .dict-figure__controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.2em 1em;
+
+    .dict-figure__slider { flex: 1 1 100%; }
+  }
+
+  .dict-figure__select {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    margin: 0.4em 0 0;
+    font-size: $type-size-6;
+
+    select { margin: 0; padding: 0.15em 0.3em; font-size: inherit; width: auto; max-width: 100%; }
+  }
+
+  .dict-figure__button {
+    margin: 0.4em 0 0;
+    padding: 0.35em 0.9em;
+    font-size: $type-size-6;
+    // Easy to tap on a touch screen.
+    min-height: 2.25rem;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 4px;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  .dict-figure__slider {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    margin: 0.4em 0 0;
+    font-size: $type-size-6;
+
+    input { flex: 1; margin: 0; }
+  }
+
+  .dict-figure__readout {
+    margin: 0.4em 0 0;
+    min-height: 3em;
+    font-size: $type-size-6;
+
+    // A figure without live text (a static drawing) doesn't keep room for it.
+    &:empty { display: none; }
+  }
+
+  // A changing number in a readout (steady() in assets/ts/src/figures/widget.ts): the number and invisible copies of
+  // its widest values share one grid cell, so the cell keeps the widest width and the text after it doesn't shift.
+  .dict-figure__num {
+    display: inline-grid;
+    justify-items: end;
+    font-variant-numeric: tabular-nums;
+
+    > * { grid-area: 1 / 1; }
+  }
+
+  .dict-figure__num-room { visibility: hidden; }
+
   .definition-levels__note {
     margin: 0 0 0.25em;
     font-size: $type-size-6;
@@ -282,6 +452,11 @@
     p {
       margin: 0;
     }
+  }
+
+  // One term's "why" taken from the example itself, when the distinction gives none.
+  .distinction__term-why + .distinction__term-why {
+    margin-top: 0.4em;
   }
 
   .distinction__check {
@@ -723,6 +898,21 @@
 }
 
 /* Links to dictionary pages that are not published (added by _plugins/dictionary_broken_links.rb) */
+
+// The file of an unpublished dictionary page, under its title (_includes/dictionary-unpublished-file.html).
+.dictionary-unpublished-file {
+  margin: 0 0 0.5em;
+  font-size: $type-size-6;
+  color: $muted-text-color;
+
+  code { user-select: all; cursor: text; }
+}
+
+code.dictionary-broken-link__file {
+  margin-left: 0.3em;
+  font-size: 0.7em;
+  user-select: all;
+}
 
 a.dictionary-broken-link {
   color: #a11d1d;

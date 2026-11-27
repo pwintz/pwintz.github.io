@@ -1,5 +1,4 @@
 ---
-published: false
 title: Connected Graph
 term: connected (graph)
 applies_to: graphs (networks)

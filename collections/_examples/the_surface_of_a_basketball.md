@@ -6,7 +6,8 @@ is: [
   sphere_topological,
   connected,
   path_connected,
-  simply_connected
+  simply_connected,
+  manifold
 ]
 is_not: [
   ball,
@@ -24,4 +25,6 @@ why:
     The surface of a basketball is connected because it is path-connected.
   sphere_topological: >-
     The surface of a basketball is a sphere, and so a topological sphere, because it consists of the points at one distance from the center.
+  manifold: >-
+    The surface of a basketball is a manifold of dimension $2$, because each point has a neighborhood on the surface that is homeomorphic to an open disk in $\reals^2$.
 ---

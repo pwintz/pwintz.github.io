@@ -12,7 +12,11 @@ is_not: [
 ]
 why:
   metrizable: >-
-    The line with two origins is not Hausdorff, and so not normal or metrizable, because the two origins cannot be separated by disjoint open sets; this is why manifolds are required to be Hausdorff.
+    The line with two origins is not metrizable, because it is not Hausdorff, and every metric space is Hausdorff.
   T1_space: >-
     The line with two origins is T₁, because each point is closed.
+  hausdorff_space: >-
+    The line with two origins is not Hausdorff, because the two origins cannot be separated by disjoint open sets. This is why manifolds are required to be Hausdorff.
+  normal_space: >-
+    The line with two origins is not normal, because the two origins are disjoint closed sets that cannot be separated by disjoint open sets.
 ---

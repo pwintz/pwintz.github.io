@@ -1,7 +1,17 @@
 ---
 published: false
-title: '$f(x) = x^2 + x$, $g(x) = x^2$'
+title: '$x^2 + x$ compared with $x^2$, as $x \to \infty$'
 level: high-school
+figure:
+  widget: function-plot
+  params:
+    x: [-2, 2]
+    curves:
+      - {"f": "x^2 + x", "label": "f"}
+      - {"f": "x^2", "label": "g"}
+  caption: |-
+    The graphs of $f(x) = x^2 + x$ and $g(x) = x^2$.
+  alt: "Two upward parabolas of the same shape, one shifted from the other."
 is: [
   big_O,
   big_Theta,

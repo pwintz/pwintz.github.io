@@ -40,6 +40,7 @@ layout: single
 {% assign min_level = min_level | default: site.data.definition_levels.first.id %}
 
 <div class="distinctions">
+  {% include dictionary-unpublished-file.html %}
   <p class="distinction__meta">
     {% for id in page.areas %}{% assign area = site.data.distinction_areas | where: "id", id | first %}{% if area %}<a href="{{ '/dictionary/distinctions/' | relative_url }}?subject={{ area.id }}" title="More distinctions in {{ area.name }}">{{ area.name }}</a>{% unless forloop.last %}, {% endunless %}{% endif %}{% endfor %}{% if page.areas and kind %} · {% endif %}{% if kind %}<a href="{{ '/dictionary/distinctions/' | relative_url }}?kind={{ kind.id }}" title="{{ kind.description }}">{{ kind.name }}</a>{% endif %}
   </p>
@@ -90,7 +91,7 @@ layout: single
             </span>
           </div>
           {% include definition-levels.html definition=definition switchable=true %}
-          {% include definition-examples.html definition=definition related=definition.related_distinctions collapsible=true %}
+          {% unless definition.synonym_of %}{% include definition-examples.html definition=definition related=definition.related_distinctions collapsible=true %}{% endunless %}
           {% include definition-properties.html definition=definition collapsible=true %}
         </div>
       {% else %}
@@ -127,12 +128,14 @@ layout: single
             <section class="distinction__example" data-example-level="{{ example.level }}">
               <h3 class="distinction__example-title"><a href="{{ example.url | relative_url }}">{{ example.title | markdownify | remove: '<p>' | remove: '</p>' }}</a>{% include example-definition-link.html example=example %}</h3>
               {% if example.detail %}<div class="example__detail">{{ example.detail | markdownify }}</div>{% endif %}
-              {% assign why = ref.why | default: example.description %}
-              {% if why %}<div class="distinction__example-why">{{ why | markdownify }}</div>{% endif %}
+              {% capture why %}{% include distinction-example-why.html ref=ref example=example terms=page.terms %}{% endcapture %}
+              {% assign why = why | strip %}
+              {% if why != "" %}<div class="distinction__example-why">{{ why }}</div>{% endif %}
               <table>
                 <tbody>
                   {% for slug in page.terms %}
-                    {% if example.values[slug] or example.is contains slug or example.is_not contains slug %}
+                    {% assign verdict_slug = site.data.dictionary_synonym_of[slug] | default: slug %}
+                    {% if example.values[verdict_slug] or example.is contains verdict_slug or example.is_not contains verdict_slug %}
                       {% assign definition = site.definitions | where: "slug", slug | first %}
                       <tr>
                         <th scope="row">{{ definition.term | default: slug }}</th>
@@ -168,7 +171,7 @@ layout: single
                 <tr data-example-level="{{ example.level }}">
                   <td><a href="{{ example.url | relative_url }}">{{ example.title | markdownify | remove: '<p>' | remove: '</p>' }}</a>{% include example-definition-link.html example=example %}</td>
                   {% for slug in page.terms %}{% include example-verdict.html example=example term=slug %}{% endfor %}
-                  <td>{{ ref.why | default: example.description | markdownify | remove: '<p>' | remove: '</p>' }}</td>
+                  <td>{% include distinction-example-why.html ref=ref example=example terms=page.terms %}</td>
                 </tr>
               {% else %}
                 <tr><td colspan="{{ page.terms.size | plus: 2 }}" class="notice--danger">Missing example: <code>{{ ref.example }}</code></td></tr>

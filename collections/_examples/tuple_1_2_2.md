@@ -15,5 +15,7 @@ why:
   # set: >-
   #   $(1, 2, 2)$ is not a set, because its order matters.
   sequence: >-
-    $(1, 2, 2)$ is a sequence of length three, and so an indexed family, which is different from $(2, 1, 2)$ and from $(1, 2)$.
+    $(1, 2, 2)$ is a sequence of length three, because it lists its terms in order: it is different from $(2, 1, 2)$ and from $(1, 2)$.
+  indexed_family: >-
+    $(1, 2, 2)$ is an indexed family, because it assigns a term to each index $1$, $2$, and $3$.
 ---

@@ -7,9 +7,7 @@ values:
   laplacian: '$\Delta f = 2 + 2 + 0 = 4$'
 why:
   laplacian: >-
-    The sum of the second partial derivatives with respect to $x$, $y$, and $z$.
+    The Laplacian of $f$ is the sum of its second partial derivatives with respect to $x$, $y$, and $z$: $2 + 2 + 0 = 4$.
   jacobian: >-
-    The Laplacian of $f$ is the sum of its second partial derivatives, $2 + 2 + 0 = 4$, and its Jacobian is the row of its first partial derivatives.
-  divergence: >-
-    Divergence or curl are undefined for $f$ because those apply to vector fields, not to scalar functions such as $f$.
+    The Jacobian of $f$ is the row of its first partial derivatives, $(2x, 2y, 0)$.
 ---

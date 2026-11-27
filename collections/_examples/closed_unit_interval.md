@@ -1,6 +1,13 @@
 ---
 title: '$[0, 1]$'
 level: high-school
+figure:
+  widget: self-similar
+  params: { shape: segment }
+  caption: |-
+    The interval $[0, 1]$, as $2$ copies of itself scaled down by a factor of $2$: $[0, 1/2]$ (blue) and $[1/2, 1]$ (orange).
+    Choose "A cover by small balls" to cover the set with balls of diameter $\delta$, and set the exponent $s$.
+  alt: A segment from 0 to 1, its left half in blue and its right half in orange.
 values:
   arc_length: '$1$'
   diameter: '$1$'
@@ -43,7 +50,7 @@ why:
   lebesgue_measure: >-
     The Lebesgue measure of $[0, 1]$ is its length, $1$.
   hausdorff_dimension: >-
-    The Hausdorff dimension of $[0, 1]$ is $1$, as for every segment.
+    The Hausdorff dimension of $[0, 1]$ is $1$, because $[0, 1]$ consists of $2$ copies of itself, each scaled down by a factor of $2$, so $2 = 2^d$ with $d = 1$.
   interior: >-
     The interior of $[0, 1]$ is $(0, 1)$, because no interval around $0$ or $1$ stays inside $[0, 1]$.
   boundary: >-
@@ -61,9 +68,9 @@ why:
   sequentially_compact: >-
     $[0, 1]$ is sequentially compact (as a compact metric space), locally compact, and paracompact, because it is compact.
   bounded: >-
-    $[0, 1]$ is compact because it is closed and bounded.
+    $[0, 1]$ is bounded, because all of its elements are between $0$ and $1$.
   infinite_set: >-
-    $[0, 1]$ is uncountable, and so infinite, because Cantor's diagonal argument shows it cannot be listed.
+    $[0, 1]$ is infinite, because it is uncountable.
   countably_infinite: >-
     $[0, 1]$ is not countably infinite, because it is uncountable.
 ---

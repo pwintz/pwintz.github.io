@@ -11,5 +11,7 @@ why:
   forward_invariant: >-
     $(-\infty, 1)$ is forward invariant because solutions starting in it stay in it.
   region_of_attraction: >-
-    $(-\infty, 1)$ is the region of attraction (or basin of attraction) of $0$ because solutions starting below $1$ converge to $0$, and solutions starting above $1$ diverge.
+    $(-\infty, 1)$ is the region of attraction of $0$, because solutions starting below $1$ converge to $0$, and solutions starting above $1$ diverge.
+  basin_of_attraction: >-
+    $(-\infty, 1)$ is the basin of attraction of $0$, because it is the set of all initial states whose solutions converge to $0$: solutions starting below $1$ converge to $0$, and solutions starting at or above $1$ do not.
 ---

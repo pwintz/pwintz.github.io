@@ -1,7 +1,17 @@
 ---
-published: false
 title: '$\setdef{(x, y) \suchthat x^2 + y^2 = 1}$'
 level: high-school
+figure:
+  widget: plane
+  aspect: 1 / 1
+  params:
+    x: [-1.6, 1.6]
+    y: [-1.6, 1.6]
+    shapes:
+      - { circle: [0, 0, 1] }
+  caption: |-
+    The unit circle $x^2 + y^2 = 1$.
+  alt: "A circle of radius 1 around the origin."
 values:
   arc_length: '$2 \pi$'
   area: '$0$'
@@ -13,7 +23,8 @@ is: [
   circle,
   sphere,
   sphere_topological,
-  circle_topological
+  circle_topological,
+  manifold
 ]
 is_not: [ball]
 why:
@@ -33,4 +44,6 @@ why:
     $\setdef{(x, y) \suchthat x^2 + y^2 = 1}$ is not a ball, because it does not include the inside.
   circle_topological: >-
     $\setdef{(x, y) \suchthat x^2 + y^2 = 1}$ is the unit circle, which is also the unit sphere in $\reals^2$, and so a topological circle and sphere.
+  manifold: >-
+    $\setdef{(x, y) \suchthat x^2 + y^2 = 1}$ is a manifold of dimension $1$, because each point has a neighborhood in the circle that is homeomorphic to an open interval.
 ---

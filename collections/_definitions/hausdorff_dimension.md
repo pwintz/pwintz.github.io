@@ -9,7 +9,7 @@ levels:
       Consider a shape, such as a segment, a square, or a cube.
       Scaling the shape up by a factor of $2$ multiplies its "size" by $2^d$, where $d$ is its dimension: by $2$ for a segment, $4$ for a square, and $8$ for a cube.
       The _Hausdorff dimension_ makes this precise. 
-      
+
   graduate:
     context: metric spaces
     text: |-

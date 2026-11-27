@@ -6,6 +6,9 @@
 #
 # Only links to /dictionary/definitions/<name>, /dictionary/distinctions/<name>, and /dictionary/examples/<name> are checked.
 #
+# In local development (`jekyll serve`), each marked link is followed by the name of the file that holds
+# (or, for a missing page, would hold) the page, so that the file is easy to open.
+#
 # The links are marked in the written HTML files, after every build. This also covers pages that an
 # incremental build (`jekyll serve --incremental`) did not regenerate, and unmarks links whose targets
 # have since been published.
@@ -32,19 +35,34 @@ module DictionaryBrokenLinks
     tag.sub(/(class="[^"]*?) #{CLASS_NAME}"/, '\1"')
   end
 
-  def self.mark(html, published, unpublished, baseurl)
-    pattern = %r{<a\s[^>]*?href="#{Regexp.escape(baseurl)}(/dictionary/(?:#{PREFIXES.join("|")})/[^"]+)"[^>]*>}
-    html.gsub(pattern) do |tag|
-      path = normalize(Regexp.last_match(1))
-      tag = unmark(tag)
-      next tag if published.include?(path)
+  FILE_CLASS = "dictionary-broken-link__file"
+  FILE_PATTERN = %r{<code class="#{FILE_CLASS}">[^<]*</code>}
 
-      title = TITLES[unpublished.include?(path) ? :unpublished : :missing]
-      if tag.include?(' class="')
+  # The file name shown after a marked link: the file of an unpublished page, or "<slug>.md" for a missing one.
+  def self.file_label(path, unpublished)
+    unpublished[path] || "#{path.split("/").last}.md"
+  end
+
+  # unpublished: Hash from the normalized URL of each unpublished page to the base name of its file.
+  # show_files:  Whether to follow each marked link with the name of its file.
+  def self.mark(html, published, unpublished, baseurl, show_files: false)
+    html = html.gsub(FILE_PATTERN, "")
+    pattern = %r{(<a\s[^>]*?href="#{Regexp.escape(baseurl)}(/dictionary/(?:#{PREFIXES.join("|")})/[^"]+)"[^>]*>)(.*?</a>)}m
+    html.gsub(pattern) do |match|
+      tag = Regexp.last_match(1)
+      path = normalize(Regexp.last_match(2))
+      rest = Regexp.last_match(3)
+      tag = unmark(tag)
+      next tag + rest if published.include?(path)
+
+      title = TITLES[unpublished.key?(path) ? :unpublished : :missing]
+      tag = if tag.include?(' class="')
         tag.sub(/class="([^"]*)"/, %(class="\\1 #{CLASS_NAME}" title="#{title}"))
       else
         tag.sub(/\A<a\s/, %(<a class="#{CLASS_NAME}" title="#{title}" ))
       end
+      file = show_files ? %(<code class="#{FILE_CLASS}">#{file_label(path, unpublished)}</code>) : ""
+      tag + rest + file
     end
   end
 end
@@ -54,13 +72,14 @@ Jekyll::Hooks.register :site, :post_write do |site|
   items = (site.pages + site.documents).select { |item| item.respond_to?(:data) }
   unpublished_items, published_items = items.partition { |item| item.data["published"] == false }
   published = published_items.map { |item| DictionaryBrokenLinks.normalize(item.url) }.to_set
-  unpublished = unpublished_items.map { |item| DictionaryBrokenLinks.normalize(item.url) }.to_set
+  unpublished = unpublished_items.to_h { |item| [DictionaryBrokenLinks.normalize(item.url), File.basename(item.path)] }
+  show_files = Jekyll.env == "development"
 
   Dir.glob(File.join(site.dest, "**", "*.html")).each do |file|
     html = File.read(file)
     next unless html.include?("href=")
 
-    marked = DictionaryBrokenLinks.mark(html, published, unpublished, baseurl)
+    marked = DictionaryBrokenLinks.mark(html, published, unpublished, baseurl, show_files: show_files)
     File.write(file, marked) unless marked == html
   end
 end

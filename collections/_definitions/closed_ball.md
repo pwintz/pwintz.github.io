@@ -1,5 +1,4 @@
 ---
-published: false
 title: Closed Ball
 term: closed ball
 applies_to: sets of points

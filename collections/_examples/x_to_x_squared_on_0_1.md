@@ -1,6 +1,16 @@
 ---
 title: '$x \mapsto x^2$ on $[0, 1]$'
 level: high-school
+figure:
+  widget: function-plot
+  params:
+    x: [-0.5, 1.5]
+    y: [-0.3, 1.3]
+    curves:
+      - {"f": "x^2", "from": 0, "to": 1, "ends": "[]"}
+  caption: |-
+    The graph of $x \mapsto x^2$ on $[0, 1]$.
+  alt: "A curve rising from the origin to (1, 1), with dots at its ends."
 values:
   riemann_integral: '$\int_0^1 x^2 \dx = \frac{1}{3}$'
   lebesgue_integral: '$\frac{1}{3}$'

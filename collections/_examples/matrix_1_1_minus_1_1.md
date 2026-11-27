@@ -4,7 +4,7 @@ detail: |-
   $$A = \begin{bmatrix} 1 & 1 \\ -1 & 1 \end{bmatrix}.$$
 level: undergraduate
 is_not: [
-  symmetric
+  symmetric_matrix,
   positive_definite_matrix,
   positive_semidefinite_matrix
 ]

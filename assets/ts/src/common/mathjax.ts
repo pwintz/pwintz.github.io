@@ -97,6 +97,9 @@ let waitingForMath = false;
 
 const escapeHTML = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
+/** Whether `mathHTML` gives typeset math yet (rather than a hidden placeholder). */
+export const mathHTMLReady = () => mathIsReady;
+
 export function mathHTML(tex: string, onReady?: () => void): string {
   const hit = mathCache.get(tex);
   if (hit !== undefined) return hit;

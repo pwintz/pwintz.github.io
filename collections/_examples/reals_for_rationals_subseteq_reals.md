@@ -1,5 +1,4 @@
 ---
-published: false
 title: '$\reals$, for $\rationals \subseteq \reals$'
 level: undergraduate
 is: [boundary] # ??

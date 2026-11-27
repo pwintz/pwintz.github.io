@@ -13,6 +13,10 @@ The script does not link:
   - a term on its own page, or a term that is already linked in the same unit,
   - the words in AMBIGUOUS, which are usually used in an everyday sense. Link those by hand.
 
+Besides each term and its multiword synonyms, the script links plurals, hyphenated forms
+("second-countable"), and related words made with the endings in SUFFIX_FORMS ("homeomorphic" for
+"homeomorphism", "stability" for "stable") or with "-ness" ("compactness").
+
 Usage:
   python3 scripts/link_dictionary_terms.py            # List the links that would be added.
   python3 scripts/link_dictionary_terms.py --write    # Add them.
@@ -33,6 +37,7 @@ AMBIGUOUS = {
     # a hybrid system, "sound like", a combination of things, singular perturbations, the north pole, ...).
     "argument", "flow", "sound", "valid", "combination", "singular", "symmetry", "prior", "pole", "affine",
     "symmetric",  # Linked by hand: symmetric operation, relation, or matrix, or symmetry of a shape.
+    "power",  # Physical power, not a power series or a power of x.
     "set", "sets", "function", "functions", "map", "maps", "point", "points", "number", "numbers",
     "value", "values", "equal", "term", "terms", "factor", "factors", "root", "roots", "area", "volume",
     "length", "size", "average", "mean", "mode", "range", "image", "domain", "graph", "group", "field",
@@ -61,6 +66,38 @@ STOP_PHRASES = re.compile(
 )
 
 
+# Related words that are linked to a term's page, by the ending of the term: "homeomorphic" for
+# "homeomorphism", "differentiability" for "differentiable", "periodicity" for "periodic".
+SUFFIX_FORMS = [
+    ("morphism", ["morphic", "morphically"]),
+    ("able", ["ability"]),
+    ("ible", ["ibility"]),
+    ("ic", ["icity"]),
+    ("ent", ["ence"]),
+]
+
+
+def word_forms(name):
+    """The phrases that refer to the term `name`: plurals, related words, and hyphenated forms.
+
+    >>> {"homeomorphic", "homeomorphisms"} <= word_forms("homeomorphism")
+    True
+    >>> {"stability", "compactness"} <= word_forms("stable") | word_forms("compact")
+    True
+    >>> {"second-countable", "second countability"} <= word_forms("second countable")
+    True
+    """
+    forms = {name}
+    for ending, replacements in SUFFIX_FORMS:
+        if name.endswith(ending):
+            forms.update(name[: -len(ending)] + r for r in replacements)
+    # Nouns made from adjective terms, such as "compactness" and "connectedness".
+    forms.add(name + "ness")
+    # Hyphenated forms of multiword terms, such as "second-countable" for "second countable".
+    forms.update({f.replace(" ", "-") for f in forms})
+    return {f + s for f in forms for s in ("", "s", "es")}
+
+
 def slug_url(path):
     name = os.path.basename(path)[:-3]
     return "/dictionary/definitions/" + name.lower().replace("_", "-")
@@ -79,8 +116,9 @@ def load_terms():
             name = re.sub(r"\s*\(.*?\)", "", str(name)).strip()
             if not name or "$" in name or name.lower() in AMBIGUOUS or len(name) < 4:
                 continue
-            for form in {name, name + "s", name + "es"}:
-                urls.setdefault(form.lower(), set()).add(slug_url(path))
+            for form in word_forms(name):
+                if form.lower() not in AMBIGUOUS:
+                    urls.setdefault(form.lower(), set()).add(slug_url(path))
     # A phrase that names several definitions (e.g., "convergent") is ambiguous, so it is skipped.
     return {phrase: next(iter(u)) for phrase, u in urls.items() if len(u) == 1}
 

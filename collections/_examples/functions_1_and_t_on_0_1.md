@@ -2,6 +2,18 @@
 published: false
 title: 'The functions $f(t) = 1$ and $g(t) = t$ on $[0, 1]$'
 level: undergraduate
+figure:
+  widget: function-plot
+  params:
+    x: [-0.3, 1.3]
+    y: [-0.3, 1.3]
+    var: t
+    curves:
+      - {"f": "1", "label": "f", "from": 0, "to": 1, "ends": "[]"}
+      - {"f": "t", "label": "g", "from": 0, "to": 1, "ends": "[]"}
+  caption: |-
+    The graphs of $f(t) = 1$ and $g(t) = t$ on $[0, 1]$.
+  alt: "A horizontal segment at height 1 and a diagonal segment from the origin to (1, 1)."
 values:
   l2_inner_product: '$\ip{f}{g} = \int_0^1 1 \cdot t \dt = \frac{1}{2}$'
   dot_product: 'None'

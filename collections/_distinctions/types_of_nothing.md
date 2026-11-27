@@ -1,6 +1,6 @@
 ---
 published: false
-title: Zero vs. Empty Set vs. Zero Vector vs. Identity Element vs. Root
+title: Zero vs. Empty Set vs. Zero Vector vs. Identity Element vs. Zero of a Function
 kind: family
 areas: [language, sets]
 summary: >
@@ -11,7 +11,7 @@ terms:
   - empty_set
   - zero_vector
   - identity_element
-  - root_of_function
+  - zero_of_function
 examples:
   - example: zero_for_addition
   - example: empty_set_for_union

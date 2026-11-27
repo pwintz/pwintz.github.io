@@ -10,5 +10,7 @@ why:
   observable: >-
     The double integrator with position output is observable because the velocity can be inferred from how the position changes.
   reconstructible: >-
-    The double integrator with position output is reconstructible and detectable, because it is observable.
+    The double integrator with position output is reconstructible, because it is observable.
+  detectable: >-
+    The double integrator with position output is detectable, because it is observable.
 ---

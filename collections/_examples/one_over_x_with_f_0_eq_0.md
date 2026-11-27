@@ -2,6 +2,18 @@
 published: false
 title: '$f(x) = \frac{1}{x}$ for $x \neq 0$, $f(0) = 0$, at $x = 0$'
 level: high-school
+figure:
+  widget: function-plot
+  params:
+    x: [-3, 3]
+    y: [-5, 5]
+    curves:
+      - {"f": "1/x", "label": "f"}
+    points:
+      - {"at": [0, 0]}
+  caption: |-
+    The graph of $f(x) = 1/x$ for $x \neq 0$, with $f(0) = 0$ (dot).
+  alt: "A hyperbola in two pieces, in the upper right and lower left, and a dot at the origin."
 is: [infinite_discontinuity]
 is_not: [
   removable_discontinuity,

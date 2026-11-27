@@ -11,7 +11,7 @@ levels:
       A _polynomial equation_ is an [equation](/dictionary/definitions/equation) of the form $p(x) = 0$, or one that can be rearranged into that form.
 properties:
   - |-
-    The solutions of $p(x) = 0$ are the [roots](/dictionary/definitions/root-of-function) of $p$.
+    The solutions of $p(x) = 0$ are the [roots](/dictionary/definitions/root-of-polynomial) of $p$.
   - |-
     Polynomial equations of degree at most $4$ can be solved with formulas that use radicals, but those of degree $5$ or more cannot, in general (the Abel–Ruffini theorem).
 ---

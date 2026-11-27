@@ -1,6 +1,13 @@
 ---
 title: 'The Cantor set'
 level: undergraduate
+figure:
+  widget: self-similar
+  params: { shape: cantor }
+  caption: |-
+    The first steps of the construction of the Cantor set, with its left copy (blue) and its right copy (orange).
+    Choose "A cover by small balls" to cover the set with balls of diameter $\delta$, and set the exponent $s$.
+  alt: Stacked rows of intervals, from the interval from 0 to 1 at the top down to many short intervals, the left half of each row in blue and the right half in orange. A slider sets the number of steps.
 values:
   diameter: '$1$'
   cardinality: '$\mathfrak{c}$'

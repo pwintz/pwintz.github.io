@@ -1,5 +1,4 @@
 ---
-published: false
 title: Domain vs. Range vs. Codomain vs. Image vs. Preimage
 kind: siblings
 areas: [sets]

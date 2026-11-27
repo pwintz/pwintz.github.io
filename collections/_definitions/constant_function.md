@@ -1,5 +1,4 @@
 ---
-published: false
 title: Constant Function
 term: constant
 applies_to: functions

@@ -1,6 +1,16 @@
 ---
 title: '$x \mapsto \sin(1/x)$ on $(0, 1]$'
 level: undergraduate
+figure:
+  widget: function-plot
+  params:
+    x: [-0.1, 1.1]
+    y: [-1.4, 1.4]
+    curves:
+      - {"f": "sin(1/x)", "samples": 8000, "from": 0, "to": 1, "ends": " ]"}
+  caption: |-
+    The graph of $x \mapsto \sin(1/x)$ on $(0, 1]$.
+  alt: "A wave between -1 and 1 whose oscillations crowd together toward x = 0."
 is: [
   continuous,
   continuously_differentiable,

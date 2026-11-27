@@ -14,9 +14,11 @@ is_not: [
 ]
 why:
   asymptotically_stable: >-
-    The origin of $\dot{x} = -x + x^2$ is exponentially stable, and so Lyapunov stable, attractive, and asymptotically stable, because the linearization is $\dot{x} = -x$.
+    The origin of $\dot{x} = -x + x^2$ is asymptotically stable, because it is exponentially stable.
   globally_asymptotically_stable: >-
     The origin of $\dot{x} = -x + x^2$ is not globally asymptotically stable, because solutions starting above $x = 1$ diverge.
   finite_time_stable: >-
     The origin of $\dot{x} = -x + x^2$ is not finite-time stable, because nearby solutions converge exponentially but do not reach $0$.
+  exponentially_stable: >-
+    The origin of $\dot{x} = -x + x^2$ is exponentially stable, because its linearization at $0$ is $\dot{x} = -x$.
 ---

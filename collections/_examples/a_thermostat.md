@@ -15,5 +15,7 @@ why:
   open_loop: >-
     A thermostat is not open loop because it reacts to measurements of the temperature.
   feedback: >-
-    A thermostat is closed-loop feedback control because it measures the temperature and switches the heater accordingly.
+    A thermostat is feedback control, because it measures the temperature and switches the heater according to the measurement.
+  closed_loop: >-
+    A thermostat is closed-loop control, because the temperature it controls is measured and fed back to decide whether the heater is on.
 ---

@@ -1,9 +1,9 @@
 ---
-published: false
 title: Connected Space
 term: connected
 applies_to: sets and topological spaces
 levels:
+  # TODO: Add a drawing that shows a shape formed of one or more components that can be dragged around. If they are dragged near each other, they merge (copy the visual style of the dating simulator tool). Show an indicator on the figure about whether or not it is connected.
   elementary:
     text: |-
       Think of a shape drawn on paper, which might be made of several separate pieces.

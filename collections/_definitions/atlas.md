@@ -1,14 +1,19 @@
 ---
-published: false
 title: Atlas
 term: atlas
 applies_to: manifolds
 levels:
+  undergraduate:
+    text: |-
+      Consider a [manifold](/dictionary/definitions/manifold) $M$ of [dimension](/dictionary/definitions/dimension-manifold) $n$.
+      An _atlas_ on $M$ is a collection of [charts](/dictionary/definitions/chart-manifold), each of which assigns $n$ coordinates to the points in one region of $M$, such that every point of $M$ is in the region of at least one chart.
+
+      The name comes from an atlas of the Earth, in which each map shows one region of the surface and the maps together show the whole surface.
   graduate:
     context: differential geometry
     text: |-
       Consider a [manifold](/dictionary/definitions/manifold) $M$.
-      An _atlas_ on $M$ is a collection of [charts](/dictionary/definitions/chart-manifold) $\{(U_\alpha, \varphi_\alpha)\}_{\alpha \in A}$ on $M$ such that the domains cover $M$:
+      An _atlas_ on $M$ is a collection of [charts](/dictionary/definitions/chart-manifold) $\setdef{(U_\alpha, \varphi_\alpha)}_{\alpha \in A}$ on $M$ such that the domains cover $M$:
 
       $$\bigcup_{\alpha \in A} U_\alpha = M.$$
 properties:

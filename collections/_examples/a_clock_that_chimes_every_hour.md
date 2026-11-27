@@ -10,5 +10,7 @@ why:
   periodic: >-
     The chimes of a clock that chimes every hour are periodic, because they occur every hour.
   aperiodic: >-
-    The chimes of a clock that chimes every hour are sporadic, with minimum separation of one hour, so they are not aperiodic.
+    The chimes of a clock that chimes every hour are not aperiodic, because they repeat with a fixed period of one hour.
+  sporadic: >-
+    The chimes of a clock that chimes every hour are sporadic, because consecutive chimes are at least one hour apart.
 ---

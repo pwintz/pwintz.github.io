@@ -16,6 +16,14 @@
   -webkit-animation-delay: 0.15s;
   animation-delay: 0.15s;
 
+  // Hidden until MathJax typesets it (see assets/js/mathjax_config.js), so that raw TeX doesn't show first; the
+  // fade-in waits too, and starts once the math is ready.
+  html.math-pending & {
+    visibility: hidden;
+    -webkit-animation-play-state: paused;
+    animation-play-state: paused;
+  }
+
   @include breakpoint($x-large) {
     max-width: $max-width;
   }

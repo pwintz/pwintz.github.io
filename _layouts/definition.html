@@ -6,16 +6,24 @@ layout: single
   All levels are shown, from elementary to graduate.
 {% endcomment %}
 <div class="distinctions">
+  {% comment %}
+    A synonym page (with "synonym_of", the slug of the definition it means the same as) has no levels,
+    examples, or properties of its own: it points to the canonical definition, and its Markdown body
+    says where each word is more likely to be used. See _plugins/dictionary_index.rb.
+  {% endcomment %}
+  {% include dictionary-unpublished-file.html %}
   <p class="distinction__meta">
-    Definition{% if page.applies_to %} · applies to {{ page.applies_to }}{% endif %}
-    {% if page.synonyms %} · also called {{ page.synonyms | join: ", " }}{% endif %}
+    {% if page.synonym_of %}Synonym{% else %}Definition{% endif %}{% if page.applies_to %} · applies to {{ page.applies_to }}{% endif %}
+    {% if page.synonyms %} · also called {% for word in page.synonyms %}{% assign synonym_page = page.synonym_pages | where: "term", word | first %}{% if synonym_page %}<a href="{{ synonym_page.url | relative_url }}">{{ word }}</a>{% else %}{{ word }}{% endif %}{% unless forloop.last %}, {% endunless %}{% endfor %}{% endif %}
   </p>
 
   {% include definition-levels.html definition=page %}
 
   {% assign related = page.related_distinctions %}
 
-  {% include definition-examples.html definition=page related=related %}
+  {% unless page.synonym_of %}
+    {% include definition-examples.html definition=page related=related %}
+  {% endunless %}
 
   {% if page.properties %}
     <h2 id="properties">Properties</h2>
@@ -24,7 +32,7 @@ layout: single
 
   {% assign notes = content | strip %}
   {% if notes != "" %}
-    <h2 id="notes">Notes</h2>
+    <h2 id="notes">{% if page.synonym_of %}Usage{% else %}Notes{% endif %}</h2>
     {{ content }}
   {% endif %}
 

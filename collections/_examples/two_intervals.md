@@ -1,6 +1,18 @@
 ---
 title: '$[0, 1] \cup [2, 3]$'
 level: high-school
+figure:
+  widget: plane
+  aspect: 4 / 1
+  params:
+    number_line: true
+    x: [-0.5, 3.5]
+    shapes:
+      - { interval: [0, 1], ends: "[]" }
+      - { interval: [2, 3], ends: "[]" }
+  caption: |-
+    The set $[0, 1] \cup [2, 3]$.
+  alt: "A number line with the segments from 0 to 1 and from 2 to 3 highlighted, with a gap between them."
 is_not: [
   connected,
   path_connected,

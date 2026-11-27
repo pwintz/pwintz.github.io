@@ -1,5 +1,4 @@
 ---
-published: false
 title: Boundary vs. Edge
 kind: siblings
 areas: [geometry, topology]
@@ -20,7 +19,7 @@ examples:
   - example: reals_for_rationals_subseteq_reals
 see_also:
   - interior_vs_exterior_vs_boundary
-  - types_of_sphere_balls_and_circles
+  - sphere_vs_ball
   - types_of_illustrations
 ---
 <!-- ## The boundary of a manifold is different

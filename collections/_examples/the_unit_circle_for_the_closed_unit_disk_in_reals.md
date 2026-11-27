@@ -1,6 +1,18 @@
 ---
 title: 'The unit circle, for the closed unit disk in $\reals^2$'
 level: high-school
+figure:
+  widget: plane
+  aspect: 1 / 1
+  params:
+    x: [-1.6, 1.6]
+    y: [-1.6, 1.6]
+    shapes:
+      - { disk: [0, 0, 1] }
+      - { circle: [0, 0, 1], color: 1 }
+  caption: |-
+    The closed unit disk (blue), with the unit circle (orange).
+  alt: "A shaded disk of radius 1 with its boundary circle drawn in orange."
 is: [boundary]
 is_not: [
   edge_polygon,

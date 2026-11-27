@@ -1,5 +1,4 @@
 ---
-published: false
 title: Lower Bound
 term: lower bound
 applies_to: ordered sets
@@ -8,6 +7,7 @@ levels:
     text: |-
       Think of a set of numbers, like $\setdef{3, 5, 8}$.
       A _lower bound_ of the set is a number that is less than or equal to every number in the set.
+      A set can have many lower bounds: $3$, $2$, and $0$ are all lower bounds of $\setdef{3, 5, 8}$.
   high-school:
     context: sets of real numbers
     text: |-

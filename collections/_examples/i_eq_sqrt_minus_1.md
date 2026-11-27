@@ -10,9 +10,11 @@ is_not: [
 ]
 why:
   irrational_number: >-
-    $i$ is not irrational because is not a real number.
+    $i$ is not irrational, because it is not a real number.
   rational_number: >-
-    $i$ not rational because is not a real number.
+    $i$ is not rational, because it is not a real number.
   algebraic_number: >-
-    $i$ is algebraic, because it is a root of $x^2 + 1$, so it is not transcendental.
+    $i$ is algebraic, because it is a root of the polynomial $x^2 + 1$, whose coefficients are integers.
+  transcendental_number: >-
+    $i$ is not transcendental, because it is algebraic: it is a root of $x^2 + 1$.
 ---

@@ -1,5 +1,4 @@
 ---
-published: false
 title: Open vs. Closed Sets
 kind: siblings
 areas: [topology, analysis]

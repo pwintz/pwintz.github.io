@@ -10,5 +10,11 @@ is_not: [
 ]
 why:
   T1_space: >-
-    The Sierpiński space is not T₁, because the point $1$ is not closed, so it is not Hausdorff, normal, or metrizable.
+    The Sierpiński space is not T₁, because the point $1$ is not closed: its complement $\setdef{0}$ is not open.
+  hausdorff_space: >-
+    The Sierpiński space is not Hausdorff, because the only open set containing $0$ is the whole space, which also contains $1$.
+  normal_space: >-
+    The Sierpiński space is not normal, because it is not T₁, and normal spaces are required to be T₁.
+  metrizable: >-
+    The Sierpiński space is not metrizable, because it is not Hausdorff, and every metric space is Hausdorff.
 ---

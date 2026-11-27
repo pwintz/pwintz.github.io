@@ -1,7 +1,20 @@
 ---
-published: false
 title: 'Exponential decay $\dot{x} = -x$, starting from $x_0 = 1$'
 level: undergraduate
+figure:
+  widget: function-plot
+  params:
+    var: t
+    y_var: x
+    x: [-1, 4]
+    y: [-0.3, 3]
+    curves:
+      - { f: "exp(-t)", label: "x(t) = e^{-t}" }
+    points:
+      - { at: [0, 1] }
+  caption: |-
+    The trajectory $x(t) = e^{-t}$, with $x(0) = 1$ (dot).
+  alt: "A decaying exponential curve through the point (0, 1)."
 values:
   trajectory: '$x(t) = e^{-t}$'
   orbit: '$\mathcal{O}(1) = (0, \infty)$'

@@ -2,6 +2,16 @@
 published: false
 title: '$x \mapsto \sin x$, from $\reals$ to $\reals$'
 level: undergraduate
+figure:
+  widget: function-plot
+  params:
+    x: [-7, 7]
+    y: [-1.5, 1.5]
+    curves:
+      - {"f": "sin x"}
+  caption: |-
+    The graph of $x \mapsto \sin x$.
+  alt: "A wave between -1 and 1 that passes through the origin."
 is: [continuous]
 is_not: [
   open_map,

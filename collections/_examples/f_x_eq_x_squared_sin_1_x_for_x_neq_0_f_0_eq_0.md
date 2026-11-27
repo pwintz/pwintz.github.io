@@ -1,6 +1,18 @@
 ---
 title: '$f(x) = x^2 \sin(1/x)$ for $x \neq 0$, $f(0) = 0$'
 level: undergraduate
+figure:
+  widget: function-plot
+  params:
+    x: [-0.5, 0.5]
+    y: [-0.25, 0.25]
+    curves:
+      - {"f": "x^2 sin(1/x)", "label": "f", "samples": 8000}
+    points:
+      - {"at": [0, 0]}
+  caption: |-
+    The graph of $f(x) = x^2 \sin(1/x)$, with $f(0) = 0$ (dot).
+  alt: "A wave that oscillates faster and faster toward x = 0 while its height shrinks like x squared, with a dot at the origin."
 is: [differentiable]
 is_not: [
   continuously_differentiable,

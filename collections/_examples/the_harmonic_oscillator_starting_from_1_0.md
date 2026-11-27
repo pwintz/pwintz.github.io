@@ -2,6 +2,18 @@
 published: false
 title: 'The harmonic oscillator $\dot{x} = y$, $\dot{y} = -x$, starting from $(1, 0)$'
 level: undergraduate
+figure:
+  widget: plane
+  aspect: 1 / 1
+  params:
+    x: [-1.8, 1.8]
+    y: [-1.8, 1.8]
+    field: ["y", "-x"]
+    shapes:
+      - { trajectory: [1, 0], t: 6.28, label: "(1, 0)" }
+  caption: |-
+    The vector field $(y, -x)$, with the trajectory from $(1, 0)$.
+  alt: "Gray arrows circling the origin clockwise, with a circular trajectory of radius 1 starting at (1, 0)."
 values:
   trajectory: '$(x(t), y(t)) = (\cos t, -\sin t)$'
   path_continuous: '$\gamma(s) = (\cos 2 \pi s, -\sin 2 \pi s)$, for $s \in [0, 1]$'

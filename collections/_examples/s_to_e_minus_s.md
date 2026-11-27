@@ -2,6 +2,16 @@
 published: false
 title: '$s \mapsto e^{-s}$'
 level: graduate
+figure:
+  widget: function-plot
+  params:
+    x: [-1, 4]
+    var: s
+    curves:
+      - {"f": "e^(-s)"}
+  caption: |-
+    The graph of $s \mapsto e^{-s}$.
+  alt: "A curve falling from high on the left toward the axis on the right, through (0, 1)."
 is: [class_L]
 is_not: [class_K]
 why:

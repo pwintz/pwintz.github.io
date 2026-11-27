@@ -1,6 +1,20 @@
 ---
 title: 'The unit circle, for $\dot{x} = y$, $\dot{y} = -x$ (the harmonic oscillator)'
 level: undergraduate
+figure:
+  widget: plane
+  aspect: 1 / 1
+  params:
+    x: [-1.8, 1.8]
+    y: [-1.8, 1.8]
+    field: ["y", "-x"]
+    shapes:
+      - { circle: [0, 0, 1], color: 1 }
+      - { trajectory: [0.5, 0], t: 6.28 }
+      - { trajectory: [1.5, 0], t: 6.28 }
+  caption: |-
+    The vector field $(y, -x)$, with the unit circle (orange) and the trajectories from $(0.5, 0)$ and $(1.5, 0)$ (blue).
+  alt: "Gray arrows circling the origin clockwise, with three concentric circular orbits; the middle one, of radius 1, in orange."
 is: [
   periodic_orbit,
   omega_limit_set

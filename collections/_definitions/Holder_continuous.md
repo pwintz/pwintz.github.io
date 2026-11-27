@@ -5,6 +5,13 @@ term: Hölder continuous
 applies_to: functions
 levels:
   undergraduate:
+    context: $\reals^n$
+    text: |-
+      Consider a function $f : \reals^m \to \reals^n$ and a number $\alpha \in (0, 1]$.
+      The function $f$ is _Hölder continuous_ with exponent $\alpha$ if there exists $C \geq 0$ such that
+
+      $$\norm{f(\vect{x}) - f(\vect{y})} \leq C \norm{\vect{x} - \vect{y}}^{\alpha} \quad \text{for all } \vect{x}, \vect{y} \in \reals^m.$$
+  graduate:
     context: metric spaces
     text: |-
       Consider a function $f : X \to Y$ between [metric spaces](/dictionary/definitions/metric-space), and a number $\alpha \in (0, 1]$.

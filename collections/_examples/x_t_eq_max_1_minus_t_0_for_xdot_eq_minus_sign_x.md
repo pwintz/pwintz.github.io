@@ -2,6 +2,18 @@
 published: false
 title: '$x(t) = \max(1 - t, 0)$, for $\dot{x} = -\operatorname{sign}(x)$ with $\operatorname{sign}(0) = 0$'
 level: graduate
+figure:
+  widget: function-plot
+  params:
+    var: t
+    y_var: x
+    x: [-0.5, 2.5]
+    y: [-0.4, 1.4]
+    curves:
+      - { f: "(1 - t + abs(1 - t))/2", from: 0, ends: "[ ", label: "x(t)", label_at: 0.5 }
+  caption: |-
+    The solution $x(t) = \max(1 - t, 0)$, for $t \geq 0$.
+  alt: "A line falling from (0, 1) to (1, 0), then staying at 0, with a corner at t = 1."
 is: [
   caratheodory_solution,
   filippov_solution,

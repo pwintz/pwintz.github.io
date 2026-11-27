@@ -1,6 +1,15 @@
 ---
 title: '$x \mapsto x \abs{x}$'
 level: high-school
+figure:
+  widget: function-plot
+  params:
+    x: [-2, 2]
+    curves:
+      - {"f": "x abs(x)"}
+  caption: |-
+    The graph of $x \mapsto x \abs{x}$.
+  alt: "A curve through the origin that bends down like -x squared on the left and up like x squared on the right."
 is: [
   differentiable,
   continuously_differentiable

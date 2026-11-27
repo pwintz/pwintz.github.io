@@ -1,5 +1,4 @@
 ---
-published: false
 title: Work
 term: work
 applies_to: forces
@@ -21,13 +20,15 @@ levels:
 properties:
   - |-
     Work is a scalar, which can be negative.
-    Negative work means that the [force](/dictionary/definitions/force) opposes the motion of the particle.
+    Negative work means that the [force](/dictionary/definitions/force) opposes the motion of the particle, causing the particle to lose energy.
   - |-
     A [force](/dictionary/definitions/force) that is perpendicular to the [velocity](/dictionary/definitions/velocity) of a particle does no work on the particle.
   - |-
     The work done by the net [force](/dictionary/definitions/force) on a particle is the change in the kinetic [energy](/dictionary/definitions/energy) of the particle (the work-energy theorem).
   - |-
-    The rate at which a [force](/dictionary/definitions/force) does work is the [power](/dictionary/definitions/power) delivered by the force: $\diff{W} / \diff{t} = \vect{F} \cdot \vect{v}$.
+    The rate at which a [force](/dictionary/definitions/force) does work is the [power](/dictionary/definitions/power) $P$ delivered by the force: 
+    
+    $$P = \frac{\diff{W}}{\diff{t}} = \vect{F} \cdot \vect{v}.$$
 ---
 ### Units
 

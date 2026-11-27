@@ -14,5 +14,13 @@ why:
   lyapunov_stable: >-
     The origin of $\dot{x} = 0$ is Lyapunov stable because solutions stay where they start.
   finite_time_stable: >-
-    $\dot{x} = 0$ is not attractive, so it is not asymptotically, globally asymptotically, exponentially, or finite-time stable.
+    The origin of $\dot{x} = 0$ is not finite-time stable, because it is not attractive: solutions that start away from $0$ stay where they start.
+  attractive: >-
+    The origin of $\dot{x} = 0$ is not attractive, because solutions that start away from $0$ stay where they start, so they do not converge to $0$.
+  asymptotically_stable: >-
+    The origin of $\dot{x} = 0$ is not asymptotically stable, because it is not attractive: solutions that start away from $0$ stay where they start.
+  globally_asymptotically_stable: >-
+    The origin of $\dot{x} = 0$ is not globally asymptotically stable, because it is not attractive: solutions that start away from $0$ stay where they start.
+  exponentially_stable: >-
+    The origin of $\dot{x} = 0$ is not exponentially stable, because it is not attractive: solutions that start away from $0$ stay where they start.
 ---

@@ -1,0 +1,9 @@
+{% comment %}
+  For a dictionary page marked `published: false`, which only a local preview built with --unpublished shows: the
+  path of the page's file, which one click selects whole, to copy into the editor (such as VS Code's Quick Open).
+{% endcomment %}
+{% if page.published == false %}
+  {% comment %} page.path is relative to the collections directory (collections_dir in _config.yml). {% endcomment %}
+  {% assign file = page.path %}{% if site.collections_dir %}{% assign file = site.collections_dir | append: "/" | append: page.path %}{% endif %}
+  <p class="dictionary-unpublished-file">Unpublished · <code title="Click to select the path">{{ file }}</code></p>
+{% endif %}

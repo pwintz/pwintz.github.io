@@ -8,6 +8,13 @@
 #   positive_examples:    Examples whose "is" lists the term, other than worked examples.
 #   negative_examples:    Examples whose "is_not" lists the term.
 #   related_distinctions: Distinctions whose "terms" list the term.
+#   canonical:            (Synonym pages, which have "synonym_of") The definition that the page is a synonym of.
+#   synonym_pages:        (Canonical pages) The synonym pages whose "synonym_of" is this definition.
+#
+# Also sets site.data["dictionary_synonym_of"], a map from the slug of each synonym page to the slug of its
+# canonical definition, so that example grids can show the canonical term's verdict in a synonym's column.
+# Warns about synonym pages whose canonical definition is missing or that have levels of their own, and
+# about examples that list a synonym in "is", "is_not", "values", or "why" (they belong under the canonical term).
 #
 # The tests match Liquid's "contains" operator (include? on the hash, array, or string).
 
@@ -24,6 +31,37 @@ module DictionaryIndex
       definitions = site.collections["definitions"]&.docs || []
       examples = site.collections["examples"]&.docs || []
       distinctions = site.collections["distinctions"]&.docs || []
+
+      by_slug = definitions.to_h { |d| [d.data["slug"], d] }
+      synonym_of = {}
+      definitions.each do |definition|
+        canonical_slug = definition.data["synonym_of"]
+        next unless canonical_slug
+        canonical = by_slug[canonical_slug]
+        slug = definition.data["slug"]
+        unless canonical
+          Jekyll.logger.warn "Dictionary:", "#{slug} is a synonym of #{canonical_slug}, which is not a definition."
+          next
+        end
+        if definition.data["levels"]
+          Jekyll.logger.warn "Dictionary:", "#{slug} is a synonym of #{canonical_slug}, so its definition belongs on #{canonical_slug}, not in its own levels."
+        end
+        synonym_of[slug] = canonical_slug
+        definition.data["canonical"] = canonical
+        (canonical.data["synonym_pages"] ||= []) << definition
+      end
+      site.data["dictionary_synonym_of"] = synonym_of
+
+      examples.each do |example|
+        %w[is is_not values why].each do |field|
+          listed = example.data[field]
+          listed = listed.keys if listed.is_a?(Hash)
+          next unless listed.is_a?(Array)
+          (listed & synonym_of.keys).each do |slug|
+            Jekyll.logger.warn "Dictionary:", "#{example.data["slug"]} lists the synonym #{slug} in \"#{field}\"; list #{synonym_of[slug]} instead."
+          end
+        end
+      end
 
       definitions.each do |definition|
         term = definition.data["slug"]

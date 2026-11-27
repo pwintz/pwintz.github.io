@@ -11,7 +11,13 @@ levels:
       So the signed angle is a number $\theta$ such that
 
       $$-180^\circ < \theta \le 180^\circ.$$
-
+    figure:
+      widget: angle
+      params: { mode: signed }
+      caption: |-
+        The signed angle from $\vect{x}$ to $\vect{y}$, as a turn from $\vect{x}$ toward $\vect{y}$: counterclockwise (green) or clockwise (orange).
+        Drag the tips of $\vect{x}$ and $\vect{y}$.
+      alt: Two vectors x and y from the origin, with a curved arrow turning from x to y the short way, labeled with the signed angle in degrees. The tips of x and y can be dragged.
 
   # TODO: maybe would be better to use the dot product and cross product. 
   undergraduate:

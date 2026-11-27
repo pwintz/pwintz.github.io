@@ -23,7 +23,7 @@ examples:
   - example: empty_set_and_set_1_2
   - example: the_center_c_of_a_sphere_and_the_sphere
 see_also:
-  - types_of_sphere_balls_and_circles
+  - sphere_vs_ball
   - types_of_collections
 ---
 ## "In" is not "inside"

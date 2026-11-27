@@ -1,5 +1,4 @@
 ---
-published: false
 title: "Range: Statistical Range vs. Image vs. Codomain"
 kind: conflicting
 areas: [sets, statistics]

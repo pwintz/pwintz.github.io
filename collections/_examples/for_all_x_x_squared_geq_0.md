@@ -5,7 +5,7 @@ is: [
   sentence_logic,
   proposition,
   formula_logic,
-  expression
+  expression_logic
 ]
 is_not: [
   predicate,
@@ -22,8 +22,8 @@ why:
     With $x$ ranging over $\reals$, $\forall x \, (x^2 \geq 0)$ is a proposition, because it is true.
   predicate: >-
     $\forall x \, (x^2 \geq 0)$ is not a predicate, because it has no free variables.
-  expression: >-
-    $\forall x \, (x^2 \geq 0)$ is an expression in the logic sense, because $\forall x \, (x^2 \geq 0)$ is a well-formed string of symbols; the expression is a formula, not a term.
+  expression_logic: >-
+    $\forall x \, (x^2 \geq 0)$ is an expression in the logic sense, because $\forall x \, (x^2 \geq 0)$ is a well-formed string of symbols.
   propositional_formula: >-
     $\forall x \, (x^2 \geq 0)$ is not a propositional formula, because the formula uses the quantifier $\forall$, which propositional logic does not have.
   formula_logic: >-

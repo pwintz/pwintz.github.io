@@ -1,6 +1,17 @@
 ---
 title: '$[0, 1)$, as a subset of $\reals$'
 level: high-school
+figure:
+  widget: plane
+  aspect: 4 / 1
+  params:
+    number_line: true
+    x: [-0.5, 1.5]
+    shapes:
+      - { interval: [0, 1], ends: "[)" }
+  caption: |-
+    The interval $[0, 1)$.
+  alt: "A number line with the segment from 0 to 1 highlighted, with a filled dot at 0 and a hollow dot at 1."
 is: [borel_set]
 is_not: [
   open_set,

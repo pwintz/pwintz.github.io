@@ -2,6 +2,18 @@
 published: false
 title: 'The sequence $a_n = (-1)^{n + 1}$, for $n \geq 1$: $1, -1, 1, -1, \dots$'
 level: high-school
+figure:
+  widget: function-plot
+  params:
+    var: n
+    y_var: a_n
+    x: [0, 12.5]
+    y: [-1.5, 1.5]
+    curves:
+      - { f: "(-1)^(n + 1)", from: 1, to: 12, discrete: true }
+  caption: |-
+    The terms $a_n = (-1)^{n + 1}$, for $n$ from $1$ to $12$.
+  alt: "Dots alternating between heights 1 and -1."
 is: [
   bounded,
   divergent
@@ -21,9 +33,7 @@ why:
   divergent: >-
     The sequence $1, -1, 1, -1, \dots$ is divergent because it does not converge.
   liminf: >-
-    The terms keep returning to $1$ and $-1$, so the limit superior is $1$ and the limit inferior is $-1$.
-  infinity: >-
-    The sequence $a_n = (-1)^{n + 1}$, for $n \geq 1$: $1, -1, 1, -1, \dots$, is bounded, so it does not go to infinity.
+    The limit inferior of $1, -1, 1, -1, \dots$ is $-1$, because the terms keep returning to $-1$ and none is smaller.
   limsup: >-
-    The limit superior and limit inferior of $1, -1, 1, -1, \dots$ are its largest and smallest subsequential limits, $1$ and $-1$.
+    The limit superior of $1, -1, 1, -1, \dots$ is $1$, because the terms keep returning to $1$ and none is larger.
 ---

@@ -1,9 +1,8 @@
 ---
-published: false
 title: Flow
 term: flow
 applies_to: dynamical systems
-synonyms: [solution map]
+synonyms: [solution map, flow map]
 levels:
   undergraduate:
     context: ordinary differential equations

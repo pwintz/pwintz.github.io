@@ -86,7 +86,7 @@ I think the following make sense to sort the topics into priority levels, based 
 - [Types of PDEs_boundary_conditions](/collections/_distinctions/types_of_PDEs_boundary_conditions.md)
 - [Types of PDEs_eigenvalue_classification](/collections/_distinctions/types_of_PDEs_eigenvalue_classification.md)
 - [Types of scalar derivatives](/collections/_distinctions/types_of_scalar_derivatives.md)
-- [Types of sphere_balls_and_circles](/collections/_distinctions/types_of_sphere_balls_and_circles.md)
+- [Sphere vs. Ball](/collections/_distinctions/sphere_vs_ball.md)
 - [Types of topological_spaces](/collections/_distinctions/types_of_topological_spaces.md)
 
 
@@ -259,6 +259,22 @@ A term's lowest level is a guide; between terms at the same level, put the more 
 **Synonyms pages are only for exact synonyms.** Use `kind: synonyms` only when the words mean exactly the same thing, such as "function" and "map."
 Words for related but different concepts belong on a siblings or family page.
 
+**A term that is an exact synonym of another gets a synonym page, not a definition.**
+Give the page `synonym_of` (the slug of the canonical definition) instead of `levels`, `properties`, and examples, and use the Markdown body to say where each word is more likely to be used.
+The page points to the canonical definition, and its body is shown under a "Usage" heading.
+Examples list only the canonical term in `is`, `is_not`, `values`, and `why`, since listing the synonym too would repeat every verdict; on distinction pages, a synonym's column shows the canonical term's verdicts.
+The build warns about examples that list a synonym (`_plugins/dictionary_index.rb`).
+
+```yaml
+---
+title: Map
+term: map
+synonym_of: function
+synonyms: [mapping]
+---
+- "Map" is more common than "function" when the function preserves some structure, ...
+```
+
 **Conflicting definitions get their own page.** A page with `kind: conflicting` lists only the rival meanings of one term (such as "range" or "total derivative"), each in its own definition file, plus closely related terms that help disambiguate.
 Do not mix conflicting meanings into a siblings, family, or hierarchy page: leave the ambiguous term out of that page's `terms` and link to the conflicting page from a note.
 
@@ -348,6 +364,58 @@ In a YAML flow list, quote a value that contains braces, e.g., `synonyms: ['$\ab
 Use a literal block scalar (`|-`), not a folded one (`>-`), for a value that contains a display equation: a folded scalar turns the blank lines around `$$...$$` into single line breaks, so the equation stays in the paragraph and renders inline.
 Write `f^{\prime}` instead of `f'` (smart quotes would change the apostrophe), and `\lvert x \rvert` instead of `|x|`.
 Write `\ast` instead of `*` in math, such as `$T^{\ast}$` for an adjoint, because kramdown reads two asterisks in a paragraph as emphasis before MathJax sees the math, which deletes the asterisks and italicizes the text between them.
+
+### Figures
+
+A definition level or an example can have one figure, drawn on a canvas by a _widget_ in `assets/ts/src/figures/` (registered in `WIDGETS` in `assets/ts/src/dictionary_figures.ts`).
+Before drawing something new, look for a widget below that already draws it: most new figures need only front matter.
+
+**Where it goes:** In an example, `figure` is a top-level key.
+In a definition, it goes inside a level (`levels.high-school.figure`), under that level's `text`.
+
+```yaml
+figure:
+  widget: function-plot            # A widget from the table below.
+  aspect: 1 / 1                    # (Optional) Width / height of the canvas (default 4 / 3).
+  params:                          # Settings for the widget (see the comment at the top of its file).
+    x: [-3, 3]
+    curves:
+      - { f: "x^2", label: f }
+    # calc_corner / key_corner: (Optional) move the calculation box or the key to another corner.
+  caption: |-
+    The graph of $f(x) = x^2$.
+  alt: "A parabola opening upward with its vertex at the origin."
+```
+
+**Captions** only say what is drawn (and, briefly, how to use the controls, such as "Drag $a$.").
+Explanations go in the definition or the example's `why`.
+
+**Conventions** (handled by the helpers in `widget.ts`, `plot2d.ts`, and `common/scene3d.ts`):
+text in the figure matches the page (math is typeset by MathJax); calculations go in a box over a corner of the canvas (`showCalc`) and keys in another (`showKey`); numbers that change keep a steady width; labels keep clear of curves; dots can show their values on hover (`HoverTips`); and plots where shapes or slopes matter use equal scales (`equal: true` in `function-plot`, and always in `plane`).
+
+#### Available widgets
+
+Each widget's file starts with a comment that lists all of its params.
+"Used in" names a few files that use the widget, to copy from.
+
+| Widget | Draws | Reader can | Main params | Used in |
+|---|---|---|---|---|
+| `function-plot` (`function_plot.ts`) | Graphs of functions of one variable, given by formulas (`expression.ts`), with dots for endpoints and points; sequences as dots | Hover over a sequence's terms to see their values; zoom the y-axis (`zoom`); point at a part named in the key (in the plot or the key) to highlight it | `x`, `y`, `var`, `y_var`, `curves` (`f`, `from`, `to`, `ends`, `label`, `key`, `dash`, `color`, `discrete`), `points`, `segments` (`key`), `equal`, `zoom` | `x_sq_on_reals`, `step_function`, `sequence_one_over_n`, `decimals_of_sqrt_2_in_rationals`, `e_x_composed_with_ln_x_on_0_infinity`, `topologist_sine_curve` |
+| `plane` (`plane_figure.ts`) | Sets, curves, and vectors in $\reals^2$ with equal scales, or a number line: disks, circles, polygons, parametric curves, segments, lines, half-planes, vectors, points, intervals; a vector field and its trajectories; images under a linear map | Click a line of symmetry to reflect the shapes (`reflect`); rotate them with a button (`rotate`) | `x`, `y`, `grid`, `number_line`, `shapes` (each with `color`, `dash`, `open`, `label`, `label_at`, `words`, `map`), `field`, `reflect`, `rotate` | `a_square`, `annulus`, `figure_eight_curve`, `0_for_s_eq_0_1`, `swap_coordinates_map`, `the_circle_r_eq_1_for_rdot_eq_r_r_minus_1_dot` |
+| `diagram` (`diagram.ts`) | Boxes and arrows, or dots and lines: flowcharts, block diagrams, networks | — | `nodes` (`id`, `text`, `x`, `y`, `shape`), `edges` (`from`, `to`, `text`, `via`, `head`), `arrows` | `a_flowchart`, `dots_for_cities_and_lines_for_roads`, `the_image_of_1_2_3_under_doubling` |
+| `function-graph` (`function_graph.ts`) | The graph of a function with the point $(x, f(x))$ and dashed lines to the axes | Drag $x$ | `fn` (a key of `FUNCTIONS` in `functions.ts`), `equation` | `graph_of_function` (definition), `a_drawing_of_y_eq_x_squared_on_coordinate_axes` |
+| `integral` (`integral.ts`) | The signed area under a graph from $a$ to $b$, with the areas written in the regions; or a Riemann sum | Drag $a$ and $b$; with `riemann`, choose the number of subintervals and the sample points | `fn` (a key of `FUNCTIONS`), `riemann`, `a`, `b` | `integral`, `riemann_integral` (definitions) |
+| `taylor` (`taylor.ts`) | A function and its Taylor polynomial $P_n$ at $a$, with $P_n(x)$ written out | Set the degree $n$; drag $a$ (`drag`) | `fn` (`sin`, `cos`, `exp`, `ln1p`, `geometric`), `at`, `drag`, `degree`, `max_degree`, `x`, `y` | `taylor_polynomial` (definition), `f_x_eq_1_over_1_minus_x_at_x_eq_0` |
+| `density` (`density.ts`) | The standard normal density with a shaded area as a probability; or the CDF below it | Drag $a$ and $b$, or $x$ | `mode` (`interval` or `cumulative`) | `a_standard_normal_random_variable`, `cumulative_distribution_function` (definition) |
+| `angle` (`angle.ts`) | An angle $\angle ABC$ and its measure; an arc of length $s$ on a circle of radius $r$; a signed angle between vectors; a rotation that can go around several times | Drag $A$ and $C$; set $r$; turn the segment; play a turn | `mode` (`angle`, `measure`, `signed`, `rotation`), `square`, `face` (`clock`, `wheel`), `start`, `play` | `the_corner_of_a_square`, `turning_a_clocks_minute_hand_from_12_to_3`, `angular_measure` (definition) |
+| `neighborhood` (`neighborhood.ts`) | A set in the plane and a point $x$ with an open ball around it that fits inside | Drag $x$ (it snaps to the boundary, where no ball fits) | `set` (`closed` or `open`), `ball`, `name`, `point` | `neighborhood`, `open_neighborhood` (definitions) |
+| `neighborhood-basis` (`neighborhood_basis.ts`) | The balls of radius $1/k$ around a point, and an open set $U$ | Drag and shrink $U$ | `name` | `first_countable` (definition) |
+| `self-similar` (`self_similar.ts`) | A segment, square, or fractal (Cantor set, Sierpiński triangle, Koch curve) as $N$ copies of itself scaled by $r$; covers by small balls, for the Hausdorff dimension | Choose the shape, the construction step, and the exponent $s$ | `shape`, `steps` | `the_cantor_set`, `the_koch_curve`, `closed_unit_interval` |
+| `quadcopter` (`quadcopter.ts`) | A hovering drone and the signals acting on it: wind gusts, GPS noise, motor commands, an unmodeled payload | Set the strength; pause the animation | `scenario` (`gust`, `gps`, `motors`, `payload`) | `a_gust_of_wind_hitting_a_quadcopter_drone`, `jitter_in_a_quadcopter_drones_gps_position` |
+| `arens-fort` (`arens_fort.ts`) | The Arens–Fort space $\nats^2$ with a chosen set and its columns | Choose the set | — | `the_arens_fort_space` |
+
+**Adding a widget:** Write it in `assets/ts/src/figures/<name>.ts`, starting with a comment that describes the drawing and lists its params; register it in `WIDGETS`; add unit tests for its calculations in `assets/ts/test/`; and add a row to the table above.
+Prefer adding a param to an existing widget when the drawing is close to one it already makes.
 
 ## LaTeX Macros
 

@@ -1,5 +1,4 @@
 ---
-published: false
 title: Orbit
 term: orbit
 applies_to: dynamical systems
@@ -12,7 +11,7 @@ levels:
     context: ordinary differential equations
     text: |-
       Consider a dynamical system $\dot{x} = f(x)$ on $\reals^n$ whose solutions are unique, and a state $x_0$.
-      Let $x : I \to \reals^n$ be the maximal solution with $x(0) = x_0$.
+      Let $x : I \to \reals^n$ be the [maximal solution](/dictionary/definitions/maximal-solution) with $x(0) = x_0$.
       The _orbit_ of $x_0$ is the [range](/dictionary/definitions/range-image) of $x$:
 
       $$\mathcal{O}(x_0) = \setdef{x(t) : t \in I}.$$

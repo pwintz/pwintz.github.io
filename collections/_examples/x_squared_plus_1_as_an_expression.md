@@ -3,7 +3,8 @@ title: '$x^2 + 1$'
 level: high-school
 is: [
   expression,
-  term_logic
+  term_logic,
+  expression_logic
 ]
 is_not: [
   proposition,
@@ -24,4 +25,6 @@ why:
     $x^2 + 1$ is not a formula, because $x^2 + 1$ is a term that names a number and makes no claim that could be true or false.
   term_logic: >-
     $x^2 + 1$ is a term, because $x^2 + 1$ is built from the variable $x$ and the constants $2$ and $1$ with the function symbols for squaring and addition, and $x^2 + 1$ names a number once $x$ is given a value.
+  expression_logic: >-
+    $x^2 + 1$ is an expression in the logic sense, because $x^2 + 1$ is a well-formed string of symbols, namely a term.
 ---

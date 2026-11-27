@@ -18,6 +18,9 @@ excerpt: "The differences between mathematical terms that are easily confused."
   <li><a href="{{ '/dictionary/distinctions/' | relative_url }}">Distinctions</a>: groups of easily confused terms, with the differences between them.</li>
   <li><a href="{{ '/dictionary/definitions/' | relative_url }}">Definitions</a>: definitions of each term at several levels, from elementary to graduate.</li>
   <li><a href="{{ '/dictionary/examples/' | relative_url }}">Examples</a>: examples and non-examples of the terms.</li>
+  {% comment %} Listed only while the figures page is built (it is unpublished for now), so the live site has no broken link. {% endcomment %}
+  {% assign figures_page = site.pages | where: "permalink", "/dictionary/figures/" | first %}
+  {% if figures_page %}<li><a href="{{ figures_page.url | relative_url }}">Figures</a>: the definitions and examples that have figures.</li>{% endif %}
   <li><a href="{{ '/settings/notation/' | relative_url }}">Notation</a>: choose how the math is written, such as $\operatorname{im} T$ or $\mathcal{R}(T)$ for the range.</li>
 </ul>
 
@@ -28,7 +31,8 @@ excerpt: "The differences between mathematical terms that are easily confused."
   </label>
 </form>
 <p id="dictionary-search-status" class="dictionary-empty" aria-live="polite" hidden></p>
-<div id="dictionary-search-results" class="dictionary-search">
+{% comment %} MathJax skips the results (mathjax_ignore) when the page loads, because typesetting the math in every hidden item froze the page; the script below typesets each item when it is first shown. {% endcomment %}
+<div id="dictionary-search-results" class="dictionary-search mathjax_ignore">
   <section class="dictionary-search__group" data-search-group hidden>
     <h2 class="dictionary-search__heading">Distinctions <span class="dictionary-search__count"></span></h2>
     <ul class="dictionary-search__list">
@@ -54,7 +58,7 @@ excerpt: "The differences between mathematical terms that are easily confused."
           <div class="dictionary-search__title-row">
             <a class="dictionary-search__title" href="{{ d.url | relative_url }}">{{ name }}</a>
             <span class="dictionary-search__synonym" hidden></span>
-            {%- if d.applies_to %}<span class="dictionary-search__meta">{{ d.applies_to }}</span>{% endif %}
+            {%- if d.synonym_of %}<span class="dictionary-search__meta">synonym of {{ d.canonical.term | default: d.synonym_of }}</span>{% elsif d.applies_to %}<span class="dictionary-search__meta">{{ d.applies_to }}</span>{% endif %}
             <span class="dictionary-search__levels">
               {%- for level in site.data.definition_levels %}{% if d.levels[level.id] %}<span class="level-badge">{{ level.name }}</span>{% endif %}{% endfor -%}
             </span>
@@ -94,7 +98,18 @@ excerpt: "The differences between mathematical terms that are easily confused."
     .replace(/\\[a-zA-Z]+\*?/g, " ")
     .replace(/[${}^_\\]/g, "")
     .toLowerCase();
-  const matches = (text, words) => { const t = plain(text); return words.every(w => t.includes(w)); };
+  // The plain form of each title and synonym, computed once, since every keystroke checks every item.
+  const plainCache = new Map();
+  const plainOf = text => { let t = plainCache.get(text); if (t === undefined) plainCache.set(text, t = plain(text)); return t; };
+  const matches = (text, words) => { const t = plainOf(text); return words.every(w => t.includes(w)); };
+
+  // Typesets the math in items when they are first shown (see the mathjax_ignore comment above).
+  const typeset = items => {
+    const fresh = items.filter(item => !item.dataset.typeset);
+    if (fresh.length === 0 || !window.MathJax?.startup?.promise) return;
+    for (const item of fresh) item.dataset.typeset = "1";
+    MathJax.startup.promise = MathJax.startup.promise.then(() => MathJax.typesetPromise(fresh)).catch(err => console.error(err));
+  };
 
   // Groups that the reader expanded to show every match. Reset when the search changes.
   const expanded = new Set();
@@ -102,6 +117,7 @@ excerpt: "The differences between mathematical terms that are easily confused."
   function update() {
     const words = input.value.toLowerCase().split(/\s+/).filter(Boolean);
     let total = 0;
+    const shown = [];
     for (const group of groups) {
       let count = 0;
       for (const item of group.querySelectorAll("li")) {
@@ -119,11 +135,14 @@ excerpt: "The differences between mathematical terms that are easily confused."
             synonymLabel.dataset.text = text;
             synonymLabel.textContent = text;
             // Synonyms can contain math, such as "$+$".
-            if (synonym && synonym.includes("$")) window.MathJax?.typesetPromise?.([synonymLabel]);
+            if (synonym && synonym.includes("$") && window.MathJax?.startup?.promise) {
+              MathJax.startup.promise = MathJax.startup.promise.then(() => MathJax.typesetPromise([synonymLabel])).catch(err => console.error(err));
+            }
           }
         }
         if (hit) count++;
         item.hidden = !hit || (count > LIMIT && !expanded.has(group));
+        if (!item.hidden) shown.push(item);
       }
       group.hidden = count === 0;
       group.querySelector(".dictionary-search__count").textContent = count;
@@ -132,6 +151,7 @@ excerpt: "The differences between mathematical terms that are easily confused."
       more.textContent = `Show all ${count} ${group.querySelector(".dictionary-search__heading").firstChild.textContent.trim().toLowerCase()}`;
       total += count;
     }
+    typeset(shown);
     status.textContent = words.length === 0 ? "" : total === 0 ? "No matches." : "";
     status.hidden = !status.textContent;
     const params = new URLSearchParams(location.search);

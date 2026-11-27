@@ -22,7 +22,7 @@ see_also:
   - types_of_distances
   - types_of_inner_products
   - norm_vs_metric_vs_inner_product
-  - types_of_sphere_balls_and_circles
+  - sphere_vs_ball
 ---
 ## Notes
 

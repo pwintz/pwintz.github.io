@@ -1,5 +1,4 @@
 ---
-published: false
 title: 'A $2 \times 3 \times 4$ box'
 level: elementary
 values:

@@ -1,0 +1,22 @@
+{% comment %}
+  The "why" for an example on a distinction page.
+  Uses the distinction's own "why" for the example, if it has one; otherwise the example's description;
+  otherwise the example's "why" for each of the distinction's terms, one per line, labeled with the term.
+
+  Parameters:
+    ref:     The entry of the distinction's "examples" list.
+    example: The document from the "examples" collection.
+    terms:   The distinction's list of term slugs.
+{% endcomment %}
+{%- assign own = include.ref.why | default: include.example.description -%}
+{%- if own -%}
+  {{ own | markdownify | remove: '<p>' | remove: '</p>' }}
+{%- else -%}
+  {%- for slug in include.terms -%}
+    {%- assign term_why = include.example.why[slug] -%}
+    {%- if term_why -%}
+      {%- assign definition = site.definitions | where: "slug", slug | first -%}
+      <div class="distinction__term-why"><strong>{{ definition.term | default: slug }}:</strong> {{ term_why | markdownify | remove: '<p>' | remove: '</p>' }}</div>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}

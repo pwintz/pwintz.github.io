@@ -1,7 +1,17 @@
 ---
-published: false
 title: '$\setdef{(x, y) \suchthat x^2 + y^2 < 1}$'
 level: high-school
+figure:
+  widget: plane
+  aspect: 1 / 1
+  params:
+    x: [-1.6, 1.6]
+    y: [-1.6, 1.6]
+    shapes:
+      - { disk: [0, 0, 1], open: true }
+  caption: |-
+    The set $x^2 + y^2 < 1$ (shaded), without its boundary circle (dashed).
+  alt: "A shaded disk of radius 1 around the origin, with a dashed boundary circle."
 is: [
   ball,
   open_ball

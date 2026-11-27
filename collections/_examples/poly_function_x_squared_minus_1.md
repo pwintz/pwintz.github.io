@@ -1,6 +1,15 @@
 ---
 title: '$f(x) = x^2 - 1$, for $x \in \reals$'
 level: high-school
+figure:
+  widget: function-plot
+  params:
+    x: [-2, 2]
+    curves:
+      - {"f": "x^2 - 1", "label": "f"}
+  caption: |-
+    The graph of $f(x) = x^2 - 1$.
+  alt: "A parabola opening upward with its vertex at (0, -1), crossing the x-axis at -1 and 1."
 is: [
   polynomial_function,
   function

@@ -11,7 +11,9 @@ is_not: [
 ]
 why:
   chart: >-
-    A scatter plot is a plot, and a chart, because it displays data on coordinate axes.
+    A scatter plot of height vs. weight is a chart, because it displays data visually.
   graph_of_function: >-
-    A scatter plot of height vs. weight is not the graph of a function or a diagram, because its points are data, not values of a function.
+    A scatter plot of height vs. weight is not the graph of a function, because its points are data, not values of a function: two people of the same height can have different weights.
+  plot: >-
+    A scatter plot of height vs. weight is a plot, because it displays data on coordinate axes.
 ---

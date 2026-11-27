@@ -1,5 +1,4 @@
 ---
-published: false
 title: Graph of a Function
 term: graph (of a function)
 applies_to: functions
@@ -12,6 +11,12 @@ levels:
     text: |-
       Consider a function $f$, and the points $(x, f(x))$ in the plane.
       The _graph_ of $f$ is the set of those points, or a drawing of that set on coordinate axes.
+    figure:
+      widget: function-graph
+      caption: |-
+        The graph of $f(x) = x^2$, with the point $(x, f(x))$.
+        Drag $x$.
+      alt: The parabola y equals x squared on coordinate axes, with a point x on the x-axis that can be dragged and the point (x, f(x)) marked on the parabola.
   undergraduate:
     text: |-
       Consider a function $f : X \to Y$.

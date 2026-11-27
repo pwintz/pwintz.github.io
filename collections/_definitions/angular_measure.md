@@ -15,6 +15,13 @@ levels:
       In radians, the measure of an angle is the length $s$ of the arc that the angle cuts from a [circle](/dictionary/definitions/circle) of radius $r$ centered at its vertex, divided by $r$:
 
       $$\theta = \frac{s}{r}.$$
+    figure:
+      widget: angle
+      params: { mode: measure }
+      caption: |-
+        An angle, a circle of radius $r$ around its vertex (dashed), and the arc of length $s$ that the angle cuts from the circle.
+        Drag $A$ or $C$, and change $r$ with the slider.
+      alt: An angle with vertex B and sides through A and C, a dashed circle of radius r around B, and the arc s of that circle inside the angle, highlighted. A slider sets r.
   undergraduate:
     context: inner product spaces
     text: |-

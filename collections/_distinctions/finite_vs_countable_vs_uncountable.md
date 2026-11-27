@@ -1,5 +1,4 @@
 ---
-published: false
 title: Finite vs. Countable vs. Uncountable
 kind: siblings
 areas: [sets, numbers]

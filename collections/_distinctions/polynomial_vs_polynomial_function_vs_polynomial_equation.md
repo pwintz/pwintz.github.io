@@ -20,6 +20,7 @@ examples:
   - example: x_to_sin_x
   - example: poly_x_squared_plus_x_mod_2
 see_also:
+  - polynomial_vs_polynomial_function
   - equal_signs
   - parts_of_an_expression
 ---

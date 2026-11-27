@@ -1,0 +1,30 @@
+{% comment %}
+  An illustration in the Dictionary of Fine Distinctions, drawn on a canvas by assets/ts/src/dictionary_figures.ts.
+
+  Parameters:
+    figure: A `figure` from the front matter of a definition level or an example, with
+              widget:  The drawing (a key of WIDGETS in dictionary_figures.ts).
+              params:  (Optional) Settings passed to the widget. `calc_corner` (top-left, top-right,
+                       bottom-left, or bottom-right) moves the box of calculations over the canvas, and
+                       `key_corner` the key.
+              caption: (Optional) Markdown shown below the figure.
+              alt:     (Optional) A description of the picture, for screen readers.
+              aspect:  (Optional) The canvas's width / height, such as "1 / 1" (default 4 / 3).
+
+  The script tag is written once per page.
+{% endcomment %}
+{% assign f = include.figure %}
+<figure class="dict-figure" data-widget="{{ f.widget }}" data-params='{{ f.params | jsonify | escape }}'>
+  <div class="dict-figure__stage">
+    <canvas class="dict-figure__canvas" role="img"{% if f.aspect %} style="aspect-ratio: {{ f.aspect | escape }}"{% endif %}{% if f.alt %} aria-label="{{ f.alt | escape }}"{% endif %}></canvas>
+    <div class="dict-figure__box dict-figure__calc" aria-live="polite" hidden></div>
+    <div class="dict-figure__box dict-figure__key" hidden></div>
+  </div>
+  <div class="dict-figure__controls"></div>
+  <p class="dict-figure__readout" aria-live="polite"></p>
+  {% if f.caption %}<figcaption>{{ f.caption | markdownify }}</figcaption>{% endif %}
+</figure>
+{% unless dictionary_figure_script %}
+  {% assign dictionary_figure_script = true %}
+  <script src="{{ '/assets/ts/out/dictionary_figures.js' | relative_url }}" type="module"></script>
+{% endunless %}

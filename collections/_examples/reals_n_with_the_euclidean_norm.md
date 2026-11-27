@@ -11,9 +11,11 @@ is: [
 ]
 why:
   locally_compact: >-
-    Every point has a closed ball around it, which is compact.
+    $\reals^n$ with the Euclidean norm is locally compact, because every point has a closed ball around it, which is compact.
   inner_product_space: >-
     $\reals^n$ with the Euclidean norm is an inner product space, because the norm comes from the dot product.
   hilbert_space: >-
-    $\reals^n$ with the Euclidean norm is complete, as is every finite-dimensional normed space, so it is a Banach space and a Hilbert space.
+    $\reals^n$ with the Euclidean norm is a Hilbert space, because its norm comes from the dot product and it is complete, as is every finite-dimensional normed space.
+  banach_space: >-
+    $\reals^n$ with the Euclidean norm is a Banach space, because it is complete, as is every finite-dimensional normed space.
 ---

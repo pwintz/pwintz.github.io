@@ -1,5 +1,4 @@
 ---
-published: false
 title: Path-Connected Space
 term: path-connected
 applies_to: sets and topological spaces
@@ -12,8 +11,8 @@ levels:
   undergraduate:
     context: topological spaces
     text: |-
-      Consider a topological space $X$, and paths in it: [continuous](/dictionary/definitions/continuous) maps $\gamma : [0, 1] \to X$.
-      The space $X$ is _path-connected_ if, for every two points $x, y \in X$, there is a path such that $\gamma(0) = x$ and $\gamma(1) = y$.
+      Consider a topological space $X$.
+      The space $X$ is _path-connected_ if, for every two points $x, y \in X$, there is a [continuous](/dictionary/definitions/continuous) path $\gamma : [0, 1] \to X$ such that $\gamma(0) = x$ and $\gamma(1) = y$.
 properties:
   - |-
     Every path-connected space is [connected](/dictionary/definitions/connected), but not every connected space is path-connected.

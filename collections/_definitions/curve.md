@@ -1,12 +1,12 @@
 ---
-published: false
 title: Curve
 term: curve
 applies_to: geometric objects
 levels:
   elementary:
     text: |-
-      A _curve_ is a line that can bend.
+      A _curve_ is the path traced by the tip of a pencil that moves across a page without lifting off.
+      
   high-school:
     text: |-
       A _curve_ is a one-dimensional shape in the plane or in space.

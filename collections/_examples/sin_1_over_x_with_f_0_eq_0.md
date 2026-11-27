@@ -2,6 +2,18 @@
 published: false
 title: '$f(x) = \sin(1/x)$ for $x \neq 0$, $f(0) = 0$, at $x = 0$'
 level: undergraduate
+figure:
+  widget: function-plot
+  params:
+    x: [-1, 1]
+    y: [-1.4, 1.4]
+    curves:
+      - {"f": "sin(1/x)", "label": "f", "samples": 10000}
+    points:
+      - {"at": [0, 0]}
+  caption: |-
+    The graph of $f(x) = \sin(1/x)$ for $x \neq 0$, with $f(0) = 0$ (dot).
+  alt: "A wave between -1 and 1 whose oscillations crowd together from both sides toward x = 0, with a dot at the origin."
 is: [oscillating_discontinuity]
 is_not: [
   removable_discontinuity,

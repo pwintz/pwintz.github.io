@@ -30,7 +30,9 @@ why:
   finite_set: >-
     $\rationals \cap [0, 1]$ is not finite, because it contains $1/n$ for every $n \geq 1$.
   countably_infinite: >-
-    $\rationals \cap [0, 1]$ is countably infinite, and so infinite, because its infinitely many fractions can be listed.
+    $\rationals \cap [0, 1]$ is countably infinite, because it is infinite and its fractions can be listed in order of their denominators.
   uncountable: >-
-    $\rationals \cap [0, 1]$ is bounded, because all of its elements are between $0$ and $1$, and it is not uncountable.
+    $\rationals \cap [0, 1]$ is not uncountable, because it is countable.
+  bounded: >-
+    $\rationals \cap [0, 1]$ is bounded, because all of its elements are between $0$ and $1$.
 ---

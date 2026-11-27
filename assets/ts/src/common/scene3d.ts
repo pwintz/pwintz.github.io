@@ -7,7 +7,7 @@
 // terms of a linear combination drawn tip to tail, a shaded subspace (line, plane, or all of
 // space), and axes that ease to fit what's drawn.
 
-import { mathJaxReady } from './mathjax';
+import { mathHTML, mathHTMLReady, mathJaxReady } from './mathjax';
 
 export type Vec3 = [number, number, number];
 
@@ -22,7 +22,7 @@ export type PlotLabel = string | { text: string; tex: string };
 // Each TeX label is typeset once by MathJax as an SVG, which becomes an image that canvases can draw.
 // Images load asynchronously, so the plots that use them are redrawn when one is ready.
 
-interface MathImage { img: HTMLImageElement; w: number; h: number; ready: boolean }
+interface MathImage { img: HTMLImageElement; w: number; h: number; ready: boolean; failed?: boolean }
 const mathImages = new Map<string, MathImage | null>();
 const mathRedraws = new Set<() => void>();
 let mathWaiting = false;
@@ -41,26 +41,36 @@ function requestRedraws(): void {
   });
 }
 
-/** The image of `tex` in `color`, with its font `size` pixels, or null until it can be drawn. */
-function mathImage(tex: string, color: string, size: number): MathImage | null {
+// Whether MathJax failed to load, so that math labels are drawn as plain text instead.
+let mathUnavailable = false;
+
+/**
+ * The image of `tex` in `color`, with its font `size` pixels; "pending" until it can be drawn; or "failed" if it
+ * can't be (MathJax didn't load, or the TeX has an error), for the caller to draw plain text instead.
+ */
+function mathImage(tex: string, color: string, size: number): MathImage | "pending" | "failed" {
   const key = `${size}|${color}|${tex}`;
   const cached = mathImages.get(key);
-  if (cached) return cached.ready ? cached : null;
+  if (cached) return cached.ready ? cached : cached.failed ? "failed" : "pending";
+  if (mathUnavailable) return "failed";
   const mj = (window as unknown as { MathJax?: { tex2svg?: (t: string, o: object) => HTMLElement } }).MathJax;
   if (!mj?.tex2svg) {
     if (!mathWaiting) {
       mathWaiting = true;
-      void mathJaxReady().then(ok => { if (ok) requestRedraws(); });
+      void mathJaxReady().then(ok => {
+        if (!ok) mathUnavailable = true;
+        requestRedraws();
+      });
     }
-    return null;
+    return "pending";
   }
   let svg: SVGSVGElement | null = null;
   try {
     svg = mj.tex2svg(tex, { display: false }).querySelector('svg');
   } catch { /* Fall back to the text. */ }
   if (!svg || svg.querySelector('[data-mjx-error]')) {
-    mathImages.set(key, { img: new Image(), w: 0, h: 0, ready: false });
-    return null;
+    mathImages.set(key, { img: new Image(), w: 0, h: 0, ready: false, failed: true });
+    return "failed";
   }
   // MathJax sizes the SVG in ex; an ex of its TeX font is about 0.45 of the font size.
   const ex = 0.45 * size;
@@ -75,7 +85,7 @@ function mathImage(tex: string, color: string, size: number): MathImage | null {
   img.onload = () => { entry.ready = true; requestRedraws(); };
   img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(new XMLSerializer().serializeToString(svg));
   mathImages.set(key, entry);
-  return null;
+  return "pending";
 }
 
 export const add3 = (a: Vec3, b: Vec3): Vec3 => [a[0] + b[0], a[1] + b[1], a[2] + b[2]];
@@ -135,9 +145,13 @@ export function ticks(a: number, b: number, step: number): number[] {
   return out;
 }
 
-/** A number with at most two decimals and a true minus sign, for axis labels. */
-export const tickLabel = (x: number) => {
-  const r = Math.round(x * 100) / 100;
+/**
+ * A number with a true minus sign, for axis labels: with at most two decimals, or as many as ticks `step` apart need
+ * to differ (such as 1.4142 and 1.4143, for ticks 0.0001 apart).
+ */
+export const tickLabel = (x: number, step?: number) => {
+  const digits = Math.min(15, Math.max(2, step ? Math.ceil(-Math.log10(step) - 1e-9) : 0));
+  const r = Number(x.toFixed(digits));
   return (Object.is(r, -0) ? 0 : r).toString().replace('-', '−');
 };
 
@@ -150,6 +164,8 @@ export interface FrameOptions {
   extent: number;
   /** An element over the canvas (such as a box of sliders); the plot is centered beside it. */
   avoid?: HTMLElement | null;
+  /** Centers the plot below `avoid` (a box along the top), rather than wherever there is more room. */
+  avoidBelow?: boolean;
 }
 
 /**
@@ -178,15 +194,36 @@ export class Scene {
    * growing with the plot up to 1.5, so labels stay readable on a large screen.
    */
   textScale = 1;
+  /**
+   * The page's text, for a plot whose text should match the text around it (a dictionary figure), or null. When set,
+   * `px(15)` is the page's font size, smaller and larger sizes are drawn closer to it (so tick labels are smaller,
+   * but still readable), and text in system-ui is drawn in the page's font instead.
+   */
+  pageText: { size: number; family: string } | null = null;
+  /**
+   * A layer over the canvas (positioned like it) for math labels as HTML, typeset by MathJax exactly like the math
+   * in the text around the plot, or null to draw math labels on the canvas as images.
+   */
+  htmlLayer: HTMLElement | null = null;
+  private htmlLabels: HTMLElement[] = [];
+  private htmlUsed = 0;
   // What has been drawn this frame that a label shouldn't cover: arrow shafts (as screen
   // segments) and the boxes of earlier labels.
   private shafts: [number, number, number, number][] = [];
   private labelBoxes: { x0: number; y0: number; x1: number; y1: number }[] = [];
+  /** Marks a segment (in canvas pixels) that labels placed after it should keep clear of, such as a piece of a graph. */
+  avoidSegment(x0: number, y0: number, x1: number, y1: number): void {
+    this.shafts.push([x0, y0, x1, y1]);
+  }
+
   // Labels wait until `finish`, so that they can avoid every arrow, including ones drawn after them.
   private pending: { priority: number; draw: () => void }[] = [];
 
   begin(canvas: HTMLCanvasElement, o: FrameOptions): void {
     this.ctx = canvas.getContext('2d')!;
+    // The HTML labels of the last frame, hidden until this frame uses them again.
+    this.htmlLabels.forEach(el => { el.hidden = true; });
+    this.htmlUsed = 0;
     Object.assign(this, { dim: o.dim, yaw: o.yaw, pitch: o.pitch, perspective: o.perspective, center: o.center, extent: o.extent });
     const rect = canvas.getBoundingClientRect();
     const dpr = window.devicePixelRatio || 1;
@@ -197,11 +234,11 @@ export class Scene {
     this.width = w;
     this.height = h;
     this.ctx.clearRect(0, 0, w, h);
-    const region = plotRegion(rect, o.avoid ?? null);
+    const region = plotRegion(rect, o.avoid ?? null, o.avoidBelow === true);
     this.cx = region.x + region.w / 2;
     this.cy = region.y + region.h / 2;
     const size = Math.min(region.w, region.h);
-    this.textScale = Math.max(1, Math.min(1.5, size / 480));
+    this.textScale = this.pageText ? this.pageText.size / 15 : Math.max(1, Math.min(1.5, size / 480));
     this.shafts = [];
     this.labelBoxes = [];
     this.pending = [];
@@ -304,9 +341,15 @@ export class Scene {
     this.pending.push({ priority, draw });
   }
 
-  /** A font size in pixels, enlarged on a large plot. */
+  /** A font size in pixels, enlarged on a large plot, or matched to the page's text (see `pageText`). */
   px(size: number): number {
+    if (this.pageText) return Math.round(this.pageText.size * (size / 15) ** 0.6);
     return Math.round(size * this.textScale);
+  }
+
+  /** A CSS font, with system-ui replaced by the page's font when the plot matches the page (see `pageText`). */
+  font(font: string): string {
+    return this.pageText ? font.replace(/system-ui, sans-serif/, this.pageText.family) : font;
   }
 
   /**
@@ -320,9 +363,17 @@ export class Scene {
     const ctx = this.ctx;
     const text = typeof label === 'string' ? label : label.text;
     const size = parseFloat(font.match(/(\d+(?:\.\d+)?)px/)?.[1] ?? '14');
+    if (this.htmlLayer && typeof label !== 'string') {
+      this.htmlLabel(label.tex, anchors, color, size, gap);
+      return;
+    }
     // TeX is drawn a little larger than the text, so its letters look the same size.
-    const math = typeof label === 'string' ? null : mathImage(label.tex, color, Math.round(size * 1.15));
-    ctx.font = font;
+    const state = typeof label === 'string' ? "failed" : mathImage(label.tex, color, Math.round(size * 1.15));
+    // Until MathJax draws a math label, it waits unseen: plain text in another style would show first and then
+    // change, and TeX with commands (such as "f \\circ g") would show as code.
+    if (state === "pending") return;
+    const math = state === "failed" ? null : state;
+    ctx.font = this.font(font);
     const hw = math ? math.w / 2 : ctx.measureText(text).width / 2;
     const hh = math ? math.h / 2 : size * 0.4;
     const place = ([x, y, ux, uy]: [number, number, number, number]) => {
@@ -348,6 +399,54 @@ export class Scene {
     ctx.textBaseline = 'alphabetic';
   }
 
+  /**
+   * A math label as HTML in `htmlLayer`, placed like `labelAway` places text: typeset by MathJax (once it is ready;
+   * until then, nothing shows), in the page's font size `size`, so that it matches the math around the plot.
+   */
+  private htmlLabel(tex: string, anchors: [number, number, number, number][], color: string, size: number, gap: number): void {
+    if (!mathHTMLReady()) {
+      // Typesets nothing yet, but redraws the plots once MathJax is ready.
+      mathHTML(tex, requestRedraws);
+      return;
+    }
+    let el = this.htmlLabels[this.htmlUsed];
+    if (!el) {
+      el = document.createElement('span');
+      el.className = 'scene-math-label';
+      this.htmlLayer!.append(el);
+      this.htmlLabels.push(el);
+    }
+    this.htmlUsed++;
+    el.hidden = false;
+    el.style.color = color;
+    el.style.fontSize = `${size}px`;
+    if (el.dataset.tex !== tex) {
+      el.dataset.tex = tex;
+      el.innerHTML = mathHTML(tex, requestRedraws);
+    }
+    const hw = el.offsetWidth / 2, hh = el.offsetHeight / 2;
+    const spot = this.placeLabel(anchors, hw, hh, gap);
+    el.style.left = `${spot.lx - hw}px`;
+    el.style.top = `${spot.ly - hh}px`;
+  }
+
+  /** The spot for a label box of half-size (hw, hh) near one of `anchors` (see `labelAway`), recorded as taken. */
+  private placeLabel(anchors: [number, number, number, number][], hw: number, hh: number, gap: number): { lx: number; ly: number } {
+    const place = ([x, y, ux, uy]: [number, number, number, number]) => {
+      const d = gap * this.textScale + Math.abs(ux) * hw + Math.abs(uy) * hh;
+      const lx = Math.max(hw + 2, Math.min(this.width - hw - 2, x + ux * d));
+      const ly = Math.max(hh + 2, Math.min(this.height - hh - 2, y + uy * d));
+      return { lx, ly, box: { x0: lx - hw - 2, y0: ly - hh - 2, x1: lx + hw + 2, y1: ly + hh + 2 } };
+    };
+    const cost = (b: { x0: number; y0: number; x1: number; y1: number }) =>
+      this.shafts.filter(s => segmentHitsBox(s, b)).length
+      + 10 * this.labelBoxes.filter(o => o.x0 < b.x1 && b.x0 < o.x1 && o.y0 < b.y1 && b.y0 < o.y1).length;
+    const spot = anchors.map(place).map(c => ({ ...c, cost: cost(c.box) }))
+      .reduce((best, c) => (c.cost < best.cost ? c : best));
+    this.labelBoxes.push(spot.box);
+    return spot;
+  }
+
   /** A math label centered at (x, y), with a light halo like `haloText`. */
   private haloImage(m: MathImage, x: number, y: number): void {
     const ctx = this.ctx;
@@ -367,7 +466,7 @@ export class Scene {
   /** Text with a light halo, so it stays readable over the grid and the shading. */
   haloText(text: string, x: number, y: number, color: string, font: string, align: CanvasTextAlign = 'center'): void {
     const ctx = this.ctx;
-    ctx.font = font;
+    ctx.font = this.font(font);
     ctx.textAlign = align;
     ctx.lineWidth = 3 * this.textScale;
     ctx.lineJoin = 'round';
@@ -418,14 +517,37 @@ export class Scene {
     }
   }
 
-  private tracePath(points: Vec3[]): void {
+  /** A polyline through the points, such as a curve or the graph of a function; `closed` joins its ends. */
+  path(points: Vec3[], color: string, width = 1.5, dash: number[] = [], closed = false): void {
+    const ctx = this.ctx;
+    this.tracePath(points, closed);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
+    ctx.lineJoin = 'round';
+    ctx.setLineDash(dash);
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  /**
+   * A shaded set bounded by the closed polygon `boundary`. The boundary is drawn dashed for an open
+   * set (which doesn't contain its boundary) and solid for a closed one (which does).
+   */
+  region(boundary: Vec3[], fill: string, stroke: string, open: boolean, width = 1.75): void {
+    this.tracePath(boundary, true);
+    this.ctx.fillStyle = fill;
+    this.ctx.fill();
+    this.path(boundary, stroke, width, open ? [7, 5] : [], true);
+  }
+
+  private tracePath(points: Vec3[], closed = true): void {
     const ctx = this.ctx;
     ctx.beginPath();
     points.forEach((p, i) => {
       const [x, y] = this.project(p);
       if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
     });
-    ctx.closePath();
+    if (closed) ctx.closePath();
   }
 
   /**
@@ -471,7 +593,7 @@ export class Scene {
     const t = hi[0] >= step ? step : -step;
     const [x, y] = this.project([t, 0, 0]);
     ctx.fillStyle = '#5f6368';
-    ctx.font = `${this.px(11)}px system-ui, sans-serif`;
+    ctx.font = this.font(`${this.px(11)}px system-ui, sans-serif`);
     ctx.textAlign = 'center';
     ctx.fillText(tickLabel(t), x, y + this.px(13));
     ctx.textAlign = 'start';
@@ -486,7 +608,7 @@ export class Scene {
   private tickLabels(step: number): void {
     const { lo, hi, ctx } = this;
     const font = `${this.px(11)}px system-ui, sans-serif`;
-    ctx.font = font;
+    ctx.font = this.font(font);
     const hh = this.px(11) * 0.45;
     for (let k = 0; k < this.dim; k++) {
       const unit: Vec3 = [0, 0, 0];
@@ -703,14 +825,14 @@ function segmentHitsBox([x0, y0, x1, y1]: [number, number, number, number], b: {
  * Where to center the plot: the whole canvas, or, when an element floats over it, the strip to its
  * right or the strip below it, whichever fits a larger square.
  */
-function plotRegion(rect: DOMRect, avoid: HTMLElement | null): { x: number; y: number; w: number; h: number } {
+function plotRegion(rect: DOMRect, avoid: HTMLElement | null, onlyBelow = false): { x: number; y: number; w: number; h: number } {
   const w = rect.width, h = rect.height;
   let region = { x: 0, y: 0, w, h };
   if (avoid && avoid.offsetWidth > 0) {
     const o = avoid.getBoundingClientRect();
     const right = { x: o.right - rect.left, y: 0, w: rect.right - o.right, h };
-    const below = { x: 0, y: o.bottom - rect.top, w, h: rect.bottom - o.bottom };
-    const best = [right, below].reduce((a, b) => (Math.min(b.w, b.h) > Math.min(a.w, a.h) ? b : a));
+    const under = { x: 0, y: o.bottom - rect.top, w, h: rect.bottom - o.bottom };
+    const best = onlyBelow ? under : [right, under].reduce((a, b) => (Math.min(b.w, b.h) > Math.min(a.w, a.h) ? b : a));
     // Only when the open strip is really cramped (under a third of the canvas) would the plot get
     // too small, so then draw under the box instead.
     if (Math.min(best.w, best.h) > 0.33 * Math.min(w, h)) region = best;

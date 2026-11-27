@@ -34,7 +34,9 @@ excerpt: "Definitions of mathematical terms at several levels, from elementary t
   {% assign subjects = subjects | split: " " | uniq | join: " " %}
   {% comment %} A definition matches a level filter if it has a definition at that level or a lower one. {% endcomment %}
   {% assign reached = false %}
-  {% capture levels %}{% for level in site.data.definition_levels %}{% if def.levels[level.id] %}{% assign reached = true %}{% endif %}{% if reached %}{{ level.id }} {% endif %}{% endfor %}{% endcapture %}
+  {% comment %} A synonym page matches the levels of its canonical definition. {% endcomment %}
+  {% assign level_source = def.canonical | default: def %}
+  {% capture levels %}{% for level in site.data.definition_levels %}{% if level_source.levels[level.id] %}{% assign reached = true %}{% endif %}{% if reached %}{{ level.id }} {% endif %}{% endfor %}{% endcapture %}
   {% capture search %}{{ def.term }} {{ def.title }} {{ def.synonyms | join: " " }} {{ def.applies_to }}{% endcapture %}
 
   <li class="dictionary-entry" data-filter-item
@@ -50,6 +52,9 @@ excerpt: "Definitions of mathematical terms at several levels, from elementary t
         {% endfor %}
       </span>
     </div>
+    {% if def.synonym_of %}
+      <div class="dictionary-entry__text"><p>Synonym of <a href="{{ def.canonical.url | relative_url }}">{{ def.canonical.term | default: def.synonym_of }}</a>.</p></div>
+    {% endif %}
     {% assign shown = false %}
     {% for level in site.data.definition_levels %}
       {% assign entry = def.levels[level.id] %}

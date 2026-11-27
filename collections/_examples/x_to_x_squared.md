@@ -2,6 +2,15 @@
 published: false
 title: '$x \mapsto x^2$'
 level: high-school
+figure:
+  widget: function-plot
+  params:
+    x: [-2, 2]
+    curves:
+      - {"f": "x^2"}
+  caption: |-
+    The graph of $x \mapsto x^2$.
+  alt: "A parabola opening upward with its vertex at the origin."
 is: [function]
 is_not: [
   graph_of_function,

@@ -18,10 +18,10 @@ examples_note: >-
   In each row, $f$ is compared with $g$ as $x \to \infty$.
   Is $f$ ___ of $g$?
 examples:
-  - example: f_x_eq_x_g_x_eq_x_squared
-  - example: f_x_eq_2x_squared_plus_x_g_x_eq_x_squared
-  - example: f_x_eq_x_squared_plus_x_g_x_eq_x_squared
-  - example: f_x_eq_x_sin_x_g_x_eq_x
+  - example: x_compared_with_x_squared_as_x_to_infinity
+  - example: 2x_squared_plus_x_compared_with_x_squared_as_x_to_infinity
+  - example: x_squared_plus_x_compared_with_x_squared_as_x_to_infinity
+  - example: x_sin_x_compared_with_x_as_x_to_infinity
 see_also:
   - types_of_limits
 ---

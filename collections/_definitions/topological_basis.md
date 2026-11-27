@@ -36,7 +36,7 @@ properties:
   - |-
     A function $f : X \to Y$ between topological spaces is [continuous](/dictionary/definitions/continuous) if and only if the [preimage](/dictionary/definitions/preimage) under $f$ of every set in a basis for the [topology](/dictionary/definitions/topology) of $Y$ is open in $X$.
   - |-
-    A topological space is called _second countable_ if its [topology](/dictionary/definitions/topology) has a [countable](/dictionary/definitions/countable) basis.
+    A topological space is called [second countable](/dictionary/definitions/second-countable) if its [topology](/dictionary/definitions/topology) has a [countable](/dictionary/definitions/countable) basis.
 ---
 "Base" and "basis" are both used for this concept.
 

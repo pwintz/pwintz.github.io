@@ -1,5 +1,5 @@
 ---
-published: false
+# TODO: This would benefit from an diagram, maybe.
 title: Fourier Transform
 term: Fourier transform
 applies_to: functions

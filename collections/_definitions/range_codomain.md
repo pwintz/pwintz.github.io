@@ -1,5 +1,4 @@
 ---
-published: false
 title: Range (Codomain)
 term: range (codomain)
 applies_to: functions

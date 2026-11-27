@@ -1,6 +1,20 @@
 ---
 title: 'The plane without the origin, for the Van der Pol oscillator'
 level: undergraduate
+figure:
+  widget: plane
+  aspect: 1 / 1
+  params:
+    x: [-3.2, 3.2]
+    y: [-3.2, 3.2]
+    field: ["y", "(1 - x^2) y - x"]
+    shapes:
+      - { trajectory: [0.1, 0], t: 25 }
+      - { trajectory: [-3, 3], t: 25, color: 2 }
+      - { point: [0, 0], open: true, color: 1 }
+  caption: |-
+    The Van der Pol vector field, with the trajectories from $(0.1, 0)$ (blue) and $(-3, 3)$ (green), and the origin (hollow dot).
+  alt: "Gray arrows and two trajectories that approach the same closed loop around the origin, one from inside and one from outside; the origin is a hollow dot."
 is: [
   basin_of_attraction,
   forward_invariant

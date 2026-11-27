@@ -1,5 +1,4 @@
 ---
-published: false
 title: Topological Circle
 term: topological circle
 applies_to: topological spaces
@@ -9,5 +8,5 @@ levels:
     context: topology
     text: |-
       Consider a topological space $X$.
-      The space $X$ is a _topological circle_ if $X$ is homeomorphic to the unit [circle](/dictionary/definitions/circle) $S^1$.
+      The space $X$ is a _topological circle_ if $X$ is [homeomorphic](/dictionary/definitions/homeomorphism) to the unit [circle](/dictionary/definitions/circle) $S^1$.
 ---

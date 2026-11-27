@@ -1,12 +1,8 @@
 ---
 title: 'A continuous map from a sphere to the plane'
 level: high-school
-is: [
-  function,
-  map
-]
+is: [function]
 why:
   function: >-
-    A continuous map from a sphere to the plane is a function and a map.
-    "Map" is the usual word in topology and geometry, where the inputs and outputs are points of spaces.
+    A continuous map from a sphere to the plane is a function, because it assigns to each point of the sphere exactly one point of the plane.
 ---

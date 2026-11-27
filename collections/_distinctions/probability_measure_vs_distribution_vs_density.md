@@ -20,6 +20,9 @@ examples:
   - example: uniform_random_number_on_0_1
     why: >-
       A uniform random number on $[0, 1]$ is continuous, so its distribution has a density but no probability mass function, and its CDF is continuous.
+  - example: a_standard_normal_random_variable
+    why: >-
+      A standard normal random variable is continuous, so its distribution has a density but no probability mass function, and its CDF is continuous.
 see_also:
   - random_variable_vs_event
   - probability_vs_likelihood

@@ -10,5 +10,7 @@ why:
   identity_equation: >-
     $\sin^2 x + \cos^2 x = 1$ is an identity because it is true for every $x$.
   expression: >-
-    $\sin^2 x + \cos^2 x = 1$ is an equation because it says that two expressions are equal.
+    $\sin^2 x + \cos^2 x = 1$ is not an expression, because it is an equation: it says that the two expressions $\sin^2 x + \cos^2 x$ and $1$ are equal.
+  equation: >-
+    $\sin^2 x + \cos^2 x = 1$ is an equation, because it says that two expressions are equal.
 ---

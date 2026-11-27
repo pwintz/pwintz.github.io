@@ -1,7 +1,17 @@
 ---
 published: false
-title: '$f(x) = x \sin x$, $g(x) = x$'
+title: '$x \sin x$ compared with $x$, as $x \to \infty$'
 level: high-school
+figure:
+  widget: function-plot
+  params:
+    x: [-10, 10]
+    curves:
+      - {"f": "x sin(x)", "label": "f"}
+      - {"f": "x", "label": "g"}
+  caption: |-
+    The graphs of $f(x) = x \sin x$ and $g(x) = x$.
+  alt: "A wave whose swings grow with distance from the origin, and a straight line through the origin."
 is: [big_O]
 is_not: [
   little_o,

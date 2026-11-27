@@ -16,6 +16,7 @@ terms:
 examples:
   - example: fair_die
   - example: uniform_random_number_on_0_1
+  - example: a_standard_normal_random_variable
   - example: daily_rainfall
   - example: cantor_distribution
 see_also:

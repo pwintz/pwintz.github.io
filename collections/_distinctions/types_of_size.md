@@ -25,6 +25,13 @@ examples:
   - example: the_cantor_set
     why: >-
       The Cantor set is large in cardinality (uncountable) and diameter, but small in measure ($0$), and its dimension is between $0$ and $1$.
+  - example: the_koch_curve
+    why: >-
+      The Koch curve has infinite arc length but zero area, and its dimension is between $1$ and $2$.
+  - example: the_sierpinski_triangle
+    why: >-
+      The Sierpinski triangle has zero area, like a curve, but its dimension is between $1$ and $2$.
+  - example: the_unit_square
   - example: set_x_y_x_squared_plus_y_squared_eq_1
     why: >-
       The unit circle has a positive arc length but zero area, because it is one-dimensional.

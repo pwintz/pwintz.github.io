@@ -2,6 +2,15 @@
 published: false
 title: '$x \mapsto x^2$, as a function $\reals \to [0, \infty)$'
 level: high-school
+figure:
+  widget: function-plot
+  params:
+    x: [-2, 2]
+    curves:
+      - {"f": "x^2"}
+  caption: |-
+    The graph of $x \mapsto x^2$.
+  alt: "A parabola opening upward with its vertex at the origin."
 is: [surjective]
 is_not: [
   injective,
@@ -11,5 +20,7 @@ why:
   surjective: >-
     $x \mapsto x^2$ is surjective onto $[0, \infty)$, because every $y \geq 0$ is $(\sqrt{y})^2$.
   injective: >-
-    $x \mapsto x^2$, as a function $\reals \to [0, \infty)$, is not injective, because $-1$ and $1$ have the same output, so it is not bijective.
+    $x \mapsto x^2$, as a function $\reals \to [0, \infty)$, is not injective, because $-1$ and $1$ have the same output.
+  bijective: >-
+    $x \mapsto x^2$, as a function $\reals \to [0, \infty)$, is not bijective, because it is not injective.
 ---

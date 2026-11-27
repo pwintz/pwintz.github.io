@@ -17,5 +17,9 @@ why:
   surjective: >-
     Differentiation $p \mapsto p^{\prime}$ is surjective onto the polynomials, because every polynomial has an antiderivative.
   injective: >-
-    Differentiation $p \mapsto p^{\prime}$ is not injective, because every constant maps to $0$, so it is not bijective or an automorphism.
+    Differentiation $p \mapsto p^{\prime}$ is not injective, because every constant maps to $0$.
+  bijective: >-
+    Differentiation $p \mapsto p^{\prime}$ is not bijective, because it is not injective: every constant maps to $0$.
+  automorphism: >-
+    Differentiation $p \mapsto p^{\prime}$ is not an automorphism, because it is not bijective.
 ---

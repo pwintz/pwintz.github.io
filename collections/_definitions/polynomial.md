@@ -1,5 +1,4 @@
 ---
-published: false
 title: Polynomial
 term: polynomial
 applies_to: expressions and algebraic objects
@@ -16,10 +15,11 @@ levels:
       $$a_0 + a_1 x + \dots + a_n x^n$$
 
       where $a_0, \dots, a_n \in R$.
-      Two polynomials are equal exactly when their coefficients are equal.
+
+      Two polynomials are defined to be equal when their coefficients are equal.
 properties:
   - |-
     The _degree_ of a nonzero polynomial is the largest $n$ such that $a_n \neq 0$.
   - |-
-    A nonzero polynomial with coefficients in a field has at most as many [roots](/dictionary/definitions/root-of-function) as its degree.
+    A nonzero polynomial with coefficients in a field has at most as many [roots](/dictionary/definitions/root-of-polynomial) as its degree.
 ---

@@ -23,6 +23,7 @@ layout: single
 {% endcomment %}
 {% assign level = site.data.definition_levels | where: "id", page.level | first %}
 <div class="distinctions">
+  {% include dictionary-unpublished-file.html %}
   <p class="distinction__meta">
     Example{% if level %} · <a href="{{ '/dictionary/examples/' | relative_url }}?level={{ level.id }}" title="Examples up to this level">{{ level.name }}</a>{% endif %}
   </p>
@@ -32,6 +33,8 @@ layout: single
   {% endif %}
 
   {% include example-definition-link.html example=page full=true %}
+
+  {% if page.figure %}{% include dictionary-figure.html figure=page.figure %}{% endif %}
 
   {% if page.description %}
     <div class="distinction__summary">{{ page.description | markdownify }}</div>

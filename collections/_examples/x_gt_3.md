@@ -4,7 +4,7 @@ level: high-school
 is: [
   predicate,
   formula_logic,
-  expression
+  expression_logic
 ]
 is_not: [
   proposition,
@@ -26,8 +26,8 @@ why:
     "$x > 3$" is not a propositional formula, because its variable $x$ stands for a number, not for a proposition.
   formula_logic: >-
     "$x > 3$" is a formula, because "$x > 3$" applies the relation symbol $>$ to the terms $x$ and $3$.
-  expression: >-
-    "$x > 3$" is an expression in the logic sense, because "$x > 3$" is a well-formed string of symbols; the expression is a formula, not a term.
+  expression_logic: >-
+    "$x > 3$" is an expression in the logic sense, because "$x > 3$" is a well-formed string of symbols.
   term_logic: >-
     "$x > 3$" is not a term, because "$x > 3$" makes a claim about $x$ instead of naming an object.
 ---

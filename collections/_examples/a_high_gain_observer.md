@@ -12,7 +12,7 @@ why:
   observer: >-
     A high-gain observer is an observer, because, without measurement noise, its estimation error becomes arbitrarily small after a short transient when its gain is high enough.
   predictor: >-
-    A high-gain observer is designed for deterministic systems, not noisy measurements, which it amplifies, and it is not a predictor, because it estimates the present.
+    A high-gain observer is not a predictor, because it estimates the present state, not a future one.
   estimator: >-
-    A high-gain observer is an observer, and so an estimator, because its estimation error becomes small after a short transient.
+    A high-gain observer is an estimator, because it computes an estimate of the state of a system from its inputs and outputs.
 ---

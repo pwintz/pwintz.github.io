@@ -1,6 +1,17 @@
 ---
 title: 'The closed unit disk $D = \setdef{(x, y) \suchthat x^2 + y^2 \leq 1}$'
 level: high-school
+figure:
+  widget: plane
+  aspect: 1 / 1
+  params:
+    x: [-1.6, 1.6]
+    y: [-1.6, 1.6]
+    shapes:
+      - { disk: [0, 0, 1], label: D }
+  caption: |-
+    The closed unit disk $D$.
+  alt: "A shaded disk of radius 1 around the origin, with a solid boundary circle."
 is: [
   compact,
   closed_ball,

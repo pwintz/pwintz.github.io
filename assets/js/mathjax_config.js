@@ -70,7 +70,23 @@ regenerate: true
         }
     });
 
+    // ⋘──────── Hiding raw TeX ────────⋙
+    // The browser can draw the page after it reads it and before MathJax typesets it (MathJax waits for the
+    // DOMContentLoaded event, which waits for the page's module scripts), and then the reader sees raw TeX such as
+    // "$\dot{x} = -x$" for a moment. So the main content stays hidden (html.math-pending, in _sass/minimal-mistakes/_page.scss)
+    // until MathJax has typeset it, or for at most a few seconds, in case MathJax fails to load or to finish.
+    var root = document.documentElement;
+    root.classList.add("math-pending");
+    var reveal = function () { root.classList.remove("math-pending"); };
+    document.addEventListener("DOMContentLoaded", function () { setTimeout(reveal, 3000); });
+
     window.MathJax = {
+        startup: {
+            ready: function () {
+                window.MathJax.startup.defaultReady();
+                window.MathJax.startup.promise.then(reveal, reveal);
+            },
+        },
         tex: {
             inlineMath: [
                 ['$', '$'],

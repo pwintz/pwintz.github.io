@@ -1,6 +1,15 @@
 ---
 title: '$f(x) = x^2$ on $\reals$'
 level: high-school
+figure:
+  widget: function-plot
+  params:
+    x: [-2, 2]
+    curves:
+      - {"f": "x^2", "label": "f"}
+  caption: |-
+    The graph of $f(x) = x^2$.
+  alt: "A parabola opening upward with its vertex at the origin."
 description: >-
   The squaring function, as a function $f : \reals \to \reals$.
 is: [
@@ -8,7 +17,7 @@ is: [
   continuous,
   sequentially_continuous,
   function,
-  map,
+  relation,
   positive_definite_function,
   convex_function,
   locally_Lipschitz_continuous
@@ -53,8 +62,10 @@ why:
     $x \mapsto x^2$ on $\reals$ is locally Lipschitz continuous, because on each interval $[-R, R]$ its slope $2x$ is bounded by $2R$.
   continuous: >-
     $x \mapsto x^2$ is continuous.
+  relation: >-
+    $f(x) = x^2$ is a relation between $\reals$ and $\reals$: it relates each $x$ to $x^2$, and its graph $\setdef{(x, x^2) \suchthat x \in \reals}$ is a subset of $\reals \times \reals$.
   function: >-
-    $f(x) = x^2$ is a function and a map, as is every function. "Function" is the more common word here, because the inputs and outputs are numbers.
+    $f(x) = x^2$ is a function, because it assigns to each real number $x$ exactly one real number $x^2$.
   positive_definite_function: >-
     $x \mapsto x^2$ on $\reals$ is positive definite because it is positive away from $0$ and zero at $0$. 
 

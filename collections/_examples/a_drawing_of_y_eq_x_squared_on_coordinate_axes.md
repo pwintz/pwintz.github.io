@@ -1,6 +1,13 @@
 ---
 title: 'A drawing of $y = x^2$ on coordinate axes'
 level: elementary
+figure:
+  widget: function-graph
+  params: { equation: true }
+  caption: |-
+    A drawing of $y = x^2$ on coordinate axes, with the point $(x, y)$.
+    Drag $x$.
+  alt: The parabola y equals x squared on coordinate axes, with a point x on the x-axis that can be dragged and the point (x, y) marked on the parabola.
 is: [
   graph_of_function,
   graph_chart,
